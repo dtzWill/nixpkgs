@@ -27,6 +27,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl [
+    #./0001-auditctl-include-headers-to-make-build-work-with-mus.patch
+    ./0002-auparse-remove-use-of-rawmemchr.patch
+    ./0003-all-get-rid-of-strndupa.patch
+  ];
+
+  prePatch = ''
+    sed -i 's,#include <sys/poll.h>,#include <poll.h>\n#include <limits.h>,' audisp/audispd.c
+  '';
   meta = {
     description = "Audit Library";
     homepage = http://people.redhat.com/sgrubb/audit/;
