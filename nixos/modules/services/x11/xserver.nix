@@ -652,8 +652,7 @@ in
     systemd.services.display-manager =
       { description = "X11 Server";
 
-        after = [ "systemd-udev-settle.service" "acpid.service" "systemd-logind.service" ];
-        wants = [ "systemd-udev-settle.service" ];
+        after = [ "acpid.service" "systemd-logind.service" ];
 
         restartIfChanged = false;
 
