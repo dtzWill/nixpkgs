@@ -35,6 +35,15 @@ let
     substituteInPlace ./common/Make.rules --replace "/usr/share/man" "share/man"
   '';
 
+  # use 'if c then x else null' to avoid rebuilding
+  # patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+  patches = if stdenv.hostPlatform.isMusl then [
+    ./0002-Provide-missing-secure_getenv-and-scandirat-function.patch
+    ./0003-Added-missing-typedef-definitions-on-parser.patch
+    ./0007-Do-not-build-install-vim-file-with-utils-package.patch
+    # (alpine patches {1,4,5,6,8} are needed for apparmor 2.11, but not 2.12)
+  ] else null;
+
   # FIXME: convert these to a single multiple-outputs package?
 
   libapparmor = stdenv.mkDerivation {
@@ -63,6 +72,8 @@ let
       substituteInPlace ./libraries/libapparmor/src/Makefile.am --replace "/usr/include/netinet/in.h" "${stdenv.cc.libc.dev}/include/netinet/in.h"
       substituteInPlace ./libraries/libapparmor/src/Makefile.in --replace "/usr/include/netinet/in.h" "${stdenv.cc.libc.dev}/include/netinet/in.h"
     '';
+    inherit patches;
+
     postPatch = "cd ./libraries/libapparmor";
     configureFlags = "--with-python --with-perl";
 
@@ -90,6 +101,7 @@ let
     ];
 
     prePatch = prePatchCommon;
+    inherit patches;
     postPatch = "cd ./utils";
     makeFlags = ''LANGS='';
     installFlags = ''DESTDIR=$(out) BINDIR=$(out)/bin VIM_INSTALL_PATH=$(out)/share PYPREFIX='';
@@ -145,6 +157,7 @@ let
       ## techdoc.pdf still doesn't build ...
       substituteInPlace ./parser/Makefile --replace "manpages htmlmanpages pdf" "manpages htmlmanpages"
     '';
+    inherit patches;
     postPatch = "cd ./parser";
     makeFlags = ''LANGS= USE_SYSTEM=1 INCLUDEDIR=${libapparmor}/include'';
     installFlags = ''DESTDIR=$(out) DISTRO=unknown'';
