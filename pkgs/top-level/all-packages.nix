@@ -9430,6 +9430,8 @@ with pkgs;
 
   libetpan = callPackage ../development/libraries/libetpan { };
 
+  libexecinfo = callPackage ../development/libraries/libexecinfo { };
+
   libfaketime = callPackage ../development/libraries/libfaketime { };
 
   libfakekey = callPackage ../development/libraries/libfakekey { };
