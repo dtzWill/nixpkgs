@@ -94,6 +94,9 @@ in stdenv.mkDerivation (rec {
     )
   '' + stdenv.lib.optionalString stdenv.isAarch64 ''
     patch -p0 < ${../aarch64.patch}
+  '' + stdenv.lib.optionalString (stdenv.targetPlatform.libc == "musl") ''
+    patch -p1 -i ${../TLI-musl.patch}
+    patch -p1 -i ${./dynamiclibrary-musl.patch}
   '';
 
   # hacky fix: created binaries need to be run before installation
@@ -132,6 +135,10 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DLLVM_TARGET_ARCH=${llvmArch}"
     #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
+  ]
+  ++ stdenv.lib.optionals (stdenv.targetPlatform.libc == "musl") [
+    "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
+    "-DCOMPILER_RT_BUILD_XRAY=OFF"
   ];
 
   postBuild = ''
