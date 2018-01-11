@@ -14717,6 +14717,7 @@ in {
       substituteInPlace "setup.cfg"                                     \
               --replace "/usr/local/include" "${pkgs.sqlite.dev}/include"   \
               --replace "/usr/local/lib" "${pkgs.sqlite.out}/lib"
+      export LDSHARED="$CC -pthread -shared"
     '';
 
     meta = {
