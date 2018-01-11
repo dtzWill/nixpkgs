@@ -127,8 +127,8 @@ in stdenv.mkDerivation (rec {
   ]
   ++ stdenv.lib.optionals crossCompiling [
     "-DCMAKE_CROSSCOMPILING=True"
-    "-DLLVM_TABLEGEN=${buildPackages.llvm}/tablegen"
-    "-DCLANG_TABLEGEN=${buildPackages.llvm}/tablegen"
+    "-DLLVM_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
+    "-DCLANG_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DLLVM_TARGET_ARCH=${llvmArch}"
     #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
