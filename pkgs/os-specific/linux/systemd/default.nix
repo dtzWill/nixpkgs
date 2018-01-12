@@ -4,11 +4,15 @@
 , kexectools, libmicrohttpd, linuxHeaders ? stdenv.cc.libc.linuxHeaders, libseccomp
 , iptables, gnu-efi
 , autoreconfHook, gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45
+, musl-getent
 }:
 
 assert stdenv.isLinux;
 
-stdenv.mkDerivation rec {
+# XXX
+let getent = if stdenv.hostPlatform.libc == "glibc" then "${stdenv.cc.libc.bin}/bin/getent" else "${musl-getent}/bin/get-ent";
+
+in stdenv.mkDerivation rec {
   version = "234";
   name = "systemd-${version}";
 
@@ -72,6 +76,13 @@ stdenv.mkDerivation rec {
       "--with-sysvinit-path="
       "--with-sysvrcnd-path="
       "--with-rc-local-script-path-stop=/etc/halt.local"
+    ]
+    ++ stdenv.lib.optionals (stdenv.hostPlatform.libc == "musl") [
+      "--disable-selinux"
+      "--disable-sysusers"
+      "--disable-myhostname"
+      "--disable-machined"
+      "--disable-tmpfiles"
     ];
 
   hardeningDisable = [ "stackprotector" ];
@@ -95,7 +106,7 @@ stdenv.mkDerivation rec {
       for i in src/remount-fs/remount-fs.c src/core/mount.c src/core/swap.c src/fsck/fsck.c units/emergency.service.in units/rescue.service.in src/journal/cat.c src/core/shutdown.c src/nspawn/nspawn.c src/shared/generator.c; do
         test -e $i
         substituteInPlace $i \
-          --replace /usr/bin/getent ${stdenv.glibc.bin}/bin/getent \
+          --replace /usr/bin/getent ${getent} \
           --replace /bin/mount ${utillinux.bin}/bin/mount \
           --replace /bin/umount ${utillinux.bin}/bin/umount \
           --replace /sbin/swapon ${utillinux.bin}/sbin/swapon \
