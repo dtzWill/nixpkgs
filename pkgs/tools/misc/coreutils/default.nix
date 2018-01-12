@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       ("--enable-single-binary" + optionalString (isString singleBinary) "=${singleBinary}")
     ++ optional hostPlatform.isSunOS "ac_cv_func_inotify_init=no"
     ++ optional withPrefix "--program-prefix=g"
-    ++ optionals (hostPlatform != buildPlatform && hostPlatform.libc == "glibc") [
+    ++ optionals (hostPlatform != buildPlatform && hostPlatform.isGlibc) [
       # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
       # don't know why it is not properly detected cross building with glibc.
       "fu_cv_sys_stat_statfs2_bsize=yes"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ++ optionals hostPlatform.isCygwin [ autoreconfHook texinfo ]   # due to patch
     ++ optionals selinuxSupport [ libselinux libsepol ]
        # TODO(@Ericson2314): Investigate whether Darwin could benefit too
-    ++ optional (hostPlatform != buildPlatform && hostPlatform.libc != "glibc") libiconv;
+    ++ optional (hostPlatform != buildPlatform && !hostPlatform.isGlibc) libiconv;
 
   # The tests are known broken on Cygwin
   # (http://thread.gmane.org/gmane.comp.gnu.core-utils.bugs/19025),
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   # and {Open,Free}BSD.
   # With non-standard storeDir: https://github.com/NixOS/nix/issues/512
   doCheck = hostPlatform == buildPlatform
-    && hostPlatform.libc == "glibc"
+    && hostPlatform.isGlibc
     && builtins.storeDir == "/nix/store";
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
