@@ -150,7 +150,7 @@ in
         buildCommand = ''
           mkdir -p $out
           ln -s ${bootstrapTools}/lib $out/lib
-        '' + lib.optionalString (localSystem.libc == "glibc") ''
+        '' + lib.optionalString localSystem.isGlibc ''
           ln -s ${bootstrapTools}/include-glibc $out/include
         '' + lib.optionalString localSystem.isMusl ''
           ln -s ${bootstrapTools}/include-libc $out/include

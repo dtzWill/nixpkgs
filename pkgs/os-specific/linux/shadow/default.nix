@@ -61,9 +61,9 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = " --enable-man "
-    + stdenv.lib.optionalString (hostPlatform.libc != "glibc") " --disable-nscd ";
+    + stdenv.lib.optionalString (!hostPlatform.isGlibc) " --disable-nscd ";
 
-  preBuild = stdenv.lib.optionalString (hostPlatform.libc == "glibc")
+  preBuild = stdenv.lib.optionalString hostPlatform.isGlibc
     ''
       substituteInPlace lib/nscd.c --replace /usr/sbin/nscd ${glibc.bin}/bin/nscd
     '';

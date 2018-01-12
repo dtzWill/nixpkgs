@@ -8663,7 +8663,7 @@ with pkgs;
   glfw2 = callPackage ../development/libraries/glfw/2.x.nix { };
   glfw3 = callPackage ../development/libraries/glfw/3.x.nix { };
 
-  glibc = if hostPlatform.libc == "glibc" then callPackage ../development/libraries/glibc {
+  glibc = if hostPlatform.isGlibc then callPackage ../development/libraries/glibc {
     installLocales = config.glibc.locales or false;
   } else if hostPlatform.isMusl then musl else throw "unsupported libc-pretending-to-be-glibc";
 
@@ -9679,7 +9679,7 @@ with pkgs;
   # We also provide `libiconvReal`, which will always be a standalone libiconv,
   # just in case you want it regardless of platform.
   libiconv =
-    if hostPlatform.libc == "glibc"
+    if hostPlatform.isGlibc
       then glibcIconv (if hostPlatform != buildPlatform
                        then libcCross
                        else stdenv.cc.libc)
