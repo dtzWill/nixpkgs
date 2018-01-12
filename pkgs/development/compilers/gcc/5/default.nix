@@ -160,7 +160,7 @@ let version = "5.5.0";
           # To keep ABI compatibility with upstream mingw-w64
           "--enable-fully-dynamic-string"
         ] else
-          optionals (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
+          optionals (targetPlatform.libc == "uclibc" || targetPlatform.isMusl) [
             # libsanitizer requires netrom/netrom.h which is not
             # available in uclibc.
             "--disable-libsanitizer"
@@ -269,7 +269,7 @@ stdenv.mkDerivation ({
                  -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
            done
         ''
-        + stdenv.lib.optionalString (targetPlatform.libc == "musl")
+        + stdenv.lib.optionalString targetPlatform.isMusl
         ''
             sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
         ''
@@ -403,7 +403,7 @@ stdenv.mkDerivation ({
       # On Illumos/Solaris GNU as is preferred
       "--with-gnu-as" "--without-gnu-ld"
     ]
-    ++ optional (targetPlatform == hostPlatform && targetPlatform.libc == "musl") "--disable-libsanitizer"
+    ++ optional (targetPlatform == hostPlatform && targetPlatform.isMusl) "--disable-libsanitizer"
   ;
 
   targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
