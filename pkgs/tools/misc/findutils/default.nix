@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   doCheck
     =  !hostPlatform.isDarwin
     && !(hostPlatform.libc == "glibc" && hostPlatform.isi686)
-    && (hostPlatform.libc != "musl")
+    && !hostPlatform.isMusl
     && hostPlatform == buildPlatform;
 
   outputs = [ "out" "info" ];

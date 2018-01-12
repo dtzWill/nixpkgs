@@ -41,7 +41,7 @@ let
 
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
-  bootstrapTools = import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools) { inherit system bootstrapFiles; };
+  bootstrapTools = import (if localSystem.isMusl then ./bootstrap-tools-musl else ./bootstrap-tools) { inherit system bootstrapFiles; };
 
 
   # This function builds the various standard environments used during
@@ -143,7 +143,7 @@ in
           ln -s ${bootstrapTools}/lib $out/lib
         '' + lib.optionalString (localSystem.libc == "glibc") ''
           ln -s ${bootstrapTools}/include-glibc $out/include
-        '' + lib.optionalString (localSystem.libc == "musl") ''
+        '' + lib.optionalString localSystem.isMusl ''
           ln -s ${bootstrapTools}/include-libc $out/include
         '';
       };
@@ -340,7 +340,7 @@ in
         ++  [ /*propagated from .dev*/ linuxHeaders
             binutils gcc gcc.cc gcc.cc.lib gcc.expand-response-params
           ]
-          ++ lib.optional (localSystem.libc == "musl") libiconv
+          ++ lib.optional localSystem.isMusl libiconv
           ++ lib.optionals localSystem.isAarch64
             [ prevStage.updateAutotoolsGnuConfigScriptsHook prevStage.gnu-config ];
 

@@ -77,7 +77,7 @@ in with pkgs; rec {
         find $out/include -name .install -exec rm {} \;
         find $out/include -name ..install.cmd -exec rm {} \;
         mv $out/include $out/include-glibc
-    '' else if (hostPlatform.libc == "musl") then ''
+    '' else if hostPlatform.isMusl then ''
         # Copy what we need from musl
         cp ${libc.out}/lib/* $out/lib
         cp -rL ${libc.dev}/include $out
@@ -138,7 +138,7 @@ in with pkgs; rec {
         cp -d ${libmpc.out}/lib/libmpc*.so* $out/lib
         cp -d ${zlib.out}/lib/libz.so* $out/lib
         cp -d ${libelf}/lib/libelf.so* $out/lib
-      '' + lib.optionalString (hostPlatform.libc == "musl") ''
+      '' + lib.optionalString hostPlatform.isMusl ''
         cp -d ${libiconv.out}/lib/libiconv*.so* $out/lib
 
       '' + lib.optionalString (hostPlatform != buildPlatform) ''
@@ -208,7 +208,7 @@ in with pkgs; rec {
       inherit (hostPlatform) system;
       inherit bootstrapFiles;
     }
-    else if (hostPlatform.libc == "musl") then
+    else if hostPlatform.isMusl then
     import ./bootstrap-tools-musl {
       inherit (hostPlatform) system;
       inherit bootstrapFiles;
@@ -241,7 +241,7 @@ in with pkgs; rec {
       export CPP="cpp -idirafter ${bootstrapTools}/include-glibc -B${bootstrapTools}"
       export CC="gcc -idirafter ${bootstrapTools}/include-glibc -B${bootstrapTools} -Wl,-dynamic-linker,$ldlinux -Wl,-rpath,${bootstrapTools}/lib"
       export CXX="g++ -idirafter ${bootstrapTools}/include-glibc -B${bootstrapTools} -Wl,-dynamic-linker,$ldlinux -Wl,-rpath,${bootstrapTools}/lib"
-    '' + lib.optionalString (hostPlatform.libc == "musl") ''
+    '' + lib.optionalString hostPlatform.isMusl ''
       ldmusl=$(echo ${bootstrapTools}/lib/ld-musl*.so.?)
       export CPP="cpp -idirafter ${bootstrapTools}/include-libc -B${bootstrapTools}"
       export CC="gcc -idirafter ${bootstrapTools}/include-libc -B${bootstrapTools} -Wl,-dynamic-linker,$ldmusl -Wl,-rpath,${bootstrapTools}/lib"

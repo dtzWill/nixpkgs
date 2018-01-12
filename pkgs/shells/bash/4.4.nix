@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
   patches = upstreamPatches
     # https://lists.gnu.org/archive/html/bug-bash/2016-10/msg00006.html
-    ++ optional (hostPlatform.libc == "musl") (fetchurl {
+    ++ optional hostPlatform.isMusl (fetchurl {
       url = "https://lists.gnu.org/archive/html/bug-bash/2016-10/patchJxugOXrY2y.patch";
       sha256 = "1m4v9imidb1cc1h91f2na0b8y9kc5c5fgmpvy9apcyv2kbdcghg1";
   });
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     "bash_cv_dev_stdin=present"
     "bash_cv_dev_fd=standard"
     "bash_cv_termcap_lib=libncurses"
-  ] ++ optionals (hostPlatform.libc == "musl") [
+  ] ++ optionals hostPlatform.isMusl [
     "--without-bash-malloc"
     "--disable-nls"
   ];
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [bison]
     ++ optional (texinfo != null) texinfo
     ++ optional hostPlatform.isDarwin binutils
-    ++ optional (hostPlatform.libc == "musl") autoconf;
+    ++ optional hostPlatform.isMusl autoconf;
 
   buildInputs = optional interactive readline70;
 
