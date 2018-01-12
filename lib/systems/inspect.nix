@@ -25,6 +25,7 @@ rec {
 
     Darwin       = { kernel = kernels.darwin; };
     Linux        = { kernel = kernels.linux; };
+    Musl         = { kernel = kernels.linux; abi = abis.musl; };
     SunOS        = { kernel = kernels.solaris; };
     FreeBSD      = { kernel = kernels.freebsd; };
     Hurd         = { kernel = kernels.hurd; };
