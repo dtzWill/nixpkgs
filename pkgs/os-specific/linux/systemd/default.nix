@@ -4,13 +4,13 @@
 , kexectools, libmicrohttpd, linuxHeaders ? stdenv.cc.libc.linuxHeaders, libseccomp
 , iptables, gnu-efi
 , autoreconfHook, gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45
-, musl-getent
+, musl-getent ? null
 }:
 
 assert stdenv.isLinux;
 
 # XXX
-let getent = if stdenv.hostPlatform.libc == "glibc" then "${stdenv.cc.libc.bin}/bin/getent" else "${musl-getent}/bin/get-ent";
+let getent = if stdenv.hostPlatform.libc == "glibc" then "${stdenv.glibc.bin}/bin/getent" else "${musl-getent}/bin/getent";
 
 in stdenv.mkDerivation rec {
   version = "234";
