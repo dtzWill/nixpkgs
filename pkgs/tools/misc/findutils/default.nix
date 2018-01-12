@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   # Since glibc-2.25 the i686 tests hang reliably right after test-sleep.
   doCheck
     =  !hostPlatform.isDarwin
-    && !(hostPlatform.libc == "glibc" && hostPlatform.isi686)
+    && !(hostPlatform.isGlibc && hostPlatform.isi686)
     && !hostPlatform.isMusl
     && hostPlatform == buildPlatform;
 

@@ -46,7 +46,7 @@ in with pkgs; rec {
         set -x
         mkdir -p $out/bin $out/lib $out/libexec
 
-      '' + (if (hostPlatform.libc == "glibc") then ''
+      '' + (if hostPlatform.isGlibc then ''
         # Copy what we need of Glibc.
         cp -d ${libc.out}/lib/ld*.so* $out/lib
         cp -d ${libc.out}/lib/libc*.so* $out/lib
@@ -203,7 +203,7 @@ in with pkgs; rec {
     bootstrapTools = runCommand "bootstrap-tools.tar.xz" {} "cp ${build}/on-server/bootstrap-tools.tar.xz $out";
   };
 
-  bootstrapTools = if (hostPlatform.libc == "glibc") then
+  bootstrapTools = if hostPlatform.isGlibc then
     import ./bootstrap-tools {
       inherit (hostPlatform) system;
       inherit bootstrapFiles;
@@ -236,7 +236,7 @@ in with pkgs; rec {
       grep --version
       gcc --version
 
-    '' + lib.optionalString (hostPlatform.libc == "glibc") ''
+    '' + lib.optionalString hostPlatform.isGlibc ''
       ldlinux=$(echo ${bootstrapTools}/lib/ld-linux*.so.?)
       export CPP="cpp -idirafter ${bootstrapTools}/include-glibc -B${bootstrapTools}"
       export CC="gcc -idirafter ${bootstrapTools}/include-glibc -B${bootstrapTools} -Wl,-dynamic-linker,$ldlinux -Wl,-rpath,${bootstrapTools}/lib"
