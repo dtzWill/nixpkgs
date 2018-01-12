@@ -25,7 +25,6 @@ rec {
 
     Darwin       = { kernel = kernels.darwin; };
     Linux        = { kernel = kernels.linux; };
-    Musl         = { kernel = kernels.linux; abi = abis.musl; };
     SunOS        = { kernel = kernels.solaris; };
     FreeBSD      = { kernel = kernels.freebsd; };
     Hurd         = { kernel = kernels.hurd; };
@@ -34,6 +33,9 @@ rec {
     Windows      = { kernel = kernels.windows; };
     Cygwin       = { kernel = kernels.windows; abi = abis.cygnus; };
     MinGW        = { kernel = kernels.windows; abi = abis.gnu; };
+
+    Musl         = { abi = abis.musl; };
+    Glibc        = { abi = abis.gnu; };
   };
 
   matchAnyAttrs = patterns:

@@ -77,7 +77,7 @@ in stdenv.mkDerivation rec {
       "--with-sysvrcnd-path="
       "--with-rc-local-script-path-stop=/etc/halt.local"
     ]
-    ++ stdenv.lib.optionals (stdenv.hostPlatform.libc == "musl") [
+    ++ stdenv.lib.optionals stdenv.isMusl [
       "--disable-selinux"
       "--disable-sysusers"
       "--disable-myhostname"
