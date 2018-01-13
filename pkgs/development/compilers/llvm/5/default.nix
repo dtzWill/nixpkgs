@@ -19,6 +19,7 @@ let
 
   # Add man output without introducing extra dependencies.
   overrideManOutput = drv:
+    if stdenv.isMusl then drv else
     let drv-manpages = drv.override { enableManpages = true; }; in
     drv // { man = drv-manpages.out; /*outputs = drv.outputs ++ ["man"];*/ };
 
