@@ -1,0 +1,22 @@
+From 7e8faf46f8bf3dffe1713a65486918792b87dce5 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 29 Mar 2018 13:26:37 -0500
+Subject: [PATCH] systemd-musl: fix kill signal hardcoding >.<
+
+---
+ units/user/systemd-exit.service.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/units/user/systemd-exit.service.in b/units/user/systemd-exit.service.in
+index 9ce6f1c2a..aa5d2b0b6 100644
+--- a/units/user/systemd-exit.service.in
++++ b/units/user/systemd-exit.service.in
+@@ -16,4 +16,4 @@ After=shutdown.target
+ 
+ [Service]
+ Type=oneshot
+-ExecStart=@KILL@ -s 58 $MANAGERPID
++ExecStart=@KILL@ -RTMIN+24 $MANAGERPID
+-- 
+2.16.3
+
