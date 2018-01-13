@@ -88,7 +88,18 @@ in stdenv.mkDerivation rec {
     "-Dsulogin-path=${utillinux}/bin/sulogin"
     "-Dmount-path=${utillinux}/bin/mount"
     "-Dumount-path=${utillinux}/bin/umount"
+  ] ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+    "-Dnss-systemd=false"
+    "-Dlocaled=false"
+    "-Dresolve=false"
+    "-Dutmp=false"
+    "-Dmyhostname=false"
   ];
+  postPatch = if stdenv.hostPlatform.isMusl then
+  (import ./musl-patches.nix {
+    inherit fetchFromGitHub;
+    inherit (stdenv) lib;
+  }) else null;
 
   preConfigure = ''
     mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
