@@ -95,6 +95,11 @@ in stdenv.mkDerivation rec {
         sha256 = "0g3pvqigs69mciw6lj3zg12dmxnhwxndwxdjg78af52xrp0djfg8";
     })
   ];
+  postPatch = if stdenv.hostPlatform.isMusl then
+  (import ./musl-patches.nix {
+    inherit fetchFromGitHub;
+    inherit (stdenv) lib;
+  }) else null;
 
   preConfigure =
     ''
