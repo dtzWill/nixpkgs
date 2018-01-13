@@ -94,7 +94,7 @@ in stdenv.mkDerivation rec {
         url = "https://github.com/systemd/systemd/commit/58a78ae77063eddfcd23ea272bd2e0ddc9ea3ff7.patch";
         sha256 = "0g3pvqigs69mciw6lj3zg12dmxnhwxndwxdjg78af52xrp0djfg8";
     })
-  ];
+  ] ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl (import ./musl-patches.nix { inherit fetchFromGitHub; inherit (stdenv) lib; });
 
   preConfigure =
     ''
