@@ -78,11 +78,16 @@ in stdenv.mkDerivation rec {
       "--with-rc-local-script-path-stop=/etc/halt.local"
     ]
     ++ stdenv.lib.optionals (stdenv.hostPlatform.libc == "musl") [
-      "--disable-selinux"
-      "--disable-sysusers"
-      "--disable-myhostname"
+      "--disable-localed"
       "--disable-machined"
-      "--disable-tmpfiles"
+      "--disable-myhostname"
+      "--disable-nss-systemd"
+      "--disable-resolved"
+      "--disable-selinux"
+      "--disable-smack"
+      "--disable-sysusers"
+      # "--disable-tmpfiles"
+      "--disable-utmp"
     ];
 
   hardeningDisable = [ "stackprotector" ];
