@@ -172,7 +172,9 @@ in stdenv.mkDerivation (rec {
     ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
   '';
 
-  doCheck = stdenv.isLinux && (!stdenv.isi686);
+  doCheck = stdenv.isLinux && stdenv.isx86_64 &&
+    stdenv.hostPlatform == stdenv.buildPlatform &&
+    stdenv.buildPlatform == stdenv.targetPlatform;
 
   checkTarget = "check-all";
 
