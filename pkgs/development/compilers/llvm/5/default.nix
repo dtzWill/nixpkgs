@@ -18,8 +18,9 @@ let
   clang-tools-extra_src = fetch "clang-tools-extra" "09fjii7w43kvxvsxxs6gig9vz95vnvx1779rqd36h8kksvws3bcs";
 
   # Add man output without introducing extra dependencies.
+  buildManPages = stdenv.buildPlatform == stdenv.hostPlatform && !stdenv.isMusl;
   overrideManOutput = drv:
-    if stdenv.isMusl then drv else
+    if (!buildManPages) then drv else
     let drv-manpages = drv.override { enableManpages = true; }; in
     drv // { man = drv-manpages.out; /*outputs = drv.outputs ++ ["man"];*/ };
 
