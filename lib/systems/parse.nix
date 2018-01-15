@@ -180,6 +180,8 @@ rec {
     androideabi = {};
     gnueabi = {};
     gnueabihf = {};
+    musleabi = {};
+    musleabihf = {};
     musl = {};
 
     unknown = {};
