@@ -13,6 +13,6 @@ in with (import ../../../lib).systems.examples; {
   armv6l     = make raspberryPi;
   armv7l     = make armv7l-hf-multiplatform;
   aarch64    = make aarch64-multiplatform;
-  amd64musl  = make musl64;
-  armv6lmusl = make muslpi;
+  x86_64-musl  = make musl64;
+  armv6l-musl = make muslpi;
 }
