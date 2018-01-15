@@ -1,5 +1,10 @@
-{ stdenv, fetchurl, linuxHeaders, useBSDCompatHeaders ? true }:
-
+{ stdenv, lib, fetchurl
+, buildPlatform
+, hostPlatform
+, buildPackages
+, linuxHeaders ? null
+, useBSDCompatHeaders ? true
+}:
 let
   cdefs_h = fetchurl {
     url = "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-cdefs.h";
@@ -13,13 +18,16 @@ let
     url = "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-tree.h";
     sha256 = "14igk6k00bnpfw660qhswagyhvr0gfqg4q55dxvaaq7ikfkrir71";
   };
+
+  cross = if buildPlatform != hostPlatform then hostPlatform else null;
 in
 stdenv.mkDerivation rec {
-  name    = "musl-${version}";
+  name    = "musl-${version}" +
+    lib.optionalString (cross != null) "-${cross.config}";
   version = "1.1.18";
 
   src = fetchurl {
-    url    = "http://www.musl-libc.org/releases/${name}.tar.gz";
+    url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
     sha256 = "0651lnj5spckqjf83nz116s8qhhydgqdy3rkl4icbh5f05fyw5yh";
   };
 
@@ -56,7 +64,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     # Create 'ldd' symlink, builtin
     ln -s $out/lib/libc.so $out/bin/ldd
-  '' + stdenv.lib.optionalString useBSDCompatHeaders ''
+  '' + lib.optionalString useBSDCompatHeaders ''
     install -D ${queue_h} $dev/include/sys/queue.h
     install -D ${cdefs_h} $dev/include/sys/cdefs.h
     install -D ${tree_h} $dev/include/sys/tree.h
@@ -67,8 +75,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An efficient, small, quality libc implementation";
     homepage    = "http://www.musl-libc.org";
-    license     = stdenv.lib.licenses.mit;
-    platforms   = stdenv.lib.platforms.linux;
-    maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
+    license     = lib.licenses.mit;
+    platforms   = lib.platforms.linux;
+    maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }
