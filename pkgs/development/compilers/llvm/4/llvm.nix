@@ -112,6 +112,11 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
     "-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
+
+    # Always set triple
+    "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+    "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
@@ -132,7 +137,6 @@ in stdenv.mkDerivation (rec {
     "-DCMAKE_CROSSCOMPILING=True"
     "-DLLVM_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
     "-DCLANG_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
-    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DLLVM_TARGET_ARCH=${llvmArch}"
     #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
   ]
