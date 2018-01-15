@@ -15,4 +15,5 @@ in with (import ../../../lib).systems.examples; {
   aarch64    = make aarch64-multiplatform;
   x86_64-musl  = make musl64;
   armv6l-musl = make muslpi;
+  aarch64-musl = make aarch64-multiplatform-musl;
 }
