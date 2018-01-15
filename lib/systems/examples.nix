@@ -63,6 +63,11 @@ rec {
     platform = platforms.fuloong2f_n32;
   };
 
+  muslpi = raspberryPi // {
+    config = "armv6l-unknown-linux-musleabihf";
+    libc = "musl";
+  };
+
   musl64 = rec {
     config = "x86_64-unknown-linux-musl";
     platform = platforms.pc64;
