@@ -1,4 +1,5 @@
 { stdenv
+, buildPackages
 , fetch
 , fetchpatch
 , cmake
@@ -25,6 +26,17 @@ let
   # Used when creating a version-suffixed symlink of libLLVM.dylib
   shortVersion = with stdenv.lib;
     concatStringsSep "." (take 2 (splitString "." release_version));
+
+  crossCompiling = stdenv.buildPlatform != stdenv.hostPlatform;
+  llvmArch =
+    let target = stdenv.targetPlatform;
+    in if target.isArm
+       then "ARM"
+       else
+       if target.isx86_64
+       then "X86"
+       else throw "unknown platform";
+
 in stdenv.mkDerivation (rec {
   name = "llvm-${version}";
 
@@ -40,7 +52,9 @@ in stdenv.mkDerivation (rec {
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
   nativeBuildInputs = [ cmake python ]
-    ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
+    ++ stdenv.lib.optional enableManpages python.pkgs.sphinx
+       # for build tablegen
+    ++ stdenv.lib.optional crossCompiling buildPackages.llvm_5;
 
   buildInputs = [ libxml2 libffi ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ libcxxabi ];
@@ -94,6 +108,11 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
     "-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
+
+    # Always set triple
+    "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+    "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
@@ -109,7 +128,15 @@ in stdenv.mkDerivation (rec {
   ++ stdenv.lib.optionals (isDarwin) [
     "-DLLVM_ENABLE_LIBCXX=ON"
     "-DCAN_TARGET_i386=false"
-  ] ++ stdenv.lib.optionals stdenv.isMusl [
+  ]
+  ++ stdenv.lib.optionals crossCompiling [
+    "-DCMAKE_CROSSCOMPILING=True"
+    "-DLLVM_TABLEGEN=${buildPackages.llvm_5}/bin/llvm-tblgen"
+    "-DCLANG_TABLEGEN=${buildPackages.llvm_5}/bin/llvm-tblgen"
+    "-DLLVM_TARGET_ARCH=${llvmArch}"
+    #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
+  ]
+  ++ stdenv.lib.optionals stdenv.isMusl [
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
     "-DCOMPILER_RT_BUILD_XRAY=OFF"
   ];
