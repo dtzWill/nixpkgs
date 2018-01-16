@@ -52,7 +52,7 @@ in stdenv.mkDerivation (rec {
   nativeBuildInputs = [ cmake python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx
        # for build tablegen
-    ++ stdenv.lib.optional crossCompiling buildPackages.llvm;
+    ++ stdenv.lib.optional crossCompiling buildPackages.llvm_4;
 
   buildInputs = [ libxml2 libffi ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ libcxxabi ];
@@ -133,8 +133,8 @@ in stdenv.mkDerivation (rec {
   ]
   ++ stdenv.lib.optionals crossCompiling [
     "-DCMAKE_CROSSCOMPILING=True"
-    "-DLLVM_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
-    "-DCLANG_TABLEGEN=${buildPackages.llvm}/bin/llvm-tblgen"
+    "-DLLVM_TABLEGEN=${buildPackages.llvm_4}/bin/llvm-tblgen"
+    "-DCLANG_TABLEGEN=${buildPackages.llvm_4}/bin/llvm-tblgen"
     "-DLLVM_TARGET_ARCH=${llvmArch}"
     #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
   ]
