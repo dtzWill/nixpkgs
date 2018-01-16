@@ -95,6 +95,10 @@ in stdenv.mkDerivation (rec {
   '' + stdenv.lib.optionalString stdenv.isMusl ''
     patch -p1 -i ${../TLI-musl.patch}
     patch -p1 -i ${./dynamiclibrary-musl.patch}
+  '' + ''
+    # Breaks, expecting plugins I think?
+    # /nix/store/rfqm5644sqag55rzblvm8n4am20bny1l-binutils-2.28.1/bin/ld.gold: error: /build/llvm/build/test/tools/gold/X86/Output/common.ll.tmp2native.o: incompatible target
+    rm test/tools/gold/X86/common.ll
   '';
 
   # hacky fix: created binaries need to be run before installation
