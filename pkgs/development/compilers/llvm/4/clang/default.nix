@@ -1,5 +1,5 @@
 { stdenv, fetch, cmake, libxml2, libedit, llvm, version, release_version, clang-tools-extra_src, python3
-, fixDarwinDylibNames
+, fixDarwinDylibNames, llvm-config-dummy
 , enableManpages ? false
 }:
 
@@ -17,7 +17,8 @@ let
     '';
 
     nativeBuildInputs = [ cmake python3 ]
-      ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx;
+      ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx
+      ++ stdenv.lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) llvm-config-dummy;
 
     buildInputs = [ libedit libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;

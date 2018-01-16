@@ -27,9 +27,13 @@ let
   llvm = callPackage ./llvm.nix {
     inherit compiler-rt_src stdenv;
   };
+  # Dummy 'llvm-config' for use in cross
+  llvm-config-dummy = callPackage ../llvm-config-dummy.nix {
+    inherit llvm;
+  };
 
   clang-unwrapped = callPackage ./clang {
-    inherit clang-tools-extra_src stdenv;
+    inherit clang-tools-extra_src stdenv llvm-config-dummy;
   };
 
   self = {

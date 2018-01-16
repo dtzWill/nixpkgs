@@ -1,10 +1,11 @@
 { stdenv, fetch, cmake, libxml2, libedit, llvm, version, release_version, clang-tools-extra_src, python3
-, fixDarwinDylibNames
+, fixDarwinDylibNames, llvm-config-dummy
 , enableManpages ? false
 }:
 
 let
   gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
+  crossCompiling = stdenv.buildPlatform != stdenv.hostPlatform;
   self = stdenv.mkDerivation ({
     name = "clang-${version}";
 
@@ -17,7 +18,8 @@ let
     '';
 
     nativeBuildInputs = [ cmake python3 ]
-      ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx;
+      ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx
+      ++ stdenv.lib.optional crossCompiling llvm-config-dummy;
 
     buildInputs = [ libedit libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
@@ -33,7 +35,8 @@ let
     ]
     # Maybe with compiler-rt this won't be needed?
     ++ stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}"
-    ++ stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include";
+    ++ stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include"
+    ++ stdenv.lib.optional crossCompiling "-DLLVM_CONFIG=${llvm-config-dummy}/bin/llvm-config";
 
     patches = [ ./purity.patch ];
 
