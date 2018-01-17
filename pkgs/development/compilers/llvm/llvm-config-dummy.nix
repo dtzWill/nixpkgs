@@ -31,6 +31,9 @@ writeScriptBin' "llvm-config" ''
       --src-root)
         echo "/build/llvm";
         ;;
+      --obj-root)
+        echo "/build/llvm/build";
+        ;;
       --cmakedir)
         echo "${getDev llvm}/lib/cmake/llvm"
         ;;
