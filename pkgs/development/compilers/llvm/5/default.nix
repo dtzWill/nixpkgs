@@ -70,7 +70,7 @@ let
       cc = self.libcxxClang;
     });
 
-    lld = callPackage ./lld.nix {};
+    lld = callPackage ./lld.nix { inherit llvm-config-dummy; };
 
     lldb = callPackage ./lldb.nix {};
 
