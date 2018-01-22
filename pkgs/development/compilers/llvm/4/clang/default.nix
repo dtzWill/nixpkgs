@@ -44,6 +44,8 @@ let
 
       # Patch for standalone doc building
       sed -i '1s,^,find_package(Sphinx REQUIRED)\n,' docs/CMakeLists.txt
+    '' + stdenv.lib.optionalString stdenv.isMusl ''
+      sed -i -e 's/lgcc_s/lgcc_eh/' lib/Driver/Tools.cpp
     '';
 
     outputs = [ "out" "lib" "python" ];
