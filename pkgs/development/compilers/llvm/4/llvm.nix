@@ -34,6 +34,7 @@ let
       else if target.isArm     then "ARM"
       else if target.isx86_64  then "X86"
       else throw "unknown platform";
+  cmakeBuildType = if debugVersion then "Debug" else "Release";
 
 in stdenv.mkDerivation (rec {
   name = "llvm-${version}";
@@ -107,8 +108,8 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
+  inherit cmakeBuildType;
   cmakeFlags = with stdenv; [
-    "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
     "-DLLVM_INSTALL_UTILS=ON"  # Needed by rustc
     "-DLLVM_BUILD_TESTS=ON"
     "-DLLVM_ENABLE_FFI=ON"
@@ -164,11 +165,11 @@ in stdenv.mkDerivation (rec {
   postInstall = stdenv.lib.optionalString enableSharedLibraries ''
     moveToOutput "lib/libLLVM-*" "$lib"
     moveToOutput "lib/libLLVM${stdenv.hostPlatform.extensions.sharedLibrary}" "$lib"
-    substituteInPlace "$out/lib/cmake/llvm/LLVMExports-${if debugVersion then "debug" else "release"}.cmake" \
+    substituteInPlace "$out/lib/cmake/llvm/LLVMExports-${stdenv.lib.toLower cmakeBuildType}.cmake" \
       --replace "\''${_IMPORT_PREFIX}/lib/libLLVM-" "$lib/lib/libLLVM-"
   ''
   + stdenv.lib.optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-    substituteInPlace "$out/lib/cmake/llvm/LLVMExports-${if debugVersion then "debug" else "release"}.cmake" \
+    substituteInPlace "$out/lib/cmake/llvm/LLVMExports-${stdenv.lib.toLower cmakeBuildType}.cmake" \
       --replace "\''${_IMPORT_PREFIX}/lib/libLLVM.dylib" "$lib/lib/libLLVM.dylib"
     ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
     ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
@@ -181,6 +182,8 @@ in stdenv.mkDerivation (rec {
   checkTarget = "check-all";
 
   enableParallelBuilding = true;
+
+  separateDebugInfo = true;
 
   passthru.src = src;
 
