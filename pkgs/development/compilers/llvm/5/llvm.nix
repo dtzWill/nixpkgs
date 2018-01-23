@@ -15,6 +15,7 @@
 , compiler-rt_src
 , libcxxabi
 , debugVersion ? false
+, enableAssertions ? debugVersion
 , enableManpages ? false
 , enableSharedLibraries ? true
 , darwin
@@ -116,6 +117,8 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+
+    "-DLLVM_ENABLE_ASSERTIONS=${if enableAssertions then "ON" else "OFF"}"
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
