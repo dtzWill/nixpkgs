@@ -80,7 +80,6 @@ rec {
     libc = "musl";
     arch = "x86_64";
     openssl.system = "linux-generic64";
-    withTLS = true;
   };
 
   #
