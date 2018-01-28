@@ -71,7 +71,6 @@ rec {
   aarch64-multiplatform-musl = aarch64-multiplatform // rec {
     config = "aarch64-unknown-linux-musl";
     libc = "musl";
-    openssl.system = "linux-generic64";
   };
 
   musl64 = rec {
@@ -79,7 +78,6 @@ rec {
     platform = platforms.pc64;
     libc = "musl";
     arch = "x86_64";
-    openssl.system = "linux-generic64";
   };
 
   #
