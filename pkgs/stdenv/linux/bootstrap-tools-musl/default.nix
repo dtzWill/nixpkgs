@@ -14,6 +14,5 @@ derivation {
   # Needed by the GCC wrapper.
   langC = true;
   langCC = true;
-  #isGNU = false; # XXX ?
   isGNU = true;
 }
