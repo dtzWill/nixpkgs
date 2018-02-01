@@ -8700,7 +8700,7 @@ with pkgs;
 
   glibc = if hostPlatform.isGlibc then callPackage ../development/libraries/glibc {
     installLocales = config.glibc.locales or false;
-  } else if hostPlatform.isMusl then musl else throw "unsupported libc-pretending-to-be-glibc";
+  } else if hostPlatform.isMusl then throw "attempt to use glibc on musl!" else throw "unsupported libc-pretending-to-be-glibc";
 
   glibc_memusage = callPackage ../development/libraries/glibc {
     installLocales = false;
