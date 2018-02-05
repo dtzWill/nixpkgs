@@ -12,7 +12,7 @@ assert stdenv.isLinux;
 # XXX
 let
   getent-bin =
-         if stdenv.isGlibc then stdenv.glibc.bin
+         if stdenv.isGlibc then stdenv.cc.libc.bin
     else if stdenv.isMusl then "${musl-getent}"
     else throw "unsupported abi for systemd";
   getent = "${getent-bin}/bin/getent";
