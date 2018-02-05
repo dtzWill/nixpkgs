@@ -1,3 +1,5 @@
 { src ? ./default.nix }:
-import src { crossSystem = (import ./lib).systems.examples.musl64; config = { allowUnfree = false; }; }
-
+import src {
+  crossSystem = { config = "x86_64-unknown-linux-musl"; };
+  config = { allowUnfree = false; };
+}

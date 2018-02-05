@@ -1,2 +1,5 @@
 { src ? ./default.nix }:
-import src { localSystem = (import ./lib).systems.examples.musl64; config = { allowUnfree = false; }; }
+import src {
+  localSystem = { config = "x86_64-unknown-linux-musl"; };
+  config = { allowUnfree = false; };
+}
