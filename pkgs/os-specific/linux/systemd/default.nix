@@ -10,7 +10,12 @@
 assert stdenv.isLinux;
 
 # XXX
-let getent = if stdenv.hostPlatform.libc == "glibc" then "${stdenv.glibc.bin}/bin/getent" else "${musl-getent}/bin/getent";
+let
+  getent-bin =
+         if stdenv.hostPlatform.libc == "glibc" then stdenv.cc.libc.bin
+    else if stdenv.hostPlatform.isMusl then "${musl-getent}"
+    else throw "unsupported abi for systemd";
+  getent = "${getent-bin}/bin/getent";
 
 in stdenv.mkDerivation rec {
   version = "234";
