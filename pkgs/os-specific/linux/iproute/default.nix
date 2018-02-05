@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
     "CONFDIR=$(out)/etc/iproute2"
   ];
 
-  buildInputs = [ bash db iptables ];
+  buildInputs = [ db iptables ];
   nativeBuildInputs = [ bison flex pkgconfig ];
 
   enableParallelBuilding = true;
 
   postInstall = ''
-    PATH=${bash}/bin:$PATH patchShebangs $out/sbin
+    PATH=${stdenv.shell}/bin:$PATH patchShebangs $out/sbin
   '';
 
   meta = with stdenv.lib; {
