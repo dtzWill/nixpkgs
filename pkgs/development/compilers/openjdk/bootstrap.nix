@@ -1,12 +1,11 @@
-{ stdenv, runCommand, fetchurl, file
+{ stdenv, runCommand, glibc, fetchurl, file
 
 , version
 }:
 
 let
-  libc = stdenv.cc.libc;
   # !!! These should be on nixos.org
-  src = if libc.system == "x86_64-linux" then
+  src = if glibc.system == "x86_64-linux" then
     (if version == "8" then
       fetchurl {
         url = "https://www.dropbox.com/s/a0lsq2ig4uguky5/openjdk8-bootstrap-x86_64-linux.tar.xz?dl=1";
@@ -18,7 +17,7 @@ let
         sha256 = "024gg2sgg4labxbc1nhn8lxls2p7d9h3b82hnsahwaja2pm1hbra";
       }
     else throw "No bootstrap for version")
-  else if libc.system == "i686-linux" then
+  else if glibc.system == "i686-linux" then
     (if version == "8" then
       fetchurl {
         url = "https://www.dropbox.com/s/rneqjhlerijsw74/openjdk8-bootstrap-i686-linux.tar.xz?dl=1";
@@ -41,13 +40,13 @@ let
     LIBDIRS="$(find $out -name \*.so\* -exec dirname {} \; | sort | uniq | tr '\n' ':')"
 
     for i in $out/bin/*; do
-      patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $i || true
-      patchelf --set-rpath "${libc.out}/lib:$LIBDIRS" $i || true
+      patchelf --set-interpreter ${glibc.out}/lib/ld-linux*.so.2 $i || true
+      patchelf --set-rpath "${glibc.out}/lib:$LIBDIRS" $i || true
     done
 
     find $out -name \*.so\* | while read lib; do
-      patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $lib || true
-      patchelf --set-rpath "${libc.out}/lib:${stdenv.cc.cc.lib}/lib:$LIBDIRS" $lib || true
+      patchelf --set-interpreter ${glibc.out}/lib/ld-linux*.so.2 $lib || true
+      patchelf --set-rpath "${glibc.out}/lib:${stdenv.cc.cc.lib}/lib:$LIBDIRS" $lib || true
     done
 
     # Temporarily, while NixOS's OpenJDK bootstrap tarball doesn't have PaX markings:
