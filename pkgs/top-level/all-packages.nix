@@ -8675,9 +8675,9 @@ with pkgs;
   glfw2 = callPackage ../development/libraries/glfw/2.x.nix { };
   glfw3 = callPackage ../development/libraries/glfw/3.x.nix { };
 
-  glibc = if hostPlatform.isGlibc then callPackage ../development/libraries/glibc {
+  glibc = callPackage ../development/libraries/glibc {
     installLocales = config.glibc.locales or false;
-  } else if hostPlatform.isMusl then throw "attempt to use glibc on musl!" else throw "unsupported libc-pretending-to-be-glibc";
+  };
 
   glibc_memusage = callPackage ../development/libraries/glibc {
     installLocales = false;
