@@ -1,6 +1,4 @@
 { stdenv, lib, fetchurl
-, buildPlatform
-, hostPlatform
 , buildPackages
 , linuxHeaders ? null
 , useBSDCompatHeaders ? true
@@ -19,11 +17,9 @@ let
     sha256 = "14igk6k00bnpfw660qhswagyhvr0gfqg4q55dxvaaq7ikfkrir71";
   };
 
-  cross = if buildPlatform != hostPlatform then hostPlatform else null;
 in
 stdenv.mkDerivation rec {
-  name    = "musl-${version}" +
-    lib.optionalString (cross != null) "-${cross.config}";
+  name    = "musl-${version}";
   version = "1.1.18";
 
   src = fetchurl {
