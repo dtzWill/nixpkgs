@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   # Related: https://github.com/Wikinaut/agrep/pull/11
-  prePatch = stdenv.lib.optionalString (stdenv.isMusl || stdenv.isDarwin) ''
+  prePatch = stdenv.lib.optionalString (stdenv.hostPlatform.isMusl || stdenv.isDarwin) ''
     sed -i '1i#include <sys/stat.h>' checkfil.c newmgrep.c recursiv.c
   '';
   installPhase = ''

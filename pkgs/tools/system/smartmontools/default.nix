@@ -22,7 +22,7 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./smartmontools.patch ]
     # https://www.smartmontools.org/changeset/4603
-    ++ stdenv.lib.optional stdenv.isMusl (fetchpatch {
+    ++ stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "musl-canonicalize_file_name.patch";
       url = "https://www.smartmontools.org/changeset/4603?format=diff&new=4603";
       sha256 = "06s9pcd95snjkrbfrsjby2lln3lnwjd21bgabmvr4p7fx19b75zp";

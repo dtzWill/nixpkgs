@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     sed -i s/gcc/cc/g Makefile
     sed -i s%ncursesw/ncurses.h%ncurses.h% stfl_internals.h
-  '' + stdenv.lib.optionalString (!stdenv.isGlibc) ''
+  '' + stdenv.lib.optionalString (!stdenv.hostPlatform.isGlibc) ''
     sed -i 's/LDLIBS += -lncursesw/LDLIBS += -lncursesw -liconv/' Makefile
   '' + ( stdenv.lib.optionalString stdenv.isDarwin ''
     sed -i s/-soname/-install_name/ Makefile

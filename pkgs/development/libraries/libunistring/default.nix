@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     "--with-libiconv-prefix=${libiconv}"
   ];
 
-  doCheck = !stdenv.isMusl;
+  doCheck = !stdenv.hostPlatform.isMusl;
 
   enableParallelBuilding = true;
 
