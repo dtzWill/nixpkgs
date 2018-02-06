@@ -8685,11 +8685,7 @@ with pkgs;
   };
 
   muslCross = callPackage ../os-specific/linux/musl {
-    # TODO: Something here to support usage cross-arch not just cross-libc
-
     stdenv = crossLibcStdenv;
-    # gccCross = gccCrossStageStatic;
-    # cross = assert targetPlatform != buildPlatform; targetPlatform;
   };
 
   # We can choose:
