@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./dfile.patch ];
 
-  postPatch = stdenv.lib.optionalString stdenv.isMusl ''
+  postPatch = stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace dialects/linux/dlsof.h --replace "defined(__UCLIBC__)" 1
   '';
 

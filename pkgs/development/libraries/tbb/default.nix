@@ -16,7 +16,7 @@ with stdenv.lib; stdenv.mkDerivation rec {
     optional (stdver != null) "stdver=${stdver}"
   );
 
-  patches = stdenv.lib.optional stdenv.isMusl ./glibc-struct-mallinfo.patch;
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl ./glibc-struct-mallinfo.patch;
 
   installPhase = ''
     mkdir -p $out/{lib,share/doc}

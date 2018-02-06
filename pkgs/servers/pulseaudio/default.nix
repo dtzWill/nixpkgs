@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [ ./caps-fix.patch ]
-    ++ stdenv.lib.optional stdenv.isMusl (fetchpatch {
+    ++ stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "padsp-fix.patch";
       url = "https://git.alpinelinux.org/cgit/aports/plain/testing/pulseaudio/0001-padsp-Make-it-compile-on-musl.patch?id=167be02bf4618a90328e2b234f6a63a5dc05f244";
       sha256 = "0gf4w25zi123ghk0njapysvrlljkc3hyanacgiswfnnm1i8sab1q";

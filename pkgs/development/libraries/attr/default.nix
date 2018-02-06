@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   installTargets = "install install-lib install-dev";
 
-  patches = if stdenv.isMusl then [ ./fix-headers-musl.patch ] else null;
+  patches = if stdenv.hostPlatform.isMusl then [ ./fix-headers-musl.patch ] else null;
 
   meta = {
     homepage = http://savannah.nongnu.org/projects/attr/;

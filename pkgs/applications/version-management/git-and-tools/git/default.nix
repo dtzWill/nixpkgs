@@ -60,7 +60,7 @@ stdenv.mkDerivation {
       + (if stdenv.isDarwin then " NO_APPLE_COMMON_CRYPTO=1" else " sysconfdir=/etc/ ")
       # XXX: USE_PCRE2 might be useful in general, look into it
       # XXX other alpine options?
-      + (if stdenv.isMusl then "NO_SYS_POLL_H=1 NO_GETTEXT=YesPlease" else "");
+      + (if stdenv.hostPlatform.isMusl then "NO_SYS_POLL_H=1 NO_GETTEXT=YesPlease" else "");
 
   # build git-credential-osxkeychain if darwin
   postBuild = stdenv.lib.optionalString stdenv.isDarwin ''

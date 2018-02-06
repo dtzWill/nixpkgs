@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses /* for `talk' */ perl /* for `whois' */ help2man ];
 
   configureFlags = [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
-  ++ stdenv.lib.optionals stdenv.isMusl [ # Musl doesn't define rcmd
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [ # Musl doesn't define rcmd
     "--disable-rcp"
     "--disable-rsh"
     "--disable-rlogin"
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # XXX: These programs are normally installed setuid but since it
     # fails, they end up being non-executable, hence this hack.
-    chmod +x $out/bin/{ping,ping6,${stdenv.lib.optionalString (!stdenv.isMusl) ''rcp,rlogin,rsh,''}traceroute}
+    chmod +x $out/bin/{ping,ping6,${stdenv.lib.optionalString (!stdenv.hostPlatform.isMusl) ''rcp,rlogin,rsh,''}traceroute}
   '';
 
   meta = {
