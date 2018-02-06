@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     sed '/BUILD_TIMESTAMP=/s/=.*/=1970-01-01T00:01+0000/' -i ./configure
-  '' + stdenv.lib.optionalString stdenv.isMusl ''
+  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     ln -s lock-obj-pub.x86_64-pc-linux-musl.h src/syscfg/lock-obj-pub.linux-musl.h
   '';
 

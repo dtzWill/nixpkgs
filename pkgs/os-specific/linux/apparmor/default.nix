@@ -36,8 +36,8 @@ let
   '';
 
   # use 'if c then x else null' to avoid rebuilding
-  # patches = stdenv.lib.optionals stdenv.isMusl [
-  patches = if stdenv.isMusl then [
+  # patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+  patches = if stdenv.hostPlatform.isMusl then [
     ./0002-Provide-missing-secure_getenv-and-scandirat-function.patch
     ./0003-Added-missing-typedef-definitions-on-parser.patch
     ./0007-Do-not-build-install-vim-file-with-utils-package.patch

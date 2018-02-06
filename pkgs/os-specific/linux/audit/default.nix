@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = stdenv.lib.optional stdenv.isMusl [
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl [
     #./0001-auditctl-include-headers-to-make-build-work-with-mus.patch
     ./0002-auparse-remove-use-of-rawmemchr.patch
     ./0003-all-get-rid-of-strndupa.patch

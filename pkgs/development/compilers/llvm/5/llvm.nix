@@ -88,7 +88,7 @@ in stdenv.mkDerivation (rec {
     patch -p1 -i ${./compiler-rt-codesign.patch} -d projects/compiler-rt
   '' + stdenv.lib.optionalString stdenv.isAarch64 ''
     patch -p0 < ${../aarch64.patch}
-  '' + stdenv.lib.optionalString stdenv.isMusl ''
+  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -i ${../TLI-musl.patch}
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "add_subdirectory(DynamicLibrary)" ""
@@ -142,7 +142,7 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_TARGET_ARCH=${llvmArch}"
     #"-DLLVM_TARGETS_TO_BUILD=${llvmArch}"
   ]
-  ++ stdenv.lib.optionals stdenv.isMusl [
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
     "-DCOMPILER_RT_BUILD_XRAY=OFF"
   ];

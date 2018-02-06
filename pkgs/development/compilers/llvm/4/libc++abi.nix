@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     export cmakeFlags="-DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
   '' + stdenv.lib.optionalString stdenv.isDarwin ''
     export TRIPLE=x86_64-apple-darwin
-  '' + stdenv.lib.optionalString stdenv.isMusl ''
+  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -d $(ls -d libcxx-*) -i ${./libc++/libcxx-0001-musl-hacks.patch}
     patch -p1 -d $(ls -d libcxx-*) -i ${./libc++/max_align_t.patch}
   '';

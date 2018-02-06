@@ -12,8 +12,9 @@
 with stdenv.lib;
 
 let
-  getent = if stdenv.isMusl then "${musl-getent}/bin/getent"
-                            else "${glibc.bin}/bin/getent";
+  getent = if stdenv.hostPlatform.isMusl
+             then "${musl-getent}/bin/getent"
+             else "${glibc.bin}/bin/getent";
   etcConfigAppendixText = ''
     ############### ↓ Nix hook for sourcing /etc/fish/config.fish ↓ ###############
     #                                                                             #

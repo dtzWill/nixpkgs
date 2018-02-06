@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.isLinux [ procps ];
   buildInputs = [ cacert pcre ]
     ++ optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ optionals stdenv.isGlibc [ stdenv.glibc.static ];
+    ++ optionals stdenv.hostPlatform.isGlibc [ stdenv.glibc.static ];
   propagatedBuildInputs = optionals stdenv.isDarwin [ Security Foundation ];
 
   hardeningDisable = [ "all" ];

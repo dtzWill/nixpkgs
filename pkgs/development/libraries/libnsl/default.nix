@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ libtirpc ];
 
-  patches = stdenv.lib.optionals stdenv.isMusl [ ./cdefs.patch ./nis_h.patch ];
+  patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [ ./cdefs.patch ./nis_h.patch ];
 
   meta = with stdenv.lib; {
     description = "Client interface library for NIS(YP) and NIS+";

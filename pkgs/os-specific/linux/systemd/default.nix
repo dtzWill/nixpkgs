@@ -12,8 +12,8 @@ assert stdenv.isLinux;
 # XXX
 let
   getent-bin =
-         if stdenv.isGlibc then stdenv.cc.libc.bin
-    else if stdenv.isMusl then "${musl-getent}"
+         if stdenv.hostPlatform.isGlibc then stdenv.cc.libc.bin
+    else if stdenv.hostPlatform.isMusl then "${musl-getent}"
     else throw "unsupported abi for systemd";
   getent = "${getent-bin}/bin/getent";
 
@@ -82,7 +82,7 @@ in stdenv.mkDerivation rec {
       "--with-sysvrcnd-path="
       "--with-rc-local-script-path-stop=/etc/halt.local"
     ]
-    ++ stdenv.lib.optionals stdenv.isMusl [
+    ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
       "--disable-localed"
       "--disable-machined"
       "--disable-myhostname"
@@ -104,7 +104,7 @@ in stdenv.mkDerivation rec {
         url = "https://github.com/systemd/systemd/commit/58a78ae77063eddfcd23ea272bd2e0ddc9ea3ff7.patch";
         sha256 = "0g3pvqigs69mciw6lj3zg12dmxnhwxndwxdjg78af52xrp0djfg8";
     })
-  ] ++ stdenv.lib.optionals stdenv.isMusl (import ./musl-patches.nix { inherit fetchFromGitHub; inherit (stdenv) lib; });
+  ] ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl (import ./musl-patches.nix { inherit fetchFromGitHub; inherit (stdenv) lib; });
 
   preConfigure =
     ''
