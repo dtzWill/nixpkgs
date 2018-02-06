@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   outputs = [ "bin" "dev" "out" "man" ];
 
-  patches = stdenv.lib.optional stdenv.isMusl
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl
     (fetchpatch {
       url = "https://raw.githubusercontent.com/gentoo/musl/48d2a28710ae40877fd3e178ead1fb1bb0baa62c/dev-libs/libnl/files/libnl-3.3.0_rc1-musl.patch";
       sha256 = "0dd7xxikib201i99k2if066hh7gwf2i4ffckrjplq6lr206jn00r";

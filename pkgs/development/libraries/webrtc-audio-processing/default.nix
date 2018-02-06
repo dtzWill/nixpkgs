@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   # signal_processing/filter_ar_fast_q12_armv7.S:88: Error: selected processor does not support `sbfx r11,r6,#12,#16' in ARM mode
   patchPhase = stdenv.lib.optionalString stdenv.isArm ''
     substituteInPlace configure --replace 'armv7*|armv8*' 'disabled'
-  '' + stdenv.lib.optionalString stdenv.isMusl ''
+  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1
   '';
 

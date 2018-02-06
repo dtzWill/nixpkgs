@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
         url = "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
         sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
       })
-    ++ stdenv.lib.optionals stdenv.isMusl [
+    ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
         ./qt-musl.patch
         ./qt-musl-iconv-no-bom.patch
         ./patch-qthread-stacksize.diff

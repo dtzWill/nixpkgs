@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
   '';
 
   # Disable idn usage w/musl: https://github.com/iputils/iputils/pull/111
-  makeFlags = [ "USE_GNUTLS=no" ] ++ stdenv.lib.optional stdenv.isMusl "USE_IDN=no";
+  makeFlags = [ "USE_GNUTLS=no" ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl "USE_IDN=no";
 
   buildInputs = [
     libsysfs opensp openssl libcap docbook_sgml_dtd_31 SGMLSpm libgcrypt nettle
-  ] ++ stdenv.lib.optional (!stdenv.isMusl) libidn;
+  ] ++ stdenv.lib.optional (!stdenv.hostPlatform.isMusl) libidn;
 
   buildFlags = "man all ninfod";
 
