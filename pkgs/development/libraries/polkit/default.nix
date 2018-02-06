@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   ]
   # Could be applied uncondtionally but don't want to trigger rebuild
   # https://bugs.freedesktop.org/show_bug.cgi?id=50145
-  ++ stdenv.lib.optional stdenv.isMusl (fetchpatch {
+  ++ stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
     name = "netgroup-optional.patch";
     url = "https://bugs.freedesktop.org/attachment.cgi?id=118753";
     sha256 = "1zq51dhmqi9zi86bj9dq4i4pxlxm41k3k4a091j07bd78cjba038";

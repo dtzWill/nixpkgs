@@ -8702,7 +8702,7 @@ with pkgs;
   libcCross = assert targetPlatform != buildPlatform; libcCrossChooser targetPlatform.libc;
 
   # Only supported on Linux, using glibc
-  glibcLocales = if stdenv.isGlibc then callPackage ../development/libraries/glibc/locales.nix { } else null;
+  glibcLocales = if hostPlatform.isGlibc then callPackage ../development/libraries/glibc/locales.nix { } else null;
 
   glibcInfo = callPackage ../development/libraries/glibc/info.nix { };
 
@@ -12864,7 +12864,7 @@ with pkgs;
 
   inherit (callPackages ../os-specific/linux/kernel-headers { })
     linuxHeaders_4_4 linuxHeaders_4_15;
-  linuxHeaders = if stdenv.isMusl then linuxHeaders_4_15 else linuxHeaders_4_4;
+  linuxHeaders = if hostPlatform.isMusl then linuxHeaders_4_15 else linuxHeaders_4_4;
 
   kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix { };
 

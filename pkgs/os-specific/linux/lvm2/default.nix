@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   #patches = [ ./purity.patch ];
-  patches = stdenv.lib.optionals stdenv.isMusl [
+  patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
     (fetchpatch {
       name = "fix-stdio-usage.patch";
       url = "https://git.alpinelinux.org/cgit/aports/plain/main/lvm2/fix-stdio-usage.patch?h=3.7-stable&id=31bd4a8c2dc00ae79a821f6fe0ad2f23e1534f50";

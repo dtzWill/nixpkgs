@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "bin" "dev" "out" "info" "devdoc" ];
 
-  doCheck = !stdenv.isDarwin && !stdenv.isMusl;
+  doCheck = !stdenv.isDarwin && !stdenv.hostPlatform.isMusl;
 
   hardeningDisable = [ "format" ];
 

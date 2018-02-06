@@ -10,11 +10,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ openssl ];
 
-  preConfigure = stdenv.lib.optionalString (stdenv.isMusl) ''
+  preConfigure = stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE"
   '';
 
-  patches = stdenv.lib.optionals (stdenv.isMusl) [
+  patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
     (fetchpatch {
       url = "http://git.alpinelinux.org/cgit/aports/plain/main/iperf3/build-fixes.patch";
       name = "fix-musl-build.patch";

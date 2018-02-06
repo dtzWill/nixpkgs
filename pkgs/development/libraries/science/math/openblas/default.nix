@@ -115,10 +115,10 @@ stdenv.mkDerivation {
       "NUM_THREADS=64"
       "INTERFACE64=${if blas64 then "1" else "0"}"
       "NO_STATIC=1"
-    ] ++ stdenv.lib.optional stdenv.isMusl "NO_AFFINITY=1"
+    ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl "NO_AFFINITY=1"
     ++ mapAttrsToList (var: val: var + "=" + val) config;
 
-  patches = stdenv.lib.optional (!stdenv.isGlibc)
+  patches = stdenv.lib.optional (!stdenv.hostPlatform.isGlibc)
     # https://github.com/xianyi/OpenBLAS/pull/1247
     (fetchpatch {
       url = "https://github.com/xianyi/OpenBLAS/commit/88a35ff457f55e527e0e8a503a0dc61976c1846d.patch";
