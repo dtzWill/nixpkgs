@@ -1,12 +1,11 @@
 { lowPrio, newScope, stdenv, targetPlatform, cmake, libstdcxxHook
-, libxml2, python3, isl, fetchurl, overrideCC, wrapCC, ccWrapperFun
+, libxml2, python, isl, fetchurl, overrideCC, wrapCC, ccWrapperFun
 , darwin
 }:
 
 let
   callPackage = newScope (self // {
     inherit stdenv cmake libxml2 isl release_version version fetch;
-    python = python3;
   });
 
   release_version = "5.0.1";
