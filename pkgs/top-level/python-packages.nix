@@ -10912,7 +10912,7 @@ in {
 
     patchPhase = optionalString stdenv.isLinux ''
       substituteInPlace monotonic.py --replace \
-        "ctypes.util.find_library('c')" "'${stdenv.glibc.out}/lib/libc.so.6'"
+        "ctypes.util.find_library('c')" "'${stdenv.cc.libc.out}/lib/libc.so'"
     '';
   };
 
