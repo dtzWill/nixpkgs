@@ -2,7 +2,7 @@
 , libjack2, libsndfile, libXdmcp, readline, lv2, mesa, minixml, pkgconfig, zlib, xorg
 }:
 
-assert stdenv ? glibc;
+assert stdenv.hostPlatform.isGlibc;
 
 stdenv.mkDerivation  rec {
   name = "yoshimi-${version}";
@@ -27,7 +27,7 @@ stdenv.mkDerivation  rec {
 
   preConfigure = "cd src";
 
-  cmakeFlags = [ "-DFLTK_MATH_LIBRARY=${stdenv.glibc.out}/lib/libm.so" ];
+  cmakeFlags = [ "-DFLTK_MATH_LIBRARY=${stdenv.cc.libc.out}/lib/libm.so" ];
 
   meta = with stdenv.lib; {
     description = "High quality software synthesizer based on ZynAddSubFX";
