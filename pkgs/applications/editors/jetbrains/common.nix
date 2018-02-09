@@ -3,6 +3,7 @@
 
 { name, product, version, src, wmClass, jdk, meta } @ attrs:
 
+assert stdenv.hostPlatform.isGlibc;
 with stdenv.lib;
 
 let loName = toLower product;
@@ -40,7 +41,7 @@ with stdenv; lib.makeOverridable mkDerivation rec {
         truncate --size=$size $fname
       }
 
-      interpreter=$(echo ${stdenv.glibc.out}/lib/ld-linux*.so.2)
+      interpreter=$(echo ${stdenv.cc.bintools.dynamicLinker})
       if [ "${stdenv.system}" == "x86_64-linux" ]; then
         target_size=$(get_file_size bin/fsnotifier64)
         patchelf --set-interpreter "$interpreter" bin/fsnotifier64
