@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ perl which pkgconfig patch makeWrapper ]
     ++ optionals stdenv.isLinux [ procps ];
   buildInputs = [ cacert pcre ]
-    ++ optionals stdenv.hostPlatform.isGlibc [ stdenv.glibc.out stdenv.glibc.static ];
+    ++ optionals stdenv.isLinux [ stdenv.cc.libc.out ]
+    ++ optionals stdenv.hostPlatform.isGlibc [ stdenv.cc.libc.static ];
   propagatedBuildInputs = optionals stdenv.isDarwin [ Security Foundation ];
 
   hardeningDisable = [ "all" ];
