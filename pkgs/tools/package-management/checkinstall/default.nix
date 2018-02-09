@@ -1,6 +1,6 @@
 {stdenv, fetchurl, gettext}:
 
-assert stdenv.isLinux && stdenv ? glibc;
+assert stdenv.isLinux && stdenv.hostPlatform.isGlibc;
 
 stdenv.mkDerivation {
   name = "checkinstall-1.6.2";
@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     substituteInPlace checkinstallrc-dist --replace /usr/local $out
 
     substituteInPlace installwatch/create-localdecls \
-      --replace /usr/include/unistd.h ${stdenv.glibc.dev}/include/unistd.h
+      --replace /usr/include/unistd.h ${stdenv.cc.libc.dev}/include/unistd.h
   '';
 
   postInstall =

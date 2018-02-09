@@ -1,6 +1,7 @@
 { stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig,
   freetype, xkeyboard_config, makeDesktopItem, makeWrapper }:
 
+assert stdenv.hostPlatform.isGlibc;
 stdenv.mkDerivation rec {
   name = "robo3t-${version}";
   version = "1.1.1";
@@ -58,7 +59,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons
     cp ${icon} $out/share/icons/robomongo.png
 
-    patchelf --set-interpreter ${stdenv.glibc}/lib/ld-linux-x86-64.so.2 $BASEDIR/bin/robo3t
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $BASEDIR/bin/robo3t
 
     mkdir $out/bin
 

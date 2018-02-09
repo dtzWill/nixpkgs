@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ pkgconfig glib ]
-    ++ stdenv.lib.optional (stdenv ? glibc) stdenv.glibc.linuxHeaders;
+    ++ stdenv.lib.optional (stdenv.hostPlatform.isGlibc || stdenv.hostPlatform.isMusl) stdenv.cc.libc.linuxHeaders;
 
   postInstall = ''
     mkdir -p "$out/share/doc/${name}"

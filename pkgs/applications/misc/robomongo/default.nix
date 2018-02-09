@@ -1,6 +1,7 @@
 { stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig,
   freetype, xkeyboard_config, makeDesktopItem, makeWrapper }:
 
+assert stdenv.hostPlatform.isGlibc;
 stdenv.mkDerivation rec {
   name = "robomongo-${version}";
   version = "0.9.0";
@@ -58,7 +59,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons
     cp ${icon} $out/share/icons/robomongo.png
 
-    patchelf --set-interpreter ${stdenv.glibc}/lib/ld-linux-x86-64.so.2 $BASEDIR/bin/robomongo
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $BASEDIR/bin/robomongo
 
     mkdir $out/bin
 

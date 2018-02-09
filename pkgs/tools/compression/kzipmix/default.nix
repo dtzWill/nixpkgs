@@ -1,5 +1,6 @@
 {stdenv, fetchurl}:
 
+assert stdenv.hostPlatform.isGlibc;
 stdenv.mkDerivation {
   name = "kzipmix-20091108";
 
@@ -11,9 +12,9 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp kzip zipmix $out/bin
-    
-    patchelf --set-interpreter ${stdenv.glibc.out}/lib/ld-linux.so.2 $out/bin/kzip
-    patchelf --set-interpreter ${stdenv.glibc.out}/lib/ld-linux.so.2 $out/bin/zipmix
+
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $out/bin/kzip
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} $out/bin/zipmix
   '';
 
   meta = {

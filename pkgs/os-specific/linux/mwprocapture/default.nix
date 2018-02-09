@@ -8,12 +8,14 @@ assert versionAtLeast kernel.version "3.2.0";
 # this package currently only supports x86 and x86_64, as I have no ARM device to test on
 assert (stdenv.system == "x86_64-linux") || (stdenv.system == "i686-linux");
 
+assert stdenv.hostPlatform.isGlibc;
+
 let
   bits =
   if stdenv.is64bit then "64"
   else "32";
 
-  libpath = makeLibraryPath [ stdenv.cc.cc stdenv.glibc alsaLib ];
+  libpath = makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc alsaLib ];
 
 in
 stdenv.mkDerivation rec {

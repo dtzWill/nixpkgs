@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, glibc }:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "lzbench-20170208";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = stdenv.lib.optionals stdenv.isLinux [ stdenv.glibc.static ];
+  buildInputs = stdenv.lib.optional (stdenv.isLinux && stdenv.hostPlatform.isGlibc) stdenv.cc.libc.static;
 
   installPhase = ''
     mkdir -p $out/bin

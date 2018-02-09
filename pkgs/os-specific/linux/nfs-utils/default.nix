@@ -37,7 +37,7 @@ in stdenv.mkDerivation rec {
       "--with-systemd=$(out)/etc/systemd/system"
       "--enable-libmount-mount"
     ]
-    ++ lib.optional (stdenv ? glibc) "--with-rpcgen=${stdenv.glibc.bin}/bin/rpcgen";
+    ++ lib.optional stdenv.hostPlatform.isGlibc "--with-rpcgen=${stdenv.cc.libc.bin}/bin/rpcgen";
 
   postPatch =
     ''

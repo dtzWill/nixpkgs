@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ unzip ]
-    ++ stdenv.lib.optionals stdenv.isLinux [ stdenv.glibc.out stdenv.glibc.static ];
+    ++ stdenv.lib.optionals (stdenv.isLinux && stdenv.hostPlatform.isGlibc) [ stdenv.cc.libc.out stdenv.cc.libc.static ];
 
   patches = [
     ./00-chntpw-build-arch-autodetect.patch
