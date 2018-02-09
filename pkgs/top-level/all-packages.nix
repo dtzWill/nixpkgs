@@ -23,9 +23,18 @@ with pkgs;
       platform = platform // { kernelArch = kernel; };
     };
   };
+  # Same, but use more powerful 'config' string instead of 'system'
+  forceSystemConfig = config: kernel: nixpkgsFun {
+    localSystem = {
+      inherit config;
+      platform = platform // { kernelArch = kernel; };
+    };
+  };
 
   # Used by wine, firefox with debugging version of Flash, ...
-  pkgsi686Linux = forceSystem "i686-linux" "i386";
+  pkgsi686Linux =
+    assert hostPlatform == targetPlatform && buildPlatform == hostPlatform;
+    forceSystemConfig "i686-unknown-linux-${buildPlatform.libc}" "i386";
 
   callPackage_i686 = if stdenv.system == "i686-linux" || stdenv.system == "x86_64-linux"
     then pkgsi686Linux.callPackage
