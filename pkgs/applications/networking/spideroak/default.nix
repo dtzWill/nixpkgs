@@ -3,13 +3,10 @@
 , libX11, libXext, libXrender, zlib
 }:
 
+assert stdenv.hostPlatform.isGlibc;
 let
   arch = if stdenv.system == "x86_64-linux" then "x86_64"
     else if stdenv.system == "i686-linux" then "i386"
-    else throw "Spideroak client for: ${stdenv.system} not supported!";
-
-  interpreter = if stdenv.system == "x86_64-linux" then "ld-linux-x86-64.so.2"
-    else if stdenv.system == "i686-linux" then "ld-linux.so.2"
     else throw "Spideroak client for: ${stdenv.system} not supported!";
 
   sha256 = if stdenv.system == "x86_64-linux" then "0k87rn4aj0v79rz9jvwspnwzmh031ih0y74ra88nc8kl8j6b6gjm"
@@ -46,7 +43,7 @@ in stdenv.mkDerivation {
 
     rm -f $out/opt/SpiderOakONE/lib/libz*
 
-    patchelf --set-interpreter ${stdenv.glibc.out}/lib/${interpreter} \
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
       "$out/opt/SpiderOakONE/lib/SpiderOakONE"
 
     RPATH=$out/opt/SpiderOakONE/lib:${ldpath}
