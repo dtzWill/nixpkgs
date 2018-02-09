@@ -2,6 +2,7 @@
 
 assert stdenv.isLinux;
 assert stdenv.isx86_64;
+assert stdenv.hostPlatform.isGlibc;
 
 let
   buildDemo = { name, src }:
@@ -20,7 +21,7 @@ let
         cd $out
         unzip $src
 
-        interpreter=$(echo ${stdenv.glibc.out}/lib/ld-linux*.so.2)
+        interpreter=$(echo ${stdenv.cc.bintools.dynamicLinker})
         binary=$(find . -executable -type f)
         patchelf \
           --set-interpreter $interpreter \
