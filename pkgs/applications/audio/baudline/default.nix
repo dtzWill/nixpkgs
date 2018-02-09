@@ -2,6 +2,7 @@
 , makeWrapper
 }:
 
+assert stdenv.hostPlatform.isGlibc;
 let
   rpath = stdenv.lib.makeLibraryPath
     [ libXmu libXt libX11 libXext libXxf86vm libjack2 ];
@@ -36,7 +37,7 @@ stdenv.mkDerivation rec {
 
     cp -r . "$out/libexec/baudline/"
 
-    interpreter="$(echo ${stdenv.glibc.out}/lib/ld-linux*)"
+    interpreter="$(echo ${stdenv.cc.bintools.dynamicLinker})"
     for prog in "$out"/libexec/baudline/baudline*; do
         patchelf --interpreter "$interpreter" "$prog"
         ln -sr "$prog" "$out/bin/"
