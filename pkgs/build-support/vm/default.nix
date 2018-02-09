@@ -9,6 +9,8 @@
 
 with pkgs;
 with import ../../../nixos/lib/qemu-flags.nix { inherit pkgs; };
+# TODO: Support musl, non-glibc
+assert pkgs.stdenv.hostPlatform.isGlibc;
 
 rec {
 
@@ -41,9 +43,9 @@ rec {
       mkdir -p $out/lib
 
       # Copy what we need from Glibc.
-      cp -p ${pkgs.stdenv.glibc.out}/lib/ld-linux*.so.? $out/lib
-      cp -p ${pkgs.stdenv.glibc.out}/lib/libc.so.* $out/lib
-      cp -p ${pkgs.stdenv.glibc.out}/lib/libm.so.* $out/lib
+      cp -p ${pkgs.stdenv.cc.libc.out}/lib/ld-linux*.so.? $out/lib
+      cp -p ${pkgs.stdenv.cc.libc.out}/lib/libc.so.* $out/lib
+      cp -p ${pkgs.stdenv.cc.libc.out}/lib/libm.so.* $out/lib
 
       # Copy BusyBox.
       cp -pd ${pkgs.busybox}/bin/* $out/bin
