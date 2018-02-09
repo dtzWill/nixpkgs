@@ -6,7 +6,7 @@ let
   baseVersion = "44";
   patchVersion = "05";
   dfVersion = "0.${baseVersion}.${patchVersion}";
-  libpath = lib.makeLibraryPath [ stdenv.cc.cc stdenv.glibc dwarf-fortress-unfuck SDL ];
+  libpath = lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc dwarf-fortress-unfuck SDL ];
   platform =
     if stdenv.system == "x86_64-linux" then "linux"
     else if stdenv.system == "i686-linux" then "linux32"
