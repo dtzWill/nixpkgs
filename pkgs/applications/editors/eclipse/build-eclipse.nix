@@ -4,6 +4,7 @@
 
 { name, src ? builtins.getAttr stdenv.system sources, sources ? null, description }:
 
+assert stdenv.hostPlatform.isGlibc;
 stdenv.mkDerivation rec {
   inherit name src;
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
     tar xfvz $src -C $out
 
     # Patch binaries.
-    interpreter=$(echo ${stdenv.glibc.out}/lib/ld-linux*.so.2)
+    interpreter=$(echo ${stdenv.cc.bintools.dynamicLinker})
     libCairo=$out/eclipse/libcairo-swt.so
     patchelf --set-interpreter $interpreter $out/eclipse/eclipse
     [ -f $libCairo ] && patchelf --set-rpath ${stdenv.lib.makeLibraryPath [ freetype fontconfig libX11 libXrender zlib ]} $libCairo
