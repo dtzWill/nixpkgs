@@ -6387,17 +6387,19 @@ with pkgs;
 
   llvmPackages_4 = callPackage ../development/compilers/llvm/4 {
     inherit (stdenvAdapters) overrideCC;
+    python = python3;
   };
 
   llvmPackages_5 = callPackage ../development/compilers/llvm/5 ({
     inherit (stdenvAdapters) overrideCC;
+    python = python3;
   } // stdenv.lib.optionalAttrs stdenv.isDarwin {
     cmake = cmake.override {
       isBootstrap = true;
       majorVersion = "3.9"; # 3.10.2: 'ApplicationServices/ApplicationServices.h' file not found
     };
     libxml2 = libxml2.override { pythonSupport = false; };
-    python2 = callPackage ../development/interpreters/python/cpython/2.7/boot.nix { inherit (darwin) CF configd; };
+    python = callPackage ../development/interpreters/python/cpython/2.7/boot.nix { inherit (darwin) CF configd; };
   });
 
   manticore = callPackage ../development/compilers/manticore { };
