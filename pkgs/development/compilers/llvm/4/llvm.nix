@@ -33,7 +33,7 @@ let
     let target = stdenv.targetPlatform;
     in     if target.isAarch64 then "AARCH64"
       else if target.isArm     then "ARM"
-      else if target.isx86_64  then "X86"
+      else if target.isx86     then "X86"
       else throw "unknown platform";
   cmakeBuildType = if debugVersion then "Debug" else "Release";
 
