@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl
+{ stdenv, lib, fetchurl, fetchzip
 , buildPackages
 , linuxHeaders ? null
 , useBSDCompatHeaders ? true
@@ -20,12 +20,20 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "musl-${version}";
-  version = "1.1.18";
+  version = "2018-02-12";
 
   src = fetchurl {
-    url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
-    sha256 = "0651lnj5spckqjf83nz116s8qhhydgqdy3rkl4icbh5f05fyw5yh";
+    # XXX: rehost, unstable
+    urls = [
+      https://git.musl-libc.org/cgit/musl/snapshot/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
+      https://wdtz.org/files/
+    ]
+    sha256 = "0idssnfy32jfjfirdqsz541knd1k8ppcr43mbsfna1clb8fcdqvn";
   };
+  #src = fetchurl {
+  #  url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
+  #  sha256 = "0651lnj5spckqjf83nz116s8qhhydgqdy3rkl4icbh5f05fyw5yh";
+  #};
 
   enableParallelBuilding = true;
 
@@ -46,8 +54,6 @@ stdenv.mkDerivation rec {
   ];
 
   outputs = [ "out" "dev" ];
-
-  patches = [ ./few-more-uapi-fixes.patch ];
 
   dontDisableStatic = true;
   dontStrip = true;
