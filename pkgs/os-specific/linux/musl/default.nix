@@ -23,11 +23,9 @@ stdenv.mkDerivation rec {
   version = "2018-02-12";
 
   src = fetchurl {
-    # XXX: rehost, unstable
-    urls = [
-      https://git.musl-libc.org/cgit/musl/snapshot/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
-      https://wdtz.org/files/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
-    ];
+    # XXX: I rehosted this since cgit snapshots are not stable
+    #  https://git.musl-libc.org/cgit/musl/snapshot/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
+    url = https://wdtz.org/files/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz;
     sha256 = "0idssnfy32jfjfirdqsz541knd1k8ppcr43mbsfna1clb8fcdqvn";
   };
   #src = fetchurl {
