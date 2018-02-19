@@ -20,7 +20,7 @@ in with pkgs; rec {
   tarMinimal = gnutar.override { acl = null; };
 
   busyboxMinimal = busybox.override {
-    useMusl = !targetPlatform.isRiscV;
+    useMusl = !targetPlatform.isRiscV || targetPlatform.isMusl;
     enableStatic = true;
     enableMinimal = true;
     extraConfig = ''
