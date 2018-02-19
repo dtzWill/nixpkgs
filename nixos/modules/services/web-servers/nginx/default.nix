@@ -648,7 +648,7 @@ in
         mkdir -p ${cfg.stateDir}/logs
         chmod 700 ${cfg.stateDir}
         chown -R ${cfg.user}:${cfg.group} ${cfg.stateDir}
-        ${cfg.package}/bin/nginx -c ${configFile} -p ${cfg.stateDir} -t
+        ${package}/bin/nginx -c ${configFile} -p ${cfg.stateDir} -t
         '';
       serviceConfig = {
         ExecStart = "${package}/bin/nginx -c ${configFile} -p ${cfg.stateDir}";
