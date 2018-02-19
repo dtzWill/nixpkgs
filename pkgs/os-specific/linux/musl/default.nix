@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     # XXX: rehost, unstable
     urls = [
       https://git.musl-libc.org/cgit/musl/snapshot/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
-      https://wdtz.org/files/
-    ]
+      https://wdtz.org/files/musl-75cba9c67fde03421b96c1bcbaf666b4b348739d.tar.gz
+    ];
     sha256 = "0idssnfy32jfjfirdqsz541knd1k8ppcr43mbsfna1clb8fcdqvn";
   };
   #src = fetchurl {
