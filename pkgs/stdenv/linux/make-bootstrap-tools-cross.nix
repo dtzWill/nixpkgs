@@ -18,4 +18,5 @@ in with (import ../../../lib).systems.examples; {
   armv6l-musl  = make muslpi;
   aarch64-musl = make aarch64-multiplatform-musl;
   riscv64 = make riscv64;
+  riscv64-musl = make riscv64-musl;
 }
