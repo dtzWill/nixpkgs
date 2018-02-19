@@ -82,6 +82,10 @@ rec {
   riscv64 = riscv "64";
   riscv32 = riscv "32";
 
+  riscv64-musl = riscv64 // {
+    config = "riscv64-unknown-linux-musl";
+  };
+
 
   #
   # Darwin
