@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl
+{ stdenv, lib, fetchurl, fetchFromGitHub
 , buildPackages
 , linuxHeaders ? null
 , useBSDCompatHeaders ? true
@@ -20,11 +20,13 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "musl-${version}";
-  version = "1.1.19";
+  version = "1.1.19-git";
 
-  src = fetchurl {
-    url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
-    sha256 = "1nf1wh44bhm8gdcfr75ayib29b99vpq62zmjymrq7f96h9bshnfv";
+  src = fetchFromGitHub {
+    owner = "dtzWill";
+    repo = "musl";
+    rev = "57b97b42bdecafd81c4967a10aef6eaf43d3fcb8";
+    sha256 = "0mfggx09i2fas77b7869bpv8b3979jrzx3cp8g8x6zxqgv5rch7q";
   };
 
   enableParallelBuilding = true;
