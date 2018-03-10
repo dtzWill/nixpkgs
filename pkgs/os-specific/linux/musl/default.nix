@@ -33,6 +33,8 @@ stdenv.mkDerivation rec {
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
+  patches = [ ./malloc.patch ];
+
   preConfigure = ''
     configureFlagsArray+=("--syslibdir=$out/lib")
   '';

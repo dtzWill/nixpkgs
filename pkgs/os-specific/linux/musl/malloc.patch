@@ -1,0 +1,86 @@
+From b609eb4c406ff245902c02c35d88a542a6fa4955 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 9 Mar 2018 18:17:36 -0600
+Subject: [PATCH] kludge together fork locking
+
+---
+ src/malloc/malloc.c | 28 ++++++++++++++++++++++++++++
+ src/process/fork.c  | 10 ++++++++++
+ 2 files changed, 38 insertions(+)
+
+diff --git a/src/malloc/malloc.c b/src/malloc/malloc.c
+index 9e05e1d6..83d007c8 100644
+--- a/src/malloc/malloc.c
++++ b/src/malloc/malloc.c
+@@ -84,6 +84,34 @@ static inline void unlock_bin(int i)
+ 	unlock(mal.bins[i].lock);
+ }
+ 
++void prefork_lock() {
++	int i;
++	for (i = 0; i < 64; ++i)
++		lock_bin(i);
++}
++
++void postfork_unlock_parent() {
++	int i;
++	for (i = 63; i >= 0; --i)
++		unlock_bin(i);
++}
++
++static inline void clear_lock(volatile int *lk)
++{
++	lk[0] = 0;
++	lk[1] = 0;
++}
++
++void postfork_unlock_child() {
++	// We don't own any locks anyway, parent does.
++	// So just reinitialize (clear out) lock vars.
++	//
++	// This is probably terrible.
++	int i;
++	for (i = 63; i >= 0; --i)
++		clear_lock(mal.bins[i].lock);
++}
++
+ static int first_set(uint64_t x)
+ {
+ #if 1
+diff --git a/src/process/fork.c b/src/process/fork.c
+index da074ae9..ebccccd5 100644
+--- a/src/process/fork.c
++++ b/src/process/fork.c
+@@ -11,12 +11,19 @@ static void dummy(int x)
+ 
+ weak_alias(dummy, __fork_handler);
+ 
++void prefork_lock();
++void postfork_unlock_parent();
++void postfork_unlock_child();
++
+ pid_t fork(void)
+ {
+ 	pid_t ret;
+ 	sigset_t set;
+ 	__fork_handler(-1);
+ 	__block_all_sigs(&set);
++  // Important that we can't become MT while acquiring locks
++  // (last paragraph here: http://www.openwall.com/lists/musl/2017/06/18/9 )
++	prefork_lock();
+ #ifdef SYS_fork
+ 	ret = __syscall(SYS_fork);
+ #else
+@@ -28,6 +35,9 @@ pid_t fork(void)
+ 		self->robust_list.off = 0;
+ 		self->robust_list.pending = 0;
+ 		libc.threads_minus_1 = 0;
++		postfork_unlock_child();
++	} else {
++		postfork_unlock_parent();
+ 	}
+ 	__restore_sigs(&set);
+ 	__fork_handler(!ret);
+-- 
+2.16.2
+
