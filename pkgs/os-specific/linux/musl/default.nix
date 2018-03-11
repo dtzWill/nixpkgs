@@ -45,12 +45,14 @@ stdenv.mkDerivation rec {
     "CFLAGS=-fstack-protector-strong"
     # Fix cycle between outputs
     "--disable-wrapper"
+    "--enable-debug"
   ];
 
   outputs = [ "out" "dev" ];
 
   dontDisableStatic = true;
-  dontStrip = true;
+
+  separateDebugInfo = true;
 
   postInstall =
   ''
@@ -62,6 +64,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     # Create 'ldd' symlink, builtin
     ln -s $out/lib/libc.so $out/bin/ldd
+
+    $STRIP -S $out/lib/libc.a
   '' + lib.optionalString useBSDCompatHeaders ''
     install -D ${queue_h} $dev/include/sys/queue.h
     install -D ${cdefs_h} $dev/include/sys/cdefs.h
