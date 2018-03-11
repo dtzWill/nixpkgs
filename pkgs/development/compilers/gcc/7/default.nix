@@ -155,15 +155,13 @@ let version = "7.3.0";
           # To keep ABI compatibility with upstream mingw-w64
           "--enable-fully-dynamic-string"
         ] else
-          optionals (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
+          optionals (targetPlatform.libc == "uclibc") [
             # libsanitizer requires netrom/netrom.h which is not
             # available in uclibc.
             "--disable-libsanitizer"
             # In uclibc cases, libgomp needs an additional '-ldl'
             # and as I don't know how to pass it, I disable libgomp.
             "--disable-libgomp"
-            # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
-            "--disable-libmpx"
           ] ++ [
           "--enable-threads=posix"
           "--enable-nls"
@@ -393,8 +391,17 @@ stdenv.mkDerivation ({
       "--enable-long-long" "--enable-libssp" "--enable-threads=posix" "--disable-nls" "--enable-__cxa_atexit"
       # On Illumos/Solaris GNU as is preferred
       "--with-gnu-as" "--without-gnu-ld"
+    ] ++
+    optionals (hostPlatform.libc == "musl") [
+      # https://github.com/richfelker/musl-cross-make/commit/0291cc44eee410270a97efb6258394c1f1f8352a
+      "--enable-tls"
+      "--disable-libmudflap"
+      "--disable-libsanitizer"
+      "--disable-gnu-indirect-functions"
+      "--enable-libstdcxx-time"
+      # https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
+      "--disable-libmpx"
     ]
-    ++ optional (targetPlatform == hostPlatform && targetPlatform.libc == "musl") "--disable-libsanitizer"
   ;
 
   targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
