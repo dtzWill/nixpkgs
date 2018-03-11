@@ -66,7 +66,9 @@ let version = "7.3.0";
       })
       ++ optional langFortran ../gfortran-driving.patch
          # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
-      ++ optional targetPlatform.isRiscV ./riscv-pthread-reentrant.patch;
+      ++ optional targetPlatform.isRiscV ./riscv-pthread-reentrant.patch
+      # http://www.openwall.com/lists/musl/2016/12/04/2
+      ++ optional (hostPlatform.libc == "musl") ../ssp_nonshared.patch;
 
     javaEcj = fetchurl {
       # The `$(top_srcdir)/ecj.jar' file is automatically picked up at

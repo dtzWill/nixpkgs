@@ -63,6 +63,8 @@ let version = "6.4.0";
       ++ optional langFortran ../gfortran-driving.patch
       ++ [ ../struct-ucontext.patch ../struct-sigaltstack.patch ] # glibc-2.26
       ++ optional langJava [ ../struct-ucontext-libjava.patch ] # glibc-2.26
+      # http://www.openwall.com/lists/musl/2016/12/04/2
+      ++ optional (hostPlatform.libc == "musl") ../ssp_nonshared.patch
       ;
 
     javaEcj = fetchurl {
