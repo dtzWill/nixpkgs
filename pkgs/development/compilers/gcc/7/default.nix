@@ -197,7 +197,8 @@ stdenv.mkDerivation ({
 
   libc_dev = stdenv.cc.libc_dev;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = [ "format" ]
+    ++ stdenv.lib.optional (hostPlatform.isMusl && hostPlatform.isi686) "stackprotector";
 
   # This should kill all the stdinc frameworks that gcc and friends like to
   # insert into default search paths.
@@ -306,7 +307,8 @@ stdenv.mkDerivation ({
     ++ (optional hostPlatform.isDarwin targetPackages.stdenv.cc.bintools)
     ;
 
-  NIX_LDFLAGS = stdenv.lib.optionalString  hostPlatform.isSunOS "-lm -ldl";
+  # This should be an array but preserve string-ness to avoid rebuilds
+  NIX_LDFLAGS = stdenv.lib.optionalString hostPlatform.isSunOS "-lm -ldl";
 
   preConfigure = stdenv.lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
     export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`
