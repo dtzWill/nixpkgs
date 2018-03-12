@@ -33,7 +33,16 @@ stdenv.mkDerivation rec {
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
-  patches = [ ./malloc.patch ];
+  patches = [
+    ./malloc.patch
+
+    # Provide minimal libssp_nonshared to avoid needing gcc's libssp
+    # http://www.openwall.com/lists/musl/2016/12/04/2
+    (fetchurl {
+      url = https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/200-add_libssp_nonshared.patch;
+      sha256 = "1cwcnyf35jnavwc4ppfy2dprag67ilwaii4h7sn1nk27wjhdgppn";
+    })
+];
 
   preConfigure = ''
     configureFlagsArray+=("--syslibdir=$out/lib")
