@@ -42,6 +42,12 @@ stdenv.mkDerivation rec {
       url = https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/200-add_libssp_nonshared.patch;
       sha256 = "1cwcnyf35jnavwc4ppfy2dprag67ilwaii4h7sn1nk27wjhdgppn";
     })
+
+    # Relative symlink
+    (fetchurl {
+      url = https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch;
+      sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
+    })
 ];
 
   preConfigure = ''
@@ -72,7 +78,7 @@ stdenv.mkDerivation rec {
   ''
     mkdir -p $out/bin
     # Create 'ldd' symlink, builtin
-    ln -s $out/lib/libc.so $out/bin/ldd
+    ln -rs $out/lib/libc.so $out/bin/ldd
 
     $STRIP -S $out/lib/libc.a
   '' + lib.optionalString useBSDCompatHeaders ''
