@@ -68,7 +68,7 @@ let version = "7.3.0";
          # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
       ++ optional targetPlatform.isRiscV ./riscv-pthread-reentrant.patch
       # http://www.openwall.com/lists/musl/2016/12/04/2
-      ++ optional (hostPlatform.libc == "musl") ../ssp_nonshared.patch;
+      ++ optional (targetPlatform.libc == "musl") ../ssp_nonshared.patch;
 
     javaEcj = fetchurl {
       # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -394,7 +394,7 @@ stdenv.mkDerivation ({
       # On Illumos/Solaris GNU as is preferred
       "--with-gnu-as" "--without-gnu-ld"
     ] ++
-    optionals (hostPlatform.libc == "musl") [
+    optionals (targetPlatform.libc == "musl") [
       # https://github.com/richfelker/musl-cross-make/commit/0291cc44eee410270a97efb6258394c1f1f8352a
       "--enable-tls"
       "--disable-libmudflap"
