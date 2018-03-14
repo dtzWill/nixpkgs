@@ -6302,6 +6302,8 @@ in
 
   shocco = callPackage ../tools/text/shocco { };
 
+  shorewall = callPackage ../tools/networking/shorewall { };
+
   shotwell = callPackage ../applications/graphics/shotwell { };
 
   shout = nodePackages_10_x.shout;
