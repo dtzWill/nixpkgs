@@ -24671,6 +24671,8 @@ in
 
   qMasterPassword = libsForQt5.callPackage ../applications/misc/qMasterPassword { };
 
+  py-wmi-client = callPackage ../tools/networking/py-wmi-client { };
+
   redprl = callPackage ../applications/science/logic/redprl { };
 
   retroarchBare = callPackage ../misc/emulators/retroarch {
