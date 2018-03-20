@@ -20,6 +20,7 @@
     "musl" = {
       "aarch64-linux" = import ./bootstrap-files/aarch64-musl.nix;
       "armv6l-linux"  = import ./bootstrap-files/armv6l-musl.nix;
+      "i686-linux"    = import ./bootstrap-files/i686-musl.nix;
       "x86_64-linux"  = import ./bootstrap-files/x86_64-musl.nix;
     };
   };
