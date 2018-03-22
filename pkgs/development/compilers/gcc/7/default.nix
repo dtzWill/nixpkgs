@@ -57,7 +57,11 @@ let version = "7.3.0";
     enableParallelBuilding = true;
 
     patches =
-      [ ]
+      [ # https://gcc.gnu.org/ml/gcc-patches/2018-02/msg00633.html
+        ./riscv-pthread-reentrant.patch
+        # https://gcc.gnu.org/ml/gcc-patches/2018-03/msg00297.html
+        ./riscv-no-relax.patch
+      ]
       ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
       ++ optional noSysDirs ../no-sys-dirs.patch
       ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied

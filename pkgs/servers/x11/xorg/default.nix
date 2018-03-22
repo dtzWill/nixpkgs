@@ -848,11 +848,11 @@ let
   }) // {inherit libX11 xextproto xproto ;};
 
   libXfixes = (mkDerivation "libXfixes" {
-    name = "libXfixes-5.0.2";
+    name = "libXfixes-5.0.3";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/lib/libXfixes-5.0.2.tar.bz2;
-      sha256 = "1slsk898386xii0r3l7szwwq3s6y2m4dsj0x93ninjh8xkghxllv";
+      url = mirror://xorg/individual/lib/libXfixes-5.0.3.tar.bz2;
+      sha256 = "1miana3y4hwdqdparsccmygqr3ic3hs5jrqfzp70hvi2zwxd676y";
     };
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ fixesproto libX11 xextproto xproto ];
@@ -1364,11 +1364,11 @@ let
   }) // {inherit libICE libSM libX11 libXext libXmu xproto libXt ;};
 
   utilmacros = (mkDerivation "utilmacros" {
-    name = "util-macros-1.19.1";
+    name = "util-macros-1.19.2";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/util/util-macros-1.19.1.tar.bz2;
-      sha256 = "19h6wflpmh7xxqr6lk5z8pds6r9r0dn7ijbvaacymx2q0m05km0q";
+      url = mirror://xorg/individual/util/util-macros-1.19.2.tar.bz2;
+      sha256 = "04p7ydqxgq37jklnfj18b70zsifiz4h50wvrk94i2112mmv37r6p";
     };
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ ];
