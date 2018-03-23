@@ -46,7 +46,9 @@ let
   ];
 in
   ''
-  patch -p1 -i ${builtins.fetchurl https://gist.githubusercontent.com/dtzWill/0f85b1f506a5fa3346ca5bee58f7d389/raw/5c571e3ae1eeb1f9ded07fd400052551a43c0e9d/0001-src-basic-missing.h-check-for-missing-strndupa.patch}
+  # strndupa
+  patch -p1 -i ${builtins.fetchurl https://github.com/dtzWill/systemd/commit/0135a6a90c6606b1ec36f672aca959c5027a15c7.patch}
+  # GLOB
   patch -p1 -i ${builtins.fetchurl https://github.com/dtzWill/systemd/commit/f0c8156d85bfe713106745bf40d3130de54aeb81.patch}
 '' +
 lib.concatMapStrings (pname: ''
