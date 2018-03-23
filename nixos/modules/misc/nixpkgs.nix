@@ -61,7 +61,10 @@ in
             inherit (config.nixpkgs) config overlays system;
           }
         '';
-      default = import ../../.. { inherit (cfg) config overlays system crossSystem; };
+        default = if cfg.localSystem == null then
+            import ../../.. { inherit (cfg) config overlays system crossSystem; }
+          else
+            import ../../.. { inherit (cfg) config overlays localSystem crossSystem; };
       type = pkgsType;
       example = literalExample ''import <nixpkgs> {}'';
       description = ''
@@ -125,6 +128,18 @@ in
         takes as an argument the <emphasis>original</emphasis> Nixpkgs.
         The first argument should be used for finding dependencies, and
         the second should be used for overriding recipes.
+
+        Ignored when <code>nixpkgs.pkgs</code> is set.
+      '';
+    };
+
+    localSystem = mkOption {
+      type = types.nullOr types.attrs;
+      default = null;
+      description = ''
+        The description of the system we're local-compiling to, or null
+        if this isn't a local-compile. See the description of the
+        localSystem argument in the nixpkgs manual.
 
         Ignored when <code>nixpkgs.pkgs</code> is set.
       '';
