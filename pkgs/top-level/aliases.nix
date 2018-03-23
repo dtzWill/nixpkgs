@@ -76,6 +76,7 @@ mapAliases (rec {
   go-pup = pup; # added 2017-12-19
   googleAuthenticator = google-authenticator; # added 2016-10-16
   gnome_doc_utils = gnome-doc-utils; # added 2018-02-25
+  gnome-themes-standard = gnome-themes-extra; # added 2018-03-14
   gnome_themes_standard = gnome-themes-standard; # added 2018-02-25
   grantlee5 = libsForQt5.grantlee;  # added 2015-12-19
   gsettings_desktop_schemas = gsettings-desktop-schemas; # added 2018-02-25
@@ -119,6 +120,7 @@ mapAliases (rec {
   libgnome_keyring = libgnome-keyring; # added 2018-02-25
   libgnome_keyring3 = libgnome-keyring3; # added 2018-02-25
   libgumbo = gumbo; # added 2018-01-21
+  libintlOrEmpty = stdenv.lib.optional (!stdenv.isLinux || hostPlatform.libc != "glibc") gettext; # added 2018-03-14
   libjson_rpc_cpp = libjson-rpc-cpp; # added 2017-02-28
   libmysql = mysql.connector-c; # added # 2017-12-28, this was a misnomer refering to libmysqlclient
   libtidy = html-tidy;  # added 2014-12-21

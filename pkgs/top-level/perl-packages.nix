@@ -6350,19 +6350,19 @@ let self = _self // overrides; _self = with self; {
   };
 
   GSSAPI = buildPerlPackage rec {
-    name = "GSSAPPI-0.28";
+    name = "GSSAPI-0.28";
     src = fetchurl {
-      url = "http://search.cpan.org/CPAN/authors/id/A/AG/AGROLMS/GSSAPI-0.28.tar.gz";
+      url = "mirror://cpan/authors/id/A/AG/AGROLMS/${name}.tar.gz";
       sha256 = "1mkhwxjjlhr58pd770i9gnf7zy7jj092iv6jfbnb8bvnc5xjr3vx";
     };
     buildInputs = [ TestPod ];
-    propagatedBuildInputs = [ pkgs.heimdalFull ];
+    propagatedBuildInputs = [ pkgs.krb5Full.dev ];
     meta = {
       maintainers = [ maintainers.limeytexan ];
       description = "Perl extension providing access to the GSSAPIv2 library";
       license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
     };
-    makeMakerFlags = "--gssapiimpl ${pkgs.heimdalFull.out}";
+    makeMakerFlags = "--gssapiimpl ${pkgs.krb5Full.dev}";
   };
 
   Gtk2 = buildPerlPackage rec {
@@ -8071,8 +8071,7 @@ let self = _self // overrides; _self = with self; {
 
   LocaleGettext = buildPerlPackage {
     name = "LocaleGettext-1.05";
-    buildInputs = stdenv.lib.optional (stdenv.isFreeBSD || stdenv.isDarwin || stdenv.isCygwin) pkgs.gettext;
-    NIX_CFLAGS_LINK = stdenv.lib.optional (stdenv.isFreeBSD || stdenv.isDarwin || stdenv.isCygwin) "-lintl";
+    buildInputs = [ pkgs.gettext ];
     src = fetchurl {
       url = mirror://cpan/authors/id/P/PV/PVANDRY/gettext-1.05.tar.gz;
       sha256 = "15262a00vx714szpx8p2z52wxkz46xp7acl72znwjydyq4ypydi7";
@@ -16529,11 +16528,14 @@ let self = _self // overrides; _self = with self; {
   };
 
   YAMLLibYAML = buildPerlPackage rec {
-    name = "YAML-LibYAML-0.59";
+    name = "YAML-LibYAML-0.69";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/I/IN/INGY/${name}.tar.gz";
-      sha256 = "0m4zr6gm5rzwvxwd2x7rklr659jl8gsa5bxc5h25904nbvpj9x4x";
+      url = "mirror://cpan/authors/id/T/TI/TINITA/${name}.tar.gz";
+      sha256 = "06msvj3vmjszl5zj1k7g47ll0kkds9gdb5sky0q27lh4zw1vlj33";
     };
+    preBuild = ''
+      sed -i 's/FULLPERL *= "/FULLPERL = /' LibYAML/Makefile
+    '';
   };
 
   WebServiceLinode = buildPerlModule rec {
