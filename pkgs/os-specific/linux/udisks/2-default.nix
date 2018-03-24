@@ -5,11 +5,11 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "udisks-2.7.6";
+  name = "udisks-2.1.6";
 
   src = fetchurl {
-    url = "https://github.com/storaged-project/udisks/releases/download/${name}/${name}.tar.bz2";
-    sha256 = "1zhndp2hxqh8kyy6kb7a6l4g9bx0mr7js66rpznd876ycf8a4bai";
+    url = "http://udisks.freedesktop.org/releases/${name}.tar.bz2";
+    sha256 = "0spl155k0g2l2hvqf8xyjv08i68gfyhzpjva6cwlzxx0bz4gbify";
   };
 
   outputs = [ "out" "man" "dev" ];
