@@ -9977,12 +9977,13 @@ with pkgs;
   # We also provide `libiconvReal`, which will always be a standalone libiconv,
   # just in case you want it regardless of platform.
   libiconv =
-    if (hostPlatform.libc == "glibc" || hostPlatform.libc == "musl")
+    if (hostPlatform.libc == "glibc")
       then glibcIconv (if hostPlatform != buildPlatform
                        then libcCross
                        else stdenv.cc.libc)
     else if hostPlatform.isDarwin
       then darwin.libiconv
+    else if hostPlatform.isMusl then musl-iconv
     else libiconvReal;
 
   glibcIconv = libc: let
