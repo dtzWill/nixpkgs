@@ -50,7 +50,8 @@ in stdenv.mkDerivation rec {
     "--enable-fs-paths-default=/run/wrappers/bin:/var/run/current-system/sw/bin:/sbin"
     "--disable-makeinstall-setuid" "--disable-makeinstall-chown"
   ]
-    ++ lib.optional (ncurses == null) "--without-ncurses";
+    ++ lib.optional (ncurses == null) "--without-ncurses"
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-fallocate";
 
   makeFlags = "usrbin_execdir=$(bin)/bin usrsbin_execdir=$(bin)/sbin";
 
