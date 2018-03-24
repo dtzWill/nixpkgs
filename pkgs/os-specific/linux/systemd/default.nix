@@ -92,7 +92,6 @@ in stdenv.mkDerivation (rec {
     "-Dnss-systemd=false"
     "-Dlocaled=false"
     "-Dresolve=false"
-    "-Dutmp=false"
     "-Dmyhostname=false"
   ];
 
