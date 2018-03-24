@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  doCheck = !stdenv.hostPlatform.isMusl; /* iconv binary */
+  doCheck = false; # !stdenv.hostPlatform.isMusl; /* iconv binary */
 
   meta = with stdenv.lib; {
     homepage = http://man-db.nongnu.org;
