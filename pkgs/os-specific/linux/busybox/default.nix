@@ -7,6 +7,7 @@
 }:
 
 assert stdenv.hostPlatform.libc == "musl" -> useMusl;
+#assert enableStatic -> stdenv.hostPlatform.libc != "musl";
 
 let
   configParser = ''
@@ -30,6 +31,12 @@ let
     CONFIG_FEATURE_UTMP n
     CONFIG_FEATURE_WTMP n
   '';
+
+  #libcConfig = "";
+  ##libcConfig = lib.optionalString useMusl ''
+  ##  CONFIG_FEATURE_UTMP n
+  ##  CONFIG_FEATURE_WTMP n
+  #'';
 in
 
 stdenv.mkDerivation rec {
@@ -88,6 +95,7 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
+  #postConfigure = lib.optionalString (useMusl && !stdenv.hostPlatform.isMusl) ''
   postConfigure = lib.optionalString useMusl ''
     makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
   '';

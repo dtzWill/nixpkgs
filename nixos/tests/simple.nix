@@ -6,6 +6,12 @@ import ./make-test.nix ({ pkgs, ...} : {
 
   machine = { config, pkgs, ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
+
+    boot.initrd.extraUtilsCommandsTest = ''
+      find $out
+      ldd $out/bin/fsck
+      ldd $out/bin/fsck.ext4
+    '';
   };
 
   testScript =

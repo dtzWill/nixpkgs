@@ -15,7 +15,13 @@ import ./make-test.nix ({ pkgs, ...} : {
 
     #i18n.glibcLocales = pkgs.musl;
     #i18n.glibcLocales = (import (fetchTarball channel:nixos-unstable) {}).glibcLocales;
-    i18n.glibcLocales = pkgs.stdenv.bootstrapTools;
+    i18n.glibcLocales = pkgs.musl;
+
+    boot.initrd.extraUtilsCommandsTest = ''
+      find $out
+      ldd $out/bin/fsck
+      ldd $out/bin/fsck.ext4
+    '';
   };
 
   testScript =

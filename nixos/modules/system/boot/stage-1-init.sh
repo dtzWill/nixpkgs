@@ -213,6 +213,9 @@ checkFS() {
     local device="$1"
     local fsType="$2"
 
+    echo device=$device
+    echo fsType=$fsType
+
     # Only check block devices.
     if [ ! -b "$device" ]; then return 0; fi
 
@@ -258,7 +261,20 @@ checkFS() {
     if test "$fsType" != "btrfs"; then
         fsckFlags="-V -a"
     fi
-    fsck $fsckFlags "$device"
+    echo fsckFlags=$fsckFlags
+    echo device=$device
+    echo $(command -v fsck)
+    echo $(command -v e2fsck)
+    echo $(command -v fsck.auto)
+    echo $(command -v fsck.ext2)
+    echo $(command -v fsck.ext4)
+    ldd $(command -v fsck)
+    ldd $(command -v fsck.ext4)
+    du -h $(command -v fsck)
+    #fsck $fsckFlags "$device"
+    ls -l /dev
+    cat /etc/fstab
+    fsck.ext4 $fsckFlags "$device"
     fsckResult=$?
 
     if test $(($fsckResult | 2)) = $fsckResult; then
@@ -297,6 +313,7 @@ mountFS() {
     local optionsFiltered="$(IFS=,; for i in $options; do if [ "${i:0:2}" != "x-" ]; then echo -n $i,; fi; done)"
 
     echo "$device /mnt-root$mountPoint $fsType $optionsFiltered" >> /etc/fstab
+    cat /etc/fstab
 
     checkFS "$device" "$fsType"
 
