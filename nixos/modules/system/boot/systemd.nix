@@ -11,6 +11,8 @@ let
 
   systemd = cfg.package;
 
+  glibcOnlys = as: if (pkgs.stdenv.hostPlatform.libc == "glibc") then as else [];
+
   upstreamSystemUnits =
     [ # Targets.
       "basic.target"
@@ -22,8 +24,10 @@ let
       "network.target"
       "network-pre.target"
       "network-online.target"
+    ] ++ glibcOnlys [
       "nss-lookup.target"
       "nss-user-lookup.target"
+    ] ++ [
       "time-sync.target"
       #"cryptsetup.target"
       "sigpwr.target"
@@ -127,7 +131,9 @@ let
       "final.target"
       "kexec.target"
       "systemd-kexec.service"
+    ] ++ glibcOnlys [
       "systemd-update-utmp.service"
+    ] ++ [
 
       # Password entry.
       "systemd-ask-password-console.path"
@@ -152,10 +158,14 @@ let
       # Misc.
       "systemd-sysctl.service"
       "dbus-org.freedesktop.timedate1.service"
+    ] ++ glibcOnlys [
       "dbus-org.freedesktop.locale1.service"
+    ] ++ [
       "dbus-org.freedesktop.hostname1.service"
       "systemd-timedated.service"
+    ] ++ glibcOnlys [
       "systemd-localed.service"
+    ] ++ [
       "systemd-hostnamed.service"
       "systemd-binfmt.service"
       "systemd-exit.service"
