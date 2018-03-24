@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, musl }:
 
 stdenv.mkDerivation rec {
   name = "musl-iconv";
@@ -9,8 +9,9 @@ stdenv.mkDerivation rec {
   };
 
   buildCommand = ''
-    mkdir -p $out/bin
+    mkdir -p $out/{bin,include}
     $CC $src -o $out/bin/iconv
+    ln -sv ${stdenv.lib.getDev musl}/include/iconv.h $out/include
   '';
 }
 
