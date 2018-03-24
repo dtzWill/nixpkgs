@@ -9977,13 +9977,12 @@ with pkgs;
   # We also provide `libiconvReal`, which will always be a standalone libiconv,
   # just in case you want it regardless of platform.
   libiconv =
-    if (hostPlatform.libc == "glibc")
+    if (hostPlatform.libc == "glibc" || hostPlatform.libc == "musl")
       then glibcIconv (if hostPlatform != buildPlatform
                        then libcCross
                        else stdenv.cc.libc)
     else if hostPlatform.isDarwin
       then darwin.libiconv
-    else if hostPlatform.isMusl then musl-iconv
     else libiconvReal;
 
   glibcIconv = libc: let
@@ -13642,7 +13641,6 @@ with pkgs;
   musl-fts = callPackage ../os-specific/linux/musl/fts.nix { };
   musl-getconf = callPackage ../os-specific/linux/musl/getconf.nix { };
   musl-getent = callPackage ../os-specific/linux/musl/getent.nix { };
-  musl-iconv = callPackage ../os-specific/linux/musl/iconv.nix { };
   getent =
     if hostPlatform.isMusl then musl-getent
     # This may not be right on other platforms, but preserves existing behavior
