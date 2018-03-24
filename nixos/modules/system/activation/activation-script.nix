@@ -16,7 +16,8 @@ let
     [ coreutils
       gnugrep
       findutils
-      glibc # needed for getent
+      #glibc # needed for getent
+      pkgs.getent
       shadow
       nettools # needed for hostname
       utillinux # needed for mount and mountpoint
