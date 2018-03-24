@@ -143,6 +143,7 @@ let
 
       # Copy ld manually since it isn't detected correctly
       cp -pv ${pkgs.stdenv.cc.libc.out}/lib/ld*.so.? $out/lib
+      cp -pv ${pkgs.getent}/bin/getent $out/bin/
 
       # Copy all of the needed libraries
       find $out/bin $out/lib -type f | while read BIN; do
