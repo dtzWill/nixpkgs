@@ -13641,6 +13641,7 @@ with pkgs;
   musl-fts = callPackage ../os-specific/linux/musl/fts.nix { };
   musl-getconf = callPackage ../os-specific/linux/musl/getconf.nix { };
   musl-getent = callPackage ../os-specific/linux/musl/getent.nix { };
+  musl-iconv = callPackage ../os-specific/linux/musl/iconv.nix { };
   getent =
     if hostPlatform.isMusl then musl-getent
     # This may not be right on other platforms, but preserves existing behavior
