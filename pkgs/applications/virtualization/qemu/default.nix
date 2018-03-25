@@ -100,12 +100,12 @@ stdenv.mkDerivation rec {
       "--localstatedir=/var"
     ]
     ++ optional numaSupport "--enable-numa"
-    ++ optional seccompSupport "--enable-seccomp"
+    #++ optional seccompSupport "--enable-seccomp"
     ++ optional spiceSupport "--enable-spice"
     ++ optional usbredirSupport "--enable-usb-redir"
     ++ optional hostCpuOnly "--target-list=${hostCpuTargets}"
     ++ optional stdenv.isDarwin "--enable-cocoa"
-    ++ optional stdenv.isLinux "--enable-linux-aio"
+    #++ optional stdenv.isLinux "--enable-linux-aio"
     ++ optional xenSupport "--enable-xen";
 
   postFixup =
