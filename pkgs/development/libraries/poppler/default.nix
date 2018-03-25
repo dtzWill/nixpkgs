@@ -8,7 +8,7 @@
 }:
 
 let # beware: updates often break cups-filters build
-  version = "0.62.0";
+  version = "0.63.0";
   mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";
 in
 stdenv.mkDerivation rec {
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "${meta.homepage}/poppler-${version}.tar.xz";
-    sha256 = "1ii9ly1pngyvs0aiq2wxpya08hidpl54y7nsb8b1vxnnskgp76jv";
+    sha256 = "04d1z1ygyb3llzc6s6c99wxafvljj2sc5b76djif34f7mzfqmk17";
   };
 
   outputs = [ "out" "dev" ];
@@ -32,6 +32,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ninja pkgconfig ];
 
+  # Not sure when and how to pass it.  It seems an upstream bug anyway.
+  CXXFLAGS = stdenv.lib.optionalString stdenv.cc.isClang "-std=c++11";
+
   cmakeFlags = [
     (mkFlag true "XPDF_HEADERS")
     (mkFlag (!minimal) "GLIB")
@@ -40,9 +43,6 @@ stdenv.mkDerivation rec {
     (mkFlag utils "UTILS")
     (mkFlag qt5Support "QT5")
   ];
-
-  # Not sure when and how to pass it.  It seems an upstream bug anyway.
-  CXXFLAGS = if stdenv.cc.isClang then [ "-std=c++11" ] else null;
 
   meta = with lib; {
     homepage = https://poppler.freedesktop.org/;

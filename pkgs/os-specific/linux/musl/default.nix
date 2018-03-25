@@ -48,7 +48,15 @@ stdenv.mkDerivation rec {
       url = https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch;
       sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
     })
-];
+  ];
+
+  # Leave these, be friendlier to debuggers/perf tools
+  # Don't force them on, but don't force off either
+  postPatch = ''
+    substituteInPlace configure \
+      --replace -fno-unwind-tables "" \
+      --replace -fno-asynchronous-unwind-tables ""
+  '';
 
   preConfigure = ''
     configureFlagsArray+=("--syslibdir=$out/lib")
@@ -57,16 +65,15 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-shared"
     "--enable-static"
+    "--enable-debug"
     "CFLAGS=-fstack-protector-strong"
     # Fix cycle between outputs
     "--disable-wrapper"
-    "--enable-debug"
   ];
 
   outputs = [ "out" "dev" ];
 
   dontDisableStatic = true;
-
   separateDebugInfo = true;
 
   postInstall =
@@ -74,8 +81,10 @@ stdenv.mkDerivation rec {
     # Not sure why, but link in all but scsi directory as that's what uclibc/glibc do.
     # Apparently glibc provides scsi itself?
     (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
-  '' +
-  ''
+  '' + ''
+    # Strip debug out of the static library
+    $STRIP -S $out/lib/libc.a
+  '' + ''
     mkdir -p $out/bin
     # Create 'ldd' symlink, builtin
     ln -rs $out/lib/libc.so $out/bin/ldd
