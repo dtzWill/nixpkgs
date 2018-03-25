@@ -270,28 +270,28 @@ checkFS() {
     #set -x
     echo fsckFlags=$fsckFlags
     echo device=$device
-    echo $(command -v fsck)
-    echo $(command -v e2fsck)
-    echo $(command -v fsck.auto)
-    echo $(command -v fsck.ext2)
-    echo $(command -v fsck.ext4)
-    ldd $(command -v fsck)
-    ldd $(command -v fsck.ext4)
-    ldd $(command -v mke2fs)
-    ldd $(command -v blkid)
-    du -h $(command -v fsck)
+    #echo $(command -v fsck)
+    #echo $(command -v e2fsck)
+    #echo $(command -v fsck.auto)
+    #echo $(command -v fsck.ext2)
+    #echo $(command -v fsck.ext4)
+    #ldd $(command -v fsck)
+    #ldd $(command -v fsck.ext4)
+    #ldd $(command -v mke2fs)
+    #ldd $(command -v blkid)
+    #du -h $(command -v fsck)
     #fsck $fsckFlags "$device"
     #ls -l /dev
     #echo "FILESYSTEMS:"
     #cat /proc/filesystems
 
-    ls -l /dev/vda
+    #ls -l /dev/vda
     echo "POINT B"
     #exit 1
     #tail -n10000 /etc/fstab /etc/mtab
     #sync; sync; sync;
-    #fsck $fsckFlags "$device"
-    fsck.ext4 $fsckFlags "$device"
+    fsck $fsckFlags "$device"
+    #fsck.ext4 $fsckFlags "$device"
     fsckResult=$?
 
     if test $(($fsckResult | 2)) = $fsckResult; then
@@ -336,7 +336,7 @@ mountFS() {
     #tail -n10000 /etc/fstab /etc/mtab
     echo options="$options"
     command -v mount
-    ps aux
+    #ps aux
     #udevadm trigger --action=add
     #udevadm settle
 
@@ -368,7 +368,7 @@ mountFS() {
     local n=0
     while true; do
         # mount $device "/mnt-root$mountPoint" && break
-        mount "/mnt-root$mountPoint" && break
+        mount -v "/mnt-root$mountPoint" && break
         if [ "$fsType" != cifs -o "$n" -ge 10 ]; then fail; break; fi
         echo "retrying..."
         n=$((n + 1))

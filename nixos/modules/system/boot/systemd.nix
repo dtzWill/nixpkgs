@@ -152,12 +152,12 @@ let
       # Misc.
       "systemd-sysctl.service"
       "dbus-org.freedesktop.timedate1.service"
-    ] ++ optionals (!pkgs.stdenv.hostPlatform.isMusl) [
+    ] ++ optionals (false && !pkgs.stdenv.hostPlatform.isMusl) [
       "dbus-org.freedesktop.locale1.service"
     ] ++ [
       "dbus-org.freedesktop.hostname1.service"
       "systemd-timedated.service"
-    ] ++ optionals (!pkgs.stdenv.hostPlatform.isMusl) [
+    ] ++ optionals (false && !pkgs.stdenv.hostPlatform.isMusl) [
       "systemd-localed.service"
     ] ++ [
       "systemd-hostnamed.service"
