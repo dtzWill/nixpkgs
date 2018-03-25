@@ -127,7 +127,7 @@ let
       "final.target"
       "kexec.target"
       "systemd-kexec.service"
-      "systemd-update-utmp.service"
+      #"systemd-update-utmp.service"
 
       # Password entry.
       "systemd-ask-password-console.path"
@@ -868,7 +868,7 @@ in
     systemd.services.systemd-journal-flush.restartIfChanged = false;
     systemd.services.systemd-random-seed.restartIfChanged = false;
     systemd.services.systemd-remount-fs.restartIfChanged = false;
-    systemd.services.systemd-update-utmp.restartIfChanged = false;
+    #systemd.services.systemd-update-utmp.restartIfChanged = false;
     systemd.services.systemd-user-sessions.restartIfChanged = false; # Restart kills all active sessions.
     # Restarting systemd-logind breaks X11
     # - upstream commit: https://cgit.freedesktop.org/xorg/xserver/commit/?id=dc48bd653c7e101
