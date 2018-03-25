@@ -21,8 +21,13 @@ import ./make-test.nix ({ pkgs, ...} : {
       extraUtilsCommands = ''
         copy_bin_and_libs ${pkgs.strace}/bin/strace
         copy_bin_and_libs ${pkgs.bash}/bin/bash
+        for BIN in ${pkgs.utillinux}/bin/*; do
+          copy_bin_and_libs $BIN
+        done
+        for BIN in ${pkgs.libuuid}/bin/*; do
+          copy_bin_and_libs $BIN
+        done
       '';
-        #copy_bin_and_libs ${pkgs.utillinux}/bin/*
       extraUtilsCommandsTest = ''
         find $out
         ldd $out/bin/fsck
