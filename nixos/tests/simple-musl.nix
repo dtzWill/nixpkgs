@@ -22,6 +22,7 @@ import ./make-test.nix ({ pkgs, ...} : {
         copy_bin_and_libs ${pkgs.strace}/bin/strace
         copy_bin_and_libs ${pkgs.bash}/bin/bash
       '';
+        #copy_bin_and_libs ${pkgs.utillinux}/bin/*
       extraUtilsCommandsTest = ''
         find $out
         ldd $out/bin/fsck

@@ -284,8 +284,7 @@ checkFS() {
     #ls -l /dev
     ls -l /dev/vda
     echo "POINT B"
-    cat /etc/fstab
-    cat /etc/mtab
+    #tail -n10000 /etc/fstab /etc/mtab
     #sync; sync; sync;
     #fsck $fsckFlags "$device"
     fsck.ext4 $fsckFlags "$device"
@@ -327,7 +326,10 @@ mountFS() {
     local optionsFiltered="$(IFS=,; for i in $options; do if [ "${i:0:2}" != "x-" ]; then echo -n $i,; fi; done)"
 
     echo "$device /mnt-root$mountPoint $fsType $optionsFiltered" >> /etc/fstab
-    cat /etc/fstab
+    sed -e 's/,$//' -i /etc/fstab
+    echo >> /etc/fstab
+    #tail -n1000 /etc/fstab
+    #tail -n10000 /etc/fstab /etc/mtab
     echo options="$options"
     command -v mount
     ps aux
@@ -361,7 +363,7 @@ mountFS() {
     # For CIFS mounts, retry a few times before giving up.
     local n=0
     while true; do
-        mount "/mnt-root$mountPoint" && break
+        mount $device "/mnt-root$mountPoint" && break
         if [ "$fsType" != cifs -o "$n" -ge 10 ]; then fail; break; fi
         echo "retrying..."
         n=$((n + 1))
