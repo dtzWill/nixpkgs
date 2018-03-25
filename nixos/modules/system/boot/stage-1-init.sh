@@ -19,7 +19,7 @@ if [ -d "@extraUtils@/secrets" ]; then
 fi
 
 # Stop LVM complaining about fd3
-bash -c "strace -tf -p $$ &"
+#bash -c "strace -tf -p $$ &"
 #export LVM_SUPPRESS_FD_WARNINGS=true
 
 fail() {
@@ -282,8 +282,12 @@ checkFS() {
     du -h $(command -v fsck)
     #fsck $fsckFlags "$device"
     #ls -l /dev
+    #echo "FILESYSTEMS:"
+    #cat /proc/filesystems
+
     ls -l /dev/vda
     echo "POINT B"
+    #exit 1
     #tail -n10000 /etc/fstab /etc/mtab
     #sync; sync; sync;
     #fsck $fsckFlags "$device"
@@ -363,7 +367,8 @@ mountFS() {
     # For CIFS mounts, retry a few times before giving up.
     local n=0
     while true; do
-        mount $device "/mnt-root$mountPoint" && break
+        # mount $device "/mnt-root$mountPoint" && break
+        mount "/mnt-root$mountPoint" && break
         if [ "$fsType" != cifs -o "$n" -ge 10 ]; then fail; break; fi
         echo "retrying..."
         n=$((n + 1))

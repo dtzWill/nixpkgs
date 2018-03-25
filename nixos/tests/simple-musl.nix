@@ -31,6 +31,8 @@ import ./make-test.nix ({ pkgs, ...} : {
         $out/bin/systemd-udevd --help
         $out/bin/strace -V
       '';
+
+      kernelModules = [ "ext4" ];
     };
   };
 
