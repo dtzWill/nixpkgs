@@ -3,6 +3,8 @@
 targetRoot=/mnt-root
 console=tty1
 
+# set -x
+
 extraUtils="@extraUtils@"
 export LD_LIBRARY_PATH=@extraUtils@/lib
 export PATH=@extraUtils@/bin
@@ -181,9 +183,12 @@ echo "running udev..."
 mkdir -p /etc/udev
 ln -sfn @udevRules@ /etc/udev/rules.d
 mkdir -p /dev/.mdadm
-systemd-udevd --daemon
+systemd-udevd --daemon -D
 udevadm trigger --action=add
 udevadm settle
+
+echo "POINT A"
+ps aux
 
 
 # XXX: Use case usb->lvm will still fail, usb->luks->lvm is covered
@@ -316,6 +321,10 @@ mountFS() {
     echo "$device /mnt-root$mountPoint $fsType $optionsFiltered" >> /etc/fstab
     cat /etc/fstab
     echo options="$options"
+    command -v mount
+    ps aux
+    #udevadm trigger --action=add
+    #udevadm settle
 
     checkFS "$device" "$fsType"
 

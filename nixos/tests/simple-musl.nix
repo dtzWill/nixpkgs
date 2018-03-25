@@ -21,6 +21,8 @@ import ./make-test.nix ({ pkgs, ...} : {
       find $out
       ldd $out/bin/fsck
       ldd $out/bin/fsck.ext4
+
+      $out/bin/systemd-udevd --help
     '';
   };
 
