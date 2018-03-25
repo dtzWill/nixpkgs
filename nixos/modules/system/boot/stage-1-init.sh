@@ -284,11 +284,15 @@ checkFS() {
     #du -h $(command -v fsck)
     #fsck $fsckFlags "$device"
     #ls -l /dev
-    #echo "FILESYSTEMS:"
-    #cat /proc/filesystems
 
     #ls -l /dev/vda
     echo "POINT B"
+    mount -vv
+    echo "FILESYSTEMS:"
+    cat /proc/filesystems
+    echo "EXIT"
+    sleep 3
+    #exit 2
     #exit 1
     #tail -n10000 /etc/fstab /etc/mtab
     #sync; sync; sync;
@@ -371,6 +375,8 @@ mountFS() {
     while true; do
         # mount $device "/mnt-root$mountPoint" && break
         mount -v "/mnt-root$mountPoint" && break
+        echo "ASDF"
+        exit 1
         if [ "$fsType" != cifs -o "$n" -ge 10 ]; then fail; break; fi
         echo "retrying..."
         n=$((n + 1))

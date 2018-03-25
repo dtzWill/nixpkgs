@@ -7,11 +7,23 @@ import ./make-test.nix ({ pkgs, ...} : {
   machine = { config, pkgs, ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
 
-    boot.initrd.extraUtilsCommandsTest = ''
-      find $out
-      ldd $out/bin/fsck
-      ldd $out/bin/fsck.ext4
-    '';
+    boot.initrd = {
+      extraUtilsCommands = ''
+        copy_bin_and_libs ${pkgs.strace}/bin/strace
+        copy_bin_and_libs ${pkgs.bash}/bin/bash
+      '';
+        #copy_bin_and_libs ${pkgs.utillinux}/bin/*
+      extraUtilsCommandsTest = ''
+        find $out
+        ldd $out/bin/fsck
+        ldd $out/bin/fsck.ext4
+
+        $out/bin/systemd-udevd --help
+      '';
+        #$out/bin/strace -V
+
+      kernelModules = [ "ext4" ];
+    };
   };
 
   testScript =

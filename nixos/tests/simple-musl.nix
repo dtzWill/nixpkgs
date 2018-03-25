@@ -18,10 +18,10 @@ import ./make-test.nix ({ pkgs, ...} : {
     i18n.glibcLocales = pkgs.musl;
 
     boot.initrd = {
-      #extraUtilsCommands = ''
-      #  copy_bin_and_libs ${pkgs.strace}/bin/strace
-      #  copy_bin_and_libs ${pkgs.bash}/bin/bash
-      #'';
+      extraUtilsCommands = ''
+        copy_bin_and_libs ${pkgs.strace}/bin/strace
+        copy_bin_and_libs ${pkgs.bash}/bin/bash
+      '';
         #copy_bin_and_libs ${pkgs.utillinux}/bin/*
       extraUtilsCommandsTest = ''
         find $out
