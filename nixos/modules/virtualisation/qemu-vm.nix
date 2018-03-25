@@ -379,6 +379,8 @@ in
     boot.initrd.extraUtilsCommands =
       ''
         # We need mke2fs in the initrd.
+        ls -l ${pkgs.e2fsprogs}/bin/mke2fs
+        ldd ${pkgs.e2fsprogs}/bin/mke2fs
         copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
       '';
 
@@ -387,8 +389,12 @@ in
         # If the disk image appears to be empty, run mke2fs to
         # initialise.
         FSTYPE=$(blkid -o value -s TYPE ${cfg.bootDevice} || true)
+        echo $(command -v blkid)
+        blkid -o value -s TYPE ${cfg.bootDevice}
+        echo bootDevice=${cfg.bootDevice}
         if test -z "$FSTYPE"; then
-            mke2fs -t ext4 ${cfg.bootDevice}
+            mke2fs -t ext4 -v ${cfg.bootDevice}
+            hdparm -z ${cfg.bootDevice}
         fi
       '';
 

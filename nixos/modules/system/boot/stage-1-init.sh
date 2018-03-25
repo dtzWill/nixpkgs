@@ -281,7 +281,10 @@ checkFS() {
     #fsck $fsckFlags "$device"
     #ls -l /dev
     ls -l /dev/vda
+    echo "POINT B"
     cat /etc/fstab
+    cat /etc/mtab
+    mount
     fsck $fsckFlags "$device"
     fsckResult=$?
 

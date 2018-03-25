@@ -37,7 +37,7 @@ let
     declare -A seen
     declare -a left
 
-    patchelf="${pkgs.buildPackages.patchelf}/bin/patchelf"
+    patchelf="${pkgs.buildPackages.patchelfUnstable}/bin/patchelf"
 
     function add_needed {
       rpath="$($patchelf --print-rpath $1)"
@@ -172,7 +172,7 @@ let
       find $out/bin -type f | while read i; do
         if ! test -L $i; then
           echo "patching $i..."
-          patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
+          ${pkgs.buildPackages.patchelfUnstable}/bin/patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
         fi
       done
 
