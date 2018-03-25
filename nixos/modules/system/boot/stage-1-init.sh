@@ -275,6 +275,8 @@ checkFS() {
     echo $(command -v fsck.ext4)
     ldd $(command -v fsck)
     ldd $(command -v fsck.ext4)
+    ldd $(command -v mke2fs)
+    ldd $(command -v blkid)
     du -h $(command -v fsck)
     #fsck $fsckFlags "$device"
     #ls -l /dev
