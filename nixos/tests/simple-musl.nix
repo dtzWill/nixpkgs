@@ -17,13 +17,20 @@ import ./make-test.nix ({ pkgs, ...} : {
     #i18n.glibcLocales = (import (fetchTarball channel:nixos-unstable) {}).glibcLocales;
     i18n.glibcLocales = pkgs.musl;
 
-    boot.initrd.extraUtilsCommandsTest = ''
-      find $out
-      ldd $out/bin/fsck
-      ldd $out/bin/fsck.ext4
+    boot.initrd = {
+      extraUtilsCommands = ''
+        copy_bin_and_libs ${pkgs.strace}/bin/strace
+        copy_bin_and_libs ${pkgs.bash}/bin/bash
+      '';
+      extraUtilsCommandsTest = ''
+        find $out
+        ldd $out/bin/fsck
+        ldd $out/bin/fsck.ext4
 
-      $out/bin/systemd-udevd --help
-    '';
+        $out/bin/systemd-udevd --help
+        $out/bin/strace -V
+      '';
+    };
   };
 
   testScript =
