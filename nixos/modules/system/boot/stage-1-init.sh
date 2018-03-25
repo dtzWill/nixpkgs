@@ -272,9 +272,10 @@ checkFS() {
     ldd $(command -v fsck.ext4)
     du -h $(command -v fsck)
     #fsck $fsckFlags "$device"
-    ls -l /dev
+    #ls -l /dev
+    ls -l /dev/vda
     cat /etc/fstab
-    fsck.ext4 $fsckFlags "$device"
+    fsck $fsckFlags "$device"
     fsckResult=$?
 
     if test $(($fsckResult | 2)) = $fsckResult; then
@@ -314,6 +315,7 @@ mountFS() {
 
     echo "$device /mnt-root$mountPoint $fsType $optionsFiltered" >> /etc/fstab
     cat /etc/fstab
+    echo options="$options"
 
     checkFS "$device" "$fsType"
 
@@ -500,6 +502,8 @@ while read -u 3 mountPoint; do
     udevadm settle
 
     # If copytoram is enabled: skip mounting the ISO and copy its content to a tmpfs.
+    echo copytoram=$copytoram device=$device mountPoint=$mountPoint
+    echo pseudoDevice=$pseudoDevice
     if [ -n "$copytoram" ] && [ "$device" = /dev/root ] && [ "$mountPoint" = /iso ]; then
       fsType=$(blkid -o value -s TYPE "$device")
       fsSize=$(blockdev --getsize64 "$device")
