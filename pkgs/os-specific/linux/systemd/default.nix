@@ -96,6 +96,7 @@ in stdenv.mkDerivation (rec {
     "-Dsmack=false"
     "-Dldconfig=false"
     "-Dutmp=false"
+    "-Dtmpfiles=false"
   ];
 
   preConfigure = ''
@@ -179,10 +180,10 @@ in stdenv.mkDerivation (rec {
     # systemd-tmpfiles-setup.service. This interferes with NixOps's
     # send-keys feature (since sshd.service depends indirectly on
     # sysinit.target).
-    mv $out/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service $out/lib/systemd/system/multi-user.target.wants/
+    #mv $out/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service $out/lib/systemd/system/multi-user.target.wants/
 
     mkdir -p $out/example/systemd
-    mv $out/lib/{modules-load.d,binfmt.d,sysctl.d,tmpfiles.d} $out/example
+    mv $out/lib/{modules-load.d,binfmt.d,sysctl.d} $out/example
     mv $out/lib/systemd/{system,user} $out/example/systemd
 
     rm -rf $out/etc/systemd/system
