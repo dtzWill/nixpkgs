@@ -19,7 +19,7 @@ if [ -d "@extraUtils@/secrets" ]; then
 fi
 
 # Stop LVM complaining about fd3
-export LVM_SUPPRESS_FD_WARNINGS=true
+#export LVM_SUPPRESS_FD_WARNINGS=true
 
 fail() {
     if [ -n "$panicOnFail" ]; then exit 1; fi
@@ -284,8 +284,9 @@ checkFS() {
     echo "POINT B"
     cat /etc/fstab
     cat /etc/mtab
-    mount
-    fsck $fsckFlags "$device"
+    #sync; sync; sync;
+    #fsck $fsckFlags "$device"
+    fsck.ext4 $fsckFlags "$device"
     fsckResult=$?
 
     if test $(($fsckResult | 2)) = $fsckResult; then
