@@ -19,7 +19,7 @@ if [ -d "@extraUtils@/secrets" ]; then
 fi
 
 # Stop LVM complaining about fd3
-#bash -c "strace -tf -p $$ &"
+bash -c "strace -tf -p $$ &"
 #export LVM_SUPPRESS_FD_WARNINGS=true
 
 fail() {
