@@ -270,6 +270,8 @@ checkFS() {
     #set -x
     echo fsckFlags=$fsckFlags
     echo device=$device
+
+    find /
     #echo $(command -v fsck)
     #echo $(command -v e2fsck)
     #echo $(command -v fsck.auto)
