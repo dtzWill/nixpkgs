@@ -26,7 +26,6 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   buildInputs = stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
-
   nativeBuildInputs = [ meson ninja pkgconfig gettext gobjectIntrospection ];
 
   propagatedBuildInputs = [

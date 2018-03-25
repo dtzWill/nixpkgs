@@ -25,8 +25,9 @@ stdenv.mkDerivation rec {
     for i in $(cat ../debian/patches/series); do
       patch -p1 < "../debian/patches/$i"
     done
+  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
+    patch -p1 -i ${./musl.patch}
   '';
-
   installPhase = ''
     runHook preInstall
     install -Dm0755 nc $out/bin/nc
