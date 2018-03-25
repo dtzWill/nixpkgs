@@ -1,6 +1,6 @@
 { system, minimal ? false, config ? {} }:
 
-let pkgs = import ../.. { inherit system config; }; in
+let pkgs = import ../.. { inherit config; localSystem.config = "x86_64-unknown-linux-musl"; }; in
 
 with pkgs.lib;
 with import ../lib/qemu-flags.nix { inherit pkgs; };
