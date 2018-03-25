@@ -19,6 +19,7 @@ if [ -d "@extraUtils@/secrets" ]; then
 fi
 
 # Stop LVM complaining about fd3
+#bash -c "strace -tf -p $$ &"
 #export LVM_SUPPRESS_FD_WARNINGS=true
 
 fail() {
@@ -266,6 +267,7 @@ checkFS() {
     if test "$fsType" != "btrfs"; then
         fsckFlags="-V -a"
     fi
+    #set -x
     echo fsckFlags=$fsckFlags
     echo device=$device
     echo $(command -v fsck)
