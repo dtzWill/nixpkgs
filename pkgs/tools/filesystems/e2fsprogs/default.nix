@@ -15,12 +15,15 @@ stdenv.mkDerivation rec {
   buildInputs = [ libuuid gettext ];
 
   configureFlags =
-    if stdenv.isLinux then [
+    (if stdenv.isLinux then [
       "--enable-elf-shlibs" "--enable-symlink-install" "--enable-relative-symlinks"
       # libuuid, libblkid, uuidd and fsck are in util-linux-ng (the "libuuid" dependency).
       "--disable-libuuid" "--disable-uuidd" "--disable-libblkid" "--disable-fsck"
     ] else [
       "--enable-libuuid --disable-e2initrd-helper"
+    ])
+    ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+      "--disable-nls"
     ]
   ;
 
