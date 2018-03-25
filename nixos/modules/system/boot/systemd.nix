@@ -83,7 +83,7 @@ let
 
       # Kernel module loading.
       "systemd-modules-load.service"
-      "kmod-static-nodes.service"
+     # "kmod-static-nodes.service"
 
       # Filesystems.
       "systemd-fsck@.service"
@@ -144,10 +144,10 @@ let
       "systemd-nspawn@.service"
 
       # Temporary file creation / cleanup.
-      "systemd-tmpfiles-clean.service"
-      "systemd-tmpfiles-clean.timer"
-      "systemd-tmpfiles-setup.service"
-      "systemd-tmpfiles-setup-dev.service"
+#      "systemd-tmpfiles-clean.service"
+#      "systemd-tmpfiles-clean.timer"
+#      "systemd-tmpfiles-setup.service"
+#      "systemd-tmpfiles-setup-dev.service"
 
       # Misc.
       "systemd-sysctl.service"
