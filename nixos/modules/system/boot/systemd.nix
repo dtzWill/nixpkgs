@@ -127,7 +127,9 @@ let
       "final.target"
       "kexec.target"
       "systemd-kexec.service"
+    ] ++ optionals (false && !pkgs.stdenv.hostPlatform.isMusl) [
       "systemd-update-utmp.service"
+    ] ++ [
 
       # Password entry.
       "systemd-ask-password-console.path"
