@@ -228,4 +228,8 @@ in stdenv.mkDerivation (rec {
       sha256 = "13v7yzyifilb41jjjmwh3vlfaw6la5ilhrxbmipif3p69pbm355f";
     })
   ];
+  postPatch = ''
+    substituteInPlace ./src/basic/generate-af-list.sh \
+      --replace 'PF_' '[AP]F_'
+  '';
 })
