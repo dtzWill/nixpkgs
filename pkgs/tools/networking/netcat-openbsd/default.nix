@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pkgconfig, libbsd}:
+{stdenv, fetchurl, fetchpatch, pkgconfig, libbsd}:
 
 stdenv.mkDerivation rec {
   version = "1.187";
@@ -25,9 +25,15 @@ stdenv.mkDerivation rec {
     for i in $(cat ../debian/patches/series); do
       patch -p1 < "../debian/patches/$i"
     done
-  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -i ${./musl.patch}
   '';
+
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl [
+    (fetchpatch {
+      url = "https://gitweb.gentoo.org/proj/musl.git/plain/net-analyzer/openbsd-netcat/files/openbsd-netcat-1.105-b64_ntop.patch?id=4a5864922232c7df550c21f2a7b77fe6f8ffc6d6";
+      sha256 = "1cgqb6fxas5yiwf26hq57v627hhmcskl5j6rx30090ha2ksjqyvr";
+    })
+  ];
+
   installPhase = ''
     runHook preInstall
     install -Dm0755 nc $out/bin/nc
