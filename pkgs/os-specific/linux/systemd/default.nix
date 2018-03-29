@@ -10,6 +10,7 @@
 , getent
 , hostPlatform
 , buildPackages
+, withSelinux ? false, libselinux
 }:
 
 assert stdenv.isLinux;
@@ -42,11 +43,14 @@ in stdenv.mkDerivation (rec {
   buildInputs =
     [ linuxHeaders libcap kmod xz pam acl
       /* cryptsetup */ libuuid glib libgcrypt libgpgerror libidn2
-      libmicrohttpd kexectools libseccomp libffi audit lz4 bzip2 libapparmor
+      libmicrohttpd ] ++
+      stdenv.lib.meta.enableIfAvailable kexectools ++
+      stdenv.lib.meta.enableIfAvailable libseccomp ++
+    [ libffi audit lz4 bzip2 libapparmor
       iptables gnu-efi
       # This is actually native, but we already pull it from buildPackages
       pythonLxmlEnv
-    ];
+    ] ++ stdenv.lib.optionals withSelinux [ libselinux ];
 
   #dontAddPrefix = true;
 
@@ -75,7 +79,7 @@ in stdenv.mkDerivation (rec {
     "-Dsystem-gid-max=499"
     # "-Dtime-epoch=1"
 
-    (if stdenv.isArm || !hostPlatform.isEfi then "-Dgnu-efi=false" else "-Dgnu-efi=true")
+    (if stdenv.isArm || stdenv.isAarch64 || !hostPlatform.isEfi then "-Dgnu-efi=false" else "-Dgnu-efi=true")
     "-Defi-libdir=${toString gnu-efi}/lib"
     "-Defi-includedir=${toString gnu-efi}/include/efi"
     "-Defi-ldsdir=${toString gnu-efi}/lib"
