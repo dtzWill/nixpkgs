@@ -22,13 +22,16 @@ in stdenv.mkDerivation rec {
     "-DDEFAULT_EGL_VENDOR_CONFIG_DIRS=\"${driverLink}/share/glvnd/egl_vendor.d:/etc/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d\""
   ];
 
-  # Upstream patch fixing use of libdl, should be in next release.
+  # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
+  configureFlags  = stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-tls";
+
   patches = [
     (fetchpatch {
       url = "https://github.com/NVIDIA/libglvnd/commit/0177ade40262e31a80608a8e8e52d3da7163dccf.patch";
       sha256 = "1rnz5jw2gvx4i1lcp0k85jz9xgr3dgzsd583m2dlxkaf2a09j89d";
     })
   ];
+
   outputs = [ "out" "dev" ];
 
   passthru = { inherit driverLink; };
