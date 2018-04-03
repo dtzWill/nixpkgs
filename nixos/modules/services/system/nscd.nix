@@ -21,7 +21,7 @@ in
 
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false; # isGlibc
         description = "Whether to enable the Name Service Cache Daemon.";
       };
 
