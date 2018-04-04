@@ -10,7 +10,10 @@ let
       name = "sddm";
 
       machine = { lib, ... }: {
-        imports = [ ./common/user-account.nix ../modules/config/musl.nix ];
+        imports = [
+          ./common/user-account.nix
+          ../modules/config/musl.nix
+        ];
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
         services.xserver.windowManager.default = "icewm";
@@ -40,7 +43,10 @@ let
       };
 
       machine = { lib, ... }: {
-        imports = [ ./common/user-account.nix ];
+        imports = [
+          ./common/user-account.nix
+          ../modules/config/musl.nix
+        ];
         services.xserver.enable = true;
         services.xserver.displayManager.sddm = {
           enable = true;
