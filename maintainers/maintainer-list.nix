@@ -315,6 +315,11 @@
     email = "alex@farfromthere.net";
     github = "AJChapman";
   };
+  alexfmpe = {
+    email = "alexandre.fmp.esteves@gmail.com";
+    github = "alexfmpe";
+    name = "Alexandre Esteves";
+  };
   alexvorobiev = {
     email = "alexander.vorobiev@gmail.com";
     github = "alexvorobiev";
@@ -714,6 +719,11 @@
     email = "shum@canndrew.org";
     github = "canndrew";
     name = "Andrew Cann";
+  };
+  carlosdagos = {
+    email = "m@cdagostino.io";
+    github = "carlosdagos";
+    name = "Carlos D'Agostino";
   };
   carlsverre = {
     email = "accounts@carlsverre.com";
@@ -2664,6 +2674,11 @@
     email = "nicolas@nmattia.com";
     github = "nmattia";
     name = "Nicolas Mattia";
+  };
+  nocent = {
+    email = "nocent@protonmail.ch";
+    github = "nocent";
+    name = "nocent";
   };
   nocoolnametom = {
     email = "nocoolnametom@gmail.com";
