@@ -24,10 +24,8 @@ let
       "network.target"
       "network-pre.target"
       "network-online.target"
-    ] ++ glibcOnlys [
       "nss-lookup.target"
       "nss-user-lookup.target"
-    ] ++ [
       "time-sync.target"
       #"cryptsetup.target"
       "sigpwr.target"
