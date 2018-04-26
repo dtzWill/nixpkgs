@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
   ] ++ optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ optional withKerberos (assert kerberos != null; "--with-kerberos5=${kerberos}")
     ++ optional stdenv.isDarwin "--disable-libutil"
-    ++ optional (!linkOpenssl) "--without-openssl";
+    ++ optional (!linkOpenssl) "--without-openssl"
+    ++ optional stdenv.hostPlatform.isMusl "--disable-wtmp";
 
   enableParallelBuilding = true;
 
