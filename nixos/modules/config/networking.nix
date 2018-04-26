@@ -200,12 +200,12 @@ in
         # /etc/rpc: RPC program numbers.
         # TODO: generate and bundle as part of iana-etc
         "rpc".source =
-          if pkgs.stdenv.hostPlatform.libc == "glibc" then
-            pkgs.glibc.out + "/etc/rpc"
-            else pkgs.fetchurl {
-              url = https://raw.githubusercontent.com/freebsd/freebsd/91f34482ca182b474992ae5c488e1c4099b921ed/etc/rpc;
-              sha256 = "0vnyrlazgjy0piw0cyd6qhw8mci3r9nx5ns3fr0bi1n7flqx1m3a";
-            };
+          #if pkgs.stdenv.hostPlatform.libc == "glibc" then
+            pkgs.glibc.out + "/etc/rpc" ;
+          #  else pkgs.fetchurl {
+          #    url = https://raw.githubusercontent.com/freebsd/freebsd/91f34482ca182b474992ae5c488e1c4099b921ed/etc/rpc;
+          #    sha256 = "0vnyrlazgjy0piw0cyd6qhw8mci3r9nx5ns3fr0bi1n7flqx1m3a";
+          #  };
 
         # /etc/hosts: Hostname-to-IP mappings.
         "hosts".text =
