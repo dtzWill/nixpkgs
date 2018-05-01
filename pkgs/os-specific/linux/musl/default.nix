@@ -30,7 +30,7 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "musl-${version}";
-  version = "1.1.19-git";
+  version = "1.1.19";
 
   #src = builtins.fetchGit ~/cur/musl;
   #src = builtins.fetchGit git://git.musl-libc.org/musl;
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   dontDisableStatic = true;
-  #separateDebugInfo = true;
+  separateDebugInfo = true;
 
   NIX_DONT_SET_RPATH = true;
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
 
     # Strip debug out of the static library
-    #$STRIP -S $out/lib/libc.a
+    $STRIP -S $out/lib/libc.a
     mkdir -p $out/bin
 
     # Create 'ldd' symlink, builtin
@@ -106,8 +106,6 @@ stdenv.mkDerivation rec {
     install -D ${cdefs_h} $dev/include/sys/cdefs.h
     install -D ${tree_h} $dev/include/sys/tree.h
   '';
-
-  dontStrip = true;
 
   passthru.linuxHeaders = linuxHeaders;
 
