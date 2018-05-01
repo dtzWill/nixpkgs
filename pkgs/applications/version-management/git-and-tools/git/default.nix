@@ -9,7 +9,7 @@
 , guiSupport
 , withManual ? true
 , pythonSupport ? true
-, withpcre2 ? true
+, withpcre2 ? false # true
 , sendEmailSupport
 , darwin
 }:
@@ -33,6 +33,9 @@ stdenv.mkDerivation {
   outputs = [ "out" ] ++ stdenv.lib.optional perlSupport "gitweb";
 
   hardeningDisable = [ "format" ];
+
+  NIX_CFLAGS_COMPILE = [ "-O1" "-g" ];
+  dontStrip = true;
 
   enableParallelBuilding = true;
 
@@ -88,7 +91,7 @@ stdenv.mkDerivation {
   ++ (if pythonSupport then ["PYTHON_PATH=${python}/bin/python"] else ["NO_PYTHON=1"])
   ++ stdenv.lib.optionals stdenv.isSunOS ["INSTALL=install" "NO_INET_NTOP=" "NO_INET_PTON="]
   ++ (if stdenv.isDarwin then ["NO_APPLE_COMMON_CRYPTO=1"] else ["sysconfdir=/etc/"])
-  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "NO_REGEX=YesPlease" ]# "NO_GETTEXT=YesPlease"]
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "LIBC_CONTAINS_LIBINTL=1" "NO_GETTEXT=1"]
   ++ stdenv.lib.optional withpcre2 "USE_LIBPCRE2=1";
 
   # build git-credential-osxkeychain if darwin
@@ -248,6 +251,7 @@ EOF
   preInstallCheck = ''
     installCheckFlagsArray+=(
       GIT_PROVE_OPTS="--jobs $NIX_BUILD_CORES --failures --state=failed,save"
+      GIT_TEST_OPTS="--verbose-log --debug"
       GIT_TEST_INSTALLED=$out/bin
       ${stdenv.lib.optionalString (!svnSupport) "NO_SVN_TESTS=y"}
     )
