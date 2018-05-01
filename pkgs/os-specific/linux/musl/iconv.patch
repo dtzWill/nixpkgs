@@ -1,0 +1,25 @@
+From f0c68306ba3418bf85b81f3bf3580b2d6973951e Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Tue, 1 May 2018 16:03:25 -0500
+Subject: [PATCH] iconv.c: add missing check against output buffer size
+
+---
+ src/locale/iconv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/locale/iconv.c b/src/locale/iconv.c
+index dbb7d44f..3c1f4dd2 100644
+--- a/src/locale/iconv.c
++++ b/src/locale/iconv.c
+@@ -539,7 +539,7 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 			if (*outb < 1) goto toobig;
+ 			if (c<256 && c==legacy_map(tomap, c)) {
+ 			revout:
+-        if (*outb < 1) goto toobig;
++				if (*outb < 1) goto toobig;
+ 				*(*out)++ = c;
+ 				*outb -= 1;
+ 				break;
+-- 
+2.17.0
+

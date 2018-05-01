@@ -32,18 +32,20 @@ stdenv.mkDerivation rec {
   name    = "musl-${version}";
   version = "1.1.19-git";
 
-  src = builtins.fetchGit ~/cur/musl;
+  #src = builtins.fetchGit ~/cur/musl;
   #src = builtins.fetchGit git://git.musl-libc.org/musl;
-  #src = fetchurl {
-  #  url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
-  #  sha256 = "1nf1wh44bhm8gdcfr75ayib29b99vpq62zmjymrq7f96h9bshnfv";
-  #};
+  src = fetchurl {
+    url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
+    sha256 = "1nf1wh44bhm8gdcfr75ayib29b99vpq62zmjymrq7f96h9bshnfv";
+  };
 
   enableParallelBuilding = true;
 
   # Disable auto-adding stack protector flags,
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
+
+  patches = [ ./iconv.patch ];
 
   # Leave these, be friendlier to debuggers/perf tools
   # Don't force them on, but don't force off either
