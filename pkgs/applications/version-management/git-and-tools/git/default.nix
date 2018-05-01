@@ -12,6 +12,7 @@
 , withpcre2 ? false # true
 , sendEmailSupport
 , darwin
+, autoreconfHook
 }:
 
 assert sendEmailSupport -> perlSupport;
@@ -44,7 +45,7 @@ stdenv.mkDerivation {
 
   patches = [
     ./docbook2texi.patch
-    ./symlinks-in-bin.patch
+    #./symlinks-in-bin.patch
     ./git-sh-i18n.patch
     ./ssh-path.patch
     ./git-send-email-honor-PATH.patch
@@ -62,7 +63,7 @@ stdenv.mkDerivation {
         --subst-var-by gettext ${gettext}
   '';
 
-  nativeBuildInputs = [ gettext perl ]
+  nativeBuildInputs = [ autoreconfHook gettext perl ]
     ++ stdenv.lib.optionals withManual [ asciidoc texinfo xmlto docbook2x
          docbook_xsl docbook_xml_dtd_45 libxslt ];
   buildInputs = [curl openssl zlib expat cpio makeWrapper libiconv]
@@ -92,7 +93,7 @@ stdenv.mkDerivation {
   ++ (if pythonSupport then ["PYTHON_PATH=${python}/bin/python"] else ["NO_PYTHON=1"])
   ++ stdenv.lib.optionals stdenv.isSunOS ["INSTALL=install" "NO_INET_NTOP=" "NO_INET_PTON="]
   ++ (if stdenv.isDarwin then ["NO_APPLE_COMMON_CRYPTO=1"] else ["sysconfdir=/etc/"])
-  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "LIBC_CONTAINS_LIBINTL=1" "NO_GETTEXT=1"]
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "LIBC_CONTAINS_LIBINTL=1" "NO_GETTEXT=1" "NO_REGEX=NeedsStartEnd"]
   ++ stdenv.lib.optional withpcre2 "USE_LIBPCRE2=1";
 
   # build git-credential-osxkeychain if darwin
