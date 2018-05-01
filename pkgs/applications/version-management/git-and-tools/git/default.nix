@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   patches = [
     ./docbook2texi.patch
     ./symlinks-in-bin.patch
-    ./git-sh-i18n.patch
+    #./git-sh-i18n.patch
     ./ssh-path.patch
     ./git-send-email-honor-PATH.patch
     ./installCheck-path.patch
@@ -53,12 +53,12 @@ stdenv.mkDerivation {
         --subst-var-by ssh "${openssh}/bin/ssh"
     done
 
-    # Fix references to gettext introduced by ./git-sh-i18n.patch
-    substituteInPlace git-sh-i18n.sh \
-        --subst-var-by gettext ${gettext}
   '';
 
-  nativeBuildInputs = [ gettext perl ]
+    ## Fix references to gettext introduced by ./git-sh-i18n.patch
+    #substituteInPlace git-sh-i18n.sh \
+    #    --subst-var-by gettext ${gettext}
+  nativeBuildInputs = [ perl ]
     ++ stdenv.lib.optionals withManual [ asciidoc texinfo xmlto docbook2x
          docbook_xsl docbook_xml_dtd_45 libxslt ];
   buildInputs = [curl openssl zlib expat cpio makeWrapper libiconv]
