@@ -26,7 +26,8 @@ in
 stdenv.mkDerivation {
   name = "git-${version}";
 
-  src = builtins.fetchGit { url = https://github.com/git/git; ref = "next"; };
+  # src = builtins.fetchGit { url = https://github.com/git/git; ref = "next"; };
+  src = builtins.fetchGit /home/will/cur/git;
   #src = fetchurl {
   #  url = "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz";
   #  sha256 = "1ismz7nsz8dgjmk782xr9s0mr2qh06f72pdcgbxfmnw1bvlya5p9";
@@ -36,7 +37,7 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  NIX_CFLAGS_COMPILE = [ "-O1" "-g" ];
+  NIX_CFLAGS_COMPILE = [ "-O1" "-g"];# "-fsanitize=address" ];
   dontStrip = true;
 
   enableParallelBuilding = true;
