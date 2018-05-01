@@ -274,7 +274,7 @@ EOF
     disable_test t1301-shared-repo
 
     # Our patched gettext never fallbacks
-    # disable_test t0201-gettext-fallbacks
+    disable_test t0201-gettext-fallbacks
 
     ${stdenv.lib.optionalString (!sendEmailSupport) ''
       # Disable sendmail tests
