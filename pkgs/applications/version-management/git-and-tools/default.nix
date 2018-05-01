@@ -4,7 +4,6 @@
 args @ {pkgs}: with args; with pkgs;
 let
   gitBase = callPackage ./git {
-    stdenv = llvmPackages_6.libcxxStdenv;
     texinfo = texinfo5;
     svnSupport = false;         # for git-svn support
     guiSupport = false;         # requires tcl/tk
