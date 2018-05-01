@@ -36,7 +36,7 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  NIX_CFLAGS_COMPILE = [ "-O1" "-g" "-fsanitize=address" ];
+  NIX_CFLAGS_COMPILE = [ "-O1" "-g" ];
   dontStrip = true;
 
   enableParallelBuilding = true;
