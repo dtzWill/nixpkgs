@@ -47,7 +47,7 @@ stdenv.mkDerivation {
   patches = [
     ./docbook2texi.patch
     #./symlinks-in-bin.patch
-    ./git-sh-i18n.patch
+    #./git-sh-i18n.patch
     ./ssh-path.patch
     ./git-send-email-honor-PATH.patch
     ./installCheck-path.patch
@@ -94,7 +94,7 @@ stdenv.mkDerivation {
   ++ (if pythonSupport then ["PYTHON_PATH=${python}/bin/python"] else ["NO_PYTHON=1"])
   ++ stdenv.lib.optionals stdenv.isSunOS ["INSTALL=install" "NO_INET_NTOP=" "NO_INET_PTON="]
   ++ (if stdenv.isDarwin then ["NO_APPLE_COMMON_CRYPTO=1"] else ["sysconfdir=/etc/"])
-  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "NO_REGEX=NeedsStartEnd"]
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "NO_REGEX=NeedsStartEnd"" NO_GETTEXT=1"]
   ++ stdenv.lib.optional withpcre2 "USE_LIBPCRE2=1";
 
   # build git-credential-osxkeychain if darwin
@@ -274,7 +274,7 @@ EOF
     disable_test t1301-shared-repo
 
     # Our patched gettext never fallbacks
-    disable_test t0201-gettext-fallbacks
+    # disable_test t0201-gettext-fallbacks
 
     ${stdenv.lib.optionalString (!sendEmailSupport) ''
       # Disable sendmail tests
