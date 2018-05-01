@@ -26,7 +26,7 @@ in
 stdenv.mkDerivation {
   name = "git-${version}";
 
-  src = builtins.fetchGit https://github.com/git/git;
+  src = builtins.fetchGit { url = https://github.com/git/git; ref = "next"; };
   #src = fetchurl {
   #  url = "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz";
   #  sha256 = "1ismz7nsz8dgjmk782xr9s0mr2qh06f72pdcgbxfmnw1bvlya5p9";
