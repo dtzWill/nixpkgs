@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     "bash_cv_termcap_lib=libncurses"
   ] ++ optionals (hostPlatform.libc == "musl") [
     "--without-bash-malloc"
-    "--disable-nls"
+    #"--disable-nls"
   ];
 
   # Note: Bison is needed because the patches above modify parse.y.
