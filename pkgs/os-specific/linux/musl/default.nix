@@ -21,6 +21,7 @@ let
   # Original: http://git.etalabs.net/cgit/noxcuse/plain/src/iconv.c?id=02d288d89683e99fd18fe9f54d4e731a6c474a4f
   # We use copy from Alpine which fixes error messages, see:
   # https://git.alpinelinux.org/cgit/aports/commit/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f
+  #iconv_c = /home/will/cur/iconv/iconv.c;
   iconv_c = fetchurl {
     name = "iconv.c";
     url = "https://git.alpinelinux.org/cgit/aports/plain/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f";
@@ -47,7 +48,7 @@ stdenv.mkDerivation rec {
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
-  #patches = [ ./iconv.patch ];
+  patches = [ ./iconv.patch ./utf32.patch ];
 
   # Leave these, be friendlier to debuggers/perf tools
   # Don't force them on, but don't force off either

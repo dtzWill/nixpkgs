@@ -1,0 +1,31 @@
+From f49ee6afa69d0736ddad1ace0adfb4597075a6ac Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 3 May 2018 13:44:53 -0500
+Subject: [PATCH] iconv: fix conversion to utf32, treat like utf32be
+
+I'm not sure how best to describe current behavior,
+we treat to=utf32 somewhat like to=ascii
+and the result is not valid UTF32.
+
+This change treats to=utf32 like to=utf32be,
+similar to what's done with utf16.
+---
+ src/locale/iconv.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/locale/iconv.c b/src/locale/iconv.c
+index 3c1f4dd2..3a34395c 100644
+--- a/src/locale/iconv.c
++++ b/src/locale/iconv.c
+@@ -646,6 +646,8 @@ size_t iconv(iconv_t cd, char **restrict in, size_t *restrict inb, char **restri
+ 			*out += 4;
+ 			*outb -= 4;
+ 			break;
++		case UTF_32:
++			totype = UTF_32BE;
+ 		case UTF_32BE:
+ 		case UTF_32LE:
+ 			if (*outb < 4) goto toobig;
+-- 
+2.17.0
+
