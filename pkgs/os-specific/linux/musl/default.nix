@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
   version = "1.1.19";
 
   #src = builtins.fetchGit ~/cur/musl;
-  src = builtins.fetchGit git://git.musl-libc.org/musl;
+  #src = builtins.fetchGit /home/will/misc/2018/mar/musl;
+  src = /home/will/misc/2017/july/musl;
+  #src = builtins.fetchGit git://git.musl-libc.org/musl;
   #src = fetchurl {
   #  url    = "http://www.musl-libc.org/releases/musl-${version}.tar.gz";
   #  sha256 = "1nf1wh44bhm8gdcfr75ayib29b99vpq62zmjymrq7f96h9bshnfv";
@@ -45,7 +47,7 @@ stdenv.mkDerivation rec {
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
-  patches = [ ./iconv.patch ];
+  #patches = [ ./iconv.patch ];
 
   # Leave these, be friendlier to debuggers/perf tools
   # Don't force them on, but don't force off either
