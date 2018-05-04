@@ -9,7 +9,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1mwgb442w12mwhn1qjj7d1l2vhji74qp07py6aghkpjm42x76dzh";
   };
 
-  buildInputs = with python3.pkgs; [ youtube-dl click PyChromecast ];
+  propagatedBuildInputs = with python3.pkgs; [ youtube-dl click PyChromecast ];
 
   doCheck = false; # requires network access
 
