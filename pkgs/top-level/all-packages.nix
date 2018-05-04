@@ -15079,6 +15079,8 @@ with pkgs;
 
   cask = callPackage ../development/tools/build-managers/cask { };
 
+  catt = callPackage ../tools/misc/catt { };
+
   cb2bib = libsForQt5.callPackage ../applications/office/cb2bib { };
 
   cbatticon = callPackage ../applications/misc/cbatticon { };
