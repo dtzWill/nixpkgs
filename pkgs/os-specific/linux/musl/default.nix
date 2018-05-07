@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   # so musl can selectively disable as needed
   hardeningDisable = [ "stackprotector" ];
 
-  patches = [ ./iconv.patch ];
+  patches = [ ./iconv.patch ./utf32.patch ];
 
   # Leave these, be friendlier to debuggers/perf tools
   # Don't force them on, but don't force off either
