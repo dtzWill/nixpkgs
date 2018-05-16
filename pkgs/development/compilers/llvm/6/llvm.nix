@@ -151,7 +151,7 @@ in stdenv.mkDerivation (rec {
 
     "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
 
-    #"--trace"
+    "--trace"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
