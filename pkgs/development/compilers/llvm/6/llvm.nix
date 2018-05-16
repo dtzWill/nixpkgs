@@ -33,9 +33,10 @@ in stdenv.mkDerivation (rec {
     unpackFile ${src}
     mv llvm-${version}* llvm
     sourceRoot=$PWD/llvm
-    unpackFile ${compiler-rt_src}
-    mv compiler-rt-* $sourceRoot/projects/compiler-rt
   '';
+#    unpackFile ${compiler-rt_src}
+#    mv compiler-rt-* $sourceRoot/projects/compiler-rt
+#  '';
 
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
@@ -78,7 +79,6 @@ in stdenv.mkDerivation (rec {
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "add_subdirectory(DynamicLibrary)" ""
     rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    patch -p1 -i ${./compiler-rt-sanitizers-6.0.0-musl-patches.patch} -d projects/compiler-rt
   '';
 
   # hacky fix: created binaries need to be run before installation
@@ -93,7 +93,7 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_BUILD_TESTS=ON"
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
-    "-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
+    #"-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
