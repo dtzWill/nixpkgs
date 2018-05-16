@@ -99,10 +99,10 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
-  #preConfigure = ''
-  #  unset CC
-  #  unset CXX
-  #'';
+  preConfigure = ''
+    unset CC
+    unset CXX
+  '';
 
   cmakeFlags = with stdenv; [
     "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
