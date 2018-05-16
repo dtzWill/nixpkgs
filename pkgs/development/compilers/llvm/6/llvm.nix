@@ -18,10 +18,27 @@
 , enableSharedLibraries ? true
 , enableWasm ? true
 , darwin
+, buildPackages
+, writeText
 }:
 
+with stdenv.lib;
 let
   src = fetch "llvm" "0224xvfg6h40y5lrbnb9qaq3grmdc5rg00xq03s1wxjfbf8krx8z";
+
+  cmakeToolchainFile = writeText "${stdenv.hostPlatform.config}-toolchain.cmake" ''
+    SET(CMAKE_SYSTEM_NAME Linux)
+    SET(CMAKE_SYSTEM_VERSION 1)
+
+    message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
+
+     SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
+     SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
+     SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
+     SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
+     SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+  '';
+     #set(CROSS_TOOLCHAIN_FLAGS_NATIVE "${_CTF_NATIVE_DEFAULT}" CACHE STRING "")
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
   shortVersion = with stdenv.lib;
@@ -33,14 +50,17 @@ in stdenv.mkDerivation (rec {
     unpackFile ${src}
     mv llvm-${version}* llvm
     sourceRoot=$PWD/llvm
-    unpackFile ${compiler-rt_src}
-    mv compiler-rt-* $sourceRoot/projects/compiler-rt
   '';
+#    unpackFile ${compiler-rt_src}
+#    mv compiler-rt-* $sourceRoot/projects/compiler-rt
+#  '';
 
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
-  nativeBuildInputs = [ cmake python ]
+  depsBuildBuild = [ buildPackages.stdenv.cc buildPackages.cmake ];
+
+  nativeBuildInputs = [ /* cmake */ python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ]
@@ -70,15 +90,11 @@ in stdenv.mkDerivation (rec {
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "Path.cpp" ""
     rm unittests/Support/Path.cpp
-
-    # Revert compiler-rt commit that makes codesign mandatory
-    patch -p1 -i ${./compiler-rt-codesign.patch} -d projects/compiler-rt
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -i ${../TLI-musl.patch}
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "add_subdirectory(DynamicLibrary)" ""
     rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    patch -p1 -i ${./sanitizers-nongnu.patch} -d projects/compiler-rt
   '';
 
   # hacky fix: created binaries need to be run before installation
@@ -87,13 +103,18 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
+  preConfigure = ''
+    unset CC
+    unset CXX
+  '';
+
   cmakeFlags = with stdenv; [
     "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
     "-DLLVM_INSTALL_UTILS=ON"  # Needed by rustc
     "-DLLVM_BUILD_TESTS=ON"
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
-    "-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
+    #"-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
@@ -114,6 +135,35 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+  ]
+  ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "-DCMAKE_CROSSCOMPILING=ON"
+   # "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+   # "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+   # "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+    "-DCMAKE_SYSTEM_NAME=Linux"
+    # From docs/GettingStarted.rst
+    "-DLLVM_BUILD_RUNTIME=OFF"
+    "-DLLVM_INCLUDE_TESTS=OFF"
+    "-DLLVM_BUILD_TESTS=OFF"
+    "-DLLVM_INCLUDE_EXAMPLES=OFF"
+    "-DLLVM_ENABLE_BACKTRACES=OFF"
+
+    #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
+    # These should be native tools,
+    # toolchain file describes the cross tools.
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${concatStringsSep ";" [
+    "-DCMAKE_CXX_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}c++"
+    "-DCMAKE_C_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}cc"
+    "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
+    "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
+    "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
+    ]}"
+
+    "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
+
+    #"--trace"
+   # "--trace-expand"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
