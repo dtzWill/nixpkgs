@@ -128,7 +128,7 @@ in stdenv.mkDerivation (rec {
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
   ]
   ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    #"-DCMAKE_CROSSCOMPILING=ON"
+    "-DCMAKE_CROSSCOMPILING=ON"
     "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
@@ -143,8 +143,8 @@ in stdenv.mkDerivation (rec {
     #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
     # These should be native tools,
     # toolchain file describes the cross tools.
-    "-DCMAKE_CXX_COMPILER=${stdenv.cc.nativePrefix}c++"
-    "-DCMAKE_C_COMPILER=${stdenv.cc.nativePrefix}cc"
+    "-DCMAKE_CXX_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}c++"
+    "-DCMAKE_C_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}cc"
     "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
     "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
     "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
