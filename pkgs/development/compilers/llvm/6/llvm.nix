@@ -19,11 +19,22 @@
 , enableWasm ? true
 , darwin
 , buildPackages
+, writeText
 }:
 
 with stdenv.lib;
 let
   src = fetch "llvm" "0224xvfg6h40y5lrbnb9qaq3grmdc5rg00xq03s1wxjfbf8krx8z";
+
+  cmakeToolchainFile = writeText "${stdenv.hostPlatform.config}-toolchain.cmake" ''
+    SET(CMAKE_SYSTEM_NAME Linux)
+
+    SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
+    SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
+    SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
+    SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
+    SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+  '';
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
   shortVersion = with stdenv.lib;
@@ -130,11 +141,15 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_ENABLE_BACKTRACES=OFF"
 
     #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
+    # These should be native tools,
+    # toolchain file describes the cross tools.
     "-DCMAKE_CXX_COMPILER=${stdenv.cc.nativePrefix}c++"
     "-DCMAKE_C_COMPILER=${stdenv.cc.nativePrefix}cc"
     "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
     "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
     "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
+
+    "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
 
     #"--trace"
   ] ++ stdenv.lib.optional enableWasm
