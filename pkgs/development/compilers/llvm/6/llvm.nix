@@ -18,8 +18,10 @@
 , enableSharedLibraries ? true
 , enableWasm ? true
 , darwin
+, buildPackages
 }:
 
+with stdenv.lib;
 let
   src = fetch "llvm" "0224xvfg6h40y5lrbnb9qaq3grmdc5rg00xq03s1wxjfbf8krx8z";
 
@@ -40,6 +42,8 @@ in stdenv.mkDerivation (rec {
 
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
+
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [ cmake python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
@@ -124,6 +128,14 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_BUILD_TESTS=OFF"
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_ENABLE_BACKTRACES=OFF"
+
+    #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
+    "-DCMAKE_CXX_COMPILER=${stdenv.cc.nativePrefix}c++"
+    "-DCMAKE_C_COMPILER=${stdenv.cc.nativePrefix}cc"
+    "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
+    "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
+    "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
+
     #"--trace"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
