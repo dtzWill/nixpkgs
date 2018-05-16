@@ -99,6 +99,11 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
+  #preConfigure = ''
+  #  unset CC
+  #  unset CXX
+  #'';
+
   cmakeFlags = with stdenv; [
     "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
     "-DLLVM_INSTALL_UTILS=ON"  # Needed by rustc
@@ -151,7 +156,8 @@ in stdenv.mkDerivation (rec {
 
     "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
 
-    "--trace"
+    #"--trace"
+    "--trace-expand"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
