@@ -116,10 +116,18 @@ in stdenv.mkDerivation (rec {
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
   ]
   ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "-DCMAKE_CROSSCOMPILING=ON"
+    #"-DCMAKE_CROSSCOMPILING=ON"
     "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+    "-DCMAKE_SYSTEM_NAME=Linux"
+    # From docs/GettingStarted.rst
+    "-DLLVM_BUILD_RUNTIME=OFF"
+    "-DLLVM_INCLUDE_TESTS=OFF"
+    "-DLLVM_BUILD_TESTS=OFF"
+    "-DLLVM_INCLUDE_EXAMPLES=OFF"
+    "-DLLVM_ENABLE_BACKTRACES=OFF"
+    #"--trace"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
