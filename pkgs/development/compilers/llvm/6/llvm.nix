@@ -150,6 +150,7 @@ in stdenv.mkDerivation (rec {
 
     # compiler-rt adds 'clang' as a test dependency if it things it's not standalone
     "-DCOMPILER_RT_STANDALONE_BUILD=ON"
+    "-DCOMPILER_RT_CAN_EXECUTE_TESTS=OFF"
 
     "-DCMAKE_SYSTEM_NAME=Linux"
     # From cross-compiling section in docs/GettingStarted.rst
