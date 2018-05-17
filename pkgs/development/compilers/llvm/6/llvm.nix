@@ -30,13 +30,15 @@ let
     SET(CMAKE_SYSTEM_NAME Linux)
     SET(CMAKE_SYSTEM_VERSION 1)
 
-    message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
+    IF(NOT CMAKE_C_COMPILER)
+      message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
 
-   SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
-   SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
-   SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
-   SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
-   SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+       SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
+       SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
+       SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
+       SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
+       SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+     ENDIF()
   '';
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
