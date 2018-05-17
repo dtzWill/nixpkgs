@@ -65,9 +65,9 @@ in stdenv.mkDerivation (rec {
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [ buildPackages.stdenv.cc zlib buildPackages.stdenv.cc.libc ];
 
-  nativeBuildInputs = [ cmake python zlib ]
+  nativeBuildInputs = [ cmake python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ]
