@@ -149,8 +149,8 @@ in stdenv.mkDerivation (rec {
    # "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
 
     # compiler-rt adds 'clang' as a test dependency if it things it's not standalone
-    "-DCOMPILER_RT_STANDALONE_BUILD=ON"
-    "-DCOMPILER_RT_CAN_EXECUTE_TESTS=OFF"
+   # "-DCOMPILER_RT_STANDALONE_BUILD=ON"
+   # "-DCOMPILER_RT_CAN_EXECUTE_TESTS=OFF"
 
     "-DCMAKE_SYSTEM_NAME=Linux"
     # From cross-compiling section in docs/GettingStarted.rst
@@ -160,7 +160,7 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_ENABLE_BACKTRACES=OFF"
 
-    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags}"
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};--trace-expand"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
