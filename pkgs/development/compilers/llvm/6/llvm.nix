@@ -48,6 +48,8 @@ in stdenv.mkDerivation (rec {
       AR = getBuildBin "ar";
       RANLIB = getBuildBin "ranlib";
       STRIP = getBuildBin "strip";
+
+      INSTALL_PREFIX = "/build/nowhere";
     };
   in stdenv.lib.concatStringsSep ";" nativeFlags;
 #
