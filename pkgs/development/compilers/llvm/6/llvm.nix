@@ -21,7 +21,6 @@
 , buildPackages
 }:
 
-with stdenv.lib;
 let
   src = fetch "llvm" "0224xvfg6h40y5lrbnb9qaq3grmdc5rg00xq03s1wxjfbf8krx8z";
 
@@ -36,6 +35,27 @@ in stdenv.mkDerivation (rec {
     mv llvm-${version}* llvm
     sourceRoot=$PWD/llvm
   '';
+
+  crossNativeFlags = let
+    getBuildCCBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}${n}";
+    getBuildBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc.bintools}/bin/${stdenv.cc.nativePrefix}${n}";
+    genCMakeFlag = n: v: "-DCMAKE_${n}=${v}";
+    nativeFlags = stdenv.lib.mapAttrsToList genCMakeFlag {
+      CC_COMPILER = getBuildCCBin "cc";
+      CXX_COMPILER = getBuildCCBin "c++";
+      AR = getBuildBin "ar";
+      RANLIB = getBuildBin "ranlib";
+      STRIP = getBuildBin "strip";
+    };
+  in stdenv.lib.concatStringsSep ";" nativeFlags;
+#
+#    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${concatStringsSep ";" [
+#    "-DCMAKE_CXX_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}c++"
+#    "-DCMAKE_C_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}cc"
+#    "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
+#    "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
+#    "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
+#    ]}"
 #    unpackFile ${compiler-rt_src}
 #    mv compiler-rt-* $sourceRoot/projects/compiler-rt
 #  '';
@@ -131,13 +151,7 @@ in stdenv.mkDerivation (rec {
     #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
     # These should be native tools,
     # toolchain file describes the cross tools.
-    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${concatStringsSep ";" [
-    "-DCMAKE_CXX_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}c++"
-    "-DCMAKE_C_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}cc"
-    "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
-    "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
-    "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
-    ]}"
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags}"
 
 
     #"--trace"
