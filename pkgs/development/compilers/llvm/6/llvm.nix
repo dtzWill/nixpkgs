@@ -34,6 +34,8 @@ in stdenv.mkDerivation (rec {
     unpackFile ${src}
     mv llvm-${version}* llvm
     sourceRoot=$PWD/llvm
+    unpackFile ${compiler-rt_src}
+    mv compiler-rt-* $sourceRoot/projects/compiler-rt
   '';
 
   crossNativeFlags = let
@@ -62,6 +64,8 @@ in stdenv.mkDerivation (rec {
 
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
+
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [ cmake python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
@@ -93,11 +97,15 @@ in stdenv.mkDerivation (rec {
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "Path.cpp" ""
     rm unittests/Support/Path.cpp
+
+    # Revert compiler-rt commit that makes codesign mandatory
+    patch -p1 -i ${./compiler-rt-codesign.patch} -d projects/compiler-rt
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -i ${../TLI-musl.patch}
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "add_subdirectory(DynamicLibrary)" ""
     rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+    patch -p1 -i ${./sanitizers-nongnu.patch} -d projects/compiler-rt
   '';
 
   # hacky fix: created binaries need to be run before installation
@@ -106,14 +114,13 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
-
   cmakeFlags = with stdenv; [
     "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
     "-DLLVM_INSTALL_UTILS=ON"  # Needed by rustc
     "-DLLVM_BUILD_TESTS=ON"
     "-DLLVM_ENABLE_FFI=ON"
     "-DLLVM_ENABLE_RTTI=ON"
-    #"-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
+    "-DCOMPILER_RT_INCLUDE_TESTS=OFF" # FIXME: requires clang source code
   ]
   ++ stdenv.lib.optional enableSharedLibraries
     "-DLLVM_LINK_LLVM_DYLIB=ON"
@@ -140,22 +147,19 @@ in stdenv.mkDerivation (rec {
    # "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
    # "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
    # "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+
+    # compiler-rt adds 'clang' as a test dependency if it things it's not standalone
+    "-DCOMPILER_RT_STANDALONE_BUILD=ON"
+
     "-DCMAKE_SYSTEM_NAME=Linux"
-    # From docs/GettingStarted.rst
+    # From cross-compiling section in docs/GettingStarted.rst
     "-DLLVM_BUILD_RUNTIME=OFF"
     "-DLLVM_INCLUDE_TESTS=OFF"
     "-DLLVM_BUILD_TESTS=OFF"
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_ENABLE_BACKTRACES=OFF"
 
-    #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
-    # These should be native tools,
-    # toolchain file describes the cross tools.
     "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags}"
-
-
-    #"--trace"
-   # "--trace-expand"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
