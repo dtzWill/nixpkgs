@@ -157,11 +157,13 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_BUILD_RUNTIME=OFF"
     "-DLLVM_INCLUDE_RUNTIME=OFF"
     "-DLLVM_INCLUDE_TESTS=OFF"
+    "-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON"
+
     "-DLLVM_BUILD_TESTS=OFF"
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_ENABLE_BACKTRACES=OFF"
 
-    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};--trace-expand"
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags}" # ;--trace-expand"
   ] ++ stdenv.lib.optional enableWasm
    "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly"
   ;
