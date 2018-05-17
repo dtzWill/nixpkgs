@@ -67,7 +67,7 @@ in stdenv.mkDerivation (rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ cmake python ]
+  nativeBuildInputs = [ cmake python zlib ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ]
