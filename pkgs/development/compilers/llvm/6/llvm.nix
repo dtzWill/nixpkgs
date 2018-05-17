@@ -135,9 +135,9 @@ in stdenv.mkDerivation (rec {
   ]
   ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DCMAKE_CROSSCOMPILING=ON"
-    "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
-    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
-    "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+   # "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+   # "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+   # "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DCMAKE_SYSTEM_NAME=Linux"
     # From docs/GettingStarted.rst
     "-DLLVM_BUILD_RUNTIME=OFF"
