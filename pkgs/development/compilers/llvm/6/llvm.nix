@@ -40,7 +40,7 @@ in stdenv.mkDerivation (rec {
 
   crossNativeFlags = let
     getBuildCCBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}${n}";
-    getBuildBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc.bintools}/bin/${stdenv.cc.nativePrefix}${n}";
+    getBuildBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}${n}";
     genCMakeFlag = n: v: "-DCMAKE_${n}=${v}";
     nativeFlags = stdenv.lib.mapAttrsToList genCMakeFlag {
       C_COMPILER = getBuildCCBin "cc";
@@ -163,7 +163,7 @@ in stdenv.mkDerivation (rec {
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_ENABLE_BACKTRACES=OFF"
 
-    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};-DCMAKE_VERBOSE_MAKEFILE=ON;-DCOMPILER_RT_INCLUDE_TESTS=OFF;-DLLVM_BUILD_RUNTIME=OFF;-DLLVM_INCLUDE_TESTS=OFF;-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON" # ;--trace-expand"
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};-DCOMPILER_RT_INCLUDE_TESTS=OFF;-DLLVM_BUILD_RUNTIME=OFF;-DLLVM_INCLUDE_TESTS=OFF;-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON" # ;--trace-expand"
 
     #"-DCMAKE_VERBOSE_MAKEFILE=ON"
   ] ++ stdenv.lib.optional enableWasm
