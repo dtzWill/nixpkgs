@@ -155,6 +155,7 @@ in stdenv.mkDerivation (rec {
     "-DCMAKE_SYSTEM_NAME=Linux"
     # From cross-compiling section in docs/GettingStarted.rst
     "-DLLVM_BUILD_RUNTIME=OFF"
+    "-DLLVM_INCLUDE_RUNTIME=OFF"
     "-DLLVM_INCLUDE_TESTS=OFF"
     "-DLLVM_BUILD_TESTS=OFF"
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
