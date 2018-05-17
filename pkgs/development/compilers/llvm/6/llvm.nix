@@ -19,25 +19,24 @@
 , enableWasm ? true
 , darwin
 , buildPackages
-, writeText
 }:
 
 with stdenv.lib;
 let
   src = fetch "llvm" "0224xvfg6h40y5lrbnb9qaq3grmdc5rg00xq03s1wxjfbf8krx8z";
 
-  cmakeToolchainFile = writeText "${stdenv.hostPlatform.config}-toolchain.cmake" ''
-    SET(CMAKE_SYSTEM_NAME Linux)
-    SET(CMAKE_SYSTEM_VERSION 1)
+  #cmakeToolchainFile = writeText "${stdenv.hostPlatform.config}-toolchain.cmake" ''
+  #  SET(CMAKE_SYSTEM_NAME Linux)
+  #  SET(CMAKE_SYSTEM_VERSION 1)
 
-    message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
+  #  message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
 
-     SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
-     SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
-     SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
-     SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
-     SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
-  '';
+  #   SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
+  #   SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
+  #   SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
+  #   SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
+  #   SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+  #'';
      #set(CROSS_TOOLCHAIN_FLAGS_NATIVE "${_CTF_NATIVE_DEFAULT}" CACHE STRING "")
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
@@ -58,9 +57,9 @@ in stdenv.mkDerivation (rec {
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc buildPackages.cmake ];
+  # depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ /* cmake */ python ]
+  nativeBuildInputs = [ cmake python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ]
@@ -103,10 +102,10 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
-  preConfigure = ''
-    unset CC
-    unset CXX
-  '';
+  #preConfigure = ''
+  #  unset CC
+  #  unset CXX
+  #'';
 
   cmakeFlags = with stdenv; [
     "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
@@ -160,7 +159,7 @@ in stdenv.mkDerivation (rec {
     "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
     ]}"
 
-    "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
+    #"-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
 
     #"--trace"
    # "--trace-expand"
@@ -173,7 +172,7 @@ in stdenv.mkDerivation (rec {
 
     paxmark m bin/{lli,llvm-rtdyld}
     paxmark m bin/lli-child-target
-  '' + stdenv.lib.optionalString (stdenv.lib.hostPlatform == stdenv.lib.buildPlatform) ''
+  '' + stdenv.lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     paxmark m unittests/ExecutionEngine/MCJIT/MCJITTests
     paxmark m unittests/ExecutionEngine/Orc/OrcJITTests
     paxmark m unittests/Support/SupportTests
