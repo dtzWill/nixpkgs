@@ -29,11 +29,11 @@ let
   cmakeToolchainFile = writeText "${stdenv.hostPlatform.config}-toolchain.cmake" ''
     SET(CMAKE_SYSTEM_NAME Linux)
 
-    SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
-    SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
-    SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
-    SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
-    SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
+   # SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
+   # SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
+   # SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
+   # SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
+   # SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
   '';
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
@@ -54,9 +54,9 @@ in stdenv.mkDerivation (rec {
   outputs = [ "out" "python" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [ buildPackages.stdenv.cc buildPackages.cmake ];
 
-  nativeBuildInputs = [ cmake python ]
+  nativeBuildInputs = [ /* cmake */ python ]
     ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ]
