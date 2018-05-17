@@ -49,7 +49,7 @@ in stdenv.mkDerivation (rec {
       RANLIB = getBuildBin "ranlib";
       STRIP = getBuildBin "strip";
 
-      INSTALL_PREFIX = "/build/nowhere";
+      #INSTALL_PREFIX = "/build/nowhere";
     };
   in stdenv.lib.concatStringsSep ";" nativeFlags;
 #
@@ -146,9 +146,9 @@ in stdenv.mkDerivation (rec {
   ]
   ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DCMAKE_CROSSCOMPILING=ON"
-   # "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
-   # "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
-   # "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
+   "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+   "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+   "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
 
     # compiler-rt adds 'clang' as a test dependency if it things it's not standalone
    #"-DCOMPILER_RT_STANDALONE_BUILD=ON"
