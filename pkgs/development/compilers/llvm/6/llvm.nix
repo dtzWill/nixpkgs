@@ -30,6 +30,8 @@ let
     SET(CMAKE_SYSTEM_NAME Linux)
     SET(CMAKE_SYSTEM_VERSION 1)
 
+    message(STATUS "CXX_COMPILER: ''${CMAKE_CXX_COMPILER}")
+
    SET(CMAKE_CXX_COMPILER ${stdenv.cc.targetPrefix}c++)
    SET(CMAKE_C_COMPILER ${stdenv.cc.targetPrefix}cc)
    SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
