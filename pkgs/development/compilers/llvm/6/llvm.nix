@@ -43,7 +43,7 @@ in stdenv.mkDerivation (rec {
     getBuildBin = n: "${stdenv.lib.getBin buildPackages.stdenv.cc.bintools}/bin/${stdenv.cc.nativePrefix}${n}";
     genCMakeFlag = n: v: "-DCMAKE_${n}=${v}";
     nativeFlags = stdenv.lib.mapAttrsToList genCMakeFlag {
-      CC_COMPILER = getBuildCCBin "cc";
+      C_COMPILER = getBuildCCBin "cc";
       CXX_COMPILER = getBuildCCBin "c++";
       AR = getBuildBin "ar";
       RANLIB = getBuildBin "ranlib";
