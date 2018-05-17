@@ -146,25 +146,22 @@ in stdenv.mkDerivation (rec {
   ]
   ++stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DCMAKE_CROSSCOMPILING=ON"
-   "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
-   "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
-   "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
 
-    # compiler-rt adds 'clang' as a test dependency if it things it's not standalone
-   #"-DCOMPILER_RT_STANDALONE_BUILD=ON"
-   #"-DCOMPILER_RT_CAN_EXECUTE_TESTS=OFF"
-
+    "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.targetPlatform.config}"
+    "-DTARGET_TRIPLE=${stdenv.targetPlatform.config}"
     "-DCMAKE_SYSTEM_NAME=Linux"
     # From cross-compiling section in docs/GettingStarted.rst
-    "-DLLVM_BUILD_RUNTIME=OFF"
-    "-DLLVM_INCLUDE_RUNTIME=OFF"
-    "-DLLVM_INCLUDE_TESTS=OFF"
+    #"-DLLVM_BUILD_RUNTIME=OFF"
+    #"-DLLVM_INCLUDE_RUNTIME=OFF"
+    #"-DLLVM_INCLUDE_TESTS=OFF"
     #"-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON"
 
-    "-DLLVM_BUILD_TESTS=OFF"
-    "-DLLVM_INCLUDE_EXAMPLES=OFF"
-    "-DLLVM_ENABLE_BACKTRACES=OFF"
+    #"-DLLVM_BUILD_TESTS=OFF"
+    #"-DLLVM_INCLUDE_EXAMPLES=OFF"
+    #"-DLLVM_ENABLE_BACKTRACES=OFF"
 
+    #"-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};-DCOMPILER_RT_INCLUDE_TESTS=OFF;-DLLVM_BUILD_RUNTIME=OFF;-DLLVM_INCLUDE_TESTS=OFF;-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON" # ;--trace-expand"
     "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${crossNativeFlags};-DCOMPILER_RT_INCLUDE_TESTS=OFF;-DLLVM_BUILD_RUNTIME=OFF;-DLLVM_INCLUDE_TESTS=OFF;-DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON" # ;--trace-expand"
 
     #"-DCMAKE_VERBOSE_MAKEFILE=ON"
