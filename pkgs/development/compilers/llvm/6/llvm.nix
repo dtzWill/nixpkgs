@@ -37,8 +37,8 @@ let
      SET(CMAKE_AR ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar)
      SET(CMAKE_RANLIB ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib)
      SET(CMAKE_STRIP ${getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip)
-     set(CROSS_TOOLCHAIN_FLAGS_NATIVE "${_CTF_NATIVE_DEFAULT}" CACHE STRING "")
   '';
+     #set(CROSS_TOOLCHAIN_FLAGS_NATIVE "${_CTF_NATIVE_DEFAULT}" CACHE STRING "")
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
   shortVersion = with stdenv.lib;
@@ -152,11 +152,13 @@ in stdenv.mkDerivation (rec {
     #"-DCMAKE_CXX_COMPILER=${stdenv.cc.
     # These should be native tools,
     # toolchain file describes the cross tools.
+    "-DCROSS_TOOLCHAIN_FLAGS_NATIVE=${concatStringsSep ";" [
     "-DCMAKE_CXX_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}c++"
     "-DCMAKE_C_COMPILER=${getBin buildPackages.stdenv.cc}/bin/${stdenv.cc.nativePrefix}cc"
     "-DCMAKE_AR=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ar"
     "-DCMAKE_RANLIB=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}ranlib"
     "-DCMAKE_STRIP=${getBin buildPackages.stdenv.cc.bintools.bintools}/bin/${stdenv.cc.nativePrefix}strip"
+    ]}"
 
     "-DCMAKE_TOOLCHAIN_FILE=${cmakeToolchainFile}"
 
