@@ -8450,12 +8450,12 @@ in {
   };
 
   netifaces = buildPythonPackage rec {
-    version = "0.10.6";
+    version = "0.10.7";
     name = "netifaces-${version}";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/n/netifaces/${name}.tar.gz";
-      sha256 = "1q7bi5k2r955rlcpspx4salvkkpk28jky67fjbpz2dkdycisak8c";
+      sha256 = "1gccklrcplbbqh81g1mdgpa5y8na7kkf29cq2ka3f5a2fp5hyndx";
     };
 
     meta = {
