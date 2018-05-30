@@ -2,14 +2,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "catt";
-  version = "0.6.0";
+  version = "0.7.0";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "1mwgb442w12mwhn1qjj7d1l2vhji74qp07py6aghkpjm42x76dzh";
+    sha256 = "0qbcxyx5xlcwljm0cxasqww5vvjl2vq89xw4w2mvg0za3qnj8p56";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ youtube-dl click PyChromecast ];
+  propagatedBuildInputs = with python3.pkgs; [ youtube-dl netifaces click PyChromecast requests ];
 
   doCheck = false; # requires network access
 
