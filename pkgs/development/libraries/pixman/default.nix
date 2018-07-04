@@ -9,7 +9,18 @@ stdenv.mkDerivation rec {
     sha256 = "184lazwdpv67zrlxxswpxrdap85wminh1gmq1i5lcz6iycw39fir";
   };
 
-  patches = stdenv.lib.optionals stdenv.cc.isClang [
+  patches = [
+    (fetchpatch {
+      name = "float-h-include.patch";
+      url = "https://cgit.freedesktop.org/pixman/patch/?id=7c6066b700c7cdd4aeb8be426b14b3a5f0de4b6c";
+      sha256 = "13vpk9x495f79ygq6kvfkh90xzvyby39g5pbmc854416pajnps43";
+    })
+    (fetchpatch {
+      name = "fix-UB-int-promotion.patch";
+      url = "https://cgit.freedesktop.org/pixman/patch/?id=8b95e0e460baa499e54c19d29bf761d34c25badc";
+      sha256 = "11bwzazg0ngq36ncr89s3cm0r967zm8ng8s1wfn32q03c3l6r4hv";
+    })
+  ] ++ stdenv.lib.optionals stdenv.cc.isClang [
     (fetchpatch {
       name = "builtin-shuffle.patch";
       url = https://patchwork.freedesktop.org/patch/177506/raw;
