@@ -15,6 +15,12 @@ stdenv.mkDerivation rec {
       url = https://patchwork.freedesktop.org/patch/177506/raw;
       sha256 = "0rvraq93769dy2im2m022rz99fcdxprgc2fbmasnddcwrqy1x3xr";
     })
+  ] ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+    (fetchpatch {
+      name = "stacksize-reduction.patch";
+      url = "https://git.alpinelinux.org/cgit/aports/plain/main/pixman/stacksize-reduction.patch?id=54895584e63afb61550cbd3212aa221e98ac8fc1";
+      sha256 = "086qvlaqzgicbml9j0j52xqcf8bzifc8y4h4prd512a3hv9lxqsh";
+    })
   ];
 
   nativeBuildInputs = [ pkgconfig ]
