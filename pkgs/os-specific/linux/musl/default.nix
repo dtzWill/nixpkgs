@@ -29,11 +29,11 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "musl-${version}";
-  version = "1.1.19";
+  version = "1.1.19git${toString src.revCount}_${src.shortRev}";
 
-  src = fetchurl {
-    url    = "https://www.musl-libc.org/releases/musl-${version}.tar.gz";
-    sha256 = "1nf1wh44bhm8gdcfr75ayib29b99vpq62zmjymrq7f96h9bshnfv";
+  src = builtins.fetchGit {
+    url = git://git.musl-libc.org/musl;
+    rev = "f2c6dbe2442027ed8fe0fa869918e41f495534d8";
   };
 
   enableParallelBuilding = true;
