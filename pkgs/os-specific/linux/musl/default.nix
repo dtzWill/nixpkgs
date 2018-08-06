@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   src = builtins.fetchGit {
     url = git://git.musl-libc.org/musl;
-    rev = "f2c6dbe2442027ed8fe0fa869918e41f495534d8";
+    rev = "7dad9c212587267818de919dd9c5886f18f99779";
   };
 
   enableParallelBuilding = true;
