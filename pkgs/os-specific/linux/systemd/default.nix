@@ -96,6 +96,7 @@ in stdenv.mkDerivation rec {
     "-Dresolve=false"
     "-Dutmp=false"
     "-Dmyhostname=false"
+    "-Dgshadow=false"
   ];
 
   patches = [
