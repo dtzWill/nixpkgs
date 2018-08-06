@@ -99,15 +99,23 @@ in stdenv.mkDerivation rec {
     "-Dgshadow=false"
   ];
 
-  patches = [
-  ] ++ stdenv.lib.optionals hostPlatform.isMusl (
-    let systemd_rev = "c58ab03f64890e7db88745a843bd4520e307099b"; # v238-stable
+  patches = []
+  ++ stdenv.lib.optionals hostPlatform.isMusl (
+    let systemd_rev = "67c553805a9ebee2dce7c3a350b4abd4d7a489c2"; # our branch, not stable yet
   in [
     (fetchpatch {
-      url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...238-musl-2.patch";
-      sha256 = "13v7yzyifilb41jjjmwh3vlfaw6la5ilhrxbmipif3p69pbm355f";
+      url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...experimental/239-musl.patch";
+      sha256 = "185wanvhw20kwpl3w84pwxnqqgg1f9sxdhl6imhlg3y594bwgb6x";
     })
   ]);
+ # ++ stdenv.lib.optionals hostPlatform.isMusl (
+ #   let systemd_rev = "c58ab03f64890e7db88745a843bd4520e307099b"; # v238-stable
+ # in [
+ #   (fetchpatch {
+ #     url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...238-musl-2.patch";
+ #     sha256 = "13v7yzyifilb41jjjmwh3vlfaw6la5ilhrxbmipif3p69pbm355f";
+ #   })
+ # ]);
 
   preConfigure = ''
     mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
