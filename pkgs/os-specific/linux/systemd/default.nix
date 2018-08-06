@@ -105,7 +105,7 @@ in stdenv.mkDerivation rec {
   in [
     (fetchpatch {
       url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...experimental/239-musl.patch";
-      sha256 = "185wanvhw20kwpl3w84pwxnqqgg1f9sxdhl6imhlg3y594bwgb6x";
+      sha256 = "12xjc7arzy9arxlh9ngpxnd4b3sw7bkkd55x03sw92d3rql7g6xy";
     })
   ]);
  # ++ stdenv.lib.optionals hostPlatform.isMusl (
