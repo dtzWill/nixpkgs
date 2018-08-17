@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "PERL=${buildPackages.perl}/bin/perl" ]
     ++ stdenv.lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk";
 
-  patches = [ ./unescaped-left-braces.patch ];
+  patches = stdenv.lib.optional (stdenv.lib.versionAtLeast version "6") ./unescaped-left-braces.patch;
 
   preInstall = ''
     installFlags="TEXMF=$out/texmf-dist";
