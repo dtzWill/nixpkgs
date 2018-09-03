@@ -12,6 +12,6 @@ rec {
 
   src = fetchurl {
     url = "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${version}.tar.xz";
-    sha256 = "13kaikaz65xw9a3hxbh245cnydjpy58np22c7s0s65pnmcq68rpi";
+    sha256 = "f1666430abf616a3813e4c886b51f157366f592102ae0e874abc17f3d58c6a8e";
   };
 }
