@@ -200,7 +200,7 @@ in stdenv.mkDerivation rec {
     "--enable-dbus"
     "--enable-release-build"
     (lib.enableFeature kdeIntegration "kde4")
-    "--with-package-format=installed"
+    #"--with-package-format=installed"
     "--enable-epm"
     "--with-jdk-home=${jdk.home}"
     "--with-ant-home=${ant}/lib/ant"
