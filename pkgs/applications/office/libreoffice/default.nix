@@ -193,6 +193,7 @@ in stdenv.mkDerivation rec {
     "--with-boost-libdir=${boost.out}/lib"
     "--with-beanshell-jar=${bsh}"
     "--with-vendor=NixOS"
+    "--disable-fetch-external"
     "--with-commons-logging-jar=${commonsLogging}/share/java/commons-logging-1.2.jar"
     "--disable-report-builder"
     "--enable-python=system"
