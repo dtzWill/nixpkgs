@@ -11,7 +11,7 @@
 , fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
 , librevenge, libe-book, libmwaw, glm, glew, gst_all_1
-, gdb, commonsLogging, librdf_rasqal, wrapGAppsHook
+, gdb, commonsLogging, librdf_rasqal, wrapGAppsHook, fakeroot
 , defaultIconTheme, glib, ncurses, epoxy, gpgme
 , langs ? [ "ca" "cs" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "nl" "pl" "ru" "sl" "zh-CN" ]
 , withHelp ? true
@@ -267,7 +267,7 @@ in stdenv.mkDerivation rec {
       libodfgen CoinMP librdf_rasqal defaultIconTheme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
-  nativeBuildInputs = [ wrapGAppsHook gdb ];
+  nativeBuildInputs = [ wrapGAppsHook gdb fakeroot ];
 
   passthru = {
     inherit srcs jdk;
