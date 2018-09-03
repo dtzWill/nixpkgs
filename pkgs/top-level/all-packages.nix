@@ -17280,9 +17280,6 @@ with pkgs;
     harfbuzz = harfbuzz.override {
       withIcu = true; withGraphite2 = true;
     };
-    # checking whether g++ supports C++14 or C++11... configure: error: no
-    # Still relevant: 2018-04-13
-    #stdenv = overrideCC stdenv gcc5;
   };
 
   libreoffice-unwrapped =callPackage ../applications/office/libreoffice
@@ -17291,6 +17288,11 @@ with pkgs;
   libreoffice-still-unwrapped =callPackage ../applications/office/libreoffice/still.nix
   (libreoffice-args // {
       poppler = poppler_0_61;
+
+      # checking whether g++ supports C++14 or C++11... configure: error: no
+      # Still relevant: 2018-09-03, 6.0.6.2
+      # Appears fixed in 6.1
+      stdenv = overrideCC stdenv gcc5;
   });
 
   libreoffice-fresh = lowPrio (callPackage ../applications/office/libreoffice/wrapper.nix {
