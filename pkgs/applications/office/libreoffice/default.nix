@@ -61,14 +61,17 @@ in stdenv.mkDerivation rec {
   # Openoffice will open libcups dynamically, so we link it directly
   # to make its dlopen work.
   # It also seems not to mention libdl explicitly in some places.
-  #NIX_LDFLAGS = "-lcups -ldl";
+  NIX_LDFLAGS = "-lcups -ldl";
 
   # For some reason librdf_redland sometimes refers to rasqal.h instead
   # of rasqal/rasqal.h
   # And LO refers to gpgme++ by no-path name
-  #NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
+  NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
 
-  # dontUseCmakeConfigure = true;
+  # If we call 'configure', 'make' will then call configure again without parameters.
+  # It's their system.
+  configureScript = "./autogen.sh";
+  dontUseCmakeConfigure = true;
 
   patches = [ ./xdg-open-brief.patch ];
 
@@ -109,8 +112,8 @@ in stdenv.mkDerivation rec {
     sed -e '/include/i<include>${carlito}/etc/fonts/conf.d</include>' -i fonts.conf
     export FONTCONFIG_FILE="$PWD/fonts.conf"
 
-    NOCONFIGURE=1 ./autogen.sh
   '';
+    # NOCONFIGURE=1 ./autogen.sh
 
   # fetch_Download_item tries to interpret the name as a variable name
   # Let it do so…
@@ -154,6 +157,7 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  #preBuild = ''
   buildPhase = ''
     # This to avoid using /lib:/usr/lib at linking
     sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
@@ -162,6 +166,8 @@ in stdenv.mkDerivation rec {
 
     make
   '';
+
+  #buildTarget = "build-nocheck";
 
   # It installs only things to $out/lib/libreoffice
   postInstall = ''
@@ -254,23 +260,29 @@ in stdenv.mkDerivation rec {
   '';
 
   buildInputs = with xorg;
-    [ ant ArchiveZip autoconf automake bison boost cairo clucene_core
-      IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
+    [ ant boost cairo clucene_core
+      IOCompress cppunit cups curl db dbus-glib expat fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
       libXdmcp libpthreadstubs libGLU_combined mythes gst_all_1.gstreamer
       gst_all_1.gst-plugins-base glib
-      neon nspr nss openldap openssl ORBit2 pam perl pkgconfig poppler
-      python3 sablotron sane-backends unzip vigra which zip zlib
-      mdds bluez5 glibc libcmis libwps libabw libzmf libtool
-      libxshmfence libatomic_ops graphite2 harfbuzz gpgme utillinux
+      neon nspr nss openldap openssl ORBit2 pam poppler
+      python3 sablotron sane-backends vigra zlib
+      mdds bluez5 glibc libcmis libwps libabw libzmf 
+      libxshmfence libatomic_ops graphite2 harfbuzz gpgme
       librevenge libe-book libmwaw glm glew ncurses epoxy
       libodfgen CoinMP librdf_rasqal defaultIconTheme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
-  nativeBuildInputs = [ wrapGAppsHook gdb fakeroot ];
+    nativeBuildInputs = [
+      wrapGAppsHook gdb fakeroot
+      autoconf automake libtool utillinux which
+      bison flex file unzip zip
+      pkgconfig
+      perl ArchiveZip
+    ];
 
   passthru = {
     inherit srcs jdk;
