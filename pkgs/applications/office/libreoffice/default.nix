@@ -195,6 +195,7 @@ in stdenv.mkDerivation rec {
     "--disable-fetch-external"
     "--with-commons-logging-jar=${commonsLogging}/share/java/commons-logging-1.2.jar"
     "--disable-report-builder"
+    "--disable-online-update"
     "--enable-python=system"
     "--enable-dbus"
     "--enable-release-build"
