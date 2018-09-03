@@ -61,12 +61,12 @@ in stdenv.mkDerivation rec {
   # Openoffice will open libcups dynamically, so we link it directly
   # to make its dlopen work.
   # It also seems not to mention libdl explicitly in some places.
-  NIX_LDFLAGS = "-lcups -ldl";
+  #NIX_LDFLAGS = "-lcups -ldl";
 
   # For some reason librdf_redland sometimes refers to rasqal.h instead
   # of rasqal/rasqal.h
   # And LO refers to gpgme++ by no-path name
-  NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
+  #NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
 
   # dontUseCmakeConfigure = true;
 
@@ -88,7 +88,7 @@ in stdenv.mkDerivation rec {
 
   # Fix boost 1.59 compat
   # Try removing in the next version
-  CPPFLAGS = "-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED";
+  #CPPFLAGS = "-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED";
 
   preConfigure = ''
     configureFlagsArray=(
