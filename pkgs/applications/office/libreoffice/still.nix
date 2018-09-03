@@ -1,14 +1,14 @@
-{ stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip
+{ stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip, gettext
 , IOCompress, zlib, libjpeg, expat, freetype, libwpd
 , libxml2, db, sablotron, curl, fontconfig, libsndfile, neon
 , bison, flex, zip, unzip, gtk3, gtk2, libmspack, getopt, file, cairo, which
-, icu, boost, jdk, ant, cups, xorg, libcmis, carlito
-, openssl, gperf, cppunit, GConf, ORBit2, poppler
+, icu, boost, jdk, ant, cups, xorg, libcmis
+, openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
 , librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
 , libwpg, dbus-glib, glibc, qt4, clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
-, fontsConf, pkgconfig, bluez5, libtool
+, fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
 , librevenge, libe-book, libmwaw, glm, glew, gst_all_1
 , gdb, commonsLogging, librdf_rasqal, wrapGAppsHook
@@ -234,8 +234,10 @@ in stdenv.mkDerivation rec {
     "--without-system-liblangtag"
     "--without-system-libmspub"
     "--without-system-libpagemaker"
-    "--without-system-libgltf"
     "--without-system-libstaroffice"
+    "--without-system-libepubgen"
+    "--without-system-libqxp"
+    "--without-system-mdds"
     # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
     "--without-system-orcus"
     "--without-system-xmlsec"
@@ -258,9 +260,9 @@ in stdenv.mkDerivation rec {
       neon nspr nss openldap openssl ORBit2 pam perl pkgconfig poppler
       python3 sablotron sane-backends unzip vigra which zip zlib
       mdds bluez5 glibc libcmis libwps libabw libzmf libtool
-      libxshmfence libatomic_ops graphite2 harfbuzz gpgme
+      libxshmfence libatomic_ops graphite2 harfbuzz gpgme utillinux
       librevenge libe-book libmwaw glm glew ncurses epoxy
-      libodfgen CoinMP librdf_rasqal defaultIconTheme
+      libodfgen CoinMP librdf_rasqal defaultIconTheme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
   nativeBuildInputs = [ wrapGAppsHook gdb ];
