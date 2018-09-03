@@ -214,6 +214,8 @@ in stdenv.mkDerivation rec {
     "--with-system-openldap"
     "--with-system-coinmp"
 
+    "--with-alloc=system"
+
     # Without these, configure does not finish
     "--without-junit"
 
