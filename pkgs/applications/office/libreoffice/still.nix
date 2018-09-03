@@ -61,17 +61,17 @@ in stdenv.mkDerivation rec {
   # Openoffice will open libcups dynamically, so we link it directly
   # to make its dlopen work.
   # It also seems not to mention libdl explicitly in some places.
-  NIX_LDFLAGS = "-lcups -ldl";
+  # NIX_LDFLAGS = "-lcups -ldl";
 
   # For some reason librdf_redland sometimes refers to rasqal.h instead
   # of rasqal/rasqal.h
   # And LO refers to gpgme++ by no-path name
-  NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
+  # NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
 
   # If we call 'configure', 'make' will then call configure again without parameters.
   # It's their system.
-  configureScript = "./autogen.sh";
-  dontUseCmakeConfigure = true;
+  # configureScript = "./autogen.sh";
+  # dontUseCmakeConfigure = true;
 
   patches = [ ./xdg-open-brief.patch ];
 
@@ -91,7 +91,7 @@ in stdenv.mkDerivation rec {
 
   # Fix boost 1.59 compat
   # Try removing in the next version
-  CPPFLAGS = "-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED";
+  # CPPFLAGS = "-DBOOST_ERROR_CODE_HEADER_ONLY -DBOOST_SYSTEM_NO_DEPRECATED";
 
   preConfigure = ''
     configureFlagsArray=(
@@ -102,7 +102,7 @@ in stdenv.mkDerivation rec {
     chmod a+x ./bin/unpack-sources
     patchShebangs .
     # It is used only as an indicator of the proper current directory
-    touch solenv/inc/target.mk
+    # touch solenv/inc/target.mk
 
     # BLFS patch for Glibc 2.23 renaming isnan
     sed -ire "s@isnan@std::&@g" xmloff/source/draw/ximp3dscene.cxx
@@ -111,6 +111,8 @@ in stdenv.mkDerivation rec {
     cp "${fontsConf}" fonts.conf
     sed -e '/include/i<include>${carlito}/etc/fonts/conf.d</include>' -i fonts.conf
     export FONTCONFIG_FILE="$PWD/fonts.conf"
+
+    NOCONFIGURE=1 ./autogen.sh
   '';
 
   # fetch_Download_item tries to interpret the name as a variable name
@@ -192,13 +194,15 @@ in stdenv.mkDerivation rec {
     "--with-boost-libdir=${boost.out}/lib"
     "--with-beanshell-jar=${bsh}"
     "--with-vendor=NixOS"
+    "--disable-fetch-external"
     "--with-commons-logging-jar=${commonsLogging}/share/java/commons-logging-1.2.jar"
     "--disable-report-builder"
+    "--disable-online-update"
     "--enable-python=system"
     "--enable-dbus"
     "--enable-release-build"
     (lib.enableFeature kdeIntegration "kde4")
-    "--with-package-format=installed"
+    #"--with-package-format=installed"
     "--enable-epm"
     "--with-jdk-home=${jdk.home}"
     "--with-ant-home=${ant}/lib/ant"
@@ -211,6 +215,8 @@ in stdenv.mkDerivation rec {
     "--with-system-libwps"
     "--with-system-openldap"
     "--with-system-coinmp"
+
+    "--with-alloc=system"
 
     # Without these, configure does not finish
     "--without-junit"
