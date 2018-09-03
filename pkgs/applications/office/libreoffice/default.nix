@@ -99,7 +99,7 @@ in stdenv.mkDerivation rec {
     chmod a+x ./bin/unpack-sources
     patchShebangs .
     # It is used only as an indicator of the proper current directory
-    touch solenv/inc/target.mk
+    # touch solenv/inc/target.mk
 
     # BLFS patch for Glibc 2.23 renaming isnan
     sed -ire "s@isnan@std::&@g" xmloff/source/draw/ximp3dscene.cxx
