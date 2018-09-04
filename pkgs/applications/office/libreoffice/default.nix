@@ -247,7 +247,7 @@ in stdenv.mkDerivation rec {
     "--without-system-libepubgen"
     "--without-system-libqxp"
     "--without-system-mdds"
-    "--without-system-libnumbertext"
+    "--without-libnumbertext" # system-libnumbertext"
     # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
     "--without-system-orcus"
     "--without-system-xmlsec"
