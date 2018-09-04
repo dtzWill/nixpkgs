@@ -163,7 +163,7 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   buildPhase = ''
-    make
+    make build-nocheck
   '';
 
   doCheck = true;
