@@ -80,6 +80,16 @@ in stdenv.mkDerivation rec {
 
   postPatch = ''
     sed -e 's@/usr/bin/xdg-open@xdg-open@g' -i shell/source/unix/exec/shellexec.cxx
+
+    # configure checks for header 'gpgme++/gpgmepp_version.h',
+    # and if it is found (no matter where) uses a hardcoded path
+    # in what presumably is an effort to make it possible to write
+    # '#include <context.h>' instead of '#include <gpgmepp/context.h>'.
+    #
+    # Fix this path to point to where the headers can actually be found instead.
+    substituteInPlace configure.ac --replace \
+      'GPGMEPP_CFLAGS=-I/usr/include/gpgme++' \
+      'GPGMEPP_CFLAGS=-I/usr/include/${gpgme.dev}/include/gpgme++'
   '';
 
   QT4DIR = qt4;
