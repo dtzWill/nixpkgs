@@ -17288,6 +17288,7 @@ with pkgs;
 
   libreoffice-unwrapped = callPackage ../applications/office/libreoffice
   (libreoffice-args // {
+    stdenv = gcc8Stdenv;
   });
   libreoffice-still-unwrapped = callPackage ../applications/office/libreoffice/still.nix
   (libreoffice-args // {
