@@ -224,6 +224,8 @@ in stdenv.mkDerivation rec {
     # Without these, configure does not finish
     "--without-junit"
 
+    "--disable-libnumbertext" # system-libnumbertext"
+
     # I imagine this helps. Copied from go-oo.
     # Modified on every upgrade, though
     "--disable-odk"
@@ -247,7 +249,6 @@ in stdenv.mkDerivation rec {
     "--without-system-libepubgen"
     "--without-system-libqxp"
     "--without-system-mdds"
-    "--without-libnumbertext" # system-libnumbertext"
     # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
     "--without-system-orcus"
     "--without-system-xmlsec"
