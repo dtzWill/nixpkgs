@@ -277,7 +277,7 @@ in stdenv.mkDerivation rec {
     ]
     ++ lib.optional kdeIntegration kdelibs4;
     nativeBuildInputs = [
-      wrapGAppsHook gdb fakeroot
+      wrapGAppsHook gdb fakeroot gettext
       autoconf automake libtool utillinux which
       bison flex file unzip zip
       pkgconfig
