@@ -157,7 +157,6 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  #preBuild = ''
   buildPhase = ''
     # This to avoid using /lib:/usr/lib at linking
     sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
@@ -166,8 +165,6 @@ in stdenv.mkDerivation rec {
 
     make
   '';
-
-  #buildTarget = "build-nocheck";
 
   # It installs only things to $out/lib/libreoffice
   postInstall = ''
@@ -276,7 +273,7 @@ in stdenv.mkDerivation rec {
       libodfgen CoinMP librdf_rasqal defaultIconTheme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
-  nativeBuildInputs = [ wrapGAppsHook gdb ];
+  nativeBuildInputs = [ wrapGAppsHook gdb fakeroot ];
 
   passthru = {
     inherit srcs jdk;
