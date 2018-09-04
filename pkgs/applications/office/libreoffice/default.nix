@@ -66,12 +66,12 @@ in stdenv.mkDerivation rec {
   # For some reason librdf_redland sometimes refers to rasqal.h instead
   # of rasqal/rasqal.h
   # And LO refers to gpgme++ by no-path name
-  NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
+  #NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
 
   # If we call 'configure', 'make' will then call configure again without parameters.
   # It's their system.
-  configureScript = "./autogen.sh";
-  dontUseCmakeConfigure = true;
+  #configureScript = "./autogen.sh";
+  #dontUseCmakeConfigure = true;
 
   patches = [ ./xdg-open-brief.patch ];
 
@@ -112,8 +112,8 @@ in stdenv.mkDerivation rec {
     sed -e '/include/i<include>${carlito}/etc/fonts/conf.d</include>' -i fonts.conf
     export FONTCONFIG_FILE="$PWD/fonts.conf"
 
+    NOCONFIGURE=1 ./autogen.sh
   '';
-    # NOCONFIGURE=1 ./autogen.sh
 
   # fetch_Download_item tries to interpret the name as a variable name
   # Let it do so…
