@@ -260,29 +260,23 @@ in stdenv.mkDerivation rec {
   '';
 
   buildInputs = with xorg;
-    [ ant boost cairo clucene_core
-      IOCompress cppunit cups curl db dbus-glib expat fontconfig
+    [ ant ArchiveZip autoconf automake bison boost cairo clucene_core
+      IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
       libXdmcp libpthreadstubs libGLU_combined mythes gst_all_1.gstreamer
       gst_all_1.gst-plugins-base glib
-      neon nspr nss openldap openssl ORBit2 pam poppler
-      python3 sablotron sane-backends vigra zlib
-      mdds bluez5 glibc libcmis libwps libabw libzmf 
-      libxshmfence libatomic_ops graphite2 harfbuzz gpgme
+      neon nspr nss openldap openssl ORBit2 pam perl pkgconfig poppler
+      python3 sablotron sane-backends unzip vigra which zip zlib
+      mdds bluez5 glibc libcmis libwps libabw libzmf libtool
+      libxshmfence libatomic_ops graphite2 harfbuzz gpgme utillinux
       librevenge libe-book libmwaw glm glew ncurses epoxy
       libodfgen CoinMP librdf_rasqal defaultIconTheme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
-    nativeBuildInputs = [
-      wrapGAppsHook gdb fakeroot gettext
-      autoconf automake libtool utillinux which
-      bison flex file unzip zip
-      pkgconfig
-      perl ArchiveZip
-    ];
+  nativeBuildInputs = [ wrapGAppsHook gdb ];
 
   passthru = {
     inherit srcs jdk;
