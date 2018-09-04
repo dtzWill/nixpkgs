@@ -64,20 +64,6 @@ in stdenv.mkDerivation rec {
 
   inherit (primary-src) src;
 
-  # Openoffice will open libcups dynamically, so we link it directly
-  # to make its dlopen work.
-  # It also seems not to mention libdl explicitly in some places.
-  NIX_LDFLAGS = "-lcups -ldl";
-
-  # For some reason librdf_redland sometimes refers to rasqal.h instead
-  # of rasqal/rasqal.h
-  # And LO refers to gpgme++ by no-path name
-  NIX_CFLAGS_COMPILE="-I${librdf_rasqal}/include/rasqal -I${gpgme.dev}/include/gpgme++";
-
-  # If we call 'configure', 'make' will then call configure again without parameters.
-  # It's their system.
-  #configureScript = "./autogen.sh";
-  #dontUseCmakeConfigure = true;
 
   patches = [ ./xdg-open-brief.patch ];
 
@@ -98,10 +84,6 @@ in stdenv.mkDerivation rec {
 
   QT4DIR = qt4;
 
-  # Fix boost 1.59 compat
-  # Try removing in the next version
-  CPPFLAGS = [ "-DBOOST_ERROR_CODE_HEADER_ONLY" "-DBOOST_SYSTEM_NO_DEPRECATED" ];
-
   preConfigure = ''
     configureFlagsArray=(
       "--with-parallelism=$NIX_BUILD_CORES"
@@ -110,11 +92,6 @@ in stdenv.mkDerivation rec {
 
     chmod a+x ./bin/unpack-sources
     patchShebangs .
-    # It is used only as an indicator of the proper current directory
-    touch solenv/inc/target.mk
-
-    # BLFS patch for Glibc 2.23 renaming isnan
-    sed -ire "s@isnan@std::&@g" xmloff/source/draw/ximp3dscene.cxx
 
     # This is required as some cppunittests require fontconfig configured
     cp "${fontsConf}" fonts.conf
