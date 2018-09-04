@@ -17283,6 +17283,7 @@ with pkgs;
 
     # checking whether g++ supports C++14 or C++11... configure: error: no
     # Still relevant: 2018-09-03, 6.0.6.2
+    # Fixed by not adding glibc as buildInput \o/
     # stdenv = overrideCC stdenv gcc5;
   };
 
