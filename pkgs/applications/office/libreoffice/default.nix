@@ -64,6 +64,9 @@ in stdenv.mkDerivation rec {
 
   inherit (primary-src) src;
 
+  # For some reason librdf_redland sometimes refers to rasqal.h instead
+  # of rasqal/rasqal.h
+  NIX_CFLAGS_COMPILE = [ "-I${librdf_rasqal}/include/rasqal" ];
 
   patches = [ ./xdg-open-brief.patch ];
 
