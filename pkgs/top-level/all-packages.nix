@@ -17283,12 +17283,12 @@ with pkgs;
 
     # checking whether g++ supports C++14 or C++11... configure: error: no
     # Still relevant: 2018-09-03, 6.0.6.2
-    stdenv = overrideCC stdenv gcc5;
+    # stdenv = overrideCC stdenv gcc5;
   };
 
   libreoffice-unwrapped = callPackage ../applications/office/libreoffice
   (libreoffice-args // {
-    stdenv = gcc8Stdenv;
+    #stdenv = gcc8Stdenv;
   });
   libreoffice-still-unwrapped = callPackage ../applications/office/libreoffice/still.nix
   (libreoffice-args // {
