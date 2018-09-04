@@ -166,6 +166,8 @@ in stdenv.mkDerivation rec {
     make
   '';
 
+  doCheck = true;
+
   # It installs only things to $out/lib/libreoffice
   postInstall = ''
     mkdir -p $out/bin $out/share/desktop
