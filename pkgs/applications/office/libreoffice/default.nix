@@ -34,11 +34,17 @@ let
   };
 
   srcs = {
-    third_party = [ (let md5 = "185d60944ea767075d27247c3162b3bc"; in fetchurl rec {
-        url = "https://dev-www.libreoffice.org/extern/${md5}-${name}";
-        sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-        name = "unowinreg.dll";
-      }) ] ++ (map (x : ((fetchurl {inherit (x) url sha256 name;}) // {inherit (x) md5name md5;})) (import ./libreoffice-srcs.nix));
+    third_party =
+      map (x : ((fetchurl {inherit (x) url sha256 name;}) // {inherit (x) md5name md5;}))
+      ((import ./libreoffice-srcs.nix) ++ [
+        (rec {
+          name = "unowinreg.dll";
+          url = "https://dev-www.libreoffice.org/extern/${md5name}";
+          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+          md5 = "185d60944ea767075d27247c3162b3bc";
+          md5name = "${md5}-${name}";
+        })
+      ]);
 
     translations = fetchSrc {
       name = "translations";
@@ -77,7 +83,10 @@ in stdenv.mkDerivation rec {
 
   postUnpack = ''
     mkdir -v $sourceRoot/src
-  '' + (stdenv.lib.concatMapStrings (f: "ln -sfv ${f} $sourceRoot/src/${f.md5 or f.outputHash}-${f.name}\nln -sfv ${f} $sourceRoot/src/${f.name}\n") srcs.third_party)
+  '' + (lib.flip lib.concatMapStrings srcs.third_party (f: ''
+      ln -sfv ${f} $sourceRoot/src/${f.md5name}
+      ln -sfv ${f} $sourceRoot/src/${f.name}
+    ''))
   + ''
     ln -sv ${srcs.help} $sourceRoot/src/${srcs.help.name}
     ln -svf ${srcs.translations} $sourceRoot/src/${srcs.translations.name}
