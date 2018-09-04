@@ -159,7 +159,7 @@ in stdenv.mkDerivation rec {
 
   buildPhase = ''
     # This to avoid using /lib:/usr/lib at linking
-    sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
+   #  sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
 
     find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
 
