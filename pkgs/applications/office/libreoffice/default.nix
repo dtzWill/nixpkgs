@@ -101,54 +101,58 @@ in stdenv.mkDerivation rec {
     NOCONFIGURE=1 ./autogen.sh
   '';
 
-  # fetch_Download_item tries to interpret the name as a variable name
-  # Let it do so…
-  postConfigure = ''
-    sed -e '1ilibreoffice-translations-${version}.tar.xz=libreoffice-translations-${version}.tar.xz' -i Makefile
-    sed -e '1ilibreoffice-help-${version}.tar.xz=libreoffice-help-${version}.tar.xz' -i Makefile
+  postConfigure =
+    # fetch_Download_item tries to interpret the name as a variable name, let it do so...
+    ''
+      sed -e '1ilibreoffice-translations-${version}.tar.xz=libreoffice-translations-${version}.tar.xz' -i Makefile
+      sed -e '1ilibreoffice-help-${version}.tar.xz=libreoffice-help-${version}.tar.xz' -i Makefile
+    ''
+    # Test fixups
+    # May need to be revisited/pruned, left alone for now.
+    + ''
+      # unit test sd_tiledrendering seems to be fragile
+      # https://nabble.documentfoundation.org/libreoffice-5-0-failure-in-CUT-libreofficekit-tiledrendering-td4150319.html
+      echo > ./sd/CppunitTest_sd_tiledrendering.mk
+      sed -e /CppunitTest_sd_tiledrendering/d -i sd/Module_sd.mk
+      # one more fragile test?
+      sed -e '/CPPUNIT_TEST(testTdf96536);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
+      # this I actually hate, this should be a data consistency test!
+      sed -e '/CPPUNIT_TEST(testTdf115013);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
+      # rendering-dependent test
+      sed -e '/CPPUNIT_ASSERT_EQUAL(11148L, pOleObj->GetLogicRect().getWidth());/d ' -i sc/qa/unit/subsequent_filters-test.cxx
+      # tilde expansion in path processing checks the existence of $HOME
+      sed -e 's@OString sSysPath("~/tmp");@& return ; @' -i sal/qa/osl/file/osl_File.cxx
+      # rendering-dependent: on my computer the test table actually doesn't fit…
+      # interesting fact: test disabled on macOS by upstream
+      sed -re '/DECLARE_WW8EXPORT_TEST[(]testTableKeep, "tdf91083.odt"[)]/,+5d' -i ./sw/qa/extras/ww8export/ww8export.cxx
+      # Segfault on DB access — maybe temporarily acceptable for a new version of Fresh?
+      sed -e 's/CppunitTest_dbaccess_empty_stdlib_save//' -i ./dbaccess/Module_dbaccess.mk
+      # one more fragile test?
+      sed -e '/CPPUNIT_TEST(testTdf77014);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
+      # rendering-dependent tests
+      sed -e '/CPPUNIT_TEST(testCustomColumnWidthExportXLSX)/d' -i sc/qa/unit/subsequent_export-test.cxx
+      sed -e '/CPPUNIT_TEST(testColumnWidthExportFromODStoXLSX)/d' -i sc/qa/unit/subsequent_export-test.cxx
+      sed -e '/CPPUNIT_TEST(testChartImportXLS)/d' -i sc/qa/unit/subsequent_filters-test.cxx
+      sed -zre 's/DesktopLOKTest::testGetFontSubset[^{]*[{]/& return; /' -i desktop/qa/desktop_lib/test_desktop_lib.cxx
+      sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]testFlipAndRotateCustomShape,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport7.cxx
+      sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]tdf105490_negativeMargins,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport9.cxx
+      sed -z -r -e 's/DECLARE_OOXMLIMPORT_TEST[(]testTdf112443,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlimport/ooxmlimport.cxx
+      sed -z -r -e 's/DECLARE_RTFIMPORT_TEST[(]testTdf108947,[^)]*[)].[{]/& return;/' -i sw/qa/extras/rtfimport/rtfimport.cxx
+      # not sure about this fragile test
+      sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]testTDF87348,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport7.cxx
+    ''
+    # This to avoid using /lib:/usr/lib at linking
+    + ''
+    sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
 
-    # unit test sd_tiledrendering seems to be fragile
-    # https://nabble.documentfoundation.org/libreoffice-5-0-failure-in-CUT-libreofficekit-tiledrendering-td4150319.html
-    echo > ./sd/CppunitTest_sd_tiledrendering.mk
-    sed -e /CppunitTest_sd_tiledrendering/d -i sd/Module_sd.mk
-    # one more fragile test?
-    sed -e '/CPPUNIT_TEST(testTdf96536);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
-    # this I actually hate, this should be a data consistency test!
-    sed -e '/CPPUNIT_TEST(testTdf115013);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
-    # rendering-dependent test
-    sed -e '/CPPUNIT_ASSERT_EQUAL(11148L, pOleObj->GetLogicRect().getWidth());/d ' -i sc/qa/unit/subsequent_filters-test.cxx
-    # tilde expansion in path processing checks the existence of $HOME
-    sed -e 's@OString sSysPath("~/tmp");@& return ; @' -i sal/qa/osl/file/osl_File.cxx
-    # rendering-dependent: on my computer the test table actually doesn't fit…
-    # interesting fact: test disabled on macOS by upstream
-    sed -re '/DECLARE_WW8EXPORT_TEST[(]testTableKeep, "tdf91083.odt"[)]/,+5d' -i ./sw/qa/extras/ww8export/ww8export.cxx
-    # Segfault on DB access — maybe temporarily acceptable for a new version of Fresh?
-    sed -e 's/CppunitTest_dbaccess_empty_stdlib_save//' -i ./dbaccess/Module_dbaccess.mk
-    # one more fragile test?
-    sed -e '/CPPUNIT_TEST(testTdf77014);/d' -i sw/qa/extras/uiwriter/uiwriter.cxx
-    # rendering-dependent tests
-    sed -e '/CPPUNIT_TEST(testCustomColumnWidthExportXLSX)/d' -i sc/qa/unit/subsequent_export-test.cxx
-    sed -e '/CPPUNIT_TEST(testColumnWidthExportFromODStoXLSX)/d' -i sc/qa/unit/subsequent_export-test.cxx
-    sed -e '/CPPUNIT_TEST(testChartImportXLS)/d' -i sc/qa/unit/subsequent_filters-test.cxx
-    sed -zre 's/DesktopLOKTest::testGetFontSubset[^{]*[{]/& return; /' -i desktop/qa/desktop_lib/test_desktop_lib.cxx
-    sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]testFlipAndRotateCustomShape,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport7.cxx
-    sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]tdf105490_negativeMargins,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport9.cxx
-    sed -z -r -e 's/DECLARE_OOXMLIMPORT_TEST[(]testTdf112443,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlimport/ooxmlimport.cxx
-    sed -z -r -e 's/DECLARE_RTFIMPORT_TEST[(]testTdf108947,[^)]*[)].[{]/& return;/' -i sw/qa/extras/rtfimport/rtfimport.cxx
-    # not sure about this fragile test
-    sed -z -r -e 's/DECLARE_OOXMLEXPORT_TEST[(]testTDF87348,[^)]*[)].[{]/& return;/' -i sw/qa/extras/ooxmlexport/ooxmlexport7.cxx
-  '';
+    find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
+    '';
 
   makeFlags = "SHELL=${bash}/bin/bash";
 
   enableParallelBuilding = true;
 
   buildPhase = ''
-    # This to avoid using /lib:/usr/lib at linking
-    sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
-
-    find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
-
     make
   '';
 
