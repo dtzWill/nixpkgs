@@ -89,7 +89,7 @@ in stdenv.mkDerivation rec {
     # Fix this path to point to where the headers can actually be found instead.
     substituteInPlace configure.ac --replace \
       'GPGMEPP_CFLAGS=-I/usr/include/gpgme++' \
-      'GPGMEPP_CFLAGS=-I/usr/include/${gpgme.dev}/include/gpgme++'
+      'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
   '';
 
   QT4DIR = qt4;
