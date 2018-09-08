@@ -100,7 +100,7 @@ in stdenv.mkDerivation rec {
   ];
 
   patches = []
-  ++ stdenv.lib.optionals hostPlatform.isMusl (
+  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl (
     let systemd_rev = "67c553805a9ebee2dce7c3a350b4abd4d7a489c2"; # our branch, not stable yet
   in [
     (fetchpatch {
