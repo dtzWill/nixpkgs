@@ -192,7 +192,6 @@ let
       $out/bin/mdadm --version
 
       ${config.boot.initrd.extraUtilsCommandsTest}
-      fi
     ''; # */
 
 
