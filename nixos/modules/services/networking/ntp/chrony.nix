@@ -75,6 +75,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+
     environment.systemPackages = [ pkgs.chrony ];
 
     users.groups.chrony.gid = config.ids.gids.chrony;
