@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gettext libnl ncurses pciutils zlib ];
 
   postPatch = ''
-    substituteInPlace src/main.cpp --replace "/sbin/modprobe" "modprobe"
+    substituteInPlace src/main.cpp \
+      --replace "/sbin/modprobe" "modprobe" \
+      --replace "/bin/mount" "mount"
     substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "xset"
   '';
 
