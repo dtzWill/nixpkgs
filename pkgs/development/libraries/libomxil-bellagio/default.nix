@@ -14,6 +14,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fedora-fixes.patch ];
 
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=array-bounds" ];
+
   doCheck = false; # fails
 
   # Fix for #40213, probably permanent, because upstream doesn't seem to be
