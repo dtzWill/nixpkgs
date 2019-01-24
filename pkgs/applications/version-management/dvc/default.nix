@@ -1,7 +1,6 @@
 { lib
 , python3Packages
 , fetchFromGitHub
-, git
 , enableGoogle ? false
 , enableAWS ? false
 , enableAzure ? false
@@ -11,16 +10,15 @@
 with python3Packages;
 buildPythonApplication rec {
   pname = "dvc";
-  version = "0.24.0";
+  version = "0.24.3";
 
+  # PyPi only has wheel
   src = fetchFromGitHub {
     owner = "iterative";
     repo = "dvc";
     rev = version;
-    sha256 = "163lnn8z4ig5dgl2jdkrlqwziyn28shswysq7gpamp8ri0g2ccx3";
+    sha256 = "1wqq4i23hppilp20fx5a5nj93xwf3wwwr2f8aasvn6jkv2l22vpl";
   };
-
-  buildInputs = [ git ];
 
   propagatedBuildInputs = [
     ply
@@ -51,6 +49,12 @@ buildPythonApplication rec {
   # tests require access to real cloud services
   # nix build tests have to be isolated and run locally
   doCheck = false;
+
+  patches = [ ./dvc-daemon.patch ];
+
+  postPatch = ''
+    substituteInPlace dvc/daemon.py --subst-var-by dvc "$out/bin/dcv"
+  '';
 
   meta = with lib; {
     description = "Version Control System for Machine Learning Projects";
