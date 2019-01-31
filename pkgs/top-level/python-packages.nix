@@ -5646,6 +5646,8 @@ in {
 
   python-libarchive = callPackage ../development/python-modules/python-libarchive { };
 
+  python-logstash = callPackage ../development/python-modules/python-logstash { };
+
   libarchive-c = callPackage ../development/python-modules/libarchive-c {
     inherit (pkgs) libarchive;
   };
