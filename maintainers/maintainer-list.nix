@@ -3510,7 +3510,11 @@
     github = "kmein";
     githubId = 10352507;
   };
-
+  knairda = {
+    email = "adrian@kummerlaender.eu";
+    name = "Adrian Kummerlaender";
+    github = "KnairdA";
+  };
   knedlsepp = {
     email = "josef.kemetmueller@gmail.com";
     github = "knedlsepp";
