@@ -3,15 +3,17 @@
 , psutils, netpbm #for html output
 , buildPackages
 , autoreconfHook
+, pkgconfig
+, texinfo
 }:
 
 stdenv.mkDerivation rec {
   name = "groff-${version}";
-  version = "1.22.3";
+  version = "1.22.4";
 
   src = fetchurl {
     url = "mirror://gnu/groff/${name}.tar.gz";
-    sha256 = "1998v2kcs288d3y7kfxpvl369nqi06zbbvjzafyvyl3pr7bajj1s";
+    sha256 = "14q2mldnr1vx0l9lqp9v2f6iww24gj28iyh4j2211hyynx67p3p7";
   };
 
   outputs = [ "out" "man" "doc" "info" "perl" ];
@@ -19,7 +21,6 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   patches = [
-    ./look-for-ar.patch
     ./mdate-determinism.patch
   ];
 
@@ -37,8 +38,8 @@ stdenv.mkDerivation rec {
       --replace "@PNMTOPS_NOSETPAGE@" "${netpbm}/bin/pnmtops -nosetpage"
   '';
 
-  buildInputs = [ ghostscript psutils netpbm perl ];
-  nativeBuildInputs = [ autoreconfHook ];
+  buildInputs = [ ghostscript psutils netpbm perl texinfo ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
@@ -65,10 +66,10 @@ stdenv.mkDerivation rec {
   # Remove example output with (random?) colors and creation date
   # to avoid non-determinism in the output.
   postInstall = ''
-    rm "$doc"/share/doc/groff/examples/hdtbl/*color*ps
-    find "$doc"/share/doc/groff/ -type f -print0 | xargs -0 sed -i -e 's/%%CreationDate: .*//'
+    rm $out/share/doc/${name}/examples/hdtbl/*color*ps
+    find $out/share/doc/${name}/ -type f -print0 | xargs -0 sed -i -e 's/%%CreationDate: .*//'
     for f in 'man.local' 'mdoc.local'; do
-        cat '${./site.tmac}' >>"$out/share/groff/site-tmac/$f"
+        cat '${./site.tmac}' >> "share/groff/site-tmac/$f"
     done
 
     moveToOutput bin/gropdf $perl
