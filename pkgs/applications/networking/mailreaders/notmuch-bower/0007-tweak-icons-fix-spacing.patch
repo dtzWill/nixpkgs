@@ -26,15 +26,6 @@ index eac78ae..256da84 100644
      ),
      mattr(Panel, unless(IsCursor, Attrs ^ standard_tag), !IO),
  
-@@ -1800,7 +1800,7 @@ draw_index_line(IAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
-     ),
-     (
-         Inboxed = inboxed,
--        draw(Panel, "i", !IO)
-+        draw(Panel, "📥", !IO)
-     ;
-         Inboxed = not_inboxed,
-         draw(Panel, " ", !IO)
 diff --git a/src/pager.m b/src/pager.m
 index 57e238f..2baeec4 100644
 --- a/src/pager.m
@@ -89,15 +80,6 @@ index e4943bf..1282ff1 100644
      ),
      (
          Replied = replied,
-@@ -2887,7 +2887,7 @@ draw_thread_line(TAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
-     ),
-     (
-         Inboxed = inboxed,
--        draw(Panel, "i", !IO)
-+        draw(Panel, "📥", !IO)
-     ;
-         Inboxed = not_inboxed,
-         draw(Panel, " ", !IO)
 -- 
 2.20.1
 
