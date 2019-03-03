@@ -37,7 +37,8 @@ index b176f25..bd20e61 100644
 +        draw(Panel, "💬", !IO)
      ;
          Replied = not_replied,
-         draw(Panel, " ", !IO)
+-        draw(Panel, " ", !IO)
++        draw(Panel, "  ", !IO)
      ),
      (
          Deleted = deleted,
@@ -75,7 +76,8 @@ index 667e644..74900a7 100644
 +        draw(Panel, "💬", !IO)
      ;
          Replied = not_replied,
-         draw(Panel, " ", !IO)
+-        draw(Panel, " ", !IO)
++        draw(Panel, "  ", !IO)
      ),
      (
          Deleted = deleted,
