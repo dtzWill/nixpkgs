@@ -15,7 +15,7 @@ index 17acef9..0495633 100644
          true
      ).
 diff --git a/src/tags.m b/src/tags.m
-index 042e0db..d85144f 100644
+index 042e0db..cabe1bd 100644
 --- a/src/tags.m
 +++ b/src/tags.m
 @@ -59,6 +59,8 @@
@@ -27,7 +27,7 @@ index 042e0db..d85144f 100644
  %-----------------------------------------------------------------------------%
  %-----------------------------------------------------------------------------%
  
-@@ -114,6 +116,32 @@ get_standard_tags(Tags, StdTags, DisplayTagsWidth) :-
+@@ -114,6 +116,33 @@ get_standard_tags(Tags, StdTags, DisplayTagsWidth) :-
      set.fold2(get_standard_tags_2, Tags, StdTags0, StdTags,
          0, DisplayTagsWidth).
  
@@ -37,8 +37,9 @@ index 042e0db..d85144f 100644
 +    T1 = string.remove_prefix_if_present("lists/", OrigTagName),
 +    T2 = string.replace_all(T1, "github::", "🐙"),
 +    T3 = string.replace_all(T2, "freebsd", "😈"),
-+    T4 = string.replace_all(T3, "interest::", "👀"),
-+    T = T4,
++    T4 = string.replace_all(T3, "::interest", "::👀"),
++    T5 = string.replace_all(T4, "::", "﹕"),
++    T = T5,
 +    S =
 +    ( T = "calendar" -> "📅"
 +    ; T = "grad" -> "🎓"
@@ -60,7 +61,7 @@ index 042e0db..d85144f 100644
  :- pred get_standard_tags_2(tag::in, standard_tags::in, standard_tags::out,
      int::in, int::out) is det.
  
-@@ -129,11 +157,10 @@ get_standard_tags_2(Tag, !StdTags, !DisplayTagsWidth) :-
+@@ -129,11 +158,10 @@ get_standard_tags_2(Tag, !StdTags, !DisplayTagsWidth) :-
      ; Tag = tag("inbox") ->
          !StdTags ^ inboxed := inboxed
      ; display_tag(Tag) ->
