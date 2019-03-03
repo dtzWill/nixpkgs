@@ -26,20 +26,6 @@ index eac78ae..256da84 100644
      ),
      mattr(Panel, unless(IsCursor, Attrs ^ standard_tag), !IO),
  
-@@ -1778,11 +1778,11 @@ draw_index_line(IAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
-     (
-         Unread = unread,
-         Base = bold,
--        draw(Panel, "📫 ", !IO)
-+        draw(Panel, "✉", !IO)
-     ;
-         Unread = read,
-         Base = normal,
--        draw(Panel, "  ", !IO)
-+        draw(Panel, " ", !IO)
-     ),
-     (
-         Replied = replied,
 @@ -1800,7 +1800,7 @@ draw_index_line(IAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
      ),
      (
