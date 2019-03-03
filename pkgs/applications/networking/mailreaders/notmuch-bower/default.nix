@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
 
     ./0001-hack-replace-tabs-with-spaces-in-Subject-header.patch
     ./total-color.patch
+    ./cal.patch
   ];
 
   installPhase = ''

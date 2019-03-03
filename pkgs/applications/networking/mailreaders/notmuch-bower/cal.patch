@@ -1,0 +1,79 @@
+diff --git a/src/index_view.m b/src/index_view.m
+index 17acef9..0495633 100644
+--- a/src/index_view.m
++++ b/src/index_view.m
+@@ -1858,9 +1858,8 @@ draw_index_line(IAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
+ 
+ draw_display_tag(Panel, Tag, !IO) :-
+     ( display_tag(Tag) ->
+-        Tag = tag(TagName),
+-        TagName2 = string.remove_prefix_if_present("lists/", TagName),
+-        draw2(Panel, " ", TagName2, !IO)
++        display_tag_string(Tag, S),
++        draw2(Panel, " ", S, !IO)
+     ;
+         true
+     ).
+diff --git a/src/tags.m b/src/tags.m
+index 042e0db..983adb8 100644
+--- a/src/tags.m
++++ b/src/tags.m
+@@ -59,6 +59,8 @@
+ :- pred validate_tag_deltas(list(string)::in, list(tag_delta)::out,
+     set(tag)::out, set(tag)::out) is semidet.
+ 
++:- pred display_tag_string(tag::in, string::out) is det.
++
+ %-----------------------------------------------------------------------------%
+ %-----------------------------------------------------------------------------%
+ 
+@@ -114,6 +116,19 @@ get_standard_tags(Tags, StdTags, DisplayTagsWidth) :-
+     set.fold2(get_standard_tags_2, Tags, StdTags0, StdTags,
+         0, DisplayTagsWidth).
+ 
++display_tag_string(Tag, S) :-
++  ( display_tag(Tag) ->
++    Tag = tag(OrigTagName),
++    T = string.remove_prefix_if_present("lists/", OrigTagName),
++    S =
++    ( T = "calendar" -> "📅"
++    ; T
++    )
++  ;
++    % TODO: make this type error instead
++    S = ""
++  ).
++
+ :- pred get_standard_tags_2(tag::in, standard_tags::in, standard_tags::out,
+     int::in, int::out) is det.
+ 
+@@ -129,11 +144,10 @@ get_standard_tags_2(Tag, !StdTags, !DisplayTagsWidth) :-
+     ; Tag = tag("inbox") ->
+         !StdTags ^ inboxed := inboxed
+     ; display_tag(Tag) ->
+-        Tag = tag(TagName),
++        display_tag_string(Tag, S),
+         % Add one for separator.
+         !:DisplayTagsWidth = !.DisplayTagsWidth +
+-            string_wcwidth(string.remove_prefix_if_present("lists/",TagName)) +
+-            1
++            string_wcwidth(S) + 1
+     ;
+         true
+     ).
+diff --git a/src/thread_pager.m b/src/thread_pager.m
+index 40820a4..7885d22 100644
+--- a/src/thread_pager.m
++++ b/src/thread_pager.m
+@@ -3090,9 +3090,8 @@ draw_thread_line(TAttrs, Panel, Line, _LineNr, IsCursor, !IO) :-
+ 
+ draw_display_tag(Panel, Tag, !IO) :-
+     ( display_tag(Tag) ->
+-        Tag = tag(TagName),
+-        TagName2 = string.remove_prefix_if_present("lists/", TagName),
+-        draw2(Panel, " ", TagName2, !IO)
++        display_tag_string(Tag, S),
++        draw2(Panel, " ", S, !IO)
+     ;
+         true
+     ).
