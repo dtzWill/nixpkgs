@@ -76,7 +76,7 @@ index e4943bf..1282ff1 100644
          draw(Panel, "📫", !IO)
      ;
          Unread = read,
-         draw(Panel, " ", !IO)
+         draw(Panel,  " ", !IO)
      ),
      (
          Replied = replied,

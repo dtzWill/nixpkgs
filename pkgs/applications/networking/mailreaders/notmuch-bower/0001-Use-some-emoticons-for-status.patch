@@ -8,7 +8,7 @@ Content-Transfer-Encoding: 8bit
 
 📫 unread
 💬 replied
-❌  deleted
+✗  deleted
 ⚐  flagged
 ---
  src/index_view.m   | 10 +++++-----
@@ -42,7 +42,7 @@ index b176f25..bd20e61 100644
      (
          Deleted = deleted,
 -        draw(Panel, "d", !IO)
-+        draw(Panel, "❌", !IO)
++        draw(Panel, "✗", !IO)
      ;
          Deleted = not_deleted,
          draw(Panel, " ", !IO)
@@ -67,7 +67,7 @@ index 667e644..74900a7 100644
      ;
          Unread = read,
 -        draw(Panel, " ", !IO)
-+        draw(Panel, " ", !IO)
++        draw(Panel, "  ", !IO)
      ),
      (
          Replied = replied,
@@ -80,7 +80,7 @@ index 667e644..74900a7 100644
      (
          Deleted = deleted,
 -        draw(Panel, "d", !IO)
-+        draw(Panel, "❌", !IO)
++        draw(Panel, "✗", !IO)
      ;
          Deleted = not_deleted,
          draw(Panel, " ", !IO)
