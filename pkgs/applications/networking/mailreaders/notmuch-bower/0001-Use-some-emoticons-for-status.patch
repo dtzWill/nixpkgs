@@ -29,7 +29,7 @@ index b176f25..bd20e61 100644
          Unread = read,
          Base = normal,
 -        draw(Panel, " ", !IO)
-+        draw(Panel, " ", !IO)
++        draw(Panel, "  ", !IO)
      ),
      (
          Replied = replied,
