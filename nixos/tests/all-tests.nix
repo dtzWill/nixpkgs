@@ -166,6 +166,7 @@ in
   metabase = handleTest ./metabase.nix {};
   miniflux = handleTest ./miniflux.nix {};
   minio = handleTest ./minio.nix {};
+  minidlna = handleTest ./minidlna.nix {};
   misc = handleTest ./misc.nix {};
   moinmoin = handleTest ./moinmoin.nix {};
   mongodb = handleTest ./mongodb.nix {};
