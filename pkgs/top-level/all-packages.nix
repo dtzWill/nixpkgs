@@ -19211,6 +19211,8 @@ in
 
   japa = callPackage ../applications/audio/japa { };
 
+  dupd = callPackage ../tools/misc/dupd { };
+
   jdupes = callPackage ../tools/misc/jdupes { };
 
   jedit = callPackage ../applications/editors/jedit { };
