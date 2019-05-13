@@ -14,39 +14,40 @@
 let
   withSystemLibs = map (libname: "--with-system-${libname}");
 
-  year = "2018";
+  year = "2019";
+  snapshot = year + "0410";
   version = year; # keep names simple for now
 
   common = rec {
     src = fetchurl {
       urls = [
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0414-source.tar.xz"
-              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0414-source.tar.xz"
+        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${snapshot}-source.tar.xz"
+              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${snapshot}-source.tar.xz"
       ];
-      sha256 = "0khyi6h015r2zfqgg0a44a2j7vmr1cy42knw7jbss237yvakc07y";
+      sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
     };
 
     patches = [
-      (fetchurl {
-        name = "poppler-compat-fixes-up-to-0.70.patch";
-        url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/poppler-compat-fixes-up-to-0.70.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-        sha256 = "0a8bvyl7v6zlyyg3ycl0dmg2g2qahxlq3qmc1nv33r24anzb8xhs";
-      })
-      (fetchurl {
-        name = "luatex-poppler-0.70-const-fixes.patch";
-        url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/luatex-poppler-0.70-const-fixes.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-        sha256 = "0yiw2x97whdi23dc10xnqpxqj3aja15alir1byp1y03j60zv5n7i";
-      })
-      (fetchurl {
-        name = "texlive-poppler-0.71.patch";
-        url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/texlive-poppler-0.71.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-        sha256 = "164wibyf786gdcb0ij4svsmyi13wvcx0cpdr4flki0lpy3igvlnq";
-      })
-      (fetchurl {
-        name = "synctex-missing-header.patch";
-        url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/synctex-missing-header.patch?h=packages/texlive-bin&id=da56abf0f8a1e85daca0ec0f031b8fa268519e6b;
-        sha256 = "1c4aq8lk8g3mlfq3mdjnxvmhss3qs7nni5rmw0k054dmj6q1xj5n";
-      })
+      #(fetchurl {
+      #  name = "poppler-compat-fixes-up-to-0.70.patch";
+      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/poppler-compat-fixes-up-to-0.70.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
+      #  sha256 = "0a8bvyl7v6zlyyg3ycl0dmg2g2qahxlq3qmc1nv33r24anzb8xhs";
+      #})
+      #(fetchurl {
+      #  name = "luatex-poppler-0.70-const-fixes.patch";
+      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/luatex-poppler-0.70-const-fixes.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
+      #  sha256 = "0yiw2x97whdi23dc10xnqpxqj3aja15alir1byp1y03j60zv5n7i";
+      #})
+      #(fetchurl {
+      #  name = "texlive-poppler-0.71.patch";
+      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/texlive-poppler-0.71.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
+      #  sha256 = "164wibyf786gdcb0ij4svsmyi13wvcx0cpdr4flki0lpy3igvlnq";
+      #})
+      #(fetchurl {
+      #  name = "synctex-missing-header.patch";
+      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/synctex-missing-header.patch?h=packages/texlive-bin&id=da56abf0f8a1e85daca0ec0f031b8fa268519e6b;
+      #  sha256 = "1c4aq8lk8g3mlfq3mdjnxvmhss3qs7nni5rmw0k054dmj6q1xj5n";
+      #})
     ];
 
     postPatch = ''
@@ -108,7 +109,7 @@ core = stdenv.mkDerivation rec {
 
   preConfigure = ''
     rm -r libs/{cairo,freetype2,gd,gmp,graphite2,harfbuzz,icu,libpaper,libpng} \
-      libs/{mpfr,pixman,poppler,potrace,xpdf,zlib,zziplib}
+      libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib}
     mkdir WorkDir
     cd WorkDir
   '';
@@ -210,7 +211,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
   postConfigure = ''
     mkdir ./WorkDir && cd ./WorkDir
     # TODO add lua53 here when luatex53 is enabled again
-    for path in libs/{teckit,lua52} texk/web2c; do
+    for path in libs/{teckit,lua53} texk/web2c; do
       (
         if [[ "$path" =~ "libs/lua5" ]]; then
           extraConfig="--enable-static --disable-shared"
@@ -256,7 +257,9 @@ dvisvgm = stdenv.mkDerivation {
   preConfigure = "cd texk/dvisvgm";
 
   configureFlags = common.configureFlags
-    ++ [ "--with-system-kpathsea" "--with-system-libgs" ];
+    ++ [ "--with-system-kpathsea" /* "--enable-bundled-libs" "--enable-static=no"*/ /*"--with-gs=yes" "--with-system-libgs" "--disable-debug"*/ ];
+
+  NIX_CFLAGS_LINK = [ "-ldl" "-lgs" ];
 
   enableParallelBuilding = true;
 };
@@ -267,13 +270,13 @@ dvipng = stdenv.mkDerivation {
 
   inherit (common) src;
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig perl ];
   buildInputs = [ core/*kpathsea*/ zlib libpng freetype gd ghostscript makeWrapper ];
 
-  preConfigure = "cd texk/dvipng";
+  preConfigure = "cd texk/dvipng; patchShebangs .";
 
   configureFlags = common.configureFlags
-    ++ [ "--with-system-kpathsea" "--with-gs=yes" "--disable-debug" ];
+    ++ [ "--with-system-kpathsea" "--with-gs=yes" "--with-system-libgs" "--disable-debug" ];
 
   enableParallelBuilding = true;
 
