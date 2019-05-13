@@ -49494,10 +49494,10 @@ in
   joplin = nodeEnv.buildNodePackage {
     name = "joplin";
     packageName = "joplin";
-    version = "1.0.127";
+    version = "1.0.128";
     src = fetchurl {
-      url = "https://registry.npmjs.org/joplin/-/joplin-1.0.127.tgz";
-      sha512 = "iLxiThX1d3FTAMb+yCag2NQdwl2yYLixxGKIqt0PYZvrO7CQMm8VZlcCAvC2bYTh01OdCqu5oz9HywxUJDWyag==";
+      url = "https://registry.npmjs.org/joplin/-/joplin-1.0.128.tgz";
+      sha512 = "PyzHSy7LEs40t0hTGRyEvbuFV74jD3Obh3HSQMwGYhmTDqgeKjHRTXPsmpspBrrLjnXm0b1TlZGtIu06DtqzMg==";
     };
     dependencies = [
       sources."@cronvel/get-pixels-3.3.1"
