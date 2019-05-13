@@ -4,11 +4,10 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "bpftool-${version}";
+  pname = "bpftool";
   inherit (linuxPackages_latest.kernel) version src;
 
   buildInputs = [ libopcodes libbfd libelf ];
-  makeFlags = [ "V=1" ];
 
   preConfigure = ''
     cd tools/bpf/bpftool
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Debugging/program analysis tool for the eBPF subsystem";
     license     = [ licenses.gpl2 licenses.bsd2 ];
-    platforms   = platforms.all;
+    platforms   = platforms.linux;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }
