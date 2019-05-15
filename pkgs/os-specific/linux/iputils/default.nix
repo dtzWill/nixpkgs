@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, fetchpatch
-, meson, ninja, pkgconfig, gettext, libxslt, docbook_xsl, docbook_xsl_ns
+, meson, ninja, pkgconfig, gettext, libxslt, docbook_xsl_ns
 , libcap, nettle, libidn2, openssl, systemd
 }:
 
@@ -27,6 +27,7 @@ in stdenv.mkDerivation {
   # ninfod cannot be build with nettle yet:
   patches =
     [ ./build-ninfod-with-openssl.patch
+      ./fix-the-xsltproc-test.patch
     ];
 
   mesonFlags =
@@ -40,7 +41,7 @@ in stdenv.mkDerivation {
     # Disable idn usage w/musl (https://github.com/iputils/iputils/pull/111):
     ++ optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
 
-  nativeBuildInputs = [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl docbook_xsl_ns libcap ];
+  nativeBuildInputs = [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl_ns libcap ];
   buildInputs = [ libcap nettle systemd ]
     ++ optional (!stdenv.hostPlatform.isMusl) libidn2
     ++ optional withNinfod openssl; # TODO: Build with nettle
