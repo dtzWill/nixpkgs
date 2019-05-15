@@ -1,11 +1,11 @@
 { stdenv, fetchzip }:
 let
-  version = "16.0.1RC1";
+  version = "16.0.1";
 in fetchzip {
   name = "nextcloud-${version}";
 
   url = "https://download.nextcloud.com/server/prereleases/nextcloud-${version}.tar.bz2";
-  sha256 = "0pqf3czn8dgw6nchbvrpp8pcyhphqkdan7470qsz7zz75dq4vgcv";
+  sha256 = "1z8095v59hrx34b7zq9bp1ddpr3imiya9ad9jr92i6q4jp5p9i5g";
 
   meta = {
     description = "Sharing solution for files, calendars, contacts and more";
