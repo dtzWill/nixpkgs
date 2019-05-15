@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, variableFont ? true }:
+{ lib, fetchzip, variableFont ? true }:
 
 let
   version = "0.38";
@@ -17,7 +17,7 @@ in fetchzip rec {
     mkdir -p $out/share/fonts/truetype/
     unzip -j $downloadedFile ${pattern} -d $out/share/fonts/truetype/
   '';
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Font for programmers and command line users";
     homepage = https://www.kutilek.de/sudo-font/;
     license = licenses.ofl;

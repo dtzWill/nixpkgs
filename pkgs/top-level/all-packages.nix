@@ -716,6 +716,8 @@ in
 
   cozy = callPackage ../applications/audio/cozy-audiobooks { };
 
+  ctrtool = callPackage ../tools/archivers/ctrtool { };
+
   crumbs = callPackage ../applications/misc/crumbs { };
 
   deskew = callPackage ../applications/graphics/deskew { };
@@ -3035,7 +3037,9 @@ in
   inherit (fdbPackages)
     foundationdb51
     foundationdb52
-    foundationdb60;
+    foundationdb60
+    foundationdb61
+  ;
 
   foundationdb = foundationdb60;
 
@@ -16523,7 +16527,7 @@ in
   stix-two = callPackage ../data/fonts/stix-two { };
 
   inherit (callPackages ../data/fonts/gdouros { })
-    symbola aegyptus akkadian anatolian maya unidings analecta textfonts aegean eemusic; #  musica abydos;
+    aegan aegyptus akkadian assyrian eemusic maya symbola textfonts unidings;
 
   iana-etc = callPackage ../data/misc/iana-etc { };
 
@@ -22587,6 +22591,7 @@ in
     coqPackages_8_7  coq_8_7
     coqPackages_8_8  coq_8_8
     coqPackages_8_9  coq_8_9
+    coqPackages_8_10 coq_8_10
     coqPackages      coq
   ;
 
@@ -24171,7 +24176,7 @@ in
     stdenv = crossLibcStdenv;
     };
 
-	omnisharp-roslyn = callPackage ../development/tools/omnisharp-roslyn { };
+  omnisharp-roslyn = callPackage ../development/tools/omnisharp-roslyn { };
 
   wasmtime = callPackage ../development/interpreters/wasmtime {};
 
