@@ -22,6 +22,10 @@ mkDerivation rec {
 
     substituteInPlace pinentry-kwallet \
       --replace '/usr/bin/env mksh' ${mksh}/bin/mksh
+    substituteInPlace kwalletaskpass \
+      --replace '/usr/bin/env mksh' ${mksh}/bin/mksh
+    substituteInPlace kwalletcli_getpin \
+      --replace '/usr/bin/env mksh' ${mksh}/bin/mksh
   '';
 
   makeFlags = [ "KDE_VER=5" ];
