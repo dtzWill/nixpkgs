@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, isPy3k
 , nose
 , decorator
 }:
@@ -16,8 +15,6 @@ buildPythonPackage rec {
     extension = "zip";
     sha256 = "12swxb15299v9vqjsq4z8rgh5sdhvpx497xwnhpnb0gynrx6zra5";
   };
-
-  broken = !isPy3k; # 2.3+ is py3-only
 
   checkInputs = [ nose ];
   propagatedBuildInputs = [ decorator ];
