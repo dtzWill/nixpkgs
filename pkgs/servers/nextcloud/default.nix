@@ -4,7 +4,7 @@ let
 in fetchzip {
   name = "nextcloud-${version}";
 
-  url = "https://download.nextcloud.com/server/prereleases/nextcloud-${version}.tar.bz2";
+  url = "https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2";
   sha256 = "1z8095v59hrx34b7zq9bp1ddpr3imiya9ad9jr92i6q4jp5p9i5g";
 
   meta = {
