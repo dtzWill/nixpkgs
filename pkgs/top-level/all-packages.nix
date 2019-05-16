@@ -447,6 +447,8 @@ in
 
   actkbd = callPackage ../tools/system/actkbd { };
 
+  adafruit-ampy = callPackage ../tools/misc/adafruit-ampy { };
+
   adlplug = callPackage ../applications/audio/adlplug { };
 
   opnplug = callPackage ../applications/audio/adlplug {
@@ -20584,7 +20586,10 @@ in
   wrapNeovim = callPackage ../applications/editors/neovim/wrapper.nix { };
 
   neovim-unwrapped = callPackage ../applications/editors/neovim {
-    lua = luajit;
+    lua =
+      # neovim doesn't work with luajit on aarch64: https://github.com/neovim/neovim/issues/7879
+      if stdenv.isAarch64 then lua5_1 else
+      luajit;
   };
 
   neovim = wrapNeovim neovim-unwrapped { };
