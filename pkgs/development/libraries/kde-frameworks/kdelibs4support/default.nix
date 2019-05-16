@@ -5,7 +5,7 @@
   kdbusaddons, kded, kdesignerplugin, kemoticons, kglobalaccel, kguiaddons,
   ki18n, kiconthemes, kio, kitemmodels, kinit, knotifications, kparts, kservice,
   ktextwidgets, kunitconversion, kwidgetsaddons, kwindowsystem, kxmlgui,
-  networkmanager, qtbase, qtsvg, qttools, qtx11extras, xorg
+  qtbase, qtsvg, qttools, qtx11extras, xorg
 }:
 
 mkDerivation {
@@ -17,7 +17,7 @@ mkDerivation {
   propagatedNativeBuildInputs = [ kdoctools ];
   buildInputs = [
     kcompletion kconfig kded kglobalaccel ki18n kio kservice kwidgetsaddons
-    kxmlgui networkmanager qtsvg qtx11extras xorg.libSM
+    kxmlgui qtsvg qtx11extras xorg.libSM
   ];
   propagatedBuildInputs = [
     kauth karchive kconfigwidgets kcoreaddons kcrash kdbusaddons kdesignerplugin
