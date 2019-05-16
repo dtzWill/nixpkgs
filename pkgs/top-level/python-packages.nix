@@ -3918,6 +3918,8 @@ in {
 
   nbmerge = callPackage ../development/python-modules/nbmerge { };
 
+  nbdime = callPackage ../development/python-modules/nbdime { };
+
   nbxmpp = callPackage ../development/python-modules/nbxmpp { };
 
   sleekxmpp = callPackage ../development/python-modules/sleekxmpp { };
