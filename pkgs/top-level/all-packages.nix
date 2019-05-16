@@ -4002,6 +4002,8 @@ in
 
   libcpuid = callPackage ../tools/misc/libcpuid { };
 
+  libcsptr = callPackage ../development/libraries/libcsptr { };
+
   libscrypt = callPackage ../development/libraries/libscrypt { };
 
   libcloudproviders = callPackage ../development/libraries/libcloudproviders { };
@@ -9063,6 +9065,8 @@ in
   dcadec = callPackage ../development/tools/dcadec { };
 
   dejagnu = callPackage ../development/tools/misc/dejagnu { };
+
+  devd = callPackage ../development/tools/devd { };
 
   devtodo = callPackage ../development/tools/devtodo { };
 
