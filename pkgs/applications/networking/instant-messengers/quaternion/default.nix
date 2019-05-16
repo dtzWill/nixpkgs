@@ -17,7 +17,7 @@ let
       # hyperlink users
       (fetchpatch {
         url = https://github.com/QMatrixClient/Quaternion/pull/580.patch;
-        sha256 = "04lhy7akkd2nlpbqfx4fva2f5fxmnwyjw1433kfrabycqjszab98";
+        sha256 = "1r540f9naw3svyc1lgrd8bcvl9z3p652p2kahxr6v4j39mqb3k7c";
       })
     ];
 
