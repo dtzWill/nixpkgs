@@ -6,7 +6,7 @@
 stdenv.mkDerivation rec {
   pname = "dedup";
   #version = "1.0";
-  version = "2019-05-06";
+  version = "2019-05-16";
 
   #src = fetchurl {
   #  url = "https://dl.2f30.org/releases/${pname}-${version}.tar.gz";
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   #};
   src = fetchgit {
     url =  git://git.2f30.org/dedup.git;
-    rev = "a7753b65b2b40ba265e30e8f2f0bda25da7baa53";
-    sha256 = "0g5k32m4h9c0q3z4lqnckcrw9m0gvnm6ih1628xygk2gw7nwr9zk";
+    rev = "a569b0ac6786bf6fc68a65ae6159d0e8ac90bb37";
+    sha256 = "1xpyj6vbji5zyy723kn72jnkv42hg9kxxnfhh2pvrkj6s7i6hbn9";
   };
 
   makeFlags = [

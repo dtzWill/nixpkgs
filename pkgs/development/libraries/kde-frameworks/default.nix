@@ -127,6 +127,7 @@ let
       solid = callPackage ./solid.nix {};
       sonnet = callPackage ./sonnet.nix {};
       syntax-highlighting = callPackage ./syntax-highlighting.nix {};
+      qqc2-desktop-style = callPackage ./qqc2-desktop-style.nix {};
       threadweaver = callPackage ./threadweaver.nix {};
       kirigami2 = callPackage ./kirigami2.nix {};
       kholidays = callPackage ./kholidays.nix {};
