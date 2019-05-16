@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     # url = https://git.infradead.org/users/dwmw2/openconnect.git;
     url = "https://github.com/${pname}/${pname}";
-    rev = "23bbe4c4bb9989a5aff5fac1b264bb59249f75f4";
-    sha256 = "0wlprlzy386p22nq7q22a2haa4w60fhydmazk5mvv97f1qry4541";
+    rev = "558c2abd3efb050f6f717e6238c4b532bdfeb387";
+    sha256 = "1xb1c2viiad7rwlfgkgvhg6zz8g1nlzyn2rqg0sj28lscbdbxvps";
   };
   #src = fetchurl {
   #  urls = [
