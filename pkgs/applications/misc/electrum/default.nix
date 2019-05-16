@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchFromGitHub, python3, python3Packages, zbar, secp256k1 }:
 
 let
-  version = "3.3.5";
+  version = "3.3.6";
 
   # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://download.electrum.org/${version}/Electrum-${version}.tar.gz";
-    sha256 = "1csj0n96zlajnrs39wsazfj5lmy7v7n77cdz56lr8nkmchh6k9z1";
+    sha256 = "0am5ki3z0yvhrz16vp2jjy5fkxxqph0mj9qqpbw3kpql65shykwz";
   };
 
   postUnpack = ''
