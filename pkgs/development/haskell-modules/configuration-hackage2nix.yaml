@@ -3749,6 +3749,7 @@ broken-packages:
   - cparsing
   - CPBrainfuck
   - cpio-conduit
+  - cpkg
   - cplusplus-th
   - cprng-aes-effect
   - cpuperf
@@ -3955,6 +3956,7 @@ broken-packages:
   - dead-simple-json
   - Deadpan-DDP
   - debian
+  - debug
   - debug-me
   - debug-trace-var
   - decepticons
@@ -5082,6 +5084,7 @@ broken-packages:
   - hakismet
   - hakka
   - hako
+  - hakyll
   - hakyll-agda
   - hakyll-blaze-templates
   - hakyll-contrib
@@ -5090,9 +5093,16 @@ broken-packages:
   - hakyll-contrib-hyphenation
   - hakyll-contrib-links
   - hakyll-convert
+  - hakyll-dhall
+  - hakyll-dir-list
+  - hakyll-favicon
   - hakyll-filestore
+  - hakyll-images
   - hakyll-ogmarkup
   - hakyll-R
+  - hakyll-sass
+  - hakyll-series
+  - hakyll-shakespeare
   - hakyll-shortcode
   - hakyll-shortcut-links
   - halberd
@@ -5626,6 +5636,7 @@ broken-packages:
   - hocker
   - hodatime
   - HODE
+  - Hoed
   - hog
   - hogg
   - hoggl
@@ -6334,6 +6345,7 @@ broken-packages:
   - katip-syslog
   - katt
   - kawaii
+  - kazura-queue
   - kd-tree
   - kdesrc-build-extra
   - kdt
@@ -6441,6 +6453,7 @@ broken-packages:
   - language-c-comments
   - language-c-inline
   - language-conf
+  - language-csharp
   - language-css
   - language-dart
   - language-dockerfile
@@ -6848,7 +6861,6 @@ broken-packages:
   - median-stream
   - mediawiki
   - medium-sdk-haskell
-  - megaparsec-tests
   - mellon-core
   - mellon-gpio
   - mellon-web
@@ -7470,6 +7482,7 @@ broken-packages:
   - parsec-pratt
   - parseerror-eq
   - parsely
+  - parser-combinators-tests
   - parser-helper
   - parser241
   - parsergen
@@ -8203,6 +8216,7 @@ broken-packages:
   - RNAlien
   - RNAwolf
   - rncryptor
+  - rob
   - robin
   - robots-txt
   - roc-cluster
@@ -8453,6 +8467,7 @@ broken-packages:
   - servant-streaming-docs
   - servant-streaming-server
   - servant-waargonaut
+  - servant-xml
   - servant-zeppelin
   - servant-zeppelin-client
   - servant-zeppelin-server
@@ -9741,6 +9756,7 @@ broken-packages:
   - wiring
   - withdependencies
   - wkt
+  - wkt-geom
   - wl-pprint-ansiterm
   - wl-pprint-terminfo
   - WL500gPControl

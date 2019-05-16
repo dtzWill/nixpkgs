@@ -1030,13 +1030,13 @@ let
         sha512 = "mmGt/1pZqYRjMxB1axhTo16/snVZ5krrKkcmMeVKxzECMMXoCgnvTPp10QgHfcbQZw8Dq2jMNG6je4JlWU0gWg==";
       };
     };
-    "combined-stream-1.0.7" = {
+    "combined-stream-1.0.8" = {
       name = "combined-stream";
       packageName = "combined-stream";
-      version = "1.0.7";
+      version = "1.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.7.tgz";
-        sha512 = "brWl9y6vOB1xYPZcpZde3N9zDByXTosAeMDo4p1wzo6UMOX4vumB+TP1RZ76sfE6Md68Q0NJSrE/gbezd4Ul+w==";
+        url = "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz";
+        sha512 = "FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==";
       };
     };
     "commander-1.0.4" = {
@@ -4760,7 +4760,7 @@ in
       sources."chalk-1.1.3"
       sources."clone-1.0.4"
       sources."colors-1.1.2"
-      sources."combined-stream-1.0.7"
+      sources."combined-stream-1.0.8"
       sources."commander-1.0.4"
       sources."concat-map-0.0.1"
       (sources."concat-stream-1.6.2" // {
@@ -5355,7 +5355,7 @@ in
       sources."caseless-0.12.0"
       sources."chownr-1.1.1"
       sources."code-point-at-1.1.0"
-      sources."combined-stream-1.0.7"
+      sources."combined-stream-1.0.8"
       sources."concat-map-0.0.1"
       sources."console-control-strings-1.1.0"
       sources."core-util-is-1.0.2"
@@ -5558,10 +5558,10 @@ in
   pnpm = nodeEnv.buildNodePackage {
     name = "pnpm";
     packageName = "pnpm";
-    version = "3.2.0";
+    version = "3.3.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/pnpm/-/pnpm-3.2.0.tgz";
-      sha512 = "bujIqiZBgpusV0N/m+PNQ/FAUKc7ue9WqK+FqfN89on44iLEkERYGBWQEZt2a4OMWH4RHzme7muKOQY8ZegD3Q==";
+      url = "https://registry.npmjs.org/pnpm/-/pnpm-3.3.1.tgz";
+      sha512 = "OnRUhabeIUevLGFhNsTeodzu6Du9SkFTlOiIekWfqvYcHBHorxO56o7Sq5y/IXkoF9aMRauEp8rwzHR1P0up6g==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -5595,7 +5595,7 @@ in
       sources."buffer-from-1.1.1"
       sources."caseless-0.12.0"
       sources."colors-1.3.3"
-      sources."combined-stream-1.0.7"
+      sources."combined-stream-1.0.8"
       sources."commander-2.19.0"
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.2"

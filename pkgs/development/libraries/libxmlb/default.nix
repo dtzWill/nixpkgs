@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = https://github.com/hughsie/libxmlb;
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ jtojnar ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

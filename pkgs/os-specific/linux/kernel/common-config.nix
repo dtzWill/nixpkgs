@@ -426,6 +426,12 @@ let
 
       VFIO_PCI_VGA = mkIf stdenv.is64bit yes;
 
+      # VirtualBox guest drivers in the kernel conflict with the ones in the
+      # official additions package and prevent the vboxsf module from loading,
+      # so disable them for now.
+      VBOXGUEST = option no;
+      DRM_VBOXVIDEO = option no;
+
     } // optionalAttrs (stdenv.isx86_64 || stdenv.isi686) ({
       XEN = option yes;
 
@@ -542,7 +548,9 @@ let
       TEST_ASYNC_DRIVER_PROBE  = option no;
       WW_MUTEX_SELFTEST        = option no;
       XZ_DEC_TEST              = option no;
-    } // optionalAttrs (features.criu or false) ({
+    };
+
+    criu = optionalAttrs (features.criu or false) ({
       EXPERT              = yes;
       CHECKPOINT_RESTORE  = yes;
     } // optionalAttrs (features.criu_revert_expert or true) {
@@ -685,6 +693,9 @@ let
       # Enable AMD's ROCm GPU compute stack
       # XXX: dtz
       # HSA_AMD = whenAtLeast "4.20" yes;
+
+      PREEMPT = no;
+      PREEMPT_VOLUNTARY = yes;
 
     } // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux") {
       # Enable memory hotplug support

@@ -1,13 +1,13 @@
 {stdenv, fetchFromGitLab , which, go-md2man, coreutils, substituteAll }:
 
 stdenv.mkDerivation rec {
-  version = "1.4.8";
+  version = "1.4.9";
   pname = "brillo";
   src = fetchFromGitLab {
     owner= "cameronnemo";
     repo= "brillo";
     rev= "v${version}";
-    sha256 = "0wxvg541caiwm3bjwbmk7xcng7jd9xsiga2agxwp7gpkrlp74j9f";
+    sha256 = "0ab7s60zcgl6hvm0a9rlwq35p25n3jnw6r9256pwl4cdwyjyybsb";
   };
   makeFlags = [ "PREFIX=$(out)" "AADIR=$(out)/etc/apparmor.d"];
   nativeBuildInputs = [go-md2man which];

@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     inherit name;
     url = git://git.notmuchmail.org/git/notmuch;
-    rev = "6682b4e686b7972883626c9b0f941ae4bf02dedb";
-    sha256 = "147gzqbhzwfbbij0xjig3l1miqg05bdvm2by2d109dhkgxw6zmd3";
+    rev = "9c0001de4bf3446a7cb8e6afc8dd3288be9169b7";
+    sha256 = "1cd4ybyx23k78mc4pbkzm7bn5bs32kws5srmx6x21radvwhqpv4p";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
@@ -45,8 +45,6 @@ stdenv.mkDerivation rec {
     emacs  # (optional) to byte compile emacs code, also needed for tests
     ruby  # (optional) ruby bindings
   ];
-
-  patches = [ ./fix-fd-leak.patch ];
 
   postPatch = ''
     patchShebangs configure

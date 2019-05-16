@@ -1,0 +1,25 @@
+From 2a15e99ab8e163348530fd1ef488ee64dda99744 Mon Sep 17 00:00:00 2001
+From: Michael Weiss <dev.primeos@gmail.com>
+Date: Wed, 15 May 2019 23:18:57 +0200
+Subject: [PATCH] build-sys/doc: Use XSL-NS stylesheets for the xsltproc test
+
+---
+ doc/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/meson.build b/doc/meson.build
+index 369090f..ba3ce37 100644
+--- a/doc/meson.build
++++ b/doc/meson.build
+@@ -48,7 +48,7 @@ xsltproc_args = [
+ ]
+ 
+ if xsltproc.found()
+-	xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
++	xsl = 'http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl'
+ 	testrun = run_command([xsltproc, '--nonet', xsl])
+ 	xsltproc_works = testrun.returncode() == 0
+ 	if xsltproc_works == false
+-- 
+2.21.0
+

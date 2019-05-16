@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, ncurses, gettext, python3
+{ stdenv, fetchurl, fetchFromGitHub, ncurses, gettext, python3, python3Packages
 , makeWrapper, autoreconfHook, asciidoc-full, libxml2, tzdata }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +19,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./vdirsyncer-quoting.patch ];
 
-  buildInputs = [ ncurses gettext pythonEnv ];
+  buildInputs = [ ncurses gettext python3 python3Packages.wrapPython ];
   nativeBuildInputs = [ makeWrapper autoreconfHook asciidoc-full libxml2.bin ];
-
-  # Build Python environment with httplib2 for calcurse-caldav
-  pythonEnv = python3.withPackages (ps: with ps; [ httplib2 libxml2 oauth2client ]);
 
   preCheck = ''
     export TZDIR=${tzdata}/share/zoneinfo
@@ -31,7 +28,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  # libxml2 oauth2client
   postInstall = ''
+    patchShebangs .
+    buildPythonPath ${python3Packages.httplib2}
+    patchPythonScript $out/bin/calcurse-caldav
     install -Dm755 contrib/vdir/calcurse-vdirsyncer $out/bin
   '';
 

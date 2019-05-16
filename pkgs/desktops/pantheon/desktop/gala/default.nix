@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gala";
-  version = "unstable-2019-03-02"; # Is tracking https://github.com/elementary/gala/commits/stable/juno
+  version = "unstable-2019-05-14"; # Is tracking https://github.com/elementary/gala/commits/stable/juno
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = pname;
-    rev = "395670ec3db6b6cd61f06950d64dc37e4eaf408a";
-    sha256 = "1bb3apsnaiipram2cdq2b31qwkwjd9f8xxh34brzpqmacy1qpwrz";
+    rev = "3ae100da4bbd9dabe353f468778ef63ef2dcd5d7";
+    sha256 = "08xcj4z9mq511w8hdpr60nmd6j1cj7rs7rgs4s5ivyg11kg5w17b";
   };
 
   passthru = {

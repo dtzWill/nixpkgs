@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   checkInputs = [ which gnuplot ];
-  doCheck = true;
+  doCheck = !stdenv.isDarwin;
 
   meta = {
     description = "Image processing and analysis library";

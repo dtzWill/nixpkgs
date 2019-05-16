@@ -2,16 +2,21 @@
 
 stdenv.mkDerivation rec {
   name = "bfs-${version}";
-  version = "1.4";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     repo = "bfs";
     owner = "tavianator";
     rev = version;
-    sha256 = "0dsvl0pyw0i6r32kdm0xk74ifbq8avz7j0bqdnlzzsi5h7my8j8m";
+    sha256 = "1y5w8gws4j1i334ap4rsl64scr0hlyrdkdl7ffaghs8fqa6mjmsb";
   };
 
   buildInputs = stdenv.lib.optionals stdenv.isLinux [ libcap acl ];
+
+  # Disable LTO on darwin. See https://github.com/NixOS/nixpkgs/issues/19098
+  preConfigure = stdenv.lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Makefile --replace "-flto -DNDEBUG" "-DNDEBUG"
+  '';
 
   makeFlags = [ "PREFIX=$(out)" ];
   buildFlags = [ "release" ]; # "release" enables compiler optimizations
