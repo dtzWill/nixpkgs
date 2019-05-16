@@ -8,7 +8,7 @@ let
     owner = "spesmilo";
     repo = "electrum";
     rev = version;
-    sha256 = "11rzzrv5xxqazcb7q1ig93d6cisqmd1x0jrgvfgzysbzvi51gg11";
+    sha256 = "0s8i6fn1jwk80d036n4c7csv4qnx2k15f6347kr4mllglcpa9hb3";
 
     extraPostFetch = ''
       mv $out ./all
