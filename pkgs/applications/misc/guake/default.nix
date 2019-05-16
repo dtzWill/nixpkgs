@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, python3, gettext, gobject-introspection, wrapGAppsHook, glibcLocales
-, gtk3, keybinder3, libnotify, libutempter, vte }:
+, gtk3, keybinder3, libnotify, libutempter, vte, libwnck3 }:
 
 let
   version = "3.6.3";
@@ -23,7 +23,7 @@ in python3.pkgs.buildPythonApplication rec {
 
   buildInputs = [ gtk3 keybinder3 libnotify python3 vte ];
 
-  propagatedBuildInputs = with python3.pkgs; [ dbus-python pbr pycairo pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [ dbus-python pbr pycairo pygobject3 libwnck3 ];
 
   LC_ALL = "en_US.UTF-8"; # fixes weird encoding error, see https://github.com/NixOS/nixpkgs/pull/38642#issuecomment-379727699
 
