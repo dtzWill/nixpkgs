@@ -2,7 +2,7 @@
 , gtk3, keybinder3, libnotify, libutempter, vte }:
 
 let
-  version = "3.5.0";
+  version = "3.6.3";
 in python3.pkgs.buildPythonApplication rec {
   name = "guake-${version}";
   format = "other";
@@ -11,7 +11,7 @@ in python3.pkgs.buildPythonApplication rec {
     owner = "Guake";
     repo = "guake";
     rev = version;
-    sha256 = "0fz0gciw5fpxrp6yyji27l7q8c0r9ljsq6vw584mr70bcl1gzjqx";
+    sha256 = "13ipnmqcyixpa6qv83m0f91za4kar14s5jpib68b32z65x1h0j3b";
   };
 
   # Strict deps breaks guake
