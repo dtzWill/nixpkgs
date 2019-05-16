@@ -19,7 +19,6 @@
 , libdazzle
 , libpeas
 , libxml2
-, libpeas
 , meson
 , ninja
 , ostree
