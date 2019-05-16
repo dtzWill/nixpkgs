@@ -18,6 +18,7 @@ in buildGoPackage rec {
 
   goPackagePath = "browsh";
 
+  # further go package dependencies are defined in deps.nix, see line below.
   src = fetchFromGitHub {
     owner = "browsh-org";
     repo = "browsh";
@@ -29,7 +30,7 @@ in buildGoPackage rec {
 
   # embed the web extension in a go file and place it where it's supposed to
   # be. See
-  # https://github.com/browsh-org/browsh/blob/9abc3aaa3f575ca6ec9a483408d9fdfcf76300fa/interfacer/contrib/xpi2bin.sh
+  # https://github.com/browsh-org/browsh/blob/v1.5.0/interfacer/contrib/xpi2bin.sh
   preBuild = ''
     xpiprefix="$(mktemp -d)"
     cp "${webext}" "$xpiprefix/browsh.xpi"
