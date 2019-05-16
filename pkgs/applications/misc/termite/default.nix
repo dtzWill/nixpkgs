@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
   # https://github.com/thestinger/termite/pull/516
   patches = [ ./url_regexp_trailing.patch ./add_errno_header.patch
     # Fix off-by-one in select_text() on libvte >= 0.55.0
+    # Expected to be included in next release (16).
     (fetchpatch {
       url = "https://github.com/thestinger/termite/commit/7e9a93b421b9596f8980645a46ac2ad5468dac06.patch";
       sha256 = "0vph2m5919f7w1xnc8i6z0j44clsm1chxkfg7l71nahxyfw5yh4j";
