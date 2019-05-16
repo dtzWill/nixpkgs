@@ -9,12 +9,12 @@
 buildPythonPackage rec {
   pname = "networkx";
   # upgrade may break sage, please test the sage build or ping @timokau on upgrade
-  version = "2.3";
+  version = "2.2";
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    sha256 = "0gaf3mgyv5rmny0m54blykiiz6hx2kfi40hxgig5qp6gcgpxs4c3";
+    sha256 = "12swxb15299v9vqjsq4z8rgh5sdhvpx497xwnhpnb0gynrx6zra5";
   };
 
   broken = !isPy3k; # 2.3+ is py3-only
