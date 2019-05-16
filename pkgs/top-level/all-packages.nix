@@ -967,6 +967,7 @@ in
   bc = callPackage ../tools/misc/bc { };
 
   bdf2psf = callPackage ../tools/misc/bdf2psf { };
+  psftools = callPackage ../tools/misc/psftools { };
 
   bcat = callPackage ../tools/text/bcat {};
 
