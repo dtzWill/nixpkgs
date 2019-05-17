@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, libclang, pkgconfig }:
+{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang, libclang, pkgconfig }:
 
 with rustPlatform;
 
@@ -11,7 +11,7 @@ buildRustPackage rec {
     sha256 = "1rm787kkh3ya8ix0rjvj7sbrg9armm0rnpkga6gjmsbg5bx20y4q";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig clang ];
 
   postInstall = ''
     mkdir -p $out/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d}
@@ -22,7 +22,7 @@ buildRustPackage rec {
 
   LIBCLANG_PATH = libclang + "/lib";
 
-  buildInputs = [ openssl libsodium nettle ] ++ stdenv.lib.optionals stdenv.isDarwin
+  buildInputs = [ openssl libsodium nettle libclang ] ++ stdenv.lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ Security ]);
 
   doCheck = false;
