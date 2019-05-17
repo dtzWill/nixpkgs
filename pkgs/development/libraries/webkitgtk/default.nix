@@ -39,7 +39,15 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ];
+  NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ]
+    ++ optionals stdenv.cc.isClang [
+    # be a bit quieter, save time+logs
+    "-Wno-string-plus-int"
+    # don't bother generating colorful diagrams for warnings :)
+    "-fno-color-diagnostics"
+    # bit less debug
+    "-g0"
+  ];
 
   hardeningDisable = [ "format" ]; # clang, gstreamer something
 
