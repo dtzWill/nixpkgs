@@ -39,9 +39,11 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
+  CFLAGS = [ "-O2" "-pipe" ];
+
   cmakeFlags = [
   "-DPORT=GTK"
-  "-DUSE_LIBHYPHEN=0"
+  "-DUSE_LIBHYPHEN=OFF"
   "-DENABLE_INTROSPECTION=ON"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
