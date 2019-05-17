@@ -13605,6 +13605,8 @@ in
   webkitgtk = callPackage ../development/libraries/webkitgtk {
     harfbuzz = harfbuzzFull;
     inherit (gst_all_1) gst-plugins-base gst-plugins-bad;
+    # sadface
+    stdenv = overrideCC stdenv gcc6;
   };
 
   webkitgtk24x-gtk3 = callPackage ../development/libraries/webkitgtk/2.4.nix {
