@@ -6343,9 +6343,7 @@ in
 
   udptunnel = callPackage ../tools/networking/udptunnel { };
 
-  ufraw = callPackage ../applications/graphics/ufraw {
-    stdenv = overrideCC stdenv gcc6; # doesn't build with gcc7
-  };
+  ufraw = callPackage ../applications/graphics/ufraw { };
 
   uftrace = callPackage ../development/tools/uftrace { };
 
@@ -13501,13 +13499,10 @@ in
     inherit (python2Packages) python;
   };
 
-  v8 = callPackage ../development/libraries/v8 ({
+  v8 = callPackage ../development/libraries/v8 {
     inherit (python2Packages) python gyp;
     icu = icu58; # v8-5.4.232 fails against icu4c-59.1
-  } // lib.optionalAttrs stdenv.isLinux {
-    # doesn't build with gcc7
-    stdenv = overrideCC stdenv gcc6;
-  });
+  };
 
   vaapiIntel = callPackage ../development/libraries/vaapi-intel { };
 
@@ -13590,7 +13585,6 @@ in
 
   vxl = callPackage ../development/libraries/vxl {
     libpng = libpng12;
-    stdenv = overrideCC stdenv gcc6; # upstream code incompatible with gcc7
   };
 
   wavpack = callPackage ../development/libraries/wavpack { };
