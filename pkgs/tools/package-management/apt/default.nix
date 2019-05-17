@@ -1,5 +1,6 @@
 { stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma, bzip2, lz4
 , db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
+, gnutls
 
 # used when WITH_DOC=ON
 , w3m
@@ -27,6 +28,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     cmake perlPackages.perl curl gtest lzma bzip2 lz4 db dpkg libxslt.bin
+    gnutls
   ] ++ lib.optionals withDocs [
     doxygen perlPackages.Po4a w3m docbook_xml_dtd_45
   ] ++ lib.optionals withNLS [
