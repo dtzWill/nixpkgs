@@ -8,29 +8,19 @@
 assert enableSeccomp -> libseccomp != null;
 assert enablePython -> python3 != null;
 
-let version = "9.14.1"; in
+let version = "9.14.2"; in
 
 stdenv.mkDerivation rec {
   name = "bind-${version}";
 
   src = fetchurl {
     url = "https://ftp.isc.org/isc/bind9/${version}/${name}.tar.gz";
-    sha256 = "0j6v25zp2dry732c3x0rl9qii5g84g0p380qk4d2f0qaj1fliiy3";
+    sha256 = "033zqajnj5ys45g899132xkhh9f0hsh76ffv7302wl166xbjfh0f";
   };
 
   outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
 
-  patches = [ ./dont-keep-configure-flags.patch ./remove-mkdir-var.patch ] ++
-    [
-      # Workaround for missing atomic operations on aarch64. Upstream added the
-      # below patch after the release. Can probably be dropped with the next
-      # version.
-      (fetchpatch {
-        name = "client-atomics-as-refcount.patch";
-        url = https://gitlab.isc.org/isc-projects/bind9/commit/d72f436b7d7c697b262968c48c2d7643069ab17f.diff;
-        sha256 = "0sidlab9wcv21751fbq3h9m4wy6hk7frag9ar2jndw8rn3axr2qy";
-      })
-    ] ++
+  patches = [ ./remove-mkdir-var.patch ] ++
     stdenv.lib.optional stdenv.isDarwin ./darwin-openssl-linking-fix.patch;
 
   nativeBuildInputs = [ perl ];
