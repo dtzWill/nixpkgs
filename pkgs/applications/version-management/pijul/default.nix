@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, pkgconfig }:
+{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, libclang, pkgconfig }:
 
 with rustPlatform;
 
@@ -19,6 +19,8 @@ buildRustPackage rec {
     $out/bin/pijul generate-completions --zsh > $out/share/zsh/site-functions/_pijul
     $out/bin/pijul generate-completions --fish > $out/share/fish/vendor_completions.d/pijul.fish
   '';
+
+  LIBCLANG_PATH = libclang + "/lib";
 
   buildInputs = [ openssl libsodium nettle ] ++ stdenv.lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ Security ]);

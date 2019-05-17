@@ -19227,7 +19227,9 @@ in
 
   pig = callPackage ../applications/networking/cluster/pig { };
 
-  pijul = callPackage ../applications/version-management/pijul {};
+  pijul = callPackage ../applications/version-management/pijul {
+    inherit (llvmPackages) libclang;
+  };
 
   ping = callPackage ../applications/networking/ping { };
 
