@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  CFLAGS = [ "-O2" "-pipe" ];
+  NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ];
 
   cmakeFlags = [
   "-DPORT=GTK"
