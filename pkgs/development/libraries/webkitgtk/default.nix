@@ -39,17 +39,15 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ]
-    ++ optionals stdenv.cc.isClang [
-    # be a bit quieter, save time+logs
-    "-Wno-string-plus-int"
-    # don't bother generating colorful diagrams for warnings :)
-    "-fno-color-diagnostics"
-    # bit less debug
-    "-g0"
-  ];
-
-  hardeningDisable = [ "format" ]; # clang, gstreamer something
+  #NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ]
+  #  ++ optionals stdenv.cc.isClang [
+  #  # be a bit quieter, save time+logs
+  #  "-Wno-string-plus-int"
+  #  # don't bother generating colorful diagrams for warnings :)
+  #  "-fno-color-diagnostics"
+  #  # bit less debug
+  #  "-g0"
+  #];
 
   cmakeFlags = [
   "-DPORT=GTK"
@@ -57,17 +55,19 @@ stdenv.mkDerivation rec {
   "-DENABLE_INTROSPECTION=ON"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
-  ++ optionals stdenv.isLinux [
-    "-DENABLE_GLES2=OFF"
-    "-DENABLE_OPENGL=ON"
-    "-DENABLE_WEBGL=ON"
-    "-DENABLE_ACCELERATED_2D_CANVAS=ON"
+  ++ optional stdenv.isLinux "-DENABLE_GLES2=ON"
+  # Apparently build is much too brittle for any of this (?!)
+  #++ optionals stdenv.isLinux [
+  #  "-DENABLE_GLES2=OFF"
+  #  "-DENABLE_OPENGL=ON"
+  #  "-DENABLE_WEBGL=ON"
+  #  "-DENABLE_ACCELERATED_2D_CANVAS=ON"
 
-    "-DDEVELOPER_MODE=OFF"
-    "-DENABLE_DEVELOPER_MODE=OFF"
-    # Source/cmake/OptionsCommon.cmake
-    "-DUSE_LD_GOLD=ON"
-  ]
+  #  "-DDEVELOPER_MODE=OFF"
+  #  "-DENABLE_DEVELOPER_MODE=OFF"
+  #  # Source/cmake/OptionsCommon.cmake
+  #  "-DUSE_LD_GOLD=ON"
+  #]
   ++ optionals stdenv.isDarwin [
   "-DUSE_SYSTEM_MALLOC=ON"
   "-DUSE_ACCELERATE=0"
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
-    ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender libXt ])
+    ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender  ])
     ++ optionals stdenv.isDarwin [ libedit readline libGLU_combined ]
     ++ optional stdenv.isLinux wayland;
 
