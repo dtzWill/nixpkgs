@@ -6,6 +6,8 @@
 
 with lib;
 
+assert !withQt4; # XXX: DTZ: I want to know if/when/how my configs try qt4 instead
+
 let
   v = "0.10.2";
   pname = "phonon-backend-vlc";
