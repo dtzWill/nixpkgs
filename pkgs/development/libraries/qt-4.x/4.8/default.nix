@@ -16,8 +16,6 @@
 , cf-private, libobjc, ApplicationServices, OpenGL, Cocoa, AGL, libcxx
 }:
 
-assert false;
-
 let
   v_maj = "4.8";
   v_min = "7";
