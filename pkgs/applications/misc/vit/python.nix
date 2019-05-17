@@ -13,7 +13,7 @@ buildPythonApplication rec {
     sha256 = "0g62dp3fircn4xd80h7hs3grvfg2if4pymvzsrsssa78hfrx00b3";
   };
 
-  buildInputs = [
+  propagatedBuildInputs = [
     future six tasklib tzlocal urwid
   ];
 
