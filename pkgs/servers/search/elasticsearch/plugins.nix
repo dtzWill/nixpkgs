@@ -126,4 +126,22 @@ in {
       license = licenses.asl20;
     };
   };
+
+  ingest-attachment = esPlugin rec {
+    name = "elasticsearch-${pluginName}-${version}";
+    pluginName = "ingest-attachment";
+    version = esVersion;
+    src = fetchurl {
+      url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip";
+      sha256 =
+        if version == "7.0.1" then "03hnw0g3gyvs1aby75b3wz093dn5dsyn2845hxxwh1n2s8csswkk"
+        else if version == "6.7.2" then "1dgb0gx4q5xlhkchwxbsaml3i1w9vzppnw068b8kfdq5g5wi31kd"
+        else throw "unsupported version ${version} for plugin ${pluginName}";
+    };
+    meta = with stdenv.lib; {
+      homepage = https://github.com/elastic/elasticsearch/tree/master/plugins/ingest-attachment;
+      description = "Ingest processor that uses Apache Tika to extract contents";
+      license = licenses.asl20;
+    };
+  };
 }
