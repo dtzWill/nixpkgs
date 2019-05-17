@@ -13602,7 +13602,7 @@ in
   webkitgtk = callPackage ../development/libraries/webkitgtk {
     harfbuzz = harfbuzzFull;
     inherit (gst_all_1) gst-plugins-base gst-plugins-bad;
-    stdenv = overrideCC stdenv gcc6;
+    stdenv = clangStdenv;
   };
 
   webkitgtk24x-gtk3 = callPackage ../development/libraries/webkitgtk/2.4.nix {
@@ -15152,7 +15152,7 @@ in
   kmscube = callPackage ../os-specific/linux/kmscube { };
 
   kmsxx = callPackage ../development/libraries/kmsxx {
-    stdenv = overrideCC stdenv gcc6;
+    stdenv = clangStdenv;
   };
 
   latencytop = callPackage ../os-specific/linux/latencytop { };
