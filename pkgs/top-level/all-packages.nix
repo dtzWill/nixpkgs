@@ -4470,8 +4470,6 @@ in
 
   memtier-benchmark = callPackage ../tools/networking/memtier-benchmark { };
 
-  memtest86 = callPackage ../tools/misc/memtest86 { };
-
   memtest86-efi = callPackage ../tools/misc/memtest86-efi { };
 
   memtest86plus = callPackage ../tools/misc/memtest86+ { };
@@ -14814,7 +14812,7 @@ in
 
   webhook = callPackage ../servers/http/webhook { };
 
-  winstone = callPackage ../servers/http/winstone { };
+  winstone = throw "Winstone is not supported anymore. Alternatives are Jetty or Tomcat.";
 
   xinetd = callPackage ../servers/xinetd { };
 
