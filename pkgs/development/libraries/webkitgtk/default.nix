@@ -41,6 +41,8 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-O2" "-pipe" ];
 
+  hardeningDisable = [ "format" ]; # clang, gstreamer something
+
   cmakeFlags = [
   "-DPORT=GTK"
   "-DUSE_LIBHYPHEN=OFF"
