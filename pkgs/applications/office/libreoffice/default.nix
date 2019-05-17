@@ -6,7 +6,7 @@
 , openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
 , librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mariadb
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
-, libwpg, dbus-glib, qt4, clucene_core, libcdr, lcms, vigra
+, libwpg, dbus-glib, /* qt4,*/ clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
 , fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
@@ -111,7 +111,7 @@ in stdenv.mkDerivation rec {
       'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
   '';
 
-  QT4DIR = qt4;
+  #QT4DIR = qt4;
   #dontUseQmakeConfigure = true;
 
   preConfigure = ''
@@ -298,7 +298,7 @@ in stdenv.mkDerivation rec {
     "--disable-report-builder"
     "--disable-online-update"
     "--enable-python=system"
-    "--enable-qt4"
+    #"--enable-qt4"
     "--enable-dbus"
     "--enable-cairo-canvas"
     "--with-tls=nss"
