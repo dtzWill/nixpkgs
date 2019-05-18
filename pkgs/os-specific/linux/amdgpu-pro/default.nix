@@ -28,13 +28,12 @@ let
 
 in stdenv.mkDerivation rec {
 
-  version = "17.40";
+  upstreamVersion = "17.40";
   pname = "amdgpu-pro";
-  build = "${version}-492261";
+  build = "${upstreamVersion}-492261";
+  version = upstreamVersion + (optionalString (!libsOnly) "-${kernelDir.version}");
 
   libCompatDir = "/run/lib/${libArch}";
-
-  name = pname + "-" + version + (optionalString (!libsOnly) "-${kernelDir.version}");
 
   src = fetchurl {
     url =
