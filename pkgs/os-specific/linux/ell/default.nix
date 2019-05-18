@@ -3,13 +3,13 @@
 stdenv.mkDerivation rec {
   pname = "ell";
   #version = "0.20";
-  version = "2019-05-16";
+  version = "2019-05-17";
 
   src = fetchgit {
      url = https://git.kernel.org/pub/scm/libs/ell/ell.git;
      #rev = version;
-     rev = "71a9459799195a50aca4e72e55b34f014a6f6bdc";
-     sha256 = "170bisv2v7cq94gy5rzgf945pswz2i09f3q8r1ck6mii0mk1h3qs";
+     rev = "3b4fbfb1a8ed7eea4b255e871d7ba9b868b0318f";
+     sha256 = "126vmm04dqfdpd6g3wjnnhrp8jmzpwvdkwx74vj23qybza033avv";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
