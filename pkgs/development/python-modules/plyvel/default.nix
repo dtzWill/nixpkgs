@@ -8,11 +8,11 @@
 
 buildPythonPackage rec {
   pname = "plyvel";
-  version = "1.0.5";
+  version = "1.1.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "d64d99fa457fbddb610516f109bd348da143f81324493a14dcb5231db06f8b91";
+    sha256 = "1icsycqqjj8048a0drj3j75a71yiv2cmijh4w3jf9zxahh3k2c9p";
   };
 
   buildInputs = [ pkgs.leveldb ] ++ stdenv.lib.optional isPy3k pytest;
