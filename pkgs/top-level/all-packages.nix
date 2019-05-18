@@ -15436,7 +15436,7 @@ in
     phc-intel = callPackage ../os-specific/linux/phc-intel { };
 
     # Disable for kernels 4.15 and above due to compatibility issues
-    prl-tools = if stdenv.lib.versionOlder kernel.version "4.15" then null else callPackage ../os-specific/linux/prl-tools { };
+    prl-tools = if stdenv.lib.versionOlder kernel.version "4.15" then callPackage ../os-specific/linux/prl-tools { } else null;
 
     sch_cake = callPackage ../os-specific/linux/sch_cake { };
 
