@@ -32,7 +32,7 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
 
-  version = "15.12";
+  upstreamVersion = "15.12";
   pname = "ati-drivers";
   build = "15.302";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       true
     else throw "ati-drivers are Linux only. Sorry. The build was stopped.";
 
-  name = pname + "-" + version + (optionalString (!libsOnly) "-${kernelDir.version}");
+  version = upstreamVersion + (optionalString (!libsOnly) "-${kernelDir.version}");
 
   builder = ./builder.sh;
   gcc = stdenv.cc.cc;
