@@ -9,10 +9,10 @@ in fetchzip {
 
   postFetch = ''
     mkdir -p $out/share/fonts/truetype/
-    unzip -j $downloadedFile "Inter (TTF hinted)/*.ttf" "Inter (TTF variable)/*.ttf" -d $out/share/fonts/truetype
+    unzip -j $downloadedFile "Inter (TTF variable)/*.ttf" -d $out/share/fonts/truetype
   '';
 
-  sha256 = "0kyfz86nznrh3mk4f86mp1cfl5965xj5nc6qwp9srxhf6nri48xg";
+  sha256 = "190crrmp8i7vadl0npfzxywj78q8szc4y2gdcmjbi74q76xb0cc9";
 
   meta = with lib; {
     homepage = https://rsms.me/inter/;
