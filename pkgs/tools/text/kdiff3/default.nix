@@ -1,5 +1,5 @@
 {
-  mkDerivation, lib, fetchurl, # fetchgit, fetchpatch,
+  mkDerivation, lib, fetchurl,
   extra-cmake-modules, kdoctools, wrapGAppsHook,
   kcrash, kconfig, kinit, kparts
 }:
