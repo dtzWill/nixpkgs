@@ -341,7 +341,7 @@ in stdenv.mkDerivation rec {
     "--without-doxygen"
 
     "--enable-extension-integration"
-    "--enable-mergelib" # one library to rule them all, and in the darkness...
+    "--enable-mergelibs" # one library to rule them all, and in the darkness...
 
     # TODO: package these as system libraries
     "--with-system-beanshell"
