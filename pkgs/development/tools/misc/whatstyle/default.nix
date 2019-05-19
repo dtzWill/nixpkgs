@@ -10,6 +10,8 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "16ak4g149cr764c1lqakiyzmf5s98w8bdc4gk69m8qacimfg3mzm";
   };
 
+  patches = [ ./support-clang8-options.patch ];
+
   # Fix references to previous version, to avoid confusion:
   postPatch = ''
     substituteInPlace setup.py --replace 0.1.6 ${version}
