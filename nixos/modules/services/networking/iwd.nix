@@ -57,6 +57,9 @@ in {
           # TODO: BSS blacklist settings
           # TODO: Rank settings
 
+          Rank = {
+            rank_5g_factor = 1.0;
+          };
         };
         description = "settings to write to /etc/iwd/main.conf";
     };
