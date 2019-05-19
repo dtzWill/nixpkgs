@@ -112,11 +112,10 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-
-  QT5DIR = qtbase;
-  QT_SELECT = "5";
-  MOC5 = "${qtbase.dev}/bin/moc";
-  dontUseQmakeConfigure = true;
+  # QT5DIR = qtbase;
+  # QT_SELECT = "5";
+  # MOC5 = "${qtbase.dev}/bin/moc";
+  # dontUseQmakeConfigure = true;
 
   preConfigure = ''
     configureFlagsArray=(
@@ -290,6 +289,8 @@ in stdenv.mkDerivation rec {
     sed -re 's@Icon=libreoffice(dev)?[0-9.]*-?@Icon=@' -i "$out/share/applications/"*.desktop
   '';
 
+  #QT5DIR = qtbase;
+
   configureFlags = [
     "${if withHelp then "" else "--without-help"}"
     "--with-boost=${boost.dev}"
@@ -373,7 +374,7 @@ in stdenv.mkDerivation rec {
     [ ant ArchiveZip autoconf automake bison boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
-      qtbase qtx11extras
+      # qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
@@ -387,7 +388,7 @@ in stdenv.mkDerivation rec {
       libodfgen CoinMP librdf_rasqal gnome3.adwaita-icon-theme gettext
     ]
     ++ lib.optional kdeIntegration kdelibs4;
-  nativeBuildInputs = [ wrapGAppsHook gdb fontforge qmake ];
+  nativeBuildInputs = [ wrapGAppsHook gdb fontforge /* qmake */ ];
 
   passthru = {
     inherit srcs jdk;
