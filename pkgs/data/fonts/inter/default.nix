@@ -8,11 +8,11 @@ in fetchzip {
   url = "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip";
 
   postFetch = ''
-    mkdir -p $out/share/fonts/opentype
-    unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+    mkdir -p $out/share/fonts/truetype/
+    unzip -j $downloadedFile "Inter (TTF hinted)/*.ttf" "Inter (TTF variable)/*.ttf" -d $out/share/fonts/truetype
   '';
 
-  sha256 = "0zqixzzbb3n1j4jvpjm0hlxc32j53hgq4j078gihjkhgvjhsklf2";
+  sha256 = "0kyfz86nznrh3mk4f86mp1cfl5965xj5nc6qwp9srxhf6nri48xg";
 
   meta = with lib; {
     homepage = https://rsms.me/inter/;
