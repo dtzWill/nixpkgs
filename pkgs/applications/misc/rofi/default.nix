@@ -10,10 +10,11 @@ stdenv.mkDerivation rec {
   version = "2019-05-19";
 
   src = fetchFromGitHub {
-    owner = "davetorium";
+    owner = "davatorium";
     repo = pname;
     rev = "361ce7d6fc9c837d6a263a9f3405e3466668523a";
-    sha256 = "0qyw0m7r5b5d6d5j4ql2790wywk5ndc578zx79zvzdqbcmd9jl50";
+    fetchSubmodules = true;
+    sha256 = "15yd7xjmamij22svyjzn5idjv5m9nbfrylpc9h87rvwjcjss02c8";
   };
   #src = fetchurl {
   #  url = "https://github.com/DaveDavenport/rofi/releases/download/${version}/rofi-${version}.tar.gz";
