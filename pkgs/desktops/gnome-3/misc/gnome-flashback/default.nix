@@ -1,7 +1,6 @@
 { stdenv
 , autoreconfHook
 , fetchurl
-, fetchpatch
 , gettext
 , glib
 , gnome-bluetooth
@@ -38,15 +37,6 @@ let
       url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
       sha256 = "0jfzr7vdmnxpxqqa38ni1p3c508xhlnxqpmmqshk3rvrf0afqn62";
     };
-
-    patches =[
-      # overrides do not respect gsettingsschemasdir
-      # https://gitlab.gnome.org/GNOME/gnome-flashback/issues/9
-      (fetchpatch {
-       url = https://gitlab.gnome.org/GNOME/gnome-flashback/commit/a55530f58ccd600414a5420b287868ab7d219705.patch;
-       sha256 = "1la94lhhb9zlw7bnbpl6hl26zv3kxbsvgx996mhph720wxg426mh";
-      })
-    ];
 
     # make .desktop Execs absolute
     postPatch = ''
