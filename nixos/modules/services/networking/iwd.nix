@@ -58,7 +58,7 @@ in {
           # TODO: Rank settings
 
           Rank = {
-            rank_5g_factor = 1.0;
+            rank_5g_factor = "1.0"; # XXX: why aren't floats/doubles handled automatically?
           };
         };
         description = "settings to write to /etc/iwd/main.conf";
