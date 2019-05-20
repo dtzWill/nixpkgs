@@ -17,6 +17,16 @@ in {
         description = "Whether to start the Keybase service.";
       };
 
+      mountDir = mkOption {
+        type = types.nullOr types.str;
+        default = "%h/keybase"; # null;
+        description = ''
+          Directory to mount kbfs, instead of
+          <literal>$XDG_RUNTIME_DIR/keybase/kbfs</literal>.
+
+          This directory should be different for each user.
+        '';
+      };
     };
   };
 
@@ -41,11 +51,13 @@ in {
     };
     systemd.user.services.kbfs = {
       wantedBy = [ "default.target" ];
+      environment = {
+        # Overrides value in user's config,
+        # but explicit command-line parameter is always respected.
+        # (which is only in `keybase`, not `kbfsfuse` used here)
+        KEYBASE_MOUNTDIR = cfg.mountDir;
+      };
     };
-    # disable redirector for now, needs SUID
-    #systemd.user.services.keybase-redirector.enable = false;
-    #systemd.user.services.kbfs.enable = true;
-    # systemd.user.services.kbfs.wants = [ "keybase" ]; # not "keybase-redirector" too
 
     systemd.packages = [ pkgs.keybase ];
     environment.systemPackages = [ pkgs.keybase ];
