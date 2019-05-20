@@ -36,6 +36,10 @@ in {
     #  wantedBy = [ "default.target" ];
     #};
 
+    systemd.user.services.keybase.enable = true;
+    systemd.user.services.keybase-redirector.enable = true;
+    systemd.user.services.kbfs.enable = true;
+
     systemd.packages = [ pkgs.keybase ];
     environment.systemPackages = [ pkgs.keybase ];
   };
