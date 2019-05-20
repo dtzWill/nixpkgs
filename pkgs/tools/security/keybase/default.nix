@@ -57,9 +57,11 @@ buildGoPackage rec {
     substituteInPlace $bin/lib/systemd/user/keybase.service \
       --replace /usr/bin $bin/bin
 
+    # rename to match what service expects (and clearer connection to keybase)
+    mv $bin/bin/redirector $bin/bin/keybase-redirector
 
-      # Drop this, until we build GUI here too
-      rm $bin/lib/systemd/user/keybase.gui.service
+    # Drop this, until we build GUI here too
+    rm $bin/lib/systemd/user/keybase.gui.service
   '';
 
   meta = with lib; {
