@@ -1,4 +1,4 @@
-{ mkXfceDerivation, gtk2, libX11 }:
+{ mkXfceDerivation, gtk3, libX11, exo }:
 
 mkXfceDerivation rec {
   category = "apps";
@@ -7,5 +7,6 @@ mkXfceDerivation rec {
 
   sha256 = "1r075hw1jxbpv7jxzyqgfmd2rsw1lykd7snnx736gm55v84k15i7";
 
-  buildInputs = [ gtk2 libX11 ];
+  nativeBuildInputs = [ exo ];
+  buildInputs = [ gtk3 libX11 ];
 }
