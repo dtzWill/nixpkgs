@@ -1,8 +1,9 @@
 { stdenv, lib, buildGoPackage, fetchurl, fetchFromGitHub, cf-private
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
-, fuse, lsof, coreutils, utillinux
+, fuse, lsof, coreutils, utillinux, procps
 , gnupg, gconf, gtk2, dbus
+, sysctl, getent, systemd, pinentry
 , libsecret
 , makeWrapper
 }:
@@ -76,7 +77,7 @@ buildGoPackage rec {
 
     for x in $bin/bin/*; do
       wrapProgram $x \
-        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux gnupg fuse gconf gtk2 dbus ]}:/run/wrappers/bin \
+        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg fuse gconf gtk2 dbus sysctl getent systemd pinentry ]}:/run/wrappers/bin \
         --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret gtk2 gconf ]}
     done
   '';
