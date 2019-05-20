@@ -15,7 +15,7 @@ buildGoPackage rec {
     "go/kbnm"
     "go/kbfs/kbfsfuse"
     "go/kbfs/kbfsgit/git-remote-keybase"
-    "go/kbfs/redirector"
+    #"go/kbfs/redirector"
 
     "go/kbfs/kbfstool"
     #"go/tools/systemd"
@@ -47,25 +47,19 @@ buildGoPackage rec {
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     install -Dm644 \
       -t $bin/lib/systemd/user \
-      $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{kbfs,keybase,keybase-redirector,keybase.gui}.service
+      $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{kbfs,keybase,keybase.gui}.service
 
     substituteInPlace $bin/lib/systemd/user/kbfs.service \
       --replace fusermount /run/wrappers/bin/fusermount \
       --replace /usr/bin $bin/bin \
-      --replace "(keybase " "($bin/bin/keybase "
-
-    substituteInPlace $bin/lib/systemd/user/keybase-redirector.service \
-      --replace /usr/bin $bin/bin
+      --replace "(keybase " "($bin/bin/keybase " \
+      --replace " keybase-redirector.service" ""
 
     substituteInPlace $bin/lib/systemd/user/keybase.service \
       --replace /usr/bin $bin/bin
 
-    # rename to match what service expects (and clearer connection to keybase)
-    mv $bin/bin/redirector $bin/bin/keybase-redirector
-
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
-
 
     for x in $bin/bin/*; do
       wrapProgram $x --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}:/run/wrappers/bin
