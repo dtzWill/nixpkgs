@@ -1,6 +1,7 @@
 { stdenv, lib, buildGoPackage, fetchurl, fetchFromGitHub, cf-private
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
+, fuse
 }:
 
 buildGoPackage rec {
@@ -42,8 +43,23 @@ buildGoPackage rec {
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     install -Dm644 \
-      -t $out/lib/systemd/user \
+      -t $bin/lib/systemd/user \
       $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{kbfs,keybase,keybase-redirector,keybase.gui}.service
+
+    substituteInPlace $bin/lib/systemd/user/kbfs.service \
+      --replace fusermount ${fuse}/bin/fusermount \
+      --replace /usr/bin $bin/bin \
+      --replace "(keybase " "($bin/bin/keybase "
+
+    substituteInPlace $bin/lib/systemd/user/keybase-redirector.service \
+      --replace /usr/bin $bin/bin
+
+    substituteInPlace $bin/lib/systemd/user/keybase.service \
+      --replace /usr/bin $bin/bin
+
+
+      # Drop this, until we build GUI here too
+      rm $bin/lib/systemd/user/keybase.gui.service
   '';
 
   meta = with lib; {
