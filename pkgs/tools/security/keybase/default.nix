@@ -2,6 +2,8 @@
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
 , fuse, lsof, coreutils, utillinux
+, gnupg, gconf, gtk2
+, libsecret
 , makeWrapper
 }:
 
@@ -73,7 +75,9 @@ buildGoPackage rec {
     rm $bin/lib/systemd/user/keybase.gui.service
 
     for x in $bin/bin/*; do
-      wrapProgram $x --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}:/run/wrappers/bin
+      wrapProgram $x \
+        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux gnupg fuse gconf gtk2 ]}:/run/wrappers/bin \
+        --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret gtk2 gconf ]}
     done
   '';
 
