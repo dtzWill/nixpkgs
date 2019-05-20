@@ -1,7 +1,8 @@
 { stdenv, lib, buildGoPackage, fetchurl, fetchFromGitHub, cf-private
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
-, fuse
+, fuse, lsof, coreutils, utillinux
+, makeWrapper
 }:
 
 buildGoPackage rec {
@@ -34,6 +35,8 @@ buildGoPackage rec {
   #  sha256 = "14c0876mxz3xa2k4d665kf8j6k3hc6qybkj0gr4pr9c9gs70cgjh";
   #};
 
+  nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
+
   buildInputs = lib.optionals stdenv.isDarwin [
     AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox
     # Needed for OBJC_CLASS_$_NSData symbols.
@@ -62,6 +65,10 @@ buildGoPackage rec {
 
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
+
+    for x in $bin/bin/*; do
+      wrapProgram $x --prefix PATH ${lib.makeBinPath [ fuse lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}
+    done
   '';
 
   meta = with lib; {
