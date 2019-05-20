@@ -47,7 +47,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs.xfce // pkgs; [
+    environment.systemPackages = with pkgs.xfceUnstable // pkgs; [
       # Get GTK+ themes and gtk-update-icon-cache
       gtk2.out
 
@@ -79,10 +79,11 @@ in
       xfce4-settings
       xfce4-terminal
 
-      (thunar.override { thunarPlugins = cfg.thunarPlugins; })
+      thunar
+      #(thunar.override { thunarPlugins = cfg.thunarPlugins; })
       thunar-volman # TODO: drop
     ] ++ (if config.hardware.pulseaudio.enable
-          then [ xfce4-mixer-pulse xfce4-volumed-pulse ]
+          then [ xfce4-mixer /* -pulse */ xfce4-volumed-pulse ]
           else [ xfce4-mixer xfce4-volumed ])
       # TODO: NetworkManager doesn't belong here
       ++ optionals config.networking.networkmanager.enable [ networkmanagerapplet ]
