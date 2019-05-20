@@ -24,18 +24,19 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.user.services.keybase = {
-      description = "Keybase service";
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.keybase}/bin/keybase service --auto-forked
-        '';
-        Restart = "on-failure";
-        PrivateTmp = true;
-      };
-      wantedBy = [ "default.target" ];
-    };
+    #systemd.user.services.keybase = {
+    #  description = "Keybase service";
+    #  serviceConfig = {
+    #    ExecStart = ''
+    #      ${pkgs.keybase}/bin/keybase service --auto-forked
+    #    '';
+    #    Restart = "on-failure";
+    #    PrivateTmp = true;
+    #  };
+    #  wantedBy = [ "default.target" ];
+    #};
 
+    systemd.packages = [ pkgs.keybase ];
     environment.systemPackages = [ pkgs.keybase ];
   };
 }
