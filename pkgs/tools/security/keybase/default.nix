@@ -66,6 +66,9 @@ buildGoPackage rec {
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
 
+    # Bah, disable redirector service too
+    rm $bin/lib/systemd/user/keybase-redirector.service
+
     for x in $bin/bin/*; do
       wrapProgram $x --prefix PATH ${lib.makeBinPath [ fuse lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}
     done
