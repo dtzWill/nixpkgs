@@ -50,7 +50,7 @@ buildGoPackage rec {
       $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{kbfs,keybase,keybase-redirector,keybase.gui}.service
 
     substituteInPlace $bin/lib/systemd/user/kbfs.service \
-      --replace fusermount ${fuse}/bin/fusermount \
+      --replace fusermount /run/wrappers/bin/fusermount \
       --replace /usr/bin $bin/bin \
       --replace "(keybase " "($bin/bin/keybase "
 
@@ -68,7 +68,7 @@ buildGoPackage rec {
 
 
     for x in $bin/bin/*; do
-      wrapProgram $x --prefix PATH : ${lib.makeBinPath [ fuse lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}
+      wrapProgram $x --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}:/run/wrappers/bin
     done
   '';
 
