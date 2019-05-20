@@ -75,9 +75,6 @@ buildGoPackage rec {
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
 
-    # XXX: actually it's easier to just emit our own
-    rm $bin/lib -rf
-
     for x in $bin/bin/*; do
       wrapProgram $x \
         --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg fuse gconf gtk2 dbus sysctl getent systemd pinentry git iproute iputils ]}:/run/wrappers/bin \
