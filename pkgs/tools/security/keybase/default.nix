@@ -55,6 +55,14 @@ buildGoPackage rec {
       --replace "(keybase " "($bin/bin/keybase " \
       --replace " keybase-redirector.service" ""
 
+    # I'm sorry for this...
+    # It was already bad and now it's worse. :(
+    # Let env var override the path used for unmount attempts,
+    # so as to match kbfsfuse's behavior re:determining path.
+    substituteInPlace $bin/lib/systemd/user/kbfs.service \
+      --replace "\$($bin/bin/keybase config get -d -b mountdir)" \
+                "\''${KEYBASE_MOUNTDIR:-\$($bin/bin/keybase config get -d -b mountdir)}"
+
     substituteInPlace $bin/lib/systemd/user/keybase.service \
       --replace /usr/bin $bin/bin
 
