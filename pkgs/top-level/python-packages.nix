@@ -511,6 +511,8 @@ in {
 
   logzero = callPackage ../development/python-modules/logzero { };
 
+  macropy = callPackage ../development/python-modules/macropy { };
+
   mail-parser = callPackage ../development/python-modules/mail-parser { };
 
   manhole = callPackage ../development/python-modules/manhole { };
@@ -2608,6 +2610,8 @@ in {
 
   fiona = callPackage ../development/python-modules/fiona { gdal = pkgs.gdal; };
 
+  fitbit = callPackage ../development/python-modules/fitbit { };
+
   flake8 = callPackage ../development/python-modules/flake8 { };
 
   flake8-blind-except = callPackage ../development/python-modules/flake8-blind-except { };
@@ -3802,6 +3806,8 @@ in {
 
   pyasn1-modules = callPackage ../development/python-modules/pyasn1-modules { };
 
+  pyatmo = callPackage ../development/python-modules/pyatmo { };
+
   pyaudio = callPackage ../development/python-modules/pyaudio { };
 
   pysam = callPackage ../development/python-modules/pysam { };
@@ -4056,6 +4062,8 @@ in {
   pyscss = callPackage ../development/python-modules/pyscss { };
 
   pyserial = callPackage ../development/python-modules/pyserial {};
+
+  pysonos = callPackage ../development/python-modules/pysonos {};
 
   pymongo = callPackage ../development/python-modules/pymongo {};
 
@@ -4566,6 +4574,8 @@ in {
   runsnakerun = callPackage ../development/python-modules/runsnakerun { };
 
   pysendfile = callPackage ../development/python-modules/pysendfile { };
+
+  pyxl3 = callPackage ../development/python-modules/pyxl3 { };
 
   qpid-python = callPackage ../development/python-modules/qpid-python { };
 
