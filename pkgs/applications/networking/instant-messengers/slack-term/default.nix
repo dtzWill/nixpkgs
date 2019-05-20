@@ -11,8 +11,8 @@ buildGoPackage rec {
     owner = "erroneousboat";
     repo = "slack-term";
     #rev = "v${version}";
-    rev = "112524daad6315323d6097222d3b2759ed353aaf";
-    sha256 = "18nk3dxm7laknncwkdgc6y7aiya2vwhs8c2xvchp6ln01nnf99z2";
+    rev = "6e75095daa07629ba17164037f51cc5fb6509f45";
+    sha256 = "183hnbj7dj6dbi5n4wzpgy2sa325sznaspz5jn4zbsslkkwhiixj";
   };
 
   meta = with stdenv.lib; {
