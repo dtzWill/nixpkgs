@@ -13,6 +13,11 @@ buildGoPackage rec {
     "go/kbnm"
     "go/kbfs/kbfsfuse"
     "go/kbfs/kbfsgit/git-remote-keybase"
+    "go/kbfs/redirector"
+
+    "go/kbfs/kbfstools"
+    "go/tools/systemd"
+    "go/tools/sigchain"
   ];
 
   dontRenameImports = true;
