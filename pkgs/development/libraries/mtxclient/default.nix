@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
     #rev = "v${version}";
-    rev = "6f7b35aa1aea1c1cf96e7aa8168c1c4f53ededec";
-    sha256 = "0cvk5vjvlapvjfyrvlhslvmvgk83hqwvndx4yw63niw6jxh62q5j";
+    rev = "d5cc703848b44c1a9c543dc01355b7881f66ea81";
+    sha256 = "1q2vxyjs9x6hq1g5qkzm6pfg1dj2zi1zx8zxb13kfgd6dkcv7z3d";
   };
 
   cmakeFlags = [

@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libu2f-host";
-  version = "1.1.9";
+  version = "1.1.10";
 
   src = fetchurl {
     url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.xz";
-    sha256 = "1hnh3f4scx07v9jfkr1nnxasmydk1cmivn0nijcp2p75bc1fznip";
+    sha256 = "0vrivl1dwql6nfi48z6dy56fwy2z13d7abgahgrs2mcmqng7hra2";
   };
 
   nativeBuildInputs = [ pkgconfig ];

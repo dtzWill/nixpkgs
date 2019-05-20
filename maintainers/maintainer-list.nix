@@ -4010,6 +4010,11 @@
     github = "Ptival";
     name = "Valentin Robert";
   };
+  ptrhlm = {
+    email = "ptrhlm0@gmail.com";
+    github = "ptrhlm";
+    name = "Piotr Halama";
+  };
   puffnfresh = {
     email = "brian@brianmckenna.org";
     github = "puffnfresh";
@@ -4499,6 +4504,11 @@
     email = "sfrijters@gmail.com";
     github = "sfrijters";
     name = "Stefan Frijters";
+  };
+  sgraf = {
+    email = "sgraf1337@gmail.com";
+    github = "sgraf812";
+    name = "Sebastian Graf";
   };
   shanemikel = {
     email = "shanemikel1@gmail.com";

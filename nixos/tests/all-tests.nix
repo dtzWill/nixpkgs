@@ -151,6 +151,7 @@ in
   mumble = handleTest ./mumble.nix {};
   munin = handleTest ./munin.nix {};
   mutableUsers = handleTest ./mutable-users.nix {};
+  mxisd = handleTest ./mxisd.nix {};
   mysql = handleTest ./mysql.nix {};
   mysqlBackup = handleTest ./mysql-backup.nix {};
   mysqlReplication = handleTest ./mysql-replication.nix {};
@@ -236,6 +237,7 @@ in
   pdns-recursor = handleTest ./pdns-recursor.nix {};
   taskserver = handleTest ./taskserver.nix {};
   telegraf = handleTest ./telegraf.nix {};
+  tinydns = handleTest ./tinydns.nix {};
   tomcat = handleTest ./tomcat.nix {};
   tor = handleTest ./tor.nix {};
   transmission = handleTest ./transmission.nix {};

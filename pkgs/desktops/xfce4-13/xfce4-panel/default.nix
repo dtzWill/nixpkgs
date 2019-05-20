@@ -3,9 +3,9 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "xfce4-panel";
-  version = "4.13.4";
+  version = "4.13.5";
 
-  sha256 = "13hnzh31d2b1331lnsbfaxg4fqhqa7hmdwkiqsl9hyr8pqimjb2g";
+  sha256 = "03jyglimm4wgpmg5a128fshrygzwmpf5wdw26l9azqj8b6iz55al";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ exo garcon gtk2 gtk3 libxfce4ui libxfce4util libwnck3 xfconf ];

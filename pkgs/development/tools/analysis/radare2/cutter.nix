@@ -2,7 +2,7 @@
 # nativeBuildInputs
 , qmake, pkgconfig
 # Qt
-, qtbase, qtsvg, qtwebengine
+, qtbase, qtsvg
 # buildInputs
 , r2-for-cutter
 , python3 }:
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ qmake pkgconfig ];
-  buildInputs = [ qtbase qtsvg qtwebengine r2-for-cutter python3 ];
+  buildInputs = [ qtbase qtsvg r2-for-cutter python3 ];
 
   qmakeFlags = [
     "CONFIG+=link_pkgconfig"

@@ -5,6 +5,8 @@
 
 with lib;
 
+assert withQt5; # XXX: DTZ: I want to know if/when/how my configs try qt4 instead
+
 let
   v = "4.10.2";
 

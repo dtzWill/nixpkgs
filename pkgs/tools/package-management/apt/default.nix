@@ -1,5 +1,6 @@
 { stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma, bzip2, lz4
 , db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
+, gnutls
 
 # used when WITH_DOC=ON
 , w3m
@@ -16,17 +17,18 @@
 stdenv.mkDerivation rec {
   name = "apt-${version}";
 
-  version = "1.4.6";
+  version = "1.8.1";
 
   src = fetchzip {
     url = "https://launchpad.net/ubuntu/+archive/primary/+files/apt_${version}.tar.xz";
-    sha256 = "0ahwhmscrmnpvl1r732wg93dzkhv8c1sph2yrqgsrhr73c1616ix";
+    sha256 = "1aldd7mmdf98lfglqgajdym1mxik6pqgshj4azi1hwsk4mhs2r2r";
   };
 
   nativeBuildInputs = [ pkgconfig ];
 
   buildInputs = [
     cmake perlPackages.perl curl gtest lzma bzip2 lz4 db dpkg libxslt.bin
+    gnutls
   ] ++ lib.optionals withDocs [
     doxygen perlPackages.Po4a w3m docbook_xml_dtd_45
   ] ++ lib.optionals withNLS [

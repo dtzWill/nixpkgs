@@ -6,14 +6,14 @@
 , openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
 , librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mariadb
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
-, libwpg, dbus-glib, qt4, clucene_core, libcdr, lcms, vigra
+, libwpg, dbus-glib, /* qt4,*/ clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
 , fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
 , librevenge, libe-book, libmwaw, glm, glew, gst_all_1
 , gdb, commonsLogging, librdf_rasqal, wrapGAppsHook
 , gnome3, glib, gobject-introspection, ncurses, epoxy, gpgme, gnupg, liblangtag
-#, qtbase, qmake
+, qtbase, qmake, qtx11extras
 #  https://dev.gentoo.org/~asturm/distfiles/libreoffice-6.2.3.2-patchset-01.tar.xz 
 , langs ? [ "ca" "cs" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "ru" "sl" "zh-CN" ]
 , withHelp ? true
@@ -111,8 +111,11 @@ in stdenv.mkDerivation rec {
       'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
   '';
 
-  QT4DIR = qt4;
-  #dontUseQmakeConfigure = true;
+  #QT4DIR = qt4;
+  # QT5DIR = qtbase;
+  # QT_SELECT = "5";
+  # MOC5 = "${qtbase.dev}/bin/moc";
+  # dontUseQmakeConfigure = true;
 
   preConfigure = ''
     configureFlagsArray=(
@@ -298,7 +301,7 @@ in stdenv.mkDerivation rec {
     "--disable-report-builder"
     "--disable-online-update"
     "--enable-python=system"
-    "--enable-qt4"
+    #"--enable-qt4"
     "--enable-dbus"
     "--enable-cairo-canvas"
     "--with-tls=nss"
@@ -320,7 +323,7 @@ in stdenv.mkDerivation rec {
     "--with-system-openldap"
     "--with-system-coinmp"
 
-    "--with-alloc=system"
+    #"--with-alloc=system"
 
     # Without these, configure does not finish
     "--without-junit"
@@ -341,7 +344,7 @@ in stdenv.mkDerivation rec {
     "--without-doxygen"
 
     "--enable-extension-integration"
-    "--enable-mergelib" # one library to rule them all, and in the darkness...
+    "--enable-mergelibs" # one library to rule them all, and in the darkness...
 
     # TODO: package these as system libraries
     "--with-system-beanshell"
@@ -371,7 +374,7 @@ in stdenv.mkDerivation rec {
     [ ant ArchiveZip autoconf automake bison boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
-    #  qtbase
+      # qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst

@@ -2,13 +2,13 @@
 
 let
   pname = "notable";
-  version = "1.4.0";
+  version = "1.5.1";
 in
 appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/notable/notable/releases/download/v${version}/Notable.${version}.AppImage";
-    sha256 = "0ldmxnhqcphr92rb7imgb1dfx7bb3p515nrdds8jn4b8x6jgmnjr";
+    sha256 = "1q9vv11a6kvy95zslqw005hpkjqjp37garnpfqm3wzxjqw82a710";
   };
 
   profile = ''
@@ -17,7 +17,7 @@ appimageTools.wrapType2 rec {
   '';
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
+  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.at-spi2-atk p.at-spi2-core ];
   extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
   meta = with lib; {

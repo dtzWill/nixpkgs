@@ -1210,13 +1210,13 @@ let
         sha512 = "bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==";
       };
     };
-    "debug-4.1.1" = {
+    "debug-3.2.6" = {
       name = "debug";
       packageName = "debug";
-      version = "4.1.1";
+      version = "3.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz";
-        sha512 = "pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==";
+        url = "https://registry.npmjs.org/debug/-/debug-3.2.6.tgz";
+        sha512 = "mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==";
       };
     };
     "decode-uri-component-0.2.0" = {
@@ -1660,13 +1660,13 @@ let
         sha512 = "YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==";
       };
     };
-    "fs-minipass-1.2.5" = {
+    "fs-minipass-1.2.6" = {
       name = "fs-minipass";
       packageName = "fs-minipass";
-      version = "1.2.5";
+      version = "1.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fs-minipass/-/fs-minipass-1.2.5.tgz";
-        sha512 = "JhBl0skXjUPCFH7x6x61gQxrKyXsxB5gcgePLZCwfyCGGsTISMoIeObbrvVeP6Xmyaudw4TT43qV2Gz+iyd2oQ==";
+        url = "https://registry.npmjs.org/fs-minipass/-/fs-minipass-1.2.6.tgz";
+        sha512 = "crhvyXcMejjv3Z5d2Fa9sf5xLYVCF5O1c71QxbVnbLsmYMBEvDAftewesN/HhY03YRoA7zOMxjNGrF5svGaaeQ==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -2893,13 +2893,13 @@ let
         sha1 = "abcc6cbd3ec2ed2a729ff6e7c1fa8f01784a8574";
       };
     };
-    "needle-2.3.1" = {
+    "needle-2.4.0" = {
       name = "needle";
       packageName = "needle";
-      version = "2.3.1";
+      version = "2.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/needle/-/needle-2.3.1.tgz";
-        sha512 = "CaLXV3W8Vnbps8ZANqDGz7j4x7Yj1LW4TWF/TQuDfj7Cfx4nAPTvw98qgTevtto1oHDrh3pQkaODbqupXlsWTg==";
+        url = "https://registry.npmjs.org/needle/-/needle-2.4.0.tgz";
+        sha512 = "4Hnwzr3mi5L97hMYeNl8wRW/Onhy4nUKR/lVemJ8gJedxxUyBLm9kkrDColJvoSfwi0jCNhD+xCdOtiGDQiRZg==";
       };
     };
     "node-appc-0.2.49" = {
@@ -3478,13 +3478,13 @@ let
         sha512 = "NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==";
       };
     };
-    "resolve-1.10.1" = {
+    "resolve-1.11.0" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.10.1";
+      version = "1.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.10.1.tgz";
-        sha512 = "KuIe4mf++td/eFb6wkaPbMDnP6kObCaEtIDuHOUED6MNUo4K670KZUHuuvYPZDxNF0WVLw49n06M2m2dXphEzA==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.11.0.tgz";
+        sha512 = "WL2pBDjqT6pGUNSUzMw00o4T7If+z4H2x3Gz893WoUQ5KW8Vr9txp00ykiP16VBaZF5+j/OcXJHZ9+PCvdiDKw==";
       };
     };
     "resolve-dir-1.0.1" = {
@@ -4492,10 +4492,10 @@ in
   alloy = nodeEnv.buildNodePackage {
     name = "alloy";
     packageName = "alloy";
-    version = "1.13.9";
+    version = "1.13.10";
     src = fetchurl {
-      url = "https://registry.npmjs.org/alloy/-/alloy-1.13.9.tgz";
-      sha512 = "deAPCgLHkWHwRgPG9XXqJrfhLuaxOcWrqiSSiGQ7gZDxItDFndeH2NJF5Tf/0SQQgBDbi3lPREWcONHf38zZ1w==";
+      url = "https://registry.npmjs.org/alloy/-/alloy-1.13.10.tgz";
+      sha512 = "bqkApu0vIEGaUPyS7wKv9BkUpHJTE51B5oJ45VHF5GuBmP8YCGgIUw7z4bluMb7q7SVrpzfc2/RIORwjoz6GOA==";
     };
     dependencies = [
       sources."JSV-4.0.2"
@@ -4592,7 +4592,7 @@ in
       sources."private-0.1.8"
       sources."regenerator-runtime-0.11.1"
       sources."repeating-2.0.1"
-      sources."resolve-1.10.1"
+      sources."resolve-1.11.0"
       sources."safe-buffer-5.1.2"
       sources."sax-0.5.8"
       sources."slash-1.0.0"
@@ -5233,7 +5233,7 @@ in
       sources."regex-not-1.0.2"
       sources."repeat-element-1.1.3"
       sources."repeat-string-1.6.1"
-      sources."resolve-1.10.1"
+      sources."resolve-1.11.0"
       sources."resolve-dir-1.0.1"
       sources."resolve-url-0.2.1"
       sources."ret-0.1.15"
@@ -5369,7 +5369,7 @@ in
       sources."fast-json-stable-stringify-2.0.0"
       sources."forever-agent-0.6.1"
       sources."form-data-2.3.3"
-      sources."fs-minipass-1.2.5"
+      sources."fs-minipass-1.2.6"
       sources."fs.realpath-1.0.0"
       sources."gauge-2.7.4"
       sources."getpass-0.1.7"
@@ -5488,11 +5488,11 @@ in
       sources."concat-map-0.0.1"
       sources."console-control-strings-1.1.0"
       sources."core-util-is-1.0.2"
-      sources."debug-4.1.1"
+      sources."debug-3.2.6"
       sources."deep-extend-0.6.0"
       sources."delegates-1.0.0"
       sources."detect-libc-1.0.3"
-      sources."fs-minipass-1.2.5"
+      sources."fs-minipass-1.2.6"
       sources."fs.realpath-1.0.0"
       sources."gauge-2.7.4"
       sources."glob-7.1.4"
@@ -5510,7 +5510,7 @@ in
       sources."minizlib-1.2.1"
       sources."mkdirp-0.5.1"
       sources."ms-2.1.1"
-      sources."needle-2.3.1"
+      sources."needle-2.4.0"
       sources."nopt-4.0.1"
       sources."npm-bundled-1.0.6"
       sources."npm-packlist-1.4.1"
@@ -5558,10 +5558,10 @@ in
   pnpm = nodeEnv.buildNodePackage {
     name = "pnpm";
     packageName = "pnpm";
-    version = "3.3.1";
+    version = "3.3.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/pnpm/-/pnpm-3.3.1.tgz";
-      sha512 = "OnRUhabeIUevLGFhNsTeodzu6Du9SkFTlOiIekWfqvYcHBHorxO56o7Sq5y/IXkoF9aMRauEp8rwzHR1P0up6g==";
+      url = "https://registry.npmjs.org/pnpm/-/pnpm-3.3.4.tgz";
+      sha512 = "0dS1zl/7ePT0gSku0dCb1GAkIaykuqPBKSO1ftnHAC6Xju5K+BOcxnJN010nmJoCB7cTOAlW1c255q4BTrw6uQ==";
     };
     buildInputs = globalBuildInputs;
     meta = {

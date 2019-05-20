@@ -17,8 +17,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "ac14ebb322acb3249b0dfb1bd14bc95fce4cc273";
-    sha256 = "1rz34hcbk8ssaf79mlkshz34a56di7j621lkcp6b4radhqc5pky6";
+    rev = "b18cda26711b2cb76575487e1e00c429dc853417";
+    sha256 = "1jpfmmzhln5bzakgh5hc106x7mxk00biakvq9rwhbi1ccw7zlzas";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -74,13 +74,6 @@ in stdenv.mkDerivation rec {
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
 
-    # Our gobject-introspection patches make the shared library paths absolute
-    # in the GIR files. When building docs, the library is not yet installed,
-    # though, so we need to replace the absolute path with a local one during build.
-    # We are replacing the variables in postPatch since substituteAll does not support
-    # placeholders.
-    ./fix-docs-build.patch
-
     #./mtu.patch
     ./ipv6-disable-option/0001-ipv6-add-disabled-method.patch
     ./ipv6-disable-option/0002-fixup-ipv6-add-disabled-method.patch
@@ -110,10 +103,15 @@ in stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs ./tools
     patchShebangs libnm/generate-setting-docs.py
+  '';
 
-    substituteInPlace libnm/meson.build \
-      --subst-var-by DOCS_LD_PRELOAD "${libredirect}/lib/libredirect.so" \
-      --subst-var-by DOCS_NIX_REDIRECTS "${placeholder "out"}/lib/libnm.so.0=$PWD/build/libnm/libnm.so.0"
+  preBuild = ''
+    # Our gobject-introspection patches make the shared library paths absolute
+    # in the GIR files. When building docs, the library is not yet installed,
+    # though, so we need to replace the absolute path with a local one during build.
+    # We are using a symlink that will be overridden during installation.
+    mkdir -p ${placeholder "out"}/lib
+    ln -s $PWD/libnm/libnm.so.0 ${placeholder "out"}/lib/libnm.so.0
   '';
 
   postInstall = ''

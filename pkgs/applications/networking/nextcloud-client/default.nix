@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
-, inotify-tools, makeWrapper, openssl_1_1, pcre, qtwebengine, libsecret, fetchpatch
+{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtkeychain, qttools, sqlite
+, inotify-tools, makeWrapper, openssl_1_1, pcre, libsecret, fetchpatch
 , libcloudproviders, kdeFrameworks
 }:
 
@@ -15,9 +15,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  patches = [ ./no-webengine.patch ];
+
   nativeBuildInputs = [ pkgconfig cmake makeWrapper ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
 
-  buildInputs = [ qtbase qtwebkit qtkeychain qttools qtwebengine sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
+  buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
   ++ (with kdeFrameworks; [ kio kcoreaddons ]);
 
   enableParallelBuilding = true;
@@ -31,6 +33,9 @@ stdenv.mkDerivation rec {
     "-DOPENSSL_INCLUDE_DIR=${openssl_1_1.dev}/include"
     "-DINOTIFY_LIBRARY=${inotify-tools}/lib/libinotifytools.so"
     "-DINOTIFY_INCLUDE_DIR=${inotify-tools}/include"
+
+    # Disable this so qtwebkit isn't needed
+    "-DNO_SHIBBOLETH=ON"
   ];
 
   postInstall = ''
