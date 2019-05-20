@@ -36,13 +36,22 @@ in {
     #  wantedBy = [ "default.target" ];
     #};
 
-    systemd.user.services.keybase.enable = true;
+    systemd.user.services.keybase = {
+      wantedBy = [ "default.target" ];
+    };
+    systemd.user.services.kbfs = {
+      wantedBy = [ "default.target" ];
+    };
     # disable redirector for now, needs SUID
     #systemd.user.services.keybase-redirector.enable = false;
-    systemd.user.services.kbfs.enable = true;
+    #systemd.user.services.kbfs.enable = true;
     # systemd.user.services.kbfs.wants = [ "keybase" ]; # not "keybase-redirector" too
 
     systemd.packages = [ pkgs.keybase ];
     environment.systemPackages = [ pkgs.keybase ];
+
+    environment.etc."keybase/config.json".text = builtins.toJSON {
+      disable-root-redirector = true;
+    };
   };
 }
