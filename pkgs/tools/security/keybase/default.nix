@@ -70,7 +70,7 @@ buildGoPackage rec {
     rm $bin/lib/systemd/user/keybase-redirector.service
 
     for x in $bin/bin/*; do
-      wrapProgram $x --prefix PATH ${lib.makeBinPath [ fuse lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}
+      wrapProgram $x --prefix PATH : ${lib.makeBinPath [ fuse lsof /* for good measure (and 'kill'): */ coreutils utillinux ]}
     done
   '';
 
