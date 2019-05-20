@@ -38,7 +38,7 @@ in {
 
     systemd.user.services.keybase.enable = true;
     # disable redirector for now, needs SUID
-    systemd.user.services.keybase-redirector.enable = false;
+    #systemd.user.services.keybase-redirector.enable = false;
     systemd.user.services.kbfs.enable = true;
 
     systemd.packages = [ pkgs.keybase ];
