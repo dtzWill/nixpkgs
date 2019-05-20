@@ -15,7 +15,7 @@ buildGoPackage rec {
     "go/kbfs/kbfsgit/git-remote-keybase"
     "go/kbfs/redirector"
 
-    "go/kbfs/kbfstools"
+    "go/kbfs/kbfstool"
     "go/tools/systemd"
     "go/tools/sigchain"
   ];
