@@ -42,7 +42,7 @@ buildGoPackage rec {
     # Needed for OBJC_CLASS_$_NSData symbols.
     cf-private
   ];
-  buildFlags = [ "-tags production" ];
+  buildFlags = [ "-tags production" "-buildmode pie" ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     install -Dm644 \
