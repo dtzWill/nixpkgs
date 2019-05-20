@@ -21,6 +21,8 @@ buildGoPackage rec {
     "go/kbfs/kbfstool"
     #"go/tools/systemd"
     #"go/tools/sigchain"
+    "go/kbfs/kbpagesconfig"
+    "go/kbfs/kbpagesd"
   ];
 
   dontRenameImports = true;
