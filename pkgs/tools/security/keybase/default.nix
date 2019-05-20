@@ -4,7 +4,7 @@
 , fuse, lsof, coreutils, utillinux, procps
 , gnupg, gconf, gtk2, dbus
 , sysctl, getent, systemd, pinentry
-, libsecret
+, libsecret, git
 , makeWrapper
 }:
 
@@ -77,7 +77,7 @@ buildGoPackage rec {
 
     for x in $bin/bin/*; do
       wrapProgram $x \
-        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg fuse gconf gtk2 dbus sysctl getent systemd pinentry ]}:/run/wrappers/bin \
+        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg fuse gconf gtk2 dbus sysctl getent systemd pinentry git ]}:/run/wrappers/bin \
         --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret gtk2 gconf ]}
     done
   '';
