@@ -1,5 +1,5 @@
-{ mkXfceDerivation, exo, dbus-glib, epoxy, gtk2, libXdamage
-, libstartup_notification, libxfce4ui, libxfce4util, libwnck
+{ mkXfceDerivation, exo, dbus-glib, epoxy, gtk3, librsvg, libXdamage
+, libstartup_notification, libxfce4ui, libxfce4util, libwnck3
 , libXpresent, xfconf }:
 
 mkXfceDerivation rec {
@@ -14,12 +14,13 @@ mkXfceDerivation rec {
   buildInputs = [
     dbus-glib
     epoxy
-    gtk2
+    gtk3
+    librsvg
     libXdamage
     libstartup_notification
     libxfce4ui
     libxfce4util
-    libwnck
+    libwnck3
     libXpresent
     xfconf
   ];
