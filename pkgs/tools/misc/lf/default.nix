@@ -1,14 +1,15 @@
 { buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
-  name = "lf-${version}";
+  pname = "lf";
   version = "12";
 
   src = fetchFromGitHub {
     owner = "gokcehan";
-    repo = "lf";
-    rev = "r${version}";
-    sha256 = "1pjydnwlc6mrnwz13s13c91nvjvb1ibwl944ppg8xq8dcy9b2cs4";
+    repo = pname;
+    #rev = "r${version}";
+    rev = "4c6241ca428a863958451ff3a93d5a884a09bb6c";
+    sha256 = "161g92gcbgi1rgrbw1r82bhrhyvm6kji2van85pjfcvj4gmf2h4k";
   };
 
   modSha256 = "14fvn8yjm9cnpsmzgxw2dypr3h8h36mxrbk7zma42w8rsp46jpz7";
