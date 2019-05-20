@@ -4,7 +4,7 @@
 }:
 
 buildGoPackage rec {
-  name = "keybase-${version}";
+  pname = "keybase";
   version = "4.0.0";
 
   goPackagePath = "github.com/keybase/client";
@@ -24,7 +24,11 @@ buildGoPackage rec {
   ];
   buildFlags = [ "-tags production" ];
 
-  meta = with stdenv.lib; {
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
+    install -Dm644 -t $out/lib/systemd/user $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/keybase.service
+  '';
+
+  meta = with lib; {
     homepage = https://www.keybase.io/;
     description = "The Keybase official command-line utility and service.";
     platforms = platforms.linux ++ platforms.darwin;
