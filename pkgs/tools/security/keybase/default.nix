@@ -16,8 +16,8 @@ buildGoPackage rec {
     "go/kbfs/redirector"
 
     "go/kbfs/kbfstool"
-    "go/tools/systemd"
-    "go/tools/sigchain"
+    #"go/tools/systemd"
+    #"go/tools/sigchain"
   ];
 
   dontRenameImports = true;
@@ -41,7 +41,9 @@ buildGoPackage rec {
   buildFlags = [ "-tags production" ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
-    install -Dm644 -t $out/lib/systemd/user $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{keybase,kbfs}.service
+    install -Dm644 \
+      -t $out/lib/systemd/user \
+      $NIX_BUILD_TOP/go/src/${goPackagePath}/packaging/linux/systemd/{kbfs,keybase,keybase-redirector,keybase.gui}.service
   '';
 
   meta = with lib; {
