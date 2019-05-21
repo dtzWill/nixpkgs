@@ -2,7 +2,7 @@
 , libpcap, ncurses, expat, pcre, libmicrohttpd, libnl
 , libcap , protobuf, protobufc, sqlite, zlib
 , libbfd /* or libdw (elfutils) */
-, libutil, libunwind, libusb, lm_sensors
+, libunwind, libusb, lm_sensors
 , withNM ? true, networkmanager ? null
 }:
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libpcap ncurses expat pcre libmicrohttpd libnl
     libcap protobuf protobufc sqlite zlib
-    libbfd libutil libunwind libusb lm_sensors
+    libbfd libunwind libusb lm_sensors
   ] ++ stdenv.lib.optional withNM networkmanager;
 
   configureFlags = [ "--disable-python-tools" /* TODO */ ];
