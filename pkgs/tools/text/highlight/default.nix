@@ -1,30 +1,24 @@
-{ stdenv, fetchFromGitHub, getopt, lua, boost, pkgconfig, gcc }:
+{ stdenv, fetchurl, getopt, lua, boost, pkgconfig, gcc }:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "highlight-${version}";
-  version = "3.43";
+  pname = "highlight";
+  version = "3.51";
 
-  src = fetchFromGitHub {
-    owner = "andre-simon";
-    repo = "highlight";
-    rev = "v${version}";
-    sha256 = "126nsf4cjxflg2kiv72qf1xl5fsilk0jqcncs6qqgm72cpjfmlsy";
+  src = fetchurl {
+    url = "http://www.andre-simon.de/zip/${pname}-${version}.tar.bz2";
+    sha256 = "15x4m548bhr7yx27i73iysm5fir6g08djniyy1yj4r1kzny1xfk9";
   };
 
   nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isDarwin  gcc ;
 
   buildInputs = [ getopt lua boost ];
 
-  prePatch = stdenv.lib.optionalString stdenv.cc.isClang ''
-    substituteInPlace src/makefile \
-        --replace 'CXX=g++' 'CXX=clang++'
-  '';
 
-  preConfigure = ''
-    makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
-  '';
+  #preConfigure = ''
+  #  makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
+  #'';
 
   meta = with stdenv.lib; {
     description = "Source code highlighting tool";
