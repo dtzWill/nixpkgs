@@ -699,6 +699,8 @@ in
 
   bunny = callPackage ../tools/package-management/bunny { };
 
+  certigo = callPackage ../tools/admin/certigo { };
+
   chezmoi = callPackage ../tools/misc/chezmoi { };
 
   chipsec = callPackage ../tools/security/chipsec {
@@ -16629,6 +16631,8 @@ in
   source-han-serif-traditional-chinese = sourceHanSerifPackages.traditional-chinese;
 
   spleen = callPackage ../data/fonts/spleen { };
+
+  stilo-themes = callPackage ../data/themes/stilo { };
 
   sudo-font-variable = callPackage ../data/fonts/sudo { variableFont = true; };
   sudo-font = callPackage ../data/fonts/sudo { variableFont = false; };
