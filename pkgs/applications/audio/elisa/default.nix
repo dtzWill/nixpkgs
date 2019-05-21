@@ -2,7 +2,8 @@
 , extra-cmake-modules, kdoctools, wrapGAppsHook
 , qtmultimedia, qtquickcontrols2, qtwebsockets
 , kconfig, kcmutils, kcrash, kdeclarative, kfilemetadata, kinit
-, baloo
+, kirigami2
+, baloo, vlc
 }:
 
 mkDerivation rec {
@@ -21,7 +22,8 @@ mkDerivation rec {
   propagatedBuildInputs = [
     qtmultimedia qtquickcontrols2 qtwebsockets
     kconfig kcmutils kcrash kdeclarative kfilemetadata kinit
-    baloo
+    kirigami2
+    baloo vlc
   ];
 
   enableParallelBuilding = true;
