@@ -4,7 +4,8 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "libxfce4ui";
-  version = "4.13.5";
+  version = "4.14pre1";
+  rev = "xfce-4.14pre1";
 
   sha256 = "0z4sadqwp71b3qmxlbms26d8vnxd9cks84mr2f1qaiww6rp7v69y";
 

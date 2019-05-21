@@ -3,7 +3,8 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "xfdesktop";
-  version = "4.13.4";
+  version = "4.14pre1";
+  rev = "xfce-4.14pre1";
 
   sha256 = "1mni8gzgglhwicaw093i2vpk8q2vilmgg5qbr3izbb8ighhr09jl";
 

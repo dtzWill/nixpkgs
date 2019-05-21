@@ -6,7 +6,8 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "tumbler";
-  version = "0.2.4";
+  version = "4.14pre1";
+  rev = "xfce-4.14pre1";
 
   sha256 = "1bvcxqs3391dkf36gpfr0hbylsk84nqhv6kf3lf1hq6p7s9f9z3z";
 
