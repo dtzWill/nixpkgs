@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
   #      -i Makefile
   #'';
 
+  enableParallelBuilding = true;
+
   meta = with stdenv.lib; {
     description = "Wireless network sniffer";
     homepage = https://www.kismetwireless.net/;
