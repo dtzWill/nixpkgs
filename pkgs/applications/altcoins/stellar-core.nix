@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, autoconf, libtool, automake, pkgconfig, git
-, bison, flex, postgresql }:
+, bison, flex, pandoc, postgresql }:
 
 let
   pname = "stellar-core";
@@ -17,10 +17,9 @@ in stdenv.mkDerivation {
     leaveDotGit = true;
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ autoconf automake libtool git ];
+  nativeBuildInputs = [ pkgconfig pandoc autoconf automake libtool git bison flex ];
 
-  propagatedBuildInputs = [ bison flex postgresql ];
+  propagatedBuildInputs = [ postgresql ];
 
   patches = [ ./stellar-core-dirty-version.patch ];
 
