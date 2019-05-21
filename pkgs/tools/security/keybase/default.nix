@@ -77,7 +77,7 @@ buildGoPackage rec {
 
     for x in $bin/bin/*; do
       wrapProgram $x \
-        --prefix PATH : ${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg gconf gtk2 dbus sysctl getent systemd pinentry git iproute iputils ]}:/run/wrappers/bin \
+        --prefix PATH : /run/wrappers/bin:${lib.makeBinPath [ lsof /* for good measure (and 'kill'): */ coreutils utillinux procps gnupg gconf gtk2 dbus sysctl getent systemd pinentry git iproute iputils ]} \
         --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret gtk2 gconf ]}
     done
   '';
