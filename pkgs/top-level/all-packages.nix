@@ -3967,7 +3967,9 @@ in
   kibana = kibana6;
   kibana-oss = kibana6-oss;
 
-  kismet = callPackage ../applications/networking/sniffers/kismet { };
+  kismet = callPackage ../applications/networking/sniffers/kismet {
+    inherit (netbsd) libutil;
+  };
 
   klick = callPackage ../applications/audio/klick { };
 

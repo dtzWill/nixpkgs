@@ -1,5 +1,10 @@
 { stdenv, fetchurl, pkgconfig
-, libpcap, ncurses, expat, pcre, libmicrohttpd, libnl, sqlite, zlib }:
+, libpcap, ncurses, expat, pcre, libmicrohttpd, libnl
+, libcap , protobuf, protobufc, sqlite, zlib
+, libbfd /* or libdw (elfutils) */
+, libutil, libunwind, libusb, lm_sensors
+, withNM ? true, networkmanager ? null
+}:
 
 stdenv.mkDerivation rec {
   name = "kismet-${version}";
@@ -11,7 +16,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libpcap ncurses expat pcre libmicrohttpd libnl sqlite zlib ];
+  buildInputs = [
+    libpcap ncurses expat pcre libmicrohttpd libnl
+    libcap protobuf protobufc sqlite zlib
+    libbfd libutil libunwind libusb lm_sensors
+  ] ++ stdenv.lib.optional withNM networkmanager;
+
   configureFlags = [ "--disable-python-tools" /* TODO */ ];
   #postConfigure = ''
   #  sed -e 's/-o $(INSTUSR)//' \
