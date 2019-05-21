@@ -1,6 +1,7 @@
 { mkDerivation, fetchFromGitHub, lib
 , extra-cmake-modules, kdoctools, wrapGAppsHook
 , qtmultimedia, qtquickcontrols, qtquickcontrols2, qtwebsockets, qtgraphicaleffects
+, qtbase, qtsvg
 , kconfig, kconfigwidgets, kcmutils, kio, kcrash, kdeclarative, kfilemetadata, kinit, kxmlgui
 , kirigami2, kdbusaddons
 , baloo, vlc
@@ -21,6 +22,7 @@ mkDerivation rec {
 
   propagatedBuildInputs = [
     qtmultimedia qtquickcontrols qtquickcontrols2 qtwebsockets qtgraphicaleffects
+    qtbase qtsvg
     kconfig kconfigwidgets kcmutils kio kcrash kdeclarative kfilemetadata kinit kxmlgui
     kirigami2 kdbusaddons
     baloo vlc
