@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
   ] ++ stdenv.lib.optional withNM networkmanager;
 
   configureFlags = [ "--disable-python-tools" /* TODO */ ];
-  #postConfigure = ''
-  #  sed -e 's/-o $(INSTUSR)//' \
-  #      -e 's/-g $(INSTGRP)//' \
-  #      -e 's/-g $(MANGRP)//' \
-  #      -e 's/-g $(SUIDGROUP)//' \
-  #      -i Makefile
-  #'';
+  postConfigure = ''
+    sed -e 's/-o $(INSTUSR)//' \
+        -e 's/-g $(INSTGRP)//' \
+        -e 's/-g $(MANGRP)//' \
+        -e 's/-g $(SUIDGROUP)//' \
+        -i Makefile
+  '';
 
   enableParallelBuilding = true;
 
