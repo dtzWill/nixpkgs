@@ -11,7 +11,6 @@ mkDerivation {
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [
     kauth kconfig kcrash kdbusaddons ki18n kio kidletime lmdb qtdeclarative
-    solid
   ];
   propagatedBuildInputs = [ kcoreaddons kfilemetadata qtbase ];
 }
