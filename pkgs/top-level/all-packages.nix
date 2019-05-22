@@ -2902,6 +2902,10 @@ in
 
   fltrdr = callPackage ../tools/misc/fltrdr { stdenv = gcc8Stdenv; icu = icu63; /* 59 too old */ };
 
+  fluent-bit = callPackage ../tools/misc/fluent-bit {
+    stdenv = gccStdenv;
+  };
+
   fierce = callPackage ../tools/security/fierce { };
 
   figlet = callPackage ../tools/misc/figlet { };
@@ -8613,8 +8617,8 @@ in
 
   self = pkgsi686Linux.callPackage ../development/interpreters/self { };
 
-  spark = spark_22;
-  spark_22 = callPackage ../applications/networking/cluster/spark { version = "2.2.1"; };
+  spark = spark_24;
+  spark_24 = callPackage ../applications/networking/cluster/spark { version = "2.4.3"; };
 
   spidermonkey_1_8_5 = callPackage ../development/interpreters/spidermonkey/1.8.5.nix { };
   spidermonkey_38 = callPackage ../development/interpreters/spidermonkey/38.nix ({
@@ -9475,6 +9479,8 @@ in
 
   noweb = callPackage ../development/tools/literate-programming/noweb { };
   nuweb = callPackage ../development/tools/literate-programming/nuweb { tex = texlive.combined.scheme-small; };
+
+  nrfutil = callPackage ../development/tools/misc/nrfutil { };
 
   obelisk = callPackage ../development/tools/ocaml/obelisk { };
 
@@ -13248,10 +13254,7 @@ in
 
   sphinxsearch = callPackage ../servers/search/sphinxsearch { };
 
-  spice = callPackage ../development/libraries/spice {
-    celt = celt_0_5_1;
-    inherit (pythonPackages) pyparsing;
-  };
+  spice = callPackage ../development/libraries/spice { };
 
   spice-gtk = callPackage ../development/libraries/spice-gtk { };
 
@@ -20740,13 +20743,15 @@ in
 
   vorbis-tools = callPackage ../applications/audio/vorbis-tools { };
 
-  vscode = callPackage ../applications/editors/vscode { };
+  vscode = callPackage ../applications/editors/vscode/vscode.nix { };
 
   vscode-with-extensions = callPackage ../applications/editors/vscode/with-extensions.nix {};
 
   vscode-utils = callPackage ../misc/vscode-extensions/vscode-utils.nix {};
 
   vscode-extensions = recurseIntoAttrs (callPackage ../misc/vscode-extensions {});
+
+  vscodium = callPackage ../applications/editors/vscode/vscodium.nix { };
 
   vue = callPackage ../applications/misc/vue { };
 
@@ -23006,7 +23011,7 @@ in
 
   simgrid = callPackage ../applications/science/misc/simgrid { };
 
-  spyder = callPackage ../applications/science/spyder { };
+  spyder = with python3.pkgs; toPythonApplication spyder;
 
   openspace = callPackage ../applications/science/astronomy/openspace { };
 

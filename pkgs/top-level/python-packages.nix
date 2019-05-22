@@ -595,6 +595,8 @@ in {
 
   pathlib = callPackage ../development/python-modules/pathlib { };
 
+  pc-ble-driver-py = toPythonModule (callPackage ../development/python-modules/pc-ble-driver-py { });
+
   pdf2image = callPackage ../development/python-modules/pdf2image { };
 
   pdfminer = callPackage ../development/python-modules/pdfminer_six { };
@@ -606,6 +608,8 @@ in {
   perf = callPackage ../development/python-modules/perf { };
 
   phonopy = callPackage ../development/python-modules/phonopy { };
+
+  piccata = callPackage ../development/python-modules/piccata {};
 
   pims = callPackage ../development/python-modules/pims { };
 
@@ -782,6 +786,8 @@ in {
     slurm = pkgs.slurm;
   };
 
+  pyspinel = callPackage ../development/python-modules/pyspinel {};
+
   pyssim = callPackage ../development/python-modules/pyssim { };
 
   pystache = callPackage ../development/python-modules/pystache { };
@@ -931,6 +937,9 @@ in {
   trio = callPackage ../development/python-modules/trio {};
 
   sniffio = callPackage ../development/python-modules/sniffio { };
+
+  spyder-kernels = callPackage ../development/python-modules/spyder-kernels {};
+  spyder = callPackage ../development/python-modules/spyder {};
 
   tenacity = callPackage ../development/python-modules/tenacity { };
 
