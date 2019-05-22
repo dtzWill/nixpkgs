@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ getopt lua boost ];
 
   makeFlags = [
-    "DESTDIR=${placeholder "out"}"
-    "PREFIX="
+    "DESTDIR="
+    "PREFIX=${placeholder "out"}"
     "conf_dir=${placeholder "out"}/etc/highlight"
   ];
 
