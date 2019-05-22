@@ -79,7 +79,8 @@ let
       #rev    = COMPTON_VERSION;
       #rev    = "36f6303c792fb35dbf4767d0d2eb6af85b478afe"; # alpha-glx
       rev    = "b5da914920a0cd405e03568b6337452960b52408"; # next
-      sha256 = "01i2b8p1wxrfnimy342q32xd884y5ynyxx53xivh6hpnji0kbbdn";
+      sha256 = "0gk6dvmds0wxywrvqlma4g0gxrv4djpcp6ixidl408mp88hpjafw";
+      fetchSubmodules = true;
     };
 
     buildInputs = [
