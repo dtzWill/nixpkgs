@@ -126,6 +126,8 @@ in
       }
     '');
 
+  addOpenGLRunpath = callPackage ../build-support/add-opengl-runpath { };
+
   # Zip file format only allows times after year 1980, which makes e.g. Python wheel building fail with:
   # ValueError: ZIP does not support timestamps before 1980
   ensureNewerSourcesForZipFilesHook = ensureNewerSourcesHook { year = "1980"; };
@@ -8915,6 +8917,8 @@ in
   buildkite-agent2 = callPackage ../development/tools/continuous-integration/buildkite-agent/2.x.nix { };
   buildkite-agent3 = callPackage ../development/tools/continuous-integration/buildkite-agent/3.x.nix { };
 
+  libbpf = callPackage ../os-specific/linux/libbpf { };
+
   bpftool = callPackage ../os-specific/linux/bpftool { };
 
   byacc = callPackage ../development/tools/parsing/byacc { };
@@ -9269,6 +9273,8 @@ in
   grail = callPackage ../development/libraries/grail { };
 
   graphene-hardened-malloc = callPackage ../development/libraries/graphene-hardened-malloc { };
+
+  graphene = callPackage ../development/libraries/graphene { };
 
   gtk-doc = callPackage ../development/tools/documentation/gtk-doc { };
 
@@ -24233,6 +24239,8 @@ in
     gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;
     gcc-armhf-embedded = pkgsCross.armhf-embedded.buildPackages.gcc;
   };
+
+  tdm = callPackage ../games/tdm { };
 
   newlib = callPackage ../development/misc/newlib { };
   newlibCross = callPackage ../development/misc/newlib {
