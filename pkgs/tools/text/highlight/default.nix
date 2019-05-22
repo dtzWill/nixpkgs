@@ -13,12 +13,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isDarwin  gcc ;
 
+  # TODO: gui! (qt, make optional)
   buildInputs = [ getopt lua boost ];
 
-
-  #preConfigure = ''
-  #  makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
-  #'';
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "PREFIX="
+    "conf_dir=${placeholder "out"}/etc/highlight"
+  ];
 
   meta = with stdenv.lib; {
     description = "Source code highlighting tool";
