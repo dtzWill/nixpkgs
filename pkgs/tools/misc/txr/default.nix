@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     d=$out/share/vim-plugins/txr
-    mkdir -p $d/{syntax,ftplugin}
+    mkdir -p $d/{syntax,ftdetect}
 
     cp {tl,txr}.vim $d/syntax/
 
-    cat > $d/ftplugin/txr.vim <<EOF
-    au BufRead,BufNewFile *.txr set filetype=txr | set lisp
-    au BufRead,BufNewFile *.tl,*.tlo set filetype=tl | set lisp
+    cat > $d/ftdetect/txr.vim <<EOF
+      au BufRead,BufNewFile *.txr set filetype=txr lisp
+      au BufRead,BufNewFile *.tl,*.tlo set filetype=tl lisp
     EOF
   '';
 
