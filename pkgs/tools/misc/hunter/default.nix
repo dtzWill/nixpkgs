@@ -20,8 +20,8 @@ buildRustPackage rec {
 
   buildInputs = [
     file /* libmagic */
-    glib gst_all_1.gstreamer
-  ];
+    glib
+  ] ++ builtins.attrValues { inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good; };
 
   HOME = ".";
 
