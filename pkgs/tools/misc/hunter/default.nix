@@ -4,15 +4,15 @@ with rustPlatform;
 
 buildRustPackage rec {
   pname = "hunter";
-  version = "1.1.3";
+  version = "1.2.0";
 
-  cargoSha256 = "1r0vlpy682y5ydckkhjganby4qzz3kv469yvd3346q0ckqk5x6xx";
+  cargoSha256 = "0fhkav9y35jfmkqyrgzp6gh9fb5gy8zgc4m99k4sngba0abb8p3z";
 
   src = fetchFromGitHub {
     owner = "rabite0";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0qg55s7r4wb0c7ancnnq1rmymijav99ch2xvhgh5dcksar0kp2hb";
+    sha256 = "1j7afn73lg68k4lzpm8dis8mlnrkfm15cvli2s0dk5s29lj9vmck";
   };
 
   buildInputs = [ file /* libmagic */];
