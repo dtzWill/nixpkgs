@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitHub, rustPlatform, file }:
+{ stdenv, fetchFromGitHub, rustPlatform
+, file
+, glib, gst_all_1
+}:
 
 with rustPlatform;
 
@@ -15,7 +18,10 @@ buildRustPackage rec {
     sha256 = "1j7afn73lg68k4lzpm8dis8mlnrkfm15cvli2s0dk5s29lj9vmck";
   };
 
-  buildInputs = [ file /* libmagic */];
+  buildInputs = [
+    file /* libmagic */
+    glib gst_all_1.gstreamer
+  ];
 
   HOME = ".";
 
