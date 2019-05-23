@@ -20,15 +20,15 @@ let
 in
 stdenv.mkDerivation rec {
   name = "nheko-${version}";
-  #version = "0.6.3";
-  version = "20190519.1";
+  version = "0.6.4";
+  #version = "20190519.1";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
     #rev = "v${version}";
-    rev = "refs/tags/${version}";
-    sha256 = "032glx6v5fqv1gbqmxqy7j43v7mgc7wyzy7gbc4ax3b5bwv77ka5";
+    rev = "refs/tags/v${version}";
+    sha256 = "19dkc98l1q4070v6mli4ybqn0ip0za607w39hjf0x8rqdxq45iwm";
   };
 
   # If, on Darwin, you encounter the error
