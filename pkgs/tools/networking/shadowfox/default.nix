@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "shadowfox";
-  version = "2.0.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "SrKomodo";
     repo = "shadowfox-updater";
     rev = "v${version}";
-    sha256 = "01cnfwdhcyjy6g7c2vmmrrnpj0rmpv2l8bfqvivfkylxvj7iz2wg";
+    sha256 = "0j8ljnx281a5nwd3zpw7b25ndsxc26b52glk2hqhm5fh08f9w0d8";
   };
 
   goPackagePath = "github.com/SrKomodo/shadowfox-updater";
