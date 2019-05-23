@@ -24,7 +24,15 @@ buildRustPackage rec {
   buildInputs = [
     file /* libmagic */
     glib
-  ] ++ builtins.attrValues { inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good; };
+  ] ++ builtins.attrValues {
+    inherit (gst_all_1)
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      # not mentioned in README, but needed for PNM apparently
+      gst-plugins-bad
+      ;
+    };
 
   HOME = ".";
 
