@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, rustPlatform
 , file
 , glib, gst_all_1
+, wrapGAppsHook # to setup GST_* paths, a bit overkill perhaps
 }:
 
 with rustPlatform;
@@ -17,6 +18,8 @@ buildRustPackage rec {
     rev = "v${version}";
     sha256 = "1j7afn73lg68k4lzpm8dis8mlnrkfm15cvli2s0dk5s29lj9vmck";
   };
+
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   buildInputs = [
     file /* libmagic */
