@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     cp {tl,txr}.vim $d/syntax/
 
     cat > $d/ftplugin/txr.vim <<EOF
-      au BufRead,BufNewFile *.txr set filetype=txr | set lisp
-      au BufRead,BufNewFile *.tl,*.tlo set filetype=tl | set lisp
+    au BufRead,BufNewFile *.txr set filetype=txr | set lisp
+    au BufRead,BufNewFile *.tl,*.tlo set filetype=tl | set lisp
     EOF
   '';
 
