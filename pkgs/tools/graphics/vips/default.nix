@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vips";
-  version = "8.7.4";
+  version = "8.8.0";
 
   src = fetchFromGitHub {
     owner = "libvips";
     repo = "libvips";
     rev = "v${version}";
-    sha256 = "0mcax1qg5i4iqlvgkz3s0c938d7ymx24pv3q2n3w2pjylnnd489s";
+    sha256 = "079inl6j4lpqsgxj7n4zkv92dcd2lv07x2ihi8bykj199ch8s67r";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook gtk-doc gobject-introspection ];
