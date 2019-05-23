@@ -1,11 +1,11 @@
 { stdenv, fetchurl, bison, flex, libffi }:
 
 stdenv.mkDerivation rec {
-  name = "txr-${version}";
+  pname = "txr";
   version = "216";
 
   src = fetchurl {
-    url = "http://www.kylheku.com/cgit/txr/snapshot/${name}.tar.bz2";
+    url = "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
     sha256 = "07cxdpc9zsqd0c2668g00dqjpd6zc4mfdn74aarr6d2hpzdhh937";
   };
 
@@ -20,7 +20,17 @@ stdenv.mkDerivation rec {
   # Remove failing test-- mentions 'usr/bin' so probably related :)
   preCheck = "rm -rf tests/017";
 
-  # TODO: install 'tl.vim', make avail when txr is installed or via plugin
+  postInstall = ''
+    d=$out/share/vim-plugins/txr
+    mkdir -p $d/{syntax,ftplugin}
+
+    cp {tl,txr}.vim $d/syntax/
+
+    cat > $d/ftplugin/txr.vim <<EOF
+      au BufRead,BufNewFile *.txr set filetype=txr | set lisp
+      au BufRead,BufNewFile *.tl,*.tlo set filetype=tl | set lisp
+    EOF
+  '';
 
   meta = with stdenv.lib; {
     description = "Programming language for convenient data munging";
