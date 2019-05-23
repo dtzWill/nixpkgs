@@ -17800,9 +17800,7 @@ in
 
   fondo = callPackage ../applications/graphics/fondo { };
 
-  font-manager = callPackage ../applications/misc/font-manager {
-    vala = vala_0_42; # XXX: breaks with 44, might be fixed w/glib bump
-  };
+  font-manager = callPackage ../applications/misc/font-manager { };
 
   foo-yc20 = callPackage ../applications/audio/foo-yc20 { };
 
