@@ -1,5 +1,5 @@
 {
-  mkDerivation, lib, kdepimTeam,
+  mkDerivation, copyPathsToStore, lib, kdepimTeam,
   extra-cmake-modules, kdoctools,
   shared-mime-info,
   akonadi, akonadi-calendar, akonadi-contacts, akonadi-mime, akonadi-notes,
@@ -16,6 +16,7 @@ mkDerivation {
     license = with lib.licenses; [ gpl2 lgpl21 fdl12 ];
     maintainers = kdepimTeam;
   };
+  patches = copyPathsToStore (lib.readPathsFromFile ./. ./series);
   nativeBuildInputs = [ extra-cmake-modules kdoctools shared-mime-info ninja ];
   buildInputs = [
     akonadi akonadi-calendar akonadi-contacts akonadi-mime akonadi-notes

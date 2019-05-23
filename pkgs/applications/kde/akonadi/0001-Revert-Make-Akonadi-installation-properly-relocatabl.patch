@@ -44,7 +44,7 @@ index 75abede50..10f039376 100644
  # The directory where akonadi-xml.xsd and kcfg2dbus.xsl are installed
 -set(KF5Akonadi_DATA_DIR "@PACKAGE_KF5Akonadi_DATA_DIR@")
 +set(KF5Akonadi_DATA_DIR "@KF5Akonadi_DATA_DIR@")
- 
+
  ####################################################################################
  # CMAKE_AUTOMOC
 -- 

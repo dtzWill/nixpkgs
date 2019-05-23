@@ -165,6 +165,12 @@
    </listitem>
    <listitem>
     <para>
+      The <literal>hunspellDicts.fr-any</literal> dictionary now ships with <literal>fr_FR.{aff,dic}</literal>
+      which is linked to <literal>fr-toutesvariantes.{aff,dic}</literal>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
      OpenSSH has been upgraded from 7.9 to 8.0, improving security and adding features
      but with potential incompatibilities.  Consult the
      <link xlink:href="https://www.openwall.com/lists/oss-security/2019/04/18/1">release announcement</link>
