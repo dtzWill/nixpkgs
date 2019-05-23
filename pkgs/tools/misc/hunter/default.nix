@@ -25,6 +25,8 @@ buildRustPackage rec {
 
   HOME = ".";
 
+  doCheck = false; # src/icon.rs doesn't build, references 'Theme' enum not anywhere
+
 #  postInstall = ''
 #    mkdir -p $out/share/man/man1
 #    cp contrib/man/exa.1 $out/share/man/man1/
