@@ -64,7 +64,7 @@ let
   gitSource = rec {
     pname = "compton-git";
 #    version = "5.1";
-    version = "2019-05-22";
+    version = "2019-05-23";
     #version = "6.2";
 
     COMPTON_VERSION = "v${version}";
@@ -78,8 +78,8 @@ let
       repo   = "compton";
       #rev    = COMPTON_VERSION;
       #rev    = "36f6303c792fb35dbf4767d0d2eb6af85b478afe"; # alpha-glx
-      rev    = "094f00a048f5d486cc0a17b9dd84e63eb6120ab5"; # next
-      sha256 = "1yvhr6z83n50lm58sfk9425ry2saqisj6zdiyqrbxbcn7kpssl0p";
+      rev    = "9c50bc58cb35ebdb112cf53404540f5354abe067"; # next
+      sha256 = "03j73z8zwisivbfmbl0sxx59ijv1aj652yind0mdrhzmghsb05ky";
       fetchSubmodules = true;
     };
 
