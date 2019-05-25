@@ -11806,6 +11806,8 @@ in
 
   libmodplug = callPackage ../development/libraries/libmodplug {};
 
+  # Prefer musepack
+  musepack = callPackage ../development/libraries/musepack { };
   libmpcdec = callPackage ../development/libraries/libmpcdec { };
 
   libmp3splt = callPackage ../development/libraries/libmp3splt { };
