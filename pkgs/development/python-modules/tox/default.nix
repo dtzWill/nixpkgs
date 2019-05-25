@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "tox";
-  version = "3.11.0";
+  version = "3.12.1";
 
   buildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ packaging pluggy py six virtualenv toml filelock ];
@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0cm4bkz0nwxfb507vkx35zk50qp3ahc37507ppcsbnrvkvjyln2k";
+    sha256 = "0kxi8pfw1z35wrml3sf7138bi2498vwxwd70wm80kpx2j8wd6zzq";
   };
 
   meta = with lib; {
