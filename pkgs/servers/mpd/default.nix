@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, systemd, boost, darwin
-, libgcrypt, pcre
+, libgcrypt, pcre, gtest
 , alsaSupport ? true, alsaLib
 , avahiSupport ? true, avahi
 , dbusSupport ? true, dbus
@@ -69,7 +69,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1qiigs62pima7pxb6fa7jm0xbgvb7897v89qcl8y2g3gm7sim7g2";
   };
 
-  buildInputs = [ glib boost libgcrypt pcre ]
+  buildInputs = [ glib boost libgcrypt pcre gtest ]
     ++ opt stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudioKit
     ++ opt stdenv.isLinux systemd
     ++ opt (stdenv.isLinux && alsaSupport) alsaLib
