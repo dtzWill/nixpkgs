@@ -46,6 +46,7 @@
 , sndfileSupport ? true, libsndfile
 , wavpackSupport ? true, wavpack
 , wildmidiSupport ? true, wildmidi
+, modplugSupport ? true, libmodplug
 }:
 
 assert avahiSupport -> avahi != null && dbus != null;
@@ -119,7 +120,8 @@ in stdenv.mkDerivation rec {
     ++ opt sidplaySupport libsidplayfp
     ++ opt sndfileSupport libsndfile
     ++ opt wavpackSupport wavpack
-    ++ opt wildmidiSupport wildmidi;
+    ++ opt wildmidiSupport wildmidi
+    ++ opt modplugSupport libmodplug;
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
 
@@ -174,6 +176,7 @@ in stdenv.mkDerivation rec {
       (mkFlag sndfileSupport "sndfile")
       (mkFlag wavpackSupport "wavpack")
       (mkFlag wildmidiSupport "wildmidi")
+      (mkFlag modplugSupport "modplug")
       "-Ddebug=true"
       "-Dtest=true" # tests and debug programs
       "-Dzeroconf=avahi"
@@ -182,7 +185,6 @@ in stdenv.mkDerivation rec {
       # Features we don't have dependencies for yet
       "-Dsndio=disabled" # openBSD?
       "-Dadplug=disabled"
-      "-Dmodplug=disabled"
       "-Dshine=disabled"
     ]
     ++ opt stdenv.isLinux
