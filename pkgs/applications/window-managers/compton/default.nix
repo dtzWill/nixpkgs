@@ -78,8 +78,8 @@ let
       repo   = "compton";
       #rev    = COMPTON_VERSION;
       #rev    = "36f6303c792fb35dbf4767d0d2eb6af85b478afe"; # alpha-glx
-      rev    = "9c50bc58cb35ebdb112cf53404540f5354abe067"; # next
-      sha256 = "03j73z8zwisivbfmbl0sxx59ijv1aj652yind0mdrhzmghsb05ky";
+      rev    = "b7bb13dc590b47fe5a55db4c21a5b3d049c1d714"; # next
+      sha256 = "1zvmpl8whij0n7s80bh8xp6grnkq0ar157nxjiaynk71xrifb8fg";
       fetchSubmodules = true;
     };
 
