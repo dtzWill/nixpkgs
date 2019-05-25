@@ -33,7 +33,7 @@
 , soundcloudSupport ? true, yajl
 , nfsSupport ? true, libnfs
 , smbSupport ? true, samba
-, chromaSupport ? false, chromaprint
+, chromaSupport ? true, chromaprint
 , soxrSupport ? true, soxr
 , cdioSupport ? true, libcdio
 , cdioParanoiaSupport ? true, libcdio-paranoia
