@@ -43,11 +43,11 @@
     };
   };
   frameworkintegration = {
-    version = "5.58.1";
+    version = "5.58.2";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.58/frameworkintegration-5.58.1.tar.xz";
-      sha256 = "30a9e6c4bde295a031f94ea622ce2324b8a98536f51f0a008b148ea11c44a274";
-      name = "frameworkintegration-5.58.1.tar.xz";
+      url = "${mirror}/stable/frameworks/5.58/frameworkintegration-5.58.2.tar.xz";
+      sha256 = "ffd5ef5191bfa4810ae394303daf2ded6904cc3e5743b3e82f0c21e4a110053c";
+      name = "frameworkintegration-5.58.2.tar.xz";
     };
   };
   kactivities = {
