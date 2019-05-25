@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     inherit name;
     url = git://git.notmuchmail.org/git/notmuch;
-    rev = "9c0001de4bf3446a7cb8e6afc8dd3288be9169b7";
-    sha256 = "1cd4ybyx23k78mc4pbkzm7bn5bs32kws5srmx6x21radvwhqpv4p";
+    rev = "9300defd64acf68b8e6fa6fbd89b8050168bb63d";
+    sha256 = "09myljmmrcr4f6a93zwi8k39nndw2fmpj3g2jk2bl3ddql8x0gvl";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
