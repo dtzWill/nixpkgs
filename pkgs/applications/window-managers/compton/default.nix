@@ -64,7 +64,7 @@ let
   gitSource = rec {
     pname = "compton-git";
 #    version = "5.1";
-    version = "2019-05-23";
+    version = "2019-05-25";
     #version = "6.2";
 
     COMPTON_VERSION = "v${version}";
