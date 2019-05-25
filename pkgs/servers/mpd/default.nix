@@ -41,7 +41,7 @@
 , webdavSupport ? true, expat
 , aoSupport ? true, libao
 , openALSupport ? true, openal
-, mpcSupport ? true, libmpcdec
+, mpcSupport ? false, libmpcdec # TODO
 , sidplaySupport ? true, libsidplayfp
 , sndfileSupport ? true, libsndfile
 , wavpackSupport ? true, wavpack
