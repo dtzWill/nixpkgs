@@ -21,8 +21,8 @@ let
   buildType = "release";
   # Remember to change the extpackRev and version in extpack.nix and
   # guest-additions/default.nix as well.
-  main = "0lp584a350ya1zn03lhgmdbi91yp8yfja9hlg2jz1xyfj2dc869l";
-  version = "6.0.6";
+  main = "11sxx2zaablkvjiw0i5g5i5ibak6bsq6fldrcxwbcby6318shnhv";
+  version = "6.0.8";
 in stdenv.mkDerivation {
   name = "virtualbox-${version}";
 
