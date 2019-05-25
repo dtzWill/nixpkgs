@@ -1,8 +1,12 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, systemd, boost, darwin
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, systemd, boost, darwin
+, libgcrypt, pcre
 , alsaSupport ? true, alsaLib
-, avahiSupport ? true, avahi, dbus
+, avahiSupport ? true, avahi
+, dbusSupport ? true, dbus
+, upnpSupport ? true, libupnp
 , flacSupport ? true, flac
 , vorbisSupport ? true, libvorbis
+#, tremorSupport ? true, tremor # libvorbisidec
 , madSupport ? true, libmad
 , id3tagSupport ? true, libid3tag
 , mikmodSupport ? true, libmikmod
@@ -28,15 +32,25 @@
 , soundcloudSupport ? true, yajl
 , nfsSupport ? true, libnfs
 , smbSupport ? true, samba
+, chromaSupport ? true, chromaprint
+, soxrSupport ? true, soxr
+, cdioSupport ? true, libcdio
+, cdioParanoiaSupport ? true, libcdio-paranoia
+, udisks2Support ? true, udisks2
+, webdavSupport ? true, expat
+, aoSupport ? true, libao
+, openALSupport ? true, openal
 }:
 
 assert avahiSupport -> avahi != null && dbus != null;
+assert avahiSupport -> dbusSupport;
+assert webdavSupport -> curlSupport;
 
 let
   opt = stdenv.lib.optional;
-  mkFlag = c: f: if c then "--enable-${f}" else "--disable-${f}";
-  major = "0.20";
-  minor = "23";
+  mkFlag = c: f: "-D${f}=${if c then "enabled" else "disabled"}";
+  major = "0.21";
+  minor = "9";
 
 in stdenv.mkDerivation rec {
   name = "mpd-${version}";
@@ -46,19 +60,19 @@ in stdenv.mkDerivation rec {
     owner  = "MusicPlayerDaemon";
     repo   = "MPD";
     rev    = "v${version}";
-    sha256 = "1z1pdgiddimnmck0ardrpxkvgk1wn9zxri5wfv5ppasbb7kfm350";
+    sha256 = "1qiigs62pima7pxb6fa7jm0xbgvb7897v89qcl8y2g3gm7sim7g2";
   };
 
-  patches = [ ./x86.patch ];
-
-  buildInputs = [ glib boost ]
+  buildInputs = [ glib boost libgcrypt pcre ]
     ++ opt stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudioKit
     ++ opt stdenv.isLinux systemd
     ++ opt (stdenv.isLinux && alsaSupport) alsaLib
     ++ opt avahiSupport avahi
     ++ opt avahiSupport dbus
+    ++ opt upnpSupport libupnp
     ++ opt flacSupport flac
     ++ opt vorbisSupport libvorbis
+    ++ opt tremorSupport tremor
     # using libmad to decode mp3 files on darwin is causing a segfault -- there
     # is probably a solution, but I'm disabling it for now
     ++ opt (!stdenv.isDarwin && madSupport) libmad
@@ -85,16 +99,25 @@ in stdenv.mkDerivation rec {
     ++ opt opusSupport libopus
     ++ opt soundcloudSupport yajl
     ++ opt (!stdenv.isDarwin && nfsSupport) libnfs
-    ++ opt (!stdenv.isDarwin && smbSupport) samba;
+    ++ opt (!stdenv.isDarwin && smbSupport) samba
+    ++ opt chromaSupport chromaprint
+    ++ opt soxrSupport soxr
+    ++ opt cdioSupport libcdio
+    ++ opt cdioParanoiaSupport libcdio-paranoia
+    ++ opt udisks2Support udisks2
+    ++ opt webdavSupport expat
+    ++ opt aoSupport libao
+    ++ opt openALSupport openal;
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkgconfig ];
 
   enableParallelBuilding = true;
 
-  configureFlags =
+  mesonFlags =
     [ (mkFlag (!stdenv.isDarwin && alsaSupport) "alsa")
       (mkFlag flacSupport "flac")
       (mkFlag vorbisSupport "vorbis")
+      #(mkFlag tremorSupport "tremor")
       (mkFlag vorbisSupport "vorbis-encoder")
       (mkFlag (!stdenv.isDarwin && madSupport) "mad")
       (mkFlag mikmodSupport "mikmod")
@@ -120,13 +143,28 @@ in stdenv.mkDerivation rec {
       (mkFlag clientSupport "libmpdclient")
       (mkFlag opusSupport "opus")
       (mkFlag soundcloudSupport "soundcloud")
+      (mkFlag soundcloudSupport "yajl")
       (mkFlag (!stdenv.isDarwin && nfsSupport) "libnfs")
       (mkFlag (!stdenv.isDarwin && smbSupport) "smbclient")
-      "--enable-debug"
-      "--with-zeroconf=avahi"
+      (mkFlag chromaSupport "chromaprint")
+      (mkFlag dbusSupport "dbus")
+      (mkFlag upnpSupport "upnp")
+      (mkFlag soxrSupport "soxr")
+      (mkFlag cdioSupport "cdio")
+      (mkFlag cdioParanoiaSupport "cdio_paranoia")
+      (mkFlag udisks2Support "udisks")
+      (mkFlag webdavSupport "webdav")
+      (mkFlag aoSupport "ao")
+      (mkFlag openALSupport openal)
+      "-Ddebug=true"
+      "-Dtest=true" # tests and debug programs
+      "-Dzeroconf=avahi"
+      "-Dzlib=enabled"
+      "-Dauto_features=enabled"
+      "-Dsndio=disabled" # openBSD?
     ]
     ++ opt stdenv.isLinux
-      "--with-systemdsystemunitdir=$(out)/etc/systemd/system";
+      "-Dsystemd_system_unit_dir=${placeholder "out"}/etc/systemd/system";
 
   NIX_LDFLAGS = ''
     ${if shoutSupport then "-lshout" else ""}
