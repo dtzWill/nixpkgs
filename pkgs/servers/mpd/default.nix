@@ -183,6 +183,7 @@ in stdenv.mkDerivation rec {
       "-Dsndio=disabled" # openBSD?
       "-Dadplug=disabled"
       "-Dmodplug=disabled"
+      "-Dshine=disabled"
     ]
     ++ opt stdenv.isLinux
       "-Dsystemd_system_unit_dir=${placeholder "out"}/etc/systemd/system";
