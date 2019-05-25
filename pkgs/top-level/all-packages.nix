@@ -11108,6 +11108,8 @@ in
 
   kronosnet = callPackage ../development/libraries/kronosnet { };
 
+  l-smash = callPackage ../development/libraries/l-smash { };
+
   languageMachines = recurseIntoAttrs (import ../development/libraries/languagemachines/packages.nix { inherit callPackage; });
 
   lasem = callPackage ../development/libraries/lasem { };
@@ -18391,6 +18393,8 @@ in
 
   jackline = callPackage ../applications/networking/instant-messengers/jackline { };
 
+  leftwm = callPackage ../applications/window-managers/leftwm { };
+
   slack = callPackage ../applications/networking/instant-messengers/slack { };
   slack-dark = pkgs.slack.override { darkMode = true; };
 
@@ -18768,6 +18772,8 @@ in
     # see https://github.com/NixOS/nixpkgs/issues/60498
     python3Packages = python36Packages;
   };
+
+  kvirc = libsForQt5.callPackage ../applications/networking/irc/kvirc { };
 
   lame = callPackage ../development/libraries/lame { };
 

@@ -1774,7 +1774,7 @@
     name = "Frede Emil";
   };
   freepotion = {
-    email = "freepotion@protonmail.com";
+    email = "free.potion@yandex.ru";
     github = "freepotion";
     name = "Free Potion";
   };
@@ -3402,6 +3402,10 @@
   msackman = {
     email = "matthew@wellquite.org";
     name = "Matthew Sackman";
+  };
+  mschneider = {
+    email = "markus.schneider.sic+nix@gmail.com";
+    name = "Markus Schneider";
   };
   mschristiansen = {
     email = "mikkel@rheosystems.com";
