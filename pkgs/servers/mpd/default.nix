@@ -6,7 +6,7 @@
 , upnpSupport ? true, libupnp
 , flacSupport ? true, flac
 , vorbisSupport ? true, libvorbis
-#, tremorSupport ? true, tremor # libvorbisidec
+, tremorSupport ? false, tremor # libvorbisidec, can't have both
 , madSupport ? true, libmad
 , id3tagSupport ? true, libid3tag
 , mikmodSupport ? true, libmikmod
@@ -23,6 +23,7 @@
 , mpg123Support ? true, mpg123
 , aacSupport ? true, faad2
 , lameSupport ? true, lame
+, twolameSupport ? true, twolame
 , pulseaudioSupport ? true, libpulseaudio
 , jackSupport ? true, libjack2
 , gmeSupport ? true, game-music-emu
@@ -40,6 +41,11 @@
 , webdavSupport ? true, expat
 , aoSupport ? true, libao
 , openALSupport ? true, openal
+, mpcSupport ? true, libmpcdec
+, sidplaySupport ? true, libsidplayfp
+, sndfileSupport ? true, libsndfile
+, wavpackSupport ? true, wavpack
+, wildmidiSupport ? true, wildmidi
 }:
 
 assert avahiSupport -> avahi != null && dbus != null;
@@ -90,6 +96,7 @@ in stdenv.mkDerivation rec {
     ++ opt mpg123Support mpg123
     ++ opt aacSupport faad2
     ++ opt lameSupport lame
+    ++ opt twolameSupport twolame
     ++ opt zipSupport zziplib
     ++ opt (!stdenv.isDarwin && pulseaudioSupport) libpulseaudio
     ++ opt (!stdenv.isDarwin && jackSupport) libjack2
@@ -107,7 +114,12 @@ in stdenv.mkDerivation rec {
     ++ opt udisks2Support udisks2
     ++ opt webdavSupport expat
     ++ opt aoSupport libao
-    ++ opt openALSupport openal;
+    ++ opt openALSupport openal
+    ++ opt mpcSupport libmpcdec
+    ++ opt sidplaySupport libsidplayfp
+    ++ opt sndfileSupport libsndfile
+    ++ opt wavpackSupport wavpack
+    ++ opt wildmidiSupport wildmidi;
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
 
@@ -117,7 +129,7 @@ in stdenv.mkDerivation rec {
     [ (mkFlag (!stdenv.isDarwin && alsaSupport) "alsa")
       (mkFlag flacSupport "flac")
       (mkFlag vorbisSupport "vorbis")
-      #(mkFlag tremorSupport "tremor")
+      (mkFlag tremorSupport "tremor")
       (mkFlag vorbisSupport "vorbis-encoder")
       (mkFlag (!stdenv.isDarwin && madSupport) "mad")
       (mkFlag mikmodSupport "mikmod")
@@ -134,7 +146,8 @@ in stdenv.mkDerivation rec {
       (mkFlag mmsSupport "mms")
       (mkFlag mpg123Support "mpg123")
       (mkFlag aacSupport "aac")
-      (mkFlag lameSupport "lame-encoder")
+      (mkFlag lameSupport "lame")
+      (mkFlag twolameSupport "twolame")
       (mkFlag (!stdenv.isDarwin && pulseaudioSupport) "pulse")
       (mkFlag (!stdenv.isDarwin && jackSupport) "jack")
       (mkFlag stdenv.isDarwin "osx")
@@ -155,13 +168,21 @@ in stdenv.mkDerivation rec {
       (mkFlag udisks2Support "udisks")
       (mkFlag webdavSupport "webdav")
       (mkFlag aoSupport "ao")
-      (mkFlag openALSupport openal)
+      (mkFlag openALSupport "openal")
+      (mkFlag mpcSupport "mpcdec")
+      (mkFlag sidplaySupport "sidplay")
+      (mkFlag sndfileSupport "sndfile")
+      (mkFlag wavpackSupport "wavpack")
+      (mkFlag wildmidiSupport "wildmidi")
       "-Ddebug=true"
       "-Dtest=true" # tests and debug programs
       "-Dzeroconf=avahi"
       "-Dzlib=enabled"
       "-Dauto_features=enabled"
+      # Features we don't have dependencies for yet
       "-Dsndio=disabled" # openBSD?
+      "-Dadplug=disabled"
+      "-Dmodplug=disabled"
     ]
     ++ opt stdenv.isLinux
       "-Dsystemd_system_unit_dir=${placeholder "out"}/etc/systemd/system";
