@@ -76,12 +76,6 @@ in stdenv.mkDerivation {
      optional enableHardening ./hardened.patch
   ++ [
     ./qtx11extras.patch
-    # https://www.virtualbox.org/ticket/18620
-    ./fix_kbuild.patch
-    # https://www.virtualbox.org/ticket/18621
-    ./fix_module_makefile_sed.patch
-    # https://forums.virtualbox.org/viewtopic.php?f=7&t=92815
-    ./fix_printk_test.patch
   ];
 
   postPatch = ''

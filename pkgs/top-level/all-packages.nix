@@ -21259,6 +21259,8 @@ in
 
   youtube-viewer = perlPackages.WWWYoutubeViewer;
 
+  ytcc = callPackage ../tools/networking/ytcc { };
+
   zam-plugins = callPackage ../applications/audio/zam-plugins { };
 
   zanshin = libsForQt5.callPackage ../applications/office/zanshin {
@@ -22907,6 +22909,8 @@ in
     python-protobuf = python36Packages.protobuf.override { inherit protobuf; };
     opencv3 = opencv3WithoutCuda; # Used only for image loading.
   });
+
+  caffeine-ng = callPackage ../tools/X11/caffeine-ng {};
 
   cntk = callPackage ../applications/science/math/cntk {
     inherit (linuxPackages) nvidia_x11;
