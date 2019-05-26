@@ -5022,6 +5022,11 @@
     github = "the-kenny";
     name = "Moritz Ulrich";
   };
+  thedavidmeister = {
+    email = "thedavidmeister@gmail.com";
+    github = "thedavidmeister";
+    name = "David Meister";
+  };
   thesola10 = {
     email = "thesola10@bobile.fr";
     github = "thesola10";
