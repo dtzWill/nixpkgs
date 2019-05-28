@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname = "feedreader";
-  version = "2.9.0";
+  version = "2.9.1";
 
   src = fetchFromGitHub {
     owner = "jangernert";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1cnlw8g63gsn6lqx94lls2phh2ayn31nzn6n59n1hdbizkaz7fyl";
+    sha256 = "1qa682s6lsc4z7kpz1qb5588vp432jjlpw4g0rmb259qnx27avmp";
   };
 
   nativeBuildInputs = [
