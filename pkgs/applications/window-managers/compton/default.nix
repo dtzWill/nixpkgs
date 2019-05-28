@@ -5,15 +5,18 @@
 , libXinerama, libXrandr, libXrender, libXext, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
   pname = "compton";
-  version = "6.2";
+#  version = "6.2";
+  version = "2019-05-27";
 
   COMPTON_VERSION = "v${version}";
 
   src = fetchFromGitHub {
     owner  = "yshui";
     repo   = "compton";
-    rev    = COMPTON_VERSION;
-    sha256 = "03fi9q8zw2qrwpkmy1bnavgfh91ci9in5fdi17g4s5s0n2l7yil7";
+    #rev    = COMPTON_VERSION;
+    rev = "4a74b4f19908be21508c151de065ae50900996bd";
+    sha256 = "0gvw01glsc428d7fpcysb49sqap4xnbhr4c54nbp6mg8x5g5w55w";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
@@ -32,20 +35,40 @@ stdenv.mkDerivation rec {
     libxcb xcbutilrenderutil xcbutilimage
     pixman libev
     libxdg_basedir
+    # TODO: upstream, check if still needed
+    uthash
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-fno-strict-aliasing" ];
+    NIX_CFLAGS_COMPILE = [
+      "-fno-strict-aliasing"
+      # These control some verbose debugging info
+      # useful should anything go wrong but not suitable
+      # for regular use.
+      #"-DDEBUG_RESTACK=1"
+      #"-DDEBUG_EVENTS=1"
+    ];
+
+  # This doesn't help anymore, IIRC, TODO: check and report to nixpkgs master
+  ##preBuild = ''
+  ##  git() { echo "v${version}"; }
+  ##  export -f git
+  ##'';
+
+  # This isn't great but does manage to set version appropriately.
+  postPatch = ''
+    substituteInPlace meson.build --replace "version: '6'" "version: '6-git-${version}'"
+  '';
+
+  doCheck = true;
 
   mesonFlags = [
     "-Dbuild_docs=true"
+    "-Dunittest=true"
+    # Optional, I prefer to leave it on for sanity's sake
+    "-Dsanitize=true"
   ];
 
-  preBuild = ''
-    git() { echo "v${version}"; }
-    export -f git
-  '';
-
-  installFlags = [ "PREFIX=$(out)" ];
+  #installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     wrapProgram $out/bin/compton-trans \
