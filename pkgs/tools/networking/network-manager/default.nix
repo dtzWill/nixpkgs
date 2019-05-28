@@ -17,8 +17,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "4c78434a0bf5a7fbf8ceafb0d07440f3fc7a2b71";
-    sha256 = "0y7afhwa38z8l0fffk484fljd549cyy45b6hilpk6ag0dp7k6la2";
+    rev = "48b3a3e311d1d8eb1cfb9523e288b501180ac6fd";
+    sha256 = "1ndi5pqz8hqcikkpwi0lz5l7bnfaa4ji58a8jrgrg8l493njz24c";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
