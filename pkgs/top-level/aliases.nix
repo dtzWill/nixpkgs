@@ -59,6 +59,7 @@ mapAliases ({
   clawsMail = claws-mail; # added 2016-04-29
   clutter_gtk = clutter-gtk; # added 2018-02-25
   conkerorWrapper = conkeror; # added 2015-01
+  compton-git = compton; # added 2019-05-20
   conntrack_tools = conntrack-tools; # added 2018-05
   cool-old-term = cool-retro-term; # added 2015-01-31
   cupsBjnp = cups-bjnp; # added 2016-01-02
@@ -108,6 +109,12 @@ mapAliases ({
   gnome-themes-standard = gnome-themes-extra; # added 2018-03-14
   gnome_doc_utils = gnome-doc-utils; # added 2018-02-25
   gnome_themes_standard = gnome-themes-standard; # added 2018-02-25
+  gnuradio-nacl = gr-nacl; # added 2019-05-27
+  gnuradio-gsm = gr-gsm; # added 2019-05-27
+  gnuradio-ais = gr-ais; # added 2019-05-27
+  gnuradio-limesdr = gr-limesdr; # added 2019-05-27
+  gnuradio-rds = gr-rds; # added 2019-05-27
+  gnuradio-osmosdr = gr-osmosdr; # added 2019-05-27
   gnustep-make = gnustep.make; # added 2016-7-6
   go-pup = pup; # added 2017-12-19
   gobjectIntrospection = gobject-introspection; # added 2018-12-02

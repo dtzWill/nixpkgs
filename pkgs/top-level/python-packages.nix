@@ -1285,9 +1285,9 @@ in {
   cufflinks = callPackage ../development/python-modules/cufflinks { };
 
   cupy = callPackage ../development/python-modules/cupy {
-    cudatoolkit = pkgs.cudatoolkit_8;
-    cudnn = pkgs.cudnn6_cudatoolkit_8;
-    nccl = pkgs.nccl;
+    cudatoolkit = pkgs.cudatoolkit_10_0;
+    cudnn = pkgs.cudnn_cudatoolkit_10_0;
+    nccl = pkgs.nccl_cudatoolkit_10;
   };
 
   cx_Freeze = callPackage ../development/python-modules/cx_freeze {};
@@ -5199,6 +5199,8 @@ in {
   xgboost = callPackage ../development/python-modules/xgboost {
     xgboost = pkgs.xgboost;
   };
+
+  xhtml2pdf = callPackage ../development/python-modules/xhtml2pdf { };
 
   xkcdpass = callPackage ../development/python-modules/xkcdpass { };
 

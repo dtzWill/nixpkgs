@@ -3,12 +3,12 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "nnn-${version}";
+  pname = "nnn";
   version = "2.5";
 
   src = fetchFromGitHub {
     owner = "jarun";
-    repo = "nnn";
+    repo = pname;
     rev = "v${version}";
     sha256 = "0hvb0q6jg2nmvb40q43jj7v45afkjgcq6q9ldmmrh5558d0n65cw";
   };

@@ -808,9 +808,7 @@ in
 
   asc-key-to-qr-code-gif = callPackage ../tools/security/asc-key-to-qr-code-gif { };
 
-  gopass = callPackage ../tools/security/gopass {
-    buildGoPackage = buildGo110Package;
-  };
+  gopass = callPackage ../tools/security/gopass { };
 
   browserpass = callPackage ../tools/security/browserpass { };
 
@@ -2112,6 +2110,16 @@ in
     citrix_receiver = citrix_receiver_unwrapped_13_8_0;
   };
 
+  citrix_workspace_unwrapped = callPackage ../applications/networking/remote/citrix-workspace { };
+  citrix_workspace_unwrapped_19_3_0 = citrix_workspace_unwrapped.override { version = "19.3.0"; };
+
+  citrix_workspace = callPackage ../applications/networking/remote/citrix-workspace/wrapper.nix {
+    citrix_workspace = citrix_workspace_unwrapped;
+  };
+  citrix_workspace_19_3_0 = callPackage ../applications/networking/remote/citrix-workspace/wrapper.nix {
+    citrix_workspace = citrix_workspace_unwrapped_19_3_0;
+  };
+
   citra = libsForQt5.callPackage ../misc/emulators/citra { };
 
   cmix = callPackage ../tools/compression/cmix { stdenv = gcc8Stdenv; /* see upstream's README */ };
@@ -2646,6 +2654,8 @@ in
 
   teamocil = callPackage ../tools/misc/teamocil { };
 
+  tridactyl-native = callPackage ../tools/networking/tridactyl-native { };
+
   uudeview = callPackage ../tools/misc/uudeview { };
 
   uutils-coreutils = callPackage ../tools/misc/uutils-coreutils {
@@ -2801,6 +2811,8 @@ in
   exiftags = callPackage ../tools/graphics/exiftags { };
 
   exiftool = perlPackages.ImageExifTool;
+
+  exodus = callPackage ../applications/altcoins/exodus { };
 
   ext4magic = callPackage ../tools/filesystems/ext4magic { };
 
@@ -3521,6 +3533,8 @@ in
   hashcash = callPackage ../tools/security/hashcash { };
 
   hashcat = callPackage ../tools/security/hashcat { };
+
+  hashcat-utils = callPackage ../tools/security/hashcat-utils { };
 
   hash_extender = callPackage ../tools/security/hash_extender { };
 
@@ -4806,6 +4820,8 @@ in
   nextcloud-client = libsForQt5.callPackage ../applications/networking/nextcloud-client { };
 
   nextcloud-news-updater = callPackage ../servers/nextcloud/news-updater.nix { };
+
+  ndstool = callPackage ../tools/archivers/ndstool { };
 
   ngrep = callPackage ../tools/networking/ngrep { };
 
@@ -8750,6 +8766,8 @@ in
   pharo-spur64 = assert stdenv.is64bit; pharo-vms.spur64;
   pharo-launcher = callPackage ../development/pharo/launcher { };
 
+  srandrd = callPackage ../tools/X11/srandrd { };
+
   srecord = callPackage ../development/tools/misc/srecord { };
 
   srelay = callPackage ../tools/networking/srelay { };
@@ -11404,6 +11422,8 @@ in
   libelf = if stdenv.isFreeBSD
   then callPackage ../development/libraries/libelf-freebsd { }
   else callPackage ../development/libraries/libelf { };
+
+  libelfin = callPackage ../development/libraries/libelfin { };
 
   libetpan = callPackage ../development/libraries/libetpan { };
 
@@ -14219,6 +14239,8 @@ in
   biboumi = callPackage ../servers/xmpp/biboumi { };
 
   elasticmq = callPackage ../servers/elasticmq { };
+
+  elasticmq-server-bin = callPackage ../servers/elasticmq-server-bin { };
 
   eventstore = callPackage ../servers/nosql/eventstore {
     Nuget = dotnetPackages.Nuget;
@@ -17859,21 +17881,21 @@ in
 
   gnuradio-with-packages = callPackage ../applications/radio/gnuradio/wrapper.nix {
     inherit (python2Packages) python;
-    extraPackages = [ gnuradio-nacl gnuradio-osmosdr gnuradio-ais gnuradio-rds ]
-      ++ lib.optionals stdenv.isLinux [ gnuradio-gsm gnuradio-limesdr ];
+    extraPackages = [ gr-nacl gr-osmosdr gr-ais gr-rds ]
+      ++ lib.optionals stdenv.isLinux [ gr-gsm gr-limesdr ];
   };
 
-  gnuradio-nacl = callPackage ../applications/radio/gnuradio/nacl.nix { };
+  gr-nacl = callPackage ../applications/radio/gnuradio/nacl.nix { };
 
-  gnuradio-gsm = callPackage ../applications/radio/gnuradio/gsm.nix { };
+  gr-gsm = callPackage ../applications/radio/gnuradio/gsm.nix { };
 
-  gnuradio-ais = callPackage ../applications/radio/gnuradio/ais.nix { };
+  gr-ais = callPackage ../applications/radio/gnuradio/ais.nix { };
 
-  gnuradio-limesdr = callPackage ../applications/radio/gnuradio/limesdr.nix { };
+  gr-limesdr = callPackage ../applications/radio/gnuradio/limesdr.nix { };
 
-  gnuradio-rds = callPackage ../applications/radio/gnuradio/rds.nix { };
+  gr-rds = callPackage ../applications/radio/gnuradio/rds.nix { };
 
-  gnuradio-osmosdr = callPackage ../applications/radio/gnuradio/osmosdr.nix { };
+  gr-osmosdr = callPackage ../applications/radio/gnuradio/osmosdr.nix { };
 
   goldendict = libsForQt5.callPackage ../applications/misc/goldendict { };
 
@@ -18950,6 +18972,8 @@ in
   };
 
   luppp = callPackage ../applications/audio/luppp { };
+
+  lutris = callPackage ../applications/misc/lutris { };
 
   lv2bm = callPackage ../applications/audio/lv2bm { };
 
@@ -20497,6 +20521,8 @@ in
     inherit (linuxPackages) x86_energy_perf_policy;
   };
 
+  tmatrix = callPackage ../applications/misc/tmatrix { };
+
   tnef = callPackage ../applications/misc/tnef { };
 
   todiff = callPackage ../applications/misc/todiff { };
@@ -21061,11 +21087,10 @@ in
 
   inherit (xorg) xcompmgr;
 
-  inherit (callPackage ../applications/window-managers/compton {
-    inherit (llvmPackages_latest) stdenv;
-    meson = mesonClang;
-  }) compton-old compton-git;
-  compton = compton-git;
+  compton = callPackage ../applications/window-managers/compton {};
+  # TODO: re-add
+    ## inherit (llvmPackages_latest) stdenv;
+    ## meson = mesonClang;
 
   xdaliclock = callPackage ../tools/misc/xdaliclock {};
 
@@ -21408,6 +21433,8 @@ in
   chocolateDoom = callPackage ../games/chocolate-doom { };
 
   crispyDoom = callPackage ../games/crispy-doom { };
+
+  cri-o = callPackage ../applications/virtualization/cri-o {};
 
   ckan = callPackage ../games/ckan { };
 
@@ -22192,7 +22219,7 @@ in
 
   kakasi = callPackage ../tools/text/kakasi { };
 
-  lumina = libsForQt5.callPackage ../desktops/lumina { };
+  lumina = recurseIntoAttrs (callPackage ../desktops/lumina { });
 
   lxqt = recurseIntoAttrs (import ../desktops/lxqt {
     inherit pkgs libsForQt5;
@@ -23238,6 +23265,8 @@ in
 
   ekiga = callPackage ../applications/networking/instant-messengers/ekiga { };
 
+  dumb = callPackage ../misc/dumb { };
+
   emulationstation = callPackage ../misc/emulators/emulationstation {
     stdenv = overrideCC stdenv gcc5;
   };
@@ -23642,6 +23671,8 @@ in
   rucksack = callPackage ../development/tools/rucksack { };
 
   sam-ba = callPackage ../tools/misc/sam-ba { };
+
+  sndio = callPackage ../misc/sndio { };
 
   opkg = callPackage ../tools/package-management/opkg { };
 
