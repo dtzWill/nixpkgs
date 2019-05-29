@@ -6,8 +6,11 @@
 
 , # FreeType supports LCD filtering (colloquially referred to as sub-pixel rendering).
   # LCD filtering is also known as ClearType and covered by several Microsoft patents.
-  # This option allows it to be disabled. See http://www.freetype.org/patents.html.
-  useEncumberedCode ? true
+  # This option allows it to be enabled. See http://www.freetype.org/patents.html.
+  # The default behavior ("harmony") accomplishes results of similar quality
+  # without the need to tune lcd filters to manage fringing.
+  # (and is claimed to not have the same patent concerns, but IANAL and so on)
+  useEncumberedCode ? false
 }:
 
 let
