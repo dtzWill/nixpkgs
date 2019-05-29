@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   name = "google-drive-ocamlfuse-${version}";
-  version = "0.7.3";
+  version = "0.7.4";
 
   src = fetchFromGitHub {
     owner = "astrada";
     repo = "google-drive-ocamlfuse";
     rev = "v${version}";
-    sha256 = "14wp49dgb80kbf4jwygbiy6gpjlw8fl77b0p2xp2vg0k40vsypzd";
+    sha256 = "0h5d1m9jgd737158ggp4mz46956bwhv30r2pyqljvfwqn6m6mwz9";
   };
 
   nativeBuildInputs = [ dune ];
