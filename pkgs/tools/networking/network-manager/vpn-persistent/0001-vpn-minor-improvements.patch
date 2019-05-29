@@ -91,5 +91,5 @@ index e70590b24..38163bee8 100644
  guint32              nm_vpn_connection_get_ip6_route_metric (NMVpnConnection *self);
  
 -- 
-2.21.GIT
+2.22.0-rc1
 

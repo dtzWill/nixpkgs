@@ -28,5 +28,5 @@ index 23e0d6f04..7e689d61d 100644
  		priv->service_running = FALSE;
  		_LOGI ("VPN service disappeared");
 -- 
-2.21.GIT
+2.22.0-rc1
 

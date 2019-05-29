@@ -75,8 +75,9 @@ in stdenv.mkDerivation rec {
     ./fix-install-paths.patch
 
     #./mtu.patch
-    ./ipv6-disable-option/0001-ipv6-add-disabled-method.patch
-    ./ipv6-disable-option/0002-fixup-ipv6-add-disabled-method.patch
+    ./0001-dhcp-fallback-to-internal-DHCP-plugin-if-plugin-does.patch
+    ./0001-ipv6-add-disabled-method.patch
+
     ./vpn-persistent/0001-vpn-minor-improvements.patch
     ./vpn-persistent/0002-vpn-fix-persistent-reconnection.patch
     ./vpn-persistent/0003-vpn-set-STOPPED-state-when-service-disappears.patch
