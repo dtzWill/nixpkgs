@@ -10920,6 +10920,7 @@ in
     withCoreText = stdenv.isDarwin;
     withGraphite2 = true;
     withIcu = true;
+    inherit cairo freetype;
   };
 
   hawknl = callPackage ../development/libraries/hawknl { };

@@ -13,6 +13,8 @@
   useEncumberedCode ? false
 }:
 
+assert !useEncumberedCode;
+
 let
   inherit (stdenv.lib) optional optionalString;
 
