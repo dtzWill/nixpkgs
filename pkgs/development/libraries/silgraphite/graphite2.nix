@@ -1,4 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, freetype, cmake }:
+{ stdenv, fetchurl, pkgconfig, cmake
+, buildWithDepsUsuallyDisabledToAvoidCycle ? false
+, freetype, harfbuzz
+ }:
 
 stdenv.mkDerivation rec {
   version = "1.3.12";
@@ -11,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig cmake ];
-  buildInputs = [ freetype ];
+  buildInputs = stdenv.lib.optionals buildWithDepsUsuallyDisabledToAvoidCycle [ freetype harfbuzz ];
 
   patches = [ ./graphite2-1.2.0-cmakepath.patch ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ ./macosx.patch ];

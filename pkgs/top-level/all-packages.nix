@@ -10450,9 +10450,9 @@ in
     inherit (darwin.apple_sdk.frameworks) Cocoa GLUT;
   };
 
-  #freetype-bootstrap = callPackage ../development/libraries/freetype { harfbuzz = null; };
-  #freetype = freetype-bootstrap.override { harfbuzz = harfbuzz-bootstrap; };
-  freetype = callPackage ../development/libraries/freetype { };
+  freetype-bootstrap = appendToName "bootstrap-no-harfbuzz" (callPackage ../development/libraries/freetype { harfbuzz = null; });
+  freetype = freetype-bootstrap.override { harfbuzz = harfbuzz-bootstrap; };
+  # freetype = callPackage ../development/libraries/freetype { };
 
   frei0r = callPackage ../development/libraries/frei0r { };
 
@@ -10906,16 +10906,15 @@ in
   };
   libheimdal = heimdal;
 
-  harfbuzz = callPackage ../development/libraries/harfbuzz {
-    inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
-  };
-  #harfbuzz-bootstrap = callPackage ../development/libraries/harfbuzz {
+  #harfbuzz = callPackage ../development/libraries/harfbuzz {
   #  inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
-  #  freetype = freetype-bootstrap;
-  #  cairo = null; # :(
-  #  withGraphite2 = false;
   #};
-  #harfbuzz = harfbuzz-bootstrap.override { inherit cairo freetype; };
+  harfbuzz-bootstrap = appendToName "bootstrap" (callPackage ../development/libraries/harfbuzz {
+    inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
+    freetype = freetype-bootstrap;
+    cairo = null; # only used for example utility, disabled to break circular dep
+  });
+  harfbuzz = harfbuzz-bootstrap.override { inherit cairo freetype; };
 
   harfbuzzFull = harfbuzz.override {
     withCoreText = stdenv.isDarwin;
@@ -13158,6 +13157,9 @@ in
   shhopt = callPackage ../development/libraries/shhopt { };
 
   graphite2 = callPackage ../development/libraries/silgraphite/graphite2.nix {};
+  graphite2WithExtraTestsExamples = graphite2.override {
+    buildWithDepsUsuallyDisabledToAvoidCycle = true;
+  };
 
   simavr = callPackage ../development/tools/simavr {
     avrgcc = pkgsCross.avr.buildPackages.gcc;
