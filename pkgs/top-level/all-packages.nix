@@ -3083,7 +3083,7 @@ in
     foundationdb61
   ;
 
-  foundationdb = foundationdb60;
+  foundationdb = foundationdb61;
 
   fuse-7z-ng = callPackage ../tools/filesystems/fuse-7z-ng { };
 
@@ -5519,6 +5519,8 @@ in
 
   quota = if stdenv.isLinux then linuxquota else unixtools.quota;
 
+  qview = libsForQt5.callPackage ../applications/graphics/qview {};
+
   wiggle = callPackage ../development/tools/wiggle { };
 
   radamsa = callPackage ../tools/security/radamsa { };
@@ -7181,8 +7183,6 @@ in
 
   compcert = callPackage ../development/compilers/compcert { };
 
-  cpp-gsl = callPackage ../development/libraries/cpp-gsl { };
-
   cryptol = haskell.lib.justStaticExecutables haskellPackages.cryptol;
 
   inherit (callPackages ../development/compilers/crystal {
@@ -8676,26 +8676,6 @@ in
 
   ### DEVELOPMENT / MISC
 
-  amdadlsdk = callPackage ../development/misc/amdadl-sdk { };
-
-  amdappsdk26 = amdappsdk.override {
-    version = "2.6";
-  };
-
-  amdappsdk27 = amdappsdk.override {
-    version = "2.7";
-  };
-
-  amdappsdk28 = amdappsdk.override {
-    version = "2.8";
-  };
-
-  amdappsdk = callPackage ../development/misc/amdapp-sdk { };
-
-  amdappsdkFull = amdappsdk.override {
-    samples = true;
-  };
-
   amtk = callPackage ../development/libraries/amtk { };
 
   avrlibc      = callPackage ../development/misc/avr/libc {};
@@ -9777,6 +9757,8 @@ in
     inherit (darwin.apple_sdk.frameworks) CoreFoundation;
   };
 
+  uefi-firmware-parser = callPackage ../development/tools/analysis/uefi-firmware-parser { };
+
   uhd = callPackage ../applications/radio/uhd { };
 
   uisp = callPackage ../development/tools/misc/uisp { };
@@ -10692,12 +10674,10 @@ in
   gsettings-qt = libsForQt5.callPackage ../development/libraries/gsettings-qt { };
 
   gst_all_1 = recurseIntoAttrs(callPackage ../development/libraries/gstreamer {
-    callPackage = pkgs.newScope (pkgs // { libav = pkgs.ffmpeg_4; });
+    callPackage = newScope { libav = pkgs.ffmpeg_4; };
   });
 
-  gstreamer = callPackage ../development/libraries/gstreamer/legacy/gstreamer {
-    bison = bison2;
-  };
+  gstreamer = callPackage ../development/libraries/gstreamer/legacy/gstreamer { };
 
   gst-plugins-base = callPackage ../development/libraries/gstreamer/legacy/gst-plugins-base {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
@@ -16037,6 +16017,8 @@ in
     ubootOrangePiZeroPlus2H5
     ubootPcduino3Nano
     ubootPine64
+    ubootPine64LTS
+    ubootPinebook
     ubootQemuAarch64
     ubootQemuArm
     ubootRaspberryPi
@@ -17175,9 +17157,7 @@ in
     inherit (python3Packages) python wrapPython pygments markdown;
   };
 
-  cgminer = callPackage ../applications/misc/cgminer {
-    amdappsdk = amdappsdk28;
-  };
+  cgminer = callPackage ../applications/misc/cgminer { };
 
   chirp = callPackage ../applications/radio/chirp {
     inherit (pythonPackages) pyserial pygtk;
@@ -23893,6 +23873,8 @@ in
   ib-tws = callPackage ../applications/office/ib/tws { jdk=oraclejdk8; };
 
   ib-controller = callPackage ../applications/office/ib/controller { jdk=oraclejdk8; };
+
+  vnote = libsForQt5.callPackage ../applications/office/vnote { };
 
   ssh-audit = callPackage ../tools/security/ssh-audit { };
 
