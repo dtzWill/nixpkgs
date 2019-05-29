@@ -3,14 +3,13 @@
 
 stdenv.mkDerivation rec {
   name = "mtxclient-${version}";
-  version = "0.2.0-git";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    #rev = "v${version}";
-    rev = "d5cc703848b44c1a9c543dc01355b7881f66ea81";
-    sha256 = "1q2vxyjs9x6hq1g5qkzm6pfg1dj2zi1zx8zxb13kfgd6dkcv7z3d";
+    rev = "v${version}";
+    sha256 = "0pycznrvj57ff6gbwfn1xj943d2dr4vadl79hii1z16gn0nzxpmj";
   };
 
   cmakeFlags = [
