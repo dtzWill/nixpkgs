@@ -129,6 +129,8 @@ let
 
   gitflow = callPackage ./gitflow { };
 
+  gitstatus = callPackage ./gitstatus { };
+
   grv = callPackage ./grv { };
 
   hub = callPackage ./hub {

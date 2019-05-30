@@ -61,6 +61,8 @@ let
   });
 
 in rec {
-  quaternion     = generic "0.0.9.4"     "12mkwiqqbi4774kwl7gha72jyf0jf547acy6rw8ry249zl4lja54" "" qmtx_colors; # libqmatrixclient_0_5;
-  quaternion-git = generic "4c999db5da4b56a2cac25fcb6a881abcfac673c2" "0ql883422ygm9i881clfn1p85br7lhzdalbz8di4zafhndwsdxr8" "" qmtx_colors;
+  quaternion     = generic "0.0.9.4c"     "12mkwiqqbi4774kwl7gha72jyf0jf547acy6rw8ry249zl4lja54" "" libqmatrixclient_0_5;
+
+  quaternion-git = quaternion;
+  # quaternion-git = generic "4c999db5da4b56a2cac25fcb6a881abcfac673c2" "0ql883422ygm9i881clfn1p85br7lhzdalbz8di4zafhndwsdxr8" "" qmtx_colors;
 }

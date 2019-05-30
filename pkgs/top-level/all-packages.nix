@@ -3554,6 +3554,8 @@ in
 
   hardinfo = callPackage ../tools/system/hardinfo { };
 
+  hcxtools = callPackage ../tools/security/hcxtools { };
+
   hdapsd = callPackage ../os-specific/linux/hdapsd { };
 
   hdaps-gl = callPackage ../tools/misc/hdaps-gl { };
@@ -4116,7 +4118,7 @@ in
 
   matrix-synapse = callPackage ../servers/matrix-synapse { };
 
-  mautrix-telegram = callPackage ../servers/mautrix-telegram { };
+  mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
 
   mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp { };
 
