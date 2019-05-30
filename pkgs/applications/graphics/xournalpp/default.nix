@@ -52,6 +52,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withLua lua;
 
+  hardeningDisable = [ "format" ];
+
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
