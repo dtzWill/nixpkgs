@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, intltool, gettext, makeWrapper
+{ stdenv, fetchurl, intltool, itstool, gettext, makeWrapper
 , parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme
 , gpart, hdparm, procps, utillinux, yelp_tools
 }:
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ parted glib libuuid gtkmm3 libxml2 hicolor-icon-theme ];
-  nativeBuildInputs = [ intltool gettext makeWrapper pkgconfig yelp_tools ];
+  nativeBuildInputs = [ intltool itstool gettext makeWrapper pkgconfig yelp_tools ];
 
   postInstall = ''
     wrapProgram $out/bin/gparted \
