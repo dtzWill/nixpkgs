@@ -45,7 +45,8 @@ let
     ++ lib.optionals stdenv.hostPlatform.isx86 [ "i915" "i965" ]);
   defaultVulkanDrivers = optionals stdenv.hostPlatform.isLinux ([ ]
     ++ lib.optional stdenv.hostPlatform.isx86 "intel"
-    ++ lib.optional enableRadv "freedreno" /*"radeon"*/);
+    #++ lib.optional enableRadv "freedreno" /*"radeon"*/);
+    );
 in
 
 let gallium_ = galliumDrivers; dri_ = driDrivers; vulkan_ = vulkanDrivers; in
