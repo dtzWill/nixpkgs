@@ -1,20 +1,19 @@
 { stdenv, fetchurl, intltool, gettext, makeWrapper
-, parted, glib, libuuid, pkgconfig, gtkmm2, libxml2, hicolor-icon-theme
-, gpart, hdparm, procps, utillinux
+, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme
+, gpart, hdparm, procps, utillinux, yelp_tools
 }:
 
 stdenv.mkDerivation rec {
-  name = "gparted-1.0.0";
+  pname = "gparted";
+  version = "1.0.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gparted/${name}.tar.gz";
+    url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0mdvn85jvy72ff7nds3dakx9kzknh8gx1z8i0w2sf970q03qp2z4";
   };
 
-  configureFlags = [ "--disable-doc" ];
-
-  buildInputs = [ parted glib libuuid gtkmm2 libxml2 hicolor-icon-theme ];
-  nativeBuildInputs = [ intltool gettext makeWrapper pkgconfig ];
+  buildInputs = [ parted glib libuuid gtkmm3 libxml2 hicolor-icon-theme ];
+  nativeBuildInputs = [ intltool gettext makeWrapper pkgconfig yelp_tools ];
 
   postInstall = ''
     wrapProgram $out/bin/gparted \

@@ -3340,7 +3340,9 @@ in
 
   gpart = callPackage ../tools/filesystems/gpart { };
 
-  gparted = callPackage ../tools/misc/gparted { };
+  gparted = callPackage ../tools/misc/gparted {
+    inherit (gnome3) yelp_tools;
+  };
 
   ldmtool = callPackage ../tools/misc/ldmtool { };
 
