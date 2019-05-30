@@ -4,11 +4,11 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "gparted-0.33.0";
+  name = "gparted-1.0.0";
 
   src = fetchurl {
     url = "mirror://sourceforge/gparted/${name}.tar.gz";
-    sha256 = "1ml1ky3s75lbxr91p608q3prsdh9x899mw7nbgk252pqhg4vh8sh";
+    sha256 = "0mdvn85jvy72ff7nds3dakx9kzknh8gx1z8i0w2sf970q03qp2z4";
   };
 
   configureFlags = [ "--disable-doc" ];
