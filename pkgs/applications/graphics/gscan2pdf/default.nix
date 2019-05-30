@@ -11,7 +11,7 @@ perlPackages.buildPerlPackage rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/gscan2pdf/${version}/${name}.tar.xz";
-    sha256 = "1gxkhw9d50r14x2nn24cw3ich7cp02i4ayxpgccnf6kddqqkh5x7";
+    sha256 = "0jzl173gffwj40g8vn9v6nr91xiliknzlfyasw4aij2wi588hpyw";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
