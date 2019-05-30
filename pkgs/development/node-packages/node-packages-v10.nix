@@ -40011,15 +40011,6 @@ let
         sha512 = "QC1/iN/2/RPVJ5jYK8BGttj5z83LmSKmvbvrXPNCLZSEb32KKVDJDl/MOt2N01qU2H/FkzEa9PKto1BqDjtd7Q==";
       };
     };
-    "wrap-ansi-5.1.0" = {
-      name = "wrap-ansi";
-      packageName = "wrap-ansi";
-      version = "5.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-5.1.0.tgz";
-        sha512 = "QC1/iN/2/RPVJ5jYK8BGttj5z83LmSKmvbvrXPNCLZSEb32KKVDJDl/MOt2N01qU2H/FkzEa9PKto1BqDjtd7Q==";
-      };
-    };
     "wrap-fn-0.1.5" = {
       name = "wrap-fn";
       packageName = "wrap-fn";
