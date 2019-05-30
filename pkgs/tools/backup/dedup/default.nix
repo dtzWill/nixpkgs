@@ -6,7 +6,6 @@
 stdenv.mkDerivation rec {
   pname = "dedup";
   version = "2.0";
-#  version = "2019-05-22";
 
   src = fetchurl {
     url = "https://dl.2f30.org/releases/${pname}-${version}.tar.gz";
