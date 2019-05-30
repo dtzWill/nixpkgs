@@ -6,6 +6,8 @@
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
 , bubblewrap, efibootmgr, flashrom, tpm2-tools
+, plymouth /* offline */
+, diffutils
 }:
 
 # Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
@@ -75,9 +77,13 @@ in stdenv.mkDerivation rec {
       'find_program_in_path ("flashrom"' \
       'find_program_in_path ("${flashrom}/bin/flashrom"'
 
-    substituteInPlace plugins/uefi/fu-plugin-uefi.c --replace \
-      'fu_common_find_program_in_path ("efibootmgr"' \
-      'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"'
+    substituteInPlace src/fu-offline.c '"plymouth"' '"${plymouth}/bin/plymouth"'
+
+    substituteInPlace plugins/uefi/fu-plugin-uefi.c \
+      --replace 'fu_common_find_program_in_path ("efibootmgr"' \
+                'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"' \
+      --replace 'g_spawn_command_line_sync ("efibootmgr -v"' \
+                'g_spawn_command_line_sync ("${efibootmgr}/bin/efibootmgr -v"'
 
     substituteInPlace plugins/uefi/fu-uefi-pcrs.c --replace \
       'fu_common_find_program_in_path ("tpm2_pcrlist"' \
@@ -86,6 +92,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace src/fu-common.c --replace \
       'fu_common_find_program_in_path ("bwrap"' \
       'fu_common_find_program_in_path ("${bubblewrap}/bin/bwrap"'
+
+    substituteInPlace src/fu-test.c \
+      --replace '("diff -urNp' \
+                '("${diffutils}/bin/diff -urNp'
 
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \
