@@ -21074,10 +21074,10 @@ in
 
   inherit (xorg) xcompmgr;
 
-  compton = callPackage ../applications/window-managers/compton {};
-  # TODO: re-add
-    ## inherit (llvmPackages_latest) stdenv;
-    ## meson = mesonClang;
+  compton = callPackage ../applications/window-managers/compton {
+    inherit (llvmPackages_latest) stdenv;
+    meson = mesonClang;
+  };
 
   xdaliclock = callPackage ../tools/misc/xdaliclock {};
 
