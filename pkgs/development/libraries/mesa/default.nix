@@ -35,7 +35,7 @@ let
   defaultGalliumDrivers = optionals (elem "drm" eglPlatforms) ([ "virgl" ]
     ++ lib.optionals pciePlatform [ "r300" "r600" "radeonsi" ]
     ++ lib.optionals (pciePlatform || stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [ "nouveau" ]
-    ++ lib.optionals stdenv.hostPlatform.isx86 [ "i915" "svga" ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [ /*"i915"*/ "svga" ]
     ++ lib.optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [ "vc4" ]
     ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "freedreno" "etnaviv" "imx" ]
   );
