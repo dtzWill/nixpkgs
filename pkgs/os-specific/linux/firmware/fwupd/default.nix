@@ -77,7 +77,7 @@ in stdenv.mkDerivation rec {
       'find_program_in_path ("flashrom"' \
       'find_program_in_path ("${flashrom}/bin/flashrom"'
 
-    substituteInPlace src/fu-offline.c '"plymouth"' '"${plymouth}/bin/plymouth"'
+    substituteInPlace src/fu-offline.c --replace '"plymouth"' '"${plymouth}/bin/plymouth"'
 
     substituteInPlace plugins/uefi/fu-plugin-uefi.c \
       --replace 'fu_common_find_program_in_path ("efibootmgr"' \
