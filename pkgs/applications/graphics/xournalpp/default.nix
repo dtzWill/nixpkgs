@@ -13,6 +13,7 @@
 , hicolor-icon-theme
 , libsndfile
 , libxml2
+, libzip
 , pcre
 , poppler
 , portaudio
@@ -43,6 +44,7 @@ stdenv.mkDerivation rec {
       hicolor-icon-theme
       libsndfile
       libxml2
+      libzip
       pcre
       poppler
       portaudio
