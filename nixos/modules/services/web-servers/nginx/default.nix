@@ -673,7 +673,6 @@ in
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
       "d '${cfg.stateDir}/logs' 0750 ${cfg.user} ${cfg.group} - -"
-      "Z '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
     ];
 
     systemd.services.nginx = {
@@ -684,10 +683,10 @@ in
       stopIfChanged = false;
       preStart = ''
         ${cfg.preStart}
-        ${execCommand} -t
+        ${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}' -t
       '';
       serviceConfig = {
-        ExecStart = execCommand;
+        ExecStart = "${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
         RestartSec = "10s";
