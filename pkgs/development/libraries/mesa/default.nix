@@ -40,12 +40,12 @@ let
     ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "freedreno" "etnaviv" "imx" ]
   );
   defaultDriDrivers = optionals (elem "drm" eglPlatforms) ([ ]
-    ++ lib.optionals pciePlatform [ "radeon" "r200" ]
+    ++ lib.optionals pciePlatform [ /* "radeon" */ "r200" ]
     ++ lib.optionals (pciePlatform || stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [ "nouveau" ]
     ++ lib.optionals stdenv.hostPlatform.isx86 [ "i915" "i965" ]);
   defaultVulkanDrivers = optionals stdenv.hostPlatform.isLinux ([ ]
     ++ lib.optional stdenv.hostPlatform.isx86 "intel"
-    ++ lib.optional enableRadv "radeon");
+    ++ lib.optional enableRadv "freedreno" /*"radeon"*/);
 in
 
 let gallium_ = galliumDrivers; dri_ = driDrivers; vulkan_ = vulkanDrivers; in
