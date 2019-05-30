@@ -11,11 +11,6 @@ stdenv.mkDerivation rec {
     url = "https://dl.2f30.org/releases/${pname}-${version}.tar.gz";
     sha256 = "0n5kkni4d6blz3s94y0ddyhijb74lxv7msr2mvdmj8l19k0lrfh1";
   };
-  #src = fetchgit {
-  #  url =  git://git.2f30.org/dedup.git;
-  #  rev = "edba7a881758ccfa9cd11ba4a4b60fe83446701e";
-  #  sha256 = "12k7k6fnhdhhaklhhli8rsh0g1zdgd5a4y1rc3s44m76k9ln4yv0";
-  #};
 
   makeFlags = [
     "CC:=$(CC)"
