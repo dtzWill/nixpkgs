@@ -5,20 +5,20 @@ rustPlatform.buildRustPackage rec {
   #name = "newsboat-${version}";
   pname = "newsboat";
 #  version = "2.15";
-  version = "2019-05-09";
+  version = "2019-05-30";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "1d439ede40dadc55e96fa2884c3e27cc9631f68a";
-    sha256 = "191clmzl3wl4rf8fp7md93j1aani8by6rgivqc7hl7zmskac155n";
+    rev = "aab737f3";
+    sha256 = "14fvdm2xnaar4as2qkx5f0zm6i4d3i4l4r74jbgkih3lk42yxjj8";
   };
   #src = fetchurl {
   #  url = "https://newsboat.org/releases/${version}/${name}.tar.xz";
   #  sha256 = "1dqdcp34jmphqf3d8ik0xdhg0s66nd5rky0y8y591nidq29wws6s";
   #};
 
-  cargoSha256 = "05y6lz4zzv0b3pddj8kqhggby885fagyp14p34k5l3l2yqbxhpsl";
+  cargoSha256 = "0ck2dgfk4fay4cjl66wqkbnq4rqrd717jl63l1mvqmvad9i19igm";
 
   postPatch = ''
     substituteInPlace Makefile --replace "|| true" ""
