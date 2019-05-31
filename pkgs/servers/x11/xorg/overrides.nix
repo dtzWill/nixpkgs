@@ -462,10 +462,6 @@ self: super:
           '';
           patches = [
             ./131.patch
-            ./1.20-patches/0001-dix-ensure-work-queues-are-cleared-on-reset.patch
-            #./1.20-patches/0002-Revert-gitlab-ci-Only-run-docker-image-stage-if-rele.patch
-            ./1.20-patches/0003-xwayland-present-Destroy-sync_callback-in-xwl_presen.patch
-            ./1.20-patches/0004-present-scmd-Check-that-the-flip-and-screen-pixmap-p.patch
           ];
         }
         else if (abiCompat == "1.17") then {
