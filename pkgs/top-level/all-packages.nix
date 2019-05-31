@@ -10437,7 +10437,8 @@ in
   };
 
   freetype-bootstrap = appendToName "bootstrap-no-harfbuzz" (callPackage ../development/libraries/freetype { harfbuzz = null; });
-  freetype = freetype-bootstrap.override { harfbuzz = harfbuzz-bootstrap; };
+  freetype = callPackage ../development/libraries/freetype { harfbuzz = harfbuzz-bootstrap; };
+  freetypeDemos = freetype.override { demosToo = true; };
   # freetype = callPackage ../development/libraries/freetype { };
 
   frei0r = callPackage ../development/libraries/frei0r { };
