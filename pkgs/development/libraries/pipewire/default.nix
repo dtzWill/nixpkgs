@@ -4,7 +4,7 @@
 }:
 
 let
-  version = "0.2.5";
+  version = "0.2.6";
 
   fontsConf = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
@@ -16,7 +16,7 @@ in stdenv.mkDerivation rec {
     owner = "PipeWire";
     repo = "pipewire";
     rev = version;
-    sha256 = "0hxm89ps6p75zm7rndrdr715p4ixx4f521fkjkyi7q2wh0b769s7";
+    sha256 = "1rv1cprga0zy696pjk6gbb29p7nrbkvyla9iviii0pigflgnz6yl";
   };
 
   outputs = [ "out" "lib" "dev" "doc" ];
