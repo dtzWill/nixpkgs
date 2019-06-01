@@ -34,29 +34,47 @@ buildGoModule rec {
   nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
+  postPatch = ''
+    # FWIW and since it may be easy to miss:
+    # The paths in these files aren't quite identical but they're close :).
+    # In particular the defaultPath in the first substitution is different
+    # than the matching value found in the next two files.
+    # All variations are replaced with the same new value, however.
+    substituteInPlace cmd/internal/cli/actions.go \
+      --replace 'defaultPath = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"' \
+                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+    # Errr this is in my git clone but not in build? Bah, trace down post-releases reorg later/soon
+    ##substituteInPlace e2e/env/env.go \
+    ##  --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+    ##            'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+    substituteInPlace cmd/singularity/env_test.go \
+      --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+  '';
+
   postConfigure = ''
     patchShebangs .
-    sed -i 's|defaultEnv := "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"|defaultEnv := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/singularity.go
 
-    ./mconfig -V ${version} -p $bin --localstatedir=/var
-    touch builddir/.dep-done
-    touch builddir/vendors-done
+    ./mconfig \
+      -V ${version} \
+      -p ''${!outputBin} \
+      --localstatedir=/var \
+      --without-suid
+  ##  touch builddir/.dep-done
+  ##  touch builddir/vendors-done
 
-    # Don't install SUID binaries
-    sed -i 's/-m 4755/-m 755/g' builddir/Makefile
-
-    # Point to base gopath
-    sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+  ##  # Point to base gopath
+  ##  sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
-  buildPhase = ''
-    make -C builddir
-  '';
-
-  installPhase = ''
-    make -C builddir install LOCALSTATEDIR=$bin/var
-    chmod 755 $bin/libexec/singularity/bin/starter-suid
-  '';
+#  buildPhase = ''
+#    make -C builddir
+#  '';
+#
+#  installPhase = ''
+#    make -C builddir install LOCALSTATEDIR=$bin/var
+#    chmod 755 $bin/libexec/singularity/bin/starter-suid
+#  '';
 
   postFixup = ''
     find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
