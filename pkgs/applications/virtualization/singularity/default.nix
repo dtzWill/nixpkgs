@@ -82,7 +82,7 @@ buildPhase = ''
 '';
 
 installPhase = ''
-  make -C builddir install LOCALSTATEDIR=$bin/var DESTDIR=$out
+  make -C builddir install LOCALSTATEDIR=$out/var SYSCONFDIR=$out/etc
 '';
   #chmod 755 $bin/libexec/singularity/bin/starter-suid
     ##find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
