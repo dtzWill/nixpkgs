@@ -4,6 +4,7 @@
 , fetchgit
 , fetchFromGitHub
 , utillinux
+, pkgconfig
 , openssl
 , gpgme
 , libseccomp
@@ -33,8 +34,10 @@ buildGoModule rec {
   modSha256 = "05cxirhjbg2lp48wpwiqqklwip3yq8z6hhplikv7zdrqfys9ihyz";
 
   buildInputs = [ openssl gpgme libseccomp ];
-  nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
+  nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper pkgconfig ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
+
+  outputs = [ "bin" "out" ];
 
   postPatch = ''
     # FWIW and since it may be easy to miss:
@@ -60,33 +63,34 @@ buildGoModule rec {
 
     ./mconfig \
       -V ${version} \
-      -p ''${!outputBin} \
+      -p $bin \
       --prefix=$out \
+      --exec-prefix=$bin \
       --localstatedir=/var \
       --sysconfdir=/etc \
       --without-suid
-  ##  touch builddir/.dep-done
-  ##  touch builddir/vendors-done
+    touch builddir/.dep-done
+    touch builddir/vendors-done
 
-  ##  # Point to base gopath
-  ##  sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+  # Point to base gopath
+  sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
-#  buildPhase = ''
-#    make -C builddir
-#  '';
-#
-#  installPhase = ''
-#    make -C builddir install LOCALSTATEDIR=$bin/var
-#    chmod 755 $bin/libexec/singularity/bin/starter-suid
-#  '';
+buildPhase = ''
+  make -C builddir
+'';
 
-  postFixup = ''
-    find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+installPhase = ''
+  make -C builddir install LOCALSTATEDIR=$bin/var DESTDIR=$out
+'';
+  #chmod 755 $bin/libexec/singularity/bin/starter-suid
+    ##find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
 
-    # These etc scripts shouldn't have their paths patched
-    cp etc/actions/* $bin/etc/singularity/actions/
-  '';
+  #postFixup = ''
+
+  #  # These etc scripts shouldn't have their paths patched
+  #  cp etc/actions/* $bin/etc/singularity/actions/
+  #'';
 
   meta = with stdenv.lib; {
     homepage = http://www.sylabs.io/;
