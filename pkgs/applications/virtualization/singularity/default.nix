@@ -11,23 +11,24 @@
 , which
 , makeWrapper
 , squashfsTools
-, buildGoPackage}:
+, buildGoModule}:
 
 with lib;
 
-buildGoPackage rec {
-  name = "singularity-${version}";
+buildGoModule rec {
+  pname = "singularity";
   version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "sylabs";
-    repo = "singularity";
+    repo = pname;
     rev = "v${version}";
     sha256 = "14lhxwy21s7q081x7kbnvkjsbxgsg2f181qlzmlxcn6n7gfav3kj";
   };
 
   goPackagePath = "github.com/sylabs/singularity";
-  goDeps = ./deps.nix;
+
+  modSha256 = "05cxirhjbg2lp48wpwiqqklwip3yq8z6hhplikv7zdrqfys9ihyz";
 
   buildInputs = [ openssl ];
   nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
