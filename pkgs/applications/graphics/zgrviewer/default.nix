@@ -1,18 +1,16 @@
 { stdenv, fetchurl, jre, unzip, runtimeShell }:
 stdenv.mkDerivation rec {
-  version = "0.9.0";
+  version = "0.10.0";
   pname = "zgrviewer";
   name="${pname}-${version}";
   src = fetchurl {
     url = "mirror://sourceforge/zvtm/${pname}/${version}/${name}.zip";
-    sha256 = "1yg2rck81sqqrgfi5kn6c1bz42dr7d0zqpcsdjhicssi1y159f23";
+    sha256 = "1cizlrycfgbb1gkfwq14vnihxx5bnsbmwki6p2y4d9bdyfhf4anh";
   };
   buildInputs = [jre unzip];
   buildPhase = "";
   installPhase = ''
     mkdir -p "$out"/{bin,share/java/zvtm/plugins,share/doc/zvtm}
-
-    cp overview.html *.license.* "$out/share/doc/zvtm"
 
     cp -r target/* "$out/share/java/zvtm/"
 
