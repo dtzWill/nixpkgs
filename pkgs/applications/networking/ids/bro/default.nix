@@ -12,6 +12,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake flex bison file ];
   buildInputs = [ openssl libpcap perl zlib curl geoip gperftools python swig ];
 
+  # Indicate where to install the python bits, since it can't put them in the "usual"
+  # locations as those paths are read-only.
+  cmakeFlags = [ "-DPY_MOD_INSTALL_DIR=${placeholder "out"}/${python.sitePackages}" ];
+
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
