@@ -21263,7 +21263,7 @@ in
 
   ydiff = callPackage ../development/tools/ydiff { };
 
-  yed = callPackage ../applications/graphics/yed {};
+  yed = callPackage ../applications/graphics/yed { jre = jdk11; };
 
   inherit (gnome3) yelp;
 
