@@ -35,12 +35,8 @@ buildGoModule rec {
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
   postConfigure = ''
-    find . -name vendor -type d -print0 | xargs -0 rm -rf
-
-    cd go/src/github.com/sylabs/singularity
-
     patchShebangs .
-    sed -i 's|defaultEnv := "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"|defaultEnv := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' src/cmd/singularity/cli/singularity.go
+    sed -i 's|defaultEnv := "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"|defaultEnv := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/singularity.go
 
     ./mconfig -V ${version} -p $bin --localstatedir=/var
     touch builddir/.dep-done
@@ -50,7 +46,7 @@ buildGoModule rec {
     sed -i 's/-m 4755/-m 755/g' builddir/Makefile
 
     # Point to base gopath
-    sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/go/src/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+    sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
   buildPhase = ''
