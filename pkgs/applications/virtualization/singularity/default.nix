@@ -39,7 +39,7 @@ buildGoModule rec {
 
   #outputs = [ "bin" "out" ];
 
-  postPatch = ''
+  postPatch = let path = stdenv.lib.makeBinPath propagatedBuildInputs; in ''
     # FWIW and since it may be easy to miss:
     # The paths in these files aren't quite identical but they're close :).
     # In particular the defaultPath in the first substitution is different
@@ -47,12 +47,30 @@ buildGoModule rec {
     # All variations are replaced with the same new value, however.
     substituteInPlace cmd/internal/cli/actions.go \
       --replace 'defaultPath = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"' \
-                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
-    grep -r 'defaultPath .*/usr'
-    # Errr this is in my git clone but not in build? Bah, trace down post-releases reorg later/soon
-    ##substituteInPlace e2e/env/env.go \
-    ##  --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
-    ##            'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+                'defaultPath = "${path}"'
+    substituteInPlace vendor/github.com/containers/storage/pkg/system/path.go \
+      --replace 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
+                'PATH=${path}'
+
+    substituteInPlace internal/pkg/runtime/engines/singularity/container_linux.go \
+      --replace '"/bin:/sbin:/usr/bin:/usr/sbin"' '"${path}"'
+
+    substituteInPlace internal/pkg/util/env/clean.go \
+      --replace 'g.AddProcessEnv("PATH", "/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin")' \
+                'g.AddProcessEnv("PATH", "${path}")'
+
+    substituteInPlace vendor/github.com/opencontainers/runtime-tools/generate/generate.go \
+      --replace "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+                "PATH=${path}"
+
+    substituteInPlace vendor/github.com/containers/storage/pkg/system/path.go \
+      --replace 'defaultUnixPathEnv = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+                'defaultUnixPathEnv = "${path}"'
+
+    substituteInPlace vendor/github.com/docker/docker/pkg/system/path.go \
+      --replace 'defaultUnixPathEnv = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+                'defaultUnixPathEnv = "${path}"'
+
     substituteInPlace cmd/singularity/env_test.go \
       --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
                 'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
