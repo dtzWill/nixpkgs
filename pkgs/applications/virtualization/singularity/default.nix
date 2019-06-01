@@ -48,9 +48,6 @@ buildGoModule rec {
     substituteInPlace cmd/internal/cli/actions.go \
       --replace 'defaultPath = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"' \
                 'defaultPath = "${path}"'
-    substituteInPlace vendor/github.com/containers/storage/pkg/system/path.go \
-      --replace 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
-                'PATH=${path}'
 
     substituteInPlace internal/pkg/runtime/engines/singularity/container_linux.go \
       --replace '"/bin:/sbin:/usr/bin:/usr/sbin"' '"${path}"'
@@ -73,7 +70,7 @@ buildGoModule rec {
 
     substituteInPlace cmd/singularity/env_test.go \
       --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
-                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+                'defaultPath = "${path}"'
   '';
 
   postConfigure = ''
