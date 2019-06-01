@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, qmake, qtscript, qtsvg, dbus }:
+{ stdenv, fetchurl, pkgconfig, qmake, qtdeclarative, qtscript, qtsvg, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "vym";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
-  buildInputs = [ qtscript qtsvg ];
+  buildInputs = [ qtdeclarative qtscript qtsvg ];
 
   meta = with stdenv.lib; {
     description = "A mind-mapping software";
