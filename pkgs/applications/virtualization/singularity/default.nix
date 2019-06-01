@@ -4,69 +4,89 @@
 , fetchgit
 , fetchFromGitHub
 , utillinux
+, pkgconfig
 , openssl
+, gpgme
+, libseccomp
 , coreutils
 , gawk
 , go
 , which
 , makeWrapper
 , squashfsTools
-, buildGoPackage}:
+, buildGoModule}:
 
 with lib;
 
-buildGoPackage rec {
-  name = "singularity-${version}";
-  version = "3.0.1";
+buildGoModule rec {
+  pname = "singularity";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "sylabs";
-    repo = "singularity";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1wpsd0il2ipa2n5cnbj8dzs095jycdryq2rx62kikbq7ahzz4fsi";
+    sha256 = "14lhxwy21s7q081x7kbnvkjsbxgsg2f181qlzmlxcn6n7gfav3kj";
   };
 
   goPackagePath = "github.com/sylabs/singularity";
-  goDeps = ./deps.nix;
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
+  modSha256 = "05cxirhjbg2lp48wpwiqqklwip3yq8z6hhplikv7zdrqfys9ihyz";
+
+  buildInputs = [ openssl gpgme libseccomp ];
+  nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper pkgconfig ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
+  #outputs = [ "bin" "out" ];
+
+  postPatch = ''
+    # FWIW and since it may be easy to miss:
+    # The paths in these files aren't quite identical but they're close :).
+    # In particular the defaultPath in the first substitution is different
+    # than the matching value found in the next two files.
+    # All variations are replaced with the same new value, however.
+    substituteInPlace cmd/internal/cli/actions.go \
+      --replace 'defaultPath = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"' \
+                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+    grep -r 'defaultPath .*/usr'
+    # Errr this is in my git clone but not in build? Bah, trace down post-releases reorg later/soon
+    ##substituteInPlace e2e/env/env.go \
+    ##  --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+    ##            'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+    substituteInPlace cmd/singularity/env_test.go \
+      --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
+                'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+  '';
+
   postConfigure = ''
-    find . -name vendor -type d -print0 | xargs -0 rm -rf
-
-    cd go/src/github.com/sylabs/singularity
-
     patchShebangs .
-    sed -i 's|defaultEnv := "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"|defaultEnv := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' src/cmd/singularity/cli/singularity.go
 
-    ./mconfig -V ${version} -p $bin --localstatedir=/var
+    ./mconfig \
+      -V ${version} \
+      -P release-stripped \
+      --prefix=$out \
+      --localstatedir=/var \
+      --without-suid
     touch builddir/.dep-done
     touch builddir/vendors-done
 
-    # Don't install SUID binaries
-    sed -i 's/-m 4755/-m 755/g' builddir/Makefile
-
-    # Point to base gopath
-    sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/go/src/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+  # Point to base gopath
+  sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
-  buildPhase = ''
-    make -C builddir
-  '';
+buildPhase = ''
+  make -C builddir
+'';
 
-  installPhase = ''
-    make -C builddir install LOCALSTATEDIR=$bin/var
-    chmod 755 $bin/libexec/singularity/bin/starter-suid
-  '';
+installPhase = ''
+  make -C builddir install LOCALSTATEDIR=$out/var
+'';
 
-  postFixup = ''
-    find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
-
-    # These etc scripts shouldn't have their paths patched
-    cp etc/actions/* $bin/etc/singularity/actions/
-  '';
+postFixup = ''
+  find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+'';
+  #  # These etc scripts shouldn't have their paths patched
+  #  cp etc/actions/* $bin/etc/singularity/actions/
 
   meta = with stdenv.lib; {
     homepage = http://www.sylabs.io/;
