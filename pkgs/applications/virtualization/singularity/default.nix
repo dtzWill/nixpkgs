@@ -82,14 +82,14 @@ buildGoModule rec {
 
 installPhase = ''
   make -C builddir install LOCALSTATEDIR=$out/var
-  chmod 755 $bin/libexec/singularity/bin/starter-suid
+  chmod 755 ''${!outputBin}/libexec/singularity/bin/starter-suid
 '';
 
 postFixup = ''
   find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
 
   # These etc scripts shouldn't have their paths patched
-  cp etc/actions/* $bin/etc/singularity/actions/
+  cp etc/actions/* ''${!outputBin}/etc/singularity/actions/
 '';
 
   meta = with stdenv.lib; {
