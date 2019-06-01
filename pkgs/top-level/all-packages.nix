@@ -5793,7 +5793,7 @@ in
   screenkey = python2Packages.callPackage ../applications/video/screenkey { };
 
   quazip_qt4 = libsForQt5.quazip.override {
-    qtbase = qt4; qmake = qmake4Hook;
+    qtbase = qt4;
   };
 
   scfbuild = python2.pkgs.callPackage ../tools/misc/scfbuild { };
@@ -21330,6 +21330,8 @@ in
   _20kly = callPackage ../games/20kly { };
 
   _90secondportraits = callPackage ../games/90secondportraits { love = love_0_10; };
+
+  abbaye-des-morts = callPackage ../games/abbaye-des-morts { };
 
   adom = callPackage ../games/adom { };
 

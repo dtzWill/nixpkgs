@@ -4,7 +4,7 @@
 , kio, kcrash
 , boost, libraw, fftw, eigen, exiv2, libheif, lcms2, gsl, openexr, giflib
 , openjpeg, opencolorio, vc, poppler, curl, ilmbase
-, qtmultimedia, qtx11extras
+, qtmultimedia, qtx11extras, quazip
 , python3Packages
 }:
 
@@ -32,7 +32,7 @@ mkDerivation rec {
     ki18n kitemmodels kitemviews kwindowsystem kio kcrash
     boost libraw fftw eigen exiv2 lcms2 gsl openexr libheif giflib
     openjpeg opencolorio poppler curl ilmbase
-    qtmultimedia qtx11extras
+    qtmultimedia qtx11extras quazip
     python3Packages.pyqt5
   ] ++ lib.optional (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64) vc;
 
