@@ -5,6 +5,8 @@
 , fetchFromGitHub
 , utillinux
 , openssl
+, gpgme
+, libseccomp
 , coreutils
 , gawk
 , go
@@ -30,7 +32,7 @@ buildGoModule rec {
 
   modSha256 = "05cxirhjbg2lp48wpwiqqklwip3yq8z6hhplikv7zdrqfys9ihyz";
 
-  buildInputs = [ openssl ];
+  buildInputs = [ openssl gpgme libseccomp ];
   nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
@@ -43,6 +45,7 @@ buildGoModule rec {
     substituteInPlace cmd/internal/cli/actions.go \
       --replace 'defaultPath = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"' \
                 'defaultPath = "${stdenv.lib.makeBinPath propagatedBuildInputs}"'
+    grep -r 'defaultPath .*/usr'
     # Errr this is in my git clone but not in build? Bah, trace down post-releases reorg later/soon
     ##substituteInPlace e2e/env/env.go \
     ##  --replace 'defaultPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' \
@@ -58,7 +61,9 @@ buildGoModule rec {
     ./mconfig \
       -V ${version} \
       -p ''${!outputBin} \
+      --prefix=$out \
       --localstatedir=/var \
+      --sysconfdir=/etc \
       --without-suid
   ##  touch builddir/.dep-done
   ##  touch builddir/vendors-done
