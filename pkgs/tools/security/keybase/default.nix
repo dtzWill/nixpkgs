@@ -10,7 +10,7 @@
 
 buildGoPackage rec {
   pname = "keybase";
-  version = "4.0.0-2019-05-31";
+  version = "4.0.0-2019-06-01";
   #version = "4.0.0";
 
   goPackagePath = "github.com/keybase/client";
@@ -33,8 +33,8 @@ buildGoPackage rec {
   src = fetchFromGitHub {
     owner = "keybase";
     repo = "client";
-    rev = "1d315ce6691ab5b38c7daba61e99bc9e393e6d19";
-    sha256 = "1hkxf2nq0yzhl7krblqas57awjvwip31vc4agd4l15pqg7kg8aqi";
+    rev = "5ae5234b8b257695d70f3a36f979b820b2479e7e";
+    sha256 = "0j1k4pr4l89x275xy4qyi0sfp5lqgb6qrv8kplwg1f57qfy429pv";
   };
   #src = fetchurl {
   #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
