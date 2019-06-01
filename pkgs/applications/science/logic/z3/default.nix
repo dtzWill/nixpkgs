@@ -11,10 +11,6 @@ stdenv.mkDerivation rec {
     sha256 = "11sy98clv7ln0a5vqxzvh6wwqbswsjbik2084hav5kfws4xvklfa";
   };
 
-  patches = [
-    ./0001-fix-2131.patch
-  ];
-
   buildInputs = [ python fixDarwinDylibNames ];
   propagatedBuildInputs = [ python.pkgs.setuptools ];
   enableParallelBuilding = true;
