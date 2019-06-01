@@ -73,6 +73,8 @@ buildGoModule rec {
                 'mksquashfs location = ${squashfsTools}/bin/mksquashfs'
 
     cat etc/singularity.conf.in
+    grep -r 'mksquashfs path'
+    grep -r 'mksquashfs location'
   '';
 
   buildPhase = ''
