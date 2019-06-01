@@ -15,17 +15,17 @@ with stdenv.lib;
 assert (versionAtLeast gmime.version "3.0");
 
 stdenv.mkDerivation rec {
-  version = "0.28.4"; # not really, git
-  name = "notmuch-${version}";
+  pname = "notmuch";
+  version = "0.29_rc0";
 
   passthru = {
-    pythonSourceRoot = "${name}/bindings/python";
+    pythonSourceRoot = "${pname}-${version}/bindings/python";
     #pythonSourceRoot = "${src}/bindings/python"; # lol
     inherit version;
   };
 
   src = fetchgit {
-    inherit name;
+    name = "${pname}-${version}"; # descriptive but exact name, used above in pythonSourceRoot
     url = git://git.notmuchmail.org/git/notmuch;
     rev = "2c1e5c186ee36fb215d3f312f9801884f4720d8f";
     sha256 = "12xrgaffj6qf4v91x8g0zwn63zkqkzhnmfscrd6gp46kmivyjsar";
