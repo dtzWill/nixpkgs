@@ -37,7 +37,7 @@ buildGoModule rec {
   nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper pkgconfig ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
-  outputs = [ "bin" "out" ];
+  #outputs = [ "bin" "out" ];
 
   postPatch = ''
     # FWIW and since it may be easy to miss:
@@ -59,16 +59,13 @@ buildGoModule rec {
   '';
 
   postConfigure = ''
-    set -x
     patchShebangs .
 
     ./mconfig \
       -V ${version} \
-      -p $bin \
+      -P release-stripped \
       --prefix=$out \
-      --exec-prefix=$bin \
       --localstatedir=/var \
-      --sysconfdir=/etc \
       --without-suid
     touch builddir/.dep-done
     touch builddir/vendors-done
@@ -82,16 +79,14 @@ buildPhase = ''
 '';
 
 installPhase = ''
-  make -C builddir install LOCALSTATEDIR=$out/var SYSCONFDIR=$out/etc
+  make -C builddir install LOCALSTATEDIR=$out/var
 '';
-  #chmod 755 $bin/libexec/singularity/bin/starter-suid
-    ##find $bin/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
 
-  #postFixup = ''
-
+postFixup = ''
+  find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+'';
   #  # These etc scripts shouldn't have their paths patched
   #  cp etc/actions/* $bin/etc/singularity/actions/
-  #'';
 
   meta = with stdenv.lib; {
     homepage = http://www.sylabs.io/;
