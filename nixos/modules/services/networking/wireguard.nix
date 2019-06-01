@@ -112,19 +112,6 @@ let
           Determines whether to add allowed IPs as routes or not.
         '';
       };
-
-      namespace = mkOption {
-        default = null;
-        type = with types; nullOr str;
-        example = "container";
-        description = ''
-          Advanced: move the created wireguard interface into a network namespace,
-          as described in the first part of https://www.wireguard.com/netns/ .
-          This allows you to use <command>ip netns exec $namespace COMMAND</command> to execute
-          COMMAND in a network namespace with only this interface available, routing
-          all traffic over the wireguard tunnel.
-        '';
-      };
     };
 
   };
@@ -300,8 +287,6 @@ let
     # exactly one way to specify the private key must be set
     #assert (values.privateKey != null) != (values.privateKeyFile != null);
     let privKey = if values.privateKeyFile != null then values.privateKeyFile else pkgs.writeText "wg-key" values.privateKey;
-        ipns = if !(isNull values.namespace) then ''ip -n "${values.namespace}"'' else "ip";
-        wgns = if !(isNull values.namespace) then ''ip netns exec "${values.namespace}" wg'' else "wg";
     in
     nameValuePair "wireguard-${name}"
       {
@@ -323,46 +308,21 @@ let
           ${values.preSetup}
 
           ip link add dev ${name} type wireguard
-          ${lib.optionalString (!isNull values.namespace) ''
-            ip netns add "${values.namespace}"
-            ip link set ${name} netns "${values.namespace}"
-          ''}
 
           ${concatMapStringsSep "\n" (ip:
-            "${ipns} address add ${ip} dev ${name}"
+            "ip address add ${ip} dev ${name}"
           ) values.ips}
 
-          ${wgns} set ${name} private-key ${privKey} ${
+          wg set ${name} private-key ${privKey} ${
             optionalString (values.listenPort != null) " listen-port ${toString values.listenPort}"}
 
-          # TODO: resolve merge
-          ## ip link set up dev ${name}
-          ${concatMapStringsSep "\n" (peer:
-            assert (peer.presharedKeyFile == null) || (peer.presharedKey == null); # at most one of the two must be set
-            let psk = if peer.presharedKey != null then pkgs.writeText "wg-psk" peer.presharedKey else peer.presharedKeyFile;
-            in
-              "${wgns} set ${name} peer ${peer.publicKey}" +
-              optionalString (psk != null) " preshared-key ${psk}" +
-              optionalString (peer.endpoint != null) " endpoint ${peer.endpoint}" +
-              optionalString (peer.persistentKeepalive != null) " persistent-keepalive ${toString peer.persistentKeepalive}" +
-              optionalString (peer.allowedIPs != []) " allowed-ips ${concatStringsSep "," peer.allowedIPs}"
-            ) values.peers}
-
-          ${ipns} link set up dev ${name}
-
-          ${optionalString (values.allowedIPsAsRoutes != false) (concatStringsSep "\n" (concatMap (peer:
-              (map (allowedIP:
-                "${ipns} route replace ${allowedIP} dev ${name} table ${values.table}"
-              ) peer.allowedIPs)
-            ) values.peers))}
-
+          ip link set up dev ${name}
 
           ${values.postSetup}
         '';
 
         postStop = ''
-          ${ipns} link del dev ${name}
-          ${lib.optionalString (!isNull values.namespace) ''ip netns del "${values.namespace}"''}
+          ip link del dev ${name}
           ${values.postShutdown}
         '';
       };
