@@ -25,22 +25,19 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags= [
-    "-Dbackend-x11=true"
-    "-Dbackend-drm=true"
-    "-Dbackend-wayland=true"
-    "-Dbackend-headless=true"
-    "-Dbackend-fbdev=true"
+    "-Dbackend-drm-screencast-vaapi=${boolToString (vaapi != null)}"
     "-Dbackend-rdp=${boolToString (freerdp != null)}"
-    "-Dscreenshare=true"
-    "-Dweston-launch=true"
+    "-Dxwayland=${boolToString (xwayland != null)}" # Default is true!
     "-Dremoting=false" # TODO
-    "-Dsimple-dmabuf-drm=auto"
+    "-Dimage-webp=${boolToString (libwebp != null)}"
+    "-Dsimple-dmabuf-drm=" # Disables all drivers
+    "-Ddemo-clients=false"
+    "-Dsimple-clients="
     "-Dtest-junit-xml=false"
+    # TODO:
     #"--enable-clients"
     #"--disable-setuid-install" # prevent install target to chown root weston-launch, which fails
-    "-Dbackend-drm-screencast-vaapi=${boolToString (vaapi != null)}"
-  ] ++ stdenv.lib.optionals (xwayland != null) [
-    "-Dxwayland=true"
+  ] ++ optionals (xwayland != null) [
     "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
   ];
 
@@ -49,5 +46,6 @@ stdenv.mkDerivation rec {
     homepage = https://wayland.freedesktop.org/;
     license = licenses.mit;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ primeos ];
   };
 }

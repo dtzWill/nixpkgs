@@ -2943,6 +2943,11 @@
     github = "lukeadams";
     name = "Luke Adams";
   };
+  lukebfox = {
+    email = "lbentley-fox1@sheffield.ac.uk";
+    github = "lukebfox";
+    name = "Luke Bentley-Fox";
+  };
   lukego = {
     email = "luke@snabb.co";
     github = "lukego";
