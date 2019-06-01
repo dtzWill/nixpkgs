@@ -39,24 +39,40 @@ buildGoModule rec {
 
   #outputs = [ "bin" "out" ];
 
-  MKSQUASHFS_LOCATION_DEFAULT = "${squashfsTools}/bin/mksquashfs";
 
   postConfigure = ''
     patchShebangs .
 
     ./mconfig \
       -V ${version} \
-      -P release-stripped \
+      -P release \
       --prefix=$out \
       --localstatedir=/var
     touch builddir/.dep-done
     touch builddir/vendors-done
 
+    # TODO: How does this compare to --disable-suid config flag?
     # Don't install SUID binaries
     sed -i 's/-m 4755/-m 755/g' builddir/Makefile
 
     # Point to base gopath
     sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+
+    # Set path for mksquashfs, which admin will replace/set if needed anyway.
+    # There really appears to be mechanisms to set these values (at multiple levels!)
+    # but I can't seem to find any way to actually do so.
+    # Since I don't know how to integrate this in a more natural way,
+    # make this substitution as direct and clearly not doing something clever.
+    # As an aside: note that the name "location" used in the example variables and
+    # the example configuration line given above (not shown here, in the file)
+    # appears to not actually be what the parser recognizes, which is "path".
+    # This is relevant for the substitution below, but may be expected or obvious
+    # with the context I seem to be missing.  Anyway, just wanted to note it :).
+    substituteInPlace etc/singularity.conf.in \
+      --replace '@MKSQUASHFS_LOCATION@ = @MKSQUASHFS_LOCATION_DEFAULT@' \
+                'mksquashfs location = ${squashfsTools}/bin/mksquashfs'
+
+    cat etc/singularity.conf.in
   '';
 
   buildPhase = ''
