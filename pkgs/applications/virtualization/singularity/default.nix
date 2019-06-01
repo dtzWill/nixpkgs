@@ -65,28 +65,32 @@ buildGoModule rec {
       -V ${version} \
       -P release-stripped \
       --prefix=$out \
-      --localstatedir=/var \
-      --without-suid
+      --localstatedir=/var
     touch builddir/.dep-done
     touch builddir/vendors-done
 
-  # Point to base gopath
-  sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
+    # Don't install SUID binaries
+    sed -i 's/-m 4755/-m 755/g' builddir/Makefile
+
+    # Point to base gopath
+    sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
-buildPhase = ''
-  make -C builddir
-'';
+  buildPhase = ''
+    make -C builddir
+  '';
 
 installPhase = ''
   make -C builddir install LOCALSTATEDIR=$out/var
+  chmod 755 $bin/libexec/singularity/bin/starter-suid
 '';
 
 postFixup = ''
   find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+
+  # These etc scripts shouldn't have their paths patched
+  cp etc/actions/* $bin/etc/singularity/actions/
 '';
-  #  # These etc scripts shouldn't have their paths patched
-  #  cp etc/actions/* $bin/etc/singularity/actions/
 
   meta = with stdenv.lib; {
     homepage = http://www.sylabs.io/;
