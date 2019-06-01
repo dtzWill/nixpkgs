@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   name = "vale-${version}";
-  version = "1.4.0";
+  version = "1.4.1";
 
   goPackagePath = "github.com/errata-ai/vale";
 
@@ -12,7 +12,7 @@ buildGoPackage rec {
     owner  = "errata-ai";
     repo   = "vale";
     rev    = "v${version}";
-    sha256 = "05vrnmw7kpgxf2989jvmkwj9c3mv3zkr4z5rpmsplnhvgsnidg4g";
+    sha256 = "1s6f7bm5sf2rj5q1z2sw9hv2mgn3nl8p02rq99p05jca5s5kv98v";
   };
 
   meta = with stdenv.lib; {
