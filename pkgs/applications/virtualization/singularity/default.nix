@@ -59,6 +59,7 @@ buildGoModule rec {
   '';
 
   postConfigure = ''
+    set -x
     patchShebangs .
 
     ./mconfig \
