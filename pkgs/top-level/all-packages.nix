@@ -4057,6 +4057,8 @@ in
 
   libcloudproviders = callPackage ../development/libraries/libcloudproviders { };
 
+  libcoap = callPackage ../applications/networking/libcoap {};
+
   libcroco = callPackage ../development/libraries/libcroco { };
 
   libcryptui = callPackage ../development/libraries/libcryptui { };
@@ -10455,6 +10457,8 @@ in
   ganv = callPackage ../development/libraries/ganv { };
 
   gcab = callPackage ../development/libraries/gcab { };
+
+  gcovr = with python3Packages; toPythonApplication gcovr;
 
   gcr = callPackage ../development/libraries/gcr { };
 
@@ -20591,6 +20595,8 @@ in
   twmn = libsForQt5.callPackage ../applications/misc/twmn { };
 
   testssl = callPackage ../applications/networking/testssl { };
+
+  ulauncher = callPackage ../applications/misc/ulauncher { };
 
   umurmur = callPackage ../applications/networking/umurmur { };
 
