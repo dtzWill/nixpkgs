@@ -4,10 +4,10 @@
 }:
 stdenv.mkDerivation rec {
   name = "nauty-${version}";
-  version = "26r11";
+  version = "27rc2"; # XXX BETA
   src = fetchurl {
     url = "http://pallini.di.uniroma1.it/nauty${version}.tar.gz";
-    sha256 = "05z6mk7c31j70md83396cdjmvzzip1hqb88pfszzc6k4gy8h3m2y";
+    sha256 = "0bxkb9s0h3k68kyslgmdyszmbpzrjpz0sgiqw6k3ciyqg4sqjnzy";
   };
   outputs = [ "out" "dev" ];
   configureFlags = {
