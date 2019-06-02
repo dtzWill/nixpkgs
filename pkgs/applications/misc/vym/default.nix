@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     do
       substituteInPlace $x \
         --replace /usr/share/vym $out/share/vym \
-        --replace /usr/local/share/vym $out/share/vym
+        --replace /usr/local/share/vym $out/share/vym \
+        --replace /usr/share/doc $out/share/doc/vym
     done
   '';
 
@@ -46,6 +47,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig qmake ];
   buildInputs = [ qtdeclarative qtscript qtsvg ];
+
+  postInstall = ''
+    install -Dm755 -t $out/share/man/man1 doc/*.1.gz
+  '';
+
+  dontGzipMan = true;
 
   meta = with stdenv.lib; {
     description = "A mind-mapping software";
