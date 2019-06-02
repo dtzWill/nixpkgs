@@ -1,5 +1,16 @@
 { stdenv, fetchurl, jre, runtimeShell }:
 
+let
+  javaFlags = [
+    "-Dawt.useSystemAAFontSettings=lcd"
+    "-Dsun.java2d.xrender=True"
+    #"-Dsun.java2d.opengl=False"
+    "-Dswing.aatext=true"
+   # "-Dswing.defaultlaf=com.sun.java"
+    "-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+    "-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+  ];
+in
 stdenv.mkDerivation rec {
   name = "vue-${version}";
   version = "3.3.0";
@@ -13,8 +24,11 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out"/{share/vue,bin}
     cp ${src} "$out/share/vue/vue.jar"
-    echo '#!${runtimeShell}' >> "$out/bin/vue"
-    echo '${jre}/bin/java -jar "'"$out/share/vue/vue.jar"'" "$@"' >> "$out/bin/vue"
+    cat > $out/bin/vue <<EOF
+    #!${runtimeShell}
+    _JAVA_OPTIONS="${toString javaFlags}" \
+    ${jre}/bin/java -jar "$out/share/vue/vue.jar" "$@"
+    EOF
     chmod a+x "$out/bin/vue"
   '';
 

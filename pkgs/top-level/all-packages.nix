@@ -20800,7 +20800,7 @@ in
 
   vscodium = callPackage ../applications/editors/vscode/vscodium.nix { };
 
-  vue = callPackage ../applications/misc/vue { };
+  vue = callPackage ../applications/misc/vue { jre = jdk11; };
 
   vuze = callPackage ../applications/networking/p2p/vuze { };
 
