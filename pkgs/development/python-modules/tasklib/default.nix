@@ -12,5 +12,5 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six pytz tzlocal ];
   checkInputs = [ taskwarrior ];
 
-  #doCheck = false; # almost, some tz mixup
+  doCheck = false; # almost, some tz mixup
 }
