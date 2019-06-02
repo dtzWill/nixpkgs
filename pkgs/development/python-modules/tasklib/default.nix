@@ -1,18 +1,16 @@
-{ buildPythonPackage, fetchFromGitHub, six, pytz, tzlocal, taskwarrior }:
+{ buildPythonPackage, fetchFromGitHub, fetchPypi, six, pytz, tzlocal, taskwarrior }:
 
 buildPythonPackage rec {
-  version = "2018-11-27";
+  version = "1.2.1";
   pname = "tasklib";
 
-  src = fetchFromGitHub {
-    owner = "robgolding";
-    repo = pname;
-    rev = "0ad882377639865283021041f19add5aeb10126a";
-    sha256 = "1m47isnnfa0wwfbkkdbvpbb8sdv4c57rlhc89lfxcp590x39yj7w";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "0gr7b4h0qyp3waxbd48rk4s2b4yhd5zbdpcaf3icavgqhxzgnr1r";
   };
 
   propagatedBuildInputs = [ six pytz tzlocal ];
   checkInputs = [ taskwarrior ];
 
-  doCheck = false; # almost, some tz mixup
+  #doCheck = false; # almost, some tz mixup
 }
