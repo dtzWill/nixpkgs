@@ -24,6 +24,7 @@ stdenv.mkDerivation rec {
   hardeningEnable = [ "pie" ];
 
   configureFlags = [
+    "--enable-default-colors"
     "--enable-widec"
     "--enable-ipv6"
   ] ++ stdenv.lib.optional sslSupport "--with-ssl";

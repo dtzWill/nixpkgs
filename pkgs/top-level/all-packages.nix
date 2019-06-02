@@ -12556,11 +12556,10 @@ in
   openvdb = callPackage ../development/libraries/openvdb {};
 
   inherit (callPackages ../development/libraries/libressl { })
-    libressl_2_7
     libressl_2_8
     libressl_2_9;
 
-  libressl = libressl_2_8;
+  libressl = libressl_2_9;
 
   boringssl = callPackage ../development/libraries/boringssl { };
 
@@ -17199,6 +17198,8 @@ in
   };
 
   clfswm = callPackage ../applications/window-managers/clfswm { };
+
+  clickshare-csc1 = callPackage ../applications/video/clickshare-csc1 { };
 
   cligh = python3Packages.callPackage ../development/tools/github/cligh {};
 
@@ -23374,6 +23375,8 @@ in
   idsk = callPackage ../tools/filesystems/idsk { };
 
   igraph = callPackage ../development/libraries/igraph { };
+
+  igprof = callPackage ../development/tools/misc/igprof { };
 
   illum = callPackage ../tools/system/illum { };
 

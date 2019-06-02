@@ -121,9 +121,9 @@
    </listitem>
    <listitem>
     <para>
-        The limesurvey apache subservice was replaced with a full NixOS module.
-        One can configure it using the <option>services.limesurvey.enable</option>
-        and <option>services.limesurvey.virtualHost</option> options.
+      The limesurvey apache subservice was replaced with a full NixOS module.
+      One can configure it using the <option>services.limesurvey.enable</option>
+      and <option>services.limesurvey.virtualHost</option> options.
     </para>
    </listitem>
   </itemizedlist>
