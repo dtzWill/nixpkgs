@@ -6495,7 +6495,7 @@ in
   };
 
   vit = callPackage ../applications/misc/vit { };
-  pyt /* ?? */ = callPackage ../applications/misc/vit/python.nix { };
+  vit2 = callPackage ../applications/misc/vit/python.nix { };
 
   viu = callPackage ../tools/graphics/viu { };
 
