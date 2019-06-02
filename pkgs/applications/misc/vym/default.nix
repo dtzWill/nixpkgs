@@ -48,6 +48,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig qmake ];
   buildInputs = [ qtdeclarative qtscript qtsvg ];
 
+  # TODO: package the various scripts, demos, examples
+  # TODO: generate the pdf doc (hopefully any tex deps needed aren't too big)
+
   postInstall = ''
     install -Dm755 -t $out/share/man/man1 doc/*.1.gz
   '';
