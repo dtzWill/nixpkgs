@@ -4,7 +4,7 @@ let
   javaFlags = [
     "-Dawt.useSystemAAFontSettings=lcd"
     "-Dsun.java2d.xrender=True"
-    "-Dsun.java2d.opengl=False"
+    #"-Dsun.java2d.opengl=False"
     "-Dswing.aatext=true"
    # "-Dswing.defaultlaf=com.sun.java"
     # New LAF won't be used (apparently) unless the bundled LAF is dropped
