@@ -9,6 +9,39 @@ stdenv.mkDerivation rec {
     sha256 = "0lyf0m4y5kn5s47z4sg10215f3jsn3k1bl389jfbh2f5v4srav4g";
   };
 
+  # Data manages to end up under $out/vym by default,
+  # instead of $out/share/... .  The result of this flag
+  # is that the data goes in $out/share/vym, which
+  # isn't perfect but fixing seems painful and this is an application
+  # not an icon theme or something.... it's unlikely any
+  # unconventional locations are problematic,
+  # and certianly overall will be less "unexpected".
+  # This is almost entirely moot however since this is an application
+  # not an icon theme and so almost certianly has no users
+  # that care about these things.
+  #
+  # ... But $out/vym needed to be fixed :).
+  #
+  # Hardcoded paths scattered about all have form share/vym
+  # which is encouraging, although we'll need to patch them (below).
+  qmakeFlags = [
+    "DATADIR=${placeholder "out"}/share"
+    "DOCDIR=${placeholder "out"}/share/doc/vym"
+  ];
+
+  postPatch = ''
+    for x in \
+      exportoofiledialog.cpp \
+      main.cpp \
+      mainwindow.cpp \
+      tex/*.{tex,lyx}; \
+    do
+      substituteInPlace $x \
+        --replace /usr/share/vym $out/share/vym \
+        --replace /usr/local/share/vym $out/share/vym
+    done
+  '';
+
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
