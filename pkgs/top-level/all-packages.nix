@@ -4241,10 +4241,12 @@ in
   };
   nodejs-12_x = callPackage ../development/web/nodejs/v12.nix {
     openssl = openssl_1_1;
+    icu = icu63;
   };
   nodejs-slim-12_x = callPackage ../development/web/nodejs/v12.nix {
     enableNpm = false;
     openssl = openssl_1_1;
+    icu = icu63;
   };
 
   # Update this when adding the newest nodejs major version!
@@ -5676,9 +5678,7 @@ in
 
   routino = callPackage ../tools/misc/routino { };
 
-  rq = callPackage ../development/tools/rq {
-    v8 = v8.override { static = true; };
-  };
+  rq = callPackage ../development/tools/rq { };
 
   rsnapshot = callPackage ../tools/backup/rsnapshot { };
 
@@ -6770,7 +6770,7 @@ in
     deps = [ python ];
     substitutions = {
       inherit waf;
-      crossFlags = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform)
+      crossFlags = lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
         ''--cross-compile "--cross-execute=${stdenv.targetPlatform.emulator pkgs}"'';
     };
   } ../development/tools/build-managers/waf/setup-hook.sh;
@@ -8675,9 +8675,7 @@ in
   tcl-8_5 = callPackage ../development/interpreters/tcl/8.5.nix { };
   tcl-8_6 = callPackage ../development/interpreters/tcl/8.6.nix { };
 
-  proglodyte-wasm = callPackage ../development/interpreters/proglodyte-wasm {
-    v8_static = v8.override { static = true; };
-  };
+  proglodyte-wasm = callPackage ../development/interpreters/proglodyte-wasm { };
 
   wasm-gc = callPackage ../development/interpreters/wasm-gc { };
 
@@ -10272,9 +10270,10 @@ in
 
   elastix = callPackage ../development/libraries/science/biology/elastix { };
 
-  enchant = callPackage ../development/libraries/enchant { };
+  enchant1 = callPackage ../development/libraries/enchant/1.x.nix { };
 
   enchant2 = callPackage ../development/libraries/enchant/2.x.nix { };
+  enchant = enchant2;
 
   enet = callPackage ../development/libraries/enet { };
 
@@ -10874,7 +10873,7 @@ in
 
   gtksourceviewmm4 = callPackage ../development/libraries/gtksourceviewmm/4.x.nix { };
 
-  gtkspell2 = callPackage ../development/libraries/gtkspell { };
+  gtkspell2 = callPackage ../development/libraries/gtkspell { enchant = enchant1; };
 
   gtkspell3 = callPackage ../development/libraries/gtkspell/3.nix { };
 
@@ -13369,7 +13368,7 @@ in
 
   subdl = callPackage ../applications/video/subdl { };
 
-  subtitleeditor = callPackage ../applications/video/subtitleeditor { };
+  subtitleeditor = callPackage ../applications/video/subtitleeditor { enchant = enchant1; };
 
   suil = callPackage ../development/libraries/audio/suil { };
 
@@ -13555,13 +13554,17 @@ in
     stdenv = if stdenv.isDarwin then stdenv else overrideCC stdenv gcc5;
   };
 
-  v8_6_x = callPackage ../development/libraries/v8/6_x.nix {
-    inherit (python2Packages) python;
-  };
-
-  v8 = callPackage ../development/libraries/v8 {
+  v8_5_x = callPackage ../development/libraries/v8/5_x.nix ({
     inherit (python2Packages) python gyp;
     icu = icu58; # v8-5.4.232 fails against icu4c-59.1
+  };
+
+  v8_6_x = v8;
+  v8 = callPackage ../development/libraries/v8 {
+    inherit (python2Packages) python;
+  } // lib.optionalAttrs stdenv.isLinux {
+    # doesn't build with gcc7
+    stdenv = overrideCC stdenv gcc6;
   };
 
   vaapiIntel = callPackage ../development/libraries/vaapi-intel { };
@@ -20181,10 +20184,6 @@ in
 
   resilio-sync = callPackage ../applications/networking/resilio-sync { };
 
-  bittorrentSync = bittorrentSync14;
-  bittorrentSync14 = callPackage ../applications/networking/bittorrentsync/1.4.x.nix { };
-  bittorrentSync20 = callPackage ../applications/networking/bittorrentsync/2.0.x.nix { };
-
   dropbox = callPackage ../applications/networking/dropbox { };
 
   dropbox-cli = callPackage ../applications/networking/dropbox/cli.nix { };
@@ -21140,7 +21139,9 @@ in
 
   xmind = callPackage ../applications/misc/xmind { };
 
-  xneur = callPackage ../applications/misc/xneur { };
+  xneur = callPackage ../applications/misc/xneur {
+    enchant = enchant1;
+  };
 
   gxneur = callPackage ../applications/misc/gxneur  {
     inherit (gnome2) libglade GConf;
@@ -21151,6 +21152,7 @@ in
     inherit (gnome2) libglade scrollkeeper;
     gtkhtml = gnome2.gtkhtml4;
     python = python27;
+    enchant = enchant1;
   };
 
   xournal = callPackage ../applications/graphics/xournal {
@@ -23361,6 +23363,10 @@ in
   hplip_3_16_11 = callPackage ../misc/drivers/hplip/3.16.11.nix { };
 
   hplipWithPlugin_3_16_11 = hplip_3_16_11.override { withPlugin = true; };
+
+  hplip_3_18_5 = callPackage ../misc/drivers/hplip/3.18.5.nix { };
+
+  hplipWithPlugin_3_18_5 = hplip_3_18_5.override { withPlugin = true; };
 
   hyperfine = callPackage ../tools/misc/hyperfine {
     inherit (darwin.apple_sdk.frameworks) Security;
