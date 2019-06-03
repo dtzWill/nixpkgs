@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   pname = "spidermonkey";
-  version = "60.6.2";
+  version = "60.7.0";
 
   src = fetchurl {
     url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
-    sha256 = "0fvxqxg48c0xrffb720gxfjayz3xqam2xnsz5piri64dcjvxgcyd";
+    sha256 = "08x0nijh0ja5jza95a8y030ibk756bn7zlw3a3c4750yilfhqpqa";
   };
 
   buildInputs = [ readline zlib icu ];
