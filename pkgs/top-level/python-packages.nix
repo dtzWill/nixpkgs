@@ -1076,6 +1076,8 @@ in {
 
   application = callPackage ../development/python-modules/application { };
 
+  applicationinsights = callPackage ../development/python-modules/applicationinsights { };
+
   appnope = callPackage ../development/python-modules/appnope { };
 
   approvaltests = callPackage ../development/python-modules/approvaltests { };
@@ -1618,6 +1620,8 @@ in {
   mxnet = callPackage ../development/python-modules/mxnet { };
 
   parsy = callPackage ../development/python-modules/parsy { };
+
+  portalocker = callPackage ../development/python-modules/portalocker { };
 
   portpicker = callPackage ../development/python-modules/portpicker { };
 
@@ -5475,7 +5479,7 @@ in {
     inherit (pkgs) zstd pkgconfig;
   };
 
-  zxcvbn-python = callPackage ../development/python-modules/zxcvbn-python { };
+  zxcvbn = callPackage ../development/python-modules/zxcvbn { };
 
   incremental = callPackage ../development/python-modules/incremental { };
 
