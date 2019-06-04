@@ -17,4 +17,6 @@ stdenv.mkDerivation rec {
   buildInputs = [ linuxHeaders ];
 
   makeFlags = [ "-C" "platforms/linux" ];
+
+  meta.broken = true; # not finished packaging yet
 }
