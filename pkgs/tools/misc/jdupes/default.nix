@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # broken Makefile, the above also removes tests
 
   postInstall = ''
-    install -Dm644 -t $out/share/doc/jdupes CHANGES LICENSE README
+    install -Dm644 -t $out/share/doc/jdupes CHANGES LICENSE README.md
   '';
 
   meta = with stdenv.lib; {
