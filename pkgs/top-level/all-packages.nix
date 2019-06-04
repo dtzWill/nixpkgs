@@ -24325,4 +24325,5 @@ in
 
   bemenu = callPackage ../applications/misc/bemenu { };
 
+  haxm = callPackage ../applications/virtualization/haxm { };
 }
