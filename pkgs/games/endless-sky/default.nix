@@ -3,7 +3,7 @@
 }:
 
 let
-  version = "0.9.8";
+  version = "0.9.9";
 
 in
 stdenv.mkDerivation rec {
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "endless-sky";
     repo = "endless-sky";
     rev = "v${version}";
-    sha256 = "0i36lawypikbq8vvzfis1dn7yf6q0d2s1cllshfn7kmjb6pqfi6c";
+    sha256 = "1dqgr1b6rj520yria8c85iq6ddqg5g729gfs9iv17dy7wxdvrwh8";
   };
 
   enableParallelBuilding = true;
