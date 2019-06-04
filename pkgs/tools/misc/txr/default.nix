@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     cp {tl,txr}.vim $d/syntax/
 
     cat > $d/ftdetect/txr.vim <<EOF
-      au BufRead,BufNewFile *.txr set filetype=txr lisp
-      au BufRead,BufNewFile *.tl,*.tlo set filetype=tl lisp
+      au BufRead,BufNewFile *.txr set filetype=txr | set lisp
+      au BufRead,BufNewFile *.tl,*.tlo set filetype=tl | set lisp
     EOF
   '';
 
@@ -37,5 +37,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     homepage = http://nongnu.org/txr;
     maintainers = with stdenv.lib.maintainers; [ dtzWill ];
+    platforms = platforms.linux; # Darwin fails although it should work AFAIK
   };
 }

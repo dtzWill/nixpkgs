@@ -9,9 +9,8 @@
 }:
 
 buildGoPackage rec {
-  pname = "keybase";
-  version = "4.0.0-2019-06-01";
-  #version = "4.0.0";
+  name = "keybase-${version}";
+  version = "4.0.0";
 
   goPackagePath = "github.com/keybase/client";
   subPackages = [
@@ -30,11 +29,9 @@ buildGoPackage rec {
 
   dontRenameImports = true;
 
-  src = fetchFromGitHub {
-    owner = "keybase";
-    repo = "client";
-    rev = "5ae5234b8b257695d70f3a36f979b820b2479e7e";
-    sha256 = "0j1k4pr4l89x275xy4qyi0sfp5lqgb6qrv8kplwg1f57qfy429pv";
+  src = fetchurl {
+    url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
+    sha256 = "14c0876mxz3xa2k4d665kf8j6k3hc6qybkj0gr4pr9c9gs70cgjh";
   };
   #src = fetchurl {
   #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
