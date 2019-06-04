@@ -420,7 +420,8 @@ self: super:
     nativeBuildInputs = attrs.nativeBuildInputs ++ [intltool];
 
     #TODO: resurrect patches for US_intl?
-    patches = [ ./xkeyboard-config-eo.patch ];
+    # TODO: Find someone who is interested in updating this patch
+    # patches = [ ./xkeyboard-config-eo.patch ];
 
     configureFlags = [ "--with-xkb-rules-symlink=xorg" ];
 
