@@ -6380,7 +6380,7 @@ in
   twitterBootstrap4 = callPackage ../development/web/twitter-bootstrap {};
   twitterBootstrap = twitterBootstrap3;
 
-  txr = callPackage ../tools/misc/txr { stdenv = clangStdenv; };
+  txr = callPackage ../tools/misc/txr { stdenv = libcxxStdenv; };
 
   txt2man = callPackage ../tools/misc/txt2man { };
 
