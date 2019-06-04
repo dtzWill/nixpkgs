@@ -9,14 +9,19 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "vips";
+  name = "vips-${version}";
   version = "8.8.0";
 
   src = fetchFromGitHub {
     owner = "libvips";
     repo = "libvips";
     rev = "v${version}";
-    sha256 = "079inl6j4lpqsgxj7n4zkv92dcd2lv07x2ihi8bykj199ch8s67r";
+    sha256 = "17wz4rxn3jb171lrh8v3dxiykjhzwwzs5r7ly651dspcbi6s3r6c";
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
+    extraPostFetch = ''
+      rm -r $out/test/test-suite/images/
+    '';
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook gtk-doc gobject-introspection ];
@@ -30,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.vips.ecs.soton.ac.uk;
+    homepage = "https://libvips.github.io/libvips/";
     description = "Image processing system for large images";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ kovirobi ];

@@ -187,6 +187,8 @@ in {
 
   aplpy = callPackage ../development/python-modules/aplpy { };
 
+  apprise = callPackage ../development/python-modules/apprise { };
+
   argon2_cffi = callPackage ../development/python-modules/argon2_cffi { };
 
   asana = callPackage ../development/python-modules/asana { };
@@ -344,6 +346,8 @@ in {
   dependency-injector = callPackage ../development/python-modules/dependency-injector { };
 
   btchip = callPackage ../development/python-modules/btchip { };
+
+  datatable = callPackage ../development/python-modules/datatable { };
 
   datamodeldict = callPackage ../development/python-modules/datamodeldict { };
 
@@ -3726,6 +3730,8 @@ in {
   pg8000 = callPackage ../development/python-modules/pg8000 { };
   pg8000_1_12 = callPackage ../development/python-modules/pg8000/1_12.nix { };
 
+  pglast = callPackage ../development/python-modules/pglast { };
+
   pgsanity = callPackage ../development/python-modules/pgsanity { };
 
   pgspecial = callPackage ../development/python-modules/pgspecial { };
@@ -4307,6 +4313,8 @@ in {
   typing-extensions = callPackage ../development/python-modules/typing-extensions { };
 
   typeguard = callPackage ../development/python-modules/typeguard { };
+
+  typesentry = callPackage ../development/python-modules/typesentry { };
 
   s3transfer = callPackage ../development/python-modules/s3transfer { };
 
