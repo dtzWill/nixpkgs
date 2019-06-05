@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ocl-icd";
-  version = "2.2.10";
+  version = "2.2.12";
 
   src = fetchFromGitHub {
     owner = "OCL-dev";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1cvay1lif71v60hhgyicc25ysy9ifh3da1gp12ri5klyvx4jj3ji";
+    sha256 = "075pj99nanl75hyv93wys9ba3x7lhcdj0awdcd8bss6mdxqxj5mc";
   };
 
   nativeBuildInputs = [ autoreconfHook ruby addOpenGLRunpath ];
