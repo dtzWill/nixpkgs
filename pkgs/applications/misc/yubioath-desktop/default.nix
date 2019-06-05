@@ -13,8 +13,6 @@ stdenv.mkDerivation rec {
     sha256 = "0s04anjbb5zm98kfdpp9hr68k3mx3gqlp8fa1miy7nq87pr4f7a5";
   };
 
-  sourceRoot = ".";
-
   doCheck = false;
 
   buildInputs = [ stdenv qtbase qtquickcontrols python3 ];
