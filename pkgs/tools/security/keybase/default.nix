@@ -9,8 +9,9 @@
 }:
 
 buildGoPackage rec {
-  name = "keybase-${version}";
-  version = "4.0.0";
+  pname = "keybase";
+  version = "4.0.0-2019-06-04";
+  #version = "4.0.0";
 
   goPackagePath = "github.com/keybase/client";
   subPackages = [
@@ -29,9 +30,11 @@ buildGoPackage rec {
 
   dontRenameImports = true;
 
-  src = fetchurl {
-    url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
-    sha256 = "14c0876mxz3xa2k4d665kf8j6k3hc6qybkj0gr4pr9c9gs70cgjh";
+  src = fetchFromGitHub {
+    owner = "keybase";
+    repo = "client";
+    rev = "bea7648e4d8a98f76929302a429ceed5356065f7";
+    sha256 = "06r8h3m9fw2psy57hsz15kam6viy2s5j2ij7hy1igl9wslcvbsdy";
   };
   #src = fetchurl {
   #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
@@ -71,6 +74,9 @@ buildGoPackage rec {
 
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
+
+    # XXX: actually it's easier to just emit our own
+    # rm $bin/lib -rf
 
     for x in $bin/bin/*; do
       wrapProgram $x \
