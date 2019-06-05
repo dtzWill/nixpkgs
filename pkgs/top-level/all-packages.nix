@@ -21150,7 +21150,7 @@ in
 
   xineUI = callPackage ../applications/video/xine-ui { };
 
-  xmind = callPackage ../applications/misc/xmind { };
+  xmind = callPackage ../applications/misc/xmind { jre = jdk11; };
 
   xneur = callPackage ../applications/misc/xneur {
     enchant = enchant1;

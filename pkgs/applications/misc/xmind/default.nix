@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchzip, fetchurl, gtk2, jre, libXtst, makeWrapper, makeDesktopItem, runtimeShell }:
+{ stdenv, lib, fetchzip, fetchurl, gtk3, jre, libXtst, makeWrapper, makeDesktopItem, runtimeShell }:
 
 stdenv.mkDerivation rec {
   name = "xmind-${version}";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  libPath = lib.makeLibraryPath [ gtk2 libXtst ];
+  libPath = lib.makeLibraryPath [ gtk3 libXtst ];
 
   desktopItem = makeDesktopItem {
     name = "XMind";
@@ -55,13 +55,14 @@ stdenv.mkDerivation rec {
 
     # Inspired by https://aur.archlinux.org/cgit/aur.git/tree/?h=xmind
     cat >$out/bin/XMind <<EOF
-      #! ${runtimeShell}
-      if [ ! -d "\$HOME/.xmind" ]; then
-        mkdir -p "\$HOME/.xmind/configuration-cathy/"
-        cp -r $out/libexec/configuration/ \$HOME/.xmind/configuration-cathy/
-      fi
+    #! ${runtimeShell}
+    if [ ! -d "\$HOME/.xmind" ]; then
+      mkdir -p "\$HOME/.xmind/configuration-cathy/"
+      cp -r $out/libexec/configuration/ \$HOME/.xmind/configuration-cathy/
+      chmod u+rw -R ~/.xmind
+    fi
 
-      exec "$out/libexec/XMind" "$@"
+    exec "$out/libexec/XMind" "$@"
     EOF
     chmod +x $out/bin/XMind
 
