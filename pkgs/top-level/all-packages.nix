@@ -8388,6 +8388,8 @@ in
 
   metamath = callPackage ../development/interpreters/metamath { };
 
+  minder = callPackage ../applications/misc/minder { };
+
   mujs = callPackage ../development/interpreters/mujs { };
 
   nix-exec = callPackage ../development/interpreters/nix-exec {
