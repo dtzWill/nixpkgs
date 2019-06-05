@@ -1,15 +1,17 @@
-{stdenv, fetchurl, ruby, opencl-headers, addOpenGLRunpath }:
+{stdenv, fetchFromGitHub, autoreconfHook, ruby, opencl-headers, addOpenGLRunpath }:
 
 stdenv.mkDerivation rec {
-  name = "ocl-icd-${version}";
+  pname = "ocl-icd";
   version = "2.2.10";
 
-  src = fetchurl {
-    url = "https://forge.imag.fr/frs/download.php/810/${name}.tar.gz";
-    sha256 = "0f14gpa13sdm0kzqv5yycp4pschbmi6n5fj7wl4ilspzsrqcgqr2";
+  src = fetchFromGitHub {
+    owner = "OCL-dev";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "1cvay1lif71v60hhgyicc25ysy9ifh3da1gp12ri5klyvx4jj3ji";
   };
 
-  nativeBuildInputs = [ ruby addOpenGLRunpath ];
+  nativeBuildInputs = [ autoreconfHook ruby addOpenGLRunpath ];
 
   buildInputs = [ opencl-headers ];
 
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OpenCL ICD Loader for ${opencl-headers.name}";
-    homepage    = https://forge.imag.fr/projects/ocl-icd/;
+    homepage    = https://github.com/OCL-dev/ocl-icd;
     license     = licenses.bsd2;
     platforms = platforms.linux;
   };
