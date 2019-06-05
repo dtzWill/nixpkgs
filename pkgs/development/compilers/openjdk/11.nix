@@ -5,6 +5,7 @@
 , setJavaClassPath
 , minimal ? false
 , enableGnome2 ? true, gtk3, gnome_vfs, glib, GConf
+, patchelfUnstable
 }:
 
 let
@@ -30,7 +31,7 @@ let
       sha256 = "1v6pam38iidlhz46046h17hf5kki6n3kl302awjcyxzk7bmkvb8x";
     };
 
-    nativeBuildInputs = [ pkgconfig ];
+    nativeBuildInputs = [ pkgconfig patchelfUnstable ];
     buildInputs = [
       autoconf cpio file which unzip zip perl bootjdk zlib cups freetype alsaLib
       libjpeg giflib libX11 libICE libXext libXrender libXtst libXt libXtst
