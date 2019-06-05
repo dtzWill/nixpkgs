@@ -14603,12 +14603,12 @@ let
   };
 
   SysVirt = buildPerlModule rec {
-    version = "5.3.0";
+    version = "5.4.0";
     name = "Sys-Virt-${version}";
     src = assert version == pkgs.libvirt.version; pkgs.fetchgit {
       url = git://libvirt.org/libvirt-perl.git;
-      rev = "a1e85f96e3897f56e8686e9312c69de764f5a48c"; # there is no "v5.3.0" tag
-      sha256 = "1w80bhsdpcrk99cv355jyhl510a0nawnn9adffwj50a59ka77ihw";
+      rev = "d195d5d32a23ee0e6b4875b74caeb0b44df995e2"; # there is no "v5.4.0" tag
+      sha256 = "09nrqsjhq994pnlqbybh4dvzlv78ap8dl9mqy8j4rmvg7vr3b48d";
     };
     nativeBuildInputs = [ pkgs.pkgconfig ];
     buildInputs = [ pkgs.libvirt CPANChanges TestPod TestPodCoverage XMLXPath ];
