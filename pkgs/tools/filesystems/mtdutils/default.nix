@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mtd-utils";
-  version = "1.5.2";
+  version = "2.1.0";
 
   src = fetchurl {
     url = "ftp://ftp.infradead.org/pub/${pname}/${pname}-${version}.tar.bz2";
-    sha256 = "007lhsd8yb34l899r4m37whhzdw815cz4fnjbpnblfha524p7dax";
+    sha256 = "1ljb8nmfhpj0fyiyi9m5biaflvmf3idc0i4fbq9f9blkdnq9bfdl";
   };
 
   patchPhase = ''
