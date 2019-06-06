@@ -3,5 +3,6 @@
 , "coffee-script"
 , "grunt-cli"
 , "joplin"
+, "node-pre-gyp"
 , "node2nix"
 ]
