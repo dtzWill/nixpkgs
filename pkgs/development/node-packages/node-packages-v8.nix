@@ -553,13 +553,13 @@ let
         sha512 = "Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==";
       };
     };
-    "aws-sdk-2.469.0" = {
+    "aws-sdk-2.470.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.469.0";
+      version = "2.470.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.469.0.tgz";
-        sha512 = "VaIrO3aBX83gKkBPk9xM0RHmu7fmq76kaF0SqbsWlPImgxc5foJ4rBlRMMlmeNogFZZ/XTQdI+gkFDVosV14Ig==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.470.0.tgz";
+        sha512 = "XCMLSNiYaUUc3wxH3NxFxPPmYAF95IHhDwc0o6pOIY30om83ZYJwuPizgheRWXuOGjrXQxWgT6W3EfyfeuAISA==";
       };
     };
     "aws-sign2-0.6.0" = {
@@ -4628,6 +4628,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz";
         sha512 = "tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==";
+      };
+    };
+    "ms-2.1.2" = {
+      name = "ms";
+      packageName = "ms";
+      version = "2.1.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz";
+        sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
       };
     };
     "ms-rest-1.15.7" = {
@@ -9026,7 +9035,7 @@ in
       sources."minipass-2.3.5"
       sources."minizlib-1.2.1"
       sources."mkdirp-0.5.1"
-      sources."ms-2.1.1"
+      sources."ms-2.1.2"
       sources."needle-2.4.0"
       sources."nopt-4.0.1"
       sources."npm-bundled-1.0.6"
@@ -9159,7 +9168,7 @@ in
       sources."async-1.5.2"
       sources."async-limiter-1.0.0"
       sources."asynckit-0.4.0"
-      sources."aws-sdk-2.469.0"
+      sources."aws-sdk-2.470.0"
       sources."aws-sign2-0.6.0"
       sources."aws4-1.8.0"
       sources."babel-runtime-6.26.0"
@@ -9330,7 +9339,7 @@ in
       (sources."follow-redirects-1.7.0" // {
         dependencies = [
           sources."debug-3.2.6"
-          sources."ms-2.1.1"
+          sources."ms-2.1.2"
         ];
       })
       sources."forever-agent-0.6.1"
@@ -9352,7 +9361,7 @@ in
       (sources."gm-1.23.1" // {
         dependencies = [
           sources."debug-3.2.6"
-          sources."ms-2.1.1"
+          sources."ms-2.1.2"
         ];
       })
       sources."graceful-fs-4.1.15"
@@ -9677,7 +9686,7 @@ in
       (sources."socket.io-2.2.0" // {
         dependencies = [
           sources."debug-4.1.1"
-          sources."ms-2.1.1"
+          sources."ms-2.1.2"
         ];
       })
       sources."socket.io-adapter-1.1.1"
@@ -9733,7 +9742,7 @@ in
         dependencies = [
           sources."debug-3.2.6"
           sources."form-data-2.3.3"
-          sources."ms-2.1.1"
+          sources."ms-2.1.2"
           sources."qs-6.7.0"
           sources."readable-stream-2.3.6"
           sources."string_decoder-1.1.1"
