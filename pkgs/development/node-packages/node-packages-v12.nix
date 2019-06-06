@@ -5375,6 +5375,94 @@ in
     bypassCache = true;
     reconstructLock = true;
   };
+  node-pre-gyp = nodeEnv.buildNodePackage {
+    name = "node-pre-gyp";
+    packageName = "node-pre-gyp";
+    version = "0.13.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/node-pre-gyp/-/node-pre-gyp-0.13.0.tgz";
+      sha512 = "Md1D3xnEne8b/HGVQkZZwV27WUi1ZRuZBij24TNaZwUPU3ZAFtvT6xxJGaUVillfmMKnn5oD1HoGsp2Ftik7SQ==";
+    };
+    dependencies = [
+      sources."abbrev-1.1.1"
+      sources."ansi-regex-2.1.1"
+      sources."aproba-1.2.0"
+      sources."are-we-there-yet-1.1.5"
+      sources."balanced-match-1.0.0"
+      sources."brace-expansion-1.1.11"
+      sources."chownr-1.1.1"
+      sources."code-point-at-1.1.0"
+      sources."concat-map-0.0.1"
+      sources."console-control-strings-1.1.0"
+      sources."core-util-is-1.0.2"
+      sources."debug-3.2.6"
+      sources."deep-extend-0.6.0"
+      sources."delegates-1.0.0"
+      sources."detect-libc-1.0.3"
+      sources."fs-minipass-1.2.6"
+      sources."fs.realpath-1.0.0"
+      sources."gauge-2.7.4"
+      sources."glob-7.1.4"
+      sources."has-unicode-2.0.1"
+      sources."iconv-lite-0.4.24"
+      sources."ignore-walk-3.0.1"
+      sources."inflight-1.0.6"
+      sources."inherits-2.0.3"
+      sources."ini-1.3.5"
+      sources."is-fullwidth-code-point-1.0.0"
+      sources."isarray-1.0.0"
+      sources."minimatch-3.0.4"
+      sources."minimist-0.0.8"
+      sources."minipass-2.3.5"
+      sources."minizlib-1.2.1"
+      sources."mkdirp-0.5.1"
+      sources."ms-2.1.2"
+      sources."needle-2.4.0"
+      sources."nopt-4.0.1"
+      sources."npm-bundled-1.0.6"
+      sources."npm-packlist-1.4.1"
+      sources."npmlog-4.1.2"
+      sources."number-is-nan-1.0.1"
+      sources."object-assign-4.1.1"
+      sources."once-1.4.0"
+      sources."os-homedir-1.0.2"
+      sources."os-tmpdir-1.0.2"
+      sources."osenv-0.1.5"
+      sources."path-is-absolute-1.0.1"
+      sources."process-nextick-args-2.0.0"
+      (sources."rc-1.2.8" // {
+        dependencies = [
+          sources."minimist-1.2.0"
+        ];
+      })
+      sources."readable-stream-2.3.6"
+      sources."rimraf-2.6.3"
+      sources."safe-buffer-5.1.2"
+      sources."safer-buffer-2.1.2"
+      sources."sax-1.2.4"
+      sources."semver-5.7.0"
+      sources."set-blocking-2.0.0"
+      sources."signal-exit-3.0.2"
+      sources."string-width-1.0.2"
+      sources."string_decoder-1.1.1"
+      sources."strip-ansi-3.0.1"
+      sources."strip-json-comments-2.0.1"
+      sources."tar-4.4.10"
+      sources."util-deprecate-1.0.2"
+      sources."wide-align-1.1.3"
+      sources."wrappy-1.0.2"
+      sources."yallist-3.0.3"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Node.js native addon binary install tool";
+      homepage = "https://github.com/mapbox/node-pre-gyp#readme";
+      license = "BSD-3-Clause";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
   node2nix = nodeEnv.buildNodePackage {
     name = "node2nix";
     packageName = "node2nix";
