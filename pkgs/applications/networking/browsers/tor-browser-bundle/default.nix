@@ -369,9 +369,9 @@ stdenv.mkDerivation rec {
       TZ=":" \
       TZDIR="\''${TZDIR:-}" \
       \
-      XAUTHORITY="\''${XAUTHORITY:-\$HOME/.Xauthority}" \
       DISPLAY="\$DISPLAY" \
-      DBUS_SESSION_BUS_ADDRESS="\''${DBUS_SESSION_BUS_ADDRESS:-unix:path=\$XDG_RUNTIME_DIR/bus}" \\
+      XAUTHORITY="\''${XAUTHORITY:-}" \
+      DBUS_SESSION_BUS_ADDRESS="\$DBUS_SESSION_BUS_ADDRESS" \
       \
       HOME="\$HOME" \
       TMPDIR="\$XDG_CACHE_HOME/tmp" \

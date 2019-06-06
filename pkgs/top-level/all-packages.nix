@@ -4255,11 +4255,8 @@ in
   nodejs_latest = nodejs-12_x;
   nodejs-slim_latest = nodejs-slim-12_x;
 
-  nodePackages_12_x = dontRecurseIntoAttrs (callPackage ../development/node-packages/default-v10.nix {
+  nodePackages_12_x = dontRecurseIntoAttrs (callPackage ../development/node-packages/default-v12.nix {
     nodejs = pkgs.nodejs-12_x;
-  });
-  nodePackages_11_x = dontRecurseIntoAttrs (callPackage ../development/node-packages/default-v10.nix {
-    nodejs = pkgs.nodejs-11_x;
   });
 
   nodePackages_10_x = dontRecurseIntoAttrs (callPackage ../development/node-packages/default-v10.nix {
@@ -5890,7 +5887,7 @@ in
   silc_server = callPackage ../servers/silc-server { };
 
   sile = callPackage ../tools/typesetting/sile {
-  inherit (lua52Packages) lua luaexpat luazlib luafilesystem lpeg luasocket luasec;
+  inherit (lua52Packages) lua luaexpat lua-zlib luafilesystem lpeg luasocket luasec;
   };
 
   silver-searcher = callPackage ../tools/text/silver-searcher { };
@@ -11085,6 +11082,8 @@ in
 
   jsonnet = callPackage ../development/compilers/jsonnet { };
 
+  go-jsonnet = callPackage ../development/compilers/go-jsonnet { };
+
   jsonrpc-glib = callPackage ../development/libraries/jsonrpc-glib { };
 
   jxrlib = callPackage ../development/libraries/jxrlib { };
@@ -11125,7 +11124,9 @@ in
 
   kronosnet = callPackage ../development/libraries/kronosnet { };
 
-  l-smash = callPackage ../development/libraries/l-smash { };
+  l-smash = callPackage ../development/libraries/l-smash {
+    stdenv = gccStdenv;
+  };
 
   languageMachines = recurseIntoAttrs (import ../development/libraries/languagemachines/packages.nix { inherit callPackage; });
 
@@ -12303,7 +12304,9 @@ in
   };
   mesa = mesa_noglu;
 
-  mesa_glu =  callPackage ../development/libraries/mesa-glu { };
+  mesa_glu =  callPackage ../development/libraries/mesa-glu {
+    inherit (darwin.apple_sdk.frameworks) ApplicationServices;
+  };
 
   # NOTE: 2018-07-12: legacy alias:
   # gcsecurity bussiness is done: https://www.theregister.co.uk/2018/02/08/bruce_perens_grsecurity_anti_slapp/
@@ -12519,7 +12522,7 @@ in
 
   opencv3 = callPackage ../development/libraries/opencv/3.x.nix {
     inherit (darwin) cf-private;
-    inherit (darwin.apple_sdk.frameworks) AVFoundation Cocoa QTKit VideoDecodeAcceleration;
+    inherit (darwin.apple_sdk.frameworks) AVFoundation Cocoa VideoDecodeAcceleration;
   };
 
   opencv3WithoutCuda = opencv3.override {
@@ -12528,7 +12531,7 @@ in
 
   opencv4 = callPackage ../development/libraries/opencv/4.x.nix {
     inherit (darwin) cf-private;
-    inherit (darwin.apple_sdk.frameworks) AVFoundation Cocoa QTKit VideoDecodeAcceleration;
+    inherit (darwin.apple_sdk.frameworks) AVFoundation Cocoa VideoDecodeAcceleration;
   };
 
   openexr = callPackage ../development/libraries/openexr { };
@@ -16070,7 +16073,7 @@ in
     stdenv = crossLibcStdenv;
   };
 
-  eudev = callPackage ../os-specific/linux/eudev {};
+  eudev = callPackage ../os-specific/linux/eudev { utillinux = utillinuxMinimal; };
 
   libudev0-shim = callPackage ../os-specific/linux/libudev0-shim { };
 
@@ -23154,6 +23157,8 @@ in
 
   apmplanner2 = libsForQt511.callPackage ../applications/science/robotics/apmplanner2 { };
 
+  betaflight-configurator = callPackage ../applications/science/robotics/betaflight-configurator { };
+
   ### MISC
 
   acpilight = callPackage ../misc/acpilight { };
@@ -24335,4 +24340,7 @@ in
   bemenu = callPackage ../applications/misc/bemenu { };
 
   haxm = callPackage ../applications/virtualization/haxm { };
+
+  dapper = callPackage ../development/tools/dapper { };
+
 }

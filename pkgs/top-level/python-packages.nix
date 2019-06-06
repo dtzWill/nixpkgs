@@ -2719,6 +2719,8 @@ in {
 
   flask_sqlalchemy = callPackage ../development/python-modules/flask-sqlalchemy { };
 
+  flask-swagger = callPackage ../development/python-modules/flask-swagger { };
+
   flask_testing = callPackage ../development/python-modules/flask-testing { };
 
   flask_wtf = callPackage ../development/python-modules/flask-wtf { };
@@ -2750,6 +2752,8 @@ in {
   python2-pythondialog = callPackage ../development/python-modules/python2-pythondialog { };
 
   pyRFC3339 = callPackage ../development/python-modules/pyrfc3339 { };
+
+  rfc3987 = callPackage ../development/python-modules/rfc3987 { };
 
   ConfigArgParse = callPackage ../development/python-modules/configargparse { };
 
@@ -5447,6 +5451,8 @@ in {
   typed-ast = callPackage ../development/python-modules/typed-ast { };
 
   stripe = callPackage ../development/python-modules/stripe { };
+
+  strict-rfc3339 = callPackage ../development/python-modules/strict-rfc3339 { };
 
   twilio = callPackage ../development/python-modules/twilio { };
 
