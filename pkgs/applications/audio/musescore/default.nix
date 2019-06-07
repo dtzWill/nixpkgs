@@ -5,12 +5,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "musescore-${version}";
-  version = "3.0.5";
+  name = "musescore";
+  version = "3.1.0";
 
   src = fetchzip {
-    url = "https://download.musescore.com/releases/MuseScore-${version}/MuseScore-${version}.zip";
-    sha256 = "1pbf6v0l3nixxr8k5igwhj09wnqvw92av6q6yjrbb3kyjh5br2d8";
+    # Not sure why not available on musescore website, check when next upgrade please!
+    url = "https://github.com/musescore/MuseScore/releases/download/v3.1/MuseScore-${version}.zip";
+    sha256 = "05zrbjs3gjxrqpxa5dxcwfxgqpjv3lqzw5vrwrzilq0gifd0ap8r";
     stripRoot = false;
   };
 
