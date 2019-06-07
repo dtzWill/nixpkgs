@@ -9,11 +9,11 @@ assert enableGUI -> libGLU_combined != null && xorg != null && fltk != null;
 stdenv.mkDerivation rec {
   name = "${attr}-${version}";
   attr = if enableGUI then "giac-with-xcas" else "giac";
-  version = "1.5.0-21"; # TODO try to remove preCheck phase on upgrade
+  version = "1.5.0-59"; # TODO try to remove preCheck phase on upgrade
 
   src = fetchurl {
     url = "https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/giac_${version}.tar.gz";
-    sha256 = "1b9khiv0mk2xzw1rblm2jy6qsf8y6f9k7qy15sxpb21d72hzzbl2";
+    sha256 = "0phg3sy6z8nh3pf53f7117javb6pxsj3163fn8ldl38pbj7a95rz";
   };
 
   patches = stdenv.lib.optionals (!enableGUI) [
@@ -59,14 +59,6 @@ stdenv.mkDerivation rec {
   outputs = [ "out" ] ++ stdenv.lib.optional (!enableGUI) "doc";
 
   doCheck = true;
-  preCheck = ''
-    # One test in this file fails. That test just tests a part of the pari
-    # interface that isn't actually used in giac. Of course it would be better
-    # to only remove that one test, but that would require a patch.
-    # Removing the whole test set should be good enough for now.
-    # Upstream report: https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2102#p10326
-    echo > check/chk_fhan11
-  '';
 
   enableParallelBuilding = true;
 
