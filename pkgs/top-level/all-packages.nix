@@ -1769,6 +1769,8 @@ in
 
   pev = callPackage ../development/tools/analysis/pev { };
 
+  phoronix-test-suite = callPackage ../tools/misc/phoronix-test-suite { };
+
   photon = callPackage ../tools/networking/photon { };
 
   playerctl = callPackage ../tools/audio/playerctl { };
@@ -2918,7 +2920,10 @@ in
 
   flatpak-builder = callPackage ../development/tools/flatpak-builder { };
 
-  fltrdr = callPackage ../tools/misc/fltrdr { stdenv = gcc8Stdenv; icu = icu63; /* 59 too old */ };
+  fltrdr = callPackage ../tools/misc/fltrdr {
+    stdenv = gcc8Stdenv;
+    icu = icu63;
+  };
 
   fluent-bit = callPackage ../tools/misc/fluent-bit {
     stdenv = gccStdenv;
@@ -19422,6 +19427,8 @@ in
   pdfdiff = callPackage ../applications/misc/pdfdiff { };
 
   mupdf = callPackage ../applications/misc/mupdf { };
+
+  mystem = callPackage ../applications/misc/mystem { };
 
   diffpdf = libsForQt5.callPackage ../applications/misc/diffpdf { };
 

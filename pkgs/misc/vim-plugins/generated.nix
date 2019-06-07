@@ -1684,6 +1684,17 @@ let
     };
   };
 
+  SpaceCamp = buildVimPluginFrom2Nix {
+    pname = "SpaceCamp";
+    version = "2019-06-05";
+    src = fetchFromGitHub {
+      owner = "jaredgorski";
+      repo = "SpaceCamp";
+      rev = "de431dc161f8f839a47c6f1cb277e7318ddba6f5";
+      sha256 = "032i1isc558rz2hmh3dfxnwgbqn7wdlhzz1c05v6bd7yyv0k5g23";
+    };
+  };
+
   Spacegray-vim = buildVimPluginFrom2Nix {
     pname = "Spacegray-vim";
     version = "2019-02-23";
@@ -2451,6 +2462,17 @@ let
       repo = "vim-commentary";
       rev = "141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a";
       sha256 = "0nncs32ayfhr557aiynq7b0sc7rxqwv7xanram53x1wvmfy14zf0";
+    };
+  };
+
+  vim-csharp = buildVimPluginFrom2Nix {
+    pname = "vim-csharp";
+    version = "2017-03-29";
+    src = fetchFromGitHub {
+      owner = "OrangeT";
+      repo = "vim-csharp";
+      rev = "b5982fc69bba7d507638a308d6875b031054280d";
+      sha256 = "16sf3yqvd36b4rkrh6w7jskvlkrgymwa13xcvh586lmlc7g6ilcx";
     };
   };
 

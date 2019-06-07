@@ -108,6 +108,7 @@ ivanov/vim-ipython
 jacoborus/tender.vim
 jamessan/vim-gnupg
 janko-m/vim-test
+jaredgorski/SpaceCamp
 JazzCore/ctrlp-cmatcher
 jceb/vim-hier
 jceb/vim-orgmode
@@ -229,6 +230,7 @@ NLKNguyen/papercolor-theme
 noc7c9/vim-iced-coffee-script
 ntpeters/vim-better-whitespace
 nvie/vim-flake8
+OrangeT/vim-csharp
 osyo-manga/shabadou.vim
 osyo-manga/vim-anzu
 osyo-manga/vim-textobj-multiblock
