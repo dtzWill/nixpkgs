@@ -57,7 +57,7 @@ let
   opt = stdenv.lib.optional;
   mkFlag = c: f: "-D${f}=${if c then "enabled" else "disabled"}";
   major = "0.21";
-  minor = "9";
+  minor = "10";
 
 in stdenv.mkDerivation rec {
   name = "mpd-${version}";
@@ -67,7 +67,7 @@ in stdenv.mkDerivation rec {
     owner  = "MusicPlayerDaemon";
     repo   = "MPD";
     rev    = "v${version}";
-    sha256 = "1qiigs62pima7pxb6fa7jm0xbgvb7897v89qcl8y2g3gm7sim7g2";
+    sha256 = "1syh4qa4x7w7syh49qjz0m7gaiwnpjwkglbb21191csqh6jdk2nk";
   };
 
   buildInputs = [ glib boost libgcrypt pcre gtest ]
