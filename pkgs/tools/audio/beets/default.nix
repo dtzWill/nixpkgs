@@ -102,13 +102,13 @@ let
 
 in pythonPackages.buildPythonApplication rec {
   pname = "beets";
-  version = "1.4.7";
+  version = "1.4.9";
 
   src = fetchFromGitHub {
     owner = "beetbox";
     repo = "beets";
     rev = "v${version}";
-    sha256 = "17gfz0g7pqm6wha8zf63zpw07zgi787w1bjwdcxdh1l3z4m7jc9l";
+    sha256 = "1qxdqbzvz97zgykzdwn78g2xyxmg0q2jdb12dnjnrwvhmjv67vi8";
   };
 
   propagatedBuildInputs = [
