@@ -1,31 +1,20 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, docbook_xsl, docbook_xml_dtd_43, gtk-doc, icu
-, libxslt, pkgconfig, python3 }:
+{ stdenv, fetchurl, autoreconfHook, docbook_xsl, docbook_xml_dtd_43, gtk-doc, lzip
+, libidn2, libunistring, libxslt, pkgconfig, python3, valgrind
+, publicsuffix-list
+}:
 
-let
+stdenv.mkDerivation rec {
+  pname = "libpsl";
+  version = "0.21.0";
 
-  listVersion = "2019-04-15";
-  listSources = fetchFromGitHub {
-    sha256 = "1p8afrxgi9sz1mvbl5fz6hgib1a94288pdz9ar36q9d357qaq5nr";
-    rev = "033221af7f600bcfce38dcbfafe03b9a2269c4cc";
-    repo = "list";
-    owner = "publicsuffix";
+  src = fetchurl {
+    url = "https://github.com/rockdaboot/${pname}/releases/download/${pname}-${version}/${pname}-${version}.tar.lz";
+    sha256 = "183hadbira0d2zvv8272lspy31dgm9x26z35c61s5axcd5wd9g9i";
   };
 
-  libVersion = "0.21.0";
-
-in stdenv.mkDerivation rec {
-  name = "libpsl-${version}";
-  version = "${libVersion}-list-${listVersion}";
-
-  src = fetchFromGitHub {
-    sha256 = "0ancgnydimw9w4cmfk6ykjddw51h0ja4g1x0yk80s8ybw2w5nr3b";
-    rev = "libpsl-${libVersion}";
-    repo = "libpsl";
-    owner = "rockdaboot";
-  };
-
-  buildInputs = [ icu libxslt ];
-  nativeBuildInputs = [ autoreconfHook docbook_xsl docbook_xml_dtd_43 gtk-doc pkgconfig python3 ];
+  nativeBuildInputs = [ autoreconfHook docbook_xsl docbook_xml_dtd_43 gtk-doc lzip pkgconfig python3 valgrind ];
+  buildInputs = [ libidn2 libunistring libxslt ];
+  propagatedBuildInputs = [ publicsuffix-list ];
 
   postPatch = ''
     patchShebangs src/psl-make-dafsa
@@ -35,15 +24,14 @@ in stdenv.mkDerivation rec {
     gtkdocize
   '';
 
-  preConfigure = ''
-    # The libpsl check phase requires the list's test scripts (tests/) as well
-    cp -Rv "${listSources}"/* list
-  '';
   configureFlags = [
-    "--disable-builtin"
     "--disable-static"
     "--enable-gtk-doc"
     "--enable-man"
+    "--enable-valgrind-tests"
+    "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+    "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+    "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
   ];
 
   enableParallelBuilding = true;
@@ -59,8 +47,10 @@ in stdenv.mkDerivation rec {
       "supercookies" and "super domain" certificates, for highlighting parts of
       the domain in a user interface or sorting domain lists by site.
     '';
-    homepage = http://rockdaboot.github.io/libpsl/;
+    homepage = "https://rockdaboot.github.io/libpsl/";
+    changelog = "https://raw.githubusercontent.com/rockdaboot/${pname}/${pname}-${version}/NEWS";
     license = licenses.mit;
-    platforms = with platforms; linux ++ darwin;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.c0bw3b ];
   };
 }

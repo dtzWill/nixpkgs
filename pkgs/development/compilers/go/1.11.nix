@@ -29,7 +29,7 @@ let
 in
 
 stdenv.mkDerivation rec {
-  name = "go-${version}";
+  pname = "go";
   version = "1.11.10";
 
   src = fetchurl {
