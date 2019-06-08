@@ -4,13 +4,13 @@
 stdenv.mkDerivation rec {
   pname = "calcurse";
   #version = "4.4.0";
-  version = "2019-06-06";
+  version = "2019-06-07";
 
   src = fetchFromGitHub {
     owner = "lfos";
     repo = pname;
-    rev = "d659a8e2eec44bba08ec498912e5217b28c4409b";
-    sha256 = "02nhpn8m84m7g1bpxfshvb45mqm51f0kpl27hix2rqky61gw2jil";
+    rev = "3216814be1305948aa9401d442668507af2dffab";
+    sha256 = "0i8bjy8pbq7ff5m3wgsjdj01ks6qsdaikx6b7834pp9zmjbjbiar";
   };
   #src = fetchurl {
   #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
