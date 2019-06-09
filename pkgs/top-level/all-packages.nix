@@ -16176,8 +16176,6 @@ in
 
   agave = callPackage ../data/fonts/agave { };
 
-  adementary-theme = callPackage ../data/themes/adementary { };
-
   aileron = callPackage ../data/fonts/aileron { };
 
   andagii = callPackage ../data/fonts/andagii { };
