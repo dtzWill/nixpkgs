@@ -47,20 +47,20 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "openconnect";
-  version = "8.03";
+  version = "8.03.1";
 
-  #src = fetchgit {
-  #  # url = https://git.infradead.org/users/dwmw2/openconnect.git;
-  #  url = "https://github.com/${pname}/${pname}";
-  #  rev = "558c2abd3efb050f6f717e6238c4b532bdfeb387";
-  #  sha256 = "1xb1c2viiad7rwlfgkgvhg6zz8g1nlzyn2rqg0sj28lscbdbxvps";
-  #};
-  src = fetchurl {
-    urls = [
-      "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
-    ];
-    sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  src = fetchgit {
+    # url = https://git.infradead.org/users/dwmw2/openconnect.git;
+    url = "https://github.com/${pname}/${pname}";
+    rev = "8349cfdecdeb0b3a1d713a3ed3de109f84f1f305";
+    sha256 = "160bpbxrx57vkgvkalf23ax952s0i5cdqvy5wslq98d470v6iaxm";
   };
+  #src = fetchurl {
+  #  urls = [
+  #    "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
+  #  ];
+  #  sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  #};
 
   outputs = [ "out" "dev" ];
 
