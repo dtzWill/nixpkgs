@@ -6,7 +6,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/attica-5.59.0.tar.xz";
-      sha256 = "1cqjx1d8hvvbwbg8ckyz95c618vwm039a0n8wqpjli9igislzm5b";
+      sha256 = "abd44f757c31452a2fe6c8029506a87ca3605849df4f86dee26b6f885ae812b3";
       name = "attica-5.59.0.tar.xz";
     };
   };
@@ -14,7 +14,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/baloo-5.59.0.tar.xz";
-      sha256 = "1q9hch69xjp6ispmg3g8jvh2j1n6gsyfx8pg1d2m7dn6kch2ar1h";
+      sha256 = "306425209bc6b653450befa2eebc7ec60629e096e88d57af8ee6ca9e0c6430e1";
       name = "baloo-5.59.0.tar.xz";
     };
   };
@@ -22,7 +22,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/bluez-qt-5.59.0.tar.xz";
-      sha256 = "10a8bcmqg31dwivjc322ids73v370s550ryl3wq7hmxczh92spzl";
+      sha256 = "f45f2d12fcac5778301fd467508a0667ec71748b420c2677e42d8c872b5b4881";
       name = "bluez-qt-5.59.0.tar.xz";
     };
   };
@@ -30,7 +30,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/breeze-icons-5.59.0.tar.xz";
-      sha256 = "1xf6l4rnml72nrg6n2s5xn7jyxv2p86k97y359qc1cm4nai998cv";
+      sha256 = "9ba194a2b2a4b2c0702ac39f340dba62772f8fed450b6b5eb6e2d06a33a1c6f5";
       name = "breeze-icons-5.59.0.tar.xz";
     };
   };
@@ -38,7 +38,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/extra-cmake-modules-5.59.0.tar.xz";
-      sha256 = "0f64aqgvry3aswpfdq7afrva8a5a8mbaxrql1p935b2248j0nqqs";
+      sha256 = "1a630b242242ac32d20d14e7ae5645aa28a47676eae0e62ed76af8bc1f56c438";
       name = "extra-cmake-modules-5.59.0.tar.xz";
     };
   };
@@ -46,7 +46,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/frameworkintegration-5.59.0.tar.xz";
-      sha256 = "0xfhnr7r1373xz3825bbm9pgivay193fllxqz5gs4jzw9iw4pfsj";
+      sha256 = "52bb4b784cfc4ba25ff9b853ea460a5eedf86eaa6b1581c6efe38c904fb6d075";
       name = "frameworkintegration-5.59.0.tar.xz";
     };
   };
@@ -54,7 +54,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kactivities-5.59.0.tar.xz";
-      sha256 = "1p7fj6yxwxi3h5n19z5dlva2kcd72hxxx5sh032ng3s1z0xljadn";
+      sha256 = "b629493bf8418f67c5005097de3b14a7b129d4a6adfc146c812376debd91eedc";
       name = "kactivities-5.59.0.tar.xz";
     };
   };
@@ -62,7 +62,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kactivities-stats-5.59.0.tar.xz";
-      sha256 = "071rb9wxqqn7idn8zjhmmawla00wrw28zlavnsxqg8g68z3l964z";
+      sha256 = "9f9844c747e6a187bbb65bd18f04cf1c0045b9aa15ca8f6c8bc762dc795a391c";
       name = "kactivities-stats-5.59.0.tar.xz";
     };
   };
@@ -70,7 +70,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kapidox-5.59.0.tar.xz";
-      sha256 = "008w6iyid3llrlk1bg407rmygxxaxmzrk5n28vngsd6am6gshia4";
+      sha256 = "4445a89fa9ca34fdec46c296997fedaaf7e76b3e80bc1526cd948e167d341c01";
       name = "kapidox-5.59.0.tar.xz";
     };
   };
@@ -78,7 +78,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/karchive-5.59.0.tar.xz";
-      sha256 = "08rmssjqym0h67pv0hfv24zg7kk0v38lp7m06p8naj82rji26mnr";
+      sha256 = "d95623a2cc024965d135a09e4bd1d860cef33e11db41b0ef3110548fa5d63523";
       name = "karchive-5.59.0.tar.xz";
     };
   };
@@ -86,7 +86,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kauth-5.59.0.tar.xz";
-      sha256 = "0g09w7lhl9wx38gmzfk2fjc8k54sxmkmjy1q23ac5wcd22ycpng7";
+      sha256 = "e7d9cbbc108df1c2d41038785967ed9a9489987462ba5f1f1a9d270ae9e1093c";
       name = "kauth-5.59.0.tar.xz";
     };
   };
@@ -94,7 +94,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kbookmarks-5.59.0.tar.xz";
-      sha256 = "1xjj256jlyhzvich2jssyy0vmmkwwf3phzmd3zrif0mfag1v08z6";
+      sha256 = "e623b0c353ae0217f31fad7e7887e37cd6ba81f75a4b0159dc1f7a2a4d1152f6";
       name = "kbookmarks-5.59.0.tar.xz";
     };
   };
@@ -102,7 +102,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kcmutils-5.59.0.tar.xz";
-      sha256 = "1zx50fjbw5nyhmn4n71l5h5n5lpicrfmhxlgi68xwggwvkfs4s3l";
+      sha256 = "7468a2dddcfc3dde91898f76585d66f1d2620b2c341c4b6c85de16bea403a5ff";
       name = "kcmutils-5.59.0.tar.xz";
     };
   };
@@ -110,7 +110,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kcodecs-5.59.0.tar.xz";
-      sha256 = "0fm1qy2mq22iryqwxxjbbaszwrsl0iz10066k90lfak1lfxpb23n";
+      sha256 = "768875bba3612a47419ac600107e045467feb55a4bf6ceb1cf51085c85c7a13a";
       name = "kcodecs-5.59.0.tar.xz";
     };
   };
@@ -118,7 +118,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kcompletion-5.59.0.tar.xz";
-      sha256 = "1rf0pl4si5wvsp261llxm697bzay78r4abw5sls0n2a4iij5imr3";
+      sha256 = "23d758648c44090b34d5852f45323a5efd7592a99dd260c4d59b97a809bdc0e5";
       name = "kcompletion-5.59.0.tar.xz";
     };
   };
@@ -126,7 +126,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kconfig-5.59.0.tar.xz";
-      sha256 = "0ji5w6lsfmnj907i8v574c71i1pinj45nlmxpjpkc1lnwrqw9ai8";
+      sha256 = "28aac471e6960636afbcbd525b88b4f186180e23a76c140f48d256a7a9e1254a";
       name = "kconfig-5.59.0.tar.xz";
     };
   };
@@ -134,7 +134,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kconfigwidgets-5.59.0.tar.xz";
-      sha256 = "1s8d95qk67kxjrnm59qfrrg4vs3prb5wfc0q3xhq3spmjw8809pc";
+      sha256 = "ec26801097f5ea81611f1830c7cbca77e84d5ece0ea7526d967d1e3371490de9";
       name = "kconfigwidgets-5.59.0.tar.xz";
     };
   };
@@ -142,7 +142,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kcoreaddons-5.59.0.tar.xz";
-      sha256 = "1jjsbgqwzlzqsqmby2602cy39sp8pa3gygz9dhcj5rxjjs36dwwx";
+      sha256 = "9df3668696b2e722196ce93fff86bae8ea343c13c008bf2ad6f8d3cff15b5aca";
       name = "kcoreaddons-5.59.0.tar.xz";
     };
   };
@@ -150,7 +150,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kcrash-5.59.0.tar.xz";
-      sha256 = "1aifm3g0f8v5hw0hc3snd8667gi07c3d5s3mn5l1bx7cjzf2bxdi";
+      sha256 = "b1f525dc97ecf41568b175e8d2063b20be630c6a560f060187652307dea82eaa";
       name = "kcrash-5.59.0.tar.xz";
     };
   };
@@ -158,7 +158,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdbusaddons-5.59.0.tar.xz";
-      sha256 = "02x2aixx10fc8yb2pngh017dcy3dgmwz001z05478n1ycl0gzj63";
+      sha256 = "c3c8ff00653e587448013f00f0797d6d78d64e00f0d92b9647cc81d07b54a20b";
       name = "kdbusaddons-5.59.0.tar.xz";
     };
   };
@@ -166,7 +166,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdeclarative-5.59.0.tar.xz";
-      sha256 = "027irq3nbpd7j372c8y7w5fym4rps4sipag3ds7mpxmsxwxsl7f8";
+      sha256 = "c81daa3befbaf65b8f6ee3a91b35d13793ea5de1c72326ce90a7dd6507cef108";
       name = "kdeclarative-5.59.0.tar.xz";
     };
   };
@@ -174,7 +174,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kded-5.59.0.tar.xz";
-      sha256 = "175g4gkc354njm2vsmfy6qx3n52j4b5wzdbsx6rl136sfjbg3qc8";
+      sha256 = "88e1f19674da8c40b3e97ab5cfcb2252143b3a36de55bd45959694c1e623af9c";
       name = "kded-5.59.0.tar.xz";
     };
   };
@@ -182,7 +182,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/kdelibs4support-5.59.0.tar.xz";
-      sha256 = "0pgy8x06gr1hps1qcc2ng9lk550ivsyfv2mr30zvx7srac25arws";
+      sha256 = "9a67550453599fbe3f18b98aedbcde119432697a56308683be30e4674047fe5d";
       name = "kdelibs4support-5.59.0.tar.xz";
     };
   };
@@ -190,7 +190,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdesignerplugin-5.59.0.tar.xz";
-      sha256 = "0fwxchsaihql1w5m1wq21ikdjii8xrqlw3dvwkkz9ixw9y1km8dq";
+      sha256 = "b8a13a834fbcc7f4e7e4bb0d4e71ee2846d9660c02f3500b0f14c3a834649d3b";
       name = "kdesignerplugin-5.59.0.tar.xz";
     };
   };
@@ -198,7 +198,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdesu-5.59.0.tar.xz";
-      sha256 = "0xvcbcc975q84asqg5ybs44fi9md4ka070xl8l85rf6yflac7wbw";
+      sha256 = "7cf1c31475deb85c1045b48303d424ada6e808d1cb9787b522089793185b6c77";
       name = "kdesu-5.59.0.tar.xz";
     };
   };
@@ -206,7 +206,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdewebkit-5.59.0.tar.xz";
-      sha256 = "0ya0fmkkn5q316ygwkfg9nv3bsgc9qbp92wvj0a935vmr0r1dgwf";
+      sha256 = "8ebf1632c875979114909b8b74174eece935b64dcf4dfebc0903173b67754079";
       name = "kdewebkit-5.59.0.tar.xz";
     };
   };
@@ -214,7 +214,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdnssd-5.59.0.tar.xz";
-      sha256 = "1ml3qain5ba68cpyb85z1vi50fyp9zk4mip9ypxryliwnd4akcq8";
+      sha256 = "08b3a948b33c529ffbf5e9c64ae64fd73b50e20ebfa0e52f4346ad62a3c283d6";
       name = "kdnssd-5.59.0.tar.xz";
     };
   };
@@ -222,7 +222,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kdoctools-5.59.0.tar.xz";
-      sha256 = "02cfbi05rqz0hlm230b08d749m5g0brm8sfnc7fsfhhx30824wzc";
+      sha256 = "ec732210181d42a7dd61d66954f302afd4444e436081212a85e0e35c405c8e09";
       name = "kdoctools-5.59.0.tar.xz";
     };
   };
@@ -230,7 +230,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kemoticons-5.59.0.tar.xz";
-      sha256 = "1gz0wa5f4xh6plai9sfx9b1fa62lzqq3j74b4ijz85apjbmmnvfa";
+      sha256 = "ca6d5beb925715f465248b1c3930fe5418e5c24adde91415bd0676e28ae2e0bf";
       name = "kemoticons-5.59.0.tar.xz";
     };
   };
@@ -238,7 +238,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kfilemetadata-5.59.0.tar.xz";
-      sha256 = "1jfn55a863qykldspw8jy1qnk2m42q943disid6awp9p732wzsks";
+      sha256 = "7aeacfc538375dae4c8b3ab6411216a48a6971f012f1ab1b9d1e0f835429d6c9";
       name = "kfilemetadata-5.59.0.tar.xz";
     };
   };
@@ -246,7 +246,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kglobalaccel-5.59.0.tar.xz";
-      sha256 = "1ybqlz1g3aaiyk6g50c16066gk3shxwc3d51llgal7ak5za0s3yj";
+      sha256 = "d20f0dd42f531daa1ea5a1b4c178877acc670c308181f2ccf451a9f1c2a778f9";
       name = "kglobalaccel-5.59.0.tar.xz";
     };
   };
@@ -254,7 +254,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kguiaddons-5.59.0.tar.xz";
-      sha256 = "1ildii3n3y4zpn1vfn938589vqqr542zbil9gi7x8m8cdsqgzz33";
+      sha256 = "63fcffb06e0c55d44f7c89c6f5052919e39d50412359b783bd9ff861478c8dc6";
       name = "kguiaddons-5.59.0.tar.xz";
     };
   };
@@ -262,7 +262,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kholidays-5.59.0.tar.xz";
-      sha256 = "1irgkvi9si1xxny50nbjr7vw7sksrna88z6x5ydrrh34cn1dcrw0";
+      sha256 = "8067d6826564c09c9b2fdd7c8494cd7aeac3f7c9725950bced3d449de29e2fc7";
       name = "kholidays-5.59.0.tar.xz";
     };
   };
@@ -270,7 +270,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/khtml-5.59.0.tar.xz";
-      sha256 = "0x9xv1xgvmiibiy1kjkcm96956d89qhv1klffhw78h0drqsx2dn6";
+      sha256 = "c636d135ce0d407438748eceb0214ea899924caa6cca197c5c31d6fd7ad83d75";
       name = "khtml-5.59.0.tar.xz";
     };
   };
@@ -278,7 +278,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/ki18n-5.59.0.tar.xz";
-      sha256 = "0b6fxz86c58q9x8k0pxpb0wq1bnbp3g1s7a4g05hq982ldnk1lvn";
+      sha256 = "76d3306da302250c0b78441d1ddeb8cbae803958b75f30514f181566d0efce2c";
       name = "ki18n-5.59.0.tar.xz";
     };
   };
@@ -286,7 +286,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kiconthemes-5.59.0.tar.xz";
-      sha256 = "0f6whaz6ficbg57xk0i0spfwpq1zkhnjpynp8d33ryjm96f81kph";
+      sha256 = "f0ce809c4955fa3c4643d7fa2b2d9c3fe0cbddd52082d94f798b4567be82dc38";
       name = "kiconthemes-5.59.0.tar.xz";
     };
   };
@@ -294,7 +294,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kidletime-5.59.0.tar.xz";
-      sha256 = "1pyj0lq2wq5301bvmf1mnpa5j082m7i2d0ckqmjspd5q56m9pszi";
+      sha256 = "f1eb9baa29b8b4ab65c5938126e2a9020159d4b535b8ba5700a3602e3005d2df";
       name = "kidletime-5.59.0.tar.xz";
     };
   };
@@ -302,7 +302,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kimageformats-5.59.0.tar.xz";
-      sha256 = "0g5q4cvg2pwly2iixv1ql0nsxx4ig547l3byz3lkd0jypn332qdx";
+      sha256 = "bd613186bd5e8236e9f87e0d7a487991f4ae2da038ec1ea3f0945ff13623b83c";
       name = "kimageformats-5.59.0.tar.xz";
     };
   };
@@ -310,7 +310,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kinit-5.59.0.tar.xz";
-      sha256 = "1bx5nblw10bskakvdhlmhaw7jwzdq8bjg28w8vz95x0zhcw5l5xa";
+      sha256 = "aa175a38831ff492fe461c892717c2ed7379b88295c2b6a79a7a81c0e9b2a5af";
       name = "kinit-5.59.0.tar.xz";
     };
   };
@@ -318,7 +318,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kio-5.59.0.tar.xz";
-      sha256 = "1f898wics0knv12rjilrjr1kv42wx4nc722k4dx7416q014s8q0r";
+      sha256 = "1960a44900d804727a235388c32ce95c903d439699469945d87602cd224709b9";
       name = "kio-5.59.0.tar.xz";
     };
   };
@@ -326,7 +326,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kirigami2-5.59.0.tar.xz";
-      sha256 = "0kx4wxw2x5hxs8f4yqgg2av1938b90726gnsmgkby40vcx3icvzz";
+      sha256 = "ff6f1647671b10bfe6abda3e230e480b8d14b612ef614f1cd21d962e78e7a44f";
       name = "kirigami2-5.59.0.tar.xz";
     };
   };
@@ -334,7 +334,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kitemmodels-5.59.0.tar.xz";
-      sha256 = "09jdkw323maj0p51hmdfqdmf06wwcsrpq8yks95f03vq0cl6abk0";
+      sha256 = "602e652803780fe04ad2d3237cb3669c1be06ac3ae5518ca0552d521069f4d26";
       name = "kitemmodels-5.59.0.tar.xz";
     };
   };
@@ -342,7 +342,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kitemviews-5.59.0.tar.xz";
-      sha256 = "0avwb54kj83c8d88rsvr7532pkqfhlalj0ja5p3prh75irgr796f";
+      sha256 = "cea4935f8ee5c07cc72d4a024915850ecf2b463979eb8c50436c203949597c2b";
       name = "kitemviews-5.59.0.tar.xz";
     };
   };
@@ -350,7 +350,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kjobwidgets-5.59.0.tar.xz";
-      sha256 = "0y5qbrfk3s0cp2lfx26mmxqgy712zz4383hmhwq9w7c270vlzcsy";
+      sha256 = "5eb34f3738821d9e3087150e34c8ff221cff70afd588eea8b80ce8315d5eb878";
       name = "kjobwidgets-5.59.0.tar.xz";
     };
   };
@@ -358,7 +358,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/kjs-5.59.0.tar.xz";
-      sha256 = "09cmlf4pwyfjqsr1ffwffljdbn5n5n9q5g94xqxj1xfgf35s59d8";
+      sha256 = "a8a5a2cb70cff5203bee24bd82932db6d8d524758e3b17b2c6d2797e89a39525";
       name = "kjs-5.59.0.tar.xz";
     };
   };
@@ -366,7 +366,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/kjsembed-5.59.0.tar.xz";
-      sha256 = "1hzdqm8sk48jysignx007a3v64bm83gj26vq8rvqyywi1a35lg3l";
+      sha256 = "743c5a860a917b8f7746781b21df407511b3873a0074fba2f61291a951c5edc3";
       name = "kjsembed-5.59.0.tar.xz";
     };
   };
@@ -374,7 +374,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/kmediaplayer-5.59.0.tar.xz";
-      sha256 = "1vpv617rj3w8f4hl8pwac4ry9lc6gz4yr4678kb35mfi5lz86y43";
+      sha256 = "8378833e2dd1d532d644c790ecc97f86d1e433618a5f442171880f994f30fbee";
       name = "kmediaplayer-5.59.0.tar.xz";
     };
   };
@@ -382,7 +382,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/knewstuff-5.59.0.tar.xz";
-      sha256 = "0xbj1cga0dyd202ifd5vn23r4v0fxnqfgp28dy55ccfv75hf9vzv";
+      sha256 = "fbefe46039db31568a6f48dce7b0ed0e6c9287b0bb34170510cd37a01e0b7275";
       name = "knewstuff-5.59.0.tar.xz";
     };
   };
@@ -390,7 +390,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/knotifications-5.59.0.tar.xz";
-      sha256 = "06cjvq46biavvc3psamrqgpfv8nbd3v8qdcipvsvnf3i158lal5f";
+      sha256 = "ae504551097138bbf5be91358cf668cba2edeec3b92a7d07db5bc56508de9219";
       name = "knotifications-5.59.0.tar.xz";
     };
   };
@@ -398,7 +398,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/knotifyconfig-5.59.0.tar.xz";
-      sha256 = "0gipqgnci8p2jq1xmicci5qnyqqnnikdwq0cckcxqpswd03p4bhb";
+      sha256 = "0b2e7207685c5fdcd9640c60de66b416636f71898cc5da0396e2a2c8ecc3373e";
       name = "knotifyconfig-5.59.0.tar.xz";
     };
   };
@@ -406,7 +406,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kpackage-5.59.0.tar.xz";
-      sha256 = "1z6w8zrx4y0gn1d4rwfjn5wdix92wplj5517rd4ji2k5fb1323kv";
+      sha256 = "7b0e31c272658a2849cb279422e9e522f5d878b1d2f14c5ab00f78d2f347dcfc";
       name = "kpackage-5.59.0.tar.xz";
     };
   };
@@ -414,7 +414,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kparts-5.59.0.tar.xz";
-      sha256 = "0gfwiafsy3ih1rcw2q8sn0xhi729wl2iqa0dhkaa25r72pkhrmic";
+      sha256 = "2cd60ce7152717a1d4840d281c05e5499c083bb01a61c1590e300eaf9d8adc3d";
       name = "kparts-5.59.0.tar.xz";
     };
   };
@@ -422,7 +422,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kpeople-5.59.0.tar.xz";
-      sha256 = "0hgffzavjix2bll4vdldy5kayfgh2nf9lhx89clyd8r77c7487wc";
+      sha256 = "8c1f440e3b27a3e6294ba8439a9c15f039af66f18db64d285da247b9d577ee41";
       name = "kpeople-5.59.0.tar.xz";
     };
   };
@@ -430,7 +430,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kplotting-5.59.0.tar.xz";
-      sha256 = "1mhmcl82v1lgm7qj3kwbmgwv40dq53pqlm3cz9n0mhpj94i7n4xn";
+      sha256 = "b6137b2249f2c20a6cfa6c548aef28b801b2f9ab8bcf21f1a98f862d106515d6";
       name = "kplotting-5.59.0.tar.xz";
     };
   };
@@ -438,7 +438,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kpty-5.59.0.tar.xz";
-      sha256 = "0r8ajhy889f1a7701nfyr8864f9jzrfrdfqbf7bbkajn2kp52xkz";
+      sha256 = "7f7651ee1456aab9d6710bbb965dfe32396210caded900ce51c125843c940a65";
       name = "kpty-5.59.0.tar.xz";
     };
   };
@@ -446,7 +446,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/portingAids/kross-5.59.0.tar.xz";
-      sha256 = "1nkqyj2nry52fib49issd99by609cknnrf9cv8xd0rynnh0i1zqd";
+      sha256 = "0dff1001b4d667d03ada2cb96ced640918bf526a5ac7445674a2f86c85f478da";
       name = "kross-5.59.0.tar.xz";
     };
   };
@@ -454,7 +454,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/krunner-5.59.0.tar.xz";
-      sha256 = "00pn14rg7w3pgfrrn796rql5pqp6q4minhphxn3yvqw3s843pbc8";
+      sha256 = "88ad3b08d283e3ed87edf0421b2bc1e6e25b28ce261d9bb37b77f0f33209f602";
       name = "krunner-5.59.0.tar.xz";
     };
   };
@@ -462,7 +462,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kservice-5.59.0.tar.xz";
-      sha256 = "018fbglwdhlxp60z1hwraglqq3298wf32x7i0bqcbqrljg14kcyd";
+      sha256 = "cdb349c29334e3c5f002f174311c47490c8ce95399c3f081b99dc2c6e95b0e05";
       name = "kservice-5.59.0.tar.xz";
     };
   };
@@ -470,7 +470,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/ktexteditor-5.59.0.tar.xz";
-      sha256 = "0vss4ngc3v1yha43zwh3yj2dhgq8c3pnlmixzp7ifr6k687fn9bk";
+      sha256 = "7325eb0e32d36417cffd3d566aef60083fd884f403f23f88823eecc19e255a6f";
       name = "ktexteditor-5.59.0.tar.xz";
     };
   };
@@ -478,7 +478,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/ktextwidgets-5.59.0.tar.xz";
-      sha256 = "128l88020jqmmg0i7k3f1qhx7i01xg77qgwqhmbc621cldfn238d";
+      sha256 = "0d0d615da32c08c35685983f7cceeb01c4d3210e6ecc13c1ab154b2000421489";
       name = "ktextwidgets-5.59.0.tar.xz";
     };
   };
@@ -486,7 +486,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kunitconversion-5.59.0.tar.xz";
-      sha256 = "0cvpjqivp3b0h10h9haafngx62whpvkyh5b6ph8b0mkdlhdkiqh7";
+      sha256 = "07e2381ba46d56b010bc6615e8e7be900bd39f754ac1044180608dbb23967733";
       name = "kunitconversion-5.59.0.tar.xz";
     };
   };
@@ -494,7 +494,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kwallet-5.59.0.tar.xz";
-      sha256 = "0wgddb6l18n36pxpxidaclz1ghchzw49k2kp55w2xaiahb07cg3k";
+      sha256 = "733c76c0822aaa2e7829778a9908ff90c1173e65aac57efb35c3a240cd6aed71";
       name = "kwallet-5.59.0.tar.xz";
     };
   };
@@ -502,7 +502,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kwayland-5.59.0.tar.xz";
-      sha256 = "1075yf0z8dp0wbw82ac82ccjpra4blqb380m4zpmbrajniqkpbir";
+      sha256 = "39ae3b71b452e555ef2715a0b1305d44e52b1913882981f8e2e036f481f3e580";
       name = "kwayland-5.59.0.tar.xz";
     };
   };
@@ -510,7 +510,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kwidgetsaddons-5.59.0.tar.xz";
-      sha256 = "1fzkh8mb93mxf0p5pfkvjj5bvzqs8xjkhjyx0066lf45lv82zqk9";
+      sha256 = "69e22fd0a685386a0c00dd4b3865471affbd8a947bba5b2e70bd8eb42a82f3bb";
       name = "kwidgetsaddons-5.59.0.tar.xz";
     };
   };
@@ -518,7 +518,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kwindowsystem-5.59.0.tar.xz";
-      sha256 = "1qz1k2n7x21b19s2rkg9hnqw2hfr5zmfplwbs2m3qcp79grfflbc";
+      sha256 = "6c51e7f24be7323caad08bd3ebea2fd941c1b185e9cd2c740a2b887eac98e1e3";
       name = "kwindowsystem-5.59.0.tar.xz";
     };
   };
@@ -526,7 +526,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kxmlgui-5.59.0.tar.xz";
-      sha256 = "0l15nhkcibsr27aph0yjhb4cc2czvlw0bb0hlc158spfw5j12dp4";
+      sha256 = "e4361164e1ee6a5402a310ac0538dd9f09c6c882d20378d51159afc826b42550";
       name = "kxmlgui-5.59.0.tar.xz";
     };
   };
@@ -534,7 +534,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/kxmlrpcclient-5.59.0.tar.xz";
-      sha256 = "1w2giwx02bdx8n9za78b0235p906mxig58a67gyccap1bffvd05a";
+      sha256 = "aa80b69d5be12ac6fc3b46a1f262af06a45b86000b1df59345bd2d013a8f4ff0";
       name = "kxmlrpcclient-5.59.0.tar.xz";
     };
   };
@@ -542,7 +542,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/modemmanager-qt-5.59.0.tar.xz";
-      sha256 = "0dqal9vkwickxg1s2r9rrvj6xw9z1fq5c8krxqvnya1hfd438h5n";
+      sha256 = "b64034487330286f37ee792256b00b3ff16ee4ce3965a1c3eb93453e77a20a37";
       name = "modemmanager-qt-5.59.0.tar.xz";
     };
   };
@@ -550,7 +550,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/networkmanager-qt-5.59.0.tar.xz";
-      sha256 = "14samixjvb41azyz4fkwpk1wm9dc8g4fq2ki1bsjbgmdc335zr9q";
+      sha256 = "38e55fc660adbe25f50a710aecc843aca5cac3bc7c3af2fd5781ac2d7bac4a93";
       name = "networkmanager-qt-5.59.0.tar.xz";
     };
   };
@@ -558,7 +558,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/oxygen-icons5-5.59.0.tar.xz";
-      sha256 = "0bhby2jrnaly5b55rk6gqvz6rn3rpdwyjipy76wcpa8vsaxcnv2h";
+      sha256 = "506ccbbad21ba9cbb839fe46e979bb79d86cfec6cfcc5cca2a9e2a9ba5f00b2e";
       name = "oxygen-icons5-5.59.0.tar.xz";
     };
   };
@@ -566,7 +566,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/plasma-framework-5.59.0.tar.xz";
-      sha256 = "16d47n8gkrd2c7j3m6qxahs82fazf7bb7v1jb4zaydh1w3dsa30m";
+      sha256 = "150ca5dbe00136af3e5932ecb3d6715f398134541d9b3ae461a2e5f9903da499";
       name = "plasma-framework-5.59.0.tar.xz";
     };
   };
@@ -574,7 +574,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/prison-5.59.0.tar.xz";
-      sha256 = "0426mhbgxs0lpg1cw4gnlm8jmj2qg8nk06fz4zjz860biy8j0l6w";
+      sha256 = "dc5020918f0b18f4e527df19302d7a58c82a51a5f611cec2bb14e8fe16ac4610";
       name = "prison-5.59.0.tar.xz";
     };
   };
@@ -582,7 +582,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/purpose-5.59.0.tar.xz";
-      sha256 = "0f22bpqk5fnvalzhr3kd0bi2jhxabswj2drcgplmax38rv73g207";
+      sha256 = "078837cece687455e97d2c3721b95eaa4329e2026d8e0c3f55dbba32f15d4238";
       name = "purpose-5.59.0.tar.xz";
     };
   };
@@ -590,7 +590,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/qqc2-desktop-style-5.59.0.tar.xz";
-      sha256 = "0pd05r494plvi2ms8l5yrb7r6mvr7nbaz2vj3lpjknp08vw3gpky";
+      sha256 = "7ede37f846e0da292f1d728baf963d795793cfcabe50a4ab889b5e92482ea05d";
       name = "qqc2-desktop-style-5.59.0.tar.xz";
     };
   };
@@ -598,7 +598,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/solid-5.59.0.tar.xz";
-      sha256 = "0i8hmgy6xvafnn04k28fbppp55ahw3bhajlslclky11l3ik96m0x";
+      sha256 = "1d5493661c34043f29a39a4a05d7e0509572ef5d0e894980b54eed6efcab1045";
       name = "solid-5.59.0.tar.xz";
     };
   };
@@ -606,7 +606,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/sonnet-5.59.0.tar.xz";
-      sha256 = "09ghrz6qk5vxxkpxjj9gcdzvvhrpspywdba0s6ypjagd5di4s3pk";
+      sha256 = "f30e4d622bed2979bdd140adc6fdd537c3bd7f632f49d9efec7d9789cdcff025";
       name = "sonnet-5.59.0.tar.xz";
     };
   };
@@ -614,7 +614,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/syndication-5.59.0.tar.xz";
-      sha256 = "122mf92s19d5vqsyg0vg6c82nfzbv2jlhymabcvbfmq499gihk5s";
+      sha256 = "ba4c185f4a0457b7365baa7a48a5d8eb3b2b10336f83e735dea5a5a045725588";
       name = "syndication-5.59.0.tar.xz";
     };
   };
@@ -622,7 +622,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/syntax-highlighting-5.59.0.tar.xz";
-      sha256 = "1w4ibqms2gbf54q15khyxqh993y8kfi5px1kmpksaf060yxh1mwf";
+      sha256 = "8ed700bb070638a5e7ad33f45ba29bc88f9420ee1ece1230296e3da12b5e91f0";
       name = "syntax-highlighting-5.59.0.tar.xz";
     };
   };
@@ -630,7 +630,7 @@
     version = "5.59.0";
     src = fetchurl {
       url = "${mirror}/stable/frameworks/5.59/threadweaver-5.59.0.tar.xz";
-      sha256 = "0qjzi8n98hpl2qa7xwfpxy7y6wcnvy3mimpmrciid4lm91n7y97w";
+      sha256 = "fc247f6c4895921623cbf5d65887df9671e38fefd7f17e1416f442942c8a5f62";
       name = "threadweaver-5.59.0.tar.xz";
     };
   };
