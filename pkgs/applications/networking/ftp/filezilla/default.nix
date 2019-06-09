@@ -20,6 +20,8 @@ stdenv.mkDerivation {
     dbus gnutls wxGTK30 libidn tinyxml gettext xdg_utils gtk2 sqlite
     pugixml libfilezilla nettle ];
 
+  enableParallelBuilding = true;
+
   meta = with stdenv.lib; {
     homepage = https://filezilla-project.org/;
     description = "Graphical FTP, FTPS and SFTP client";

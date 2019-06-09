@@ -466,6 +466,8 @@ in
     wxGTK = wxGTK30;
   } // (config.aegisub or {}));
 
+  aerc = callPackage ../applications/networking/mailreaders/aerc { };
+
   aerospike = callPackage ../servers/nosql/aerospike { };
 
   aespipe = callPackage ../tools/security/aespipe { };
@@ -821,6 +823,10 @@ in
   goku = callPackage ../os-specific/darwin/goku { };
 
   kwakd = callPackage ../servers/kwakd { };
+
+  chunkwm = callPackage ../os-specific/darwin/chunkwm {
+    inherit (darwin.apple_sdk.frameworks) Carbon Cocoa ScriptingBridge;
+  };
 
   kwm = callPackage ../os-specific/darwin/kwm { };
 
@@ -2537,6 +2543,8 @@ in
   docbook2x = callPackage ../tools/typesetting/docbook2x { };
 
   docbook2mdoc = callPackage ../tools/misc/docbook2mdoc { };
+
+  docear = callPackage ../applications/office/docear { };
 
   dockbarx = callPackage ../applications/misc/dockbarx { };
 
@@ -5898,9 +5906,7 @@ in
 
   silc_server = callPackage ../servers/silc-server { };
 
-  sile = callPackage ../tools/typesetting/sile {
-  inherit (lua52Packages) lua luaexpat lua-zlib luafilesystem lpeg luasocket luasec;
-  };
+  sile = callPackage ../tools/typesetting/sile { };
 
   silver-searcher = callPackage ../tools/text/silver-searcher { };
 
@@ -8440,8 +8446,8 @@ in
 
   pachyderm = callPackage ../applications/networking/cluster/pachyderm { };
 
-  php = php72;
-  phpPackages = php72Packages;
+  php = php73;
+  phpPackages = php73Packages;
 
   php71Packages = recurseIntoAttrs (callPackage ./php-packages.nix {
     php = php71;
@@ -8476,7 +8482,7 @@ in
     php72
     php73;
 
-  php-embed = php72-embed;
+  php-embed = php73-embed;
 
   php71-embed = php71.override {
     config.php.embed = true;
@@ -8493,7 +8499,7 @@ in
     config.php.apxs2 = false;
   };
 
-  php-unit = php72-unit;
+  php-unit = php73-unit;
 
   php71-unit = php71.override {
     config.php.embed = true;
@@ -8794,7 +8800,6 @@ in
 
   inherit (callPackage ../tools/admin/ansible { })
     ansible
-    ansible_2_5
     ansible_2_6
     ansible_2_7;
 
@@ -14405,6 +14410,8 @@ in
 
   mpdscribble = callPackage ../tools/misc/mpdscribble { };
 
+  mtprotoproxy = python3.pkgs.callPackage ../servers/mtprotoproxy { };
+
   micro-httpd = callPackage ../servers/http/micro-httpd { };
 
   miniHttpd = callPackage ../servers/http/mini-httpd {};
@@ -14823,6 +14830,11 @@ in
   ruby-zoom = callPackage ../tools/text/ruby-zoom { };
 
   sensu = callPackage ../servers/monitoring/sensu { };
+
+  inherit (callPackages ../servers/monitoring/sensu-go { })
+    sensu-go-agent
+    sensu-go-backend
+    sensu-go-cli;
 
   uchiwa = callPackage ../servers/monitoring/uchiwa { };
 
@@ -16159,6 +16171,8 @@ in
   ### DATA
 
   adapta-backgrounds = callPackage ../data/misc/adapta-backgrounds { };
+
+  adementary-theme = callPackage ../data/themes/adementary { };
 
   agave = callPackage ../data/fonts/agave { };
 
@@ -18200,6 +18214,8 @@ in
   gitRepo = callPackage ../applications/version-management/git-repo {
     python = python27;
   };
+
+  git-quick-stats = callPackage ../development/tools/git-quick-stats {};
 
   git-review = callPackage ../applications/version-management/git-review { };
 

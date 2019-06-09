@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "0kyc96qkd19g9dmd3vv3x3mqlqizn3xbpngqkc7kkdl063l18nzf";
+    sha256 = "ee5b14e83080b6390f9bf8d9bbfab03f628aebe863efd16a4b2f8536b149cc4f";
   };
 
   doCheck = false;

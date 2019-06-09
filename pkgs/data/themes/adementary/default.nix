@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Adwaita-based gtk+ theme with design influence from elementary OS and Vertex gtk+ theme";
-    homepage    = https://github.com/hrdwrrsk/tetra-gtk-theme;
+    homepage    = https://github.com/hrdwrrsk/adementary-theme;
     license     = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
     platforms   = platforms.linux;
