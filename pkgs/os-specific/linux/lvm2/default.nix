@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   # gcc: error: ../../device_mapper/libdevice-mapper.a: No such file or directory
   enableParallelBuilding = false;
 
-  // Patches safe on all, but limit to musl for now
+  # Patches safe on all, but limit to musl for now
   patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
     (fetchpatch {
       name = "fix-stdio-usage.patch";
