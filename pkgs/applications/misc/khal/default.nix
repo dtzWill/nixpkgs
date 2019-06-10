@@ -32,14 +32,12 @@ with python3.pkgs; buildPythonApplication rec {
 
   postInstall = ''
     install -D misc/__khal $out/share/zsh/site-functions/__khal
-
-    # bah, fixes tests
-    export LC_ALL=en_US.UTF-8
   '';
 
-  doInstallCheck = !stdenv.isAarch64;
+  doCheck = !stdenv.isAarch64;
 
-  installCheckPhase = ''
+  checkPhase = ''
+    export LC_ALL=C.UTF-8
     py.test
   '';
 
