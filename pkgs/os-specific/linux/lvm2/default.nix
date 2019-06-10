@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
 
       substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run ${systemd}/bin/systemd
+        --replace $out/bin/systemd-run ${systemd}/bin/systemd-run
     '';
 
   meta = with stdenv.lib; {
