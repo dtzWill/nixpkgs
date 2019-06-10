@@ -2443,13 +2443,13 @@ let
         sha512 = "MWikgl9n9M3w+bpsY3He8L+w9eF9338xRl8IAO5viDizwSzziFEyUzo2xrrloB64ADbTf8uA8vRqqttDTOmccg==";
       };
     };
-    "mime-2.4.3" = {
+    "mime-2.4.4" = {
       name = "mime";
       packageName = "mime";
-      version = "2.4.3";
+      version = "2.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mime/-/mime-2.4.3.tgz";
-        sha512 = "QgrPRJfE+riq5TPZMcHZOtm8c6K/yYrMbKIoRfapfiGLxS8OTeIfRhUGW5LU7MlRa52KOAGCfUNruqLrIBvWZw==";
+        url = "https://registry.npmjs.org/mime/-/mime-2.4.4.tgz";
+        sha512 = "LRxmNwziLPT828z+4YkNzloCFC2YM4wrB99k+AV5ZbEyfGNWfG8SO1FUXLmLDBSo89NrJZ4DIWeLjy1CHGhMGA==";
       };
     };
     "mime-db-1.40.0" = {
@@ -4903,10 +4903,10 @@ in
   joplin = nodeEnv.buildNodePackage {
     name = "joplin";
     packageName = "joplin";
-    version = "1.0.139";
+    version = "1.0.140";
     src = fetchurl {
-      url = "https://registry.npmjs.org/joplin/-/joplin-1.0.139.tgz";
-      sha512 = "sIXGKP0gMiVf41G8AR9i3Bh3XJB86SCvBlIiW/6A9xspM52VK0TRYveTy07Z1+k97xnxJm/f6Opu6OdYn1Y2ug==";
+      url = "https://registry.npmjs.org/joplin/-/joplin-1.0.140.tgz";
+      sha512 = "+Amc5prSJzN96pXObO5MfbLTfUB7MaMe0Qo+ac99eAX0PGzcbmelVLOeBpEyPu4XaDkaFiN5F+XtKzncVBTyWg==";
     };
     dependencies = [
       sources."@cronvel/get-pixels-3.3.1"
@@ -5142,7 +5142,7 @@ in
       sources."markdown-it-8.4.2"
       sources."md5-2.2.1"
       sources."mdurl-1.0.1"
-      sources."mime-2.4.3"
+      sources."mime-2.4.4"
       sources."mime-db-1.40.0"
       sources."mime-types-2.1.24"
       sources."mimic-response-1.0.1"
