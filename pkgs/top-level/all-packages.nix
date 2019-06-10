@@ -5594,6 +5594,8 @@ in
 
   redsocks = callPackage ../tools/networking/redsocks { };
 
+  reredirect = callPackage ../tools/misc/reredirect { };
+
   retext = callPackage ../applications/editors/retext { };
 
   richgo = callPackage ../development/tools/richgo {  };
