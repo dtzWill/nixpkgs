@@ -25,6 +25,7 @@ with python3.pkgs; buildPythonApplication rec {
     urwid
     pkginfo
     freezegun
+    pkgs.shadow
   ];
   nativeBuildInputs = [ setuptools_scm ];
   checkInputs = [ pytest pkgs.glibcLocales  /* :( */ ];
@@ -36,9 +37,9 @@ with python3.pkgs; buildPythonApplication rec {
     export LC_ALL=en_US.UTF-8
   '';
 
-  doCheck = !stdenv.isAarch64;
+  doInstallCheck = !stdenv.isAarch64;
 
-  checkPhase = ''
+  installCheckPhase = ''
     py.test
   '';
 
