@@ -16,28 +16,12 @@ stdenv.mkDerivation rec {
 
   prePatch = ''
     patchShebangs src
-
-    substituteInPlace vendor/scrypt/CMakeLists.txt \
-      --replace /usr/bin/ ""
-
-    # scrypt in nixpkgs only produces a binary so we lift the patching from that so allow
-    # building the vendored version. This is very much NOT DRY.
-    # The proper solution is to have scrypt generate a dev output with the required files and just symlink
-    # into vendor/scrypt
-    for f in Makefile.in autocrap/Makefile.am libcperciva/cpusupport/Build/cpusupport.sh ; do
-      substituteInPlace vendor/scrypt/scrypt-*/scrypt/$f --replace "command -p " ""
-    done
-
-    # cryfs is vendoring an old version of spdlog
-    rm -rf vendor/spdlog/spdlog
-    ln -s ${spdlog} vendor/spdlog/spdlog
   '';
 
   buildInputs = [ boost cryptopp curl fuse openssl python spdlog ];
 
   patches = [
     ./test-no-network.patch  # Disable tests using external networking
-    ./skip-failing-test-large-malloc.patch
   ];
 
   # coreutils is needed for the vendored scrypt
