@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "1brhm9i063ncy3i7fcqmb9kgl4dk2yp6y44zds0p4ka9n1lc5lj3";
   };
 
+  hardeningDisable = [ "format" ]; # TODO: Investigate, fix!
+
   meta = with stdenv.lib; {
     description = "Breakout clone from the LGames series, scalable remake.";
     homepage = http://lgames.sourceforge.net/LBreakoutHD/;
