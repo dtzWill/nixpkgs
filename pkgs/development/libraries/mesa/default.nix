@@ -2,7 +2,7 @@
 , pkgconfig, intltool, ninja, meson
 , file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
 , llvmPackages, libffi, libomxil-bellagio, libva-minimal
-, libelf, libvdpau
+, libelf, libvdpau, python3Packages
 , libglvnd
 , enableRadv ? true
 , galliumDrivers ? null
