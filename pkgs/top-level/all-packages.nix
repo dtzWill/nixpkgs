@@ -4063,6 +4063,8 @@ in
 
   lbreakout2 = callPackage ../games/lbreakout2 { };
 
+  lbreakouthd = callPackage ../games/lbreakouthd { };
+
   lego = callPackage ../tools/admin/lego { };
 
   leocad = callPackage ../applications/graphics/leocad { };
