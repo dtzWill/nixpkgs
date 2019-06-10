@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   name = "cryfs-${version}";
-  version = "0.9.10";
+  version = "0.10.2";
 
   src = fetchFromGitHub {
     owner  = "cryfs";
     repo   = "cryfs";
     rev    = "${version}";
-    sha256 = "04yqpad8x0hiiwpykcn3swi0py6sg9xid6g15ny2qs4j3llin5ry";
+    sha256 = "1mi6lf8k4bknxjf11a2vqsrgyx3ld8fbsqssvs91dlmwcpm9qi1i";
   };
 
   prePatch = ''
