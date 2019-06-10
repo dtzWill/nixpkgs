@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ##rev = "2c1e5c186ee36fb215d3f312f9801884f4720d8f";
     rev = "bc396c967c7cd8e7a109858e428d7bf97173f7a7";
     #rev = "refs/tags/${version}";
-    sha256 = "1ydsi9pk3s1scjvxz0v7b9hp6blharvpw7kin7dz4p369vq9541p";
+    sha256 = "16ld1h2z2hr0r1ms6bkvrqnb3ag0q0bz15029x4mnih9pvih461d";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
