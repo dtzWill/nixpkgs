@@ -85,6 +85,7 @@
   ./misc/nixpkgs.nix
   ./misc/passthru.nix
   ./misc/version.nix
+  ./misc/nixops-autoluks.nix
   ./programs/adb.nix
   ./programs/atop.nix
   ./programs/autojump.nix
