@@ -24,5 +24,6 @@ buildGoPackage rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ rvolosatovs bennofs np ];
     license = licenses.bsd3;
+    broken = true; # not broken but shouldn't be used, not in keybase
   };
 }
