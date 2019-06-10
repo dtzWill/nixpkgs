@@ -16,7 +16,7 @@ assert (versionAtLeast gmime.version "3.0");
 
 stdenv.mkDerivation rec {
   pname = "notmuch";
-  version = "0.29_rc1";
+  version = "0.29_rc1.001";
 
   passthru = {
     pythonSourceRoot = "${pname}-${version}/bindings/python";
@@ -27,9 +27,10 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     name = "${pname}-${version}"; # descriptive but exact name, used above in pythonSourceRoot
     url = git://git.notmuchmail.org/git/notmuch;
-    #rev = "2c1e5c186ee36fb215d3f312f9801884f4720d8f";
-    rev = "refs/tags/${version}";
-    sha256 = "1ydsi9pk3s0scjvxz0v7b9hp6blharvpw7kin7dz4p369vq9541p";
+    ##rev = "2c1e5c186ee36fb215d3f312f9801884f4720d8f";
+    rev = "bc396c967c7cd8e7a109858e428d7bf97173f7a7";
+    #rev = "refs/tags/${version}";
+    sha256 = "1ydsi9pk3s1scjvxz0v7b9hp6blharvpw7kin7dz4p369vq9541p";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
