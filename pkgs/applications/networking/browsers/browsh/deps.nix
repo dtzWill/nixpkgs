@@ -6,7 +6,7 @@
       type = "git";
       url = "https://github.com/NYTimes/gziphandler";
       rev =  "2600fb119af974220d3916a5916d6e31176aac1b";
-      sha256 = "0bh6qqz2iyrnxhhj02s8mqayqwqxy182ldxh97q1vg7phlbm52xx";
+      sha256 = "0bh6qqz3iyrnxhhj02s8mqayqwqxy182ldxh97q1vg7phlbm52xx";
     };
   }
   {
