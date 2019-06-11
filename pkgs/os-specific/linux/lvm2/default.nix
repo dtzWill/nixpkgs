@@ -4,12 +4,12 @@
 
 stdenv.mkDerivation rec {
   pname = "lvm2";
-  version = "2.03.03";
+  version = "2.03.04";
 
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
     rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "1ly8axih5yn76j787mhfg6hinxfsjgy40c20lm506c215612jgbs";
+    sha256 = "1fq7yc4ay42vd89r9hzi2vn2wf76vg8w23if7ybw72jpan0hz60z";
   };
 
   configureFlags = [
