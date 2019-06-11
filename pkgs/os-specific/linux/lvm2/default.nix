@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
     "--enable-udev_rules"
     "--enable-udev_sync"
     "--enable-pkgconfig"
-    "--enable-applib"
+    "--enable-applib" # no longer recognized
     "--enable-cmdlib"
+    "--disable-udev-systemd-background-jobs"
   ] ++ stdenv.lib.optional enable_dmeventd " --enable-dmeventd"
   ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
@@ -79,7 +80,9 @@ stdenv.mkDerivation rec {
       cp scripts/blk_availability_systemd_red_hat.service $out/etc/systemd/system
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
 
-      # Look for systemd-run relative? Hmm, grab from libudev instead maybe
+      # XXX: How to do this properly? Seems we don't like having the abs path
+      # to systemd in the udev rule, and relative by itself won't find it.
+      # For now, kinda kludge around with '--disable-udev-systemd-background-jobs'.
       substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
         --replace $out/bin/systemd-run ${udev}/bin/systemd-run
     '';
