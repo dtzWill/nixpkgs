@@ -28,6 +28,8 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
+  doCheck = false; # REVISIT
+
   # Remove .pytest_cache when using py.test in a Nix build
   setupHook = writeText "pytest-hook" ''
     pytestcachePhase() {
