@@ -1839,6 +1839,8 @@ in {
 
   requests-unixsocket = callPackage ../development/python-modules/requests-unixsocket {};
 
+  requests-async = callPackage ../development/python-modules/requests-async { };
+
   requests-aws4auth = callPackage ../development/python-modules/requests-aws4auth { };
 
   howdoi = callPackage ../development/python-modules/howdoi {};
