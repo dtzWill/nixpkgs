@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
-#, fetchPypi
-, fetchFromGitHub
+, fetchPypi
 , pythonOlder
 , attrs
 , chardet
@@ -28,18 +27,18 @@ buildPythonPackage rec {
   pname = "aiohttp";
   version = "3.5.4";
 
-  src = fetchFromGitHub {
-    owner = "aio-libs";
-    repo = pname;
-    fetchSubmodules = true;
-    #rev = "v${version}";
-    rev = "34478be1a6e953cadb7e91cdfd01f6965d4a7b99";
-    sha256 = "00xflcpm7ax69768hg7m1xx56g70wy4mqwv5abh5c03jimvz5d7k";
-  };
-  #src = fetchPypi {
-  #  inherit pname version;
-  #  sha256 = "9c4c83f4fa1938377da32bc2d59379025ceeee8e24b89f72fcbccd8ca22dc9bf";
+  #src = fetchFromGitHub {
+  #  owner = "aio-libs";
+  #  repo = pname;
+  #  fetchSubmodules = true;
+  #  #rev = "v${version}";
+  #  rev = "34478be1a6e953cadb7e91cdfd01f6965d4a7b99";
+  #  sha256 = "00xflcpm7ax69768hg7m1xx56g70wy4mqwv5abh5c03jimvz5d7k";
   #};
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "9c4c83f4fa1938377da32bc2d59379025ceeee8e24b89f72fcbccd8ca22dc9bf";
+  };
 
   disabled = pythonOlder "3.5";
 
