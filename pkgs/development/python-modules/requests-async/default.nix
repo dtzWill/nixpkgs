@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi, requests, httpcore }:
+{ lib, buildPythonPackage, fetchPypi, requests, httpcore
+, black, isort, pytest, pytest-asyncio, pytestcov #, python-multipart
+# Not packaged yet
+#, starlette, uvicorn
+}:
 
 buildPythonPackage rec {
   pname = "requests-async";
@@ -14,6 +18,8 @@ buildPythonPackage rec {
       --replace "httpcore==0.3.*" \
                 "httpcore==0.*"
   '';
+
+  checkInputs = [ black isort pytest pytest-asyncio pytestcov ]; # python-multipart ];
 
   propagatedBuildInputs = [ requests httpcore ];
 }
