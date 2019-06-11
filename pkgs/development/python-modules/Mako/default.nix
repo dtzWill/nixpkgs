@@ -4,7 +4,7 @@
 , markupsafe
 , nose
 , mock
-, pytest_3
+, pytest
 , isPyPy
 }:
 
@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "0qj16ai937wrbpv1a9g395gybb9s06rmdj3arbp8fpl37bg6byhc";
   };
 
-  checkInputs = [ markupsafe nose mock pytest_3 ];
+  checkInputs = [ markupsafe nose mock pytest ];
   propagatedBuildInputs = [ markupsafe ];
 
   doCheck = !isPyPy;  # https://bitbucket.org/zzzeek/mako/issue/238/2-tests-failed-on-pypy-24-25
