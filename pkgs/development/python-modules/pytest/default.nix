@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   checkPhase = ''
     runHook preCheck
-    $out/bin/py.test -x testing/ -k "not test_collect_pyargs_with_testpaths and not test_installed_plugin_rewrite0"
+    $out/bin/py.test -x testing/ -k "not test_collect_pyargs_with_testpaths"
     runHook postCheck
   '';
 
