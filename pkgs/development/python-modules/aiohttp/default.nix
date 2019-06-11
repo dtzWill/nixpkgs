@@ -20,6 +20,7 @@
 , pytest-mock
 , trustme
 , brotlipy
+, twine
 }:
 
 buildPythonPackage rec {
@@ -45,7 +46,7 @@ buildPythonPackage rec {
 
   checkInputs = [
     pytestrunner pytest gunicorn pytest-timeout async_generator pytest_xdist
-    pytest-mock pytestcov trustme brotlipy
+    pytest-mock pytestcov trustme brotlipy twine
   ];
 
   propagatedBuildInputs = [ attrs chardet multidict async-timeout yarl ]
