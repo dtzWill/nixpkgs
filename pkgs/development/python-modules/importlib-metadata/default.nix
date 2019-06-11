@@ -9,6 +9,7 @@
 , isPy3k
 , importlib-resources
 , packaging
+#, pytest
 }:
 
 buildPythonPackage rec {
@@ -27,6 +28,13 @@ buildPythonPackage rec {
     ++ lib.optionals (!isPy3k) [ pathlib2 contextlib2 configparser ];
 
   checkInputs = [ importlib-resources packaging ];
+
+  doCheck = false;
+  #checkPhase = ''
+  #  runHook preCheck
+  #  py.test -x testing/ -k "not test_raises_exception_looks_iterable"
+  #  runHook postCheck
+  #'';
 
   meta = with lib; {
     description = "Read metadata from Python packages";
