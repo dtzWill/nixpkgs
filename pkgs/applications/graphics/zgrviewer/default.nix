@@ -1,22 +1,23 @@
-{ stdenv, fetchurl, jre, unzip, runtimeShell }:
+{ stdenv, fetchurl, jre, unzip, makeWrapper }:
 stdenv.mkDerivation rec {
   version = "0.10.0";
   pname = "zgrviewer";
-  name="${pname}-${version}";
   src = fetchurl {
-    url = "mirror://sourceforge/zvtm/${pname}/${version}/${name}.zip";
+    url = "mirror://sourceforge/zvtm/${pname}/${version}/${pname}-${version}.zip";
     sha256 = "1cizlrycfgbb1gkfwq14vnihxx5bnsbmwki6p2y4d9bdyfhf4anh";
   };
-  buildInputs = [jre unzip];
-  buildPhase = "";
+  nativeBuildInputs = [ unzip makeWrapper ];
+  buildInputs = [ jre ];
+  dontBuild = true;
   installPhase = ''
     mkdir -p "$out"/{bin,share/java/zvtm/plugins,share/doc/zvtm}
 
     cp -r target/* "$out/share/java/zvtm/"
 
-    echo '#!${runtimeShell}' > "$out/bin/zgrviewer"
-    echo "${jre}/lib/openjdk/jre/bin/java -jar '$out/share/java/zvtm/zgrviewer-${version}.jar' \"\$@\"" >> "$out/bin/zgrviewer"
-    chmod a+x "$out/bin/zgrviewer"
+    makeWrapper ${jre.home}/bin/java $out/bin/zgrviewer \
+    --add-flags "-jar $out/share/java/zvtm/zgrviewer-${version}.jar" \
+    --argv0 ${pname} \
+    --set JAVA_HOME=${jre.home}
   '';
   meta = {
     # Quicker to unpack locally than load Hydra

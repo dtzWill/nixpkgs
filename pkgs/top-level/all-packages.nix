@@ -21364,7 +21364,7 @@ in
 
   zexy = callPackage ../applications/audio/pd-plugins/zexy  { };
 
-  zgrviewer = callPackage ../applications/graphics/zgrviewer {};
+  zgrviewer = callPackage ../applications/graphics/zgrviewer { jre = jdk11; };
 
   zgv = callPackage ../applications/graphics/zgv {
    # Enable the below line for terminal display. Note
