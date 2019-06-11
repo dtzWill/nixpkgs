@@ -33,8 +33,8 @@ buildGoPackage rec {
   src = fetchFromGitHub {
     owner = "keybase";
     repo = "client";
-    rev = "0ba4b678810e3eaa89cb5070a156484329a2491a";
-    sha256 = "12aybjgg902v09i924x99bw5nd6gc3011h5lk4q6vnlmk1qvja8r";
+    rev = "a5ff5cfcf2f480a10be834476b2fae475e55f70a";
+    sha256 = "0lhfwyb4bx8d3m3ga6ipams8z38wbzd62h7n7sj4yvrjhlnspdsh";
   };
   #src = fetchurl {
   #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
