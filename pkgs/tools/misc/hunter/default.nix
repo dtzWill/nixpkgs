@@ -10,7 +10,7 @@ buildRustPackage rec {
   pname = "hunter";
   version = "1.2.3";
 
-  cargoSha256 = "0fhkav9y35jfmkqyrgzp6gh9fb5gy8zgc4m99k4sngba0abb8p3z";
+  cargoSha256 = "03srma9w8jvx5h2j8dca1z50km3ixxzxl4agc0974zdpmwpyn647";
 
   src = fetchFromGitHub {
     owner = "rabite0";
