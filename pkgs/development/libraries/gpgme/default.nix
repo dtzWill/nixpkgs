@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan
+{ stdenv, fetchurl, fetchpatch, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan
 , file, which, ncurses
 , texinfo
 , buildPackages
@@ -19,6 +19,18 @@ stdenv.mkDerivation rec {
     url = "mirror://gnupg/gpgme/${name}.tar.bz2";
     sha256 = "0c6676g0yhfsmy32i1dgwh5cx0ja8vhcqf4k08zad177m53kxcnl";
   };
+
+  patches = [ (fetchpatch {
+    # Commit message explains it nicely:
+    # > Without this change, the signature verification would fail.  This
+    # > problem was introduced in bded8ebc59c7fdad2617f4c9232a58047656834c in
+    # > an attempt to avoid an error when *not* verifying.  Clearly more test
+    # > suite coverage is needed to avoid introducing this sort of problem in
+    # > the future.
+    # This failure is also caught by recent notmuch testsuite.
+    url = "https://sources.debian.org/data/main/g/gpgme1.0/1.13.0-2/debian/patches/0002-gpg-Avoid-error-diagnostics-with-override-session-ke.patch";
+    sha256 = "1684fpr8ggg0f40231jyaviw6y2zyq3g8ngckw26w8892r1siqcn";
+  }) ];
 
   outputs = [ "out" "dev" "info" ];
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
