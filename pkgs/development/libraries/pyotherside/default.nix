@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     python3 qtbase qtquickcontrols qtsvg ncurses
   ];
 
-  patches = [ ./qml-path.patch ];
+  patches = [
+    ./qml-path.patch
+    ./skip-python-config-wrapper-as-it-only-hurts-for-now.patch
+  ];
   installTargets = [ "sub-src-install_subtargets" ];
 
   meta = with stdenv.lib; {
