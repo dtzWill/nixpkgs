@@ -14789,6 +14789,7 @@ in
   samba3 = callPackage ../servers/samba/3.x.nix { };
 
   samba4 = callPackage ../servers/samba/4.x.nix {
+    rpcgen = netbsd.rpcgen;
     python = python3;
   };
 
@@ -17763,7 +17764,7 @@ in
       inherit (pythonPackages) elpy;
       inherit
         autoconf automake git libffi libpng pkgconfig poppler rtags w3m zlib
-        substituteAll rustPlatform;
+        substituteAll rustPlatform cmake llvmPackages;
     };
   };
 

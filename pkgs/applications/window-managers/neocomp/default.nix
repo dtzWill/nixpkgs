@@ -1,15 +1,3 @@
-{ stdenv
-, fetchFromGitHub
-, asciidoc
-, docbook_xml_dtd_45
-, docbook_xsl
-, freetype
-, judy
-, libGL
-, libconfig
-, libdrm
-, libxml2
-, libxslt
 , pcre
 , pkgconfig
 , xlibs
