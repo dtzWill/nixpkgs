@@ -3021,6 +3021,7 @@ in {
   hkdf = callPackage ../development/python-modules/hkdf { };
 
   httpretty = callPackage ../development/python-modules/httpretty { };
+  httpcore= callPackage ../development/python-modules/httpcore { };
 
   icalendar = callPackage ../development/python-modules/icalendar { };
 
