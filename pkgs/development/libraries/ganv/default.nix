@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   name = "ganv-unstable-${rev}";
-  rev = "2016-10-15";
+  rev = "2019-04-13";
 
   src = fetchgit {
     url = "http://git.drobilla.net/cgit.cgi/ganv.git";
-    rev = "31685d283e9b811b61014f820c42807f4effa071";
-    sha256 = "0xmbykdl42jn9cgzrqrys5lng67d26nk5xq10wkkvjqldiwdck56";
+    rev = "c4e5940f935b1ac4b152aa7a1311012791f073ae";
+    sha256 = "1736skyy0p1chfycpx96k4w1dyx545wcc15z68gwzvhnbns0hxgw";
   };
 
   nativeBuildInputs = [ pkgconfig wafHook ];
