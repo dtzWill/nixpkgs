@@ -22,6 +22,7 @@ buildPythonPackage rec {
   checkPhase = ''
     pytest
   '';
+  doCheck = false; # dep cycle w/pytest b/c lameness, TODO: better solution
 
   meta = with lib; {
     description = "Pathlib-compatible object wrapper for zip files";
