@@ -1,18 +1,18 @@
 { stdenv, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
     pname = "pyparsing";
-    version = "2.3.1";
+    version = "2.4.0";
 
     src = fetchPypi {
       inherit pname version;
-      sha256 = "66c9268862641abcac4a96ba74506e594c884e3f57690a696d21ad8210ed667a";
+      sha256 = "0anb80c0sn7mjnrj6gs3by8yn34rzw0z5fj6jx78y4gw44rw0wqq";
     };
 
     # Not everything necessary to run the tests is included in the distribution
     doCheck = false;
 
     meta = with stdenv.lib; {
-      homepage = http://pyparsing.wikispaces.com/;
+      homepage = https://github.com/pyparsing/pyparsing;
       description = "An alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions";
       license = licenses.mit;
     };
