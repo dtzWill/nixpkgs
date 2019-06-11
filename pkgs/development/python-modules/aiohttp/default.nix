@@ -21,7 +21,7 @@
 , trustme
 , brotlipy
 , twine
-, gcc
+, cython
 }:
 
 buildPythonPackage rec {
@@ -43,14 +43,12 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  AIOHTTP_NO_EXTENSIONS = 1;
+  nativeBuildInputs = [ cython ];
 
   checkInputs = [
     pytestrunner pytest gunicorn pytest-timeout async_generator pytest_xdist
     pytest-mock pytestcov trustme brotlipy twine
   ];
-
-  buildInputs = [ gcc ]; # BOOO :(
 
   propagatedBuildInputs = [ attrs chardet multidict async-timeout yarl ]
     ++ lib.optionals (pythonOlder "3.7") [ idna-ssl typing-extensions ];
