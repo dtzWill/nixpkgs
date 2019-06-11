@@ -1,5 +1,5 @@
 { lib, fetchPypi, buildPythonPackage
-, requests-async }:
+, requests-async, pytest }:
 
 buildPythonPackage rec {
   pname = "joplin_api";
@@ -9,6 +9,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "139rq8sfbnhyp7z452aj6l6df9bvyh1dhvhlxdmdr0r2shdx6bdl";
   };
+
+  checkInputs = [ pytest ];
 
   propagatedBuildInputs = [ requests-async ];
 
