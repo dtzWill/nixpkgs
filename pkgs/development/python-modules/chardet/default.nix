@@ -1,5 +1,5 @@
 { stdenv, buildPythonPackage, fetchPypi
-, pytest_3, pytestrunner, hypothesis }:
+, pytest, pytestrunner, hypothesis, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "chardet";
@@ -10,7 +10,12 @@ buildPythonPackage rec {
     sha256 = "1bpalpia6r5x1kknbk11p1fzph56fmmnp405ds8icksd3knr5aw4";
   };
 
-  checkInputs = [ pytest_3 pytestrunner hypothesis ];
+  patches = [ (fetchpatch {
+    url = "https://github.com/chardet/chardet/pull/174.patch";
+    sha256 = "1y1xhjf32rdhq9sfz58pghwv794f3w2f2qcn8p6hp4pc8jsdrn2q";
+  }) ];
+
+  checkInputs = [ pytest pytestrunner hypothesis ];
 
   meta = with stdenv.lib; {
     homepage = https://github.com/chardet/chardet;
