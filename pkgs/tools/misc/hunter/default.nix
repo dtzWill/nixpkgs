@@ -8,7 +8,7 @@ with rustPlatform;
 
 buildRustPackage rec {
   pname = "hunter";
-  version = "1.2.1";
+  version = "1.2.3";
 
   cargoSha256 = "0fhkav9y35jfmkqyrgzp6gh9fb5gy8zgc4m99k4sngba0abb8p3z";
 
@@ -16,7 +16,7 @@ buildRustPackage rec {
     owner = "rabite0";
     repo = pname;
     rev = "v${version}";
-    sha256 = "11grdfhhrynvk3ycy1944yspgf7cmj9fkyh1gvn9b9yblsdkzcdw";
+    sha256 = "040m6kxgajaiwsywnnmdbapplcmpry100vkwangkld7468naqi75";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
