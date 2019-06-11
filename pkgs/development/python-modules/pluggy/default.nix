@@ -2,6 +2,7 @@
 , lib
 , fetchPypi
 , setuptools_scm
+, importlib-metadata
 }:
 
 buildPythonPackage rec {
@@ -21,6 +22,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   buildInputs = [ setuptools_scm ];
+
+  propagatedBuildInputs = [ importlib-metadata ];
 
   meta = {
     description = "Plugin and hook calling mechanisms for Python";

@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "08l37vkmf0ddf37qbk627npnnczw5mms1m6kz2ycnx1xd9j7m8my";
   };
 
-  checkInputs = [ hypothesis mock ];
+  checkInputs = [ hypothesis mock pluggy ];
   buildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ attrs py setuptools six pluggy more-itertools atomicwrites]
     ++ stdenv.lib.optionals (!isPy3k) [ funcsigs ]
