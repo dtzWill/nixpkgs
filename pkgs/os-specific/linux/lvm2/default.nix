@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
       cp scripts/blk_availability_systemd_red_hat.service $out/etc/systemd/system
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
 
-      # Look for systemd-run relative
+      # Look for systemd-run relative? Hmm, grab from libudev instead maybe
       substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run systemd-run
+        --replace $out/bin/systemd-run ${udev}/bin/systemd-run
     '';
 
   meta = with stdenv.lib; {
