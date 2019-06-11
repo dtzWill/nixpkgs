@@ -21,6 +21,7 @@
 , trustme
 , brotlipy
 , twine
+, gcc
 }:
 
 buildPythonPackage rec {
@@ -48,6 +49,8 @@ buildPythonPackage rec {
     pytestrunner pytest gunicorn pytest-timeout async_generator pytest_xdist
     pytest-mock pytestcov trustme brotlipy twine
   ];
+
+  buildInputs = [ gcc ]; # BOOO :(
 
   propagatedBuildInputs = [ attrs chardet multidict async-timeout yarl ]
     ++ lib.optionals (pythonOlder "3.7") [ idna-ssl typing-extensions ];
