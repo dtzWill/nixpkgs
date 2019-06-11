@@ -2147,6 +2147,8 @@ in {
 
   josepy = callPackage ../development/python-modules/josepy {};
 
+  joplin_api = callPackage ../development/python-modules/joplin_api {};
+
   jsbeautifier = callPackage ../development/python-modules/jsbeautifier {};
 
   jug = callPackage ../development/python-modules/jug {};
