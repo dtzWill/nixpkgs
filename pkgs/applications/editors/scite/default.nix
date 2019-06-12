@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, gtk2 }:
+{ stdenv, fetchurl, pkgconfig, lua, glib, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "scite";
@@ -10,14 +10,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ gtk2 ];
-  sourceRoot = "scintilla/gtk";
+  buildInputs = [ glib gtk3 lua ];
+
+  sourceRoot = "scite/gtk";
 
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = [ "gnomeprefix=${placeholder "out"}" "prefix=${placeholder "out"}" "DESTDIR=" "GTK3:=1" ];
   buildPhase = ''
-    make
-    cd ../../scite/gtk
+  env
+    make -C ../../scintilla/gtk "''${makeFlags[@]}" -j
+    make "''${makeFlags[@]}" -j
   '';
 
   meta = with stdenv.lib; {

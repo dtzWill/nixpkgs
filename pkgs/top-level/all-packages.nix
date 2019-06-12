@@ -20122,7 +20122,9 @@ in
 
   sc-im = callPackage ../applications/misc/sc-im { };
 
-  scite = callPackage ../applications/editors/scite { };
+  scite = callPackage ../applications/editors/scite {
+    lua = lua5_3;
+  };
 
   scribus = callPackage ../applications/office/scribus {
     inherit (gnome2) libart_lgpl;
