@@ -1141,9 +1141,7 @@ in
 
   btrfs-dedupe = callPackage ../tools/filesystems/btrfs-dedupe {};
 
-  btrbk = callPackage ../tools/backup/btrbk {
-    asciidoc = asciidoc-full;
-  };
+  btrbk = callPackage ../tools/backup/btrbk { };
 
   buildtorrent = callPackage ../tools/misc/buildtorrent { };
 
