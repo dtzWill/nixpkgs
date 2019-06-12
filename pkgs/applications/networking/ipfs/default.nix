@@ -1,7 +1,7 @@
 { stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
-  name = "ipfs-${version}";
+  pname = "ipfs";
   version = "0.4.21";
   rev = "v${version}";
 
