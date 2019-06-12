@@ -4,12 +4,12 @@
 
 stdenv.mkDerivation rec {
   pname = "lvm2";
-  version = "2.03.04";
+  version = "2.03.01";
 
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
     rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "1fq7yc4ay42vd89r9hzi2vn2wf76vg8w23if7ybw72jpan0hz60z";
+    sha256 = "0jlaswf1srdxiqpgpp97j950ddjds8z0kr4pbwmal2za2blrgvbl";
   };
 
   configureFlags = [
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     "--enable-udev_rules"
     "--enable-udev_sync"
     "--enable-pkgconfig"
-    "--enable-applib" # no longer recognized
+    "--enable-applib"
     "--enable-cmdlib"
     "--disable-udev-systemd-background-jobs"
   ] ++ stdenv.lib.optional enable_dmeventd " --enable-dmeventd"
@@ -79,12 +79,6 @@ stdenv.mkDerivation rec {
       mkdir -p $out/etc/systemd/system $out/lib/systemd/system-generators
       cp scripts/blk_availability_systemd_red_hat.service $out/etc/systemd/system
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
-
-      # XXX: How to do this properly? Seems we don't like having the abs path
-      # to systemd in the udev rule, and relative by itself won't find it.
-      # For now, kinda kludge around with '--disable-udev-systemd-background-jobs'.
-      substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run systemd-run
     '';
 
   meta = with stdenv.lib; {
