@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "scite/gtk";
 
-
-  makeFlags = [ "gnomeprefix=${placeholder "out"}" "prefix=${placeholder "out"}" "DESTDIR=" "GTK3:=1" ];
+  makeFlags = [ "gnomeprefix=${placeholder "out"}" "prefix=${placeholder "out"}" "DESTDIR=" "GTK3=1" ];
   buildPhase = ''
-  env
-    make -C ../../scintilla/gtk "''${makeFlags[@]}" -j
-    make "''${makeFlags[@]}" -j
+    make -C ../../scintilla/gtk $makeFlags -j
+    make $makeFlags -j
   '';
+
+  postInstall = "ln -sr $out/bin/SciTE $out/bin/scite";
 
   meta = with stdenv.lib; {
     homepage = https://www.scintilla.org/SciTE.html;
