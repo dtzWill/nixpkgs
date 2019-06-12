@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, lua, glib, gtk3 }:
+{ stdenv, fetchurl, pkgconfig, lua, glib, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "scite";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0k10qjil101mxlmd39sdz1n9yaif0x5q6vl03is48jrh4lvvlfyy";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
   buildInputs = [ glib gtk3 lua ];
 
   sourceRoot = "scite/gtk";
