@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "lfos";
     repo = pname;
-    rev = "285893de090f93642d4d739f5464a60336bb8909";
-    sha256 = "1rc0rf8vky5zlv6y9nkrphgzd76achvhrrpk765p5kggyf0v59m9";
+    rev = "8dac9d80b72529cc6d6449d195819693debab9b3";
+    sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
   };
   #src = fetchurl {
   #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
