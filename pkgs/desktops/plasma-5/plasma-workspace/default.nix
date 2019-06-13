@@ -15,6 +15,8 @@
 
   qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtscript, qttools,
   qtwayland, qtx11extras,
+
+  qqc2-desktop-style, kirigami2,
 }:
 
 let inherit (lib) getBin getLib; in
@@ -33,6 +35,7 @@ mkDerivation {
     networkmanager-qt phonon plasma-framework prison solid kholidays
 
     qtgraphicaleffects qtquickcontrols qtquickcontrols2 qtscript qtwayland qtx11extras
+    qqc2-desktop-style kirigami2
   ];
   outputs = [ "bin" "dev" "out" ];
 
