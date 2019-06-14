@@ -15,10 +15,6 @@ in stdenv.mkDerivation rec {
     sha256 = "1db2kydkwjmvgd1glkcba3adhidxw0f1x735dcjdpdjjf869sgvl";
   };
 
-  patches = [
-    ./rtcwake-search-PATH-for-shutdown.patch
-  ];
-
   outputs = [ "bin" "dev" "out" "man" ];
 
   postPatch = ''
