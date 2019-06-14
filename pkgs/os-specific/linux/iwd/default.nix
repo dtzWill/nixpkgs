@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     #rev = version;
     rev = "bed116e319896088be9197552a4ab94b9b3feb40";
     #rev = "cde9933124b215b3194bfbd3e5b489f086d81093";
-    sha256 = "0fa2i09n3rx24r3cz1pkmnmxgzrjhh8q28r18v9k4mqcn0wf6pbr";
+    sha256 = "0wkpd31vxhkxgj9s5dmyzwj465ax1sl0yn5p0135izfphnap1pl4";
   };
 
   nativeBuildInputs = [
