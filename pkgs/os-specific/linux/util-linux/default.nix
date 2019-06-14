@@ -4,15 +4,15 @@
 let
   version = lib.concatStringsSep "." ([ majorVersion ]
     ++ lib.optional (patchVersion != "") patchVersion);
-  majorVersion = "2.33";
-  patchVersion = "2";
+  majorVersion = "2.34";
+  patchVersion = "";
 
 in stdenv.mkDerivation rec {
   name = "util-linux-${version}";
 
   src = fetchurl {
     url = "mirror://kernel/linux/utils/util-linux/v${majorVersion}/${name}.tar.xz";
-    sha256 = "15yf2dh4jd1kg6066hydlgdhhs2j3na13qld8yx30qngqvmfh6v3";
+    sha256 = "1db2kydkwjmvgd1glkcba3adhidxw0f1x735dcjdpdjjf869sgvl";
   };
 
   patches = [
