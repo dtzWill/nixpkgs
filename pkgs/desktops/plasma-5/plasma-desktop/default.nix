@@ -28,6 +28,8 @@ mkDerivation rec {
     kdeclarative kded kdelibs4support kemoticons kglobalaccel ki18n kitemmodels
     knewstuff knotifications knotifyconfig kpeople krunner kscreenlocker
     ksysguard kwallet kwin plasma-framework plasma-workspace
+
+    xf86inputlibinput
   ];
 
   patches = copyPathsToStore (lib.readPathsFromFile ./. ./series);
@@ -36,6 +38,7 @@ mkDerivation rec {
   '';
   CXXFLAGS = [
     "-I${lib.getDev xorgserver}/include/xorg"
+    "-I${lib.getDev xf86inputlibinput}/include/xorg"
     ''-DNIXPKGS_HWCLOCK=\"${lib.getBin utillinux}/sbin/hwclock\"''
   ];
   cmakeFlags = [
