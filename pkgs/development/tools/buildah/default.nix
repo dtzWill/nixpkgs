@@ -26,7 +26,7 @@ in buildGoPackage rec {
   # Optimizations break compilation of libseccomp c bindings
   hardeningDisable = [ "fortify" ];
 
-  nativeBuildInputs = [ pkgconfig go-md2man.bin ];
+  nativeBuildInputs = [ pkgconfig go-md2man ];
   buildInputs = [ gpgme libgpgerror lvm2 btrfs-progs ostree libselinux libseccomp ];
 
   # Copied from the skopeo package, doesn’t seem to make a difference?
