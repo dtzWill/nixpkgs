@@ -58,7 +58,6 @@ in stdenv.mkDerivation rec {
     "--enable-gtk-doc"
     "--localstatedir=/var"
     "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
-    "--with-tmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
     "--with-udevdir=$(out)/lib/udev"
   ];
 
