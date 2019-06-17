@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
-    rev = "refs/tags/v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "106kqrd2j1rl96d4fxd3mi76w9w21yl4va3xpvrkyx2dk29lj00x";
+    rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    sha256 = "106kqrd3j1rl96d4fxd3mi76w9w21yl4va3xpvrkyx2dk29lj00x";
   };
 
   configureFlags = [
