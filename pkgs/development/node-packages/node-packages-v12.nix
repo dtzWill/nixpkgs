@@ -2056,13 +2056,13 @@ let
         sha1 = "47e63f7af55afa6f92e1500e690eb8b8529c099a";
       };
     };
-    "joplin-turndown-4.0.11" = {
+    "joplin-turndown-4.0.12" = {
       name = "joplin-turndown";
       packageName = "joplin-turndown";
-      version = "4.0.11";
+      version = "4.0.12";
       src = fetchurl {
-        url = "https://registry.npmjs.org/joplin-turndown/-/joplin-turndown-4.0.11.tgz";
-        sha512 = "2oiwWX0nKYi1NVcaprSsrXQkYdGoRtPWFmnXdWQnQW44jlgjFV38B4VrgliwX5ZMq7cbx6A9IBwfXcBL2YV2NA==";
+        url = "https://registry.npmjs.org/joplin-turndown/-/joplin-turndown-4.0.12.tgz";
+        sha512 = "HlxkcIiNFSMLBvYktoXqLLHFGuwQYlcPclo0Peeatw3cPe6iFqSsEgEGY/0bYM/fubA/zpPULrJcjST99BO9wQ==";
       };
     };
     "joplin-turndown-plugin-gfm-1.0.8" = {
@@ -3830,13 +3830,13 @@ let
         sha512 = "VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==";
       };
     };
-    "sqlite3-4.0.8" = {
+    "sqlite3-4.0.9" = {
       name = "sqlite3";
       packageName = "sqlite3";
-      version = "4.0.8";
+      version = "4.0.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/sqlite3/-/sqlite3-4.0.8.tgz";
-        sha512 = "kgwHu4j10KhpCHtx//dejd/tVQot7jc3sw+Sn0vMuKOw0X00Ckyg9VceKgzPyGmmz+zEoYue9tOLriWTvYy0ww==";
+        url = "https://registry.npmjs.org/sqlite3/-/sqlite3-4.0.9.tgz";
+        sha512 = "IkvzjmsWQl9BuBiM4xKpl5X8WCR4w0AeJHRdobCdXZ8dT/lNc1XS6WqvY35N6+YzIIgzSBeY5prdFObID9F9tA==";
       };
     };
     "sshpk-1.16.1" = {
@@ -4001,13 +4001,13 @@ let
         sha512 = "e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==";
       };
     };
-    "symbol-tree-3.2.2" = {
+    "symbol-tree-3.2.4" = {
       name = "symbol-tree";
       packageName = "symbol-tree";
-      version = "3.2.2";
+      version = "3.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.2.tgz";
-        sha1 = "ae27db38f660a7ae2e1c3b7d1bc290819b8519e6";
+        url = "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz";
+        sha512 = "9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==";
       };
     };
     "syswide-cas-5.3.0" = {
@@ -4073,13 +4073,13 @@ let
         sha512 = "YfUhPQCJoNQE5N+FJQcdPz63O3x3sdT4Xju69Gj4iZe0lBKOtnAMi0SLj9xKhGkcGhsxThvTJ/usxtFPo438zQ==";
       };
     };
-    "terminal-kit-1.28.0" = {
+    "terminal-kit-1.28.1" = {
       name = "terminal-kit";
       packageName = "terminal-kit";
-      version = "1.28.0";
+      version = "1.28.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terminal-kit/-/terminal-kit-1.28.0.tgz";
-        sha512 = "nBXgQzGfQSaTZ55vma5WlmhpO7lDvFrjP2JiaX2MtzwxAB3Y5fm9GLqEeXwJo+n+M+7BG8zRthe3d88ET23iZA==";
+        url = "https://registry.npmjs.org/terminal-kit/-/terminal-kit-1.28.1.tgz";
+        sha512 = "qRTWyeHJqDT8EGLCg5kPCUUzPqbcPdIeq7C/ep2gmlLN6+olTX32mJEDh/0GENO5mQUHTU9biZbhlcnAMQ7kfA==";
       };
     };
     "tkwidgets-0.5.26" = {
@@ -5111,7 +5111,7 @@ in
       })
       sources."isarray-1.0.0"
       sources."isstream-0.1.2"
-      sources."joplin-turndown-4.0.11"
+      sources."joplin-turndown-4.0.12"
       sources."joplin-turndown-plugin-gfm-1.0.8"
       sources."jpeg-js-0.1.2"
       sources."js-tokens-4.0.0"
@@ -5261,7 +5261,7 @@ in
       sources."source-map-0.6.1"
       sources."split-skip-0.0.2"
       sources."sprintf-js-1.1.2"
-      sources."sqlite3-4.0.8"
+      sources."sqlite3-4.0.9"
       sources."sshpk-1.16.1"
       sources."stealthy-require-1.1.1"
       sources."strict-uri-encode-1.1.0"
@@ -5287,7 +5287,7 @@ in
       sources."strip-json-comments-2.0.1"
       sources."supports-color-5.5.0"
       sources."symbol-observable-1.2.0"
-      sources."symbol-tree-3.2.2"
+      sources."symbol-tree-3.2.4"
       sources."syswide-cas-5.3.0"
       sources."table-layout-0.4.4"
       sources."tar-4.4.10"
@@ -5303,7 +5303,7 @@ in
           sources."q-0.9.7"
         ];
       })
-      sources."terminal-kit-1.28.0"
+      sources."terminal-kit-1.28.1"
       (sources."tkwidgets-0.5.26" // {
         dependencies = [
           sources."is-fullwidth-code-point-2.0.0"
