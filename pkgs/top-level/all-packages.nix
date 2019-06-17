@@ -854,9 +854,7 @@ in
 
   ssh-agents = callPackage ../tools/networking/ssh-agents { };
 
-  titaniumenv = callPackage ../development/mobile/titaniumenv {
-    pkgs_i686 = pkgsi686Linux;
-  };
+  titaniumenv = callPackage ../development/mobile/titaniumenv { };
 
   abootimg = callPackage ../development/mobile/abootimg {};
 
@@ -1095,6 +1093,8 @@ in
   bluez-tools = callPackage ../tools/bluetooth/bluez-tools { };
 
   bmon = callPackage ../tools/misc/bmon { };
+
+  bmake = callPackage ../development/tools/build-managers/bmake { };
 
   bochs = callPackage ../applications/virtualization/bochs { };
 
@@ -1476,6 +1476,8 @@ in
   edac-utils = callPackage ../os-specific/linux/edac-utils { };
 
   eggdrop = callPackage ../tools/networking/eggdrop { };
+
+  eksctl = callPackage ../tools/admin/eksctl { };
 
   elementary-xfce-icon-theme = callPackage ../data/icons/elementary-xfce-icon-theme { };
 
@@ -4242,9 +4244,9 @@ in
 
   nixnote2 = libsForQt5.callPackage ../applications/misc/nixnote2 { };
 
-  nodejs = hiPrio nodejs-12_x;
+  nodejs = hiPrio nodejs-10_x;
 
-  nodejs-slim = nodejs-slim-12_x;
+  nodejs-slim = nodejs-slim-10_x;
 
   nodejs-8_x = callPackage ../development/web/nodejs/v8.nix {};
   nodejs-slim-8_x = callPackage ../development/web/nodejs/v8.nix { enableNpm = false; };
@@ -4340,6 +4342,8 @@ in
   libevdev = callPackage ../development/libraries/libevdev { };
 
   libfann = callPackage ../development/libraries/libfann { };
+
+  libfsm = callPackage ../development/libraries/libfsm { };
 
   libgaminggear = callPackage ../development/libraries/libgaminggear { };
 
@@ -5660,10 +5664,7 @@ in
 
   rescuetime = callPackage ../applications/misc/rescuetime { };
 
-  reuse = callPackage ../tools/package-management/reuse {
-    inherit (python3Packages) 
-      buildPythonApplication debian pygit2 pytest jinja2;
-  };
+  reuse = callPackage ../tools/package-management/reuse { };
 
   rewritefs = callPackage ../os-specific/linux/rewritefs { };
 
@@ -6069,6 +6070,8 @@ in
   supertux-editor = callPackage ../applications/editors/supertux-editor { };
 
   super-user-spark = haskellPackages.callPackage ../applications/misc/super_user_spark { };
+
+  svgbob = callPackage ../tools/graphics/svgbob { };
 
   svgcleaner = callPackage ../tools/graphics/svgcleaner { };
 
@@ -8094,8 +8097,9 @@ in
 
   scala_2_10 = callPackage ../development/compilers/scala/2.10.nix { };
   scala_2_11 = callPackage ../development/compilers/scala/2.11.nix { };
-  scala_2_12 = callPackage ../development/compilers/scala { jre = jre8; };
-  scala = scala_2_12;
+  scala_2_12 = callPackage ../development/compilers/scala/2.12.nix { jre = jre8; };
+  scala_2_13 = callPackage ../development/compilers/scala/2.13.nix { jre = jre8; };
+  scala = scala_2_13;
 
   scalafix = callPackage ../development/tools/scalafix { };
   scalafmt = callPackage ../development/tools/scalafmt { };
@@ -8900,7 +8904,9 @@ in
 
   bazel-remote = callPackage ../development/tools/build-managers/bazel/bazel-remote { };
 
-  bazel-watcher = callPackage ../development/tools/bazel-watcher { };
+  bazel-watcher = callPackage ../development/tools/bazel-watcher {
+    buildBazelPackage = buildBazelPackage.override { enableNixHacks = false; };
+  };
 
   bazelisk = callPackage ../development/tools/bazelisk { };
 
@@ -9028,7 +9034,7 @@ in
 
   corundum = callPackage ../development/tools/corundum { };
 
-  confluent = callPackage ../servers/confluent {};
+  confluent-platform = callPackage ../servers/confluent-platform {};
 
   ctags = callPackage ../development/tools/misc/ctags { };
 
@@ -9645,6 +9651,8 @@ in
     withPEPatterns = true;
   };
 
+  reviewdog = callPackage ../development/tools/misc/reviewdog { };
+
   rman = callPackage ../development/tools/misc/rman { };
 
   rolespec = callPackage ../development/tools/misc/rolespec { };
@@ -9768,6 +9776,8 @@ in
   texi2html = callPackage ../development/tools/misc/texi2html { };
 
   texi2mdoc = callPackage ../tools/misc/texi2mdoc { };
+
+  tflint = callPackage ../development/tools/analysis/tflint { };
 
   todoist = callPackage ../applications/misc/todoist { };
 
@@ -10064,6 +10074,8 @@ in
   cachix = callPackage ../development/tools/cachix { };
 
   capnproto = callPackage ../development/libraries/capnproto { };
+
+  captive-browser = callPackage ../applications/networking/browsers/captive-browser { };
 
   ndn-cxx = callPackage ../development/libraries/ndn-cxx { };
 
@@ -11202,7 +11214,7 @@ in
 
   libao = callPackage ../development/libraries/libao {
     usePulseAudio = config.pulseaudio or stdenv.isLinux;
-    inherit (darwin.apple_sdk.frameworks) CoreAudio CoreServices AudioUnit AudioToolbox;
+    inherit (darwin.apple_sdk.frameworks) CoreAudio CoreServices AudioUnit;
   };
 
   libaosd = callPackage ../development/libraries/libaosd { };
@@ -11313,9 +11325,7 @@ in
 
   libcdr = callPackage ../development/libraries/libcdr { lcms = lcms2; };
 
-  libchamplain = callPackage ../development/libraries/libchamplain {
-    inherit (gnome2) libsoup;
-  };
+  libchamplain = callPackage ../development/libraries/libchamplain { };
 
   libchardet = callPackage ../development/libraries/libchardet { };
 
@@ -13188,7 +13198,6 @@ in
 
   simavr = callPackage ../development/tools/simavr {
     avrgcc = pkgsCross.avr.buildPackages.gcc;
-    avrbinutils = pkgsCross.avr.buildPackages.binutils;
     avrlibc = pkgsCross.avr.libcCross;
     inherit (darwin.apple_sdk.frameworks) GLUT;
   };
@@ -13990,9 +13999,7 @@ in
 
   smack = callPackage ../development/libraries/java/smack { };
 
-  swt = callPackage ../development/libraries/java/swt {
-    inherit (gnome2) libsoup;
-  };
+  swt = callPackage ../development/libraries/java/swt { };
 
 
   ### DEVELOPMENT / LIBRARIES / JAVASCRIPT
@@ -17101,7 +17108,6 @@ in
     libxkbcommon = libxkbcommon_7;
   };
   bitwig-studio2 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio2.nix {
-    inherit (gnome3) zenity;
     inherit (pkgs) bitwig-studio1;
   };
   bitwig-studio = bitwig-studio2;
@@ -17393,6 +17399,7 @@ in
   deadbeefPlugins = {
     headerbar-gtk3 = callPackage ../applications/audio/deadbeef/plugins/headerbar-gtk3.nix { };
     infobar = callPackage ../applications/audio/deadbeef/plugins/infobar.nix { };
+    lyricbar = callPackage ../applications/audio/deadbeef/plugins/lyricbar.nix { };
     mpris2 = callPackage ../applications/audio/deadbeef/plugins/mpris2.nix { };
   };
 
@@ -17746,7 +17753,7 @@ in
 
   emacsPackagesNgFor = emacs: import ./emacs-packages.nix {
     inherit lib newScope stdenv;
-    inherit fetchFromGitHub fetchgit fetchhg fetchurl fetchpatch;
+    inherit fetchFromGitHub fetchurl;
     inherit emacs texinfo makeWrapper runCommand writeText;
     inherit (xorg) lndir;
 
@@ -18470,7 +18477,8 @@ in
   leftwm = callPackage ../applications/window-managers/leftwm { };
 
   slack = callPackage ../applications/networking/instant-messengers/slack { };
-  slack-dark = pkgs.slack.override { darkMode = true; };
+  slack-theme-black = callPackage ../applications/networking/instant-messengers/slack/dark-theme.nix { };
+  slack-dark = pkgs.slack.override { theme = slack-theme-black; };
 
   slack-cli = callPackage ../tools/networking/slack-cli { };
 
@@ -20276,6 +20284,8 @@ in
     inherit (python3.pkgs) libarcus;
   };
   cura = qt5.callPackage ../applications/misc/cura { };
+
+  curaPlugins = callPackage ../applications/misc/cura/plugins.nix { };
 
   curaLulzbot = callPackage ../applications/misc/cura/lulzbot.nix { };
 
@@ -22438,6 +22448,8 @@ in
 
   bftools = callPackage ../applications/science/biology/bftools { };
 
+  cd-hit = callPackage ../applications/science/biology/cd-hit { };
+
   cmtk = callPackage ../applications/science/biology/cmtk { };
 
   clustal-omega = callPackage ../applications/science/biology/clustal-omega { };
@@ -23522,7 +23534,8 @@ in
     nix
     nix1
     nixStable
-    nixUnstable;
+    nixUnstable
+    nixFlakes;
 
   nixops = callPackage ../tools/package-management/nixops { };
 
@@ -23771,8 +23784,6 @@ in
   pgf3 = callPackage ../tools/typesetting/tex/pgf/3.x.nix { };
 
   pgfplots = callPackage ../tools/typesetting/tex/pgfplots { };
-
-  phabricator = callPackage ../misc/phabricator { };
 
   physlock = callPackage ../misc/screensavers/physlock { };
 

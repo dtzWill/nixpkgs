@@ -1,7 +1,6 @@
 {stdenv
 , removeReferencesTo
 , lib
-, fetchgit
 , fetchFromGitHub
 , utillinux
 , pkgconfig
@@ -9,7 +8,6 @@
 , gpgme
 , libseccomp
 , coreutils
-, gawk
 , go
 , which
 , makeWrapper

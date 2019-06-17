@@ -1,5 +1,7 @@
-{ stdenv, fetchzip }:
-let
+{ stdenv, fetchurl }:
+
+stdenv.mkDerivation rec {
+  name = "nextcloud-${version}";
   version = "16.0.1";
 in fetchzip {
   name = "nextcloud-${version}";

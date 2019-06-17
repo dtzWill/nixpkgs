@@ -93,6 +93,7 @@
   ./programs/bcc.nix
   ./programs/blcr.nix
   ./programs/browserpass.nix
+  ./programs/captive-browser.nix
   ./programs/ccache.nix
   ./programs/cdemu.nix
   ./programs/chromium.nix
@@ -445,7 +446,6 @@
   ./services/misc/packagekit.nix
   ./services/misc/paperless.nix
   ./services/misc/parsoid.nix
-  ./services/misc/phd.nix
   ./services/misc/plex.nix
   ./services/misc/tautulli.nix
   ./services/misc/pykms.nix

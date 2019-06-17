@@ -1,22 +1,19 @@
-{ stdenv, fetchurl, ocl-icd, opencl-headers }:
+{ stdenv, fetchFromGitHub, ocl-icd, opencl-headers }:
 
 stdenv.mkDerivation rec {
   pname = "clinfo";
   version = "2.2.18.04.06";
 
-  src = fetchurl {
-    url = "https://github.com/Oblomov/${pname}/archive/${version}.tar.gz";
-    sha256 = "f77021a57b3afcdebc73107e2254b95780026a9df9aa4f8db6aff11c03f0ec6c";
-  };
+    src = fetchFromGitHub {
+      owner = "Oblomov";
+      repo = "clinfo";
+      rev = "${version}";
+      sha256 = "0y2q0lz5yzxy970b7w7340vp4fl25vndahsyvvrywcrn51ipgplx";
+    };
 
   buildInputs = [ ocl-icd opencl-headers ];
 
-  NIX_LDFLAGS = [ "-lOpenCL" ];
-
-  installPhase = ''
-    install -Dm755 clinfo $out/bin/clinfo
-    install -Dm644 man1/clinfo.1 $out/share/man/man1/clinfo.1
-  '';
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with stdenv.lib; {
     description = "Print all known information about all available OpenCL platforms and devices in the system";

@@ -106,7 +106,6 @@ in rec {
       separateDebugInfo' = separateDebugInfo && stdenv.hostPlatform.isLinux && !(stdenv.hostPlatform.useLLVM or false);
       outputs' = outputs ++ lib.optional separateDebugInfo' "debug";
 
-      fixedOutputDrv = attrs ? outputHash;
       noNonNativeDeps = builtins.length (depsBuildTarget ++ depsBuildTargetPropagated
                                       ++ depsHostHost ++ depsHostHostPropagated
                                       ++ buildInputs ++ propagatedBuildInputs

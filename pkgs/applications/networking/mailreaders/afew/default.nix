@@ -2,13 +2,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "afew";
-  version = "1.3.0.99-git"; # not really
+  version = "2.0.0";
 
-  src = fetchgit {
-    url = https://github.com/afewmail/afew;
-    rev = "3bb53dbb90b0725f0976027f8ce5ff7181f78398";
-    sha256 = "0bmngl98wz4qwby122b42dpvhd7wifcs2q0s7vx10d10rif5bwzx";
-    leaveDotGit = true;
+  src = pythonPackages.fetchPypi {
+    inherit pname version;
+    sha256 = "0j60501nm242idf2ig0h7p6wrg58n5v2p6zfym56v9pbvnbmns0s";
   };
   #src = pythonPackages.fetchPypi {
   #  inherit pname version;
@@ -21,20 +19,22 @@ python3Packages.buildPythonApplication rec {
     python3Packages.notmuch chardet dkimpy
   ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  setupPyBuildFlags = [ "build_sphinx" "-b" "man,html" ];
+  makeWrapperArgs = [
+    ''--prefix PATH ':' "${notmuch}/bin"''
+  ];
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [ "out" "doc" ];
 
-  postInstall = ''
-    install -Dt $out/share/man/man1 build/sphinx/man/*
-    mkdir -p $out/share/doc/
-    cp -r build/sphinx/html $out/share/doc/afew
+  postBuild =  ''
+    python setup.py build_sphinx -b html,man
   '';
 
-  makeWrapperArgs = [
-    "--prefix" "PATH" ":" "${notmuch}/bin"
-  ];
+  postInstall = ''
+    install -D -v -t $out/share/man/man1 build/sphinx/man/*
+    mkdir -p $out/share/doc/afew
+    cp -R build/sphinx/html/* $out/share/doc/afew
+  '';
+
 
   meta = with stdenv.lib; {
     outputsToInstall = outputs;

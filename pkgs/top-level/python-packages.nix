@@ -139,9 +139,7 @@ in {
 
   setuptools = toPythonModule (callPackage ../development/python-modules/setuptools { });
 
-  vowpalwabbit = callPackage ../development/python-modules/vowpalwabbit {
-    boost = pkgs.boost160;
-  };
+  vowpalwabbit = callPackage ../development/python-modules/vowpalwabbit { };
 
   acoustics = callPackage ../development/python-modules/acoustics { };
 
@@ -492,6 +490,8 @@ in {
 
   hopcroftkarp = callPackage ../development/python-modules/hopcroftkarp { };
 
+  http-ece = callPackage ../development/python-modules/http-ece { };
+
   httpsig = callPackage ../development/python-modules/httpsig { };
 
   httptools = callPackage ../development/python-modules/httptools { };
@@ -821,6 +821,8 @@ in {
 
   pytest-pylint = callPackage ../development/python-modules/pytest-pylint { };
 
+  pytest-testmon = callPackage ../development/python-modules/pytest-testmon { };
+
   pytest-tornado = callPackage ../development/python-modules/pytest-tornado { };
 
   python-binance = callPackage ../development/python-modules/python-binance { };
@@ -877,7 +879,11 @@ in {
 
   pytricia =  callPackage ../development/python-modules/pytricia { };
 
+  py-vapid = callPackage ../development/python-modules/py-vapid { };
+
   PyWebDAV = callPackage ../development/python-modules/pywebdav { };
+
+  pywebpush = callPackage ../development/python-modules/pywebpush { };
 
   pyxml = disabledIf isPy3k (callPackage ../development/python-modules/pyxml{ });
 
@@ -1022,7 +1028,7 @@ in {
 
   aiohttp = callPackage ../development/python-modules/aiohttp { };
 
-  aiohttp-cors = callPackage ../development/python-modules/aiohttp/cors.nix { };
+  aiohttp-cors = callPackage ../development/python-modules/aiohttp-cors { };
 
   aiohttp-jinja2 = callPackage ../development/python-modules/aiohttp-jinja2 { };
 
@@ -1738,6 +1744,8 @@ in {
   pytest-timeout = callPackage ../development/python-modules/pytest-timeout { };
 
   pytest-warnings = callPackage ../development/python-modules/pytest-warnings { };
+
+  pytest-watch = callPackage ../development/python-modules/pytest-watch { };
 
   pytestpep8 = callPackage ../development/python-modules/pytest-pep8 { };
 

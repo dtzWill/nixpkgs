@@ -36,6 +36,7 @@ in
   borgbackup = handleTest ./borgbackup.nix {};
   buildbot = handleTest ./buildbot.nix {};
   cadvisor = handleTestOn ["x86_64-linux"] ./cadvisor.nix {};
+  cassandra = handleTest ./cassandra.nix {};
   ceph = handleTestOn ["x86_64-linux"] ./ceph.nix {};
   certmgr = handleTest ./certmgr.nix {};
   cfssl = handleTestOn ["x86_64-linux"] ./cfssl.nix {};
@@ -82,6 +83,7 @@ in
   fish = handleTest ./fish.nix {};
   flannel = handleTestOn ["x86_64-linux"] ./flannel.nix {};
   flatpak = handleTest ./flatpak.nix {};
+  flatpak-builder = handleTest ./flatpak-builder.nix {};
   fsck = handleTest ./fsck.nix {};
   fwupd = handleTestOn ["x86_64-linux"] ./fwupd.nix {}; # libsmbios is unsupported on aarch64
   gdk-pixbuf = handleTest ./gdk-pixbuf.nix {};

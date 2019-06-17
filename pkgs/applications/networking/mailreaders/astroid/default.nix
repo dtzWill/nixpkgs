@@ -1,6 +1,8 @@
 { stdenv, fetchFromGitHub, cmake, pkgconfig, scdoc, gnome3, gmime3, webkitgtk
 , libsass, notmuch, boost, libsoup, wrapGAppsHook, glib-networking, protobuf, vim_configurable
-, makeWrapper, python3Packages
+, gtkmm3, libpeas, gsettings-desktop-schemas
+, python3, python3Packages
+, makeWrapper
 , vim ? vim_configurable.override {
                     features = "normal";
                     gui = "auto";

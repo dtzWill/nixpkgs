@@ -37,8 +37,6 @@
 , mediaSupport ? false
 , ffmpeg
 
-, gmp
-
 # Extensions, common
 , zip
 
