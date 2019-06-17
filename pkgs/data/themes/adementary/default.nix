@@ -3,14 +3,14 @@
 stdenv.mkDerivation rec {
   pname = "adementary-theme";
 #  version = "201905r1";
-  version = "2019-06-10"; # git
+  version = "2019-06-17"; # git
 
   src = fetchFromGitHub {
     owner  = "hrdwrrsk";
     repo   = pname;
 #    rev    = version;
-    rev = "884ef9b79d417ca2f8e32234eb70b5d7da5f15c7";
-    sha256 = "1qmcjc6lbq3vafs5iil0r13rd0xvpc52xc8zi0cwsmck2mawdqsf";
+    rev = "be83c04ad4c753eafc0cd00fc302ce8b85801c2d";
+    sha256 = "1k8xna8vdc663bfpg28zdqc3bqm8pa5aq1ld6hia12hr9y0wmysl";
   };
 
   preBuild = ''
