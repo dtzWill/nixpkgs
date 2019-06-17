@@ -4,7 +4,7 @@
 }:
 
 let
-  version = "2.20";
+  version = "2.21";
 in stdenv.mkDerivation rec {
   name = "libblockdev-${version}";
 
@@ -12,7 +12,7 @@ in stdenv.mkDerivation rec {
     owner = "storaged-project";
     repo = "libblockdev";
     rev = "${version}-1";
-    sha256 = "13xy8vx2dnnxczpnwapchc5ncigcxb2fhpmrmglbpkjqmhn2zbdj";
+    sha256 = "1m4yav02is59lhdyxxm5va1lixq32zx30jbz273kkmhy8rdrjdn0";
   };
 
   outputs = [ "out" "dev" "devdoc" ];
