@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     #rev = version;
     rev = "4dc272d120491709a49c01e0e858b462eda9344d";
-    sha256 = "10z5alja8k6b5gbyg82h7pp6h6jbxmicnww4p9w0pk1gw03k540r";
+    sha256 = "0xkbrykfq0r86ncmq4ks5q2csaaayg0j2jz7iwfjdqzxhmxqc9js";
   };
 
   buildInputs = [ gdk_pixbuf librsvg ];
