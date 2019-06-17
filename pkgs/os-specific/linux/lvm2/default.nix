@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       # to systemd in the udev rule, and relative by itself won't find it.
       # For now, kinda kludge around with '--disable-udev-systemd-background-jobs'.
       substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run systemd-run
+        --replace $out/bin/systemd-run ${udev}/bin/systemd-run
     '';
 
   meta = with stdenv.lib; {
