@@ -19,6 +19,7 @@ common =
   , withLibseccomp ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) libseccomp.meta.platforms, libseccomp
   , withAWS ? stdenv.isLinux || stdenv.isDarwin, aws-sdk-cpp
 
+  , utillinuxMinimal /* unshare */ # dunno why not needed upstream?
   , name, suffix ? "", src, includesPerl ? false, fromGit ? false
 
   }:
