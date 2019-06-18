@@ -43,7 +43,7 @@ buildGoModule rec {
       ${stdenv.lib.makeBinPath [ w3m dante ]}
   '';
 
-  modSha256 = "0p8lp6xwg6jacrnxzw3q73mqxy9wzj5vs0k1saa48ardqd2f7b00";
+  modSha256 = "015wz8ymgp64m4wqs4b038jkfwmnlk6igxhw1zlbvgd68r5wlf8r";
 
   meta = with stdenv.lib; {
     description = "aerc is an email client for your terminal";
