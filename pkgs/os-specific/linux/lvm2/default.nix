@@ -2,14 +2,17 @@
 , thin-provisioning-tools, libaio
 , enable_dmeventd ? false }:
 
-stdenv.mkDerivation rec {
-  pname = "lvm2";
-  version = "2.03.04";
+let
+  version = "2.03.01";
+in
+
+stdenv.mkDerivation {
+  name = "lvm2-${version}";
 
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
     rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "1fq7yc4ay42vd89r9hzi2vn2wf76vg8w23if7ybw72jpan0hz60z";
+    sha256 = "0jlaswf1srdxiqpgpp97j950ddjds8z0kr4pbwmal2za2blrgvbl";
   };
 
   configureFlags = [
@@ -17,9 +20,8 @@ stdenv.mkDerivation rec {
     "--enable-udev_rules"
     "--enable-udev_sync"
     "--enable-pkgconfig"
-    "--enable-applib" # no longer recognized
+    "--enable-applib"
     "--enable-cmdlib"
-    "--disable-udev-systemd-background-jobs"
   ] ++ stdenv.lib.optional enable_dmeventd " --enable-dmeventd"
   ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
@@ -41,7 +43,7 @@ stdenv.mkDerivation rec {
   # gcc: error: ../../device_mapper/libdevice-mapper.a: No such file or directory
   enableParallelBuilding = false;
 
-  # Patches safe on all, but limit to musl for now
+  #patches = [ ./purity.patch ];
   patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
     (fetchpatch {
       name = "fix-stdio-usage.patch";
@@ -63,15 +65,13 @@ stdenv.mkDerivation rec {
   doCheck = false; # requires root
 
   # To prevent make install from failing.
-  installFlags = [ "OWNER=" "GROUP=" "confdir=${placeholder "out"}/etc" ];
+  preInstall = "installFlags=\"OWNER= GROUP= confdir=$out/etc\"";
 
   # Install systemd stuff.
   #installTargets = "install install_systemd_generators install_systemd_units install_tmpfiles_configuration";
 
   postInstall =
     ''
-      # This no longer matches the expected blkid invocation,
-      # and can probably be removed.
       substituteInPlace $out/lib/udev/rules.d/13-dm-disk.rules \
         --replace $out/sbin/blkid ${utillinux}/sbin/blkid
 
@@ -79,12 +79,6 @@ stdenv.mkDerivation rec {
       mkdir -p $out/etc/systemd/system $out/lib/systemd/system-generators
       cp scripts/blk_availability_systemd_red_hat.service $out/etc/systemd/system
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
-
-      # XXX: How to do this properly? Seems we don't like having the abs path
-      # to systemd in the udev rule, and relative by itself won't find it.
-      # For now, kinda kludge around with '--disable-udev-systemd-background-jobs'.
-      substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run ${udev}/bin/systemd-run
     '';
 
   meta = with stdenv.lib; {
