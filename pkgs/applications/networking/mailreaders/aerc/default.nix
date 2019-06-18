@@ -5,11 +5,11 @@
 
 buildGoModule rec {
   pname = "aerc";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchurl {
     url = "https://git.sr.ht/~sircmpwn/aerc/archive/${version}.tar.gz";
-    sha256 = "0rpwjjnaq8mj619ajzyl3kad7sysbz87qz2ds0jyy7kvyzv6r7zb";
+    sha256 = "1gplrd4gam23vidz9ds8wd4b4p3js0pbjx19n7g9ahxavcr8rd9p";
   };
 
   nativeBuildInputs = [
