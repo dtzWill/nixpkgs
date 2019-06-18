@@ -10,12 +10,12 @@ assert withMediaPlayback -> gst_all_1 != null;
 
 let
   pdfjs = let
-    version = "1.10.100";
+    version = "2.0.943";
   in
   fetchzip rec {
     name = "pdfjs-${version}";
     url = "https://github.com/mozilla/pdf.js/releases/download/v${version}/${name}-dist.zip";
-    sha256 = "04df4cf6i6chnggfjn6m1z9vb89f01a0l9fj5rk21yr9iirq9rkq";
+    sha256 = "07fsiyjcbjc8jdsi59w6g8zqrz5rwbh02a5qxsfidpsa6gw3bj8h";
     stripRoot = false;
   };
 
