@@ -162,10 +162,10 @@ index 3ed6dd5889..4c7c8da21a 100644
  !!IF !no_module_headers
  !!IF !isEmpty(CMAKE_BUILD_IS_FRAMEWORK)
      set(_Qt5$${CMAKE_MODULE_NAME}_OWN_INCLUDE_DIRS
--      \"${_qt5$${CMAKE_MODULE_NAME}_install_prefix}/$${CMAKE_LIB_DIR}Qt$${CMAKE_MODULE_NAME}.framework\"
--      \"${_qt5$${CMAKE_MODULE_NAME}_install_prefix}/$${CMAKE_LIB_DIR}Qt$${CMAKE_MODULE_NAME}.framework/Headers\"
-+      \"$${CMAKE_LIB_DIR}Qt$${CMAKE_MODULE_NAME}.framework\"
-+      \"$${CMAKE_LIB_DIR}Qt$${CMAKE_MODULE_NAME}.framework/Headers\"
+-      \"${_qt5$${CMAKE_MODULE_NAME}_install_prefix}/$${CMAKE_LIB_DIR}Qt$${CMAKE_QT_STEM}.framework\"
+-      \"${_qt5$${CMAKE_MODULE_NAME}_install_prefix}/$${CMAKE_LIB_DIR}Qt$${CMAKE_QT_STEM}.framework/Headers\"
++      \"$${CMAKE_LIB_DIR}Qt$${CMAKE_QT_STEM}.framework\"
++      \"$${CMAKE_LIB_DIR}Qt$${CMAKE_QT_STEM}.framework/Headers\"
      )
  !!IF isEmpty(CMAKE_NO_PRIVATE_INCLUDES)
      set(Qt5$${CMAKE_MODULE_NAME}_PRIVATE_INCLUDE_DIRS
