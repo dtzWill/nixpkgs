@@ -1,13 +1,16 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchFromGitHub
 , pytest, pytestrunner, hypothesis, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "chardet";
   version = "3.0.4";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1bpalpia6r5x1kknbk11p1fzph56fmmnp405ds8icksd3knr5aw4";
+  # pypi doesn't have test.py
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = version;
+    sha256 = "1qf47svg3x7l892d6vnwjhd6lnan3dw40avmbg33rxkf0qzl8jgf";
   };
 
   patches = [ (fetchpatch {
