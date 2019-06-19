@@ -1,7 +1,7 @@
 { stdenv, buildGoPackage, fetchurl, fetchFromGitHub, go-bindata }:
 
 let
-  version = "1.6.3";
+  version = "1.6.4";
 
   # TODO: must build the extension instead of downloading it. But since it's
   # literally an asset that is indifferent regardless of the platform, this
@@ -23,7 +23,7 @@ in buildGoPackage rec {
     owner = "browsh-org";
     repo = "browsh";
     rev = "v${version}";
-    sha256 = "1ibp93mzd932dmw1z1ga78kcrimggwgxx6gixwi71mg9i4vf9a92";
+    sha256 = "0gvf5k1gm81xxg7ha309kgfkgl5357dli0fbc4z01rmfgbl0rfa0";
   };
 
   buildInputs = [ go-bindata ];
