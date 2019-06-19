@@ -18060,7 +18060,6 @@ in
   filezilla = callPackage ../applications/networking/ftp/filezilla { };
 
   firefoxPackages = recurseIntoAttrs (callPackage ../applications/networking/browsers/firefox/packages.nix {
-    stdenv = gcc8Stdenv;
     callPackage = pkgs.newScope {
       inherit (gnome2) libIDL;
       libpng = libpng_apng;
