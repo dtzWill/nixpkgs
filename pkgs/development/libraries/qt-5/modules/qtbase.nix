@@ -241,7 +241,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (compareVersion "5.9.0" < 0)
     [
-      "-c++11"
+      "-c++14" # TODO: c++1z, auto?
       "-no-reduce-relocations"
     ]
     ++ lib.optionals developerBuild [
