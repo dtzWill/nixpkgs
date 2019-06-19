@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
      url = https://git.kernel.org/pub/scm/libs/ell/ell.git;
      #rev = version;
      rev = "1b11a5fbe507ac0f6af526f757f38a33808738b6";
-     sha256 = "13a8wf5jar7i2w1p9mgs57rwggg8lhdwnmsmqbgm4gkcqm940q0v";
+     sha256 = "0n209lqvdry57cl194rdk4y70fa4198inj06jb2h6wjxj1rahc5l";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
