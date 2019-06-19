@@ -1,13 +1,3 @@
-From 2eb2af72d898e26d4e579258410f50839c0c6db4 Mon Sep 17 00:00:00 2001
-From: Will Dietz <w@wdtz.org>
-Date: Wed, 19 Jun 2019 18:37:52 -0500
-Subject: [PATCH] quick port of patch, if still useful
-
----
- mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in  | 4 ++--
- mkspecs/features/data/cmake/Qt5PluginTarget.cmake.in | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
 diff --git a/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in b/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in
 index 299d4e92..09aa2257 100644
 --- a/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in
@@ -32,12 +22,12 @@ index 3583745a..80cb5f76 100644
  add_library(Qt5::$$CMAKE_PLUGIN_NAME MODULE IMPORTED)
  
  !!IF !isEmpty(CMAKE_RELEASE_TYPE)
--_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME RELEASE \"$${CMAKE_PLUGIN_DIR}$${CMAKE_PLUGIN_LOCATION_RELEASE}\")
-+_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME RELEASE \"${CMAKE_PLUGIN_LOCATION_RELEASE}\")
+-_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME RELEASE \"$${CMAKE_PLUGIN_LOCATION_RELEASE}\")
++_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME RELEASE \"$${CMAKE_PLUGIN_DIR}$${CMAKE_PLUGIN_LOCATION_RELEASE}\")
  !!ENDIF
  !!IF !isEmpty(CMAKE_DEBUG_TYPE)
--_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME DEBUG \"$${CMAKE_PLUGIN_DIR}$${CMAKE_PLUGIN_LOCATION_DEBUG}\")
-+_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME DEBUG \"${CMAKE_PLUGIN_LOCATION_DEBUG}\")
+-_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME DEBUG \"$${CMAKE_PLUGIN_LOCATION_DEBUG}\")
++_populate_$${CMAKE_MODULE_NAME}_plugin_properties($$CMAKE_PLUGIN_NAME DEBUG \"$${CMAKE_PLUGIN_DIR}$${CMAKE_PLUGIN_LOCATION_DEBUG}\")
  !!ENDIF
  
  list(APPEND Qt5$${CMAKE_MODULE_NAME}_PLUGINS Qt5::$$CMAKE_PLUGIN_NAME)
