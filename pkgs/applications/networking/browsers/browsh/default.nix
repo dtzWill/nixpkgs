@@ -8,7 +8,7 @@ let
   # might be just enough.
   webext = fetchurl {
     url = "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}-an.fx.xpi";
-    sha256 = "01k3if6zr1wjcjah2p70b8p906irygr5cm3pj5cyl0zv928aj6w7";
+    sha256 = "1shf1s9s525wns5vrsc4ns21zjxm1si43lx6v0q8ma6vd5x5445l";
   };
 
 in buildGoPackage rec {
