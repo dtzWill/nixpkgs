@@ -51,7 +51,7 @@ let
   patches = {
     qtbase = [
       ./qtbase.patch
-      ./qtbase-fixguicmake.patch
+#      ./qtbase-fixguicmake.patch
     ];
     qtdeclarative = [ ./qtdeclarative.patch ];
     qtscript = [ ./qtscript.patch ];
