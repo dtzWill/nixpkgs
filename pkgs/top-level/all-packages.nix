@@ -10205,6 +10205,8 @@ in
 
   cryptominisat = callPackage ../applications/science/logic/cryptominisat { };
 
+  ctypes_sh = callPackage ../development/libraries/ctypes_sh { };
+
   curlcpp = callPackage ../development/libraries/curlcpp { };
 
   curlpp = callPackage ../development/libraries/curlpp { };
@@ -17347,6 +17349,8 @@ in
   ctop = callPackage ../tools/system/ctop { };
 
   cubicsdr = callPackage ../applications/radio/cubicsdr { wxGTK = wxGTK31; };
+
+  cum = callPackage ../applications/misc/cum { };
 
   cuneiform = callPackage ../tools/graphics/cuneiform {};
 

@@ -508,6 +508,8 @@ in {
 
   intelhex = callPackage ../development/python-modules/intelhex { };
 
+  inquirer = callPackage ../development/python-modules/inquirer { };
+
   jira = callPackage ../development/python-modules/jira { };
 
   jwcrypto = callPackage ../development/python-modules/jwcrypto { };
@@ -805,6 +807,18 @@ in {
 
   pysideTools = callPackage ../development/python-modules/pyside/tools.nix { };
 
+  pyside2 = toPythonModule (callPackage ../development/python-modules/pyside2 {
+    inherit (pkgs) cmake qt5 ninja;
+  });
+
+  shiboken2 = toPythonModule (callPackage ../development/python-modules/shiboken2 {
+    inherit (pkgs) cmake qt5 llvmPackages;
+  });
+
+  pyside2-tools = toPythonModule (callPackage ../development/python-modules/pyside2-tools {
+    inherit (pkgs) cmake qt5;
+  });
+
   pyslurm = callPackage ../development/python-modules/pyslurm {
     slurm = pkgs.slurm;
   };
@@ -981,6 +995,8 @@ in {
   toml = callPackage ../development/python-modules/toml { };
 
   tomlkit = callPackage ../development/python-modules/tomlkit { };
+
+  toggl-cli = callPackage ../development/python-modules/toggl-cli { };
 
   unifi = callPackage ../development/python-modules/unifi { };
 
@@ -2481,6 +2497,8 @@ in {
 
   validictory = callPackage ../development/python-modules/validictory { };
 
+  validate-email = callPackage ../development/python-modules/validate-email { };
+
   venusian = callPackage ../development/python-modules/venusian { };
 
   chameleon = callPackage ../development/python-modules/chameleon { };
@@ -3872,6 +3890,8 @@ in {
     prompt_toolkit = self.prompt_toolkit;
   };
 
+  ptable = callPackage ../development/python-modules/ptable { };
+
   publicsuffix = callPackage ../development/python-modules/publicsuffix {};
 
   py = callPackage ../development/python-modules/py { };
@@ -4267,6 +4287,8 @@ in {
 
   readme_renderer = callPackage ../development/python-modules/readme_renderer { };
 
+  readchar = callPackage ../development/python-modules/readchar { };
+
   rivet = disabledIf isPy3k (toPythonModule (pkgs.rivet.override {
     python2 = python;
   }));
@@ -4308,6 +4330,8 @@ in {
   robotframework-seleniumlibrary = callPackage ../development/python-modules/robotframework-seleniumlibrary { };
 
   robotframework-selenium2library = callPackage ../development/python-modules/robotframework-selenium2library { };
+
+  robotframework-sshlibrary = callPackage ../development/python-modules/robotframework-sshlibrary { };
 
   robotframework-tools = callPackage ../development/python-modules/robotframework-tools { };
 
