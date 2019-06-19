@@ -3021,6 +3021,11 @@
     github = "MarcFontaine";
     name = "Marc Fontaine";
   };
+  magenbluten = {
+    email = "magenbluten@codemonkey.cc";
+    github = "magenbluten";
+    name = "magenbluten";
+  };
   magnetophon = {
     email = "bart@magnetophon.nl";
     github = "magnetophon";
