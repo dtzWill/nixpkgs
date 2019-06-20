@@ -1,8 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl
-, cmake, cmark, pkgconfig, lmdb, qt5, qtmacextras, mtxclient
-, boost, spdlog, olm, nlohmann_json
+{ lib, stdenv, fetchFromGitHub
+, cmake, cmark, lmdb, qt5, qtmacextras, mtxclient
+, boost, spdlog, olm, pkgconfig, nlohmann_json
 }:
 
+# These hashes and revisions are based on those from here:
+# https://github.com/Nheko-Reborn/nheko/blob/v0.6.4/deps/CMakeLists.txt#L52
 let
   tweeny = fetchFromGitHub {
     owner = "mobius3";
@@ -21,13 +23,11 @@ in
 stdenv.mkDerivation rec {
   name = "nheko-${version}";
   version = "0.6.4";
-  #version = "20190519.1";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    #rev = "v${version}";
-    rev = "refs/tags/v${version}";
+    rev = "v${version}";
     sha256 = "19dkc98l1q4070v6mli4ybqn0ip0za607w39hjf0x8rqdxq45iwm";
   };
 
@@ -56,19 +56,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DTWEENY_INCLUDE_DIR=.deps/include"
     "-DLMDBXX_INCLUDE_DIR=${lmdbxx}"
-
-    #"-DUSE_BUNDLED=OFF"
-
-    ## mtxclient
-    #"-DBoost_USE_STATIC_LIBS=OFF"
-    #"-DBoost_USE_STATIC_RUNTIME=OFF"
-    #"-DBoost_USE_MULTITHREADED=ON"
-    #"-DCMAKE_CXX_STANDARD=14"
-    #"-DCMAKE_CXX_STANDARD_REQUIRED=ON"
-    #"-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
-
-    "-DUSE_BUNDLED_BOOST=OFF"
-    #"-DBUILD_SHARED_LIBS=ON"
+    "-Dnlohmann_json_DIR=${nlohmann_json}/lib/cmake/nlohmann_json"
   ];
 
   nativeBuildInputs = [ cmake pkgconfig ];

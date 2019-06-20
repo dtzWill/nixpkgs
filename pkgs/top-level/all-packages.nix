@@ -534,6 +534,8 @@ in
 
   ammonite = callPackage ../development/tools/ammonite {};
 
+  amp = callPackage ../applications/editors/amp {};
+
   amtterm = callPackage ../tools/system/amtterm {};
 
   analog = callPackage ../tools/admin/analog {};
@@ -5827,7 +5829,9 @@ in
 
   scrypt = callPackage ../tools/security/scrypt { };
 
-  sd = callPackage ../tools/text/sd { };
+  sd = callPackage ../tools/text/sd {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   sdate = callPackage ../tools/misc/sdate { };
 
@@ -8061,6 +8065,7 @@ in
 
   cargo-download = callPackage ../tools/package-management/cargo-download { };
   cargo-edit = callPackage ../tools/package-management/cargo-edit { };
+  cargo-graph = callPackage ../tools/package-management/cargo-graph { };
   cargo-outdated = callPackage ../tools/package-management/cargo-outdated {};
   cargo-release = callPackage ../tools/package-management/cargo-release {
     inherit (darwin.apple_sdk.frameworks) Security;

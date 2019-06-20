@@ -35,8 +35,13 @@ buildGoModule rec {
   nativeBuildInputs = [ removeReferencesTo utillinux which makeWrapper pkgconfig ];
   propagatedBuildInputs = [ coreutils squashfsTools ];
 
+  outputs = [ "bin" "out" ];
+
   postConfigure = ''
+    cd go/src/github.com/sylabs/singularity
+
     patchShebangs .
+    sed -i 's|defaultPath := "[^"]*"|defaultPath := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/actions.go
 
     ./mconfig \
       -V ${version} \
@@ -54,25 +59,24 @@ buildGoModule rec {
     sed -i "s|^cni_vendor_GOPATH :=.*\$|cni_vendor_GOPATH := $NIX_BUILD_TOP/vendor/github.com/containernetworking/plugins/plugins|" builddir/Makefile
   '';
 
-  buildPhase = ''
-    make -C builddir
+  makeFlags = [ "-C" "builddir" ];
+
+  installPhase = ''
+    make -C builddir install LOCALSTATEDIR=$bin/var
+    chmod 755 $bin/libexec/singularity/bin/starter-suid
+    wrapProgram $bin/bin/singularity --prefix PATH : ${stdenv.lib.makeBinPath propagatedBuildInputs}
   '';
 
-installPhase = ''
-  make -C builddir install LOCALSTATEDIR=$out/var
-  chmod 755 ''${!outputBin}/libexec/singularity/bin/starter-suid
-'';
+  postFixup = ''
+    find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
 
-postFixup = ''
-  find $out/ -type f -executable -exec remove-references-to -t ${go} '{}' + || true
+    # These etc scripts shouldn't have their paths patched
+    cp etc/actions/* ''${!outputBin}/etc/singularity/actions/
 
-  # These etc scripts shouldn't have their paths patched
-  cp etc/actions/* ''${!outputBin}/etc/singularity/actions/
-
-  for x in ''${!outputBin}/bin/*; do
-    wrapProgram $x --prefix PATH : ${getBin squashfsTools}/bin
-  done
-'';
+    for x in ''${!outputBin}/bin/*; do
+      wrapProgram $x --prefix PATH : ${getBin squashfsTools}/bin
+    done
+  '';
 
   meta = with stdenv.lib; {
     homepage = http://www.sylabs.io/;
