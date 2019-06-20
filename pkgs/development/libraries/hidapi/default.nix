@@ -2,13 +2,13 @@
 , darwin }:
 
 stdenv.mkDerivation rec {
-  name = "hidapi-0.8.0-rc1";
+  name = "hidapi-0.9.0";
 
   src = fetchFromGitHub {
-    owner = "signal11";
+    owner = "libusb";
     repo = "hidapi";
     rev = name;
-    sha256 = "13d5jkmh9nh4c2kjch8k8amslnxapa9vkqzrk1z6rqmw8qgvzbkj";
+    sha256 = "1p4g8lgwj4rki6lbn5l6rvwj0xlbn1xfh4d255bg5pvgczmwmc4i";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ IOKit Cocoa ]);
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/signal11/hidapi;
+    homepage = https://github.com/libusb/hidapi;
     description = "Library for communicating with USB and Bluetooth HID devices";
     # Actually, you can chose between GPLv3, BSD or HIDAPI license (more liberal)
     license = licenses.bsd3;
