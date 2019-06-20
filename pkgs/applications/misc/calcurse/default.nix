@@ -1,21 +1,14 @@
-{ stdenv, fetchurl, fetchFromGitHub, ncurses, gettext, python3, python3Packages
+{ stdenv, fetchurl, ncurses, gettext, python3, python3Packages
 , makeWrapper, autoreconfHook, asciidoc-full, libxml2, tzdata }:
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
-  #version = "4.4.0";
-  version = "2019-06-10";
+  version = "4.5.0";
 
-  src = fetchFromGitHub {
-    owner = "lfos";
-    repo = pname;
-    rev = "8dac9d80b72529cc6d6449d195819693debab9b3";
-    sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
+  src = fetchurl {
+    url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
+    sha256 = "0vw2xi6a2lrhrb9n55zq9lv4mzxhby4xdf3hmi1vlfpyrpdwkjzd";
   };
-  #src = fetchurl {
-  #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
-  #  sha256 = "0vw2xi6a2lrhrb8n55zq9lv4mzxhby4xdf3hmi1vlfpyrpdwkjzd";
-  #};
 
   patches = [ ./vdirsyncer-quoting.patch ];
 
