@@ -38,8 +38,6 @@ buildGoModule rec {
   outputs = [ "bin" "out" ];
 
   postConfigure = ''
-    cd go/src/github.com/sylabs/singularity
-
     patchShebangs .
     sed -i 's|defaultPath := "[^"]*"|defaultPath := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/actions.go
 
@@ -47,7 +45,8 @@ buildGoModule rec {
       -V ${version} \
       -P release \
       --prefix=$out \
-      --localstatedir=/var
+      --localstatedir=/var \
+      --without-suid
     touch builddir/.dep-done
     touch builddir/vendors-done
 
@@ -61,8 +60,8 @@ buildGoModule rec {
 
   makeFlags = [ "-C" "builddir" ];
 
-  installPhase = ''
-    make -C builddir install LOCALSTATEDIR=$bin/var
+  installFlags = [ "LOCALSTATEDIR=$bin/var" ];
+  postInstall = ''
     chmod 755 $bin/libexec/singularity/bin/starter-suid
     wrapProgram $bin/bin/singularity --prefix PATH : ${stdenv.lib.makeBinPath propagatedBuildInputs}
   '';
