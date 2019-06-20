@@ -20,7 +20,7 @@ top-level attribute to `top-level/all-packages.nix`.
   stdenv, fetchurl, fetchFromGitHub, makeSetupHook,
   bison, cups ? null, harfbuzz, libGL, perl,
   gstreamer, gst-plugins-base, gtk3, dconf,
-  cf-private, llvmPackages_5, openssl_1_1,
+  cf-private, llvmPackages_5,
 
   # options
   developerBuild ? false,
@@ -92,7 +92,6 @@ let
         inherit bison cups harfbuzz libGL;
         withGtk3 = true; inherit dconf gtk3;
         inherit developerBuild decryptSslTraffic;
-        openssl = openssl_1_1; # as of 5.12.4
       };
 
       qtcharts = callPackage ../modules/qtcharts.nix {};
