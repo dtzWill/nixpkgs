@@ -16,13 +16,13 @@ let
         };
       });
 
-      chardet = super.chardet.overridePythonAttrs(old: rec {
-        src =  super.fetchPypi {
-          version = "2.3.0";
-          pname = "chardet";
-          sha256 = "e53e38b3a4afe6d1132de62b7400a4ac363452dc5dfcf8d88e8e0cce663c68aa";
-        };
-      });
+      #chardet = super.chardet.overridePythonAttrs(old: rec {
+      #  src =  super.fetchPypi {
+      #    version = "2.3.0";
+      #    pname = "chardet";
+      #    sha256 = "e53e38b3a4afe6d1132de62b7400a4ac363452dc5dfcf8d88e8e0cce663c68aa";
+      #  };
+      #});
     };
     in python3.override { inherit packageOverrides; };
   pythonEnv = python.withPackages (ps: with ps; [
