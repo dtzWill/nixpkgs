@@ -6,11 +6,11 @@
 
 buildPythonPackage rec {
   pname = "requests-async";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0vyy9mwdg6c4i22s3awhv8x11rcazhmhi5pxybn9cc9qa4244cc7";
+    sha256 = "0wdxv7c5n7vryf036212g3mwpw3rfs616czk4fld5kg4zdq2v05v";
   };
 
   postPatch = ''
