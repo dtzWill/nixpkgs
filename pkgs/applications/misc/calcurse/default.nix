@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
-    sha256 = "0vw2xi6a2lrhrb9n55zq9lv4mzxhby4xdf3hmi1vlfpyrpdwkjzd";
+    sha256 = "1vjwcmp51h7dsvwn0qx93w9chp3wp970v7d9mjhk7jyamcbfywn3";
   };
 
   patches = [ ./vdirsyncer-quoting.patch ];
