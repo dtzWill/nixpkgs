@@ -35,6 +35,10 @@ in stdenv.mkDerivation {
         url = "https://github.com/iputils/iputils/commit/473be6467f995865244e7e68b2fa587a4ee79551.patch";
         sha256 = "0781147qaf0jwa177jbmh474r8hqs0jwgi5vgx9csb43jzdm8hqf";
       })
+      (fetchpatch { # tracepath: fix IP{V6,}_PMTUDISC_DO values
+        url = "https://github.com/iputils/iputils/commit/81d0f03d53138b3e100f60a50da50ec946ca866c.patch";
+        sha256 = "15q143b3j4rz5nvbj263dm6slq6bw54blbm0d2gxyd9zn0mfznkv";
+      })
     ];
 
   mesonFlags =
