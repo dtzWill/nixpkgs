@@ -682,6 +682,8 @@ in {
     inherit (pkgs) pkgconfig;
   };
 
+  pycategories = callPackage ../development/python-modules/pycategories { };
+
   pycangjie = disabledIf (!isPy3k) (callPackage ../development/python-modules/pycangjie {
     inherit (pkgs) pkgconfig;
   });
@@ -917,6 +919,8 @@ in {
 
   pyzufall = callPackage ../development/python-modules/pyzufall { };
 
+  rig = callPackage ../development/python-modules/rig { };
+
   rhpl = disabledIf isPy3k (callPackage ../development/python-modules/rhpl {});
 
   rlp = callPackage ../development/python-modules/rlp { };
@@ -930,6 +934,8 @@ in {
   seekpath = callPackage ../development/python-modules/seekpath { };
 
   selectors2 = callPackage ../development/python-modules/selectors2 { };
+
+  sentinel = callPackage ../development/python-modules/sentinel { };
 
   sentry-sdk = callPackage ../development/python-modules/sentry-sdk {};
 
@@ -2242,7 +2248,11 @@ in {
 
   python-mapnik = callPackage ../development/python-modules/python-mapnik { };
 
+  midiutil = callPackage ../development/python-modules/midiutil {};
+
   misaka = callPackage ../development/python-modules/misaka {};
+
+  mlrose = callPackage ../development/python-modules/mlrose { };
 
   mt-940 = callPackage ../development/python-modules/mt-940 { };
 
@@ -3003,6 +3013,8 @@ in {
   grpc_google_iam_v1 = callPackage ../development/python-modules/grpc_google_iam_v1 { };
 
   gspread = callPackage ../development/python-modules/gspread { };
+
+  gtts-token = callPackage ../development/python-modules/gtts-token { };
 
   gym = callPackage ../development/python-modules/gym { };
 
@@ -3829,7 +3841,9 @@ in {
 
   pysftp = callPackage ../development/python-modules/pysftp { };
 
-  pysoundfile = callPackage ../development/python-modules/pysoundfile { };
+  soundfile = callPackage ../development/python-modules/soundfile { };
+
+  pysoundfile = self.soundfile;  # Alias added 23-06-2019
 
   python3pika = callPackage ../development/python-modules/python3pika { };
 
@@ -4400,9 +4414,11 @@ in {
 
   scikitimage = callPackage ../development/python-modules/scikit-image { };
 
-  scikitlearn = callPackage ../development/python-modules/scikitlearn {
-    inherit (pkgs) gfortran glibcLocales;
-  };
+  scikitlearn = let
+    args = { inherit (pkgs) gfortran glibcLocales; };
+  in
+    if isPy3k then callPackage ../development/python-modules/scikitlearn args
+    else callPackage ../development/python-modules/scikitlearn/0.20.nix args;
 
   scikit-bio = callPackage ../development/python-modules/scikit-bio { };
 

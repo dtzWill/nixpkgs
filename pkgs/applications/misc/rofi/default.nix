@@ -4,17 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  #version = "1.5.2";
-  #name = "rofi-unwrapped-${version}";
-  pname = "rofi"; # -unwrapped
-  version = "2019-05-19";
+  version = "1.5.3";
+  name = "rofi-unwrapped-${version}";
 
-  src = fetchFromGitHub {
-    owner = "davatorium";
-    repo = pname;
-    rev = "361ce7d6fc9c837d6a263a9f3405e3466668523a";
-    fetchSubmodules = true;
-    sha256 = "15yd7xjmamij22svyjzn5idjv5m9nbfrylpc9h87rvwjcjss02c8";
+  src = fetchurl {
+    url = "https://github.com/DaveDavenport/rofi/releases/download/${version}/rofi-${version}.tar.gz";
+    sha256 = "1mskknfnpgmaghplwcyc44qc8swb1f9qiyi67fz9i77jijjpj1lx";
   };
   #src = fetchurl {
   #  url = "https://github.com/DaveDavenport/rofi/releases/download/${version}/rofi-${version}.tar.gz";
