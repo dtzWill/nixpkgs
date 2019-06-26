@@ -2,23 +2,15 @@
 , asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl, libiconv, Security, makeWrapper }:
 
 rustPlatform.buildRustPackage rec {
-  #name = "newsboat-${version}";
   pname = "newsboat";
-#  version = "2.15";
-  version = "2019-06-06";
+  version = "2.15";
 
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "80402ef7726f063e982170977a03f1f143cdfa11";
-    sha256 = "1z2pn92zhzv8zs5ky9j296gml8km2qyz1z0j7gjpamgq9n6m4iv8";
+  src = fetchurl {
+    url = "https://newsboat.org/releases/${version}/${pname}-${version}.tar.xz";
+    sha256 = "1dqdcp34jmphqf3d8ik0xdhg0s66nd5rky0y8y591nidq29wws6s";
   };
-  #src = fetchurl {
-  #  url = "https://newsboat.org/releases/${version}/${name}.tar.xz";
-  #  sha256 = "1dqdcp34jmphqf3d8ik0xdhg0s66nd5rky0y8y591nidq29wws6s";
-  #};
 
-  cargoSha256 = "0ck2dgfk4fay4cjl66wqkbnq4rqrd717jl63l1mvqmvad9i19igm";
+  cargoSha256 = "06r682vvr8m7gl443qx9ncmq8dpmdxcls68f29d0mmf7llddy5sa";
 
   postPatch = ''
     substituteInPlace Makefile --replace "|| true" ""
