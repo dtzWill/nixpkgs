@@ -1,12 +1,12 @@
 { stdenv, fetchFromGitHub, pkgconfig, which, zlib, openssl, libarchive }:
 
 stdenv.mkDerivation rec {
-  name = "xbps-${version}";
+  pname = "xbps";
   version = "0.56";
 
   src = fetchFromGitHub {
     owner = "void-linux";
-    repo = "xbps";
+    repo = pname;
     rev = version;
     sha256 = "0hqvq6fq62l5sgm4fy3zb0ks889d21mqz4f4my3iifs6c9f50na2";
   };
