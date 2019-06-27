@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = "0sgdr9dma5hkda3siydfvjrnzrpri8r7iqs2zqf77z9n4zn90qp5";
+  outputHash = "0las0agf36r8p59igvi7zayrskqyzfy7szz08hhkymws9276lbci";
 
   meta = with stdenv.lib; {
     description = "Unicode font for Base Multilingual Plane";
