@@ -15,11 +15,11 @@
 
 stdenv.mkDerivation rec {
   pname = "tor";
-  version = "0.4.1.2-alpha";
+  version = "0.4.1.3-alpha";
 
   src = fetchurl {
     url = "https://dist.torproject.org/${pname}-${version}.tar.gz";
-    sha256 = "0nzx7c1qbybccy0hdjnb29cjsr55d9d05hrcd0fj7n1xvd4wylgq";
+    sha256 = "0dlqfgwk4c6171kmzxl2d92r1wpkfpmdw58szl7rwylljfr8w21i";
   };
 
   outputs = [ "out" "geoip" ];
