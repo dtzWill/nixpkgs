@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "boost-build-${version}";
-  version = "2016.03";
+  pname = "boost-build";
+  version = "4.0.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "build";
     rev = version;
-    sha256 = "1qw5marmp7z09nwcjlqrmqdg9b6myfqj3zvfz888x9mbidrmhn6p";
+    sha256 = "180083z9ga4p8jicn83m7ghcg1prypfgwx1hwy2gdhw8807k13rw";
   };
 
   hardeningDisable = [ "format" ];
