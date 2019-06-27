@@ -10,17 +10,17 @@ let
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
-  src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1vbyhxknixyrf75pbjl3rxcy32m8y9cx5s30s3598vgza081rvzb";
-  };
-  #src = fetchFromGitLab {
-  #  domain = "gitlab.gnome.org";
-  #  owner = "GNOME";
-  #  repo = pname;
-  #  rev = "779f92cfe3e1e094a7e25a07b709b9d8fa2e8549";
-  #  sha256 = "04fqiv3isb6w46p9dzflcwkq9bdba1m5x40lj9g4hr8jwxxfw937";
+  #src = fetchurl {
+  #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+  #  sha256 = "1vbyhxknixyrf75pbjl3rxcy32m8y9cx5s30s3598vgza081rvzb";
   #};
+  src = fetchFromGitLab {
+    domain = "gitlab.gnome.org";
+    owner = "GNOME";
+    repo = pname;
+    rev = "dbb54b8152c8ea2e7ba6f0dc1478196dcd10d5f5";
+    sha256 = "0rbib9k1a4v0s9yp0mwf7bj706hkx25abn29sxzjliidm7qvdnr1";
+  };
 
   mesonFlags = [
     "-Dlibnm_gtk=false" # It is deprecated
