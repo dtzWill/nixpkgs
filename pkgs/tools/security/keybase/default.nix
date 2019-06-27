@@ -29,9 +29,15 @@ buildGoPackage rec {
 
   dontRenameImports = true;
 
-  src = fetchurl {
-    url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
-    sha256 = "1c21ppplzd0q4qcvacszap6jdy6ggp9d4n2zxknnglvvc160yrvy";
+  #src = fetchurl {
+  #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
+  #  sha256 = "1c21ppplzd0q4qcvacszap6jdy6ggp9d4n2zxknnglvvc160yrvy";
+  #};
+  src = fetchFromGitHub {
+    owner = "keybase";
+    repo = "client";
+    rev = "e7b2655cb4d31dee304a40377a680b6c00c9f1ba";
+    sha256 = "12pnv56fbgy3vcp4acv9r0wkd5rpirh2kmqa83zjasl1grdy1fg8";
   };
 
   nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
