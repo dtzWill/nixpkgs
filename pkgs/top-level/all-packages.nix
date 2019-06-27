@@ -17976,7 +17976,7 @@ in
   geany = callPackage ../applications/editors/geany { };
   geany-with-vte = callPackage ../applications/editors/geany/with-vte.nix { };
 
-  ghostwriter = libsForQt5.callPackage ../applications/editors/ghostwriter { };
+  ghostwriter = libsForQt5.callPackage ../applications/editors/ghostwriter { hunspell = (hunspellWithDicts [hunspellDicts.en-us]); };
 
   gitweb = callPackage ../applications/version-management/git-and-tools/gitweb { };
 
