@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, aspell, pkgconfig, glib, hunspell, hspell }:
+{ stdenv, fetchurl, aspell, pkgconfig, glib, hunspell, hspell, unittest-cpp }:
 
 let
   version = "2.2.4";
@@ -13,9 +13,14 @@ in stdenv.mkDerivation rec {
     sha256 = "1p6a3qmrh8bjzds6x7rg9da0ir44gg804jzkf634h39wsa4vdmpm";
   };
 
+  configureFlags = [ "--enable-reloctable" ];
+
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ glib hunspell ];
   propagatedBuildInputs = [ hspell aspell ]; # libtool puts it to la file
+
+  checkInputs = [ unittest-cpp ];
+  doCheck = true;
 
   meta = with stdenv.lib; {
     description = "Generic spell checking library";
