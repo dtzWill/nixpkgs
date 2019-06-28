@@ -18,8 +18,6 @@ buildPythonPackage rec {
     pytest
   '';
 
-  doCheck = false; # bah cycles
-
   meta = with lib; {
     description = "Measures number of Terminal column cells of wide-character codes";
     longDescription = ''
