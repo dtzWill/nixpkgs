@@ -1,7 +1,7 @@
 { fetchurl, stdenv, ant, jdk, runtimeShell }:
 
 stdenv.mkDerivation rec {
-  name = "fop-${version}";
+  pname = "fop";
   version = "2.1";
 
   src = fetchurl {
