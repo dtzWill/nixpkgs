@@ -25,8 +25,6 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ importlib-metadata ];
 
-  propagatedBuildInputs = [ importlib-metadata ];
-
   meta = {
     description = "Plugin and hook calling mechanisms for Python";
     homepage = "https://github.com/pytest-dev/pluggy";
