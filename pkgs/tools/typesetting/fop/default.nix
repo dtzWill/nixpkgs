@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "fop";
-  version = "2.1";
+  version = "2.3";
 
   src = fetchurl {
-    url = "mirror://apache/xmlgraphics/fop/source/${name}-src.tar.gz";
-    sha256 = "165rx13q47l6qc29ppr7sg1z26vw830s3rkklj5ap7wgvy0ivbz5";
+    url = "mirror://apache/xmlgraphics/${pname}/source/${pname}-${version}-src.tar.gz";
+    sha256 = "19g4bwdn8h2h3f5ai6as22lav4qg7shr3irdm3v0bzjavflbkkg8";
   };
 
   buildInputs = [ ant jdk ];
