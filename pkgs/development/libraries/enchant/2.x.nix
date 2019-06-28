@@ -13,7 +13,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1p6a3qmrh8bjzds6x7rg9da0ir44gg804jzkf634h39wsa4vdmpm";
   };
 
-  configureFlags = [ "--enable-reloctable" ];
+  configureFlags = [ "--enable-relocatable" ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ glib hunspell ];
