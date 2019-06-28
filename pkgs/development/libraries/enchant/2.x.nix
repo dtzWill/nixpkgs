@@ -1,7 +1,7 @@
 { stdenv, fetchurl, aspell, pkgconfig, glib, hunspell, hspell }:
 
 let
-  version = "2.2.3";
+  version = "2.2.4";
   pname = "enchant";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -10,14 +10,12 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${name}.tar.gz";
-    sha256 = "0v87p1ls0gym95qirijpclk650sjbkcjjl6ssk059zswcwaykn5b";
+    sha256 = "1p6a3qmrh8bjzds6x7rg9da0ir44gg804jzkf634h39wsa4vdmpm";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ glib hunspell ];
   propagatedBuildInputs = [ hspell aspell ]; # libtool puts it to la file
-
-  doCheck = false; # fails to compile with with "UnitTest++.h: No such file or directory"
 
   meta = with stdenv.lib; {
     description = "Generic spell checking library";
