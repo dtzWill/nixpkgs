@@ -3,11 +3,11 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "newsboat";
-  version = "2.16";
+  version = "2.16.1";
 
   src = fetchurl {
     url = "https://newsboat.org/releases/${version}/${pname}-${version}.tar.xz";
-    sha256 = "0pgxpf5lrwfj8csydrd3j60v0y3f4by29q84a0yrmvcb8x352k8x";
+    sha256 = "0lxdsfcwa4byhfnn0gv34w3rr531f4nfqgi8j4qqmh3gncbwh8s0";
   };
 
   cargoSha256 = "0ck2dgfk4fay4cjl66wqkbnq4rqrd717jl63l1mvqmvad9i19igm";
