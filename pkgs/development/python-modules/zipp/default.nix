@@ -22,7 +22,6 @@ buildPythonPackage rec {
   checkPhase = ''
     pytest
   '';
-  doCheck = false; # dep cycle w/pytest b/c lameness, TODO: better solution
 
   # Prevent infinite recursion with pytest
   doCheck = false;
