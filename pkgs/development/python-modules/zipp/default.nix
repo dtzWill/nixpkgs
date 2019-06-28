@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1hsv4zwy1pwnbrr63wjjkpwrmnk36ngbkkqw01bj5hcwh1z3m56a";
+    sha256 = "ca943a7e809cc12257001ccfb99e3563da9af99d52f261725e96dfe0f9275bc3";
   };
 
   nativeBuildInputs = [ setuptools_scm ];
@@ -23,6 +23,9 @@ buildPythonPackage rec {
     pytest
   '';
   doCheck = false; # dep cycle w/pytest b/c lameness, TODO: better solution
+
+  # Prevent infinite recursion with pytest
+  doCheck = false;
 
   meta = with lib; {
     description = "Pathlib-compatible object wrapper for zip files";

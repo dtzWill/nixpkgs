@@ -60,6 +60,11 @@ stdenv.mkDerivation rec {
   #    "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
   #  ];
   #  sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  #src = fetchurl {
+  #  urls = [
+  #    "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
+  #  ];
+  #  sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
   #};
 
   outputs = [ "out" "dev" ];

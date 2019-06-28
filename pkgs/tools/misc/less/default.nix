@@ -1,10 +1,11 @@
 { stdenv, fetchurl, ncurses, lessSecure ? false }:
 
 stdenv.mkDerivation rec {
-  name = "less-551";
+  pname = "less";
+  version = "551";
 
   src = fetchurl {
-    url = "http://www.greenwoodsoftware.com/less/${name}.tar.gz";
+    url = "http://www.greenwoodsoftware.com/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0ggyjl3yzn7c450zk1rixi9ls6asdhgqynhk34zsd0ckhmsm45pz";
   };
 
@@ -18,6 +19,6 @@ stdenv.mkDerivation rec {
     description = "A more advanced file pager than ‘more’";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = [ maintainers.eelco ];
+    maintainers = with maintainers; [ eelco dtzWill ];
   };
 }

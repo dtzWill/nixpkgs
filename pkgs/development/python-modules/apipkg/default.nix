@@ -28,13 +28,19 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools_scm ];
   checkInputs = [ pytest ];
 
+  # Fix pytest 4 support. See: https://github.com/pytest-dev/apipkg/issues/14
+  postPatch = ''
+    substituteInPlace "test_apipkg.py" \
+      --replace "py.test.ensuretemp('test_apipkg')" "py.path.local('test_apipkg')"
+  '';
+
   checkPhase = ''
     py.test
   '';
 
   meta = with stdenv.lib; {
     description = "Namespace control and lazy-import mechanism";
-    homepage = https://bitbucket.org/hpk42/apipkg;
+    homepage = "https://github.com/pytest-dev/apipkg";
     license = licenses.mit;
   };
 }

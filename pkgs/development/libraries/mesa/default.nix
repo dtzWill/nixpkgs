@@ -70,7 +70,7 @@ let
 in
 
 let self = stdenv.mkDerivation rec {
-  pname = "mesa-noglu";
+  pname = "mesa";
   inherit version;
 
   src =  fetchurl {

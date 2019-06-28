@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1z76dbn5f7prvwaf2gnknf741bd4clym9hal71i7d5q5mi9a2988";
+    sha256 = "0825a152ac059776623854c1543d65a4ad408eb3d33ee114dff91e57ec6ae6fc";
   };
 
   checkPhase = ''
@@ -21,13 +21,15 @@ buildPythonPackage rec {
   # To prevent infinite recursion with pytest
   doCheck = false;
 
-  buildInputs = [ setuptools_scm ];
+  nativeBuildInputs = [ setuptools_scm ];
+
+  propagatedBuildInputs = [ importlib-metadata ];
 
   propagatedBuildInputs = [ importlib-metadata ];
 
   meta = {
     description = "Plugin and hook calling mechanisms for Python";
-    homepage = "https://pypi.python.org/pypi/pluggy";
+    homepage = "https://github.com/pytest-dev/pluggy";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
   };

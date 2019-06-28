@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0qj16ai937wrbpv1a9g395gybb9s06rmdj3arbp8fpl37bg6byhc";
+    sha256 = "0cfa65de3a835e87eeca6ac856b3013aade55f49e32515f65d999f91a2324162";
   };
 
   checkInputs = [ markupsafe nose mock pytest ];
