@@ -11,15 +11,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ant jdk ];
 
-  buildPhase = "ant -f fop/build.xml";
+  buildPhase = "ant -f fop/build.xml clean all";
 
   LC_ALL = "C.UTF-8";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/share/doc/fop
 
-    cp build/*.jar lib/*.jar $out/lib/
-    cp -r README examples/ $out/share/doc/fop/
+    cp fop/build/*.jar fop/lib/*.jar $out/lib/
+    cp -r README fop/examples/ $out/share/doc/fop/
 
     # There is a fop script in the source archive, but it has many impurities.
     # Instead of patching out 90 % of the script, we write our own.
