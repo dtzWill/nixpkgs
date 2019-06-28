@@ -14,7 +14,6 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest pretend ];
 
-  doCheck = false; # break cycle with pytest via importlib-metadata -> pluggy... :(
   checkPhase = ''
     py.test tests
   '';
