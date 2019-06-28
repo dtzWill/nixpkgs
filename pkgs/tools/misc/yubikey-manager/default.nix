@@ -7,7 +7,7 @@ python3Packages.buildPythonPackage rec {
 
   srcs = fetchurl {
     url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
-    sha256 = "1jmczk6r6610kzbq4ixispkm4qpvw94wdyfps7q3r96x75si1p1s";
+    sha256 = "087jn6ly16wgmpp1r95k25sk3wh2m5llbjxqrsh8823qjfnlcmw1";
   };
 
   propagatedBuildInputs =
