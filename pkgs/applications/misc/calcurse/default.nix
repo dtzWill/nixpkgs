@@ -4,7 +4,7 @@
 stdenv.mkDerivation rec {
   pname = "calcurse";
   #version = "4.4.0"; # 4.5.0+
-  version = "2019-06-25";
+  version = "2019-06-10";
 
   src = fetchFromGitHub {
     owner = "lfos";
