@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ant jdk ];
 
-  buildPhase = "ant";
+  buildPhase = "ant -f fop/build.xml";
+
+  LC_ALL = "C.UTF-8";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/share/doc/fop
