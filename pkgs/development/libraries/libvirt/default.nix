@@ -1,5 +1,5 @@
 { stdenv, fetchurl, fetchgit
-, pkgconfig, makeWrapper, libtool, autoconf, automake
+, pkgconfig, makeWrapper, libtool, autoconf, automake, fetchpatch
 , coreutils, libxml2, gnutls, perl, python2, attr
 , iproute, iptables, readline, lvm2, utillinux, systemd, libpciaccess, gettext
 , libtasn1, ebtables, libgcrypt, yajl, pmutils, libcap_ng, libapparmor
@@ -32,6 +32,30 @@ in stdenv.mkDerivation rec {
         sha256 = "1dja1mf295w0sl83zag62c4j55cfbzzfbhdxpkyv2zm3zv0mwdyc";
         fetchSubmodules = true;
       };
+
+  patches = optionals (!stdenv.isDarwin) [
+    (fetchpatch {
+      name = "5.4.0-CVE-2019-10161.patch";
+      url = "https://libvirt.org/git/?p=libvirt.git;a=patch;h=aed6a032cead4386472afb24b16196579e239580";
+      sha256 = "19k9z9xx68nf03igbgy1imxnlp5ppj7cgdbq9kri3s834hkjcygs";
+    })
+  ] ++ [
+    (fetchpatch {
+      name = "5.4.0-CVE-2019-10166.patch";
+      url = "https://libvirt.org/git/?p=libvirt.git;a=patch;h=db0b78457f183e4c7ac45bc94de86044a1e2056a";
+      sha256 = "17pd1rab2mxj4q0vg30vi2gh78mf52ik1p5l12wrghb0wjf7swml";
+    })
+    (fetchpatch {
+      name = "5.4.0-CVE-2019-10167.patch";
+      url = "https://libvirt.org/git/?p=libvirt.git;a=patch;h=8afa68bac0cf99d1f8aaa6566685c43c22622f26";
+      sha256 = "0hgbwk0y2n6ihzjk8vqabhw914axjqgzcb7c5xx893r86c54c0ml";
+    })
+    (fetchpatch {
+      name = "5.4.0-CVE-2019-10168.patch";
+      url = "https://libvirt.org/git/?p=libvirt.git;a=patch;h=bf6c2830b6c338b1f5699b095df36f374777b291";
+      sha256 = "0s4hc3hsjncx1852ndjas1nng9v23pxf4mi1jxcajsqvhw89la0g";
+    })
+  ];
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
   buildInputs = [

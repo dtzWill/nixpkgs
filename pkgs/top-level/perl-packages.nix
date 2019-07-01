@@ -14679,6 +14679,8 @@ let
       url = git://libvirt.org/libvirt-perl.git;
       rev = "d195d5d32a23ee0e6b4875b74caeb0b44df995e2"; # there is no "v5.4.0" tag
       sha256 = "09nrqsjhq994pnlqbybh4dvzlv78ap8dl9mqy8j4rmvg7vr3b48d";
+      #rev = "v${version}";
+      #sha256 = "0csg10mydcif2l0qf16nlphq6ih5378nk6dk1vznf5bspws2ch7a";
     };
     nativeBuildInputs = [ pkgs.pkgconfig ];
     buildInputs = [ pkgs.libvirt CPANChanges TestPod TestPodCoverage XMLXPath ];
