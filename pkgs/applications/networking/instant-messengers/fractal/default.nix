@@ -23,11 +23,6 @@ rustPlatform.buildRustPackage rec {
   ] ++ builtins.attrValues { inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gst-editing-services; };
 
   patches = [
-    # Fixes build with >= gstreamer 1.15.1
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/fractal/commit/e78f36c25c095ea09c9c421187593706ad7c4065.patch";
-      sha256 = "1qv7ayhkhgrrldag2lzs9ql17nbc1d72j375ljhhf6cms89r19ir";
-    })
   ];
 
   postPatch = ''
