@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     repo = "fractal";
     #rev = version;
     rev = "95ee205a060ed2fcce10f0d69918e18dbcbf02f8"; # 2019-06-26
-    sha256 = "1988kysq2mx4kiyabavrhk4rafmxxr9w2p70c055wc5f93gi6ikl";
+    sha256 = "1d61qf7zfqbx9xblpmlarkhkl0k2s4iqxgsr6caalghxkwl5x6rh";
   };
 
   nativeBuildInputs = [
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     # Fixes build with >= gstreamer 1.15.1
     (fetchpatch {
       url = "https://gitlab.gnome.org/GNOME/fractal/commit/e78f36c25c095ea09c9c421187593706ad7c4065.patch";
-      sha256 = "1d61qf7zfqbx9xblpmlarkhkl0k2s4iqxgsr6caalghxkwl5x6rh";
+      sha256 = "1qv7ayhkhgrrldag2lzs9ql17nbc1d72j375ljhhf6cms89r19ir";
     })
   ];
 
@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
-  cargoSha256 = "15v4nynfjp7lpa9vhsrb55ywr6j5ibrambmqr5qlmwbmn4i3861p";
+  cargoSha256 = "0ca4309cmd3zac6rdk6496nyppdhrmka3li2pbx9zlzml6hj84da";
 
   meta = with stdenv.lib; {
     description = "Matrix group messaging app";
