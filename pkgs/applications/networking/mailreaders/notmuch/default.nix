@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}"; # descriptive but exact name, used above in pythonSourceRoot
     url = git://git.notmuchmail.org/git/notmuch;
     #rev = "bc396c967c7cd8e7a109858e428d7bf97173f7a7";
-    rev = "refs/tags/${version}";
-    sha256 = "0mw3bxmbjc5wwadf7v7vj5zf4i40c9wvschxqklxxg11qy5lhfis";
+#    rev = "refs/tags/${version}";
+    rev = "bdc87f0d3ec41dd4744a89d1d19b2186d0647a56";
+    sha256 = "0c4y1gfgidcc5h0syhxzpw9fkbq9j34pwp7cimp97sd93p7b2vrs";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
