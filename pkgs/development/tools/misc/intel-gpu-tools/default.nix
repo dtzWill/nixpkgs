@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     libXext libXv libXrandr glib bison libunwind python3 procps
     gtk-doc openssl peg elfutils ];
 
-  mesonFlags = [ "-Dbuild_docs=enabled" ];
+  mesonFlags = [ "-Dbuild_docs=disabled" ]; # requires building tests, shrug
 
   postPatch = ''
     patchShebangs tests
