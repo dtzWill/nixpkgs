@@ -12840,6 +12840,8 @@ in
 
   microsoft_gsl = callPackage ../development/libraries/microsoft_gsl { };
 
+  mimalloc = callPackage ../development/libraries/mimalloc { };
+
   minizip = callPackage ../development/libraries/minizip { };
 
   mkvtoolnix = libsForQt5.callPackage ../applications/video/mkvtoolnix { };
