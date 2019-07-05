@@ -13,14 +13,14 @@ assert cupsSupport -> cups != null;
 with stdenv.lib;
 
 let
-  version = "3.24.9";
+  version = "3.24.10";
 in
 stdenv.mkDerivation rec {
   name = "gtk+3-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gtk+/${stdenv.lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
-    sha256 = "0dg6jf2763sp740ls6b5y86b5b9zhz3zj0sbmar2xpws1lkv0zjp";
+    sha256 = "00qvq1r96ikdalv7xzgng1kad9i0rcahqk01gwhxl3xrw83z3a1m";
   };
 
   outputs = [ "out" "dev" ];
