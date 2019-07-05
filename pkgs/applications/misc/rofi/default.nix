@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/DaveDavenport/rofi/releases/download/${version}/rofi-${version}.tar.gz";
-    sha256 = "09xv1afsfah87x91fy08rcnp81fffiszjzf6nxg18ywajw5dhvsw";
+    sha256 = "1g1170zmh5v7slnm1sm2d08jgz6icikf8rm17apm1bjzzyw1lhk7";
   };
 
   preConfigure = ''
