@@ -1,4 +1,4 @@
-{ stdenv, lib, buildGoPackage, fetchurl, fetchFromGitHub, cf-private
+{ stdenv, lib, buildGoPackage, fetchFromGitHub, cf-private
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
 , fuse, lsof, coreutils, utillinux, procps
@@ -36,6 +36,7 @@ buildGoPackage rec {
   src = fetchFromGitHub {
     owner = "keybase";
     repo = "client";
+#    rev = "v${version}";
     rev = "a648b2fc1b80a3a4c2d5c2b0279cb64669b01bdc";
     sha256 = "0s3hsvhg5vbsn568pj3y9i2fsm1jj69nzfgs95b37nrdmghvxzfr";
   };

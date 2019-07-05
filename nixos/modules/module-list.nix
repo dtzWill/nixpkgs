@@ -192,6 +192,7 @@
   ./services/audio/liquidsoap.nix
   ./services/audio/mpd.nix
   ./services/audio/mopidy.nix
+  ./services/audio/roon-server.nix
   ./services/audio/slimserver.nix
   ./services/audio/snapserver.nix
   ./services/audio/squeezelite.nix
@@ -780,6 +781,7 @@
   ./services/web-apps/tt-rss.nix
   ./services/web-apps/selfoss.nix
   ./services/web-apps/virtlyst.nix
+  ./services/web-apps/wordpress.nix
   ./services/web-apps/youtrack.nix
   ./services/web-servers/apache-httpd/default.nix
   ./services/web-servers/caddy.nix

@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake, makeWrapper, minizinc }:
-
 stdenv.mkDerivation rec {
-  name = "minizinc-ide";
+  pname = "minizinc-ide";
   version = "2.3.0";
 
   nativeBuildInputs = [ qmake makeWrapper ];

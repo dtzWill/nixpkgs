@@ -18,6 +18,8 @@ mkDerivation rec {
     sha256 = "0q098zaajwbpkrarrsdzpjhpsq2nxkqaxwzhr2gjlg08j9vqkpfm";
   };
 
+  buildInputs = [ vlc ];
+
   nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
   propagatedBuildInputs = [

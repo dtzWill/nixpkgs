@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, autoreconfHook }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "zimg";
   version = "2.9.1";
 
@@ -12,6 +12,8 @@ stdenv.mkDerivation rec{
   };
 
   nativeBuildInputs = [ autoreconfHook ];
+
+  enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Scaling, colorspace conversion and dithering library";

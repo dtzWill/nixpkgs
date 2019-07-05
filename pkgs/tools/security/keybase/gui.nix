@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${version + "-" + versionSuffix}_amd64.deb";
-    sha256 = "fd62f354ea016733712ad40d724e409b5179ee507a2ac1b1db4b9fefcbe19d4b";
+    sha256 = "0jwxw75yz7sbvfqw2aksa3p7jlcv817743fl59qk6rq1x9ag6qpx";
   };
 
   nativeBuildInputs = [

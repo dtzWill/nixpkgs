@@ -3,19 +3,26 @@
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
-  #version = "4.4.0";
-  version = "2019-06-10";
+  version = "4.5.0";
 
-  src = fetchFromGitHub {
-    owner = "lfos";
-    repo = pname;
-    rev = "8dac9d80b72529cc6d6449d195819693debab9b3";
-    sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
+  src = fetchurl {
+    url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
+    sha256 = "1vjwcmp51h7dsvwn0qx93w9chp3wp970v7d9mjhk7jyamcbfywn3";
   };
   #src = fetchurl {
   #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
   #  sha256 = "0vw2xi6a2lrhrb8n55zq9lv4mzxhby4xdf3hmi1vlfpyrpdwkjzd";
   #};
+
+  ## #version = "4.4.0";
+  ## version = "2019-06-10";
+
+  ## src = fetchFromGitHub {
+  ##   owner = "lfos";
+  ##   repo = pname;
+  ##   rev = "8dac9d80b72529cc6d6449d195819693debab9b3";
+  ##   sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
+  ## };
 
   patches = [ ./vdirsyncer-quoting.patch ];
 
