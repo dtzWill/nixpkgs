@@ -100,6 +100,13 @@ with super;
         sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
       })
     ];
+    # latest git, 0.9.2 is 2017-10-09
+    src = pkgs.fetchFromGitHub {
+      owner = "pavouk";
+      repo = "lgi";
+      rev = "7aa51f1b146d57b1a56e847d319cd3289b45244a";
+      sha256 = "18d913nf977g98sxygg2i2d2g78jlpfxwv6f17w7hnx3l1y2xsyi";
+    };
   });
 
   lrexlib-gnu = super.lrexlib-gnu.override({
