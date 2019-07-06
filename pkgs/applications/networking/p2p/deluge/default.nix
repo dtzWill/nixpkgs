@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, intltool, libtorrentRasterbar, pythonPackages }:
+{ stdenv, fetchurl, fetchpatch, intltool, libtorrentRasterbar, pythonPackages
+, gtk3, gobjectIntrospection, librsvg, wrapGAppsHook }:
 
 pythonPackages.buildPythonPackage rec {
   pname = "deluge";
@@ -12,16 +13,26 @@ pythonPackages.buildPythonPackage rec {
   propagatedBuildInputs = with pythonPackages; [
     twisted Mako chardet pyxdg pyopenssl service-identity
     libtorrentRasterbar.dev libtorrentRasterbar.python
+    setproctitle pillow rencode six zope_interface
+    dbus-python pygobject3 pycairo
+    gtk3 gobjectIntrospection librsvg
   ];
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [ intltool wrapGAppsHook ];
 
-  postInstall = ''
-     mkdir -p $out/share/applications
-     cp -R deluge/data/pixmaps $out/share/
-     cp -R deluge/data/icons $out/share/
-     cp deluge/data/share/applications/deluge.desktop $out/share/applications
-  '';
+  checkInputs = with pythonPackages; [
+    pytest /* pytest-twisted */ pytestcov mock
+    mccabe pylint
+  ];
+
+  doCheck = false; # until pytest-twisted is packaged
+
+  #postInstall = ''
+  #   mkdir -p $out/share/applications
+  #   cp -R deluge/data/pixmaps $out/share/
+  #   cp -R deluge/data/icons $out/share/
+  #   cp deluge/data/share/applications/deluge.desktop $out/share/applications
+  #'';
 
   meta = with stdenv.lib; {
     homepage = https://deluge-torrent.org;
