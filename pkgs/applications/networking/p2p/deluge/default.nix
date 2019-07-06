@@ -27,12 +27,12 @@ pythonPackages.buildPythonPackage rec {
 
   doCheck = false; # until pytest-twisted is packaged
 
-  #postInstall = ''
-  #   mkdir -p $out/share/applications
-  #   cp -R deluge/data/pixmaps $out/share/
-  #   cp -R deluge/data/icons $out/share/
-  #   cp deluge/data/share/applications/deluge.desktop $out/share/applications
-  #'';
+  postInstall = ''
+     mkdir -p $out/share/applications
+     cp -R deluge/ui/data/pixmaps $out/share/
+     cp -R deluge/ui/data/icons $out/share/
+     cp deluge/ui/data/share/applications/deluge.desktop $out/share/applications
+  '';
 
   meta = with stdenv.lib; {
     homepage = https://deluge-torrent.org;
