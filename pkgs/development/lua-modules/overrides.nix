@@ -107,6 +107,8 @@ with super;
       rev = "7aa51f1b146d57b1a56e847d319cd3289b45244a";
       sha256 = "18d913nf977g98sxygg2i2d2g78jlpfxwv6f17w7hnx3l1y2xsyi";
     };
+    knownRockspec = with super.lgi; "${pname}-${version}.rockspec";
+    preConfigure = "make rock VERSION=0.9.2";
   });
 
   lrexlib-gnu = super.lrexlib-gnu.override({
