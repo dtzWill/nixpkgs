@@ -6,7 +6,8 @@
 stdenv.mkDerivation rec {
   pname = "compton";
 #  version = "6.2";
-  version = "2019-06-24";
+  #version = "2019-06-24";
+  version = "7-rc1";
 
   COMPTON_VERSION = "v${version}";
 
@@ -14,8 +15,8 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = "compton";
     #rev    = COMPTON_VERSION;
-    rev = "387e247bcf0d7f4d0e9c6fef015740f174afe84d";
-    sha256 = "0pbi3nvd29axzkr3j9gjii2ymiv1cswi9fr2jznfir6jp3j3m6z6";
+    rev = "7d28309a47ccee8fb09d863e606b11d794296bb4";
+    sha256 = "07wqxw7iacw1b0x7c4lj2shijfnz0nqwk0bv1yhy65n8a37pl9zb";
     fetchSubmodules = true;
   };
 
