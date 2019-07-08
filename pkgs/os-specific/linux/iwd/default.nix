@@ -4,14 +4,14 @@ stdenv.mkDerivation rec {
   pname = "iwd";
 
 #  version = "0.18";
-  version = "2019-07-05";
+  version = "2019-07-08";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "bc45f98f36aa41d9db81094a77b79011c0de532e";
+    rev = "7d7c79fbf0076c7f9bebdba6f23468449c9037b0";
     #rev = "cde9933124b215b3194bfbd3e5b489f086d81093";
-    sha256 = "0v27cpbgjc69awm455q4bjd4ch3i9mj787k92rbkffx747p2wxam";
+    sha256 = "1j6p4i60nqdxvih1jra1w1x4l3nyqh6p1mfkhcrwbsggvmdp18jh";
   };
 
   nativeBuildInputs = [
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     python3Packages.python
   ];
 
-  pythonPath = [
-    python3Packages.dbus-python
-    python3Packages.pygobject3
+  pythonPath = with python3Packages; [
+    dbus-python
+    pygobject3
   ];
 
   configureFlags = [
