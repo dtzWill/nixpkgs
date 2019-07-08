@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
   ##   sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
   ## };
 
-  patches = [ ./vdirsyncer-quoting.patch ];
+  # I guess vdirsyncer bits dropped in 4.5.0? or changed?
+  # Anyway dropping this for now since I'm caving and using caldav instead, maybe.
+  #patches = [ ./vdirsyncer-quoting.patch ];
 
   buildInputs = [ ncurses gettext python3 python3Packages.wrapPython ];
   nativeBuildInputs = [ makeWrapper autoreconfHook asciidoc-full libxml2.bin ];
