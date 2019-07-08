@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "klavaro-${version}";
-  version = "3.08";
+  version = "3.09";
 
   src = fetchurl {
     url = "mirror://sourceforge/klavaro/${name}.tar.bz2";
-    sha256 = "0qmvr6d8wshwp0xvk5wbig4vlzxzcxrakhyhd32v8v3s18nhqsrc";
+    sha256 = "12gml7h45b1w9s318h0d5wxw92h7pgajn2kh57j0ak9saq0yb0wr";
   };
 
   nativeBuildInputs = [ intltool makeWrapper pkgconfig ];
