@@ -3,7 +3,7 @@
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
-  version = "4.5.0";
+  #version = "4.5.0";
   version = "2019-06-10";
 
   src = fetchFromGitHub {
@@ -20,12 +20,12 @@ stdenv.mkDerivation rec {
   ## #version = "4.4.0";
   ## version = "2019-06-10";
 
-  src = fetchFromGitHub {
-    owner = "lfos";
-    repo = pname;
-    rev = "04904048a02ad60ad91eb36f8d1812236c2fa013";
-    sha256 = "0n3854ha4bzmddwbml620ncncnpp0w2n83qqv2wzljkrdp42rcbf";
-  };
+  #src = fetchFromGitHub {
+  #  owner = "lfos";
+  #  repo = pname;
+  #  rev = "04904048a02ad60ad91eb36f8d1812236c2fa013";
+  #  sha256 = "0n3854ha4bzmddwbml620ncncnpp0w2n83qqv2wzljkrdp42rcbf";
+  #};
 
   # I guess vdirsyncer bits dropped in 4.5.0? or changed?
   # Anyway dropping this for now since I'm caving and using caldav instead, maybe.
