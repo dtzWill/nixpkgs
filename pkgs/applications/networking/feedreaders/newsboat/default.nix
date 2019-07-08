@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [ pkgconfig asciidoc docbook_xml_dtd_45 libxslt docbook_xsl ]
-    ++ stdenv.lib.optional stdenv.isDarwin [ makeWrapper libiconv ];
+    ++ stdenv.lib.optionals stdenv.isDarwin [ makeWrapper libiconv ];
 
   buildInputs = [ stfl sqlite curl gettext libxml2 json_c ncurses ]
     ++ stdenv.lib.optional stdenv.isDarwin Security;
@@ -29,7 +29,8 @@ rustPlatform.buildRustPackage rec {
     make -j$NIX_BUILD_CORES
   '';
 
-  NIX_CFLAGS_COMPILE = "-Wno-error=sign-compare";
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=sign-compare" ]
+    ++ stdenv.lib.optional stdenv.isDarwin "-Wno-error=format-security";
 
   doCheck = true;
 
@@ -48,7 +49,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     homepage    = https://newsboat.org/;
-    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console.";
+    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
     maintainers = with maintainers; [ dotlambda nicknovitski ];
     license     = licenses.mit;
     platforms   = platforms.unix;

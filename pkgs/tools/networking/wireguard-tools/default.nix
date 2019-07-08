@@ -1,9 +1,18 @@
-{ stdenv, fetchzip, openresolv ? null, libmnl ? null, procps ? null, iproute ? null, makeWrapper ? null, wireguard-go ? null }:
+{
+  stdenv, fetchzip,
+
+  iproute ? null,
+  libmnl ? null,
+  makeWrapper ? null,
+  openresolv ? null,
+  procps ? null,
+  wireguard-go ? null,
+}:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "wireguard-tools-${version}";
+  pname = "wireguard-tools";
   version = "0.0.20190702";
 
   src = fetchzip {
@@ -39,10 +48,10 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = ./update.sh;
 
-  meta = with stdenv.lib; {
+  meta = {
     description = "Tools for the WireGuard secure network tunnel";
-    downloadPage = https://git.zx2c4.com/WireGuard/refs/;
-    homepage = https://www.wireguard.com/;
+    downloadPage = "https://git.zx2c4.com/WireGuard/refs/";
+    homepage = "https://www.wireguard.com/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ elseym ericsagnes mic92 zx2c4 ];
     platforms = platforms.unix;
