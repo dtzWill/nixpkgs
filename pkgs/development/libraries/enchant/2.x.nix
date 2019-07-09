@@ -1,7 +1,7 @@
 { stdenv, fetchurl, aspell, pkgconfig, glib, hunspell, hspell, unittest-cpp }:
 
 let
-  version = "2.2.4";
+  version = "2.2.5";
   pname = "enchant";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -10,7 +10,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${name}.tar.gz";
-    sha256 = "1p6a3qmrh8bjzds6x7rg9da0ir44gg804jzkf634h39wsa4vdmpm";
+    sha256 = "0iqwzs11i9fvqdxv5kn0svcn2mzymn657qf3j66lg8dx1nh4xkpz";
   };
 
   configureFlags = [ "--enable-relocatable" ];
