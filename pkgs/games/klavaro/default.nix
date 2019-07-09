@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, curl, gtk3 }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, curl, gtk3, espeak }:
 
 stdenv.mkDerivation rec {
   name = "klavaro-${version}";
@@ -28,6 +28,10 @@ stdenv.mkDerivation rec {
      	}
      	curl_easy_cleanup (curl);
   '') ];
+
+  postPatch = ''
+    substituteInPlace src/tutor.c --replace '"espeak ' '"${espeak}/bin/espeak '
+  '';
 
   postInstall = ''
     wrapProgram $out/bin/klavaro \
