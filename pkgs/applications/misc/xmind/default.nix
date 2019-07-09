@@ -59,6 +59,7 @@ stdenv.mkDerivation rec {
     if [ ! -d "\$HOME/.xmind" ]; then
       mkdir -p "\$HOME/.xmind/configuration-cathy/"
       cp -r $out/libexec/configuration/ \$HOME/.xmind/configuration-cathy/
+      ln -rs \$HOME/.xmind/configuration-cathy{_linux_64}
       chmod u+rw -R ~/.xmind
     fi
 
@@ -67,6 +68,11 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/XMind
 
     ln -s ${jre} $out/libexec/jre
+
+    # GTK3 instead of 2
+    sed -i "s|^2$|3|" $out/libexec/XMind.ini
+
+    # echo "--add-modules=java.se.ee" >> $out/libexec/XMind.ini
   '';
 
   meta = with stdenv.lib; {
