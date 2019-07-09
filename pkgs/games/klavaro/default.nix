@@ -29,6 +29,9 @@ stdenv.mkDerivation rec {
      	curl_easy_cleanup (curl);
   '') ];
 
+  # Ensure dictation mode is available if desired.  As it's enabled by default
+  # letting users desiring to opt-out use settings menu instead of build flag.
+  # Happy to change if that's preferred :).
   postPatch = ''
     substituteInPlace src/tutor.c --replace '"espeak ' '"${espeak}/bin/espeak '
   '';
