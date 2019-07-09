@@ -1,9 +1,9 @@
-{ stdenv, fetchzip, makeWrapper, zip, unzip, jre }:
+{ stdenv, fetchzip, wrapGAppsHook, zip, unzip, jre, gtk3, glib, gsettings-desktop-schemas }:
 
 let
   javaFlags = [
     "-Dawt.useSystemAAFontSettings=lcd"
-    "-Dsun.java2d.xrender=True"
+    "-Dsun.java2d.xrender=False"
     #"-Dsun.java2d.opengl=False"
     "-Dswing.aatext=true"
    # "-Dswing.defaultlaf=com.sun.java"
@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     sha256 = "0l70pc7wl2ghfkjab9w2mbx7crwha7xwkrpmspsi5c6q56dw7s33";
   };
 
-  nativeBuildInputs = [ makeWrapper zip unzip ];
+  nativeBuildInputs = [ wrapGAppsHook zip unzip ];
+  buildInputs = [ gtk3 glib gsettings-desktop-schemas ];
 
   installPhase = ''
     mkdir -p $out/yed
@@ -30,9 +31,10 @@ stdenv.mkDerivation rec {
 
     zip -d $out/yed/yed.jar com/jgoodies/looks/plastic/Plastic3DLookAndFeel.class
 
-    makeWrapper ${jre}/bin/java $out/bin/yed \
-      --set _JAVA_OPTIONS "${toString javaFlags}" \
-      --add-flags "-jar $out/yed/yed.jar --"
+    ln -s ${jre}/bin/java $out/bin/yed
+
+    gappsWrapperArgs+=(--set _JAVA_OPTIONS "${toString javaFlags}")
+    gappsWrapperArgs+=(--add-flags "-jar $out/yed/yed.jar --")
   '';
 
   meta = with stdenv.lib; {
