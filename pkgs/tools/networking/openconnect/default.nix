@@ -14,7 +14,7 @@ let
   binpath = stdenv.lib.makeBinPath [ coreutils gnugrep iproute nettools gnused which ];
   modern_vpnc_scripts = stdenv.mkDerivation rec {
     pname = "vpnc-scripts";
-    version = "20190425";
+    version = "20190611";
     nativeBuildInputs = [ makeWrapper gnused which ];
     buildPhase = ''
      substituteInPlace vpnc-script \
@@ -30,7 +30,7 @@ let
    '';
     src = fetchurl {
       url = "ftp://ftp.infradead.org/pub/${pname}/${pname}-${version}.tar.gz";
-      sha256 = "0iwdhxj68f2g0r5f8sznhwwpg3pnf22nvis9irz4i205y5171ici";
+      sha256 = "0wv4m4f7k34ic394mslmb9p0skq275935djd1pssjvrkmbvkm5g0";
     };
   };
 
