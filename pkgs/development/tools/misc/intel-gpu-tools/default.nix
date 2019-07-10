@@ -1,5 +1,5 @@
 { stdenv, fetchurl, fetchgit, pkgconfig, libdrm, libpciaccess, cairo, pixman, udev, xorgproto
-, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod
+, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod, json_c, docutils
 , procps, utilmacros, gtk-doc, openssl, peg, meson, ninja, elfutils, flex }:
 
 stdenv.mkDerivation rec {
@@ -14,14 +14,20 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig utilmacros meson ninja flex ];
   buildInputs = [ libdrm libpciaccess cairo pixman xorgproto udev libX11 kmod
     libXext libXv libXrandr glib bison libunwind python3 procps
-    gtk-doc openssl peg elfutils ];
+    gtk-doc openssl peg elfutils json_c docutils ];
 
-  mesonFlags = [ "-Dbuild_docs=disabled" ]; # requires building tests, shrug
+  mesonFlags = [
+    "-Dbuild_docs=disabled" # requires building tests, shrug
+    "-Dwith_valgrind=disabled"
+    "-Dbuild_chamelium=disabled"
+  ];
 
   postPatch = ''
     patchShebangs tests
 
     patchShebangs debugger/system_routine/pre_cpp.py
+
+    patchShebangs man/rst2man.sh
   '';
 
   enableParallelBuilding = true;
