@@ -28,7 +28,9 @@ in stdenv.mkDerivation rec {
       "-DBUILD_TRACEROUTE6=true"
       "-DNO_SETCAP_OR_SUID=true"
       "-Dsystemdunitdir=etc/systemd/system"
-    ];
+    ]
+    # Disable idn usage w/musl (https://github.com/iputils/iputils/pull/111):
+    ++ optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
 
   nativeBuildInputs = [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl_ns ];
   buildInputs = [ libcap nettle systemd ]
