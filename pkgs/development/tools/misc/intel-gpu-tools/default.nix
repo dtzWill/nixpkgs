@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dbuild_docs=disabled" # requires building tests, shrug
+    "-Dbuild_man=enabled"
     "-Dwith_valgrind=disabled"
     "-Dbuild_chamelium=disabled"
   ];
