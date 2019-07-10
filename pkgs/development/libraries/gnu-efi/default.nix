@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pciutils }: with stdenv.lib;
+{ stdenv, fetchurl, pciutils, buildPackages }: with stdenv.lib;
 
 stdenv.mkDerivation rec {
   name = "gnu-efi-${version}";
@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "PREFIX=\${out}"
+    "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
     "CC=${stdenv.cc.targetPrefix}gcc"
     "AS=${stdenv.cc.targetPrefix}as"
     "LD=${stdenv.cc.targetPrefix}ld"
