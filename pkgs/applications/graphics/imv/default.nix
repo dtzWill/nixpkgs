@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   name = "imv-${version}";
-  version = "3.0.0";
+  version = "3.1.2";
 
   src = fetchFromGitHub {
     owner  = "eXeC64";
     repo   = "imv";
     rev    = "v${version}";
-    sha256 = "0j5aykdkm1g518ism5y5flhwxvjvl92ksq989fhl2wpnv0la82jp";
+    sha256 = "0gg362x2f7hli6cr6s7dmlanh4cqk7fd2pmk4zs9438jvqklf4cl";
   };
 
   buildInputs = [
