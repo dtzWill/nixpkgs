@@ -9,22 +9,23 @@ stdenv.mkDerivation rec {
     sha256 = "031m124a109vv6fx667h4ca2iav0xszrlvif9zcfxcaxbjsn6991";
   };
 
-  NIX_CFLAGS_COMPILE = "-O3";
-
   enableParallelBuilding = true;
 
-  buildFlags = [
+  nativeBuildInputs = [ bison flex ];
+
+  PROGS = [
     "acpibin"
     "acpidump"
     "acpiexec"
     "acpihelp"
     "acpinames"
+    "acpisrc"
     "acpixtract"
   ];
-
-  nativeBuildInputs = [ bison flex ];
-
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags =  PROGS ++ [
+    "PREFIX=${placeholder "out"}"
+    "DESTDIR="
+  ];
 
   meta = with lib; {
     description = "ACPICA Tools";
