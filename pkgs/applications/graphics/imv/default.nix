@@ -4,12 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "imv-${version}";
+  pname = "imv";
   version = "3.1.2";
 
   src = fetchFromGitHub {
     owner  = "eXeC64";
-    repo   = "imv";
+    repo   = pname;
     rev    = "v${version}";
     sha256 = "0gg362x2f7hli6cr6s7dmlanh4cqk7fd2pmk4zs9438jvqklf4cl";
   };
