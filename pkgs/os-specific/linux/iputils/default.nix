@@ -31,7 +31,8 @@ in stdenv.mkDerivation rec {
     ];
 
   nativeBuildInputs = [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl_ns ];
-  buildInputs = [ libcap nettle systemd libidn2 ];
+  buildInputs = [ libcap nettle systemd ]
+    ++ optional (!stdenv.hostPlatform.isMusl) libidn2;
 
   meta = {
     homepage = https://github.com/iputils/iputils;
