@@ -322,6 +322,11 @@
    </listitem>
    <listitem>
     <para>
+     The <literal>mercurial</literal> <literal>httpd.extraSubservice</literal> has been removed from nixpkgs due to lack of maintainer.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
      OpenSSH has been upgraded from 7.9 to 8.0, improving security and adding features
      but with potential incompatibilities.  Consult the
      <link xlink:href="https://www.openssh.com/txt/release-8.0">
