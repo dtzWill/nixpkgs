@@ -15296,6 +15296,7 @@ in
   iproute_mptcp = callPackage ../os-specific/linux/iproute/mptcp.nix { };
 
   iputils = callPackage ../os-specific/linux/iputils { };
+  iputils-nosystemd = callPackage ../os-specific/linux/iputils { systemd = null; };
 
   iptables = callPackage ../os-specific/linux/iptables { };
 
