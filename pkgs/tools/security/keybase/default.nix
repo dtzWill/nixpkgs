@@ -37,8 +37,8 @@ buildGoPackage rec {
     owner = "keybase";
     repo = "client";
 #    rev = "v${version}";
-    rev = "59cc43e8c05d2e23a39365ff329b8228fb1afe88";
-    sha256 = "1lyyy3l8w2iz7320p0g7av6s4sgq9j9xdk1cv8hl48w9j81pbqqv";
+    rev = "36943bd6a6bc0db50265c24472b2695f41f2b281";
+    sha256 = "1wn6m9694x9y12h0bb3nq0zsp1n43mnm78apkg8d3m08j9fkmjdk";
   };
 
   nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
