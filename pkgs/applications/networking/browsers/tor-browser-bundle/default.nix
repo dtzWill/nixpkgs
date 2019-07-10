@@ -153,6 +153,11 @@ stdenv.mkDerivation rec {
   };
   buildInputs = [ tor-browser-unwrapped tor ];
 
+  # XXX: Doesn't 'buildCommand' disable/override these phases anyway?
+  dontUnpack = true;
+
+  buildPhase = ":";
+
   # The following creates a customized firefox distribution.  For
   # simplicity, we copy the entire base firefox runtime, to work around
   # firefox's annoying insistence on resolving the installation directory

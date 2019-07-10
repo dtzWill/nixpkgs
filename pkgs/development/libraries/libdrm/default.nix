@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig meson ninja ];
   buildInputs = [ libpthreadstubs libpciaccess valgrind-light ];
-    # libdrm as of 2.4.70 does not actually do anything with udev.
 
   postPatch = ''
     for a in */*-symbol-check ; do
@@ -24,11 +23,14 @@ stdenv.mkDerivation rec {
       --replace "subdir('nouveau')" ""
   '';
 
-  mesonFlags = [ "-Dinstall-test-programs=true" ]
+  mesonFlags =
+    [ "-Dinstall-test-programs=true" ]
     ++ stdenv.lib.optionals (stdenv.isAarch32 || stdenv.isAarch64)
       [ "-Dtegra=true" "-Detnaviv=true" ]
     ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "-Dintel=false"
     ;
+
+  enableParallelBuilding = true;
 
   meta = {
     homepage = https://dri.freedesktop.org/libdrm/;

@@ -23,6 +23,12 @@ in appimageTools.wrapType2 rec {
   multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
 
+  # TODO: Why the upstream difference?
+####
+####  buildInputs = [ appimage-run ];
+####
+####  dontUnpack = true;
+
   extraInstallCommands = "ln -s $out/bin/${name} $out/bin/standardnotes";
 
   meta = with stdenv.lib; {

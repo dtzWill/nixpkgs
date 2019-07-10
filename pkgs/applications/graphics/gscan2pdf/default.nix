@@ -6,7 +6,7 @@
 with stdenv.lib;
 
 perlPackages.buildPerlPackage rec {
-  name = "gscan2pdf-${version}";
+  pname = "gscan2pdf";
   version = "2.5.3";
 
   src = fetchurl {

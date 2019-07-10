@@ -419,10 +419,6 @@ self: super:
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (attrs: {
     nativeBuildInputs = attrs.nativeBuildInputs ++ [intltool];
 
-    #TODO: resurrect patches for US_intl?
-    # TODO: Find someone who is interested in updating this patch
-    # patches = [ ./xkeyboard-config-eo.patch ];
-
     configureFlags = [ "--with-xkb-rules-symlink=xorg" ];
 
     # 1: compatibility for X11/xkb location
