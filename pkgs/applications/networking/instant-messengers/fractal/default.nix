@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, gettext, cargo, rustc, python3, rustPlatform, pkgconfig, gtksourceview
-, hicolor-icon-theme, glib, libhandy, gtk3, libsecret, gspell, dbus, openssl, sqlite, gst_all_1, wrapGAppsHook }:
+{ stdenv, fetchFromGitLab, meson, ninja, gettext, cargo, rustc, python3, rustPlatform, pkgconfig, gtksourceview
+, hicolor-icon-theme, glib, libhandy, gtk3, libsecret, dbus, openssl, gspell, sqlite, gst_all_1, wrapGAppsHook, fetchpatch }:
 
 rustPlatform.buildRustPackage rec {
   version = "4.0.0.0.1"; # not really
@@ -10,8 +10,8 @@ rustPlatform.buildRustPackage rec {
     owner = "GNOME";
     repo = "fractal";
     #rev = version;
-    rev = "7925a3338cb31c37df33af6aa67a8bb4193872cb";
-    sha256 = "02rxxz21n5k75lbxjszi1fy9rl7bpbiphzrzj1a8cq81fnpqf790";
+    rev = "c5c17a492f1807dc63597de926da85bffba0db25"; # 2019-06-28
+    sha256 = "1w3yiwmn86lbi4bj23if2y7d4rlmnirxi1fzzjcdcp8zzx4yx9ab";
   };
 
   nativeBuildInputs = [
@@ -21,6 +21,9 @@ rustPlatform.buildRustPackage rec {
     glib gtk3 libhandy dbus gspell openssl sqlite
     gtksourceview hicolor-icon-theme
   ] ++ builtins.attrValues { inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gst-editing-services; };
+
+  patches = [
+  ];
 
   postPatch = ''
     patchShebangs scripts/meson_post_install.py
@@ -41,7 +44,7 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
-  cargoSha256 = "15v4nynfjp6lpa9vhsrb55ywr6j5ibrambmqr5qlmwbmn4i3861p";
+  cargoSha256 = "0ca4309cmd3zac6rdk6496nyppdhrmka3li2pbx9zlzml6hj84da";
 
   meta = with stdenv.lib; {
     description = "Matrix group messaging app";

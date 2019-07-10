@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtkeychain, qttools, sqlite
+{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
 , inotify-tools, makeWrapper, openssl_1_1, pcre, libsecret, fetchpatch
 , libcloudproviders, kdeFrameworks
 }:

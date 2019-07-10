@@ -9,12 +9,12 @@
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python3Packages.buildPythonApplication rec {
   name = "diffoscope-${version}";
-  version = "114";
+  version = "117";
 
   src = fetchgit {
     url    = "https://anonscm.debian.org/git/reproducible/diffoscope.git";
     rev    = "refs/tags/${version}";
-    sha256 = "0rl49bcmm4s0hv2vs4azrf7fsfk2ja293nw4759p3ibabv6ba2wf";
+    sha256 = "10g1mdmbly3cdq1gb1cxmsrz9wynhnpl9n04y4gri0nlvv6mh7z2";
   };
 
   patches = [

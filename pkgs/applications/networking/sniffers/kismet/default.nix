@@ -1,16 +1,28 @@
-{ stdenv, fetchurl, pkgconfig, libpcap, ncurses, expat, pcre, libnl }:
+{ stdenv, fetchurl, pkgconfig
+, libpcap, ncurses, expat, pcre, libmicrohttpd, libnl
+, libcap , protobuf, protobufc, sqlite, zlib
+, libbfd /* or libdw (elfutils) */
+, libunwind, libusb, lm_sensors
+, withNM ? true, networkmanager ? null
+}:
 
 stdenv.mkDerivation rec {
   name = "kismet-${version}";
-  version = "2016-07-R1";
+  version = "2019-04-R1";
 
   src = fetchurl {
     url = "https://www.kismetwireless.net/code/${name}.tar.xz";
-    sha256 = "0dz28y4ay4lskhl0lawqy2dkcrhgfkbg06v22qxzzw8i6caizcmx";
+    sha256 = "143p19cya38kwsfsnh01f97gaiy5hviv641sb06adhmbfcs5wmv0";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libpcap ncurses expat pcre libnl ];
+  buildInputs = [
+    libpcap ncurses expat pcre libmicrohttpd libnl
+    libcap protobuf protobufc sqlite zlib
+    libbfd libunwind libusb lm_sensors
+  ] ++ stdenv.lib.optional withNM networkmanager;
+
+  configureFlags = [ "--disable-python-tools" /* TODO */ ];
   postConfigure = ''
     sed -e 's/-o $(INSTUSR)//' \
         -e 's/-g $(INSTGRP)//' \
@@ -18,6 +30,8 @@ stdenv.mkDerivation rec {
         -e 's/-g $(SUIDGROUP)//' \
         -i Makefile
   '';
+
+  enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Wireless network sniffer";

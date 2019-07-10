@@ -1,21 +1,15 @@
-{ stdenv, fetchurl, fetchgit, lz4, snappy, libsodium
+{ stdenv, fetchurl, lz4, snappy, libsodium
 # For testing
 , coreutils, gawk
 }:
 
 stdenv.mkDerivation rec {
   pname = "dedup";
-  #version = "1.0";
-  version = "2019-05-17";
+  version = "2.0";
 
-  #src = fetchurl {
-  #  url = "https://dl.2f30.org/releases/${pname}-${version}.tar.gz";
-  #  sha256 = "0wd4cnzhqk8l7byp1y16slma6r3i1qglwicwmxirhwdy1m7j5ijy";
-  #};
-  src = fetchgit {
-    url =  git://git.2f30.org/dedup.git;
-    rev = "c86adacd4c9ec47d68823fbb768ec3fc7e5c23c0";
-    sha256 = "121fzkp3xq5dasrnsm26ldhdgr9jna7v63wv7lv8cqbqx6dmmakj";
+  src = fetchurl {
+    url = "https://dl.2f30.org/releases/${pname}-${version}.tar.gz";
+    sha256 = "0n5kkni4d6blz3s94y0ddyhijb74lxv7msr2mvdmj8l19k0lrfh1";
   };
 
   makeFlags = [
@@ -32,7 +26,7 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with stdenv.lib; {
-    description = "data deduplication program";
+    description = "Data deduplication program";
     homepage = https://git.2f30.org/dedup/file/README.html;
     license = with licenses; [ bsd0 isc ];
     maintainers = with maintainers; [ dtzWill ];

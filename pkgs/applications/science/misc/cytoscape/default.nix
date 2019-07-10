@@ -1,5 +1,10 @@
-{ stdenv, fetchurl, jre, makeWrapper }:
+{ stdenv, fetchurl, jre, makeWrapper
+, ncurses, libXxf86vm }:
 
+let
+  path = stdenv.lib.makeBinPath [ ncurses.dev /* infocomp */ ];
+  libpath = stdenv.lib.makeLibraryPath [ libXxf86vm ];
+in
 stdenv.mkDerivation rec {
   name = "cytoscape-${version}";
   version = "3.7.1";
@@ -19,7 +24,9 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/share/cytoscape.sh \
       --set JAVA_HOME "${jre}" \
-      --set JAVA  "${jre}/bin/java"
+      --set JAVA  "${jre}/bin/java" \
+      --prefix PATH : ${path} \
+      --prefix LD_LIBRARY_PATH : ${libpath}
 
     chmod +x $out/bin/cytoscape
   '';

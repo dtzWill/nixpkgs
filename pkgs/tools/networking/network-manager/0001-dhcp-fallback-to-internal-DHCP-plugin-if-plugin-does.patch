@@ -1,0 +1,183 @@
+From 48250c954076c52e07dec8fb9fdcda83bde5e360 Mon Sep 17 00:00:00 2001
+From: Thomas Haller <thaller@redhat.com>
+Date: Wed, 29 May 2019 15:29:11 +0200
+Subject: [PATCH] dhcp: fallback to internal DHCP plugin if plugin does not
+ support address family
+
+Maybe DHCP plugins should be configurable per address family and be
+re-loadable via SIGHUP. But that just adds complexity while we actually
+want to get away from these plugins.
+
+Nowadays we always have the "internal" DHCP plugin, which is known to
+support both IPv4 and IPv6. One day, we should get rid of all plugins
+and only use one implementation (that works well). The "internal" plugin
+is supposed to be that.
+
+That also means, that we are not going to add more (external) DHCP
+plugins and we are not going to invest much work in the existing plugins
+(except the "internal" plugin).
+
+Some DHCP plugins are known to not support IPv6. If the user selects
+"dhcpcd" we should just fallback to the internal plugin. What's the
+point of letting the activation fail? Probably users shouldn't use
+"dhcpcd" plugin anyway, but that's a different story. This fallback
+could be a problem with forward compatibility if we ever would add IPv6
+support to "dhcpcd". But we won't.
+
+Also, we are going to add "n-dhcp4" as replacement for the systemd based
+code. For a time, there will be an experimental plugin "nettools" that
+eventually will become the new "internal" plugin. Until that happens,
+we want for IPv6 automatically fallback to systemd based "internal"
+plugin. This patch will make that simple.
+---
+ src/dhcp/nm-dhcp-dhcpcanon.c | 13 ----------
+ src/dhcp/nm-dhcp-dhcpcd.c    | 13 ----------
+ src/dhcp/nm-dhcp-manager.c   | 49 ++++++++++++++++++++++++++++++++++--
+ 3 files changed, 47 insertions(+), 28 deletions(-)
+
+diff --git a/src/dhcp/nm-dhcp-dhcpcanon.c b/src/dhcp/nm-dhcp-dhcpcanon.c
+index 868cc9dd5..9fcd435b3 100644
+--- a/src/dhcp/nm-dhcp-dhcpcanon.c
++++ b/src/dhcp/nm-dhcp-dhcpcanon.c
+@@ -186,18 +186,6 @@ ip4_start (NMDhcpClient *client,
+ 	                        error);
+ }
+ 
+-static gboolean
+-ip6_start (NMDhcpClient *client,
+-           const char *dhcp_anycast_addr,
+-           const struct in6_addr *ll_addr,
+-           NMSettingIP6ConfigPrivacy privacy,
+-           guint needed_prefixes,
+-           GError **error)
+-{
+-	nm_utils_error_set_literal (error, NM_UTILS_ERROR_UNKNOWN, "dhcpcanon plugin does not support IPv6");
+-	return FALSE;
+-}
+-
+ static void
+ stop (NMDhcpClient *client, gboolean release)
+ {
+@@ -257,7 +245,6 @@ nm_dhcp_dhcpcanon_class_init (NMDhcpDhcpcanonClass *dhcpcanon_class)
+ 	object_class->dispose = dispose;
+ 
+ 	client_class->ip4_start = ip4_start;
+-	client_class->ip6_start = ip6_start;
+ 	client_class->stop = stop;
+ }
+ 
+diff --git a/src/dhcp/nm-dhcp-dhcpcd.c b/src/dhcp/nm-dhcp-dhcpcd.c
+index ddfb3a413..94c7ffe2c 100644
+--- a/src/dhcp/nm-dhcp-dhcpcd.c
++++ b/src/dhcp/nm-dhcp-dhcpcd.c
+@@ -180,18 +180,6 @@ ip4_start (NMDhcpClient *client,
+ 	return TRUE;
+ }
+ 
+-static gboolean
+-ip6_start (NMDhcpClient *client,
+-           const char *dhcp_anycast_addr,
+-           const struct in6_addr *ll_addr,
+-           NMSettingIP6ConfigPrivacy privacy,
+-           guint needed_prefixes,
+-           GError **error)
+-{
+-	nm_utils_error_set_literal (error, NM_UTILS_ERROR_UNKNOWN, "dhcpcd plugin does not support IPv6");
+-	return FALSE;
+-}
+-
+ static void
+ stop (NMDhcpClient *client, gboolean release)
+ {
+@@ -251,7 +239,6 @@ nm_dhcp_dhcpcd_class_init (NMDhcpDhcpcdClass *dhcpcd_class)
+ 	object_class->dispose = dispose;
+ 
+ 	client_class->ip4_start = ip4_start;
+-	client_class->ip6_start = ip6_start;
+ 	client_class->stop = stop;
+ }
+ 
+diff --git a/src/dhcp/nm-dhcp-manager.c b/src/dhcp/nm-dhcp-manager.c
+index 42a5eca97..2ee186eb4 100644
+--- a/src/dhcp/nm-dhcp-manager.c
++++ b/src/dhcp/nm-dhcp-manager.c
+@@ -90,6 +90,50 @@ _client_factory_available (const NMDhcpClientFactory *client_factory)
+ 	return NULL;
+ }
+ 
++static const NMDhcpClientFactory *
++_client_factory_get_effective (const NMDhcpClientFactory *client_factory,
++                               int addr_family)
++{
++	nm_auto_unref_gtypeclass NMDhcpClientClass *klass = NULL;
++
++	nm_assert (client_factory);
++	nm_assert_addr_family (addr_family);
++
++	/* currently, the chosen DHCP for IPv4 and IPv6 plugin is configured in NetworkManager.conf
++	 * and cannot be reloaded. It would be nice to configure that depending on address family
++	 * or to be able to reload it.
++	 * Note that options in NetworkManager.conf can depend on the chosen DHCP plugin.
++	 * See "dhcp-plugin:" in "Device List Format" (`man NetworkManager.conf`).
++	 *
++	 * Supporting reloading the plugin would also require to re-evalate the decisions from
++	 * the "Device List Format". Likewise, having per-address family plugins would make the
++	 * "main.dhcp" setting and "dhcp-plugin:" match non-sensical.
++	 *
++	 * So actually, we don't want that complexity. We want to phase out (external) plugins.
++	 * However, certain existing plugins are well known to not support an address family.
++	 * In those cases, we should just silently fallback to the internal plugin. This
++	 * could be a problem with forward compatibility if we ever intended to add IPv6 support
++	 * to those plugins. But we don't. The internal plugin is the way forward. */
++
++	if (client_factory == &_nm_dhcp_client_factory_internal) {
++		/* already using internal plugin. Nothing to do. */
++		return client_factory;
++	}
++
++	klass = g_type_class_ref (client_factory->get_type ());
++
++	nm_assert (NM_IS_DHCP_CLIENT_CLASS (klass));
++
++	if (addr_family == AF_INET6) {
++		return   klass->ip6_start
++		       ? client_factory
++		       : &_nm_dhcp_client_factory_internal;
++	}
++	return   klass->ip4_start
++	       ? client_factory
++	       : &_nm_dhcp_client_factory_internal;
++}
++
+ /*****************************************************************************/
+ 
+ static NMDhcpClient *
+@@ -177,6 +221,7 @@ client_start (NMDhcpManager *self,
+ 	NMDhcpClient *client;
+ 	gboolean success = FALSE;
+ 	gsize hwaddr_len;
++	const NMDhcpClientFactory *client_factory;
+ 
+ 	g_return_val_if_fail (NM_IS_DHCP_MANAGER (self), NULL);
+ 	g_return_val_if_fail (iface, NULL);
+@@ -203,7 +248,7 @@ client_start (NMDhcpManager *self,
+ 
+ 	priv = NM_DHCP_MANAGER_GET_PRIVATE (self);
+ 
+-	nm_assert (priv->client_factory);
++	client_factory = _client_factory_get_effective (priv->client_factory, addr_family);
+ 
+ 	/* Kill any old client instance */
+ 	client = get_client_for_ifindex (self, addr_family, ifindex);
+@@ -219,7 +264,7 @@ client_start (NMDhcpManager *self,
+ 		g_object_unref (client);
+ 	}
+ 
+-	client = g_object_new (priv->client_factory->get_type (),
++	client = g_object_new (client_factory->get_type (),
+ 	                       NM_DHCP_CLIENT_MULTI_IDX, multi_idx,
+ 	                       NM_DHCP_CLIENT_ADDR_FAMILY, addr_family,
+ 	                       NM_DHCP_CLIENT_INTERFACE, iface,
+-- 
+2.22.0-rc1
+

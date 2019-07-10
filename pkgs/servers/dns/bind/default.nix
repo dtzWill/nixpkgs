@@ -8,14 +8,14 @@
 assert enableSeccomp -> libseccomp != null;
 assert enablePython -> python3 != null;
 
-let version = "9.14.2"; in
+let version = "9.14.3"; in
 
 stdenv.mkDerivation rec {
   name = "bind-${version}";
 
   src = fetchurl {
     url = "https://ftp.isc.org/isc/bind9/${version}/${name}.tar.gz";
-    sha256 = "033zqajnj5ys45g899132xkhh9f0hsh76ffv7302wl166xbjfh0f";
+    sha256 = "1ymxr38c62w6961j8g2vllnv0s72z7zk4b2j2k8ixdh1rymqm1yf";
   };
 
   outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./dont-keep-configure-flags.patch
     ./remove-mkdir-var.patch
-  ] ++ stdenv.lib.optional stdenv.isDarwin ./darwin-openssl-linking-fix.patch;
+  ];
 
   nativeBuildInputs = [ perl ];
   buildInputs = [ libtool libxml2 openssl ]

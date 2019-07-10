@@ -3,21 +3,33 @@
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
-  #version = "4.4.0";
-  version = "2019-05-08-multi";
+  #version = "4.5.0";
+  version = "2019-06-10";
 
   src = fetchFromGitHub {
     owner = "lfos";
     repo = pname;
-    rev = "7425ef982205d24eaaf1a5cfc0e7071d4f36ffb8";
-    sha256 = "1dh7l2j5k68q896m9ylkn6vnbn15fh3vf3l7wlki0l8d77b4iwkw";
+    rev = "8dac9d80b72529cc6d6449d195819693debab9b3";
+    sha256 = "0hljgxlqi72c7jq1h2hskqk9b1nbq56q5v2j9h1anr38a6bbyv6p";
   };
   #src = fetchurl {
   #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
   #  sha256 = "0vw2xi6a2lrhrb8n55zq9lv4mzxhby4xdf3hmi1vlfpyrpdwkjzd";
   #};
 
-  patches = [ ./vdirsyncer-quoting.patch ];
+  ## #version = "4.4.0";
+  ## version = "2019-06-10";
+
+  #src = fetchFromGitHub {
+  #  owner = "lfos";
+  #  repo = pname;
+  #  rev = "04904048a02ad60ad91eb36f8d1812236c2fa013";
+  #  sha256 = "0n3854ha4bzmddwbml620ncncnpp0w2n83qqv2wzljkrdp42rcbf";
+  #};
+
+  # I guess vdirsyncer bits dropped in 4.5.0? or changed?
+  # Anyway dropping this for now since I'm caving and using caldav instead, maybe.
+  #patches = [ ./vdirsyncer-quoting.patch ];
 
   buildInputs = [ ncurses gettext python3 python3Packages.wrapPython ];
   nativeBuildInputs = [ makeWrapper autoreconfHook asciidoc-full libxml2.bin ];

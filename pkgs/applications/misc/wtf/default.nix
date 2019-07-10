@@ -5,22 +5,18 @@
 
 buildGoModule rec {
   pname = "wtf";
-  version = "0.9.1";
-
-  goPackagePath = "github.com/wtfutil/wtf";
+  version = "0.13.0";
 
   src = fetchFromGitHub {
     owner = "wtfutil";
     repo = pname;
-    rev = version;
-    sha256 = "0l8chb6cjxida1pxz7qyajn4axlbmzkq2jy9awma0hjg8ak9ybjh";
+    rev = "v${version}";
+    sha256 = "13izb0v0b30v0xv3yg082n0zsk4v57x6vx3m7ln4wril762ab784";
   };
 
-  patches = [ ./fix-hash.patch ];
+  modSha256 = "0921d2qy0jcnih7hlda0i5q45b350yp9frh3hhh91f1g0j7vn1y6";
 
-  buildFlagsArray = '' -ldflags= -X main.version=${version} '';
-
-  modSha256 = "00bhhx6mpamqx5xkhphx5hplaca53srmnv2r4ykiagzhdsbxk2g1";
+  buildFlagsArray = [ "-ldflags=" "-X main.version=${version}" ];
 
   meta = with lib; {
     description = "The personal information dashboard for your terminal";

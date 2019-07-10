@@ -1,7 +1,14 @@
-{ stdenv, fetchFromGitHub, perlPackages, texlive }:
+{ stdenv, perlPackages, texlive }:
 
 let
   biberSource = stdenv.lib.head (builtins.filter (p: p.tlType == "source") texlive.biber.pkgs);
+in
+
+perlPackages.buildPerlModule {
+  pname = "biber";
+  inherit (biberSource) version;
+
+  src = "${biberSource}/source/bibtex/biber/biblatex-biber.tar.gz";
 
   wrappedPerl = perlPackages.perl.withPackages (pp: with pp; [
     autovivification BusinessISBN BusinessISMN BusinessISSN ConfigAutoConf

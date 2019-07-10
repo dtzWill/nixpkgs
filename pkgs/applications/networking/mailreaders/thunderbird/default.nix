@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkgconfig, gtk2, pango, perl, python, zip, fetchpatch
+{ lib, stdenv, fetchurl, pkgconfig, gtk2, pango, perl, python, zip
 , libIDL, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
 , freetype, fontconfig, file, nspr, nss, libnotify
 , yasm, libGLU_combined, sqlite, unzip
@@ -24,11 +24,11 @@ let
   gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
 in stdenv.mkDerivation rec {
   name = "thunderbird-${version}";
-  version = "60.6.0";
+  version = "60.7.2";
 
   src = fetchurl {
     url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-    sha512 = "2s8h6z3rkylrclng1cpmj5dvsbhqymrdwvjy3g2s8rq66xca13wkyswdhgh8671d0dw9bmminikk53d2xqg7lqvvd1rdsminwscln4z";
+    sha512 = "09fg8rzbg0nl5b7p3s6pnai3xgsnga1wcxii2rjnky4p96di94jby9whrjidnj2ixxmjqwysnaif6lj5mq9pr7l48qhd9vjbb3vp2g8";
   };
 
   # from firefox, but without sound libraries
@@ -201,6 +201,6 @@ in stdenv.mkDerivation rec {
   passthru.updateScript = import ./../../browsers/firefox/update.nix {
     attrPath = "thunderbird";
     baseUrl = "http://archive.mozilla.org/pub/thunderbird/releases/";
-    inherit stdenv writeScript lib common-updater-scripts xidel coreutils gnused gnugrep curl runtimeShell;
+    inherit writeScript lib common-updater-scripts xidel coreutils gnused gnugrep curl runtimeShell;
   };
 }

@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pyotherside";
-  version = "1.5.4";
+  version = "1.5.8";
 
   src = fetchFromGitHub {
     owner = "thp";
     repo = "pyotherside";
     rev = version;
-    sha256 = "1cmmsmzmis4a463p2fjlzbkpw8r53wfvq3mldyfgmi14dkxr3ln3";
+    sha256 = "0dnsvyg990ln3bdjdyc5b4lbb63wcjij0skq8pb4x4jglfy7vz4z";
   };
 
   nativeBuildInputs = [ qmake ];
@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     python3 qtbase qtquickcontrols qtsvg ncurses
   ];
 
-  patches = [ ./qml-path.patch ];
+  patches = [
+    ./qml-path.patch
+    ./skip-python-config-wrapper-as-it-only-hurts-for-now.patch
+  ];
   installTargets = [ "sub-src-install_subtargets" ];
 
   meta = with stdenv.lib; {

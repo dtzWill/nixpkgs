@@ -280,7 +280,8 @@ self: super: builtins.intersectAttrs super {
                             then dontCheck
                             else pkgs.lib.id;
       in dontCheckDarwin (super.llvm-hs.override {
-        llvm-config = pkgs.llvm_6;
+        llvm-config = pkgs.llvm_8;
+        llvm-hs-pure = super.llvm-hs-pure_8_0_0;
       });
 
   # Needs help finding LLVM.
@@ -491,7 +492,11 @@ self: super: builtins.intersectAttrs super {
   servant-streaming-server = dontCheck super.servant-streaming-server;
 
   # https://github.com/haskell-servant/servant/pull/1128
-  servant-client-core = appendPatch super.servant-client-core ./patches/servant-client-core-streamBody.patch;
+  servant-client-core = if (pkgs.lib.getVersion super.servant-client-core) == "0.15" then
+    appendPatch super.servant-client-core ./patches/servant-client-core-streamBody.patch
+  else
+    super.servant-client-core;
+
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -568,5 +573,17 @@ self: super: builtins.intersectAttrs super {
 
   # Avoid infitite recursion with tonatona.
   tonaparser = dontCheck super.tonaparser;
+
+  # Needs internet to run tests
+  HTTP = dontCheck super.HTTP;
+
+  # Break infinite recursions.
+  Dust-crypto = dontCheck super.Dust-crypto;
+  nanospec = dontCheck super.nanospec;
+  options = dontCheck super.options;
+  snap-server = dontCheck super.snap-server;
+
+  # Tests require internet
+  dhall_1_24_0 = dontCheck super.dhall_1_24_0;
 
 }

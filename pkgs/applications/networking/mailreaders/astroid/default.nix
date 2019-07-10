@@ -1,6 +1,8 @@
 { stdenv, fetchFromGitHub, cmake, pkgconfig, scdoc, gnome3, gmime3, webkitgtk
 , libsass, notmuch, boost, libsoup, wrapGAppsHook, glib-networking, protobuf, vim_configurable
-, makeWrapper, python3Packages
+, gtkmm3, libpeas, gsettings-desktop-schemas
+, python3, python3Packages
+, makeWrapper
 , vim ? vim_configurable.override {
                     features = "normal";
                     gui = "auto";
@@ -9,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   name = "astroid-${version}";
-  version = "2019-05-05";
+  version = "2019-05-31";
 
   src = fetchFromGitHub {
     owner = "astroidmail";
     repo = "astroid";
-    rev = "aae4c52091cc7ae28b336c19d2f0ac4a3a4056bf";
-    sha256 = "0gdiv28r6n488qb7vaj2fxymkyag037ssx4scz8v2snxr1rqvlc1";
+    rev = "e623a27e2b116555a72f9995634d2660b0ab3541";
+    sha256 = "0wavjpjbv806a6569dph94jzbsm4lcr7jirq3blrp41bdh4nmwc3";
   };
 
   nativeBuildInputs = [ cmake pkgconfig scdoc wrapGAppsHook ];

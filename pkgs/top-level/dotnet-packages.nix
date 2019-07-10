@@ -305,14 +305,14 @@ let self = dotnetPackages // overrides; dotnetPackages = with self; {
 
   Boogie = buildDotnetPackage rec {
     baseName = "Boogie";
-    version = "2019-04-04";
+    version = "2019-06-20";
     name = "${baseName}-unstable-${version}";
 
     src = fetchFromGitHub {
       owner = "boogie-org";
       repo = "boogie";
-      rev = "32cb0b9398bd5fac91717ea820d56bd391322434";
-      sha256 = "02fqsz0r1g66m0vw0h0hwiq07p4h8z0pn1bmqi0pji0wzsr21vak";
+      rev = "2e8fae4dc1724d8f9e7b1f877116e56b0773337e";
+      sha256 = "01wjps3yfx8q0qy0zrmmfd1ixjxi2dhkn1wfazb5qm2slav39dp2";
     };
 
     # emulate `nuget restore Source/Boogie.sln`
@@ -368,11 +368,11 @@ let self = dotnetPackages // overrides; dotnetPackages = with self; {
 
   Dafny = buildDotnetPackage rec {
     baseName = "Dafny";
-    version = "2.1.0";
+    version = "2.3.0";
 
     src = fetchurl {
       url = "https://github.com/Microsoft/dafny/archive/v${version}.tar.gz";
-      sha256 = "1iyhy0zpi6wvqif7826anzgdipgsy5bk775ds9qqwfw27j7x6fy5";
+      sha256 = "0s6ihx32kda7400lvdrq60l46c11nki8b6kalir2g4ic508f6ypa";
     };
 
     postPatch = ''

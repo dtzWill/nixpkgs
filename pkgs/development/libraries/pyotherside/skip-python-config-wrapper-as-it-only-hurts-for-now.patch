@@ -1,0 +1,31 @@
+From 6bbf3d732289c88e0cfa315e77f10cc30bea151c Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 10 Jun 2019 19:41:40 -0500
+Subject: [PATCH] python.pri: don't use local python-config-wrapper for now
+
+It seems to print usage information regardless and as a result
+later compilation attempts include "Usage " and so on as arguments
+which of course doesn't work very well.
+
+The script mentions that the wrapper intends to accomodate python3.8
+changes, so when we move to that we may want to use their wrapper
+and/or investigate why it's acting strange for us here.
+---
+ python.pri | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/python.pri b/python.pri
+index 80efc2f..dff8623 100644
+--- a/python.pri
++++ b/python.pri
+@@ -4,5 +4,5 @@ isEmpty(PYTHON_CONFIG) {
+ 
+ message(PYTHON_CONFIG = $$PYTHON_CONFIG)
+ 
+-QMAKE_LIBS += $$system($$PWD/python-config-wrapper $$PYTHON_CONFIG --libs)
+-QMAKE_CXXFLAGS += $$system($$PWD/python-config-wrapper $$PYTHON_CONFIG --includes)
++QMAKE_LIBS += $$system($$PYTHON_CONFIG --libs)
++QMAKE_CXXFLAGS += $$system($$PYTHON_CONFIG --includes)
+-- 
+2.22.0
+

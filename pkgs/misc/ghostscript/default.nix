@@ -46,11 +46,6 @@ stdenv.mkDerivation rec {
   patches = [
     ./urw-font-files.patch
     ./doc-no-ref.diff
-    #(fetchpatch {
-    #  name = "CVE-2019-6116";
-    #  url = "http://git.ghostscript.com/?p=ghostpdl.git;a=patch;h=d3537a54740d78c5895ec83694a07b3e4f616f61";
-    #  sha256 = "1hr8bpi87bbg1kvv28kflmfh1dhzxw66p9q0ddvbrj72qd86p3kx";
-    #})
   ];
 
   outputs = [ "out" "man" "doc" ];

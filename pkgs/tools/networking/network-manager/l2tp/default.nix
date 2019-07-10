@@ -1,7 +1,7 @@
 { stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig
 , file, findutils
 , gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret
-, withGnome ? true, gnome3, networkmanagerapplet }:
+, withGnome ? true, networkmanagerapplet }:
 
 let pname = "NetworkManager-l2tp"; in
 stdenv.mkDerivation rec {

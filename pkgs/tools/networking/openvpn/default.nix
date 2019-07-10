@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, fetchFromGitHub, autoreconfHook, cmake
+{ stdenv, fetchurl, pkgconfig, fetchpatch, fetchFromGitHub, autoreconfHook, cmake
 , iproute, lzo, lz4, openssl, pam
 , useSystemd ? stdenv.isLinux, systemd ? null, utillinux ? null
 , pkcs11Support ? false, pkcs11helper ? null,
@@ -24,8 +24,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "19a22ac5a8673e87157a516b936ce008bacb44ea";
-    sha256 = "0xgdvi9dihili0z8izvpdkzvs9rx3829svpxxi93sjnrnmh5prpr";
+    rev = "0740e079a1c094627a69b8b5959c6be56e15d9f6";
+    sha256 = "14aibfxx52swb6d8fy8jgk922xxdmq2scr8hmax63mg9h74vnh5x";
   };
   #src = fetchurl {
   #  url = "https://swupdate.openvpn.net/community/releases/${name}.tar.xz";
@@ -39,6 +39,13 @@ in stdenv.mkDerivation rec {
                   ++ optionals stdenv.isLinux [ pam iproute ]
                   ++ optional useSystemd systemd
                   ++ optional pkcs11Support pkcs11helper;
+
+  patches = [
+    ( fetchpatch {
+      url = "https://sources.debian.org/data/main/o/openvpn/2.4.7-1/debian/patches/fix-pkcs11-helper-hang.patch";
+      sha256 = "0c8jzbfsmb0mm9f7kkjxac1hk8q6igm267s687vx3mdqs1wys6bm";
+    })
+  ];
 
   configureFlags = optionals stdenv.isLinux [
     "--enable-iproute2"

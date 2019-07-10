@@ -2,23 +2,15 @@
 , asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl, libiconv, Security, makeWrapper }:
 
 rustPlatform.buildRustPackage rec {
-  #name = "newsboat-${version}";
   pname = "newsboat";
-#  version = "2.15";
-  version = "2019-05-09";
+  version = "2.16.1";
 
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "1d439ede40dadc55e96fa2884c3e27cc9631f68a";
-    sha256 = "191clmzl3wl4rf8fp7md93j1aani8by6rgivqc7hl7zmskac155n";
+  src = fetchurl {
+    url = "https://newsboat.org/releases/${version}/${pname}-${version}.tar.xz";
+    sha256 = "0lxdsfcwa4byhfnn0gv34w3rr531f4nfqgi8j4qqmh3gncbwh8s0";
   };
-  #src = fetchurl {
-  #  url = "https://newsboat.org/releases/${version}/${name}.tar.xz";
-  #  sha256 = "1dqdcp34jmphqf3d8ik0xdhg0s66nd5rky0y8y591nidq29wws6s";
-  #};
 
-  cargoSha256 = "05y6lz4zzv0b3pddj8kqhggby885fagyp14p34k5l3l2yqbxhpsl";
+  cargoSha256 = "0ck2dgfk4fay4cjl66wqkbnq4rqrd717jl63l1mvqmvad9i19igm";
 
   postPatch = ''
     substituteInPlace Makefile --replace "|| true" ""
@@ -28,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [ pkgconfig asciidoc docbook_xml_dtd_45 libxslt docbook_xsl ]
-    ++ stdenv.lib.optional stdenv.isDarwin [ makeWrapper libiconv ];
+    ++ stdenv.lib.optionals stdenv.isDarwin [ makeWrapper libiconv ];
 
   buildInputs = [ stfl sqlite curl gettext libxml2 json_c ncurses ]
     ++ stdenv.lib.optional stdenv.isDarwin Security;
@@ -37,7 +29,8 @@ rustPlatform.buildRustPackage rec {
     make -j$NIX_BUILD_CORES
   '';
 
-  NIX_CFLAGS_COMPILE = "-Wno-error=sign-compare";
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=sign-compare" ]
+    ++ stdenv.lib.optional stdenv.isDarwin "-Wno-error=format-security";
 
   doCheck = true;
 
@@ -56,7 +49,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     homepage    = https://newsboat.org/;
-    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console.";
+    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
     maintainers = with maintainers; [ dotlambda nicknovitski ];
     license     = licenses.mit;
     platforms   = platforms.unix;

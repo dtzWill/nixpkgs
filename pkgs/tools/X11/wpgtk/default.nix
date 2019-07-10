@@ -1,15 +1,15 @@
-{ stdenv, python3Packages, fetchFromGitHub, feh, libxslt,
+{ stdenv, python3Packages, fetchFromGitHub, libxslt,
   gobject-introspection, gtk3, wrapGAppsHook, gnome3 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "wpgtk";
-  version = "6.0.6";
+  version = "6.0.8";
 
   src = fetchFromGitHub {
     owner = "deviantfero";
     repo = "wpgtk";
     rev = version;
-    sha256 = "1vi0ymc4cww4n03kvzgrx0v3ngg666ighx19jligbpnjk5n0x58d";
+    sha256 = "1c4iyy4db7zhbfnng8h1r7d2fmng4zspgl9zfr8vc86sk5wmfnjc";
   };
 
   buildInputs = [

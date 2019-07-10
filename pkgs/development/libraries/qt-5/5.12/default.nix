@@ -51,7 +51,7 @@ let
   patches = {
     qtbase = [
       ./qtbase.patch
-      ./qtbase-fixguicmake.patch
+#      ./qtbase-fixguicmake.patch
     ];
     qtdeclarative = [ ./qtdeclarative.patch ];
     qtscript = [ ./qtscript.patch ];
@@ -65,6 +65,7 @@ let
         ./qtwebkit-darwin-no-readline.patch
         ./qtwebkit-darwin-no-qos-classes.patch
       ];
+    qttools = [ ./qttools.patch ];
   };
 
   mkDerivation =

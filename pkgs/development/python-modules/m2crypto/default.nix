@@ -9,12 +9,12 @@
 
 
 buildPythonPackage rec {
-  version = "0.33.0";
+  version = "0.35.1";
   pname = "M2Crypto";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0lw5vg70j66bd0yhgiv4a7g58wd2pwd2l16s84631j15dlzsmpkm";
+    sha256 = "06y4cy7k4qjrjznl12l0xnh4m6467lrnpwpc2z16p15zi4q6hz31";
   };
 
   patches = [

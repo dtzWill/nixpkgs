@@ -6,6 +6,7 @@
 , minimal ? false
 , enableInfinality ? true # font rendering patch
 , enableGnome2 ? true, gtk2, gnome_vfs, glib, GConf
+, patchelfUnstable
 }:
 
 let
@@ -65,7 +66,7 @@ let
 
     outputs = [ "out" "jre" ];
 
-    nativeBuildInputs = [ pkgconfig ];
+    nativeBuildInputs = [ pkgconfig patchelfUnstable ];
     buildInputs = [
       cpio file which unzip zip perl bootjdk zlib cups freetype alsaLib
       libjpeg giflib libX11 libICE libXext libXrender libXtst libXt libXtst

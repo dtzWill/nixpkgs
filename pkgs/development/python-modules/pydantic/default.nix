@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "pydantic";
-  version = "0.25";
+  version = "0.27";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "2203e01c1d87a3d964aa0db56efdb1b89a90eca610ab3f0ddea396e2a5fa4cc4";
+    sha256 = "1mid11k20ypsbb75zssghrgg5wk1nja4g81dj2iriyq07hi3lpk2";
   };
 
   buildInputs = [ ujson email_validator ];

@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pgroonga";
-  version = "2.1.9";
+  version = "2.2.0";
 
   src = fetchurl {
     url = "https://packages.groonga.org/source/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "15bix7gqi45nf1ah0sxmlg3aqqrkacn19slp43jiirfnpp74dbnw";
+    sha256 = "1cankcprikx8nf72yg4h8542gqqlfgww6d63kg7l8l8sz962d28b";
   };
 
   nativeBuildInputs = [ pkgconfig ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     install -D pgroonga.so -t $out/lib/
-    install -D ./{pgroonga-*.sql,pgroonga.control} -t $out/share/extension
+    install -D ./{pgroonga-*.sql,pgroonga.control} -t $out/share/postgresql/extension
   '';
 
   meta = with stdenv.lib; {

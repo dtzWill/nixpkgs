@@ -14,7 +14,7 @@ let
   binpath = stdenv.lib.makeBinPath [ coreutils gnugrep iproute nettools gnused which ];
   modern_vpnc_scripts = stdenv.mkDerivation rec {
     pname = "vpnc-scripts";
-    version = "20190425";
+    version = "20190611";
     nativeBuildInputs = [ makeWrapper gnused which ];
     buildPhase = ''
      substituteInPlace vpnc-script \
@@ -30,7 +30,7 @@ let
    '';
     src = fetchurl {
       url = "ftp://ftp.infradead.org/pub/${pname}/${pname}-${version}.tar.gz";
-      sha256 = "0iwdhxj68f2g0r5f8sznhwwpg3pnf22nvis9irz4i205y5171ici";
+      sha256 = "0wv4m4f7k34ic394mslmb9p0skq275935djd1pssjvrkmbvkm5g0";
     };
   };
 
@@ -47,20 +47,25 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "openconnect";
-  version = "8.03";
+  version = "8.03.1";
 
-  #src = fetchgit {
-  #  # url = https://git.infradead.org/users/dwmw2/openconnect.git;
-  #  url = "https://github.com/${pname}/${pname}";
-  #  rev = "558c2abd3efb050f6f717e6238c4b532bdfeb387";
-  #  sha256 = "1xb1c2viiad7rwlfgkgvhg6zz8g1nlzyn2rqg0sj28lscbdbxvps";
-  #};
-  src = fetchurl {
-    urls = [
-      "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
-    ];
-    sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  src = fetchgit {
+    # url = https://git.infradead.org/users/dwmw2/openconnect.git;
+    url = "https://github.com/${pname}/${pname}";
+    rev = "9a3a429601564e0d184eb3b7d951788850a79362";
+    sha256 = "1v366m81q3cs0v0yq0qnvcj9r8jvhjmm9j2aws9zx4d869x4s7vf";
   };
+  #src = fetchurl {
+  #  urls = [
+  #    "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
+  #  ];
+  #  sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  #src = fetchurl {
+  #  urls = [
+  #    "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
+  #  ];
+  #  sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
+  #};
 
   outputs = [ "out" "dev" ];
 

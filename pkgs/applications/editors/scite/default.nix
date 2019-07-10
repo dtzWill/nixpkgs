@@ -1,27 +1,26 @@
-{ stdenv, fetchurl, pkgconfig, gtk2 }:
+{ stdenv, fetchurl, pkgconfig, lua, glib, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
-  name = "scite-${version}";
-  version = "4.0.5";
+  pname = "scite";
+  version = "4.1.7";
 
   src = fetchurl {
-    url = https://www.scintilla.org/scite405.tgz;
-    sha256 = "0h16wk2986nkkhhdv5g4lxlcn02qwyja24x1r6vf02r1hf46b9q2";
+    url = "https://www.scintilla.org/scite${builtins.replaceStrings ["."][""] version}.tgz";
+    sha256 = "15jchd9hgwnyf536vkp5qp23ascj42d0zc1xapgl0r052p3a9h4g";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ gtk2 ];
-  sourceRoot = "scintilla/gtk";
+  nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
+  buildInputs = [ glib gtk3 lua ];
 
+  sourceRoot = "scite/gtk";
+
+  makeFlags = [ "gnomeprefix=${placeholder "out"}" "prefix=${placeholder "out"}" "DESTDIR=" "GTK3=1" ];
   buildPhase = ''
-    make
-    cd ../../scite/gtk
-    make prefix=$out/
+    make -C ../../scintilla/gtk $makeFlags -j
+    make $makeFlags -j
   '';
 
-  installPhase = ''
-    make install prefix=$out/
-  '';
+  postInstall = "ln -sr $out/bin/SciTE $out/bin/scite";
 
   meta = with stdenv.lib; {
     homepage = https://www.scintilla.org/SciTE.html;

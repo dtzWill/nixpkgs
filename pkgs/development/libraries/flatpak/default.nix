@@ -1,11 +1,11 @@
 { stdenv, fetchurl, fetchFromGitHub, autoreconfHook, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43, docbook_xsl, which, libxml2
 , gobject-introspection, gtk-doc, intltool, libxslt, pkgconfig, xmlto, appstream-glib, substituteAll, glibcLocales, yacc, xdg-dbus-proxy, p11-kit
-, bubblewrap, bzip2, dbus, glib, gpgme, json-glib, libarchive, libcap, libseccomp, coreutils, gettext, python2, hicolor-icon-theme
-, libsoup, lzma, ostree, polkit, python3, systemd, xorg, valgrind, glib-networking, wrapGAppsHook, gnome3, gsettings-desktop-schemas, fuse }:
+, bubblewrap, bzip2, dbus, glib, gpgme, json-glib, libarchive, libcap, libseccomp, coreutils, gettext, hicolor-icon-theme, fuse
+, libsoup, lzma, ostree, polkit, python3, systemd, xorg, valgrind, glib-networking, wrapGAppsHook, gnome3, gsettings-desktop-schemas, librsvg }:
 
 stdenv.mkDerivation rec {
   pname = "flatpak";
-  version = "1.3.4";
+  version = "1.4.2";
 
   # TODO: split out lib once we figure out what to do with triggerdir
   outputs = [ "out" /* "man" "doc" */ "installedTests" ];
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   #};
   src = fetchurl {
     url = "https://github.com/flatpak/flatpak/releases/download/${version}/${pname}-${version}.tar.xz";
-    sha256 = "0p3fl54d0rhgsic4srn9hr9f4hardmjipg7an4j47wdlghdqkg6v";
+    sha256 = "08nmpp26mgv0vp3mlwk97rnp0j7i108h4hr9nllja19sjxnrlygj";
   };
 
   patches = [
@@ -40,6 +40,7 @@ stdenv.mkDerivation rec {
     ./respect-xml-catalog-files-var.patch
     ./use-flatpak-from-path.patch
     ./unset-env-vars.patch
+    ./validate-icon-pixbuf.patch
   ];
 
   autoreconfPhase = '':'';
@@ -53,6 +54,7 @@ stdenv.mkDerivation rec {
     bubblewrap bzip2 dbus gnome3.dconf glib gpgme json-glib libarchive libcap libseccomp
     libsoup lzma ostree polkit python3 systemd xorg.libXau
     gsettings-desktop-schemas glib-networking
+    librsvg # for flatpak-validate-icon
     fuse
   ];
 

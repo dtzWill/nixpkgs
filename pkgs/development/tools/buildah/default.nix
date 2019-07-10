@@ -3,14 +3,15 @@
 , go-md2man }:
 
 let
-  version = "1.8.1";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
-    rev = "v${version}";
-    owner = "containers";
-    repo = "buildah";
-    sha256 = "1w8w10pw5mpr3lc78z2dx3vck40cl7s3zsizsxhs0a9kxnfp01j9";
+    rev    = "v${version}";
+    owner  = "containers";
+    repo   = "buildah";
+    sha256 = "19yf93pq4vw24h76kl32c6ryvg5fp5mixakw9c6sqydf7m74z9i8";
   };
+
   goPackagePath = "github.com/containers/buildah";
 
 in buildGoPackage rec {
@@ -25,7 +26,7 @@ in buildGoPackage rec {
   # Optimizations break compilation of libseccomp c bindings
   hardeningDisable = [ "fortify" ];
 
-  nativeBuildInputs = [ pkgconfig go-md2man.bin ];
+  nativeBuildInputs = [ pkgconfig go-md2man ];
   buildInputs = [ gpgme libgpgerror lvm2 btrfs-progs ostree libselinux libseccomp ];
 
   # Copied from the skopeo package, doesn’t seem to make a difference?

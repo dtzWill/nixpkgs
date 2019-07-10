@@ -1,23 +1,25 @@
 { fetchurl, stdenv, ant, jdk, runtimeShell }:
 
 stdenv.mkDerivation rec {
-  name = "fop-${version}";
-  version = "2.1";
+  pname = "fop";
+  version = "2.3";
 
   src = fetchurl {
-    url = "mirror://apache/xmlgraphics/fop/source/${name}-src.tar.gz";
-    sha256 = "165rx13q47l6qc29ppr7sg1z26vw830s3rkklj5ap7wgvy0ivbz5";
+    url = "mirror://apache/xmlgraphics/${pname}/source/${pname}-${version}-src.tar.gz";
+    sha256 = "19g4bwdn8h2h3f5ai6as22lav4qg7shr3irdm3v0bzjavflbkkg8";
   };
 
   buildInputs = [ ant jdk ];
 
-  buildPhase = "ant";
+  buildPhase = "ant -f fop/build.xml clean all";
+
+  LC_ALL = "C.UTF-8";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/share/doc/fop
 
-    cp build/*.jar lib/*.jar $out/lib/
-    cp -r README examples/ $out/share/doc/fop/
+    cp fop/build/*.jar fop/lib/*.jar $out/lib/
+    cp -r README fop/examples/ $out/share/doc/fop/
 
     # There is a fop script in the source archive, but it has many impurities.
     # Instead of patching out 90 % of the script, we write our own.

@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
     owner = "KaizIqbal";
     repo = "Bibata_Cursor";
     #rev = "v${version}";
-    rev = "f34b0218392afb407f24ae3394cfcbcb2eb8d361";
-    sha256 = "0r0n34p3gvfqld0pggrjiys0hnq78cvsfyp46pxkqdnij0smzqak";
+    rev = "7c418db9c2a970a9ca06f6b5934de013549e3a5d";
+    sha256 = "07h4h6gnqdjx7jqrbx4wzqhm233p731f7y2li2aphbx39gyclnkn";
   };
 
   postPatch = ''

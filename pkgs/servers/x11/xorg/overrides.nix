@@ -1,9 +1,9 @@
 { abiCompat ? null,
-  stdenv, makeWrapper, lib, fetchurl, fetchpatch, buildPackages,
-  automake, autoconf, gettext, libiconv, libtool, intltool, mtdev, libevdev, libinput,
+  stdenv, makeWrapper, fetchurl, fetchpatch, buildPackages,
+  automake, autoconf, gettext, libiconv, libtool, intltool,
   freetype, tradcpp, fontconfig, meson, ninja,
   libGL, spice-protocol, zlib, libGLU, dbus, libunwind, libdrm,
-  mesa_noglu, udev, bootstrap_cmds, bison, flex, clangStdenv, autoreconfHook,
+  mesa, udev, bootstrap_cmds, bison, flex, clangStdenv, autoreconfHook,
   mcpp, epoxy, openssl, pkgconfig, llvm_6,
   cf-private, ApplicationServices, Carbon, Cocoa, Xplugin
 }:
@@ -198,6 +198,9 @@ self: super:
   libXi = super.libXi.overrideAttrs (attrs: {
     outputs = [ "out" "dev" "man" "doc" ];
     propagatedBuildInputs = [ self.libXfixes ];
+    configureFlags = stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "xorg_cv_malloc0_returns_null=no"
+    ];
   });
 
   libXinerama = super.libXinerama.overrideAttrs (attrs: {
@@ -385,7 +388,7 @@ self: super:
   });
 
   xf86videovmware = super.xf86videovmware.overrideAttrs (attrs: {
-    buildInputs =  attrs.buildInputs ++ [ mesa_noglu llvm_6 ]; # for libxatracker
+    buildInputs =  attrs.buildInputs ++ [ mesa llvm_6 ]; # for libxatracker
     meta = attrs.meta // {
       platforms = ["i686-linux" "x86_64-linux"];
     };
@@ -415,9 +418,6 @@ self: super:
 
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (attrs: {
     nativeBuildInputs = attrs.nativeBuildInputs ++ [intltool];
-
-    #TODO: resurrect patches for US_intl?
-    patches = [ ./xkeyboard-config-eo.patch ];
 
     configureFlags = [ "--with-xkb-rules-symlink=xorg" ];
 
@@ -459,10 +459,6 @@ self: super:
           '';
           patches = [
             ./131.patch
-            ./1.20-patches/0001-dix-ensure-work-queues-are-cleared-on-reset.patch
-            #./1.20-patches/0002-Revert-gitlab-ci-Only-run-docker-image-stage-if-rele.patch
-            ./1.20-patches/0003-xwayland-present-Destroy-sync_callback-in-xwl_presen.patch
-            ./1.20-patches/0004-present-scmd-Check-that-the-flip-and-screen-pixmap-p.patch
           ];
         }
         else if (abiCompat == "1.17") then {
@@ -518,7 +514,7 @@ self: super:
       if (!isDarwin)
       then {
         outputs = [ "out" "dev" ];
-        buildInputs = commonBuildInputs ++ [ libdrm mesa_noglu ];
+        buildInputs = commonBuildInputs ++ [ libdrm mesa ];
         nativeBuildInputs = attrs.nativeBuildInputs ++ [ self.utilmacros self.fontutil ];
         propagatedBuildInputs = [ libpciaccess epoxy ] ++ commonPropagatedBuildInputs ++ lib.optionals stdenv.isLinux [
           udev
@@ -720,6 +716,17 @@ self: super:
   xrandr = super.xrandr.overrideAttrs (attrs: {
     postInstall = ''
       rm $out/bin/xkeystone
+    '';
+  });
+
+  xcalc = super.xcalc.overrideAttrs (attrs: {
+    configureFlags = attrs.configureFlags or [] ++ [
+      "--with-appdefaultdir=${placeholder "out"}/share/X11/app-defaults"
+    ];
+    nativeBuildInputs = attrs.nativeBuildInputs or [] ++ [ makeWrapper ];
+    postInstall = ''
+      wrapProgram $out/bin/xcalc \
+        --set XAPPLRESDIR ${placeholder "out"}/share/X11/app-defaults
     '';
   });
 }

@@ -8,14 +8,14 @@
 
 stdenv.mkDerivation rec {
 
-  name = "openmsx-${version}";
-  version = "git-2017-11-02";
+  pname = "openmsx";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
-    owner = "openMSX";
-    repo = "openMSX";
-    rev = "eeb74206ae347a3b17e9b99f91f2b4682c5db22c";
-    sha256 = "170amj7k6wjhwx6psbplqljvckvhxxbv3aw72jrdxl1fb8zlnq3s";
+    owner = pname;
+    repo = pname;
+    rev = "RELEASE_${builtins.replaceStrings ["."] ["_"] version}";
+    sha256 = "1lv5kdw0812mkf7k20z2djzk0pbs792xq2mibbnz9rfjf02whi7l";
     fetchSubmodules = true;
   };
 

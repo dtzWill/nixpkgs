@@ -33,11 +33,11 @@ let
 
 in buildPythonPackage rec {
   pname = "poetry";
-  version = "0.12.12";
+  version = "0.12.17";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0baah5y2qxv1j8d93ii0ljngjzkv6qf3zb7b8n99s1lya7kj0r3j";
+    sha256 = "0gxwcd65qjmzqzppf53x51sic1rbcd9py6cdzx3aprppipimslvf";
   };
 
   postPatch = ''

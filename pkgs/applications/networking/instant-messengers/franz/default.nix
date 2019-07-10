@@ -1,20 +1,20 @@
-{ stdenv, fetchurl, makeWrapper, autoPatchelfHook, dpkg
+{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg
 , xorg, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, gtk3
 , gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils }:
 
 let
-  version = "5.1.0-beta.1";
+  version = "5.1.0";
 in stdenv.mkDerivation rec {
   name = "franz-${version}";
   src = fetchurl {
     url = "https://github.com/meetfranz/franz/releases/download/v${version}/franz_${version}_amd64.deb";
-    sha256 = "0mhd1hwy9s1pfagjs85pxmzq0d0dq98x4ylhrk5dcgm4ksskh501";
+    sha256 = "a474d2e9c6fb99abfc4c7e9290a0e52eef62233fa25c962afdde75fe151277d0";
   };
 
   # don't remove runtime deps
   dontPatchELF = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper dpkg ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook dpkg ];
   buildInputs = (with xorg; [
     libXi libXcursor libXdamage libXrandr libXcomposite libXext libXfixes
     libXrender libX11 libXtst libXScrnSaver
@@ -37,8 +37,12 @@ in stdenv.mkDerivation rec {
       --replace Exec=\"/opt/Franz/franz\" Exec=franz
   '';
 
+  dontWrapGApps = true;
+
   postFixup = ''
-    wrapProgram $out/opt/Franz/franz --prefix PATH : ${xdg_utils}/bin
+    wrapProgram $out/opt/Franz/franz \
+      --prefix PATH : ${xdg_utils}/bin \
+      "''${gappsWrapperArgs[@]}"
   '';
 
   meta = with stdenv.lib; {

@@ -8,7 +8,6 @@
 , gdb
 , numpy
 , ncurses
-, fetchpatch
 }:
 
 let
@@ -26,11 +25,11 @@ let
 
 in buildPythonPackage rec {
   pname = "Cython";
-  version = "0.29.7";
+  version = "0.29.11";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "55d081162191b7c11c7bfcb7c68e913827dfd5de6ecdbab1b99dab190586c1e8";
+    sha256 = "1866m01ggl2h3rky4hac3m5p048gg4a0jb09ljkknryiqln54fkn";
   };
 
   nativeBuildInputs = [

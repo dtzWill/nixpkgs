@@ -44,7 +44,7 @@
       vsftpd = 7;
       ftp = 8;
       bitlbee = 9;
-      avahi = 10;
+      #avahi = 10; # removed 2019-05-22
       nagios = 11;
       atd = 12;
       postfix = 13;
@@ -145,7 +145,7 @@
       #notbit = 111; # unused
       aerospike = 111;
       ngircd = 112;
-      btsync = 113;
+      #btsync = 113; # unused
       minecraft = 114;
       vault = 115;
       rippled = 116;
@@ -359,7 +359,7 @@
       vsftpd = 7;
       ftp = 8;
       bitlbee = 9;
-      avahi = 10;
+      #avahi = 10; # removed 2019-05-22
       #nagios = 11; # unused
       atd = 12;
       postfix = 13;
@@ -458,7 +458,7 @@
       #notbit = 111; # unused
       aerospike = 111;
       #ngircd = 112; # unused
-      btsync = 113;
+      #btsync = 113; # unused
       #minecraft = 114; # unused
       vault = 115;
       #ripped = 116; # unused

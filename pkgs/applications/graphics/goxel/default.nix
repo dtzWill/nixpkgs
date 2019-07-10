@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   name = "goxel-${version}";
-  version = "0.8.3";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "guillaumechereau";
     repo = "goxel";
     rev = "v${version}";
-    sha256 = "03hyy0i65zdplggaxlndgyvffvnb9g5kvxq2qbicirvz5zcsghk2";
+    sha256 = "1mdw4bs7hvfn0yngd9ial5wzlfkcbhr3wzldb1w7s3s48agixkdr";
   };
 
   patches = [ ./disable-imgui_ini.patch ];

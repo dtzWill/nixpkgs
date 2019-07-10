@@ -1,17 +1,19 @@
 { stdenv, fetchFromGitHub, cmake, flex, bison }:
-let
-  version = "2.2.3";
-in
-stdenv.mkDerivation {
-  name = "minizinc-${version}";
 
+stdenv.mkDerivation rec {
+  pname = "minizinc";
+  version = "2.3.0";
+
+  nativeBuildInputs = [ cmake flex bison ];
   buildInputs = [ cmake flex bison ];
 
   src = fetchFromGitHub {
     owner = "MiniZinc";
     repo = "libminizinc";
-    rev = "3d66971a0cad6edbe796f4dd940229d38e5bfe3d"; # tags on the repo are disappearing: See https://github.com/MiniZinc/libminizinc/issues/257
-    sha256 = "1q31y9131aj2lsm34srm8i1s0271qcaaknzvym3r8awynm14saq5";
+    # tags on the repo are disappearing: See https://github.com/MiniZinc/libminizinc/issues/257
+    # optimistically, let's see if it happens again:
+    rev = "refs/tags/${version}";
+    sha256 = "0k48j22qapxzljmyv6hpga272hcw5l2l55md9ixivysg3v3x8ssi";
   };
 
   meta = with stdenv.lib; {

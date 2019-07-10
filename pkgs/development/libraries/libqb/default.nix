@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec{
   pname = "libqb";
-  version = "1.0.3";
+  version = "1.0.5";
 
   src = fetchurl {
     url = "https://github.com/ClusterLabs/libqb/releases/download/v${version}/${pname}-${version}.tar.xz";
-    sha256 = "1xzlx9agx7fir151ni3lwsjp6aicjpqd80xw1fhykgx49dbahax0";
+    sha256 = "0b5qh98y7a84297sq9ag4sr296dif4bpdza3gslisn9r5098cyr7";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig doxygen ];

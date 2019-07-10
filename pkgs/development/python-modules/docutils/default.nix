@@ -25,14 +25,14 @@ buildPythonPackage rec {
 
   # Create symlinks lacking a ".py" suffix, many programs depend on these names
   postFixup = ''
-    (cd $out/bin && for f in *.py; do
-      ln -s $f $(echo $f | sed -e 's/\.py$//')
-    done)
+    for f in $out/bin/*.py; do
+      ln -vsr "$f" "''${f%.py}"
+    done
   '';
 
   meta = {
     description = "Docutils -- Python Documentation Utilities";
     homepage = http://docutils.sourceforge.net/;
-    maintainers = with lib.maintainers; [ garbas AndersonTorres ];
+    maintainers = with lib.maintainers; [ AndersonTorres ];
   };
 }

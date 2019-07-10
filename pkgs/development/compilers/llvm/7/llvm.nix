@@ -15,7 +15,9 @@
 , debugVersion ? false
 , enableManpages ? false
 , enableSharedLibraries ? true
-, enablePFM ? !stdenv.isDarwin
+, enablePFM ? !(stdenv.isDarwin
+  || stdenv.isAarch64 # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+  )
 , enablePolly ? false
 }:
 
@@ -84,6 +86,14 @@ in stdenv.mkDerivation (rec {
     substituteInPlace unittests/Support/CMakeLists.txt \
       --replace "add_subdirectory(DynamicLibrary)" ""
     rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
+  '' + optionalString stdenv.hostPlatform.isAarch32 ''
+    # skip failing X86 test cases on armv7l
+    rm test/DebugInfo/X86/debug_addr.ll
+    rm test/tools/llvm-dwarfdump/X86/debug_addr.s
+    rm test/tools/llvm-dwarfdump/X86/debug_addr_address_size_mismatch.s
+    rm test/tools/llvm-dwarfdump/X86/debug_addr_dwarf4.s
+    rm test/tools/llvm-dwarfdump/X86/debug_addr_unsupported_version.s
+    rm test/tools/llvm-dwarfdump/X86/debug_addr_version_mismatch.s
   '' + ''
     patchShebangs test/BugPoint/compile-custom.ll.py
   '';

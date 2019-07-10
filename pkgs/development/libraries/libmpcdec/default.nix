@@ -10,6 +10,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Musepack SV7 decoder library";
+    # Website says the following:
+    # note: Old. Refer to above SV8 lib (compatible with SV7)
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.bsd3;
   };

@@ -6,20 +6,20 @@
 
 let
   pname = "network-manager-applet";
-  version = "1.8.20.99"; # not really, git
+  version = "1.8.22";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-  #  sha256 = "1v1lvw9ak37gxha11rv49sai1vdyv128hdy0kliibiv6alavn385";
+  #  sha256 = "1vbyhxknixyrf75pbjl3rxcy32m8y9cx5s30s3598vgza081rvzb";
   #};
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "779f92cfe3e1e094a7e25a07b709b9d8fa2e8549";
-    sha256 = "04fqiv3isb6w46p9dzflcwkq9bdba1m5x40lj9g4hr8jwxxfw937";
+    rev = "9fe093454b9a1addef7650f365d66d5b68ccc8b8";
+    sha256 = "1lc3d6zf9lh995dhfv4g86py431q5advzh4cj67vmbrbaczmgx0b";
   };
 
   mesonFlags = [

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan
+{ stdenv, fetchurl, fetchpatch, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan
 , file, which, ncurses
 , texinfo
 , buildPackages
@@ -13,12 +13,24 @@ in
 
 stdenv.mkDerivation rec {
   name = "gpgme-${version}";
-  version = "1.13.0";
+  version = "1.13.1";
 
   src = fetchurl {
     url = "mirror://gnupg/gpgme/${name}.tar.bz2";
-    sha256 = "0c6676g0yhfsmy32i1dgwh5cx0ja8vhcqf4k08zad177m53kxcnl";
+    sha256 = "0imyjfryvvjdbai454p70zcr95m94j9xnzywrlilqdw2fqi0pqy4";
   };
+
+  patches = [ (fetchpatch {
+    # Commit message explains it nicely:
+    # > Without this change, the signature verification would fail.  This
+    # > problem was introduced in bded8ebc59c7fdad2617f4c9232a58047656834c in
+    # > an attempt to avoid an error when *not* verifying.  Clearly more test
+    # > suite coverage is needed to avoid introducing this sort of problem in
+    # > the future.
+    # This failure is also caught by recent notmuch testsuite.
+    url = "https://sources.debian.org/data/main/g/gpgme1.0/1.13.0-2/debian/patches/0002-gpg-Avoid-error-diagnostics-with-override-session-ke.patch";
+    sha256 = "1684fpr8ggg0f40231jyaviw6y2zyq3g8ngckw26w8892r1siqcn";
+  }) ];
 
   outputs = [ "out" "dev" "info" ];
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
@@ -40,7 +52,12 @@ stdenv.mkDerivation rec {
     "--enable-fixed-path=${gnupg}/bin"
     "--with-libgpg-error-prefix=${libgpgerror.dev}"
     "--with-libassuan-prefix=${libassuan.dev}"
-  ] ++ lib.optional pythonSupport "--enable-languages=python";
+  ] ++ lib.optional pythonSupport "--enable-languages=python"
+  # Tests will try to communicate with gpg-agent instance via a UNIX socket
+  # which has a path length limit. Nix on darwin is using a build directory
+  # that already has quite a long path and the resulting socket path doesn't
+  # fit in the limit. https://github.com/NixOS/nix/pull/1085
+    ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ];
 
   NIX_CFLAGS_COMPILE =
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless

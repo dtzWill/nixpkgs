@@ -1,25 +1,17 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libxkbcommon, pango, which, git
+{ stdenv, lib, fetchurl
+, autoreconfHook, pkgconfig, libxkbcommon, pango, which, git
 , cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification
 , bison, flex, librsvg, check
 }:
 
 stdenv.mkDerivation rec {
-  #version = "1.5.2";
-  #name = "rofi-unwrapped-${version}";
-  pname = "rofi"; # -unwrapped
-  version = "2019-05-19";
+  pname = "rofi-unwrapped";
+  version = "1.5.4";
 
-  src = fetchFromGitHub {
-    owner = "davatorium";
-    repo = pname;
-    rev = "361ce7d6fc9c837d6a263a9f3405e3466668523a";
-    fetchSubmodules = true;
-    sha256 = "15yd7xjmamij22svyjzn5idjv5m9nbfrylpc9h87rvwjcjss02c8";
+  src = fetchurl {
+    url = "https://github.com/davatorium/rofi/releases/download/${version}/rofi-${version}.tar.gz";
+    sha256 = "1g1170zmh5v7slnm1sm2d08jgz6icikf8rm17apm1bjzzyw1lhk7";
   };
-  #src = fetchurl {
-  #  url = "https://github.com/DaveDavenport/rofi/releases/download/${version}/rofi-${version}.tar.gz";
-  #  sha256 = "1rczxz6l32vnclarzga1sm1d5iq9rfscb9j7f8ih185n59hf0517";
-  #};
 
   preConfigure = ''
     patchShebangs "script"
@@ -31,13 +23,14 @@ stdenv.mkDerivation rec {
   buildInputs = [ libxkbcommon pango cairo git bison flex librsvg check
     libstartup_notification libxcb xcbutil xcbutilwm xcbutilxrm which
   ];
+
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Window switcher, run dialog and dmenu replacement";
-    homepage = https://github.com/davatorium/rofi;
+    homepage = "https://github.com/davatorium/rofi";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbakke garbas ma27 ];
+    maintainers = with maintainers; [ mbakke ma27 ];
     platforms = with platforms; linux;
   };
 }

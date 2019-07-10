@@ -15,20 +15,22 @@ with stdenv.lib;
 assert (versionAtLeast gmime.version "3.0");
 
 stdenv.mkDerivation rec {
-  version = "0.28.4"; # not really, git
-  name = "notmuch-${version}";
+  pname = "notmuch";
+  version = "0.29.1";
 
   passthru = {
-    pythonSourceRoot = "${name}/bindings/python";
+    pythonSourceRoot = "${pname}-${version}/bindings/python";
     #pythonSourceRoot = "${src}/bindings/python"; # lol
     inherit version;
   };
 
   src = fetchgit {
-    inherit name;
+    name = "${pname}-${version}"; # descriptive but exact name, used above in pythonSourceRoot
     url = git://git.notmuchmail.org/git/notmuch;
-    rev = "9c0001de4bf3446a7cb8e6afc8dd3288be9169b7";
-    sha256 = "1cd4ybyx23k78mc4pbkzm7bn5bs32kws5srmx6x21radvwhqpv4p";
+    #rev = "bc396c967c7cd8e7a109858e428d7bf97173f7a7";
+#    rev = "refs/tags/${version}";
+    rev = "b6e589f54f25594f6beb7b5ee9e884c75f3bd633";
+    sha256 = "0619zivqvqhgy2c4p0maxgzgxrxrdcp85yq97jpbg411mf4kircg";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";
@@ -98,7 +100,7 @@ stdenv.mkDerivation rec {
     description = "Mail indexer";
     homepage    = https://notmuchmail.org/;
     license     = licenses.gpl3;
-    maintainers = with maintainers; [ flokli garbas the-kenny ];
+    maintainers = with maintainers; [ flokli the-kenny ];
     platforms   = platforms.unix;
   };
 }

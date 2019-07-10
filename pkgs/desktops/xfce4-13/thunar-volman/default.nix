@@ -3,7 +3,8 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "thunar-volman";
-  version = "0.9.2";
+  version = "4.14pre1";
+  rev = "xfce-4.14pre1";
 
   buildInputs = [ exo gtk3 libgudev libxfce4ui libxfce4util xfconf ];
 

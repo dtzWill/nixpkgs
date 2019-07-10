@@ -1,4 +1,4 @@
-{ pkgs, stdenv, libarchive, patchelf, zlib, buildFHSUserEnv, writeScript }:
+{ stdenv, libarchive, patchelf, zlib, buildFHSUserEnv, writeScript }:
 
 rec {
   # Both extraction functions could be unified, but then
@@ -131,6 +131,11 @@ rec {
       xorg.libXt
       xorg.libXmu
       xorg.libxcb
+      xorg.xcbutil
+      xorg.xcbutilwm
+      xorg.xcbutilimage
+      xorg.xcbutilkeysyms
+      xorg.xcbutilrenderutil
       libGLU
       libuuid
       libogg
@@ -142,7 +147,7 @@ rec {
       libidn
       tbb
       wayland
-      mesa_noglu
+      mesa
       libxkbcommon
 
       flac

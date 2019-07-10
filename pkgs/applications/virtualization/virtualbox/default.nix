@@ -1,10 +1,10 @@
 { config, stdenv, fetchurl, lib, iasl, dev86, pam, libxslt, libxml2
-, libX11, xorgproto, libXext, libXcursor, libXmu, qt5, libIDL, SDL, libcap
+, libX11, xorgproto, libXext, libXcursor, libXmu, qt5, libIDL, SDL, libcap, libGL
 , libpng, glib, lvm2, libXrandr, libXinerama, libopus
 , pkgconfig, which, docbook_xsl, docbook_xml_dtd_43
 , alsaLib, curl, libvpx, nettools, dbus
 , makeself, perl
-, javaBindings ? false, jdk ? null
+, javaBindings ? true, jdk ? null # Almost doesn't affect closure size
 , pythonBindings ? false, python3 ? null
 , extensionPack ? null, fakeroot ? null
 , pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
@@ -21,8 +21,8 @@ let
   buildType = "release";
   # Remember to change the extpackRev and version in extpack.nix and
   # guest-additions/default.nix as well.
-  main = "0lp584a350ya1zn03lhgmdbi91yp8yfja9hlg2jz1xyfj2dc869l";
-  version = "6.0.6";
+  main = "11sxx2zaablkvjiw0i5g5i5ibak6bsq6fldrcxwbcby6318shnhv";
+  version = "6.0.8";
 in stdenv.mkDerivation {
   name = "virtualbox-${version}";
 
@@ -42,7 +42,7 @@ in stdenv.mkDerivation {
     ++ optional javaBindings jdk
     ++ optional pythonBindings python # Python is needed even when not building bindings
     ++ optional pulseSupport libpulseaudio
-    ++ optionals (headless) [ libXrandr ]
+    ++ optionals (headless) [ libXrandr libGL ]
     ++ optionals (!headless) [ qt5.qtbase qt5.qtx11extras libXinerama SDL ];
 
   hardeningDisable = [ "format" "fortify" "pic" "stackprotector" ];
@@ -76,12 +76,6 @@ in stdenv.mkDerivation {
      optional enableHardening ./hardened.patch
   ++ [
     ./qtx11extras.patch
-    # https://www.virtualbox.org/ticket/18620
-    ./fix_kbuild.patch
-    # https://www.virtualbox.org/ticket/18621
-    ./fix_module_makefile_sed.patch
-    # https://forums.virtualbox.org/viewtopic.php?f=7&t=92815
-    ./fix_printk_test.patch
   ];
 
   postPatch = ''

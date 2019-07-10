@@ -3,23 +3,24 @@
 
 stdenv.mkDerivation rec {
   name = "thermald-${version}";
-  version = "1.8.0.1"; # not really, git
+  version = "1.8.0-2019-05-30"; # not really, git
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "thermal_daemon";
     #rev = "v${version}";
-    rev = "39c51b19cf7c163fa5ae37b6e723d4756a25f18d";
-    sha256 = "0877m4v326i2l6xwkq5jbcgl9zy9fi7nvvmncbc1c5kdgps6aq7r";
+    rev = "d3153bb26d5adc17a8c65d4eebbda90fa881b824";
+    sha256 = "0l93sfw8asry596mcwrxzla8v87mb9fwnlagw4gzav93x1q7g9c3";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
   buildInputs = [ dbus dbus-glib libxml2 ];
 
   configureFlags = [
-    "--sysconfdir=$(out)/etc" "--localstatedir=/var"
-    "--with-dbus-sys-dir=$(out)/etc/dbus-1/system.d"
-    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
+    "--sysconfdir=${placeholder "out"}/etc"
+    "--localstatedir=/var"
+    "--with-dbus-sys-dir=${placeholder "out"}/etc/dbus-1/system.d"
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     ];
 
   postInstall = ''

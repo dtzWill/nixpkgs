@@ -37,8 +37,6 @@
 , mediaSupport ? false
 , ffmpeg
 
-, gmp
-
 # Extensions, common
 , zip
 
@@ -154,6 +152,11 @@ stdenv.mkDerivation rec {
     categories = "Network;WebBrowser;Security;";
   };
   buildInputs = [ tor-browser-unwrapped tor ];
+
+  # XXX: Doesn't 'buildCommand' disable/override these phases anyway?
+  dontUnpack = true;
+
+  buildPhase = ":";
 
   # The following creates a customized firefox distribution.  For
   # simplicity, we copy the entire base firefox runtime, to work around
@@ -369,9 +372,9 @@ stdenv.mkDerivation rec {
       TZ=":" \
       TZDIR="\''${TZDIR:-}" \
       \
-      XAUTHORITY="\''${XAUTHORITY:-\$HOME/.Xauthority}" \
       DISPLAY="\$DISPLAY" \
-      DBUS_SESSION_BUS_ADDRESS="\''${DBUS_SESSION_BUS_ADDRESS:-unix:path=\$XDG_RUNTIME_DIR/bus}" \\
+      XAUTHORITY="\''${XAUTHORITY:-}" \
+      DBUS_SESSION_BUS_ADDRESS="\$DBUS_SESSION_BUS_ADDRESS" \
       \
       HOME="\$HOME" \
       TMPDIR="\$XDG_CACHE_HOME/tmp" \

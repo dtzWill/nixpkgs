@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "e2fsprogs";
-  version = "1.45.1";
+  version = "1.45.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "0zi8jz28hs66vhjvrfxmkmr1via19aygcbzpnw3lp0crhizaasgf";
+    sha256 = "1bhqljgcngys1diaxh7rnxc85d1jsril8xd7bach9imdjwr1wlm8";
   };
 
   outputs = [ "bin" "dev" "out" "man" "info" ];
@@ -28,9 +28,15 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     if stdenv.isLinux then [
-      "--enable-elf-shlibs" "--enable-symlink-install" "--enable-relative-symlinks"
-      # libuuid, libblkid, uuidd and fsck are in util-linux-ng (the "libuuid" dependency).
-      "--disable-libuuid" "--disable-uuidd" "--disable-libblkid" "--disable-fsck"
+      "--enable-elf-shlibs"
+      "--enable-symlink-install"
+      "--enable-relative-symlinks"
+      "--with-crond-dir=no"
+      # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
+      "--disable-fsck"
+      "--disable-libblkid"
+      "--disable-libuuid"
+      "--disable-uuidd"
     ] else [
       "--enable-libuuid --disable-e2initrd-helper"
     ];

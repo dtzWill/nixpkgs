@@ -1,7 +1,7 @@
 { stdenv, lib, buildPythonPackage, fetchPypi, makeWrapper, isPy3k,
   python, twisted, jinja2, zope_interface, future, sqlalchemy,
   sqlalchemy_migrate, dateutil, txaio, autobahn, pyjwt, pyyaml, treq,
-  txrequests, txgithub, pyjade, boto3, moto, mock, python-lz4, setuptoolsTrial,
+  txrequests, pyjade, boto3, moto, mock, python-lz4, setuptoolsTrial,
   isort, pylint, flake8, buildbot-worker, buildbot-pkg, parameterized,
   glibcLocales }:
 
@@ -25,11 +25,11 @@ let
 
   package = buildPythonPackage rec {
     pname = "buildbot";
-    version = "2.3.0";
+    version = "2.3.1";
 
     src = fetchPypi {
       inherit pname version;
-      sha256 = "1fdahbpihs93pj640y2079yilca6w7vlwirfcz221885ih148257";
+      sha256 = "0qzr6my8zvaj0a1jwyaf254rdgm1xcyq8zp4b6fa5aqigfld4dfg";
     };
 
     propagatedBuildInputs = [

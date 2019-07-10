@@ -1,6 +1,5 @@
 { stdenv
 , fetchFromGitHub
-, fetchpatch
 , autoreconfHook
 , givaro
 , pkgconfig
@@ -12,13 +11,14 @@
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "linbox";
-  version = "1.6.1";
+  version = "1.6.3";
+
 
   src = fetchFromGitHub {
     owner = "linbox-team";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "11mgj7pkppvzmhx5g6wfnzisk36z00gqzzq9p14hzh5dbdhk3693";
+    sha256 = "10j6dspbsq7d2l4q3y0c1l1xwmaqqba2fxg59q5bhgk9h5d7q571";
   };
 
   nativeBuildInputs = [
@@ -61,7 +61,6 @@ stdenv.mkDerivation rec {
     license = stdenv.lib.licenses.lgpl21Plus;
     maintainers = [stdenv.lib.maintainers.timokau];
     platforms = stdenv.lib.platforms.unix;
-    broken = stdenv.isDarwin || stdenv.isAarch64; # https://trac.sagemath.org/ticket/26932#comment:21
     homepage = http://linalg.org/;
   };
 }

@@ -1,23 +1,42 @@
-{ stdenv, fetchFromGitHub, rustPlatform, file }:
+{ stdenv, fetchFromGitHub, rustPlatform
+, file
+, glib, gst_all_1
+, wrapGAppsHook # to setup GST_* paths, a bit overkill perhaps
+}:
 
 with rustPlatform;
 
 buildRustPackage rec {
   pname = "hunter";
-  version = "1.1.3";
+  version = "1.2.3";
 
-  cargoSha256 = "1r0vlpy682y5ydckkhjganby4qzz3kv469yvd3346q0ckqk5x6xx";
+  cargoSha256 = "03srma9w8jvx5h2j8dca1z50km3ixxzxl4agc0974zdpmwpyn647";
 
   src = fetchFromGitHub {
     owner = "rabite0";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0qg55s7r4wb0c7ancnnq1rmymijav99ch2xvhgh5dcksar0kp2hb";
+    sha256 = "040m6kxgajaiwsywnnmdbapplcmpry100vkwangkld7468naqi75";
   };
 
-  buildInputs = [ file /* libmagic */];
+  nativeBuildInputs = [ wrapGAppsHook ];
+
+  buildInputs = [
+    file /* libmagic */
+    glib
+  ] ++ builtins.attrValues {
+    inherit (gst_all_1)
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      # not mentioned in README, but needed for PNM apparently
+      gst-plugins-bad
+      ;
+    };
 
   HOME = ".";
+
+  doCheck = false; # src/icon.rs doesn't build, references 'Theme' enum not anywhere
 
 #  postInstall = ''
 #    mkdir -p $out/share/man/man1

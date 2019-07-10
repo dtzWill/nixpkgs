@@ -4,7 +4,8 @@
 mkXfceDerivation rec {
   category = "xfce";
   pname = "thunar";
-  version = "1.8.6";
+  version = "4.14pre1";
+  rev = "xfce-4.14pre1";
 
   sha256 = "13l1nw526jz80p0ynhxqd3a8flp561z0321z7h4rvnidicvdr32n";
 

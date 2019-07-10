@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perlPackages, makeWrapper, wrapGAppsHook,
+{ stdenv, fetchurl, perlPackages, wrapGAppsHook,
   librsvg, sane-backends, sane-frontends,
   imagemagick, libtiff, djvulibre, poppler_utils, ghostscript, unpaper,
   xvfb_run, hicolor-icon-theme, liberation_ttf, file, pdftk }:
@@ -6,12 +6,12 @@
 with stdenv.lib;
 
 perlPackages.buildPerlPackage rec {
-  name = "gscan2pdf-${version}";
-  version = "2.5.2";
+  pname = "gscan2pdf";
+  version = "2.5.3";
 
   src = fetchurl {
     url = "mirror://sourceforge/gscan2pdf/${version}/${name}.tar.xz";
-    sha256 = "1gxkhw8d50r14x2nn24cw3ich7cp02i4ayxpgccnf6kddqqkh5x7";
+    sha256 = "0jzl173gffwj40g8vn9v6nr91xiliknzlfyasw4aij2wi588hpyw";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];

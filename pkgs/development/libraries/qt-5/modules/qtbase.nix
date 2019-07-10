@@ -56,7 +56,7 @@ stdenv.mkDerivation {
           # TODO: move to buildInputs, this should not be propagated.
           AGL AppKit ApplicationServices Carbon Cocoa CoreAudio CoreBluetooth
           CoreLocation CoreServices DiskArbitration Foundation OpenGL
-          darwin.libobjc libiconv
+          darwin.libobjc libiconv MetalKit
         ]
       else
         [
@@ -241,7 +241,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (compareVersion "5.9.0" < 0)
     [
-      "-c++11"
+      "-c++14" # TODO: c++1z, auto?
       "-no-reduce-relocations"
     ]
     ++ lib.optionals developerBuild [

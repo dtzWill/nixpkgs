@@ -6,6 +6,9 @@
 , libsoup, libpulseaudio, libintl
 , darwin, lame, mpg123, twolame
 , gtkSupport ? false, gtk3 ? null
+# As of writing, jack2 incurs a Qt dependency (big!) via `ffado`.
+# In the fuure we should probably split `ffado`.
+, enableJack ? false
 , libXdamage
 , libXext
 , libXfixes
@@ -66,7 +69,10 @@ stdenv.mkDerivation rec {
   ]
   ++ optional gtkSupport gtk3 # for gtksink
   ++ optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
-  ++ optionals stdenv.isLinux [ libv4l libpulseaudio libavc1394 libiec61883 libgudev jack2 ];
+  ++ optionals stdenv.isLinux [ libv4l libpulseaudio libavc1394 libiec61883 libgudev jack2 ]
+  ++ optionals (stdenv.isLinux && enableJack) [
+    jack2
+  ];
 
   mesonFlags = [
     # Enables all features, so that we know when new dependencies are necessary.
@@ -75,7 +81,7 @@ stdenv.mkDerivation rec {
     "-Dqt5=disabled" # not clear as of writing how to correctly pass in the required qt5 deps
   ]
   ++ optional (!gtkSupport) "-Dgtk3=disabled"
-  ++ optionals (!stdenv.isLinux) [
+  ++ optionals (!stdenv.isLinux || !enableJack) [
     "-Djack=disabled" # unclear whether Jack works on Darwin
   ]
   ++ optionals (!stdenv.isLinux) [

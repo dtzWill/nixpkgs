@@ -1,9 +1,9 @@
-{ stdenv, fetchurl }:
+{ stdenv, system, fetchurl }:
 
 let
-  linuxPredicate = stdenv.hostPlatform.system == "x86_64-linux";
-  bsdPredicate = stdenv.hostPlatform.system == "x86_64-freebsd";
-  darwinPredicate = stdenv.hostPlatform.system == "x86_64-darwin";
+  linuxPredicate = system == "x86_64-linux";
+  bsdPredicate = system == "x86_64-freebsd";
+  darwinPredicate = system == "x86_64-darwin";
   metadata = assert linuxPredicate || bsdPredicate || darwinPredicate;
     if linuxPredicate then
       { arch = "linux-amd64";

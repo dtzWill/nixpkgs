@@ -2,7 +2,7 @@
 , gnome3, systemd, libuuid, polkit, gnutls, ppp, dhcp, iptables, python3, vala
 , libgcrypt, dnsmasq, bluez5, readline, libselinux, audit
 , gobject-introspection, modemmanager, openresolv, libndp, newt, libsoup
-, ethtool, gnused, coreutils, iputils, kmod, jansson, gtk-doc, libxslt
+, ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
 , docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
 , fetchFromGitHub
 , openconnect, curl, meson, ninja, libpsl, libredirect }:
@@ -12,13 +12,13 @@ let
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   name = "network-manager-${version}";
-  version = "1.19.2.1";
+  version = "1.19.5-dev";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "b18cda26711b2cb76575487e1e00c429dc853417";
-    sha256 = "1jpfmmzhln5bzakgh5hc106x7mxk00biakvq9rwhbi1ccw7zlzas";
+    rev = "5f05ef916a8c346283960327873c8ea8ad64481e";
+    sha256 = "0cdzrf61lhb9vzsm3qhw4s6ihh9h2v3dm03kwidaymn81y6dhsjl";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -75,8 +75,11 @@ in stdenv.mkDerivation rec {
     ./fix-install-paths.patch
 
     #./mtu.patch
-    ./ipv6-disable-option/0001-ipv6-add-disabled-method.patch
-    ./ipv6-disable-option/0002-fixup-ipv6-add-disabled-method.patch
+
+    # Included:
+    #./0001-dhcp-fallback-to-internal-DHCP-plugin-if-plugin-does.patch
+    #./0001-ipv6-add-disabled-method.patch
+
     ./vpn-persistent/0001-vpn-minor-improvements.patch
     ./vpn-persistent/0002-vpn-fix-persistent-reconnection.patch
     ./vpn-persistent/0003-vpn-set-STOPPED-state-when-service-disappears.patch

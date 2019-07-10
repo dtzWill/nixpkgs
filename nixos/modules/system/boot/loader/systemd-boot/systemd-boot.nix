@@ -12,7 +12,7 @@ let
 
     isExecutable = true;
 
-    inherit (pkgs.buildPackages) python3;
+    inherit (pkgs) python3;
 
     systemd = config.systemd.package;
 
@@ -22,7 +22,7 @@ let
 
     editor = if cfg.editor then "True" else "False";
 
-    inherit (cfg) consoleMode;
+    inherit (cfg) consoleMode configurationLimit;
 
     inherit (efi) efiSysMountPoint canTouchEfiVariables;
 
@@ -54,6 +54,16 @@ in {
         gaining root access by passing init=/bin/sh as a kernel
         parameter. However, it is enabled by default for backwards
         compatibility.
+      '';
+    };
+
+    configurationLimit = mkOption {
+      default = 100;
+      example = 120;
+      type = types.int;
+      description = ''
+        Maximum of configurations in boot menu. Otherwise boot partition could
+        run out of disk space.
       '';
     };
 
@@ -94,7 +104,7 @@ in {
         type = types.bool;
         description = ''
           Make MemTest86 available from the systemd-boot menu. MemTest86 is a
-          program for testing memory.  MemTest86 is a non-open-source program, so
+          program for testing memory.  MemTest86 is an unfree program, so
           this requires <literal>allowUnfree</literal> to be set to
           <literal>true</literal>.
         '';

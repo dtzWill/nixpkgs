@@ -1,19 +1,18 @@
-{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, pkgconfig, vala, gettext, python3
-, appstream-glib, desktop-file-utils, glibcLocales, wrapGAppsHook
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, vala, gettext, python3
+, appstream-glib, desktop-file-utils, wrapGAppsHook
 , gtk3, libgee, libpeas, librest, webkitgtk, gsettings-desktop-schemas, hicolor-icon-theme
 , curl, glib, glib-networking, gnome3, gst_all_1, json-glib, libnotify, libsecret, sqlite, gumbo, libxml2
 }:
 
 stdenv.mkDerivation rec {
   pname = "feedreader";
-  version = "2.8.2-git";
+  version = "2.9.2";
 
   src = fetchFromGitHub {
     owner = "jangernert";
     repo = pname;
-    #rev = "v${version}";
-    rev = "1f8431bce62b292578bf5adac65e4788ef3ea87c";
-    sha256 = "089lrmz3ip38wlc2xiapsdp0iifisspsxsr9v7gz0ih0n745afbl";
+    rev = "v${version}";
+    sha256 = "1468kl1gip7h2k5l9x3shp3vxdnx08mr1n4845zinaqz4dpa70jv";
   };
 
   nativeBuildInputs = [

@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "nhorman";
     repo = "rng-tools";
-    rev = "v${version}";
-    sha256 = "19f75m6mzg8h7b4snzg7d6ypvkz6nq32lrpi9ja95gqz4wsd18a5";
+    #rev = "v${version}";
+    rev = "62fbff0ac807e07f4f21f58c0f15bfe5e9c8b55e";
+    sha256 = "12mz6b448cb06lcj1bfawvmcbhl0wgr9fmnjni4k63jm29iw5dn2";
   };
 
   postPatch = ''
@@ -55,6 +56,8 @@ stdenv.mkDerivation rec {
 
   # For cross-compilation
   makeFlags = [ "AR:=$(AR)" ];
+
+  doInstallCheck = true;
 
   meta = {
     description = "A random number generator daemon";

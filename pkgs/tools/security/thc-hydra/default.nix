@@ -5,12 +5,12 @@ let
   makeDirs = output: subDir: pkgs: lib.concatStringsSep " " (map (path: lib.getOutput output path + "/" + subDir) pkgs);
 
 in stdenv.mkDerivation rec {
-  name = "thc-hydra-${version}";
-  version = "8.5";
+  pname = "thc-hydra";
+  version = "9.0";
 
   src = fetchurl {
-    url = "http://www.thc.org/releases/hydra-${version}.tar.gz";
-    sha256 = "0vfx6xwmw0r7nd0s232y7rckcj58fc1iqjgp4s56rakpz22b4yjm";
+    url = "https://github.com/vanhauser-thc/THC-Archive/raw/master/Tools/hydra-${version}.tar.gz";
+    sha256 = "03ldivazd7h0b983b94v59v96smsb5ppzrqrzfkbm2hj7hjjwrsn";
   };
 
   preConfigure = ''

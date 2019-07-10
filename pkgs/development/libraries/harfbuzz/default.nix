@@ -8,7 +8,7 @@
 }:
 
 let
-  version = "2.4.0";
+  version = "2.5.3";
   inherit (stdenv.lib) optional optionals optionalString;
 in
 
@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   name = "harfbuzz${optionalString withIcu "-icu"}-${version}";
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-${version}.tar.bz2";
-    sha256 = "0vrkvdlmihdg62a4c6h5kx27khc33xmb95l50zgnwnavvpwyyw5l";
+    url = "https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-${version}.tar.xz";
+    sha256 = "0p45xk5bblsw8lfs7y7z80b4rvda9f2hlpr28flkrfmpjz3hvl7y";
   };
 
   postPatch = ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
   buildInputs = [ glib freetype cairo ] # recommended by upstream
     ++ stdenv.lib.optionals withCoreText [ ApplicationServices CoreText ];
 
-  propagatedBuildInputs = []
+  propagatedBuildInputs = [ glib ]
     ++ optional withGraphite2 graphite2
     ++ optionals withIcu [ icu harfbuzz ];
 

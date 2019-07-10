@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala
-, libgee, granite, gtk3, libaccounts-glib, libsignon-glib, json-glib, glib-networking
-, librest, webkitgtk, libsoup, switchboard, gobject-introspection }:
+, libgee, granite, gtk3, libaccounts-glib, libsignon-glib, json-glib
+, librest, webkitgtk, libsoup, switchboard, glib-networking }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-onlineaccounts";
@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    gobject-introspection
     meson
     ninja
     pkgconfig

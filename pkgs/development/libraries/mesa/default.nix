@@ -2,14 +2,15 @@
 , pkgconfig, intltool, ninja, meson
 , file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
 , llvmPackages, libffi, libomxil-bellagio, libva-minimal
-, libelf, libvdpau, valgrind-light, python3Packages
+, libelf, libvdpau, python3Packages
 , libglvnd
 , enableRadv ? true
-, galliumDrivers ? null
-, driDrivers ? null
-, vulkanDrivers ? null
+, galliumDrivers ? ["auto"]
+, driDrivers ? ["auto"]
+, vulkanDrivers ? ["auto"]
 , eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" "drm" ]
 , OpenGL, Xplugin
+, withValgrind ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32, valgrind-light
 }:
 
 /** Packaging design:
@@ -25,54 +26,13 @@
 
 with stdenv.lib;
 
-if ! elem stdenv.hostPlatform.system platforms.mesaPlatforms then
-  throw "unsupported platform for Mesa"
-else
-
 let
-  defaultGalliumDrivers =
-    optionals (elem "drm" eglPlatforms)
-    (if stdenv.isAarch32
-    then ["virgl" "nouveau" "freedreno" "vc4" "etnaviv" "imx"]
-    else if stdenv.isAarch64
-    then ["virgl" "nouveau" "vc4" ]
-    else ["virgl" "svga" "r300" "r600" "radeonsi" "nouveau"]);
-  defaultDriDrivers =
-    optionals (elem "drm" eglPlatforms)
-    (if (stdenv.isAarch32 || stdenv.isAarch64)
-    then ["nouveau"]
-    else ["i915" "i965" "nouveau" "r200"]);
-  defaultVulkanDrivers =
-    optionals stdenv.isLinux (if (stdenv.isAarch32 || stdenv.isAarch64)
-    then []
-    else ["intel"] ++ lib.optional enableRadv "amd");
-in
-
-let gallium_ = galliumDrivers; dri_ = driDrivers; vulkan_ = vulkanDrivers; in
-
-let
-  galliumDrivers =
-    (if gallium_ == null
-          then defaultGalliumDrivers
-          else gallium_)
-    ++ lib.optional stdenv.isLinux "swrast";
-  driDrivers =
-    (if dri_ == null
-      then optionals (elem "drm" eglPlatforms) defaultDriDrivers
-      else dri_);
-  vulkanDrivers =
-    if vulkan_ == null
-    then defaultVulkanDrivers
-    else vulkan_;
-in
-
-let
-  version = "19.0.4";
+  version = "19.1.2";
   branch  = head (splitString "." version);
 in
 
-let self = stdenv.mkDerivation rec {
-  pname = "mesa-noglu";
+stdenv.mkDerivation rec {
+  pname = "mesa";
   inherit version;
 
   src =  fetchurl {
@@ -82,7 +42,7 @@ let self = stdenv.mkDerivation rec {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "0iyffj3xd7f0vsayirswh6aia37ba26hkihpz273hxwd8hpz7y9r";
+    sha256 = "1zgw13llnsvaq8fcr1ld4rhhynw50gvg6cv7ifsbgvzbm1718fl1";
   };
 
   prePatch = "patchShebangs .";
@@ -94,14 +54,34 @@ let self = stdenv.mkDerivation rec {
     ./missing-includes.patch # dev_t needs sys/stat.h, time_t needs time.h, etc.-- fixes build w/musl
     ./opencl-install-dir.patch
     ./disk_cache-include-dri-driver-path-in-cache-key.patch
-  ];
+  ] # do not prefix user provided dri-drivers-path
+    ++ lib.optional (lib.versionOlder version "19.0.0") (fetchpatch {
+      url = "https://gitlab.freedesktop.org/mesa/mesa/commit/f6556ec7d126b31da37c08d7cb657250505e01a0.patch";
+      sha256 = "0z6phi8hbrbb32kkp1js7ggzviq7faz1ria36wi4jbc4in2392d9";
+    })
+    ++ lib.optionals (lib.versionOlder version "19.1.0") [
+      # do not prefix user provided d3d-drivers-path
+      (fetchpatch {
+        url = "https://gitlab.freedesktop.org/mesa/mesa/commit/dcc48664197c7e44684ccfb970a4ae083974d145.patch";
+        sha256 = "1nhs0xpx3hiy8zfb5gx1zd7j7xha6h0hr7yingm93130a5902lkb";
+      })
 
-  outputs = [ "out" "dev" "drivers" ]
-            ++ lib.optional (elem "swrast" galliumDrivers) "osmesa";
+      # don't build libGLES*.so with GLVND
+      (fetchpatch {
+        url = "https://gitlab.freedesktop.org/mesa/mesa/commit/b01524fff05eef66e8cd24f1c5aacefed4209f03.patch";
+        sha256 = "1pszr6acx2xw469zq89n156p3bf3xf84qpbjw5fr1sj642lbyh7c";
+      })
+    ];
+
+  outputs = [ "out" "dev" "drivers" "osmesa" ];
 
   # TODO: Figure out how to enable opencl without having a runtime dependency on clang
   mesonFlags = [
     "--sysconfdir=/etc"
+
+    # Don't build in debug mode
+    # https://gitlab.freedesktop.org/mesa/mesa/blob/master/docs/meson.html#L327
+    "-Db_ndebug=true"
 
     "-Ddisk-cache-key=${placeholder "drivers"}"
     "-Ddri-search-path=${libglvnd.driverLink}/lib/dri"
@@ -117,28 +97,11 @@ let self = stdenv.mkDerivation rec {
     "-Domx-libs-path=${placeholder "drivers"}/lib/bellagio"
     "-Dva-libs-path=${placeholder "drivers"}/lib/dri"
     "-Dd3d-drivers-path=${placeholder "drivers"}/lib/d3d"
-
-    "-Dgallium-vdpau=true"
-    "-Dgallium-xvmc=true"
-    "-Dgallium-opencl=disabled"
-    "-Dshared-glapi=true"
-    "-Dgles1=true"
-    "-Dgles2=true"
-    "-Dglx=dri"
+  ] ++ optionals stdenv.isLinux [
     "-Dglvnd=true"
-    "-Dllvm=true"
-    "-Dshared-llvm=true"
-    "-Dglx-direct=true"
-  ] ++ optional (elem "swrast" galliumDrivers) "-Dosmesa=gallium" # used by wine
-    ++ optionals (stdenv.isLinux) [
-      "-Ddri3=true"
-      "-Dgallium-omx=bellagio"
-      "-Dgallium-va=true"
-      "-Dgallium-xa=true" # used in vmware driver
-      "-Dgallium-nine=true" # Direct3D in Wine
-      "-Dgbm=true"
-      "-Degl=true"
-    ];
+    "-Dosmesa=gallium" # used by wine
+    "-Dgallium-nine=true" # Direct3D in Wine
+  ];
 
   buildInputs = with xorg; [
     expat llvmPackages.llvm libglvnd xorgproto
@@ -146,7 +109,8 @@ let self = stdenv.mkDerivation rec {
     libffi libvdpau libelf libXvMC
     libpthreadstubs openssl /*or another sha1 provider*/
   ] ++ lib.optionals (elem "wayland" eglPlatforms) [ wayland wayland-protocols ]
-    ++ lib.optionals stdenv.isLinux [ valgrind-light libomxil-bellagio libva-minimal ];
+    ++ lib.optionals stdenv.isLinux [ libomxil-bellagio libva-minimal ]
+    ++ lib.optional withValgrind valgrind-light;
 
   nativeBuildInputs = [
     pkgconfig meson ninja
@@ -164,8 +128,8 @@ let self = stdenv.mkDerivation rec {
 
   postInstall = ''
     # Some installs don't have any drivers so this directory is never created.
-    mkdir -p $drivers
-  '' + optionalString (galliumDrivers != []) ''
+    mkdir -p $drivers $osmesa
+  '' + optionalString stdenv.isLinux ''
     mkdir -p $drivers/lib
 
     # move gallium-related stuff to $drivers, so $out doesn't depend on LLVM
@@ -187,7 +151,7 @@ let self = stdenv.mkDerivation rec {
     for js in $drivers/share/glvnd/egl_vendor.d/*.json; do
       substituteInPlace "$js" --replace '"libEGL_' '"'"$drivers/lib/libEGL_"
     done
-  '' + optionalString (vulkanDrivers != []) ''
+
     # Update search path used by Vulkan (it's pointing to $out but
     # drivers are in $drivers)
     for js in $drivers/share/vulkan/icd.d/*.json; do
@@ -198,7 +162,7 @@ let self = stdenv.mkDerivation rec {
   # TODO:
   #  check $out doesn't depend on llvm: builder failures are ignored
   #  for some reason grep -qv '${llvmPackages.llvm}' -R "$out";
-  postFixup = optionalString (galliumDrivers != []) ''
+  postFixup = optionalString stdenv.isLinux ''
     # set the default search path for DRI drivers; used e.g. by X server
     substituteInPlace "$dev/lib/pkgconfig/dri.pc" --replace "$drivers" "${libglvnd.driverLink}"
 
@@ -219,52 +183,18 @@ let self = stdenv.mkDerivation rec {
     done
   '';
 
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isDarwin "-fno-common";
+
   passthru = {
-    inherit libdrm version;
+    inherit libdrm;
     inherit (libglvnd) driverLink;
-
-    stubs = stdenv.mkDerivation {
-      name = "libGL-${libglvnd.version}";
-      outputs = [ "out" "dev" ];
-
-      # Use stub libraries from libglvnd and headers from Mesa.
-      buildCommand = ''
-        mkdir -p $out/nix-support
-        ln -s ${libglvnd.out}/lib $out/lib
-
-        mkdir -p $dev/{,lib/pkgconfig,nix-support}
-        echo "$out" > $dev/nix-support/propagated-build-inputs
-        ln -s ${self.dev}/include $dev/include
-
-        genPkgConfig() {
-          local name="$1"
-          local lib="$2"
-
-          cat <<EOF >$dev/lib/pkgconfig/$name.pc
-        Name: $name
-        Description: $lib library
-        Version: ${self.version}
-        Libs: -L${libglvnd.out}/lib -l$lib
-        Cflags: -I${self.dev}/include
-        EOF
-        }
-
-        genPkgConfig gl GL
-        genPkgConfig egl EGL
-        genPkgConfig glesv1_cm GLESv1_CM
-        genPkgConfig glesv2 GLESv2
-      '' + lib.optionalString stdenv.isDarwin ''
-        echo ${OpenGL} > $out/nix-support/propagated-build-inputs
-      '';
-    };
   };
 
   meta = with stdenv.lib; {
     description = "An open source implementation of OpenGL";
     homepage = https://www.mesa3d.org/;
     license = licenses.mit; # X11 variant, in most files
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = platforms.mesaPlatforms;
     maintainers = with maintainers; [ vcunat ];
   };
-};
-in self
+}

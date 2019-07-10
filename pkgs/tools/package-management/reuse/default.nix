@@ -1,17 +1,19 @@
-{ lib, buildPythonApplication, fetchFromGitLab, debian, pygit2, pytest, jinja2 }:
+{ lib, python3Packages, fetchFromGitLab }:
+
+with python3Packages;
 
 buildPythonApplication rec {
   pname = "reuse";
-  version = "0.3.3";
+  version = "0.3.4";
 
   src = fetchFromGitLab {
     owner = "reuse";
     repo = "reuse";
     rev = "v${version}";
-    sha256 = "1krc9555h3krcfn8ghv39gpjs258v2639sm4ra1k3bkzi5iwnjzf";
+    sha256 = "07acv02wignrsfhym2i3dhlcs501yj426lnff2cjampl6m5cgsk3";
   };
 
-  propagatedBuildInputs = [ debian pygit2 ];
+  propagatedBuildInputs = [ chardet debian pygit2 ];
 
   checkInputs = [ pytest jinja2 ];
 

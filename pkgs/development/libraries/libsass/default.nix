@@ -1,12 +1,19 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook }:
+{ stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  name = "libsass-${version}";
-  version = "3.6.0";
+  pname = "libsass";
+  version = "3.6.1";
 
-  src = fetchurl {
-    url = "https://github.com/sass/libsass/archive/${version}.tar.gz";
-    sha256 = "0sai6wfw38nradzj64lrq6qi4ip93dzar3ia2vqav6fd1fin5fdl";
+  src = fetchFromGitHub {
+    owner = "sass";
+    repo = pname;
+    rev = version;
+    sha256 = "1599j2lbsygy3883x9si7rbad1pkjhl6y72aimaapcv90ga5kxkm";
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
+    extraPostFetch = ''
+      rm -r $out/test/e2e/unicode-pwd
+    '';
   };
 
   preConfigure = ''

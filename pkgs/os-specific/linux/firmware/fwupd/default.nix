@@ -6,6 +6,8 @@
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
 , bubblewrap, efibootmgr, flashrom, tpm2-tools
+, plymouth /* offline */
+, diffutils
 }:
 
 # Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
@@ -19,18 +21,18 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.2.8";
+  version = "1.2.9";
 
-  src = fetchFromGitHub {
-    owner = "hughsie";
-    repo = pname;
-    rev = "0156b8fa7884bc1f8614de68be01a4a3afd98956";
-    sha256 = "0h3qhamzsc8vhznqkjckzwn3ch3jcvr3zymvslj42j8nqx1ipkq2";
-  };
-  #src = fetchurl {
-  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-  #  sha256 = "0qbvq52c0scn1h99i1rf2la6rrhckin6gb02k7l0v3g07mxs20wc";
+  #src = fetchFromGitHub {
+  #  owner = "hughsie";
+  #  repo = pname;
+  #  rev = "0156b8fa7884bc1f8614de68be01a4a3afd98956";
+  #  sha256 = "0h3qhamzsc8vhznqkjckzwn3ch3jcvr3zymvslj42j8nqx1ipkq2";
   #};
+  src = fetchurl {
+    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+    sha256 = "180x706hg7v4myggsz4q3vfxc1z2akwb48bkcn6al665lf2xzzk5";
+  };
 
   outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
 
@@ -75,9 +77,13 @@ in stdenv.mkDerivation rec {
       'find_program_in_path ("flashrom"' \
       'find_program_in_path ("${flashrom}/bin/flashrom"'
 
-    substituteInPlace plugins/uefi/fu-plugin-uefi.c --replace \
-      'fu_common_find_program_in_path ("efibootmgr"' \
-      'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"'
+    substituteInPlace src/fu-offline.c --replace '"plymouth"' '"${plymouth}/bin/plymouth"'
+
+    substituteInPlace plugins/uefi/fu-plugin-uefi.c \
+      --replace 'fu_common_find_program_in_path ("efibootmgr"' \
+                'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"' \
+      --replace 'g_spawn_command_line_sync ("efibootmgr -v"' \
+                'g_spawn_command_line_sync ("${efibootmgr}/bin/efibootmgr -v"'
 
     substituteInPlace plugins/uefi/fu-uefi-pcrs.c --replace \
       'fu_common_find_program_in_path ("tpm2_pcrlist"' \
@@ -86,6 +92,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace src/fu-common.c --replace \
       'fu_common_find_program_in_path ("bwrap"' \
       'fu_common_find_program_in_path ("${bubblewrap}/bin/bwrap"'
+
+    substituteInPlace src/fu-test.c \
+      --replace '("diff -urNp' \
+                '("${diffutils}/bin/diff -urNp'
 
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \

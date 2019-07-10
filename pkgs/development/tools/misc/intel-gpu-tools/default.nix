@@ -1,36 +1,34 @@
 { stdenv, fetchurl, fetchgit, pkgconfig, libdrm, libpciaccess, cairo, pixman, udev, xorgproto
-, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod
+, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod, json_c, docutils
 , procps, utilmacros, gtk-doc, openssl, peg, meson, ninja, elfutils, flex }:
 
 stdenv.mkDerivation rec {
-  name = "intel-gpu-tools-${version}";
-  version = "1.23-git";
+  pname = "intel-gpu-tools"; # upstream renamed to 'igt-gpu-tools', perhaps we should also?
+  version = "1.24";
 
-  src = fetchgit {
-    url = https://gitlab.freedesktop.org/drm/igt-gpu-tools;
-    rev = "08cf63a8fac11e3594b57580331fb319241a0d69";
-    sha256 = "1b7xj7xxvchbb8k93jc9pb0yzydxmpww28f9526v33n55fdz0fyp";
+  src = fetchurl {
+    url = "https://xorg.freedesktop.org/archive/individual/app/igt-gpu-tools-${version}.tar.xz";
+    sha256 = "1gr1m18w73hmh6n9w2f6gky21qc0pls14bgxkhy95z7azrr7qdap";
   };
-  #src = fetchurl {
-  #  url = "https://xorg.freedesktop.org/archive/individual/app/igt-gpu-tools-${version}.tar.xz";
-  #  sha256 = "1l4s95m013p2wvddwr4cjqyvsgmc88zxx2887p1fbb1va5n0hjsd";
-  #};
 
   nativeBuildInputs = [ pkgconfig utilmacros meson ninja flex ];
   buildInputs = [ libdrm libpciaccess cairo pixman xorgproto udev libX11 kmod
     libXext libXv libXrandr glib bison libunwind python3 procps
-    gtk-doc openssl peg elfutils ];
+    gtk-doc openssl peg elfutils json_c docutils ];
 
-  #preConfigure = ''
-  #  ./autogen.sh
-  #'';
-
-  mesonFlags = [ "-Dbuild_docs=false" ];
+  mesonFlags = [
+    "-Dbuild_docs=disabled" # requires building tests, shrug
+    "-Dbuild_man=enabled"
+    "-Dwith_valgrind=disabled"
+    "-Dbuild_chamelium=disabled"
+  ];
 
   postPatch = ''
     patchShebangs tests
 
     patchShebangs debugger/system_routine/pre_cpp.py
+
+    patchShebangs man/rst2man.sh
   '';
 
   enableParallelBuilding = true;

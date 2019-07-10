@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, ninja, gettext, python3, fetchpatch,
+{ stdenv, fetchFromGitHub, meson, ninja, gettext, python3,
   pkgconfig, libxml2, json-glib , sqlite, itstool, librsvg,
   vala, gtk3, gnome3, desktop-file-utils, wrapGAppsHook, gobject-introspection
 }:
@@ -6,14 +6,14 @@
 stdenv.mkDerivation rec {
   pname = "font-manager";
 #  version = "0.7.5";
-  version = "2019-05-11";
+  version = "2019-06-17";
 
   src = fetchFromGitHub {
     owner = "FontManager";
     repo = "master";
     #rev = version;
-    rev = "93b92a37f77e498f15c4640b8ab0ecac7152eadb";
-    sha256 = "1qnr7kgj2d3gmg8adf26dssc7zvz64hgsy4g0b5xvlsc7xj9x5rw";
+    rev = "66450a1aa53eacfdf0582c5baf1148e65e1cfb14";
+    sha256 = "1bnlr41vngc5xp9wsixfswsk7n45lhhrcqka6m7hr9pf48xr45sx";
   };
 
   nativeBuildInputs = [

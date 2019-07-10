@@ -1,25 +1,16 @@
 { stdenv, buildPackages, fetchgit, fetchpatch, perl, buildLinux, ... } @ args:
 
 buildLinux (args // rec {
-  version = "5.0.2019.05.08";
+  version = "5.0.2019.05.29";
   modDirVersion = "5.0.0";
 
   src = fetchgit {
     url = "https://evilpiepirate.org/git/bcachefs.git";
-    rev = "454bd4f82d85bb42a86b8eb0172b13e86e5788a7";
-    sha256 = "1k11yz464lr02yncy231p06ja7w72w9l1nr7cihyiyj1ynzwpdls";
+    rev = "7e42539c80470cb655bbc46cd0f144de6c644523";
+    sha256 = "0f7z3awfzdg56rby6z8dh9v9bzyyfn53zgwxmk367mfi0wqk49d2";
   };
 
   extraConfig = "BCACHEFS_FS m";
-
-  kernelPatches = [
-    { name = "export-bio_iov_iter_get_pages";
-      patch = fetchpatch {
-        name = "export-bio_iov_iter_get_pages.patch";
-        url = "https://evilpiepirate.org/git/bcachefs.git/patch/?id=bd8be01aa04eb9cc33fcdce89ac6e0fac0ae0fcf";
-        sha256 = "0h5z98krx8077wwhiqp3bwc1h4nwnifxsn8mpxr2lcxnqmky3hz0";
-      }; }
-  ];
 
   extraMeta = {
     branch = "master";

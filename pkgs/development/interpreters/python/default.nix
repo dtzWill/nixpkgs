@@ -77,10 +77,10 @@ in {
     sourceVersion = {
       major = "3";
       minor = "6";
-      patch = "8";
+      patch = "9";
       suffix = "";
     };
-    sha256 = "14qi6n5gpcjnwy165wi9hkfcmbadc95ny6bxxldknxwmx50n4i1m";
+    sha256 = "1nkh70azbv866aw5a9bbxsxarsf40233vrzpjq17z3rz9ramybsy";
     inherit (darwin) CF configd;
     inherit passthruFun;
   };
@@ -94,6 +94,19 @@ in {
       suffix = "";
     };
     sha256 = "066ka8csjwkycqpgyv424d8hhqhfd7r6svsp4sfcvkylci0baq6s";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
+
+  python38 = callPackage ./cpython {
+    self = python38;
+    sourceVersion = {
+      major = "3";
+      minor = "8";
+      patch = "0";
+      suffix = "b2";
+    };
+    sha256 = "1rh9dz5vmc56y45d6j2wfjw4m7x25i6v8vyld4mrqh06s2gn1hbl";
     inherit (darwin) CF configd;
     inherit passthruFun;
   };
