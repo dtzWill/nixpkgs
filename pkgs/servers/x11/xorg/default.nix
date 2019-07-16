@@ -2900,11 +2900,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xwininfo = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libxcb, xorgproto }: stdenv.mkDerivation {
-    name = "xwininfo-1.1.4";
+    name = "xwininfo-1.1.5";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/xwininfo-1.1.4.tar.bz2;
-      sha256 = "00avrpw4h5mr1klp41lv2j4dmq465v6l5kb5bhm4k5ml8sm9i543";
+      url = mirror://xorg/individual/app/xwininfo-1.1.5.tar.bz2;
+      sha256 = "03h8clirhw5ki1xxp18xbf5vynm7r0dwspsgfin6cxn4vx0m8h3s";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
