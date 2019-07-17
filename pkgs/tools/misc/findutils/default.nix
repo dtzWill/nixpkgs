@@ -17,6 +17,12 @@ stdenv.mkDerivation rec {
     # Prevent tests from failing on old kernels (2.6x)
     # getdtablesize reports incorrect values if getrlimit() fails
     ./disable-getdtablesize-test.patch
+
+    # gnulib patches from void, fix w/musl but generally applicible */
+    ./gnulib-freadahead.patch
+    ./gnulib-fseeko.patch
+    ./gnulib-mountlist.patch
+    ./gnulib-stdio-impl.patch
   ];
 
   buildInputs = [ coreutils ]; # bin/updatedb script needs to call sort
