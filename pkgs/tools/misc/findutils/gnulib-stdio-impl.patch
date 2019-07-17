@@ -1,5 +1,5 @@
---- gl/lib/stdio-impl.h
-+++ gl/lib/stdio-impl.h
+--- a/gl/lib/stdio-impl.h
++++ b/gl/lib/stdio-impl.h
 @@ -18,6 +18,12 @@
     the same implementation of stdio extension API, except that some fields
     have different naming conventions, or their access requires some casts.  */

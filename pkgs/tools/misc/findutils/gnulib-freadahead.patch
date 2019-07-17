@@ -1,5 +1,5 @@
---- gl/lib/freadahead.c
-+++ gl/lib/freadahead.c
+--- a/gl/lib/freadahead.c
++++ b/gl/lib/freadahead.c
 @@ -30,7 +30,7 @@ extern size_t __sreadahead (FILE *);
  size_t
  freadahead (FILE *fp)

@@ -1,5 +1,5 @@
---- gl/lib/mountlist.c
-+++ gl/lib/mountlist.c
+--- a/gl/lib/mountlist.c
++++ b/gl/lib/mountlist.c
 @@ -37,6 +37,12 @@
  # include <sys/param.h>
  #endif
