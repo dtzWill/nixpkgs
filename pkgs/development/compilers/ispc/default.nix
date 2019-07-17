@@ -8,13 +8,13 @@ stdenv.mkDerivation rec {
 
   inherit testedTargets;
 
-  name = "ispc-${version}";
+  pname = "ispc";
 
   src = fetchFromGitHub {
-    owner = "ispc";
-    repo = "ispc";
+    owner = pname;
+    repo = pname;
     inherit rev;
-    sha256 = "1x07n2gaff3v32yvddrb659mx5gg12bnbsqbyfimp396wn04w60b";
+    sha256 = "1x07n3gaff3v32yvddrb659mx5gg12bnbsqbyfimp396wn04w60b";
   };
 
   # there are missing dependencies in the Makefile, causing sporadic build failures
