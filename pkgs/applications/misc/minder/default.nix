@@ -23,6 +23,12 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
+  postFixup = ''
+    for x in $out/bin/*; do
+      ln -vrs $x "$out/bin/''${x##*.}"
+    done
+  '';
+
   meta = with stdenv.lib; {
     description = "Mind-mapping application for Elementary OS";
     homepage = "https://github.com/phase1geo/Minder";
