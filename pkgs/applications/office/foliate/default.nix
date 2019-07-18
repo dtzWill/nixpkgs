@@ -50,5 +50,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     sed -ie "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
       $out/bin/com.github.johnfactotum.Foliate
+      cat $out/bin/com/github.johnfactotum.Foliate
+      exit 1
   '';
 }
