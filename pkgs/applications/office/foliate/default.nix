@@ -2,6 +2,7 @@
 , wrapGAppsHook, gobject-introspection
 , gjs, gtk3, gsettings-desktop-schemas, webkitgtk, glib
 , desktop-file-utils
+, cairo, libgee, pantheon /* granite */, libxml2, libarchive
 /*, hyphen */
 , dict }:
 
@@ -32,6 +33,11 @@ stdenv.mkDerivation rec {
     webkitgtk
     gsettings-desktop-schemas
     gobject-introspection
+    cairo
+    libgee
+    pantheon.granite
+    libxml2
+    libarchive
     # TODO: Add once packaged, unclear how language packages best handled
     # hyphen
     dict # dictd for offline dictionary support
@@ -48,9 +54,8 @@ stdenv.mkDerivation rec {
   # Improvements/alternatives welcome, but this seems to work for now :/.
   # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
   postInstall = ''
-    sed -ie "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
+    sed -ie "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'\n" \
       $out/bin/com.github.johnfactotum.Foliate
-      cat $out/bin/com/github.johnfactotum.Foliate
-      exit 1
+
   '';
 }
