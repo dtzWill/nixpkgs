@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, meson, ninja, gettext, pkgconfig, python3
 , wrapGAppsHook, gobject-introspection
 , gjs, gtk3, gsettings-desktop-schemas, webkitgtk, glib
-, desktop-file-utils
+, desktop-file-utils, hicolor-icon-theme /* setup hook */
 , cairo, libgee, pantheon /* granite */, libxml2, libarchive
 /*, hyphen */
 , dict }:
@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
     python3
     desktop-file-utils
     wrapGAppsHook
+    hicolor-icon-theme
   ];
   buildInputs = [
     glib
