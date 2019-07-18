@@ -1,4 +1,4 @@
-From e14eb43a4202bba1a6c5759aefe1f089d08f8921 Mon Sep 17 00:00:00 2001
+From da15fc853e34c8360efcc522725109071e9b61d9 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Thu, 18 Jul 2019 16:24:52 -0500
 Subject: [PATCH] add 'phd' theme based on "phd" theme, orig source:
@@ -7,8 +7,8 @@ Subject: [PATCH] add 'phd' theme based on "phd" theme, orig source:
 ---
  src/Themes.vala          |  2 ++
  src/meson.build          |  1 +
- src/themes/ThemePhd.vala | 63 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 66 insertions(+)
+ src/themes/ThemePhd.vala | 64 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 67 insertions(+)
  create mode 100644 src/themes/ThemePhd.vala
 
 diff --git a/src/Themes.vala b/src/Themes.vala
@@ -44,10 +44,10 @@ index c50d61a..c004715 100644
      'themes/ThemeSolarizedLight.vala',
 diff --git a/src/themes/ThemePhd.vala b/src/themes/ThemePhd.vala
 new file mode 100644
-index 0000000..1ddb7ca
+index 0000000..740579a
 --- /dev/null
 +++ b/src/themes/ThemePhd.vala
-@@ -0,0 +1,63 @@
+@@ -0,0 +1,64 @@
 +/*
 +* Copyright (c) 2018 (https://github.com/phase1geo/Minder)
 +*
@@ -86,8 +86,8 @@ index 0000000..1ddb7ca
 +    /* Generate the non-link colors */
 +    background         = get_color( "#061229" );
 +    foreground         = get_color( "b8bbc2" );
-+    root_background    = get_color( "#d4d4d4" );
-+    root_foreground    = get_color( "Black" );
++    root_background    = get_color( "#1b4fb1" ); /* 40% more than bg */ /* "#d4d4d4" ); */
++    root_foreground    = get_color( "White" );
 +    nodesel_background = get_color( "#64baff" );
 +    nodesel_foreground = get_color( "Black" );
 +    textsel_background = get_color( "#0d52bf" );
@@ -95,7 +95,8 @@ index 0000000..1ddb7ca
 +    text_cursor        = get_color( "White" );
 +    attachable_color   = get_color( "#9bdb4d" );
 +    /* connection_color   = get_color( "#404040" ); */
-+    connection_color   = get_color( "#808080" );
++    /* connection_color   = get_color( "#808080" ); */
++    connection_color   = get_color( "#999999" );
 +    prefer_dark        = true;
 +
 +    /* Generate the link colors */
