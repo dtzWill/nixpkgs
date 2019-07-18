@@ -53,9 +53,13 @@ stdenv.mkDerivation rec {
   # Kludge so gjs can find resources by using the unwrapped name
   # Improvements/alternatives welcome, but this seems to work for now :/.
   # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
-  postFixup = ''
-    sed -ie "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'\n" \
-      $out/bin/com.github.johnfactotum.Foliate
+  postInstall = ''
+    sed -e \
+    "2i\
+      imports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'\
+    " \
+      -i $out/bin/com.github.johnfactotum.Foliate
 
+    ln -s $out/bin/com.github.johnfactotum.Foliate $out/bin/foliate
   '';
 }
