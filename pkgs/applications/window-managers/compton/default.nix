@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   pname = "compton";
 #  version = "6.2";
   #version = "2019-06-24";
-  version = "7-rc3";
+  version = "7";
 
   COMPTON_VERSION = "v${version}";
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     repo   = "compton";
     rev    = COMPTON_VERSION;
     #rev = "7d28309a47ccee8fb09d863e606b11d794296bb4";
-    sha256 = "1p61bfg3ygnnpzdh5355dwxsh8s825yb6xmnh59q8zv7pazai6ap";
+    sha256 = "0f23dv2p1snlpzc91v38q6896ncz4zqzmh2d97yf66j78g21awas";
     fetchSubmodules = true;
   };
 
