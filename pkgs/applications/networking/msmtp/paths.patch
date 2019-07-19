@@ -54,12 +54,13 @@ index bdb4fb8..1363a67 100755
  #EMAIL_QUEUE_QUIET=t
  ## ======================================================================================
  
-@@ -138,6 +140,7 @@ on_exit() {                          # unlock the queue on exit if the lock was
+@@ -138,7 +140,8 @@ on_exit() {                          # unlock the queue on exit if the lock was
  ## display msg to user, as well
  ##
  log() {
 +  local NAME=msmtpq
-   local ARG RC PFX="$('date' +'%Y %d %b %H:%M:%S')"
+   local ARG RC PFX
+   PFX="$('date' +'%Y %d %b %H:%M:%S')"
                                       # time stamp prefix - "2008 13 Mar 03:59:45 "
    if [ "$1" = '-e' ] ; then          # there's an error exit code
 @@ -154,10 +157,19 @@ log() {
