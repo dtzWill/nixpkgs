@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, pkgconfig, libpng, zlib, lcms2 }:
 
 stdenv.mkDerivation rec {
-  name = "pngquant-${version}";
-  version = "2.12.1";
+  pname = "pngquant";
+  version = "2.12.3";
 
   src = fetchFromGitHub {
     owner = "pornel";
-    repo = "pngquant";
+    repo = pname;
     rev = version;
-    sha256 = "0jdvry3kvmmxcgwf5a3zbfz0idl6yl3700ag7pf8sk4lg4qp0llp";
+    sha256 = "0qiznyc0bvryz8yqszp232illqycsibnhlchjhkiy3q3dbj3dwi3";
     fetchSubmodules = true;
   };
 
