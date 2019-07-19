@@ -6,7 +6,7 @@ at-spi2-atk, libuuid
 
 let
 
-  version = "3.4.2";
+  version = "4.0.0";
 
   rpath = stdenv.lib.makeLibraryPath [
     alsaLib
@@ -51,7 +51,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
         url = "https://downloads.slack-edge.com/linux_releases/slack-desktop-${version}-amd64.deb";
-        sha256 = "0qbj41ymckz8w1p2pazyxg7pimgn9gmpvxz4ygcm0nyivfmw2crq";
+        sha256 = "0znmgga82qwvq5yi7jy9c8c1f38b8j13w09zy4fii1agzc2lq6li";
       }
     else
       throw "Slack is not supported on ${stdenv.hostPlatform.system}";
