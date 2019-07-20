@@ -6,6 +6,7 @@
 , qtgraphicaleffects
 , qtdeclarative
 , qtmacextras
+, olm
 }:
 
 let
@@ -39,7 +40,7 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative ]
+  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 
