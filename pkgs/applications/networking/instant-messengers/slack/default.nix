@@ -1,7 +1,7 @@
 { theme ? null, stdenv, fetchurl, dpkg, makeWrapper , alsaLib, atk, cairo,
 cups, curl, dbus, expat, fontconfig, freetype, glib , gnome2, gtk3, gdk_pixbuf,
 libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango , systemd, xorg,
-at-spi2-atk, libuuid, asar
+at-spi2-atk, libuuid
 }:
 
 let
@@ -65,7 +65,7 @@ in stdenv.mkDerivation {
     gtk3  # needed for GSETTINGS_SCHEMAS_PATH
   ];
 
-  nativeBuildInputs = [ makeWrapper asar ];
+  nativeBuildInputs = [ makeWrapper ];
 
   dontUnpack = true;
   buildCommand = ''
@@ -92,7 +92,7 @@ in stdenv.mkDerivation {
       --replace /usr/bin/ $out/bin/ \
       --replace /usr/share/ $out/share/
   '' + stdenv.lib.optionalString (theme != null) ''
-    cat <<EOF >> $out/lib/slack/resources/app.asar.unpacked/src/static/ssb-interop.js
+    cat <<EOF >> $out/lib/slack/resources/app.asar.unpacked/dist/static/ssb-interop.js
     document.addEventListener('DOMContentLoaded', function() {
     let tt__customCss = ".menu ul li a:not(.inline_menu_link) {color: #fff !important;}"
     $.ajax({
