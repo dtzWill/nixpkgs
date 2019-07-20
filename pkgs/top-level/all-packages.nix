@@ -9710,7 +9710,9 @@ in
 
   remake = callPackage ../development/tools/build-managers/remake { };
 
-  retdec = callPackage ../development/tools/analysis/retdec { };
+  retdec = callPackage ../development/tools/analysis/retdec {
+    stdenv = clangStdenv;
+  };
   retdec-full = retdec.override {
     withPEPatterns = true;
   };
