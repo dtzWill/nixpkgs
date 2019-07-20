@@ -124,20 +124,20 @@ let
   '';
 
 in stdenv.mkDerivation rec {
-  name = "retdec-${version}";
+  pname = "retdec";
 
   # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
   # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
   # I've notified upstream about this problem here:
   # https://github.com/avast-tl/retdec/issues/412
-  version = "3.2";
+  version = "3.3";
 
   src = fetchFromGitHub {
     owner = "avast-tl";
-    repo = "retdec";
+    repo = pname;
     name = "retdec-${version}";
     rev = "refs/tags/v${version}";
-    sha256 = "0chky656lsddn20bnm3pmz6ix20y4a0y8swwr42hrhi01vkhmzrp";
+    sha256 = "1qsyrjksjrxqx4hvshhi3gsrcg6pj1417rdl2mp4n690w59xz55i";
   };
 
   nativeBuildInputs = [
