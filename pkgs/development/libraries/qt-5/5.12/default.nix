@@ -42,7 +42,7 @@ let
       snap = "1561566461";
       version = "${ver}-${snap}";
       src = fetchurl {
-        name = "qtwebkit-${version}";
+        name = "qtwebkit-${version}.tar.xz";
         url = "https://download.qt.io/snapshots/ci/qtwebkit/${ver}/${snap}/src/submodules/qtwebkit-everywhere-src-${ver}.tar.xz";
         sha256 = "17xbkxsjf5g0yh9m1fcsiqp12s2x0spkk86p0j07n1qjg9gfisk8";
       };
