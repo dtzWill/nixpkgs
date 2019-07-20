@@ -61,6 +61,8 @@ in stdenv.mkDerivation rec {
     })
   ];
 
+  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "${placeholder "out"}/share/polkit-1/actions";
+
   postPatch = ''
     patchShebangs .
 
