@@ -2,6 +2,7 @@
 , pkgconfig, meson, ninja, python3
 , wrapGAppsHook, vala, shared-mime-info
 , cairo, pantheon, glib, gtk3, libxml2, libgee, libarchive
+, hicolor-icon-theme # for setup-hook
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig meson ninja python3 wrapGAppsHook vala shared-mime-info ];
-  buildInputs = [ cairo pantheon.granite glib gtk3 libxml2 libgee libarchive ];
+  buildInputs = [ cairo pantheon.granite glib gtk3 libxml2 libgee libarchive hicolor-icon-theme ];
 
   patches = [ ./add-phd-theme.patch ];
 
