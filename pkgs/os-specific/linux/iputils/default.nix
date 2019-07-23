@@ -42,5 +42,19 @@ in stdenv.mkDerivation rec {
     license = with licenses; [ gpl2Plus bsd3 sunAsIsLicense ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos lheckemann ];
+
+    longDescription = ''
+      A set of small useful utilities for Linux networking including:
+
+      arping
+      clockdiff
+      ninfod
+      ping
+      rarpd
+      rdisc
+      tftpd
+      tracepath
+      traceroute6
+    '';
   };
 }

@@ -11,6 +11,7 @@
   ./config/xdg/icons.nix
   ./config/xdg/menus.nix
   ./config/xdg/mime.nix
+  ./config/xdg/portal.nix
   ./config/appstream.nix
   ./config/xdg/sounds.nix
   ./config/gtk/gtk-icon-cache.nix
@@ -25,6 +26,7 @@
   ./config/nsswitch.nix
   ./config/power-management.nix
   ./config/pulseaudio.nix
+  ./config/resolvconf.nix
   ./config/shells-environment.nix
   ./config/swap.nix
   ./config/sysctl.nix
@@ -139,6 +141,7 @@
   ./programs/sway.nix
   ./programs/thefuck.nix
   ./programs/tmux.nix
+  ./programs/tsm-client.nix
   ./programs/udevil.nix
   ./programs/venus.nix
   ./programs/vim.nix
@@ -210,6 +213,7 @@
   ./services/backup/restic-rest-server.nix
   ./services/backup/rsnapshot.nix
   ./services/backup/tarsnap.nix
+  ./services/backup/tsm.nix
   ./services/backup/znapzend.nix
   ./services/cluster/hadoop/default.nix
   ./services/cluster/kubernetes/addons/dns.nix
@@ -471,6 +475,7 @@
   ./services/misc/synergy.nix
   ./services/misc/sysprof.nix
   ./services/misc/taskserver
+  ./services/misc/tiddlywiki.nix
   ./services/misc/tzupdate.nix
   ./services/misc/uhub.nix
   ./services/misc/weechat.nix
@@ -518,6 +523,7 @@
   ./services/monitoring/uptime.nix
   ./services/monitoring/vnstat.nix
   ./services/monitoring/zabbix-agent.nix
+  ./services/monitoring/zabbix-proxy.nix
   ./services/monitoring/zabbix-server.nix
   ./services/network-filesystems/beegfs.nix
   ./services/network-filesystems/cachefilesd.nix
@@ -784,6 +790,7 @@
   ./services/web-apps/virtlyst.nix
   ./services/web-apps/wordpress.nix
   ./services/web-apps/youtrack.nix
+  ./services/web-apps/zabbix.nix
   ./services/web-servers/apache-httpd/default.nix
   ./services/web-servers/caddy.nix
   ./services/web-servers/fcgiwrap.nix

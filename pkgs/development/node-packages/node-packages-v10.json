@@ -1,6 +1,7 @@
 [
   "@angular/cli"
 , "asar"
+, "@antora/cli"
 , "aws-azure-login"
 , "azure-functions-core-tools"
 , "bash-language-server"
@@ -97,7 +98,6 @@
 , "react-native-cli"
 , "reveal.js"
 , "s3http"
-, "scuttlebot"
 , "semver"
 , "serve"
 , "shout"
@@ -106,6 +106,7 @@
 , "snyk"
 , "socket.io"
 , "speed-test"
+, "ssb-server"
 , "stackdriver-statsd-backend"
 , "svgo"
 , "swagger"

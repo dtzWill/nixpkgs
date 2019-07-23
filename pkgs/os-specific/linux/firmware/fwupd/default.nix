@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchFromGitHub, substituteAll, gtk-doc, pkgconfig, gobject-introspection, intltool
 , libgudev, polkit, libxmlb, gusb, sqlite, libarchive, glib-networking
-, libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, glibcLocales
-, gnu-efi, libyaml, valgrind, meson, libuuid, colord, docbook_xml_dtd_43, docbook_xsl
+, libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, gnu-efi
+, libyaml, valgrind, meson, libuuid, colord, docbook_xml_dtd_43, docbook_xsl
 , ninja, gcab, gnutls, python3, wrapGAppsHook, json-glib, bash-completion
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
@@ -37,7 +37,7 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
 
   nativeBuildInputs = [
-    meson ninja gtk-doc pkgconfig gobject-introspection intltool glibcLocales shared-mime-info
+    meson ninja gtk-doc pkgconfig gobject-introspection intltool shared-mime-info
     valgrind gcab docbook_xml_dtd_43 docbook_xsl help2man libxslt python wrapGAppsHook vala
   ];
   buildInputs = [
@@ -49,7 +49,12 @@ in stdenv.mkDerivation rec {
   LC_ALL = "C.UTF-8"; # For po/make-images
 
   patches = [
-    ./fix-paths.patch
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit flashrom efibootmgr bubblewrap;
+      tpm2_tools = "${tpm2-tools}";
+    })
+
     ./add-option-for-installation-sysconfdir.patch
 
     # installed tests are installed to different output

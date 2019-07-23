@@ -1,6 +1,9 @@
 { buildPythonPackage, fetchFromGitHub, isPyPy, lib
-, psutil, setuptools, bottle, batinfo, pysnmp, future
-, hddtemp
+, psutil, setuptools, bottle, batinfo, pysnmp
+, hddtemp, future
+# Optional dependencies:
+, netifaces # IP module
+# Tests:
 , unittest2
 }:
 
@@ -16,13 +19,15 @@ buildPythonPackage rec {
     sha256 = "1x9gw7hzw3p8zki82wdf359yxj0ylfw2096a4y621kj0p4xqsr4q";
   };
 
+  # Some tests fail in the sandbox (they e.g. require access to /sys/class/power_supply):
   patches = lib.optional doCheck ./skip-failing-tests.patch;
 
-  # Requires access to /sys/class/power_supply
-  doCheck = false;
+  doCheck = true;
+  checkInputs = [ unittest2 ];
 
-  buildInputs = [ unittest2 ];
-  propagatedBuildInputs = [ psutil setuptools bottle batinfo pysnmp hddtemp future ];
+  propagatedBuildInputs = [ psutil setuptools bottle batinfo pysnmp hddtemp future
+    netifaces
+  ];
 
   preConfigure = ''
     sed -i 's/data_files\.append((conf_path/data_files.append(("etc\/glances"/' setup.py;

@@ -1,4 +1,5 @@
 { stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools
+, wrapQtAppsHook
 
 , akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive
 , kcmutils, kcontacts, kdewebkit, kdiagram, kholidays, kidentitymanagement
@@ -29,6 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     doxygen extra-cmake-modules graphviz kdoctools python2Packages.wrapPython
+    wrapQtAppsHook
   ];
 
   buildInputs = [
@@ -60,8 +62,8 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     QT_PLUGIN_PATH=${lib.escapeShellArg "${qtbase.bin}/${qtbase.qtPluginPrefix}"} \
       xvfb-run -s '-screen 0 1024x768x24' make test \
-      ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.
-  '';
+        ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.
+    '';
 
   meta = {
     description = "Personal finance manager for KDE";
