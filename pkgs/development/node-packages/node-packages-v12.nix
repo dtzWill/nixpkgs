@@ -31,6 +31,42 @@ let
         sha512 = "nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==";
       };
     };
+    "acorn-5.7.3" = {
+      name = "acorn";
+      packageName = "acorn";
+      version = "5.7.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/acorn/-/acorn-5.7.3.tgz";
+        sha512 = "T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==";
+      };
+    };
+    "acorn-6.2.1" = {
+      name = "acorn";
+      packageName = "acorn";
+      version = "6.2.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/acorn/-/acorn-6.2.1.tgz";
+        sha512 = "JD0xT5FCRDNyjDda3Lrg/IxFscp9q4tiYtxE1/nOzlKCk7hIRuYjhq1kCNkbPjMRMZuFq20HNQn1I9k8Oj0E+Q==";
+      };
+    };
+    "acorn-globals-4.3.2" = {
+      name = "acorn-globals";
+      packageName = "acorn-globals";
+      version = "4.3.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/acorn-globals/-/acorn-globals-4.3.2.tgz";
+        sha512 = "BbzvZhVtZP+Bs1J1HcwrQe8ycfO0wStkSGxuul3He3GkHOIZ6eTqOkPuw9IP1X3+IkOo4wiJmwkobzXYz4wewQ==";
+      };
+    };
+    "acorn-walk-6.2.0" = {
+      name = "acorn-walk";
+      packageName = "acorn-walk";
+      version = "6.2.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/acorn-walk/-/acorn-walk-6.2.0.tgz";
+        sha512 = "7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==";
+      };
+    };
     "ajv-6.10.2" = {
       name = "ajv";
       packageName = "ajv";
@@ -38,6 +74,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/ajv/-/ajv-6.10.2.tgz";
         sha512 = "TXtUUEYHuaTEbLZWIKUr5pmBuhDLy+8KYtPYdcV8qC+pOZL+NKqYwvWSRrVXHn+ZmRRAu8vJTAznH7Oag6RVRw==";
+      };
+    };
+    "ansi-escape-sequences-4.1.0" = {
+      name = "ansi-escape-sequences";
+      packageName = "ansi-escape-sequences";
+      version = "4.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/ansi-escape-sequences/-/ansi-escape-sequences-4.1.0.tgz";
+        sha512 = "dzW9kHxH011uBsidTXd14JXgzye/YLb2LzeKZ4bsgl/Knwx8AtbSFkkGxagdNOoh0DlqHCmfiEjWKBaqjOanVw==";
       };
     };
     "ansi-regex-2.1.1" = {
@@ -443,6 +488,33 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/caseless/-/caseless-0.12.0.tgz";
         sha1 = "1b681c21ff84033c826543090689420d187151dc";
+      };
+    };
+    "chalk-1.1.3" = {
+      name = "chalk";
+      packageName = "chalk";
+      version = "1.1.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz";
+        sha1 = "a8115c55e4a702fe4d150abd3872822a7e09fc98";
+      };
+    };
+    "chalk-2.4.2" = {
+      name = "chalk";
+      packageName = "chalk";
+      version = "2.4.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz";
+        sha512 = "Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==";
+      };
+    };
+    "charenc-0.0.2" = {
+      name = "charenc";
+      packageName = "charenc";
+      version = "0.0.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/charenc/-/charenc-0.0.2.tgz";
+        sha1 = "c0a1d2f3a7092e03774bfa83f14c0fc5790a8667";
       };
     };
     "chownr-1.1.2" = {
@@ -3506,13 +3578,13 @@ let
         sha512 = "aymF+56WJJMyXQHcd4hlK4N75rwj5RQpfW8ePlQnJsTYOBLlLbcIErR/G1s9SkIvKBqOudR3KAx4wEqP+F1hNQ==";
       };
     };
-    "semver-6.2.0" = {
+    "semver-6.3.0" = {
       name = "semver";
       packageName = "semver";
-      version = "6.2.0";
+      version = "6.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-6.2.0.tgz";
-        sha512 = "jdFC1VdUGT/2Scgbimf7FSx9iJLXoqfglSF+gJeuNWVpiE37OIbc1jywR/GJyFdz3mnkz2/id0L0J/cr0izR5A==";
+        url = "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz";
+        sha512 = "b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==";
       };
     };
     "server-destroy-1.0.1" = {
@@ -3738,6 +3810,24 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.5.tgz";
         sha512 = "J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==";
+      };
+    };
+    "split-skip-0.0.1" = {
+      name = "split-skip";
+      packageName = "split-skip";
+      version = "0.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/split-skip/-/split-skip-0.0.1.tgz";
+        sha1 = "80ad8e36e98e576454cc3b667c1dd25d865e8f00";
+      };
+    };
+    "split-skip-0.0.2" = {
+      name = "split-skip";
+      packageName = "split-skip";
+      version = "0.0.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/split-skip/-/split-skip-0.0.2.tgz";
+        sha1 = "d89d88bbd2f73e46b5158aa370a561224e80d461";
       };
     };
     "split-string-3.1.0" = {
@@ -4010,13 +4100,13 @@ let
         sha512 = "YfUhPQCJoNQE5N+FJQcdPz63O3x3sdT4Xju69Gj4iZe0lBKOtnAMi0SLj9xKhGkcGhsxThvTJ/usxtFPo438zQ==";
       };
     };
-    "terminal-kit-1.28.18" = {
+    "terminal-kit-1.28.26" = {
       name = "terminal-kit";
       packageName = "terminal-kit";
-      version = "1.28.18";
+      version = "1.28.26";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terminal-kit/-/terminal-kit-1.28.18.tgz";
-        sha512 = "6uDfAUjD0HfLpCq2mXEgVGSCcGQakzkB9udAxNqydzs/4JN8cxpogm2LR45+IdE88st4bMsdV0Dgjp97r8xbXQ==";
+        url = "https://registry.npmjs.org/terminal-kit/-/terminal-kit-1.28.26.tgz";
+        sha512 = "lGmhB0pLGdTghLsvjjHPwoReug92ZaeRWU8K9EjS6rEbLqBEIhP2fyk4v5+pPP8rjjpxQcoGjEUdFcYr5mA3NQ==";
       };
     };
     "tkwidgets-0.5.26" = {
@@ -4847,7 +4937,7 @@ in
       sources."acorn-5.7.3"
       (sources."acorn-globals-4.3.2" // {
         dependencies = [
-          sources."acorn-6.2.0"
+          sources."acorn-6.2.1"
         ];
       })
       sources."acorn-walk-6.2.0"
@@ -5187,7 +5277,7 @@ in
       sources."safe-buffer-5.2.0"
       sources."safer-buffer-2.1.2"
       sources."sax-1.2.4"
-      sources."semver-6.2.0"
+      sources."semver-6.3.0"
       sources."server-destroy-1.0.1"
       sources."set-blocking-2.0.0"
       sources."setimmediate-1.0.5"
@@ -5253,7 +5343,7 @@ in
           sources."q-0.9.7"
         ];
       })
-      sources."terminal-kit-1.28.18"
+      sources."terminal-kit-1.28.26"
       (sources."tkwidgets-0.5.26" // {
         dependencies = [
           sources."is-fullwidth-code-point-2.0.0"
