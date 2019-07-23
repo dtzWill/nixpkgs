@@ -9,13 +9,13 @@
 
 buildGoPackage rec {
   pname = "lxd";
-  version = "3.13";
+  version = "3.15";
 
   goPackagePath = "github.com/lxc/lxd";
 
   src = fetchurl {
     url = "https://github.com/lxc/lxd/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
-    sha256 = "1kasnzd8hw9biyx8avbjmpfax1pdbp9g543g8hs6xpksmk93hl82";
+    sha256 = "1rn4fisyjhi44j1iqqv4skmqb46ya7zqaard5pir7nbk72pbsg79";
   };
 
   preBuild = ''
