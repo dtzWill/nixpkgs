@@ -129,7 +129,7 @@ stdenv.mkDerivation {
   '';
 
   dontStrip = true;
-  dontPatchElf = true;
+  dontPatchELF = true;
 
   updateScript = import ./update.nix { inherit writeScript runtimeShell; };
 
