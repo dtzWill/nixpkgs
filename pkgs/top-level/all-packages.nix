@@ -18624,7 +18624,10 @@ in
 
   leftwm = callPackage ../applications/window-managers/leftwm { };
 
-  slack = callPackage ../applications/networking/instant-messengers/slack { };
+  slack = callPackage ../applications/networking/instant-messengers/slack {
+    # We want 'asar', which I guess isn't avail in all nodePackages? So use 10 for now
+    nodePackages = nodePackages_10_x;
+  };
   slack-theme-black = callPackage ../applications/networking/instant-messengers/slack/dark-theme.nix { };
   slack-dark = pkgs.slack.override { theme = slack-theme-black; };
 
