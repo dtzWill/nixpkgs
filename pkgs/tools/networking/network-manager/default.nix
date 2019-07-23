@@ -12,13 +12,13 @@ let
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   name = "network-manager-${version}";
-  version = "1.19.5-dev";
+  version = "1.19.5-dev"; # 2019-07-22
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "b8e9a62f2a2f1e06a7a417690858b81114199250";
-    sha256 = "0h7pdflmzph42yqipx8sg0q964x3f2rkkag9gzfb06lys0is0hm6";
+    rev = "8f8a1990ce1955226ac51d8bb1927caad4561b4d";
+    sha256 = "0yd2gfn8ilx7ni0psj4jyx38y0vajbzhiswgj156bd7fcvdzirib";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
