@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-webengine.patch ];
 
-  nativeBuildInputs = [ pkgconfig cmake makeWrapper ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
+  #nativeBuildInputs = [ pkgconfig cmake makeWrapper ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
 
   buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
   ++ (with kdeFrameworks; [ kio kcoreaddons ]);
