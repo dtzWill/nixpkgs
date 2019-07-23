@@ -670,13 +670,13 @@ let
         sha512 = "Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==";
       };
     };
-    "aws-sdk-2.496.0" = {
+    "aws-sdk-2.497.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.496.0";
+      version = "2.497.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.496.0.tgz";
-        sha512 = "6xZ//phdvp7/dUZjOdDsorl+xehhkAgxOMber9vUlMO9ckBOeufIvED7oKF0NvSlfG8laHK4JprXKQvhXqVLqA==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.497.0.tgz";
+        sha512 = "SCAVfWqj0qe22Lj6ZHMP/4autc9x3GqgWTj3YrE3VleSuql62xhyCC9gSYfbm7wo8Puqx0+kEnKYyyXR7Z98QA==";
       };
     };
     "aws-sign2-0.6.0" = {
@@ -9185,7 +9185,7 @@ in
       sources."async-1.5.2"
       sources."async-limiter-1.0.0"
       sources."asynckit-0.4.0"
-      sources."aws-sdk-2.496.0"
+      sources."aws-sdk-2.497.0"
       sources."aws-sign2-0.6.0"
       sources."aws4-1.8.0"
       sources."babel-runtime-6.26.0"

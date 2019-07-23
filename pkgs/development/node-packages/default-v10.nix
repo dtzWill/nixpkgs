@@ -111,4 +111,8 @@ nodePackages // {
   webtorrent-cli = nodePackages.webtorrent-cli.override {
     buildInputs = [ nodePackages.node-gyp-build ];
   };
+
+  thelounge = nodePackages.thelounge.override {
+    buildInputs = [ nodePackages.node-pre-gyp ];
+  };
 }

@@ -553,7 +553,7 @@ in
 
   ansifilter = callPackage ../tools/text/ansifilter {};
 
-  antora = nodePackages_10_x."@antora/cli";
+  antora = callPackage ../development/tools/documentation/antora {};
 
   apktool = callPackage ../development/tools/apktool {
     inherit (androidenv.androidPkgs_9_0) build-tools;
@@ -2709,6 +2709,8 @@ in
 
   sonota = callPackage ../tools/misc/sonota { };
 
+  sonobuoy = callPackage ../applications/networking/cluster/sonobuoy { };
+
   tealdeer = callPackage ../tools/misc/tealdeer { };
 
   teamocil = callPackage ../tools/misc/teamocil { };
@@ -3698,6 +3700,8 @@ in
 
   heimdall-gui = heimdall.override { enableGUI = true; };
 
+  helio-workstation = callPackage ../applications/audio/helio-workstation { };
+
   hevea = callPackage ../tools/typesetting/hevea { };
 
   hexd = callPackage ../tools/misc/hexd { };
@@ -4037,6 +4041,8 @@ in
   kakounePlugins = callPackage ../applications/editors/kakoune/plugins.nix { };
   kakoune-unwrapped = callPackage ../applications/editors/kakoune { };
   kakoune = wrapKakoune kakoune-unwrapped { };
+
+  kak-lsp = callPackage ../tools/misc/kak-lsp { };
 
   kbdd = callPackage ../applications/window-managers/kbdd { };
 
@@ -6306,6 +6312,8 @@ in
   thc-hydra = callPackage ../tools/security/thc-hydra { };
 
   theharvester = callPackage ../tools/security/theharvester { };
+
+  inherit (nodePackages) thelounge;
 
   thefuck = python3Packages.callPackage ../tools/misc/thefuck { };
 
@@ -9742,6 +9750,8 @@ in
   redis-dump = callPackage ../development/tools/redis-dump { };
 
   redo = callPackage ../development/tools/build-managers/redo { };
+
+  redo-apenwarr = callPackage ../development/tools/build-managers/redo-apenwarr { };
 
   redo-sh = callPackage ../development/tools/build-managers/redo-sh { };
 
@@ -17192,7 +17202,7 @@ in
 
   baresip = callPackage ../applications/networking/instant-messengers/baresip { };
 
-  barrier = callPackage ../applications/misc/barrier {};
+  barrier = libsForQt5.callPackage ../applications/misc/barrier {};
 
   bashSnippets = callPackage ../applications/misc/bashSnippets { };
 
@@ -17250,7 +17260,10 @@ in
   bitwig-studio2 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio2.nix {
     inherit (pkgs) bitwig-studio1;
   };
-  bitwig-studio = bitwig-studio2;
+  bitwig-studio3 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio3.nix {
+    inherit (pkgs) bitwig-studio1;
+  };
+  bitwig-studio = bitwig-studio3;
 
   bgpdump = callPackage ../tools/networking/bgpdump { };
 
@@ -20817,6 +20830,8 @@ in
 
   trayer = callPackage ../applications/window-managers/trayer { };
 
+  tree-from-tags = callPackage ../applications/audio/tree-from-tags { };
+
   tdrop = callPackage ../applications/misc/tdrop { };
 
   tree = callPackage ../tools/system/tree {};
@@ -22847,6 +22862,7 @@ in
   mathematica = callPackage ../applications/science/math/mathematica { };
   mathematica9 = callPackage ../applications/science/math/mathematica/9.nix { };
   mathematica10 = callPackage ../applications/science/math/mathematica/10.nix { };
+  mathematica11 = callPackage ../applications/science/math/mathematica/11.nix { };
 
   metis = callPackage ../development/libraries/science/math/metis {};
 
