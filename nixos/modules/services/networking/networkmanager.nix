@@ -181,6 +181,7 @@ in {
         default = { inherit (pkgs)
                             networkmanager modemmanager # wpa_supplicant
                             networkmanager-openvpn networkmanager-vpnc
+                            networkmanager-sstp
                             networkmanager-openconnect networkmanager-fortisslvpn
                             networkmanager-l2tp networkmanager-iodine; };
         internal = true;
