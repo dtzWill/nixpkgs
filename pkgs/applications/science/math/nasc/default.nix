@@ -43,6 +43,12 @@ stdenv.mkDerivation rec {
     pantheon.granite
   ];
 
+  postInstall = ''
+    for x in $out/bin/*; do
+      ln -rsv $x $out/bin/''${x##/*.}
+    done
+  '';
+
   meta = with stdenv.lib; {
     description = "Do maths like a normal person";
     longDescription = ''
