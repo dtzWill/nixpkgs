@@ -18656,6 +18656,12 @@ in
 
   spectral = qt5.callPackage ../applications/networking/instant-messengers/spectral { };
 
+  spotifyd = callPackage ../applications/audio/spotifyd {
+    withALSA = stdenv.isLinux;
+    withPulseAudio = config.pulseaudio or true;
+    withPortAudio = stdenv.isDarwin;
+  };
+
   super-productivity = callPackage ../applications/networking/super-productivity { };
 
   wlc = callPackage ../development/libraries/wlc { };
@@ -21510,6 +21516,8 @@ in
   xvidcap = callPackage ../applications/video/xvidcap {
     inherit (gnome2) scrollkeeper libglade;
   };
+
+  xygrib = libsForQt5.callPackage ../applications/misc/xygrib/default.nix {};
 
   xzgv = callPackage ../applications/graphics/xzgv { };
 
@@ -24632,5 +24640,4 @@ in
   dapper = callPackage ../development/tools/dapper { };
 
   kube3d =  callPackage ../applications/networking/cluster/kube3d {};
-
 }

@@ -333,6 +333,11 @@
     github = "andersk";
     name = "Anders Kaseorg";
   };
+  anderslundstedt = {
+    email = "git@anderslundstedt.se";
+    github = "anderslundstedt";
+    name = "Anders Lundstedt";
+  };
   AndersonTorres = {
     email = "torres.anderson.85@protonmail.com";
     github = "AndersonTorres";
@@ -2302,6 +2307,11 @@
     email = "jhyphenkeck@gmail.com";
     github = "j-keck";
     name = "Jürgen Keck";
+  };
+  j03 = {
+    email = "github@johannesloetzsch.de";
+    github = "johannesloetzsch";
+    name = "Johannes Lötzsch";
   };
   jagajaga = {
     email = "ars.seroka@gmail.com";
