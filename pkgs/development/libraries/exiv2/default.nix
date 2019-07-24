@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DEXIV2_BUILD_PO=ON"
     "-DEXIV2_BUILD_DOC=ON"
+    "-DEXIV2_BUILD_SAMPLES=OFF"
+    "-DEXIV2_BUILD_UNIT_TESTS=ON"
   ];
 
   outputs = [ "out" "dev" "doc" "man" ];
@@ -80,13 +82,13 @@ stdenv.mkDerivation rec {
 
   # With cmake we have to enable samples or there won't be
   # a tests target. This removes them.
-  postInstall = ''
-    ( cd "$out/bin"
-      mv exiv2 .exiv2
-      rm *
-      mv .exiv2 exiv2
-    )
-  '';
+  #postInstall = ''
+  #  ( cd "$out/bin"
+  #    mv exiv2 .exiv2
+  #    rm *
+  #    mv .exiv2 exiv2
+  #  )
+  #'';
 
   enableParallelBuilding = true;
 
