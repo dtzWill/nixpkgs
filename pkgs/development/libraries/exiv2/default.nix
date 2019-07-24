@@ -14,14 +14,19 @@
 
 stdenv.mkDerivation rec {
   pname = "exiv2";
-  version = "0.27.2-RC3";
+  version = "0.27.1";
 
   src = fetchFromGitHub rec {
-    owner = pname;
-    repo  = pname;
-    rev = "v${version}";
-    sha256 = "0l82zrnx48knjmybxm1y9i792gmaafdp5k458886gipgc11v6hfz";
+    owner = "exiv2";
+    repo  = "exiv2";
+    rev = version;
+    sha256 = "0b5m921070fkyif0zlyb49gly3p6xd0hv1jyym4j25hx12gzbx0c";
   };
+
+  patches = [
+    # https://github.com/Exiv2/exiv2/commit/aae88060ca85a483cd7fe791ba116c04d96c0bf9#comments
+    ./fix-cmake.patch
+  ];
 
   cmakeFlags = [
     "-DEXIV2_BUILD_PO=ON"
