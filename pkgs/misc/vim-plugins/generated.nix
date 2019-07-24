@@ -2333,6 +2333,17 @@ let
     };
   };
 
+  tagbar-markdown = buildVimPluginFrom2Nix {
+    pname = "tagbar-markdown";
+    version = "2018-12-30";
+    src = fetchFromGitHub {
+      owner = "lvht";
+      repo = "tagbar-markdown";
+      rev = "265dfc6ed12ec0d40b2156fb70542ef5657461b2";
+      sha256 = "104wgpmxda19qddnz84lvpp9q6bhwpchqnhphpp9708m97gz479r";
+    };
+  };
+
   taglist-vim = buildVimPluginFrom2Nix {
     pname = "taglist-vim";
     version = "2010-10-18";
@@ -2495,6 +2506,17 @@ let
       repo = "unicode.vim";
       rev = "29f43f7b1be94dccfac461f4da0a34410408111f";
       sha256 = "1wr0gq008jzlaignlkr706z5cjrdb6cc16r621zvfjncm9a71pnw";
+    };
+  };
+
+  unite-outline = buildVimPluginFrom2Nix {
+    pname = "unite-outline";
+    version = "2018-08-22";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "unite-outline";
+      rev = "595129742f9a1dbf4cdcc44344552759068d5468";
+      sha256 = "192rcg79p2fh6ay208p05mfd6zrp0hgvch8l5c5df963ib3mi98z";
     };
   };
 
@@ -4468,6 +4490,17 @@ let
     };
   };
 
+  vim-taskwarrior = buildVimPluginFrom2Nix {
+    pname = "vim-taskwarrior";
+    version = "2016-11-21";
+    src = fetchFromGitHub {
+      owner = "blindFS";
+      repo = "vim-taskwarrior";
+      rev = "8ae6c5ee2ed54d759a58a8d9f67bc76430e3bd25";
+      sha256 = "0scfcqzbfqfkw6qkljv1jg8lsw0f8zajhy2vzwhrdjvpqzsmhv1a";
+    };
+  };
+
   vim-tbone = buildVimPluginFrom2Nix {
     pname = "vim-tbone";
     version = "2019-04-12";
@@ -4817,6 +4850,17 @@ let
       repo = "vissort.vim";
       rev = "75a5b08b64d2f762206bffd294066533891fa03c";
       sha256 = "0a71b22apkhicca9nkd06jlcnqkf583mlpfh2mvl4d474viavqfn";
+    };
+  };
+
+  vista-vim = buildVimPluginFrom2Nix {
+    pname = "vista-vim";
+    version = "2019-07-20";
+    src = fetchFromGitHub {
+      owner = "liuchengxu";
+      repo = "vista.vim";
+      rev = "1b37a698d7255d403fb385f2e2934166168ee3c1";
+      sha256 = "0dh8w1j6ha1x1ddsd5jn53l06zr163ndwg0w1ps555h245gxzm6v";
     };
   };
 
