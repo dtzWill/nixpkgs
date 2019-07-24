@@ -5,12 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "nextcloud-client";
-  version = "2.5.3";
+  version = "2.5.3-rc1-unstable"; # 2";
 
   src = fetchgit {
     url = "git://github.com/nextcloud/desktop.git";
-    rev = "refs/tags/v${version}";
-    sha256 = "0c7awdkb5417j45df4lsmw1bp9j4v6r5r1aw811bbdvzwbifdix8";
+    #rev = "refs/tags/v${version}";
+    rev = "419b8a3ff9af8d634241b76db56a5aece4e6f7ea";
+    sha256 = "04pzzaknm8fvmfqk9vn6197dnfis0vl3126vwdkc1pi1rrq7izvs";
     fetchSubmodules = true;
   };
 
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
 
-  buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools libcloudproviders ]
+  buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
   ++ (with kdeFrameworks; [ kio kcoreaddons ]);
 
   enableParallelBuilding = true;
