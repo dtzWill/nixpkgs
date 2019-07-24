@@ -21,6 +21,7 @@ bbchung/clighter8
 benmills/vimux
 bhurlow/vim-parinfer
 bitc/vim-hdevtools
+blindFS/vim-taskwarrior
 bkad/camelcasemotion
 bling/vim-bufferline
 bogado/file-line
@@ -168,6 +169,8 @@ ledger/vim-ledger
 lepture/vim-jinja
 lervag/vimtex
 lfilho/cosco.vim
+liuchengxu/vista.vim
+lvht/tagbar-markdown
 LnL7/vim-nix
 LucHermitte/lh-brackets
 LucHermitte/lh-vim-lib
@@ -342,6 +345,7 @@ Shougo/neosnippet.vim
 Shougo/neoyank.vim
 Shougo/tabpagebuffer.vim
 Shougo/unite.vim
+Shougo/unite-outline
 Shougo/vimproc.vim
 Shougo/vimshell.vim
 shumphrey/fugitive-gitlab.vim
