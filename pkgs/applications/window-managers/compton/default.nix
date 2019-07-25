@@ -12,8 +12,10 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner  = "yshui";
     repo   = "compton";
-    rev    = COMPTON_VERSION;
-    sha256 = "0f23dv2p1snlpzc91v38q6896ncz4zqzmh2d97yf66j78g21awas";
+    #rev    = COMPTON_VERSION;
+    rev = "79b135dccc1497eb02eeb52b06ab59900df8e7a3";
+
+    sha256 = "1qpdc7dr5gxrzfp3gwgjzi3j1dxwyjb64ljk6z9m2zj63ccm4flj";
     fetchSubmodules = true;
   };
 
@@ -53,11 +55,6 @@ stdenv.mkDerivation rec {
   ##  export -f git
   ##'';
 
-  # This isn't great but does manage to set version appropriately.
-  postPatch = ''
-    substituteInPlace meson.build --replace "version: '6'" "version: '6-git-${version}'"
-  '';
-
   doCheck = true;
 
   mesonFlags = [
@@ -69,7 +66,7 @@ stdenv.mkDerivation rec {
 
   #preBuild = ''
   #  git() { echo "$COMPTON_VERSION"; }
-  #  export -f git
+  # texport -f git
   #'';
 
   #installFlags = [ "PREFIX=$(out)" ];
