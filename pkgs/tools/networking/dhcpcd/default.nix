@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   version = "8.0.0";
 
   src = fetchurl {
-    url = "mirror://roy/${name}/${pname}-${version}.tar.xz";
-    sha256 = "048nw8zf4a15hsq4575yb7y0212mvig7rlrndzbr5p00b2vi8qwv";
+    url = "mirror://roy/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "048nw8zf4a15hsq4575yb7y0212mvig7rlrndzbr4p00b2vi8qwv";
   };
 
   nativeBuildInputs = [ pkgconfig ];
