@@ -47,7 +47,7 @@ in stdenv.mkDerivation {
     python2
     python2.pkgs.pygtk
     libgda
-    evolution-data-server
+    #evolution-data-server
     #libsoup
   ];
 
@@ -55,9 +55,9 @@ in stdenv.mkDerivation {
   configureFlags = [
     "--enable-python"
     "--enable-python-plugin"
-    "--enable-eds"
-    "--enable-eds-backend"
-    "--enable-simple-priority-scheduling"
+    #"--enable-eds"
+    #"--enable-eds-backend"
+    #"--enable-simple-priority-scheduling"
     ];
 
   enableParallelBuilding = true;
