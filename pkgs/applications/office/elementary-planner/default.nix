@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     owner = "alainm23";
     repo = pname;
     rev = "f2616654bc002b765665b32cacaa8bb1f4701d21";
-    sha256 = "1111111111111111111111111111111111111111111111111111";
+    sha256 = "0jrnig05pcx500jf9dwwhbbdgih72jj3ss1xcb8fzcd3va4lwsmm";
   };
 
   nativeBuildInputs = [
