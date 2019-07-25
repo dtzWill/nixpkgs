@@ -33,9 +33,10 @@ in {
       "/var/lib/flatpak/exports"
     ];
 
-    environment.variables = {
-      XDG_DESKTOP_PORTAL_PATH = map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
-    };
+    # See portal.nix now
+    #environment.variables = {
+    #  XDG_DESKTOP_PORTAL_PATH = map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
+    #};
 
     users.users.flatpak = {
       group = "flatpak";
