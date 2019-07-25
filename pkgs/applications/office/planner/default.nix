@@ -8,6 +8,8 @@
 , gnome2
 , libxslt
 , python2
+, libgda
+, evolution-data-server
 }:
 
 let version = "unstable-2019-07-22";
@@ -44,7 +46,8 @@ in stdenv.mkDerivation {
     libxslt
     python2
     python2.pkgs.pygtk
-    #evolution-data-server
+    libgda
+    evolution-data-server
     #libsoup
   ];
 
@@ -52,9 +55,9 @@ in stdenv.mkDerivation {
   configureFlags = [
     "--enable-python"
     "--enable-python-plugin"
-    #"--enable-eds"
-  #  "--enable-eds-backend"
-#    "--enable-simple-priority-scheduling"
+    "--enable-eds"
+    "--enable-eds-backend"
+    "--enable-simple-priority-scheduling"
     ];
 
   enableParallelBuilding = true;
