@@ -19565,6 +19565,7 @@ in
 
   plank = callPackage ../applications/misc/plank { };
 
+  elementary-planner = callPackage ../applications/office/elementary-planner { };
   planner = callPackage ../applications/office/planner { };
 
   playonlinux = callPackage ../applications/misc/playonlinux {
