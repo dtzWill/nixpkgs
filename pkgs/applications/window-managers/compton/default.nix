@@ -1,12 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45
-, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja, uthash
+{ stdenv, lib, fetchFromGitHub, pkgconfig, uthash, asciidoc, docbook_xml_dtd_45
+, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11
 , libXinerama, libXext, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
   pname = "compton";
-#  version = "6.2";
-  #version = "2019-06-24";
   version = "7";
 
   COMPTON_VERSION = "v${version}";
@@ -15,7 +13,6 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = "compton";
     rev    = COMPTON_VERSION;
-    #rev = "7d28309a47ccee8fb09d863e606b11d794296bb4";
     sha256 = "0f23dv2p1snlpzc91v38q6896ncz4zqzmh2d97yf66j78g21awas";
     fetchSubmodules = true;
   };
@@ -23,6 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     meson ninja
     pkgconfig
+    uthash
     asciidoc
     docbook_xml_dtd_45
     docbook_xsl
@@ -69,7 +67,12 @@ stdenv.mkDerivation rec {
     "-Dsanitize=true"
   ];
 
-  #installFlags = [ "PREFIX=${placeholder "out"}" ];
+  #preBuild = ''
+  #  git() { echo "$COMPTON_VERSION"; }
+  #  export -f git
+  #'';
+
+  #installFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
     wrapProgram $out/bin/compton-trans \
