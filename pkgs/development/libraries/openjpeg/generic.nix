@@ -8,7 +8,7 @@
 , openjpegJarSupport ? false # Openjpeg jar (Java)
 , jp3dSupport ? true # # JP3D comp
 , thirdPartySupport ? false # Third party libraries - OFF: only build when found, ON: always build
-, testsSupport ? true
+, testsSupport ? false # we don't seem to invoke them properly?
 , jdk ? null
 # Inherit generics
 , branch, version, revision, sha256, patches ? [], extraFlags ? [], ...
