@@ -1,15 +1,19 @@
-{ stdenv, fetchurl, getopt, lua, boost, pkgconfig, gcc }:
+{ stdenv, fetchFromGitLab, getopt, lua, boost, pkgconfig, gcc }:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "highlight";
-  version = "3.51";
+  version = "3.52";
 
-  src = fetchurl {
-    url = "http://www.andre-simon.de/zip/${pname}-${version}.tar.bz2";
-    sha256 = "15x4m548bhr7yx27i73iysm5fir6g08djniyy1yj4r1kzny1xfk9";
+  src = fetchFromGitLab {
+    owner = "saalen";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "0zhn1k70ck82ks7ckzsy1yiz686ym2ps7c28wjmkgxfpyjanilrq";
   };
+
+  enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isDarwin  gcc ;
 

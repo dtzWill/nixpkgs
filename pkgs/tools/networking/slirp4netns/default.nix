@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
+
   buildInputs = [ glib ];
 
   enableParallelBuilding = true;
