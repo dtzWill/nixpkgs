@@ -47,13 +47,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "openconnect";
-  version = "8.03.1"; # 2019-07-16
+  version = "8.03.1"; # 2019-07-24
 
   src = fetchgit {
     # url = https://git.infradead.org/users/dwmw2/openconnect.git;
     url = "https://github.com/${pname}/${pname}";
-    rev = "e9f3aa5d5f2e54027658f6bb5c81e7ac46413f4c";
-    sha256 = "13sfn3z8vpwml7mpqv2rm4k80i6c10m905w2mgb6cbcvah92zcz9";
+    rev = "31ff2f6551e6a276ea575cf95948bc557f996e52";
+    sha256 = "03q9hmfw88cghfvb7kvy9163q2pp25cx9isaplp7csk5wf8sci3g";
   };
   #src = fetchurl {
   #  urls = [
