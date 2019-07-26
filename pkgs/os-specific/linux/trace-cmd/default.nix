@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, asciidoc, docbook_xsl, libxslt }:
+{ stdenv, fetchgit, asciidoc, docbook_xsl, libxslt, audit }:
 
 stdenv.mkDerivation rec {
   name    = "trace-cmd-${version}";
@@ -11,6 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ asciidoc libxslt ];
+  buildInputs =  [ audit ];
 
   dontConfigure = true;
   makeFlags = [
