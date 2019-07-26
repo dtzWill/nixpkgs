@@ -34,8 +34,8 @@ in python3Packages.buildPythonApplication rec {
     owner = "muammar";
     repo = pname;
     #rev = version;
-    rev = "5872a246f0610b74fc2b197eb02dc91b96fb68cc";
-    sha256 = "05ldgx583s4b3qqn2r3sj7wjmfdqndkm59g2bwdkpz7pbcahkfmr";
+    rev = "417876bd77926c941e46bf45be9bbeef6350e69c";
+    sha256 = "1392l17493y1gg0msk1vkfqcqpffhjjmvcxfsad77k2l0al9n5r6";
   };
 
   propagatedBuildInputs = with python3Packages; [
