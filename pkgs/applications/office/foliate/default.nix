@@ -2,7 +2,7 @@
 , wrapGAppsHook, gobject-introspection
 , gjs, gtk3, gsettings-desktop-schemas, webkitgtk, glib
 , desktop-file-utils, hicolor-icon-theme /* setup hook */
-, cairo, libgee, pantheon /* granite */, libxml2, libarchive
+, libarchive
 /*, hyphen */
 , dict }:
 
@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     hicolor-icon-theme
   ];
+
   buildInputs = [
     glib
     gtk3
@@ -34,10 +35,6 @@ stdenv.mkDerivation rec {
     webkitgtk
     gsettings-desktop-schemas
     gobject-introspection
-    cairo
-    libgee
-    pantheon.granite
-    libxml2
     libarchive
     # TODO: Add once packaged, unclear how language packages best handled
     # hyphen
