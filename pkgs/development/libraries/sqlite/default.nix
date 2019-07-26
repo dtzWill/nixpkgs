@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   # NB! Make sure to update analyzer.nix src (in the same directory).
   src = fetchurl {
     url = "https://sqlite.org/2019/${pname}-autoconf-${archiveVersion version}.tar.gz";
-    sha256 = "1hxpi45crbqp6lacl7z611lna02k956m9bsy2bjzrbb2y23546yn";
+    sha256 = "0nzx39459j7b71l577ckvbfx5ygvzwqwp0d98iclrc5ma0liwz4f";
   };
 
   outputs = [ "bin" "dev" "out" ];
