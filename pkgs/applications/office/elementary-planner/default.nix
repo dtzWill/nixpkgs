@@ -1,5 +1,6 @@
 { stdenv, fetchFromGitHub
-, meson, ninja
+, meson, ninja, pkgconfig, appstream-glib, desktop-file-utils
+, python3, vala, wrapGAppsHook
 , evolution-data-server
 , libunity
 , libical
@@ -23,8 +24,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
+    appstream-glib
+    desktop-file-utils
     meson
     ninja
+    pkgconfig
+    python3
+    vala
+    wrapGAppsHook
   ];
 
   buildInputs = [
