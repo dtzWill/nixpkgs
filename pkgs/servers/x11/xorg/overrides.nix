@@ -650,11 +650,12 @@ self: super:
 
   xf86videointel = super.xf86videointel.overrideAttrs (attrs: {
     # the update script only works with released tarballs :-/
-    name = "xf86-video-intel-2019-03-01";
+    name = "xf86-video-intel-2019-07-24";
     src = fetchurl {
       url = "http://cgit.freedesktop.org/xorg/driver/xf86-video-intel/snapshot/"
-          + "6afed33b2d673d88674f0c76efe500ae414e8e1b.tar.gz";
-      sha256 = "10r142zx44mmmv7z34a0g5ybh96fg98y2kak9b2h7bjnr4sb08cp";
+      + "6f4972d5c368c30e971a23c1dc370d3e43761282"
+      + ".tar.gz";
+      sha256 = "1k4kfikrizgl4n89j33dxbnwachcv5lw8id0ajrpb1rkkzs1z6h4";
     };
     buildInputs = attrs.buildInputs ++ [self.libXfixes self.libXScrnSaver self.pixman self.libXinerama self.libXxf86vm self.utilmacros ];
     #nativeBuildInputs = attrs.nativeBuildInputs ++ [autoreconfHook self.utilmacros];
