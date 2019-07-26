@@ -26,6 +26,8 @@ stdenv.mkDerivation {
     ./CVE-2016-9844.patch
     ./CVE-2018-18384.patch
     ./dont-hardcode-cc.patch
+    # XXX: nixpkgs master dropped the patch entirely, instead of adding second
+    # (note to self re:future merge resolution doubts)
     # CVE-2019-13232 - the fix itself, and the patch it depends on
     # (as described in the commit message of the fix)
     (fetchurl {
