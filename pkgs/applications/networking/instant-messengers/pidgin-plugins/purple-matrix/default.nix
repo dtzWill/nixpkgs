@@ -1,21 +1,23 @@
-{ stdenv, fetchgit, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm, libgcrypt } :
+{ stdenv, fetchFromGitHub, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm, libgcrypt } :
 
-let
-  version = "2018-08-03";
-in
 stdenv.mkDerivation rec {
-  name = "purple-matrix-unstable-${version}";
+  pname = "purple-matrix-unstable";
+  version = "2019-06-06";
 
-  src = fetchgit {
-    url = "https://github.com/matrix-org/purple-matrix";
-    rev = "5a7166a3f54f85793c6b60662f8d12196aeaaeb0";
-    sha256 = "0ph0s24b37d1c50p8zbzgf4q2xns43a8v6vk85iz633wdd72zsa0";
+  src = fetchFromGitHub {
+    owner = "matrix-org";
+    repo = "purple-matrix";
+    rev = "4494ba22b479917f0b1f96a3019792d3d75bcff1";
+    sha256 = "1gjm0z4wa5vi9x1xk43rany5pffrwg958n180ahdj9a7sa8a4hpm";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ pidgin json-glib glib http-parser sqlite olm libgcrypt ];
 
-  hardeningDisable = [ "fortify" ]; # upstream compiles with -O0
+  # Drop bad CFLAGS
+  postPatch = ''
+    substituteInPlace Makefile.common --replace "-O0 -Werror" ""
+  '';
 
   makeFlags = [
     "PLUGIN_DIR_PURPLE=${placeholder "out"}/lib/purple-2"
