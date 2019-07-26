@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = "compton";
     #rev    = COMPTON_VERSION;
-    rev = "79b135dccc1497eb02eeb52b06ab59900df8e7a3";
-
-    sha256 = "1qpdc7dr5gxrzfp3gwgjzi3j1dxwyjb64ljk6z9m2zj63ccm4flj";
+#    rev = "79b135dccc1497eb02eeb52b06ab59900df8e7a3";
+    rev = "0109fe181e4a1ef4aeb00eebff9b88282a442574";
+    sha256 = "1navxn4djdzbncxxy83q5hlnn5726sv7g84j57fa3ahyjpf8cg4x";
     fetchSubmodules = true;
   };
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "-Dbuild_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
-#    "-Dsanitize=true"
+    "-Dsanitize=true"
   ];
 
   #preBuild = ''
