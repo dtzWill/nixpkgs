@@ -106,7 +106,12 @@ in stdenv.mkDerivation rec {
 
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \
-      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'"
+      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'" \
+      \
+      --replace "subdir('builder')" ""
+
+    echo '#!/bin/sh' > meson_post_install.sh
+    chmod +x meson_post_install.sh
   '';
 
   # /etc/os-release not available in sandbox
