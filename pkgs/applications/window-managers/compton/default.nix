@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "-Dbuild_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
-    "-Dsanitize=true"
+#    "-Dsanitize=true"
   ];
 
   #preBuild = ''
