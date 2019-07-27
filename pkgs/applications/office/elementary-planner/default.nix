@@ -10,7 +10,7 @@
 , sqlite
 , libsoup
 , gtk3
-, pantheon /* granite */
+, pantheon /* granite, schemas */
 , discount /* libmarkdown */
 , gtksourceview3
 , webkitgtk
@@ -53,6 +53,7 @@ stdenv.mkDerivation rec {
     gtksourceview3
     webkitgtk
     appstream
+    pantheon.elementary-gsettings-schemas
   ];
 
   postPatch = ''
