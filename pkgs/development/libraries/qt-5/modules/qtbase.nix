@@ -389,9 +389,6 @@ stdenv.mkDerivation {
 
     # Fix paths returned by qmake -query
     + ''
-      if [ -e $dev/bin/qt.conf ]; then
-        chmod +w $dev/bin/qt.conf
-      fi
       cat > $dev/bin/qt.conf <<EOF
         [Paths]
         Prefix = $out
