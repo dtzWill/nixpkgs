@@ -18,8 +18,8 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "KDE";
     repo = pname;
-    rev = "2a745fddc3ef81993203df5cfb9fb5a2a2e135f7";
-    sha256 = "0jv7i7xpqf7iwbi4vva2fwlc997fgzqz6w32gg6czrwlck8qxzvv";
+    rev = "08dbd232d7ade7bfa9f256446e98385d9e29f1c4";
+    sha256 = "1l7i0n8bcd0a1z9rr97328zwkb2d8rjh245733x2sa8masnwz957";
   };
 
   patches = [ ./banner-bottom.patch ];
