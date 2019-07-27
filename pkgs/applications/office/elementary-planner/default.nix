@@ -11,6 +11,10 @@
 , libsoup
 , gtk3
 , pantheon /* granite */
+, discount /* libmarkdown */
+, gtksourceview3
+, webkitgtk
+, appstream
 }:
 
 stdenv.mkDerivation rec {
@@ -45,7 +49,16 @@ stdenv.mkDerivation rec {
     gtk3
     libgee
     pantheon.granite
+    discount
+    gtksourceview3
+    webkitgtk
+    appstream
   ];
+
+  postPatch = ''
+    chmod +x meson/post_install.py
+    patchShebangs meson/post_install.py
+  '';
 
   meta = with stdenv.lib; {
     description = "Task and project manager designed to elementary OS";
