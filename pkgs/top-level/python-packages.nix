@@ -1065,6 +1065,8 @@ in {
 
   pystache = callPackage ../development/python-modules/pystache { };
 
+  pytelegrambotapi = callPackage ../development/python-modules/pyTelegramBotAPI { };
+
   pytesseract = callPackage ../development/python-modules/pytesseract { };
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
