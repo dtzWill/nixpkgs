@@ -16427,6 +16427,8 @@ in
 
   bibata-cursors = callPackage ../data/icons/bibata-cursors { };
 
+  blobmoji = callPackage ../data/fonts/blobmoji { };
+
   brise = callPackage ../data/misc/brise { };
 
   inherit (kdeFrameworks) breeze-icons;
