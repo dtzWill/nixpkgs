@@ -6069,8 +6069,6 @@ in {
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
 
-  pydantic = callPackage ../development/python-modules/pydantic { };
-
   fastapi = callPackage ../development/python-modules/fastapi { };
 });
 
