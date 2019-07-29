@@ -521,6 +521,7 @@
   ./services/monitoring/systemhealth.nix
   ./services/monitoring/teamviewer.nix
   ./services/monitoring/telegraf.nix
+  ./services/monitoring/thanos.nix
   ./services/monitoring/ups.nix
   ./services/monitoring/uptime.nix
   ./services/monitoring/vnstat.nix
@@ -817,6 +818,7 @@
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix
   ./services/web-servers/zope2.nix
+  ./services/x11/extra-layouts.nix
   ./services/x11/colord.nix
   ./services/x11/compton.nix
   ./services/x11/unclutter.nix

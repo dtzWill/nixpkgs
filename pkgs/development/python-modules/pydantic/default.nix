@@ -1,20 +1,51 @@
-{ buildPythonPackage, fetchPypi, lib, ujson, email_validator }:
+{ lib
+, buildPythonPackage
+, fetchPypi
+, ujson
+, email_validator
+, typing-extensions
+, python
+, isPy3k
+}:
 
 buildPythonPackage rec {
   pname = "pydantic";
-  version = "0.27";
+  version = "0.31";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1mid11k20ypsbb75zssghrgg5wk1nja4g81dj2iriyq07hi3lpk2";
+    sha256 = "0x9xc5hpyrlf05dc4bx9f7v51fahxcahkvh0ij8ibay15nwli53d";
   };
 
-  buildInputs = [ ujson email_validator ];
+  propagatedBuildInputs = [
+    ujson
+    email_validator
+    typing-extensions
+  ];
+
+  checkPhase = ''
+    ${python.interpreter} -c """
+from datetime import datetime
+from typing import List
+from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name = 'John Doe'
+    signup_ts: datetime = None
+    friends: List[int] = []
+
+external_data = {'id': '123', 'signup_ts': '2017-06-01 12:22', 'friends': [1, '2', b'3']}
+user = User(**external_data)
+assert user.id is "123"
+"""
+  '';
 
   meta = with lib; {
-    description = "Data validation and settings management using python type hinting";
-    homepage = https://pydantic-docs.helpmanual.io/;
+    homepage = "https://github.com/samuelcolvin/pydantic";
+    description = "Data validation and settings management using Python type hinting";
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [ wd15 ];
   };
 }

@@ -502,6 +502,8 @@ in {
 
   diff_cover = callPackage ../development/python-modules/diff_cover { };
 
+  diofant = callPackage ../development/python-modules/diofant { };
+
   docrep = callPackage ../development/python-modules/docrep { };
 
   dominate = callPackage ../development/python-modules/dominate { };
@@ -1077,6 +1079,8 @@ in {
 
   rlp = callPackage ../development/python-modules/rlp { };
 
+  rq = callPackage ../development/python-modules/rq { };
+
   rx = callPackage ../development/python-modules/rx { };
 
   sabyenc = callPackage ../development/python-modules/sabyenc { };
@@ -1098,6 +1102,8 @@ in {
   shellingham = callPackage ../development/python-modules/shellingham {};
 
   simpleeval = callPackage ../development/python-modules/simpleeval { };
+
+  simple-salesforce = callPackage ../development/python-modules/simple-salesforce { };
 
   singledispatch = callPackage ../development/python-modules/singledispatch { };
 
@@ -4010,6 +4016,8 @@ in {
 
   fixtures = callPackage ../development/python-modules/fixtures { };
 
+  fipy = callPackage ../development/python-modules/fipy { };
+
   pelican = callPackage ../development/python-modules/pelican {
     inherit (pkgs) glibcLocales git;
   };
@@ -4277,6 +4285,8 @@ in {
 
   pyspread = callPackage ../development/python-modules/pyspread { };
 
+  pysparse = callPackage ../development/python-modules/pysparse { };
+
   pyupdate = callPackage ../development/python-modules/pyupdate {};
 
   pyx = callPackage ../development/python-modules/pyx { };
@@ -4452,6 +4462,8 @@ in {
   pywinrm = callPackage ../development/python-modules/pywinrm { };
 
   pyxattr = callPackage ../development/python-modules/pyxattr { };
+
+  pyamg = callPackage ../development/python-modules/pyamg { };
 
   pyaml = callPackage ../development/python-modules/pyaml { };
 
@@ -4682,6 +4694,8 @@ in {
   scikit-optimize = callPackage ../development/python-modules/scikit-optimize { };
 
   scikit-tda = callPackage ../development/python-modules/scikit-tda { };
+
+  scikit-fmm = callPackage ../development/python-modules/scikit-fmm { };
 
   scp = callPackage ../development/python-modules/scp {};
 
@@ -5167,6 +5181,8 @@ in {
   svgwrite = callPackage ../development/python-modules/svgwrite { };
 
   swagger-spec-validator = callPackage ../development/python-modules/swagger-spec-validator { };
+
+  openapi-spec-validator = callPackage ../development/python-modules/openapi-spec-validator { };
 
   freezegun = callPackage ../development/python-modules/freezegun { };
 
@@ -6048,6 +6064,14 @@ in {
   pydrive = callPackage ../development/python-modules/pydrive { };
 
   mwparserfromhell = callPackage ../development/python-modules/mwparserfromhell { };
+
+  starlette = callPackage ../development/python-modules/starlette { };
+
+  uvicorn = callPackage ../development/python-modules/uvicorn { };
+
+  pydantic = callPackage ../development/python-modules/pydantic { };
+
+  fastapi = callPackage ../development/python-modules/fastapi { };
 });
 
 in fix' (extends overrides packages)

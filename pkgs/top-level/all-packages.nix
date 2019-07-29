@@ -738,6 +738,8 @@ in
 
   container-linux-config-transpiler = callPackage ../development/tools/container-linux-config-transpiler { };
 
+  ccextractor = callPackage ../applications/video/ccextractor { };
+
   cconv = callPackage ../tools/text/cconv { };
 
   go-check = callPackage ../development/tools/check { };
@@ -1386,6 +1388,8 @@ in
 
   cucumber = callPackage ../development/tools/cucumber {};
 
+  dabtools = callPackage ../applications/radio/dabtools { };
+
   daemontools = callPackage ../tools/admin/daemontools { };
 
   dale = callPackage ../development/compilers/dale { };
@@ -1778,6 +1782,8 @@ in
   mpdcron = callPackage ../tools/audio/mpdcron { };
 
   mpdris2 = callPackage ../tools/audio/mpdris2 { };
+
+  mpd-mpris = callPackage ../tools/audio/mpd-mpris { };
 
   mq-cli = callPackage ../tools/system/mq-cli { };
 
@@ -4377,8 +4383,6 @@ in
 
   nodePackages = nodePackages_12_x;
 
-  npm2nix = nodePackages.npm2nix;
-
   now-cli = callPackage ../development/web/now-cli {};
 
   file-rename = callPackage ../tools/filesystems/file-rename { };
@@ -5950,6 +5954,8 @@ in
 
   seqdiag = with python3Packages; toPythonApplication seqdiag;
 
+  sequoia-tool = callPackage ../tools/security/sequoia-tool { inherit (llvmPackages) libclang; };
+
   sewer = callPackage ../tools/admin/sewer { };
 
   screenfetch = callPackage ../tools/misc/screenfetch { };
@@ -6445,6 +6451,8 @@ in
 
   trace-cmd = callPackage ../os-specific/linux/trace-cmd { };
 
+  kernelshark = libsForQt5.callPackage ../os-specific/linux/trace-cmd/kernelshark.nix { };
+
   traceroute = callPackage ../tools/networking/traceroute { };
 
   tracebox = callPackage ../tools/networking/tracebox { };
@@ -6930,6 +6938,8 @@ in
   wkhtmltopdf = callPackage ../tools/graphics/wkhtmltopdf { };
 
   wml = callPackage ../development/web/wml { };
+
+  wmc-mpris = callPackage ../applications/misc/web-media-controller { };
 
   wol = callPackage ../tools/networking/wol { };
 
@@ -13010,7 +13020,7 @@ in
       inherit stdenv fetchurl fetchFromGitHub makeSetupHook makeWrapper;
       bison = bison2; # error: too few arguments to function 'int yylex(...
       inherit cups;
-      inherit harfbuzz;
+      harfbuzz = harfbuzzFull;
       inherit libGL;
       inherit perl;
       inherit gtk3;
@@ -15036,6 +15046,8 @@ in
 
   syncserver = callPackage ../servers/syncserver { };
 
+  thanos = callPackage ../servers/monitoring/thanos { };
+
   inherit (callPackages ../servers/http/tomcat { })
     tomcat7
     tomcat8
@@ -15927,6 +15939,7 @@ in
 
   aggregateModules = modules:
     callPackage ../os-specific/linux/kmod/aggregator.nix {
+      inherit (buildPackages) kmod;
       inherit modules;
     };
 
@@ -17554,6 +17567,8 @@ in
 
   cyclone = callPackage ../applications/audio/pd-plugins/cyclone  { };
 
+  dablin = callPackage ../applications/radio/dablin { };
+
   darcs = haskell.lib.overrideCabal (haskell.lib.justStaticExecutables haskellPackages.darcs) (drv: {
     configureFlags = (stdenv.lib.remove "-flibrary" drv.configureFlags or []) ++ ["-f-library"];
   });
@@ -18697,10 +18712,7 @@ in
 
   super-productivity = callPackage ../applications/networking/super-productivity { };
 
-  wlc = callPackage ../development/libraries/wlc { };
   wlroots = callPackage ../development/libraries/wlroots { };
-
-  orbment = callPackage ../applications/window-managers/orbment { };
 
   sway = callPackage ../applications/window-managers/sway { };
   swaybg = callPackage ../applications/window-managers/sway/bg.nix { };
@@ -18709,11 +18721,6 @@ in
 
   waybar = callPackage ../applications/misc/waybar {
     pulseSupport = config.pulseaudio or false;
-  };
-
-  velox = callPackage ../applications/window-managers/velox {
-    stConf = config.st.conf or null;
-    stPatches = config.st.patches or null;
   };
 
   i3 = callPackage ../applications/window-managers/i3 {
@@ -19046,6 +19053,12 @@ in
   kubernetes = callPackage ../applications/networking/cluster/kubernetes { };
 
   kubectl = callPackage ../applications/networking/cluster/kubectl { };
+
+  k9s = callPackage ../applications/networking/cluster/k9s { };
+
+  fluxctl = callPackage ../applications/networking/cluster/fluxctl { };
+
+  linkerd = callPackage ../applications/networking/cluster/linkerd { };
 
   kubernetes-helm = callPackage ../applications/networking/cluster/helm { };
 
@@ -19808,7 +19821,7 @@ in
 
   openorienteering-mapper = libsForQt5.callPackage ../applications/gis/openorienteering-mapper { };
 
-  openscad = callPackage ../applications/graphics/openscad {};
+  openscad = libsForQt5.callPackage ../applications/graphics/openscad {};
 
   opentimestamps-client = python3Packages.callPackage ../tools/misc/opentimestamps-client {};
 
