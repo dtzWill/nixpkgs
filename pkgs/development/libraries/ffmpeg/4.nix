@@ -7,7 +7,7 @@
 callPackage ./generic.nix (args // rec {
   version = "${branch}";
   branch = "4.1.4";
-  sha256 = "01w44ygm5bvc243hlhfnvb2lxfb0blz2cxnphxqgw30vj3c1prx7";
+  sha256 = "1qd7a10gs12ifcp31gramcgqjl77swskjfp7cijibgyg5yl4kw7i";
   patches = [(fetchpatch { # remove on update
     name = "fix-hardcoded-tables.diff";
     url = "http://git.ffmpeg.org/gitweb/ffmpeg.git/commitdiff_plain/c8232e50074f";
