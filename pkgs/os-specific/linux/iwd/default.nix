@@ -1,5 +1,7 @@
 { stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages }:
 
+# TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
+# (and any req'd dependencies/wrapping, not sure)
 stdenv.mkDerivation rec {
   pname = "iwd";
 
