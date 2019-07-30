@@ -12,17 +12,19 @@ let
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   name = "network-manager-${version}";
-  version = "1.19.5-dev"; # 2019-07-22
+#  version = "1.19.5-dev"; # 2019-07-22
+  version = "1.20-rc1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
-    sha256 = "1gyf8mww4c5ccdkz75x1c9iqfn5h2k30fk5ghy8d521gvgr2i4jh";
+  #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
+    rev = "refs/tags/${version}";
+    sha256 = "1486b8vqdjzqab7ggvi5qi4ypz0br2y4473a27p9r5siwmm0i8zl";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-  #  sha256 = "0wxx1h8k7ya0ygj045ddwwdr05wc2rkj6jx8j11vnswafrq4l6ri";
+  #  sha256 = "0wxx1h8k7ya0ygj046ddwwdr05wc2rkj6jx8j11vnswafrq4l6ri";
   #};
 
   outputs = [ "out" "dev" "devdoc" "man" "doc" ];
