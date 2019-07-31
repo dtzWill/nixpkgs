@@ -6,8 +6,9 @@ let
   src = fetchFromGitHub {
     owner = "gephi";
     repo = "gephi";
-    rev = "v${version}";
-    sha256 = "0kqp2nvnsb55j1axb6hk0mlw5alyaiyb70z0mdybhpqqxyw2da2r";
+#    rev = "v${version}";
+    rev = "56b8733f03a3aaaa4bcc3ca63744c803f9d7a4c3";
+    sha256 = "0w3l7igsfwh6xabwgpsa0q3q9h73pmpcaiwba5ihlqh96vy5p3b7";
   };
 
   # perform fake build to make a fixed-output derivation out of the files downloaded from maven central (120MB)
@@ -24,11 +25,12 @@ let
     installPhase = ''find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete'';
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "1p7yf97dn0nvr005cbs6vdk3i341s8fya4kfccj8qqad2qgxflif";
+    outputHash = "0h9z09bczly5i1s78inmk81xgid9wz24qy4dvg1v19r7icmcnrpg";
   };
 in
 stdenv.mkDerivation rec {
-  name = "gephi-${version}";
+  pname = "gephi";
+  version = "2019-01-04";
 
   inherit src;
 
