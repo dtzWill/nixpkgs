@@ -27,6 +27,15 @@ let
     outputHashMode = "recursive";
     outputHash = "0h9z09bczly5i1s78inmk81xgid9wz24qy4dvg1v19r7icmcnrpg";
   };
+
+  javaFlags = [
+    "-Dawt.useSystemAAFontSettings=lcd"
+    "-Dsun.java2d.xrender=True"
+    #"-Dsun.java2d.opengl=False"
+    "-Dswing.aatext=true"
+  ];
+  # Gather JVM options and prepend each with '-J', with space between each
+  javaFlagsString = stdenv.lib.concatMapStringsSep " " (f: "-J${f}") javaFlags;
 in
 stdenv.mkDerivation rec {
   pname = "gephi";
@@ -54,6 +63,7 @@ stdenv.mkDerivation rec {
     cp ${javaPackages.jogl_2_3_2}/share/java/glue*.jar $out/gephi/modules/ext/org.gephi.visualization/org-jogamp-gluegen/
 
     echo "jdkhome=${jdk}" >> $out/etc/gephi.conf
+    echo 'default_options+="${javaFlagsString}"' >> $out/etc/gephi.conf
   '';
 
   meta = with stdenv.lib; {
