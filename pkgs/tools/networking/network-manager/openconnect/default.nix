@@ -15,8 +15,8 @@ in stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "71618a98ee42b4cf680929b784e7abd751ff34c4";
-    sha256 = "1hc852zascryxmp6nr25x44knhwlj82myh45rrfkn9mk9v6cr4q1";
+    rev = "24c2c899e223c5e8ddb8a1159f51aec9090a8b2d";
+    sha256 = "0jsyilrrxglq2wsypcf0xypa36n789yaar9ib8p26laagmk19nmp";
   };
 
   patches = [
