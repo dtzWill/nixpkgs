@@ -30,7 +30,7 @@ let
 
   javaFlags = [
     "-Dawt.useSystemAAFontSettings=lcd"
-    "-Dsun.java2d.xrender=True"
+    #"-Dsun.java2d.xrender=True"
     #"-Dsun.java2d.opengl=False"
     "-Dswing.aatext=true"
   ];
