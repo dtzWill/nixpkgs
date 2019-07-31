@@ -2,15 +2,14 @@
 , pkgconfig, dbus, dbus-glib, libxml2 }:
 
 stdenv.mkDerivation rec {
-  name = "thermald-${version}";
-  version = "1.8.0-2019-05-30"; # not really, git
+  pname = "thermald";
+  version = "1.9";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "thermal_daemon";
-    #rev = "v${version}";
-    rev = "d3153bb26d5adc17a8c65d4eebbda90fa881b824";
-    sha256 = "0l93sfw8asry596mcwrxzla8v87mb9fwnlagw4gzav93x1q7g9c3";
+    rev = "v${version}";
+    sha256 = "1ajhivl9jifcf12nbk281yayk7666v65m249aclyli0bz1kh8cfs";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
