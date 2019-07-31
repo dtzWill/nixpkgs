@@ -37,7 +37,7 @@ in stdenv.mkDerivation rec {
     optional x11Support libXft;
 
   mesonFlags = [
-    "-Denable_docs=${if stdenv.isDarwin then "false" else "true"}"
+    "-Dgtk_doc=${if stdenv.isDarwin then "false" else "true"}"
   ];
 
   enableParallelBuilding = true;
