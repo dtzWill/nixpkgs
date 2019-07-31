@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
   ]);
 
   qtWrapperArgs = [
-    "--prefix PYTHONPATH: $PYTHONPATH"
-    "--prefix PATH: ${poppler_utils.out}/bin}"
+    "--prefix PYTHONPATH : $PYTHONPATH"
+    "--prefix PATH : ${poppler_utils.out}/bin}"
   ];
 
   installPhase = ''
