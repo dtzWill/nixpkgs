@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     repo   = "compton";
     #rev    = COMPTON_VERSION;
 #    rev = "79b135dccc1497eb02eeb52b06ab59900df8e7a3";
-    rev = "79fc36b3e30989fd638aa0531588e02b564a906c";
-    sha256 = "0m4p4j13jk5k1rjjjzzlcxpcqrfgn2ffy8xmyrgy4aw6s2mybf09";
+    rev = "ea6f355a6b49871effae9a20419805f5fbe5932a";
+    sha256 = "12nvcmxdxn4haxgi4cq1srmjnv8hr3wqiq8ayvyhmv1i1ysc4zqg";
     fetchSubmodules = true;
   };
 
