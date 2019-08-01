@@ -82,7 +82,7 @@ let
       --replace ${buildPackages.pkgconfig} ${pkgconfig}
 
     wrapProgram "$dev/bin/freetype-config" \
-      --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
+      --prefix PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
   '';
   };
 
