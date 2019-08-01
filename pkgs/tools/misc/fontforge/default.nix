@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lh8yx01asbzxm6car5cfi64njh5p4lxc7iv8dldr5rwg357a86r";
   };
 
-  patches = [ ./fontforge-20140813-use-system-uthash.patch ];
+  #patches = [ ./fontforge-20140813-use-system-uthash.patch ];
 
   # use $SOURCE_DATE_EPOCH instead of non-deterministic timestamps
   postPatch = ''
