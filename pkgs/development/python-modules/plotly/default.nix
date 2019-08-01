@@ -17,16 +17,17 @@
 , backports_tempfile
 , xarray
 , scipy
-# and quite a few others for various features I don't know are needed "yet".
+# Optionals:
 # https://github.com/plotly/plotly.py/blob/master/packages/python/plotly/optional-requirements.txt
-# Adding a few I'm interested in
 , pandas
 , psutil
 , inflect
 , colorcet
 , ipython
 , ipywidgets
-# (TODO: jupyter bits, skipping for now)
+, ipykernel
+, jupyter
+, notebook # ?
 , pyshp
 , geopandas
 , shapely
@@ -57,7 +58,8 @@ buildPythonPackage rec {
     colorcet
     ipython
     ipywidgets
-    # (TODO: jupyter bits, skipping for now)
+    ipykernel
+    jupyter
     pyshp
     geopandas
     shapely
