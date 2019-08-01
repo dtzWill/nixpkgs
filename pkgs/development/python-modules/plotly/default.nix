@@ -25,6 +25,7 @@
 , inflect
 , colorcet
 , ipython
+, ipywidgets
 # (TODO: jupyter bits, skipping for now)
 , pyshp
 , geopandas
@@ -55,6 +56,7 @@ buildPythonPackage rec {
     inflect
     colorcet
     ipython
+    ipywidgets
     # (TODO: jupyter bits, skipping for now)
     pyshp
     geopandas
