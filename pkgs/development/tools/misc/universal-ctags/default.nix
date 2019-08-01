@@ -3,13 +3,13 @@ jansson, libxml2, libyaml, libseccomp }:
 
 stdenv.mkDerivation rec {
   name = "universal-ctags-${version}";
-  version = "2019-04-19";
+  version = "unstable-2019-07-30";
 
   src = fetchFromGitHub {
     owner = "universal-ctags";
     repo = "ctags";
-    rev = "54c1c2b8f80c0e9018c8d099b09bf4dfbcfb7795";
-    sha256 = "05aj2dc62dsgdnhw98daha75vij2vlgg8hw1gl7avrw30xp3w8n9";
+    rev = "920e7910146915e5cae367bc9f135ffd8b042042";
+    sha256 = "14n3ix77rkhq6vq6kspmgjrmm0kg0f8cxikyqdq281sbnfq8bajn";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig pythonPackages.docutils ];
@@ -21,6 +21,12 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [ "--enable-tmpdir=/tmp" ];
+
+  postPatch = ''
+    # Remove source of non-determinism
+    substituteInPlace main/options.c \
+      --replace "printf (\"  Compiled: %s, %s\n\", __DATE__, __TIME__);" ""
+  '';
 
   postConfigure = ''
     sed -i 's|/usr/bin/env perl|${perl}/bin/perl|' misc/optlib2c

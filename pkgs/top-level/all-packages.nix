@@ -1096,11 +1096,17 @@ in
 
   tensor = libsForQt5.callPackage ../applications/networking/instant-messengers/tensor { };
 
-  libtensorflow = callPackage ../development/libraries/libtensorflow {
+  libtensorflow-bin = callPackage ../development/libraries/science/math/tensorflow/bin.nix {
+    cudaSupport = pkgs.config.cudaSupport or false;
     inherit (linuxPackages) nvidia_x11;
-    cudatoolkit = cudatoolkit_9_0;
-    cudnn = cudnn_cudatoolkit_9_0;
+    cudatoolkit = cudatoolkit_10_0;
+    cudnn = cudnn_cudatoolkit_10_0;
   };
+
+  libtensorflow =
+    if python.pkgs.tensorflow ? libtensorflow
+    then python.pkgs.tensorflow.libtensorflow
+    else libtensorflow-bin;
 
   behdad-fonts = callPackage ../data/fonts/behdad-fonts { };
 
@@ -1278,6 +1284,8 @@ in
   cbor-diag = callPackage ../development/tools/cbor-diag { };
 
   ccnet = callPackage ../tools/networking/ccnet { };
+
+  croc = callPackage ../tools/networking/croc { };
 
   cddl = callPackage ../development/tools/cddl { };
 
@@ -4607,7 +4615,7 @@ in
 
   mairix = callPackage ../tools/text/mairix { };
 
-  makemkv = callPackage ../applications/video/makemkv { };
+  makemkv = libsForQt5.callPackage ../applications/video/makemkv { };
 
   makerpm = callPackage ../development/tools/makerpm { };
 
@@ -4643,6 +4651,8 @@ in
         inherit mecab-nodic;
       };
     };
+
+  mediawiki = callPackage ../servers/web-apps/mediawiki { };
 
   memtier-benchmark = callPackage ../tools/networking/memtier-benchmark { };
 
@@ -5571,6 +5581,8 @@ in
   pv = callPackage ../tools/misc/pv { };
 
   pwgen = callPackage ../tools/security/pwgen { };
+
+  pwgen-secure = callPackage ../tools/security/pwgen-secure { };
 
   pwnat = callPackage ../tools/networking/pwnat { };
 
@@ -11344,7 +11356,9 @@ in
     stdenv = gccStdenv;
   };
 
-  languageMachines = recurseIntoAttrs (import ../development/libraries/languagemachines/packages.nix { inherit callPackage; });
+  languageMachines = recurseIntoAttrs (import ../development/libraries/languagemachines/packages.nix {
+    inherit pkgs;
+  });
 
   lasem = callPackage ../development/libraries/lasem { };
 
@@ -17654,7 +17668,11 @@ in
 
   dmenu = callPackage ../applications/misc/dmenu { };
 
-  dmenu2 = callPackage ../applications/misc/dmenu2 { };
+  # TODO (@primeos): Remove after the 19.09 branch-off:
+  dmenu2 = throw ''
+    The fork "dmenu2" is not maintained by upstream anymore. Please use the
+    original "dmenu" instead.
+  '';
 
   dmensamenu = callPackage ../applications/misc/dmensamenu {
     inherit (python3Packages) buildPythonApplication requests;
@@ -18949,6 +18967,8 @@ in
   joe = callPackage ../applications/editors/joe { };
 
   josm = callPackage ../applications/misc/josm { };
+
+  jormungandr = callPackage ../applications/altcoins/jormungandr { };
 
   jbrout = callPackage ../applications/graphics/jbrout { };
 
@@ -22562,6 +22582,7 @@ in
     mediaplayer = callPackage ../desktops/gnome-3/extensions/mediaplayer { };
     nohotcorner = callPackage ../desktops/gnome-3/extensions/nohotcorner { };
     no-title-bar = callPackage ../desktops/gnome-3/extensions/no-title-bar { };
+    pidgin-im-integration = callPackage ../desktops/gnome-3/extensions/pidgin-im-integration { };
     remove-dropdown-arrows = callPackage ../desktops/gnome-3/extensions/remove-dropdown-arrows { };
     sound-output-device-chooser = callPackage ../desktops/gnome-3/extensions/sound-output-device-chooser { };
     system-monitor = callPackage ../desktops/gnome-3/extensions/system-monitor { };

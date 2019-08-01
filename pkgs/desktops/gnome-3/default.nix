@@ -347,8 +347,6 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   nautilus-python = callPackage ./misc/nautilus-python { };
 
-  pidgin-im-gnome-shell-extension = callPackage ./misc/pidgin { };
-
   gtkhtml = callPackage ./misc/gtkhtml { enchant = pkgs.enchant1; };
 
   pomodoro = callPackage ./misc/pomodoro { };
@@ -400,4 +398,6 @@ lib.makeScope pkgs.newScope (self: with self; {
   gtk = gtk3;
   gtkmm = gtkmm3;
   rest = librest;
+
+  pidgin-im-gnome-shell-extension = pkgs.gnomeExtensions.pidgin-im-integration; # added 2019-08-01
 })
