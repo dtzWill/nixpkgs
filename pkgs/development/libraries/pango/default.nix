@@ -2,7 +2,6 @@
 , libintl, gobject-introspection, darwin, fribidi, gnome3
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf
 , meson, ninja, glib
-, freetype, fontconfig
 , x11Support? !stdenv.isDarwin, libXft
 }:
 
@@ -10,13 +9,13 @@ with stdenv.lib;
 
 let
   pname = "pango";
-  version = "1.44.1";
+  version = "1.43.0";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "0pzy7dgrkd7dpl3p73k1wgb2hcs30cwqbbsyf7afdjl3sd4vbyh7";
+    sha256 = "1lnxldmv1a12dq5h0dlq5jyzl4w75k76dp8cn360x2ijlm9w5h6j";
   };
 
   # FIXME: docs fail on darwin
@@ -28,22 +27,26 @@ in stdenv.mkDerivation rec {
   ];
   buildInputs = [
     harfbuzz fribidi
-/*    harfbuzz fribidi*/
   ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
     ApplicationServices
     Carbon
     CoreGraphics
     CoreText
   ]);
-  propagatedBuildInputs = [ cairo glib libintl fontconfig freetype harfbuzz fribidi ] ++
+  propagatedBuildInputs = [ cairo glib libintl ] ++
     optional x11Support libXft;
 
   mesonFlags = [
-    "-Dgtk_doc=${if stdenv.isDarwin then "false" else "true"}"
-    #"-Duse_fontconfig=true"
+    "-Denable_docs=${if stdenv.isDarwin then "false" else "true"}"
   ];
 
   enableParallelBuilding = true;
+
+  patches = [
+    ./gobject-linking.patch
+    ./0001-handle-VS15-emoji-sequences.patch
+    ./0002-Update-emoji-scanner-ragel-file-to-latest-from-Chrom.patch
+  ];
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf {
@@ -57,11 +60,6 @@ in stdenv.mkDerivation rec {
       packageName = pname;
     };
   };
-
-  # Requires.private workaround
-  #postFixup = ''
-  #  find $dev -type f -name "*.pc" -exec sed -i -e 's/^Requires.private/Requires/' '{}' \;
-  #'';
 
   meta = with stdenv.lib; {
     description = "A library for laying out and rendering of text, with an emphasis on internationalization";
