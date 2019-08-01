@@ -35,6 +35,9 @@ stdenv.mkDerivation rec {
 
     ./0001-hack-replace-tabs-with-spaces-in-Subject-header.patch
     ./cal.patch
+
+    # Eep, combines upstream commits, some WIP of my own, needs reworking!
+    ./26a2f2b00aec-f5c6768e8.patch
   ];
 
   installPhase = ''
