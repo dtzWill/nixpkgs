@@ -82,8 +82,10 @@ let
     substituteInPlace $dev/bin/freetype-config \
       --replace ${buildPackages.pkgconfig} ${pkgconfig}
 
+    # Clobber existing PKG_CONFIG_PATH present at runtime,
+    # only consider these exact paths.
     wrapProgram "$dev/bin/freetype-config" \
-      --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
+      --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
   '';
   };
 
