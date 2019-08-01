@@ -7706,9 +7706,7 @@ in
 
   haskell = callPackage ./haskell-packages.nix { };
 
-  haskellPackages = dontRecurseIntoAttrs (haskell.packages.ghc865.override {
-    overrides = haskell.packageOverrides;
-  });
+  haskellPackages = dontRecurseIntoAttrs haskell.packages.ghc865;
 
   inherit (haskellPackages) ghc;
 
@@ -24073,6 +24071,10 @@ in
   sam-ba = callPackage ../tools/misc/sam-ba { };
 
   sndio = callPackage ../misc/sndio { };
+
+  # Oclgrind 18.3 does not work with newer LLVMs (but HEAD does, so
+  # fix this after next release).
+  oclgrind = callPackage ../development/tools/analysis/oclgrind { llvmPackages = llvmPackages_6; };
 
   opkg = callPackage ../tools/package-management/opkg { };
 
