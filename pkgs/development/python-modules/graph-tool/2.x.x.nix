@@ -41,7 +41,7 @@ buildPythonPackage rec {
     "--enable-openmp"
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ncurses /* tput */ ];
   buildInputs = [ ncurses ];
 
   propagatedBuildInputs = [
