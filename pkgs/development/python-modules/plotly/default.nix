@@ -79,8 +79,8 @@ buildPythonPackage rec {
     scipy
   ];
 
-  # No tests in archive
-  #doCheck = false;
+  # Tests mostly scold for not using a different package
+  doCheck = false;
 
   meta = with lib; {
     description = "Python plotting library for collaborative, interactive, publication-quality graphs";

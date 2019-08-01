@@ -3017,6 +3017,7 @@ in {
   wtforms = callPackage ../development/python-modules/wtforms { };
 
   graph-tool = callPackage ../development/python-modules/graph-tool/2.x.x.nix {
+    stdenv = /* Need compiler with solid c++17 support */ pkgs.gcc8Stdenv;
     inherit (pkgs) pkgconfig;
   };
 
