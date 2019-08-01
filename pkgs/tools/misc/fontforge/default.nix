@@ -41,11 +41,15 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGTK [ gtk2 cairo pango ]
     ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
 
-    configureFlags = [ "--enable-woff2" ]
+  configureFlags = [ "--enable-woff2" ]
     ++ lib.optionals (!withPython) [ "--disable-python-scripting" "--disable-python-extension" ]
     ++ lib.optional withGTK "--enable-gtk2-use"
     ++ lib.optional (!withGTK) "--without-x"
-    ++ lib.optional withExtras "--enable-fontforge-extras";
+    ++ lib.optional withExtras "--enable-fontforge-extras"
+    ++ [
+      # > You may provide option ˋ--without-libuninameslistˋ to build without this recommended feature
+      "--without-libuninameslist"
+    ];
 
   # work-around: git isn't really used, but configuration fails without it
   preConfigure = ''
