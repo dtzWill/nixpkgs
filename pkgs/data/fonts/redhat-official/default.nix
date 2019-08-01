@@ -1,6 +1,6 @@
 { lib, fetchzip }:
 
-let version = "2.3.1"; in
+let version = "2.3.2"; in
 fetchzip rec {
   name = "redhat-official-${version}";
   url = "https://github.com/RedHatOfficial/RedHatFont/archive/${version}.zip";
@@ -10,7 +10,7 @@ fetchzip rec {
     unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
   '';
 
-  hash = "sha256-2C9etPsNLB3v6N9qeM+HtdUy6Xhp0TRVgsUzo2AimpY=";
+  sha256 = "15ls49ha6cy5h9ak9lb9g3lk5mdmhz7phsnzx3pisb0dzfs5wbyq";
 
   meta = with lib; {
     homepage = https://github.com/RedHatOfficial/RedHatFont;
