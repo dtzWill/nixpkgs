@@ -2,6 +2,7 @@
 , libintl, gobject-introspection, darwin, fribidi, gnome3
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf
 , meson, ninja, glib
+, freetype
 , x11Support? !stdenv.isDarwin, libXft
 }:
 
@@ -33,7 +34,7 @@ in stdenv.mkDerivation rec {
     CoreGraphics
     CoreText
   ]);
-  propagatedBuildInputs = [ cairo glib libintl ] ++
+  propagatedBuildInputs = [ cairo glib libintl freetype ] ++
     optional x11Support libXft;
 
   mesonFlags = [
