@@ -64,9 +64,9 @@ let
       [ ./enable-table-validation.patch ] ++
     optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
-    outputs = [ "out" "dev" ];
+  outputs = [ "out" "dev" ];
 
-    configureFlags = [ "--disable-static" "--bindir=$(dev)/bin" "--enable-freetype-config" ];
+  configureFlags = [ "--disable-static" "--bindir=$(dev)/bin" "--enable-freetype-config" ];
 
   # native compiler to generate building tool
   CC_BUILD = "${buildPackages.stdenv.cc}/bin/cc";
@@ -83,7 +83,7 @@ let
       --replace ${buildPackages.pkgconfig} ${pkgconfig}
 
     wrapProgram "$dev/bin/freetype-config" \
-      --prefix PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
+      --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
   '';
   };
 
