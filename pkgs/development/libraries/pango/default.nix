@@ -27,6 +27,7 @@ in stdenv.mkDerivation rec {
     pkgconfig gobject-introspection gtk-doc docbook_xsl docbook_xml_dtd_43
   ];
   buildInputs = [
+    harfbuzz fribidi
 /*    harfbuzz fribidi*/
   ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
     ApplicationServices

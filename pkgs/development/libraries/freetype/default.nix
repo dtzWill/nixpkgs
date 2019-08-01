@@ -2,7 +2,7 @@
 , buildPackages
 , pkgconfig, which, makeWrapper
 , zlib, bzip2, libpng, gnumake, glib
-, harfbuzz ? null
+#, harfbuzz ? null
 
 , # FreeType supports LCD filtering (colloquially referred to as sub-pixel rendering).
   # LCD filtering is also known as ClearType and covered by several Microsoft patents.
@@ -18,6 +18,7 @@
 assert !useEncumberedCode;
 
 let
+  harfbuzz = null; # force for now
   inherit (stdenv.lib) optional optionalString;
 
   version = "2.10.1";

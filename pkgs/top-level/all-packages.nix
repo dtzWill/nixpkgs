@@ -10658,8 +10658,9 @@ in
     inherit (darwin.apple_sdk.frameworks) Cocoa GLUT;
   };
 
-  freetype-bootstrap = appendToName "bootstrap-no-harfbuzz" (callPackage ../development/libraries/freetype { harfbuzz = null; });
-  freetype = callPackage ../development/libraries/freetype { harfbuzz = harfbuzz-bootstrap; };
+  freetype = callPackage ../development/libraries/freetype { };
+  #freetype-bootstrap = appendToName "bootstrap-no-harfbuzz" (callPackage ../development/libraries/freetype { harfbuzz = null; });
+  #freetype = callPackage ../development/libraries/freetype { harfbuzz = harfbuzz-bootstrap; };
   freetypeDemos = freetype.override { demosToo = true; };
   # freetype = callPackage ../development/libraries/freetype { };
 
@@ -11112,15 +11113,15 @@ in
   };
   libheimdal = heimdal;
 
-  #harfbuzz = callPackage ../development/libraries/harfbuzz {
-  #  inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
-  #};
-  harfbuzz-bootstrap = appendToName "bootstrap" (callPackage ../development/libraries/harfbuzz {
+  harfbuzz = callPackage ../development/libraries/harfbuzz {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
-    freetype = freetype-bootstrap;
-    cairo = null; # only used for example utility, disabled to break circular dep
-  });
-  harfbuzz = harfbuzz-bootstrap.override { inherit cairo freetype; };
+  };
+  #harfbuzz-bootstrap = appendToName "bootstrap" (callPackage ../development/libraries/harfbuzz {
+  #  inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
+  #  freetype = freetype-bootstrap;
+  #  cairo = null; # only used for example utility, disabled to break circular dep
+  #});
+  #harfbuzz = harfbuzz-bootstrap.override { inherit cairo freetype; };
 
   harfbuzzFull = harfbuzz.override {
     withCoreText = stdenv.isDarwin;
