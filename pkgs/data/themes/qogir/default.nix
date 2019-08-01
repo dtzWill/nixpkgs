@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     patchShebangs .
     mkdir -p $out/share/themes
-    name= ./Install -d $out/share/themes
+    name= ./install.sh -d $out/share/themes
   '';
 
   meta = with stdenv.lib; {
