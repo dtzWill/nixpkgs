@@ -58,8 +58,8 @@ in stdenv.mkDerivation rec {
   };
 
   # Requires.private workaround
-  postInstall = ''
-    find $dev -type f -name "*.pc" -exec sed -i -e 's/^Requires.private/Requires' \;
+  postFixup = ''
+    find $dev -type f -name "*.pc" -exec sed -i -e 's/^Requires.private/Requires/' '{}' \;
   '';
 
   meta = with stdenv.lib; {
