@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "minify";
-  version = "2.5.0";
+  version = "2.5.1";
 
   goPackagePath = "github.com/tdewolff/minify";
 
@@ -10,10 +10,10 @@ buildGoModule rec {
     owner = "tdewolff";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1ja26fs7klzggmfqvz5nzj9icaa8r8h4a91qg8rj4gx5cnvwx38d";
+    sha256 = "17wjb2bjnzmsjn75a243mfllmg8s2xrq40m9dcwpr57wipn50rsx";
   };
 
-  modSha256 = "0kff2nj66bifbfi8srcvcsipbddw43mvjdwlq0lz04qak524pbvr";
+  modSha256 = "09c3wyb7d3fq4kl280inahb9lyy7li8v4apa6r8y1hdyis19ymxk";
 
   meta = with lib; {
     description = "Minifiers for web formats";
