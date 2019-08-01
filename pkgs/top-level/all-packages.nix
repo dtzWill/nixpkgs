@@ -23415,7 +23415,7 @@ in
     inherit (pkgs.gnome2) gtkglext;
   };
 
-  cytoscape = callPackage ../applications/science/misc/cytoscape { };
+  cytoscape = callPackage ../applications/science/misc/cytoscape { jre = oraclejre8; };
 
   fityk = callPackage ../applications/science/misc/fityk { };
 

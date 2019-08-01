@@ -1,9 +1,9 @@
 { stdenv, fetchurl, jre, makeWrapper
-, ncurses, libXxf86vm }:
+, ncurses, libXxf86vm, openssl }:
 
 let
-  path = stdenv.lib.makeBinPath [ ncurses.dev /* infocomp */ ];
-  libpath = stdenv.lib.makeLibraryPath [ libXxf86vm ];
+  path = stdenv.lib.makeBinPath [ ncurses.dev /* infocomp */ jre openssl ];
+  libpath = stdenv.lib.makeLibraryPath [ libXxf86vm openssl ];
 in
 stdenv.mkDerivation rec {
   name = "cytoscape-${version}";
