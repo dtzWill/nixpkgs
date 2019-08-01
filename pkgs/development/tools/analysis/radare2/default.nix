@@ -61,6 +61,7 @@ let
         curl() { true; }
         export -f curl
       '';
+
       postInstall = ''
         install -D -m755 $src/binr/r2pm/r2pm $out/bin/r2pm
       '';
@@ -75,7 +76,6 @@ let
         "--with-sysmagic"
         "--with-syszip"
         "--with-sysxxhash"
-        "--with-syscapstone"
         "--with-openssl"
       ];
 
@@ -94,7 +94,6 @@ let
         file # for its list of magic numbers (`libmagic`)
         libzip
         xxHash
-        capstone
       ];
 
       meta = {
