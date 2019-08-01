@@ -4,12 +4,14 @@ stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
   version = "0.10.0.1"; # not really
 
+  # Temporarily use fork until I can cleanup patch/merge mashup
   src = fetchFromGitHub {
-    owner = "wangp";
+    #owner = "wangp";
+    owner = "dtzWill";
     repo = "bower";
     #rev = version;
-    rev = "11867c3b2f074153b5971452ce07cb59c7493770";
-    sha256 = "1x6qsxry04p4bks3n6yfhpjfwv9pjckn8728zb0px2bciaccmw3y";
+    rev = "f5c6768e84974d87426888d6a0c43ea6220ab89c";
+    sha256 = "0q181yvv5gx8kh13f7lv7mr5w5fkfdds55nn2s3xbsxhl6p15fh6";
   };
 
   nativeBuildInputs = [ gawk mercury pandoc ];
@@ -23,22 +25,6 @@ stdenv.mkDerivation rec {
   #  echo "MCFLAGS += --intermod-opt -O6 --verbose --no-libgrade --libgrade asm_fast.gc" > src/Mercury.params
 
   makeFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
-
-  patches = [
-    ./0001-Use-some-emoticons-for-status.patch
-    ./0002-Good-signature.patch
-    ./0003-tick-for-selected.patch
-    ./0004-convert-inbox-tag-to-single-char-indicator-hide-impo.patch
-    ./0005-hide-more-tags-that-would-be-painful-to-mass-change.patch
-    ./0006-lists.patch
-    ./0007-tweak-icons-fix-spacing.patch
-
-    ./0001-hack-replace-tabs-with-spaces-in-Subject-header.patch
-    ./cal.patch
-
-    # Eep, combines upstream commits, some WIP of my own, needs reworking!
-    ./26a2f2b00aec-f5c6768e8.patch
-  ];
 
   installPhase = ''
     mkdir -p $out/bin
