@@ -27,6 +27,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
+  patches = [ ./cross-build-nm-path.patch ];
+
   postPatch = ''
     for a in */*-symbol-check ; do
       patchShebangs $a
@@ -37,7 +39,9 @@ stdenv.mkDerivation rec {
   '';
 
   mesonFlags =
-    [ "-Dinstall-test-programs=true" ]
+    [
+      "-Dnm-path=${stdenv.cc.targetPrefix}nm"
+      "-Dinstall-test-programs=true" ]
     ++ stdenv.lib.optionals (stdenv.isAarch32 || stdenv.isAarch64)
       [ "-Dtegra=true" "-Detnaviv=true" ]
     ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "-Dintel=false"
