@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnu/aspell/${pname}-${version}.tar.gz";
-    sha256 = "1qgn5psfyhbrnap275xjfrzppf5a83fb67gpql1kfqv37al869gm";
+    sha256 = "1r3h7f1psh634rvqh5xz1msv6msxpk8wcr2vxg4wc31pn26gra2w";
   };
 
   patches = stdenv.lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
