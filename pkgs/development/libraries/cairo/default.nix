@@ -93,7 +93,7 @@ in stdenv.mkDerivation rec {
     "--enable-quartz-font"
     "--enable-quartz-image"
     "--enable-ft"
-  ] else ([ "--enable-tee" ]
+  ] else ([ "--enable-tee" "--enable-gtk-doc" ]
     ++ optional xcbSupport "--enable-xcb"
     ++ optional glSupport "--enable-gl"
     ++ optional pdfSupport "--enable-pdf"
