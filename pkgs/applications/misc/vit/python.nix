@@ -24,6 +24,8 @@ buildPythonApplication rec {
     export TERM=linux
   '';
 
+  patches = [ ./0001-print.patch ];
+
   meta = with lib; {
     license = licenses.mit;
   };
