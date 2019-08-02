@@ -5,8 +5,9 @@
 , ...}:
 
 stdenv.mkDerivation (rec {
-  pname = "nettle";
-  inherit src version;
+  name = "nettle-${version}";
+
+  inherit src;
 
   outputs = [ "out" "dev" ];
   outputBin = "dev";
