@@ -1,12 +1,13 @@
 { stdenv, fetchurl, pkgconfig, libsamplerate, libsndfile, fftw
 , vampSDK, ladspaH }:
 
-stdenv.mkDerivation {
-  name = "rubberband-1.8.1";
+stdenv.mkDerivation rec {
+  pname = "rubberband";
+  version = "1.8.2";
 
   src = fetchurl {
-    url = http://code.breakfastquay.com/attachments/download/23/rubberband-1.8.1.tar.bz2;
-    sha256 = "0x9bm2nqd6w2f35w2sqcp7h5z34i4w7mdg53m0vzjhffnnq6637z";
+    url = "https://breakfastquay.com/files/releases/${pname}-${version}.tar.bz2";
+    sha256 = "1jn3ys16g4rz8j3yyj5np589lly0zhs3dr9asd0l9dhmf5mx1gl6";
   };
 
   nativeBuildInputs = [ pkgconfig ];
