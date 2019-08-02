@@ -1,21 +1,21 @@
-From 65f8e5b7b5b41e0ccd80eb0fa993bf288c03e381 Mon Sep 17 00:00:00 2001
+From 3a1a5968d6848bcc20e65ef374e6096b07d41139 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Fri, 2 Aug 2019 17:21:55 -0500
-Subject: [PATCH] print
+Subject: [PATCH] handle reports w/o columns info. "timesheets" for me doesn't.
 
 ---
  vit/config_parser.py | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/vit/config_parser.py b/vit/config_parser.py
-index 08fa7a5..033897d 100644
+index 08fa7a5..bf83a29 100644
 --- a/vit/config_parser.py
 +++ b/vit/config_parser.py
 @@ -343,6 +343,7 @@ class TaskParser(object):
          return primary_sort[0] == 'project' and primary_sort[1] == 'ascending'
  
      def get_column_index(self, report_name, column):
-+        print(self.reports[report_name])
++        return None if not 'columns' in self.reports[report_name]
          return self.reports[report_name]['columns'].index(column) if column in self.reports[report_name]['columns'] else None
  
      def get_column_label(self, report_name, column):
