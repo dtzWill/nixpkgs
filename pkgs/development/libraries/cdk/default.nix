@@ -1,8 +1,8 @@
 { stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
-  name = "cdk-${version}";
-  version ="5.0-20190224";
+  pname = "cdk";
+  version ="5.0-20190303";
 
   buildInputs = [
     ncurses
@@ -10,10 +10,10 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     urls = [
-      "ftp://ftp.invisible-island.net/cdk/cdk-${version}.tgz"
-      "https://invisible-mirror.net/archives/cdk/cdk-${version}.tgz"
+      "ftp://ftp.invisible-island.net/${pname}/${pname}-${version}.tgz"
+      "https://invisible-mirror.net/archives/${pname}/${pname}-${version}.tgz"
     ];
-    sha256 = "0767xqwm377ak909c589vqm0v83slsnkm2ycq7bg545xx5nycncs";
+    sha256 = "09dsim6yvsq0jlmb3diy30sx11y5zy6sn8kpymfvji4dk1q7ibdd";
   };
 
   meta = with stdenv.lib; {
