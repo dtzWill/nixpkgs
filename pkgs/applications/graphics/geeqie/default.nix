@@ -4,12 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "geeqie-${version}";
-  version = "1.4";
+  pname = "geeqie";
+  version = "1.5";
 
   src = fetchurl {
-    url = "http://geeqie.org/${name}.tar.xz";
-    sha256 = "0ciygvcxb78pqg59r6p061mkbpvkgv2rv3r79j3kgv3kalb3ln2w";
+    url = "http://geeqie.org/${pname}-${version}.tar.xz";
+    sha256 = "1x8v5lnq5f3qzhna3hh3r5npbqizsg6k82bjkh59vhqwyb5whdlp";
   };
 
   patches = [
