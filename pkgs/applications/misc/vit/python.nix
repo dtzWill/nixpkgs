@@ -9,12 +9,13 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "scottkosty";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "06s8g4mzj08aaqph55kqj8xxixjd26sxzq96c53fblbjgn8x17mk";
+    #rev = "v${version}";
+    rev = "db1a4a08900728647db44b2b6a3cc40196c85b98";
+    sha256 = "12i35fa7fymz74ljnw1ypns2l61p95d3a7lrplvb0fmmi341kcp9";
   };
 
   propagatedBuildInputs = [
-    future six tasklib tzlocal urwid
+    tasklib tzlocal urwid
   ];
 
   checkInputs = [ glibcLocales ];
