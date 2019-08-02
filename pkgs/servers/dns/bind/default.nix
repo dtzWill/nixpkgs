@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://ftp.isc.org/isc/bind9/${version}/${pname}-${version}.tar.gz";
-    sha256 = "1ymxr38c62w6961j8g2vllnv0s72z7zk4b2j2k8ixdh2rymqm1yf";
+    sha256 = "0gxqws7ml15lwkjw9mdcd759gv5kk3s9m17j3vrp9448ls1gnbii";
   };
 
   outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
