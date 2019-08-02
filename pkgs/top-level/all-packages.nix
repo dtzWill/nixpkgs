@@ -655,7 +655,7 @@ in
 
   iamy = callPackage ../tools/admin/iamy { };
 
-  azure-cli = nodePackages_8_x.azure-cli;
+  azure-cli = nodePackages_10_x.azure-cli;
 
   azure-storage-azcopy = callPackage ../development/tools/azcopy { };
 
@@ -4354,9 +4354,6 @@ in
 
   nodejs-slim = nodejs-slim-10_x;
 
-  nodejs-8_x = callPackage ../development/web/nodejs/v8.nix {};
-  nodejs-slim-8_x = callPackage ../development/web/nodejs/v8.nix { enableNpm = false; };
-
   nodejs-10_x = callPackage ../development/web/nodejs/v10.nix {
     openssl = openssl_1_1;
   };
@@ -4391,10 +4388,7 @@ in
     nodejs = pkgs.nodejs-10_x;
   });
 
-  nodePackages_8_x = dontRecurseIntoAttrs (callPackage ../development/node-packages/default-v8.nix {
-    nodejs = pkgs.nodejs-8_x;
-  });
-
+  #nodePackages = nodePackages_10_x;
   nodePackages = nodePackages_12_x;
 
   now-cli = callPackage ../development/web/now-cli {};
