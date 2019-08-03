@@ -15,6 +15,10 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
+  postPatch = ''
+    :> requirements-dev.txt
+  '';
+
   propagatedBuildInputs = [ requests ];
 
   checkInputs = [ pytest ];
