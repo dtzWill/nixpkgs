@@ -49,7 +49,7 @@ stdenv.mkDerivation rec{
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
 
-  enableParallelBuilding = true;
+  #enableParallelBuilding = true;
 
   meta = {
     description = "Peer-to-peer electronic cash system";
