@@ -1,18 +1,25 @@
 { stdenv, fetchurl, pkgconfig, autoreconfHook, openssl, db48, boost, zeromq, rapidcheck
 , zlib, miniupnpc, qtbase ? null, qttools ? null, wrapQtAppsHook ? null, utillinux, protobuf, python3, qrencode, libevent
-, withGui }:
+, withGui, fetchFromGitHub /* temp until release fully pushed? */ }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec{
   name = "bitcoin" + (toString (optional (!withGui) "d")) + "-" + version;
-  version = "0.18.0";
+  version = "0.18.1";
 
-  src = fetchurl {
-    urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
-             "https://bitcoin.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
-           ];
-    sha256 = "5e4e6890e07b620a93fdb24605dae2bb53e8435b2a93d37558e1db1913df405f";
+
+  src = fetchFromGitHub {
+    owner = "bitcoin";
+    repo = "bitcoin";
+    rev = "v${version}";
+    sha256 = "1wjspifh07bzhsrd39i81padzfdkj7bi6aijykxdsjjy12338yv3";
   };
+  #src = fetchurl {
+  #  urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
+  #           "https://bitcoin.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
+  #         ];
+  #  sha256 = "5e4e6890e07b620a93fdb24605dae2bb53e8435b2a93d37558e1db1913df405f";
+  #};
 
   nativeBuildInputs =
     [ pkgconfig autoreconfHook ]
