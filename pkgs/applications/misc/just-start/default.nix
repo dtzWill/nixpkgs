@@ -4,20 +4,14 @@
 
 buildPythonApplication rec {
   pname = "just-start";
-  version = "2019-04-18";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "AliGhahraei";
     repo = pname;
-    rev = "f7319b34df7bdda2a8517feebfb79ecaa30821af";
-    sha256 = "0ba9llimmnhjlsnmb2zz8w4kqc0gwkshyivnjwf5lb380n5wdmsl";
+    rev = "v${version}";
+    sha256 = "0ddcjk5l9r3ksvp48xyb9ab8k8c2z4jyi5v60p7k4hr5frsjfja4";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'pydantic = "^0.21.0"' \
-                'pydantic = ">=0.21.0"'
-  '';
 
   format = "pyproject";
 
@@ -31,7 +25,7 @@ buildPythonApplication rec {
   '';
 
   checkInputs = [ pytest pytest-mock coverage ];
-  doCheck = false; # check phase?
+  doCheck = false;
 
   disabled = !isPy3k;
 
