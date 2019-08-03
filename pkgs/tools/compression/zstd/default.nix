@@ -4,7 +4,7 @@
 , legacySupport ? false }:
 
 stdenv.mkDerivation rec {
-  name = "zstd-${version}";
+  pname = "zstd";
   version = "1.4.2";
 
   src = fetchFromGitHub {
@@ -40,6 +40,8 @@ stdenv.mkDerivation rec {
       --replace "zstdcat" "$out/bin/zstdcat"
   '';
 
+  enableParallelBuilding = true;
+
   meta = with stdenv.lib; {
     description = "Zstandard real-time compression algorithm";
     longDescription = ''
@@ -52,8 +54,7 @@ stdenv.mkDerivation rec {
       property shared by most LZ compression algorithms, such as zlib.
     '';
     homepage = https://facebook.github.io/zstd/;
-    # The licence of the CLI programme is GPLv2+, that of the library BSD-2.
-    license = with licenses; [ gpl2Plus bsd2 ];
+    license = with licenses; [ bsd3 ]; # Or, at your opinion, GPL-2.0-only.
 
     platforms = platforms.unix;
     maintainers = with maintainers; [ orivej ];

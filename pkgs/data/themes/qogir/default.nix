@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gdk_pixbuf, librsvg, gtk-engine-murrine }:
+{ stdenv, fetchFromGitHub, gdk-pixbuf, librsvg, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "qogir-theme";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "147vq4g54j4g1shaqsia6cg9wrrqmzwj3a85sx0ll79l6z8c7ryc";
   };
 
-  buildInputs = [ gdk_pixbuf librsvg ];
+  buildInputs = [ gdk-pixbuf librsvg ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

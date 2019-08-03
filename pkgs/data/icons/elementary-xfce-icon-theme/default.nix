@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, coreutils, pkgconfig, gdk_pixbuf, optipng, librsvg, gtk3, hicolor-icon-theme }:
+{ stdenv, fetchFromGitHub, coreutils, pkgconfig, gdk-pixbuf, optipng, librsvg, gtk3, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "elementary-xfce-icon-theme-${version}";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0p3x6pa42lylrazvb0k48aqv7ah8yc24bp3wqz2fkqfhfs524nnc";
   };
 
-  nativeBuildInputs = [ pkgconfig gdk_pixbuf librsvg optipng gtk3 hicolor-icon-theme ];
+  nativeBuildInputs = [ pkgconfig gdk-pixbuf librsvg optipng gtk3 hicolor-icon-theme ];
 
   enableParallelBuilding = true;
 

@@ -19,7 +19,7 @@ let
     freetype
     glib
     gnome2.GConf
-    gdk_pixbuf
+    gdk-pixbuf
     gtk3
     pango
     at-spi2-atk

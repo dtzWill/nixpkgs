@@ -4,7 +4,7 @@
 , glib, fontconfig, freetype, pango, cairo, libX11, libXi, atk, gconf, nss, nspr
 , libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite, libxcb
 , alsaLib, libXdamage, libXtst, libXrandr, expat, cups
-, dbus, gtk2, gtk3, gdk_pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
+, dbus, gtk2, gtk3, gdk-pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
 , kerberos
 
 # command line arguments which are always set e.g "--disable-gpu"
@@ -53,7 +53,7 @@ let
     libXcursor libXext libXfixes libXrender libXScrnSaver libXcomposite libxcb
     alsaLib libXdamage libXtst libXrandr expat cups
     dbus gdk_pixbuf gcc-unwrapped.lib
-    systemd libappindicator-gtk3
+    systemd libappindicator-gtk3 /* previously i found removing libappindiactor useful, fyi */
     libexif
     liberation_ttf curl utillinux xdg_utils wget
     flac harfbuzz icu libpng opusWithCustomModes snappy speechd
