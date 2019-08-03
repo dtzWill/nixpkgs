@@ -18,7 +18,7 @@ let
     freetype
     glib
     gnome2.GConf
-    gnome2.gdk_pixbuf
+    gnome2.gdk-pixbuf
     gnome3.gtk
     gnome2.pango
     libnotify

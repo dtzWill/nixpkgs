@@ -52,7 +52,7 @@ let
     glib fontconfig freetype pango cairo libX11 libXi atk gconf nss nspr
     libXcursor libXext libXfixes libXrender libXScrnSaver libXcomposite libxcb
     alsaLib libXdamage libXtst libXrandr expat cups
-    dbus gdk_pixbuf gcc-unwrapped.lib
+    dbus gdk-pixbuf gcc-unwrapped.lib
     systemd libappindicator-gtk3 /* previously i found removing libappindiactor useful, fyi */
     libexif
     liberation_ttf curl utillinux xdg_utils wget
