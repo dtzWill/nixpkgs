@@ -1,10 +1,9 @@
 { stdenv, fetchFromGitHub, pantheon, meson, ninja }:
 
 stdenv.mkDerivation rec {
-  pname = "stylesheet";
+  pname = "elementary-gtk-theme";
   version = "5.2.5";
-
-  name = "elementary-gtk-theme-${version}";
+  repoName = "stylesheet";
 
   src = fetchFromGitHub {
     owner = "elementary";
