@@ -1,58 +1,86 @@
-{ stdenv, fetchurl, pkgconfig, libpng, openssl, curl, gtk2, check, SDL
-, libxml2, libidn, perl, nettools, perlPackages
-, libXcursor, libXrandr, makeWrapper
+{ stdenv, fetchurl, fetchpatch, makeWrapper, wrapGAppsHook
+
+# Buildtime dependencies.
+
+, check, pkgconfig, xxd
+
+# Runtime dependencies.
+
+, curl, expat, libXcursor, libXrandr, libidn, libjpeg, libpng, libwebp, libxml2
+, openssl, perl, perlPackages
+
+# uilib-specific dependencies
+
+, gtk2 # GTK 2
+, SDL  # Framebuffer
+
+# Configuration
+
 , uilib ? "framebuffer"
-, buildsystem
-, nsgenbind
-, libnsfb
-, libwapcaplet
-, libparserutils
-, libcss
-, libhubbub
-, libdom
-, libnsbmp
-, libnsgif
-, libnsutils
-, libutf8proc
+
+# Netsurf-specific dependencies
+
+, libcss, libdom, libhubbub, libnsbmp, libnsfb, libnsgif
+, libnslog, libnspsl, libnsutils, libparserutils, libsvgtiny, libutf8proc
+, libwapcaplet, nsgenbind
 }:
 
+let
+  inherit (stdenv.lib) optional optionals;
+in
 stdenv.mkDerivation rec {
 
   name = "netsurf-${version}";
-  version = "3.8";
-
-  # UI libs incldue Framebuffer, and gtk
+  version = "3.9";
 
   src = fetchurl {
     url = "http://download.netsurf-browser.org/netsurf/releases/source/netsurf-${version}-src.tar.gz";
-    sha256 = "0hjm1h4m1i913y4mhkl7yqdifn8k70fwi58zdh6faypawzryc3m0";
+    sha256 = "1hzcm2s2wh5sapgr000lg63hcdbj6hyajxl43xa1x80kc5piqbyp";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libpng openssl curl gtk2 check libxml2 libidn perl
-    nettools perlPackages.HTMLParser libXcursor libXrandr makeWrapper SDL
-    buildsystem
-    nsgenbind
-    libnsfb
-    libwapcaplet
-    libparserutils
-    libcss
-    libhubbub
-    libdom
-    libnsbmp
-    libnsgif
-    libnsutils
+  patches = [
+    # GTK: prefer using curl's intrinsic defaults for CURLOPT_CA*
+    (fetchpatch {
+	  name = "0001-GTK-prefer-using-curl-s-intrinsic-defaults-for-CURLO.patch";
+      url = "http://source.netsurf-browser.org/netsurf.git/patch/?id=87177d8aa109206d131e0d80a2080ce55dab01c7";
+      sha256 = "08bc60pc5k5qpckqv21zgmgszj3rpwskfc84shs8vg92vkimv2ai";
+    })
+  ];
+
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+    perlPackages.HTMLParser
+    pkgconfig
+    xxd
+  ]
+  ++ optional (uilib == "gtk") wrapGAppsHook
+  ;
+
+  buildInputs = [ 
+    check curl libXcursor libXrandr libidn libjpeg libpng libwebp libxml2 openssl
+    # Netsurf-specific libraries
+    nsgenbind libnsfb libwapcaplet libparserutils libnslog libcss
+    libhubbub libdom libnsbmp libnsgif libsvgtiny libnsutils libnspsl
     libutf8proc
- ];
+  ]
+  ++ optionals (uilib == "framebuffer") [ expat SDL ]
+  ++ optional (uilib == "gtk") gtk2
+  ;
+
+  preConfigure = ''
+    cat <<EOF > Makefile.conf
+    override NETSURF_GTK_RES_PATH  := $out/share/
+    override NETSURF_USE_GRESOURCE := YES
+    EOF
+  '';
 
   makeFlags = [
-    "PREFIX=$(out)"
-    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+    "PREFIX=${placeholder "out"}"
     "TARGET=${uilib}"
   ];
 
   enableParallelBuilding = true;
-
   meta = with stdenv.lib; {
     homepage = http://www.netsurf-browser.org/;
     description = "Free opensource web browser";

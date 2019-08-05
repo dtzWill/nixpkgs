@@ -6,11 +6,11 @@ stdenv.mkDerivation rec {
 
   name = "netsurf-${libname}-${version}";
   libname = "libwapcaplet";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchurl {
     url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
-    sha256 = "134pljlm8kby1yy49826f0ixnpig8iqak6xpyl3aivagnsjnxzy8";
+    sha256 = "1fjwzbn7j8bi1b9bvwxsy3i2cr6byq2s2d29866801pjnf528g86";
   };
 
   buildInputs = [ buildsystem ];

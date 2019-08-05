@@ -7,11 +7,11 @@ stdenv.mkDerivation rec {
 
   name = "netsurf-${libname}-${version}";
   libname = "libhubbub";
-  version = "0.3.5";
+  version = "0.3.6";
 
   src = fetchurl {
     url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
-    sha256 = "13yq1k96a7972x4r71i9bcsz9yiglj0yx7lj0ziq5r94w5my70ma";
+    sha256 = "1x3v7xvagx85v9h3pypzc86rcxs4mij87mmcqkp8pq50q6awfmnp";
   };
 
   nativeBuildInputs = [ pkgconfig ];

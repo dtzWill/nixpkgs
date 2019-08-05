@@ -6,11 +6,11 @@ stdenv.mkDerivation rec {
 
   name = "netsurf-${libname}-${version}";
   libname = "libnsfb";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchurl {
     url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
-    sha256 = "04caizmarx43dc83iq9f1r4w6l5xmq52pk93pcam8y6r7mcvl4f0";
+    sha256 = "09qag9lgn5ahanbcyf2rvfmsz15vazfwnl8xpn8f1iczd44b0bv0";
   };
 
   nativeBuildInputs = [ pkgconfig ];
