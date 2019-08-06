@@ -47,12 +47,12 @@ in {
     #};
 
     systemd.user.services.keybase = {
-      description = "Keybase service";
+#      description = "Keybase service";
       unitConfig.ConditionUser = "!@system";
       serviceConfig = {
-        ExecStart = ''
-          ${pkgs.keybase}/bin/keybase service --auto-forked
-        '';
+#        ExecStart = ''
+#          ${pkgs.keybase}/bin/keybase service --auto-forked
+#        '';
         Restart = "on-failure";
         PrivateTmp = true;
       };
