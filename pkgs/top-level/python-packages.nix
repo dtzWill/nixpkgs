@@ -745,6 +745,8 @@ in {
 
   numericalunits = callPackage ../development/python-modules/numericalunits { };
 
+  oath = callPackage ../development/python-modules/oath { };
+
   oauthenticator = callPackage ../development/python-modules/oauthenticator { };
 
   ordered-set = callPackage ../development/python-modules/ordered-set { };
@@ -1061,9 +1063,13 @@ in {
 
   python-utils = callPackage ../development/python-modules/python-utils { };
 
+  python-vipaccess = callPackage ../development/python-modules/python-vipaccess { };
+
   pytimeparse =  callPackage ../development/python-modules/pytimeparse { };
 
   pytricia =  callPackage ../development/python-modules/pytricia { };
+
+  pytrends = callPackage ../development/python-modules/pytrends { };
 
   py-vapid = callPackage ../development/python-modules/py-vapid { };
 

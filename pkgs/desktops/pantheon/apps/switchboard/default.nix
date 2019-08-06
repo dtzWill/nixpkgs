@@ -1,6 +1,20 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja
-, vala, gtk3, libgee, granite, gettext, clutter-gtk, libunity, glib-networking
-, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv
+, fetchFromGitHub
+, pantheon
+, pkgconfig
+, meson
+, python3
+, ninja
+, vala
+, gtk3
+, libgee
+, granite
+, gettext
+, clutter-gtk
+, libunity
+, elementary-icon-theme
+, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard";
@@ -39,7 +53,9 @@ stdenv.mkDerivation rec {
     glib-networking
   ];
 
-  patches = [ ./plugs-path-env.patch ];
+  patches = [
+    ./plugs-path-env.patch
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

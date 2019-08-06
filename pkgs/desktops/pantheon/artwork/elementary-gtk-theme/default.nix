@@ -1,8 +1,14 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja }:
+{ stdenv
+, fetchFromGitHub
+, pantheon
+, meson
+, ninja
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-gtk-theme";
   version = "5.2.5";
+
   repoName = "stylesheet";
 
   src = fetchFromGitHub {
@@ -14,7 +20,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = pantheon.updateScript {
-      repoName = repoName;
+      inherit repoName;
       attrPath = pname;
     };
   };

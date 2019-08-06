@@ -804,6 +804,8 @@ in
 
   github-changelog-generator = callPackage ../development/tools/github-changelog-generator { };
 
+  github-commenter = callPackage ../development/tools/github-commenter { };
+
   gitless = callPackage ../applications/version-management/gitless { };
 
   gitter = callPackage  ../applications/networking/instant-messengers/gitter { };
@@ -7854,6 +7856,7 @@ in
         openjdk = openjdk11;
       };
 
+  /* legacy jdk for use as needed by older apps */
   openjdk8 =
     if stdenv.isDarwin then
       callPackage ../development/compilers/openjdk/darwin/8.nix { }
@@ -7863,6 +7866,7 @@ in
         inherit (gnome2) GConf gnome_vfs;
       };
 
+  /* currently maintained LTS JDK */
   openjdk11 =
     if stdenv.isDarwin then
       callPackage ../development/compilers/openjdk/darwin/11.nix { }
@@ -7870,6 +7874,26 @@ in
       callPackage ../development/compilers/openjdk/11.nix {
         openjfx = openjfx11;
         inherit (gnome2) GConf gnome_vfs;
+      };
+
+  openjfx12 =
+    if stdenv.isDarwin then
+      null
+    else
+      callPackage ../development/compilers/openjdk/openjfx/12.nix {
+        openjdk = openjdk12;
+        bootjdk = openjdk11;
+      };
+
+  /* current JDK */
+  openjdk12 =
+    if stdenv.isDarwin then
+      callPackage ../development/compilers/openjdk/darwin/default.nix { }
+    else
+      callPackage ../development/compilers/openjdk/default.nix {
+        openjfx = openjfx12;
+        inherit (gnome2) GConf gnome_vfs;
+        bootjdk = openjdk11;
       };
 
   openjdk = openjdk8;
@@ -7896,6 +7920,15 @@ in
       lib.setName "openjdk-${lib.getVersion pkgs.openjdk11}-headless"
         (lib.addMetaAttrs {}
           ((openjdk11.override { minimal = true; }) // {}));
+
+  jdk12 = openjdk12 // { outputs = [ "out" ]; };
+  jdk12_headless =
+    if stdenv.isDarwin then
+      jdk12
+    else
+      lib.setName "openjdk-${lib.getVersion pkgs.openjdk12}-headless"
+        (lib.addMetaAttrs {}
+          ((openjdk12.override { minimal = true; }) // {}));
 
   jdk = jdk8;
   jre = if stdenv.isAarch32 || stdenv.isAarch64 then adoptopenjdk-jre-bin else jre8;
@@ -9481,12 +9514,18 @@ in
 
   gputils = callPackage ../development/tools/misc/gputils { };
 
-  gradleGen = callPackage ../development/tools/build-managers/gradle { };
+  gradleGen = callPackage ../development/tools/build-managers/gradle {
+    java = jdk;
+  };
   gradle = res.gradleGen.gradle_latest;
-  gradle_2_14 = res.gradleGen.gradle_2_14;
   gradle_2_5 = res.gradleGen.gradle_2_5;
+  gradle_2_14 = res.gradleGen.gradle_2_14;
   gradle_3_5 = res.gradleGen.gradle_3_5;
   gradle_4_10 = res.gradleGen.gradle_4_10;
+  gradle_2 = gradle_2_14;
+  gradle_3 = gradle_3_5;
+  gradle_4 = gradle_4_10;
+  gradle_5 = res.gradleGen.gradle_5_3;
 
   gperf = callPackage ../development/tools/misc/gperf { };
   # 3.1 changed some parameters from int to size_t, leading to mismatches.
@@ -9940,6 +9979,7 @@ in
   swig1 = callPackage ../development/tools/misc/swig { };
   swig2 = callPackage ../development/tools/misc/swig/2.x.nix { };
   swig3 = callPackage ../development/tools/misc/swig/3.x.nix { };
+  swig4 = callPackage ../development/tools/misc/swig/4.nix { };
   swig = swig3;
   swigWithJava = swig;
 
@@ -9954,6 +9994,8 @@ in
   teensyduino = arduino-core.override { withGui = true; withTeensyduino = true; };
 
   teensy-loader-cli = callPackage ../development/tools/misc/teensy-loader-cli { };
+
+  terracognita = callPackage ../development/tools/misc/terracognita { };
 
   terraform-lsp = callPackage ../development/tools/misc/terraform-lsp { };
 
@@ -10278,9 +10320,7 @@ in
 
   cdk = callPackage ../development/libraries/cdk {};
 
-  cdo = callPackage ../development/libraries/cdo {
-    stdenv = gccStdenv;
-  };
+  cdo = callPackage ../development/libraries/cdo { };
 
   cimg = callPackage  ../development/libraries/cimg { };
 
@@ -20712,6 +20752,8 @@ in
 
   surf = callPackage ../applications/networking/browsers/surf { gtk = gtk2; };
 
+  surf-display = callPackages ../desktops/surf-display { };
+
   sunvox = callPackage ../applications/audio/sunvox { };
 
   swh_lv2 = callPackage ../applications/audio/swh-lv2 { };
@@ -21846,6 +21888,8 @@ in
   cutemaze = libsForQt5.callPackage ../games/cutemaze {};
 
   cuyo = callPackage ../games/cuyo { };
+
+  devilutionx = callPackage ../games/devilutionx {};
 
   dhewm3 = callPackage ../games/dhewm3 {};
 
