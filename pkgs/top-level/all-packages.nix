@@ -4109,7 +4109,8 @@ in
     gconf = gnome2.GConf;
   };
 
-  kbfs = callPackage ../tools/security/keybase/kbfs.nix { };
+  # Use keybase package
+  #kbfs = callPackage ../tools/security/keybase/kbfs.nix { };
 
   keybase-gui = callPackage ../tools/security/keybase/gui.nix { };
 
