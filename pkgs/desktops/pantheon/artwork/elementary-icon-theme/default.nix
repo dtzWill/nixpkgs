@@ -11,7 +11,6 @@
 stdenv.mkDerivation rec {
   pname = "elementary-icon-theme";
   version = "5.0.4";
-  repoName = "icons";
 
   repoName = "icons";
 
