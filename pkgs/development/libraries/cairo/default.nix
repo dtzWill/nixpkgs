@@ -56,7 +56,7 @@ in stdenv.mkDerivation rec {
   ##   ./18.patch
   ## ];
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [ "out" "dev" /* "devdoc" */ ];
   outputBin = "dev"; # very small
 
   nativeBuildInputs = [
