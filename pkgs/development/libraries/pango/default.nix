@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitLab, pkgconfig, cairo, harfbuzz
+{ stdenv, fetchurl, pkgconfig, cairo, harfbuzz
 , libintl, gobject-introspection, darwin, fribidi, gnome3
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf
 , meson, ninja, glib
@@ -10,20 +10,13 @@ with stdenv.lib;
 
 let
   pname = "pango";
-  version = "1.44.3-git";
+  version = "1.44.3";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
-  #src = fetchurl {
-  #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-  #  sha256 = "1kmfwpiqacpfqmmg04218hgvlxivg2pjwcwp7zn2aw2wr80b22r9";
-  #};
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "GNOME";
-    repo = "pango";
-    rev = "3bca86ac35fb300e2ec5bd24b411f70733952fea";
-    sha256 = "00zmjshc4svxqsrbcq2ybyz4dv5ldvbs0fmbib8dvrla5gg9icx2";
+  src = fetchurl {
+    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    sha256 = "1kmfwpiqacpfqmmg04218hgvlxivg2pjwcwp7zn2aw2wr80b22r9";
   };
 
   # FIXME: docs fail on darwin
