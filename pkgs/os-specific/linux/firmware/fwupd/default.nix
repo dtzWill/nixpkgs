@@ -51,6 +51,7 @@ in stdenv.mkDerivation rec {
   patches = [
     ./fix-paths.patch
     ./add-option-for-installation-sysconfdir.patch
+    ./sysconfdir-install.patch
 
     # installed tests are installed to different output
     # we also cannot have fwupd-tests.conf in $out/etc since it would form a cycle
