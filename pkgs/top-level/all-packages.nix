@@ -21217,7 +21217,7 @@ in
 
   vscodium = callPackage ../applications/editors/vscode/vscodium.nix { };
 
-  vue = callPackage ../applications/misc/vue { jre = jdk11; };
+  vue = callPackage ../applications/misc/vue { jre = jdk12; };
 
   vuze = callPackage ../applications/networking/p2p/vuze { };
 
@@ -21554,7 +21554,7 @@ in
 
   xineUI = callPackage ../applications/video/xine-ui { };
 
-  xmind = callPackage ../applications/misc/xmind { jre = jdk11; };
+  xmind = callPackage ../applications/misc/xmind { jre = jdk12; };
 
   xneur = callPackage ../applications/misc/xneur {
     enchant = enchant1;
@@ -21691,7 +21691,7 @@ in
 
   ydiff = callPackage ../development/tools/ydiff { };
 
-  yed = callPackage ../applications/graphics/yed { jre = jdk11; };
+  yed = callPackage ../applications/graphics/yed { jre = jdk12; };
 
   inherit (gnome3) yelp;
 
