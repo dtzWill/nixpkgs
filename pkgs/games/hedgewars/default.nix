@@ -1,5 +1,5 @@
 { SDL2_image, SDL2_ttf, SDL2_net, fpc, qt5, ghcWithPackages, ffmpeg, freeglut
-, stdenv, makeWrapper, fetchurl, cmake, pkgconfig, lua5_1, SDL2, SDL2_mixer
+, stdenv, makeWrapper, fetchhg, cmake, pkgconfig, lua5_1, SDL2, SDL2_mixer
 , zlib, libpng, libGLU_combined, physfs
 }:
 
@@ -10,11 +10,12 @@ let
         ]);
 in
 stdenv.mkDerivation rec {
-  version = "0.9.25";
+  version = "1.0.0-beta1";
   name = "hedgewars-${version}";
-  src = fetchurl {
-    url = "https://www.hedgewars.org/download/releases/hedgewars-src-${version}.tar.bz2";
-    sha256 = "08x7fqpy0hpnbfq2k06g522xayi7s53bca819zfhalvqnqs76pdk";
+  src = fetchhg {
+    url = "https://hg.hedgewars.org/hedgewars/";
+    rev = "7ab5cf405686";
+    sha256 = "1yrspi82ym5zpavka4cv0vh86g3i2mbbg8ccfcsid4f38lgbb9y4";
   };
 
   nativeBuildInputs = [ pkgconfig ];

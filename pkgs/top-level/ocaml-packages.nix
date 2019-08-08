@@ -444,6 +444,8 @@ let
 
     mezzo = callPackage ../development/compilers/mezzo { };
 
+    minisat = callPackage ../development/ocaml-modules/minisat { };
+
     mlgmp =  callPackage ../development/ocaml-modules/mlgmp { };
 
     mlgmpidl =  callPackage ../development/ocaml-modules/mlgmpidl { };
@@ -517,6 +519,8 @@ let
 
     pgocaml = callPackage ../development/ocaml-modules/pgocaml {};
 
+    ocaml-sat-solvers = callPackage ../development/ocaml-modules/ocaml-sat-solvers { };
+
     ocamlscript = callPackage ../development/tools/ocaml/ocamlscript { };
 
     ocamlsdl= callPackage ../development/ocaml-modules/ocamlsdl { };
@@ -572,6 +576,8 @@ let
     owee = callPackage ../development/ocaml-modules/owee { };
 
     ounit = callPackage ../development/ocaml-modules/ounit { };
+
+    pgsolver = callPackage ../development/ocaml-modules/pgsolver { };
 
     piqi = callPackage ../development/ocaml-modules/piqi {
       base64 = base64_2;

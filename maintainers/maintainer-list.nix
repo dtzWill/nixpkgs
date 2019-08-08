@@ -1698,6 +1698,11 @@
       fingerprint = "67FE 98F2 8C44 CF22 1828  E12F D57E FA62 5C9A 925F";
     }];
   };
+  evanjs = {
+    email = "evanjsx@gmail.com";
+    github = "evanjs";
+    name = "Evan Stoll";
+  };
   evck = {
     email = "eric@evenchick.com";
     github = "ericevenchick";
@@ -5598,6 +5603,11 @@
     email = "viric@viric.name";
     github = "viric";
     name = "Lluís Batlle i Rossell";
+  };
+  virusdave = {
+    email = "dave.nicponski@gmail.com";
+    github = "virusdave";
+    name = "Dave Nicponski";
   };
   vizanto = {
     email = "danny@prime.vc";
