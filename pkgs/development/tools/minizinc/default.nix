@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "minizinc";
-  version = "2.3.0";
+  version = "2.3.1";
 
   nativeBuildInputs = [ cmake flex bison ];
   buildInputs = [ cmake flex bison ];
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     # tags on the repo are disappearing: See https://github.com/MiniZinc/libminizinc/issues/257
     # optimistically, let's see if it happens again:
     rev = "refs/tags/${version}";
-    sha256 = "0k48j22qapxzljmyv6hpga272hcw5l2l55md9ixivysg3v3x8ssi";
+    sha256 = "0sa965w0b6k6i5xvs6xn86884yspzz7pqkjnag09jklx70qmq0gk";
   };
 
   meta = with stdenv.lib; {
