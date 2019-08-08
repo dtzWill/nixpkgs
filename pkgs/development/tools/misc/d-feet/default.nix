@@ -3,14 +3,14 @@
 
 let
   pname = "d-feet";
-  version = "0.3.14";
+  version = "0.3.15";
 in python3Packages.buildPythonApplication rec {
   name = "${pname}-${version}";
   format = "other";
 
   src = fetchurl {
     url = "mirror://gnome/sources/d-feet/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1m8lwiwl5jhi0x7y6x5zmd3hjplgvdjrb8a8jg74rvkygslj1p7f";
+    sha256 = "1cgxgpj546jgpyns6z9nkm5k48lid8s36mvzj8ydkjqws2d19zqz";
   };
 
   nativeBuildInputs = [ pkgconfig itstool intltool wrapGAppsHook libxml2 ];
