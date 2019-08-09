@@ -1,20 +1,20 @@
 { stdenv, fetchFromGitHub, meson, ninja, gtk3, python3 }:
 
 stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
   pname = "paper-icon-theme";
-  version = "2018-06-24";
+  version = "2019-05-25";
 
   src = fetchFromGitHub {
     owner = "snwh";
     repo = pname;
-    rev = "c7cd013fba06dd8fd5cdff9f885520e2923266b8";
-    sha256 = "0x45zkjnmbz904df63ph06npbm3phpgck4xwyymx8r8jgrfplk6v";
+    rev = "ab51c46f2b562e0860eef0c2b2d673fd9811acdd";
+    sha256 = "1351mia03k6yfgdlh42476m8xdjn7v8imnxvha20c4cks7pbr5ki";
   };
 
   nativeBuildInputs = [ meson ninja gtk3 python3 ];
 
   postPatch = ''
+    chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
