@@ -1,8 +1,8 @@
-{ fetchurl, stdenv, pkgconfig, python, file, bc, fetchpatch
-, qtbase, qtsvg, hunspell, makeWrapper #, mythes, boost
+{ fetchurl, mkDerivation, lib, pkgconfig, python, file, bc, fetchpatch
+, qtbase, qtsvg, hunspell
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   version = "2.3.3";
   name = "lyx-${version}";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
     qtbase qtsvg python file/*for libmagic*/ bc
-    hunspell makeWrapper # enchant
+    hunspell # enchant
   ];
 
   configureFlags = [
@@ -30,19 +30,11 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   # python is run during runtime to do various tasks
-  postFixup = ''
-    wrapProgram "$out/bin/lyx" \
-      --prefix PATH : '${python}/bin'
-  '';
-
-  patches = [
-    (fetchpatch {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-office/lyx/files/lyx-2.3.0-qt-5.11.patch?id=07e82fd1fc07bf055c78b81eaa128f8f837da80d";
-      sha256 = "1bnx0il2iv36lnrnyb370wyvww0rd8bphcy6z8d7zmvd3pwhyfql";
-    })
+  qtWrapperArgs = [
+    ''--prefix PATH : "${python}/bin"''
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "WYSIWYM frontend for LaTeX, DocBook";
     homepage = http://www.lyx.org;
     license = licenses.gpl2Plus;
