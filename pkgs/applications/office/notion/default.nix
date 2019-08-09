@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dmg2img, p7zip, libicns }:
+{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron }:
 
 stdenv.mkDerivation rec {
   pname = "notion-app";
@@ -25,7 +25,6 @@ stdenv.mkDerivation rec {
 
     mkdir -p tmp/build
     cp -r Notion**/Notion.app/Contents/Resources/* tmp/build
-    cp notion-app tmp/build
     icns2png -x tmp/build/Notion.icns
 
     runHook postBuild
@@ -39,6 +38,10 @@ stdenv.mkDerivation rec {
 
     # share/icons?
     cp -v Notion_512x512x32.png $out/share/notion-app/
+
+    wrapProgram ${electron}/bin/electron $out/bin/notion-app \
+      --run "cd $out/share/notion-app" \
+      --add-flags "$out/share/notion-app"
 
     runHook postInstall
   '';
