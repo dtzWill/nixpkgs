@@ -21748,7 +21748,9 @@ in
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
 
-  zoom-us = libsForQt59.callPackage ../applications/networking/instant-messengers/zoom-us { };
+  zoom-us = libsForQt59.callPackage ../applications/networking/instant-messengers/zoom-us {
+    libv4l = libv4l.override { withUtils = false; withGUI = false; };
+  };
 
   zotero = callPackage ../applications/office/zotero { };
 
