@@ -4,7 +4,7 @@ mkDerivation rec {
   pname = "minizinc-ide";
   version = "2.3.1";
 
-  nativeBuildInputs = [ qmake makeWrapper ];
+  nativeBuildInputs = [ qmake ];
   buildInputs = [ qtbase qtwebengine qtwebkit ];
 
   src = fetchFromGitHub {
@@ -18,9 +18,9 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall = ''
-    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${lib.makeBinPath [ minizinc ]}
-  '';
+  qtWrapperArgs = [
+    ''--prefix PATH ":" ${lib.makeBinPath [ minizinc ]}''
+  ];
 
   meta = with lib; {
     homepage = https://www.minizinc.org/;
