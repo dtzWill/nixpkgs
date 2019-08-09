@@ -19681,6 +19681,8 @@ in
 
   notion = callPackage ../applications/window-managers/notion { };
 
+  notion-app = callPackage ../applications/office/notion { };
+
   openshift = callPackage ../applications/networking/cluster/openshift { };
 
   oroborus = callPackage ../applications/window-managers/oroborus {};
