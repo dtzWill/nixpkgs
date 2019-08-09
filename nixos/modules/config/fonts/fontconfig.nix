@@ -29,7 +29,7 @@ let cfg = config.fonts.fontconfig;
 
     # latest fontconfig version and package
     # version is used for configuration folder name, /etc/fonts/VERSION/
-    # note: format differs from supportVersion and cannot be used with makeCacheConf
+    # note: format differs from supportVersion and can not be used with makeCacheConf
     latestVersion  = pkgs.fontconfig.configVersion;
     latestPkg      = pkgs.fontconfig;
 

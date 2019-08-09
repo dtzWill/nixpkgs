@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ quantities numpy ];
 
-  # strange setuptools error (cannot import semantic.test)
+  # strange setuptools error (can not import semantic.test)
   doCheck = false;
 
   meta = with stdenv.lib; {

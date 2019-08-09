@@ -71,13 +71,13 @@ in {
 
     assertions = [{
       assertion = !config.networking.useDHCP;
-      message = "You cannot use services.networking.connman with services.networking.useDHCP";
+      message = "You can not use services.networking.connman with services.networking.useDHCP";
     }{
       assertion = config.networking.wireless.enable;
       message = "You must use services.networking.connman with services.networking.wireless";
     }{
       assertion = !config.networking.networkmanager.enable;
-      message = "You cannot use services.networking.connman with services.networking.networkmanager";
+      message = "You can not use services.networking.connman with services.networking.networkmanager";
     }];
 
     environment.systemPackages = [ connman ];

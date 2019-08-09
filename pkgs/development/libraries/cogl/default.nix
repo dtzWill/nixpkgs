@@ -18,7 +18,7 @@ in stdenv.mkDerivation rec {
     # Some deepin packages need the following patches. They have been
     # submitted by Fedora on the GNOME Bugzilla
     # (https://bugzilla.gnome.org/787443). Upstream thinks the patch
-    # could be merged, but dev cannot make a new release.
+    # could be merged, but dev can not make a new release.
 
     (fetchpatch {
       url = https://bug787443.bugzilla-attachments.gnome.org/attachment.cgi?id=359589;

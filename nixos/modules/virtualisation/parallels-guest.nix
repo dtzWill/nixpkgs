@@ -24,7 +24,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Control prlfsmountd service. When this service is running, shares cannot be manually
+          Control prlfsmountd service. When this service is running, shares can not be manually
           mounted through `mount -t prl_fs ...` as this service will remount and trample any set options.
           Recommended to enable for simple file sharing, but extended share use such as for code should
           disable this to manually mount shares.

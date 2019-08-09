@@ -191,7 +191,7 @@ services.foundationdb.dataDir = "/data/fdb";
    Coordinators are specified globally using the
    <command>/etc/foundationdb/fdb.cluster</command> file, which all servers and
    client applications will use to find and join coordinators. Note that this
-   file <emphasis>cannot</emphasis> be managed by NixOS so easily:
+   file <emphasis>can not</emphasis> be managed by NixOS so easily:
    FoundationDB is designed so that it will rewrite the file at runtime for all
    clients and nodes when cluster coordinators change, with clients
    transparently handling this without intervention. It is fundamentally a

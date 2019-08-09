@@ -149,7 +149,7 @@ rec {
      Type: revisionWithDefault :: string -> string
   */
   revisionWithDefault =
-    # Default value to return if revision cannot be determined
+    # Default value to return if revision can not be determined
     default:
     let
       revisionFile = "${toString ./..}/.git-revision";

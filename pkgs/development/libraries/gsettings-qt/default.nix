@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sed -i -e "\$aCONFIG += ordered" gsettings-qt.pro
 
     # It seems that there is a bug in qtdeclarative: qmlplugindump fails
-    # because it cannot find or load the Qt platform plugin "minimal".
+    # because it can not find or load the Qt platform plugin "minimal".
     # A workaround is to set QT_PLUGIN_PATH and QML2_IMPORT_PATH explicitly.
     export QT_PLUGIN_PATH=${qtbase.bin}/${qtbase.qtPluginPrefix}
     export QML2_IMPORT_PATH=${qtdeclarative.bin}/${qtbase.qtQmlPrefix}

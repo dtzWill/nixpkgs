@@ -195,12 +195,12 @@ stdenv.mkDerivation rec {
   # sections (-Wl,--gc-sections).  For unknown reasons those flags do not
   # eliminate the unused string constants, in this case on aarch64-linux. The
   # hacky way is to just remove the reference after we finished compiling.
-  # Since it cannot be used (there is no symbol to actually refer to it) there
+  # Since it can not be used (there is no symbol to actually refer to it) there
   # should not be any harm.  It is a bit odd and I really do not like starting
   # these kind of hacks but there doesn't seem to be a straight forward way at
   # this point in time.
   # The reference will be replaced by the same reference the usual nukeRefs
-  # tooling uses.  The standard tooling cannot / should not be uesd since it
+  # tooling uses.  The standard tooling can not / should not be uesd since it
   # is a bit too excessive and could potentially do us some (more) harm.
   postFixup = ''
     nukedRef=$(echo $out | sed -e "s,$NIX_STORE/[^-]*-\(.*\),$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-\1,")
