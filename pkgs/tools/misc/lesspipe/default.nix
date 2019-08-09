@@ -10,8 +10,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "wofr06";
     repo = "lesspipe";
-    rev = version;
-    sha256 = "124ffhzrikr88ab14rk6753n8adxijpmg7q3zx7nmqc52wpkfd8q";
+#    rev = version;
+    rev = "fe6ab19e599231d3c46bbdc414a6f035b63df57a";
+    sha256 = "19z22p6z8nncvqcj85dyyv7xppsgjz78hy0kg7wv7l5lxlaz71g7";
   };
 
   patches = [
