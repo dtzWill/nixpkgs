@@ -28,7 +28,7 @@
   </listitem>
   <listitem>
    <para>
-    The package has known security vulnerabilities but has not or can not be
+    The package has known security vulnerabilities but has not or cannot be
     updated for some reason, and a list of issues has been entered in to the
     package's <literal>meta.knownVulnerabilities</literal>.
    </para>

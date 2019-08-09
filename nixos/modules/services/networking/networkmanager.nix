@@ -387,7 +387,7 @@ in {
 
     assertions = [
       { assertion = config.networking.wireless.enable == false;
-        message = "You can not use networking.networkmanager with networking.wireless";
+        message = "You cannot use networking.networkmanager with networking.wireless";
       }
       { assertion = !dynamicHostsEnabled || (dynamicHostsEnabled && cfg.dns == "dnsmasq");
         message = ''

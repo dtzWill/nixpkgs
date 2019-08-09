@@ -56,7 +56,7 @@ index af7a9c2..08c0ea8 100755
          suite_dir = None
          version_from = import_dict.get("versionFrom")
 -        if version_from and version:
--            abort("In import for '{}': 'version' and 'versionFrom' can not be both set".format(name), context=context)
+-            abort("In import for '{}': 'version' and 'versionFrom' cannot be both set".format(name), context=context)
 -        if version is None and version_from is None:
 -            if not (in_subdir and (importer.vc_dir != importer.dir or isinstance(importer, BinarySuite))):
 -                abort("In import for '{}': No version given and not a 'subdir' suite of the same repository".format(name), context=context)

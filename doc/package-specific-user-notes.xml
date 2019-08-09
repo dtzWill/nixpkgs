@@ -289,7 +289,7 @@ overrides = self: super: rec {
      </listitem>
      <listitem>
       <para>
-       The <filename>steam.sh</filename> script in $HOME can not be patched, as
+       The <filename>steam.sh</filename> script in $HOME cannot be patched, as
        it is checked and rewritten by steam.
       </para>
      </listitem>

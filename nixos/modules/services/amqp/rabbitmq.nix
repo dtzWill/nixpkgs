@@ -88,7 +88,7 @@ in {
         '';
         description = ''
           Configuration options in RabbitMQ's new config file format,
-          which is a simple key-value format that can not express nested
+          which is a simple key-value format that cannot express nested
           data structures. This is known as the <literal>rabbitmq.conf</literal> file,
           although outside NixOS that filename may have Erlang syntax, particularly
           prior to RabbitMQ 3.7.0.

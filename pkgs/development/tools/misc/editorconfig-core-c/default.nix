@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ pcre ];
   nativeBuildInputs = [ cmake doxygen ];
 
-  # Multiple doxygen can not generate man pages in the same base directory in
+  # Multiple doxygen cannot generate man pages in the same base directory in
   # parallel: https://bugzilla.gnome.org/show_bug.cgi?id=791153
   enableParallelBuilding = false;
 

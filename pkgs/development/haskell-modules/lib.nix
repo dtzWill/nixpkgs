@@ -79,7 +79,7 @@ rec {
   /* doJailbreak enables the removal of version bounds from the cabal
      file. You may want to avoid this function.
 
-     This is useful when a package reports that it can not be built
+     This is useful when a package reports that it cannot be built
      due to version mismatches. In some cases, removing the version
      bounds entirely is an easy way to make a package build, but at
      the risk of breaking software in non-obvious ways now or in the

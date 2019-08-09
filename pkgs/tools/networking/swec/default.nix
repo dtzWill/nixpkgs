@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
          In addition to parsing and locating links, it will also parse the
          pages looking for known errors and report those (such as Mason or
-         PHP errors), and will report if a page can not be read (by either
+         PHP errors), and will report if a page cannot be read (by either
          returning a 404, 500 or similar).
 
          Since you may often want SWEC to be logged in on your site, you have

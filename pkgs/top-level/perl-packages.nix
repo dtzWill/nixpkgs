@@ -2482,7 +2482,7 @@ let
     # Disable test on darwin because MacPasteboard fails when not logged in interactively.
     # Mac OS error -4960 (coreFoundationUnknownErr): The unknown error at lib/Clipboard/MacPasteboard.pm line 3.
     # Mac-Pasteboard-0.009.readme: 'NOTE that Mac OS X appears to restrict pasteboard access to processes that are logged in interactively.
-    #     Ssh sessions and cron jobs can not create the requisite pasteboard handles, giving coreFoundationUnknownErr (-4960)'
+    #     Ssh sessions and cron jobs cannot create the requisite pasteboard handles, giving coreFoundationUnknownErr (-4960)'
     doCheck = !stdenv.isDarwin;
   };
 
