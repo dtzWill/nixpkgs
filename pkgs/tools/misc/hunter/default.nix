@@ -69,4 +69,10 @@ buildRustPackage rec {
   ## TODO: ##   license = licenses.mit;
   ## TODO: ##   maintainers = [ maintainers.ehegnes ];
   ## TODO: ## };
+  # XXX: this is stubbed and WRONG!
+  meta = with stdenv.lib; {
+    description = "ranger-like in rust";
+    license = licenses.wtfpl;
+    platforms = platforms.all;
+  };
 }
