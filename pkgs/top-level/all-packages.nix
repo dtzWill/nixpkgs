@@ -10761,7 +10761,7 @@ in
   gecode_6 = qt5.callPackage ../development/libraries/gecode { };
   gecode = gecode_6;
 
-  gephi = callPackage ../applications/science/misc/gephi { jdk = jdk11; };
+  gephi = callPackage ../applications/science/misc/gephi { jdk = jdk12; };
 
   gegl = callPackage ../development/libraries/gegl {
     inherit (darwin.apple_sdk.frameworks) OpenGL;
