@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "typora";
-  version = "0.9.73";
+  version = "0.9.74";
 
   src = fetchurl {
     url = "https://www.typora.io/linux/typora_${version}_amd64.deb";
-    sha256 = "1fgcb4bx5pw8ah5j30d38gw7qi1cmqarfhvgdns9f2n0d57bvvw3";
+    sha256 = "0vbyf6wplcf0cg7w2jrj50iyyx5fip2hlwqylf5nanpgmw8lp8qm";
   };
 
   nativeBuildInputs = [
