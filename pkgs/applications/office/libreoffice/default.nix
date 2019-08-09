@@ -58,7 +58,7 @@ let
 
     translations = fetchSrc {
       name = "translations";
-      sha256 = "1j3h73naa1h0cc6ky4bgsc9id083dk3f1h82abpzay54j06zk4m0";
+      sha256 = "0730fw2kr00b2d56jkdzjdz49c4k4mxiz879c7ikw59c5zvrh009";
     };
 
     # TODO: dictionaries
