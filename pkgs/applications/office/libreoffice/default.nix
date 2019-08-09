@@ -6,7 +6,7 @@
 , openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
 , librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mysql
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
-, libwpg, dbus-glib, /* qt4,*/ clucene_core, libcdr, lcms, vigra
+, libwpg, dbus-glib, clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
 , fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
@@ -58,14 +58,14 @@ let
 
     translations = fetchSrc {
       name = "translations";
-      sha256 = "02lx3qr019jb3w7cwgzii6dmwf2lq5178bybr29j6q66bppq35y3";
+      sha256 = "02lx3qr019jb4w7cwgzii6dmwf2lq5178bybr29j6q66bppq35y3";
     };
 
     # TODO: dictionaries
 
     help = fetchSrc {
       name = "help";
-      sha256 = "1mj3a1qinj47ls3d8pxly74liqmcrl247dasiyjv1sb01xcp8zrj";
+      sha256 = "1mj3a1qinj47ls4d8pxly74liqmcrl247dasiyjv1sb01xcp8zrj";
     };
 
   };
@@ -112,8 +112,8 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  # QT5DIR = qtbase;
-  # QT_SELECT = "5";
+  QT5DIR = qtbase;
+  QT_SELECT = "5";
   # MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
 
@@ -308,8 +308,8 @@ in stdenv.mkDerivation rec {
     # "--enable-eot" # libeot
     "--enable-release-build"
     # XXX: add needed deps
-    (lib.enableFeature kdeIntegration "kde4")
-    #(lib.enableFeature kdeIntegration "kde5")
+    #(lib.enableFeature kdeIntegration "kde4") # as of 6.3, kde5 is official
+    (lib.enableFeature kdeIntegration "kde5")
     "--enable-epm"
     "--with-jdk-home=${jdk.home}"
     "--with-ant-home=${ant}/lib/ant"
@@ -376,7 +376,7 @@ in stdenv.mkDerivation rec {
     [ ant ArchiveZip boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
-      # qtbase qtx11extras
+      qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
