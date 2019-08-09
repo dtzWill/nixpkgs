@@ -1377,6 +1377,8 @@ in
 
   colorls = callPackage ../tools/system/colorls { };
 
+  coloursum = callPackage ../tools/text/coloursum { };
+
   compsize = callPackage ../os-specific/linux/compsize { };
 
   coturn = callPackage ../servers/coturn { };
@@ -18462,7 +18464,7 @@ in
 
   fractal = callPackage ../applications/networking/instant-messengers/fractal { };
 
-  freecad = callPackage ../applications/graphics/freecad { mpi = openmpi; };
+  freecad = qt5.callPackage ../applications/graphics/freecad { mpi = openmpi; };
 
   freemind = callPackage ../applications/misc/freemind { };
 
@@ -20225,6 +20227,10 @@ in
 
   qjournalctl = libsForQt5.callPackage ../applications/misc/qjournalctl { };
 
+  qlandkartegt = libsForQt5.callPackage ../applications/misc/qlandkartegt {};
+
+  garmindev = callPackage ../applications/misc/qlandkartegt/garmindev.nix {};
+
   qmapshack = libsForQt5.callPackage ../applications/misc/qmapshack { };
 
   qmediathekview = libsForQt5.callPackage ../applications/video/qmediathekview { };
@@ -20859,7 +20865,9 @@ in
 
   telepathy-idle = callPackage ../applications/networking/instant-messengers/telepathy/idle {};
 
-  termdown = (newScope python3Packages) ../applications/misc/termdown { };
+  tendermint = callPackage ../tools/networking/tendermint {};
+
+  termdown = (newScope pythonPackages) ../applications/misc/termdown { };
 
   terminal-notifier = callPackage ../applications/misc/terminal-notifier {};
 
@@ -22091,6 +22099,8 @@ in
   ingen = callPackage ../applications/audio/ingen {
     inherit (pythonPackages) rdflib;
   };
+
+  ideogram = callPackage ../applications/graphics/ideogram { };
 
   instead = callPackage ../games/instead {
     lua = lua5;
