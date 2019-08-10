@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron }:
+{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron_3 }:
 
 stdenv.mkDerivation rec {
   pname = "notion-app";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [ dmg2img p7zip libicns ];
+  nativeBuildInputs = [ dmg2img p7zip libicns makeWrapper ];
 
   buildPhase = ''
     runHook preBuild
@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
     # share/icons?
     cp -v Notion_512x512x32.png $out/share/notion-app/
 
-    wrapProgram ${electron}/bin/electron $out/bin/notion-app \
+    makeWrapper ${electron_3}/bin/electron $out/bin/notion-app \
       --run "cd $out/share/notion-app" \
-      --add-flags "$out/share/notion-app"
+      --add-flags "$out/share/notion-app/app.asar"
 
     runHook postInstall
   '';
