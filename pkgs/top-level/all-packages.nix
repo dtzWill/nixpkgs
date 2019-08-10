@@ -7385,6 +7385,8 @@ in
 
   ksh = callPackage ../shells/ksh { };
 
+  liquidprompt = callPackage ../shells/liquidprompt { };
+
   mksh = callPackage ../shells/mksh { };
 
   oh = callPackage ../shells/oh { };
