@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     owner = "phase1geo";
     repo = pname;
 #    rev = version;
-    rev = "dbcf074dff1ef61b7a24a0cc5cc2da42d3aabf4c";
-    sha256 = "0vm5kc1vqa45j9k1j6aiqhgvssn6bfbngvqgiq5dcyakfw44hjvf";
+    rev = "6d6242780006a4b0fa3c298bff935523bf34b92d";
+    sha256 = "07nwpwnz9q44bcqvvm571ymk44mp870frpqq9n941ma4s5dp4r10";
   };
 
   nativeBuildInputs = [ pkgconfig meson ninja python3 wrapGAppsHook vala shared-mime-info ];
