@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
 
   checkInputs = [ which ];
 
-  doCheck = !stdenv.hostPlatform.isMusl && true; /* can't find 'gpgsm'?! */
+  doCheck = true;
 
   meta = with stdenv.lib; {
     homepage = https://gnupg.org/software/gpgme/index.html;
