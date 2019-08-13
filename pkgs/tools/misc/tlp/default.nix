@@ -15,15 +15,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "tlp";
-  #version = "1.2.2";
-  verison = "2019-07-18";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "linrunner";
     repo = "TLP";
-    #rev = version;
-    rev = "9130a4d561d30881e5b35e6fb06e4cf1e10eac52";
-    sha256 = "0vm31ca6kdak9xzwskz7a8hvdp67drfh2zcdwlz3261r8r2ypgg1";
+    rev = version;
+    sha256 = "0vm31ca6kdak9xzwskz7a8hvdp67drfh2zcdwlz3260r8r2ypgg1";
   };
 
   outRef = placeholder "out";
