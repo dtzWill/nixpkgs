@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "flac";
-  version = "1.3.2";
+  version = "1.3.3";
 
   src = fetchurl {
     url = "http://downloads.xiph.org/releases/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "0gymm2j3276kr9nz6vmgfwsdfrq6c449n40a0mzz8h6wc7nw7kwi";
+    sha256 = "0j0p9sf56a2fm2hkjnf7x3py5ir49jyavg4q5zdyd7bcf6yq4gi1";
   };
 
   buildInputs = [ libogg ];
