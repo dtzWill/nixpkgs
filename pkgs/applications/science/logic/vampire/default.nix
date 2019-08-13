@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, fetchpatch, z3, zlib, git }:
 
 stdenv.mkDerivation rec {
-  version = "4.2.2";
+  version = "4.3.0";
   name = "vampire-${version}";
 
   src = fetchFromGitHub {
     owner = "vprover";
     repo = "vampire";
     rev = version;
-    sha256 = "03dqjxr3cwz4h6sn9074kc6b6wjz12kpsvsi0mq2w0j5l9f8d80y";
+    sha256 = "006r7dz1w7yns6frqh1yd6zqbhfx1flfbvbpjm52i004af7asvq1";
     #fetchSubmodules = true;
     #leaveDotGit = true;
   };
