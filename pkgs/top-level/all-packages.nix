@@ -9767,7 +9767,9 @@ in
     gconf = pkgs.gnome2.GConf;
   };
 
+  # NOTE: Override and set icon-lang = null to use Awk instead of Icon.
   noweb = callPackage ../development/tools/literate-programming/noweb { };
+
   nuweb = callPackage ../development/tools/literate-programming/nuweb { tex = texlive.combined.scheme-small; };
 
   nrfutil = callPackage ../development/tools/misc/nrfutil { };
@@ -16159,6 +16161,8 @@ in
   odroid-xu3-bootloader = callPackage ../tools/misc/odroid-xu3-bootloader { };
 
   ofp = callPackage ../os-specific/linux/ofp { };
+
+  ofono = callPackage ../tools/networking/ofono { };
 
   openpam = callPackage ../development/libraries/openpam { };
 

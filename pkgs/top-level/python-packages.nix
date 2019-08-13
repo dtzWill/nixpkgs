@@ -1934,12 +1934,6 @@ in {
     hypothesis = self.hypothesis.override { doCheck = false; };
   };
 
-  # Keep 3 because many test suites are not yet compatible with Pytest 4.
-  pytest_3 = callPackage ../development/python-modules/pytest/3.10.nix {
-    # hypothesis tests require pytest that causes dependency cycle
-    hypothesis = self.hypothesis.override { doCheck = false; };
-  };
-
   pytest-httpbin = callPackage ../development/python-modules/pytest-httpbin { };
 
   pytest-asyncio = callPackage ../development/python-modules/pytest-asyncio { };
@@ -2829,6 +2823,8 @@ in {
   django-ipware = callPackage ../development/python-modules/django-ipware { };
 
   django-jinja = callPackage ../development/python-modules/django-jinja2 { };
+
+  django-logentry-admin = callPackage ../development/python-modules/django-logentry-admin { };
 
   django-pglocks = callPackage ../development/python-modules/django-pglocks { };
 
