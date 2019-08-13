@@ -19,6 +19,18 @@ let
   fontsConf = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
   };
+
+  isx86 = stdenv.isx86_64 || stdenv.isi686;
+
+  # Dell isn't supported on Aarch64
+  haveDell = isx86;
+
+  # only redfish for x86_64
+  haveRedfish = stdenv.isx86_64;
+
+  # Currently broken on Aarch64
+  haveFlashrom = isx86;
+
 in stdenv.mkDerivation rec {
   pname = "fwupd";
   version = "1.2.10";
@@ -40,11 +52,12 @@ in stdenv.mkDerivation rec {
     meson ninja gtk-doc pkgconfig gobject-introspection intltool shared-mime-info
     valgrind gcab docbook_xml_dtd_43 docbook_xsl help2man libxslt python wrapGAppsHook vala
   ];
+
   buildInputs = [
-    polkit libxmlb gusb sqlite libarchive libsoup elfutils libsmbios gnu-efi libyaml
-    libgudev colord gpgme libuuid gnutls glib-networking efivar json-glib umockdev
-    bash-completion cairo freetype fontconfig pango
-  ];
+    polkit libxmlb gusb sqlite libarchive libsoup elfutils gnu-efi libyaml
+    libgudev colord gpgme libuuid gnutls glib-networking json-glib umockdev
+    bash-completion cairo freetype fontconfig pango efivar
+  ] ++ stdenv.lib.optionals haveDell [ libsmbios ];
 
   LC_ALL = "C.UTF-8"; # For po/make-images
 
@@ -113,11 +126,14 @@ in stdenv.mkDerivation rec {
   # /etc/os-release not available in sandbox
   # doCheck = true;
 
-  preFixup = ''
+  preFixup = let
+    binPath = [ efibootmgr bubblewrap tpm2-tools ] ++ stdenv.lib.optional haveFlashrom flashrom;
+  in
+  ''
     gappsWrapperArgs+=(
       --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
       # See programs reached with fu_common_find_program_in_path in source
-      --prefix PATH : "${stdenv.lib.makeBinPath [ flashrom efibootmgr bubblewrap tpm2-tools ]}"
+      --prefix PATH : "${stdenv.lib.makeBinPath binPath}"
     )
   '';
 
@@ -131,6 +147,13 @@ in stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--sysconfdir=/etc"
     "-Dsysconfdir_install=${placeholder "out"}/etc"
+  ] ++ stdenv.lib.optionals (!haveDell) [
+    "-Dplugin_dell=false"
+    "-Dplugin_synaptics=false"
+  ] ++ stdenv.lib.optionals (!haveRedfish) [
+    "-Dplugin_redfish=false"
+  ] ++ stdenv.lib.optionals (!haveFlashrom) [
+    "-Dplugin_flashrom=false"
   ];
 
   # TODO: We need to be able to override the directory flags from meson setup hook
