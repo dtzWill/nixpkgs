@@ -5,16 +5,16 @@
 , libXinerama, libXext, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
   pname = "compton";
-  version = "7.1-git";
+  version = "7.2";
 
   COMPTON_VERSION = "v${version}";
 
   src = fetchFromGitHub {
     owner  = "yshui";
     repo   = "compton";
-    #rev    = COMPTON_VERSION;
-    rev = "c8d6a5cae50391e457de41305f74fe1e9775c7c2";
-    sha256 = "0m3r4ly5i6sng8msiybh6llys7zyvyl28h0phb51ssl1mzma50k5";
+    rev    = COMPTON_VERSION;
+    #rev = "c8d6a5cae50391e457de41305f74fe1e9775c7c2";
+    sha256 = "1vwa5f0nifc1913diqd6cp5k1dlfyc2ijxbcdj1s37ywpx6c63c3";
     fetchSubmodules = true;
   };
 
