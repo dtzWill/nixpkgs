@@ -986,6 +986,8 @@ in {
     inherit (pkgs) cmake qt5 llvmPackages;
   });
 
+  simplefix = callPackage ../development/python-modules/simplefix { };
+
   pyside2-tools = toPythonModule (callPackage ../development/python-modules/pyside2-tools {
     inherit (pkgs) cmake qt5;
   });
@@ -4709,6 +4711,11 @@ in {
   s3transfer = callPackage ../development/python-modules/s3transfer { };
 
   seqdiag = callPackage ../development/python-modules/seqdiag { };
+
+  sequoia = disabledIf (isPyPy || !isPy3k) (toPythonModule (pkgs.sequoia.override {
+    pythonPackages = self;
+    pythonSupport = true;
+  }));
 
   safe = callPackage ../development/python-modules/safe { };
 

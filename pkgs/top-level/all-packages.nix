@@ -6004,7 +6004,9 @@ in
 
   seqdiag = with python3Packages; toPythonApplication seqdiag;
 
-  sequoia-tool = callPackage ../tools/security/sequoia-tool { inherit (llvmPackages) libclang; };
+  sequoia = callPackage ../tools/security/sequoia {
+    pythonPackages = python3Packages;
+  };
 
   sewer = callPackage ../tools/admin/sewer { };
 
@@ -8320,6 +8322,8 @@ in
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   };
 
+  sagittarius-scheme = callPackage ../development/compilers/sagittarius-scheme {};
+
   sbclBootstrap = callPackage ../development/compilers/sbcl/bootstrap.nix {};
   sbcl = callPackage ../development/compilers/sbcl {};
 
@@ -9077,6 +9081,8 @@ in
 
   awf = callPackage ../development/tools/misc/awf { };
 
+  electron_6 = callPackage ../development/tools/electron/6.x.nix { };
+
   electron_5 = callPackage ../development/tools/electron/5.x.nix { };
 
   electron_4 = callPackage ../development/tools/electron { };
@@ -9164,11 +9170,7 @@ in
   bison = bison3;
   yacc = bison; # TODO: move to aliases.nix
 
-  blackmagic = callPackage ../development/tools/misc/blackmagic {
-    stdenv = gcc6Stdenv;
-    gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;
-    binutils-arm-embedded = pkgsCross.arm-embedded.buildPackages.binutils;
-  };
+  blackmagic = callPackage ../development/tools/misc/blackmagic { };
 
   bloaty = callPackage ../development/tools/bloaty { };
 
@@ -14876,6 +14878,12 @@ in
     inherit (darwin) cctools developer_cmds;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     boost = boost159;
+  };
+
+  mysql80 = callPackage ../servers/sql/mysql/8.0.x.nix {
+    inherit (darwin) cctools developer_cmds;
+    inherit (darwin.apple_sdk.frameworks) CoreServices;
+    boost = boost169; # Configure checks for specific version.
   };
 
   mysql_jdbc = callPackage ../servers/sql/mysql/jdbc { };

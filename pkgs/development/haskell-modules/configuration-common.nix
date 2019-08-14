@@ -1287,4 +1287,7 @@ self: super: {
   # https://github.com/sol/hpack/issues/366
   hpack = dontCheck super.hpack;
 
+  # QuickCheck >=2.3 && <2.13, hspec >=2.1 && <2.7
+  graphviz = dontCheck super.graphviz;
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super
