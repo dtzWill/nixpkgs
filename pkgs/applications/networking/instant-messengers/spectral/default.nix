@@ -41,11 +41,9 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig cmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtkeychain qtgraphicaleffects qtdeclarative olm ]
+  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtkeychain qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
-
-  checkInputs = [ cmark ];
 
   meta = with stdenv.lib; {
     description = "A glossy client for Matrix, written in QtQuick Controls 2 and C++";
