@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, imagemagickBig, pkgconfig, python2Packages, perl
+{ stdenv, mkDerivation, fetchFromGitHub, imagemagickBig, pkgconfig, python2Packages, perl
 , libX11, libv4l, qt5, gtk3, xmlto, docbook_xsl, autoreconfHook, dbus
 , enableVideo ? stdenv.isLinux, enableDbus ? stdenv.isLinux
 , enablePyGTK ? false # legacy
@@ -7,7 +7,7 @@
 with stdenv.lib;
 let
   inherit (python2Packages) pygtk python;
-in stdenv.mkDerivation rec {
+in (if enableVideo then mkDerivation else stdenv.mkDerivation) rec {
   pname = "zbar";
   version = "0.23";
 
