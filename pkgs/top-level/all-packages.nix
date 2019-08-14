@@ -1906,7 +1906,7 @@ in
   ring-daemon = callPackage ../applications/networking/instant-messengers/ring-daemon { };
 
   riot-desktop = callPackage ../applications/networking/instant-messengers/riot/riot-desktop.nix {
-    electron = electron_6;
+    electron = electron_5;
   };
 
   riot-web = callPackage ../applications/networking/instant-messengers/riot/riot-web.nix {
