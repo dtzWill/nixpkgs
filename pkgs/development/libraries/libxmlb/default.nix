@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "libxmlb-${version}";
-  version = "0.1.10";
+  version = "0.1.11";
 
   outputs = [ "out" "lib" "dev" "devdoc" ];
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "hughsie";
     repo = "libxmlb";
     rev = version;
-    sha256 = "1ismh3bdwd0l1fjlhwycam89faxjmpb0wxqlbv58m0z6cxykp6rd";
+    sha256 = "1503v76w7543snqyjxykiqa5va62zb0ccn3jlw0gpdx8973v80mr";
   };
 
   nativeBuildInputs = [ meson ninja python3 pkgconfig gobject-introspection gtk-doc shared-mime-info docbook_xsl docbook_xml_dtd_43 ];
