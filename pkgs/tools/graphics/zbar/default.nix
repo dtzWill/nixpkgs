@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, imagemagickBig, pkgconfig, python2Packages, perl
 , libX11, libv4l, qt5, gtk2, xmlto, docbook_xsl, autoreconfHook, dbus
 , enableVideo ? stdenv.isLinux, enableDbus ? stdenv.isLinux
+, enablePyGTK ? false
 }:
 
 with stdenv.lib;
@@ -20,11 +21,11 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig xmlto autoreconfHook docbook_xsl ];
 
   buildInputs = [
-    imagemagickBig python pygtk perl libX11
+    imagemagickBig perl libX11
   ] ++ optional enableDbus dbus
   ++ optionals enableVideo [
     libv4l gtk2 qt5.qtbase qt5.qtx11extras
-  ];
+  ] ++ optionals enablePyGTK [ python pygtk ];
 
   configureFlags = (if enableDbus then [
     "--with-dbusconfdir=$out/etc/dbus-1/system.d"
