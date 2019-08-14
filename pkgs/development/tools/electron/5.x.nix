@@ -23,7 +23,7 @@ let
       };
       x86_64-linux = fetchurl {
         url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-x64.zip";
-        sha256 = "1aivpj2wbg4qzvc01ks6fnwlayyyahcf2ywdxgkkg7iihcs4lkki";
+        sha256 = "1w9j62p41gnxmsjgvknpr565lbk22myx7cnp40364hh281bagxvi";
       };
       armv7l-linux = fetchurl {
         url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-armv7l.zip";
