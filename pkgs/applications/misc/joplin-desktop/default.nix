@@ -2,12 +2,12 @@
 
 let
   pname = "joplin-desktop";
-  version = "1.0.161";
+  version = "1.0.165";
 in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}-x86_64.AppImage";
-    sha256 = "0yaniasifq7a17kqy1cpn9qwi24l7m6pc53a9q79kpzia1brabyn";
+    sha256 = "12rq0p9gsdc7qg4z15i9f3498hywi1qfzj2xfa9rvrw21k3xl2x5";
   };
 
 
