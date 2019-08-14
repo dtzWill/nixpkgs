@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1503v76w7543snqyjxykiqa5va62zb0ccn3jlw0gpdx8973v80mr";
   };
 
-  nativeBuildInputs = [ meson ninja python3 pkgconfig gobject-introspection gtk-doc shared-mime-info docbook_xsl docbook_xml_dtd_43 ];
+  nativeBuildInputs = [ meson ninja python3 python3.pkgs.setuptools pkgconfig gobject-introspection gtk-doc shared-mime-info docbook_xsl docbook_xml_dtd_43 ];
 
   buildInputs = [ glib libuuid ];
 
