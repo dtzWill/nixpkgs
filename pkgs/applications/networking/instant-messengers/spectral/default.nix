@@ -1,10 +1,7 @@
 { stdenv, fetchgit
 , pkgconfig, makeWrapper
-, cmake
 , qmake, qtbase, qtquickcontrols2, qtmultimedia
 , libpulseaudio
-, qtkeychain
-, cmark
 # Not mentioned but seems needed
 , qtgraphicaleffects
 , qtdeclarative
@@ -25,23 +22,25 @@ let
 in stdenv.mkDerivation rec {
   pname = "spectral";
   #version = "648";
-  version = "2019-08-14";
+  version = "2019-07-19";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
     #rev = "refs/tags/${version}";
-    rev = "0067ce7e2ee92dedac5e1b0ee4e91241f2d49de3";
-    sha256 = "1sb7ys597fls2rzyv9zwjjscxkb86qf6xdl9pjkf0mv4nc5vjfj8";
+    rev = "7d38d05babc6512b4e582c57003f49600b1f19dc";
+    sha256 = "0fv52790jqs2az18n62m97zq51wvk22ijd78if9i372y70wdwfks";
     fetchSubmodules = true;
   };
+
+  qmakeFlags = [ "CONFIG+=qtquickcompiler" ];
 
   postInstall = ''
     wrapProgram $out/bin/spectral \
       --set QML2_IMPORT_PATH "${qml2ImportPath}"
   '';
 
-  nativeBuildInputs = [ pkgconfig cmake qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtkeychain qtgraphicaleffects qtdeclarative olm cmark ]
+  nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
+  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 
