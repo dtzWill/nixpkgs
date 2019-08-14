@@ -2,6 +2,7 @@
 , libintl, gobject-introspection, darwin, fribidi, gnome3
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf
 , meson, ninja, glib
+, freetype, fontconfig
 , x11Support? !stdenv.isDarwin, libXft
 }:
 
@@ -26,34 +27,29 @@ in stdenv.mkDerivation rec {
     pkgconfig gobject-introspection gtk-doc docbook_xsl docbook_xml_dtd_43
   ];
   buildInputs = [
-    harfbuzz fribidi
+    /* harfbuzz fribidi */
   ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
     ApplicationServices
     Carbon
     CoreGraphics
     CoreText
   ]);
-  propagatedBuildInputs = [ cairo glib libintl ] ++
+  propagatedBuildInputs = [ cairo glib libintl fontconfig freetype harfbuzz fribidi ] ++
     optional x11Support libXft;
 
   mesonFlags = [
-    "-Denable_docs=${if stdenv.isDarwin then "false" else "true"}"
+    "-Dgtk_doc=${if stdenv.isDarwin then "false" else "true"}"
+    #"-Duse_fontconfig=true"
   ];
 
   enableParallelBuilding = true;
-
-  patches = [
-    ./gobject-linking.patch
-    ./0001-handle-VS15-emoji-sequences.patch
-    ./0002-Update-emoji-scanner-ragel-file-to-latest-from-Chrom.patch
-  ];
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
   };
 
-  doCheck = false; # /layout/valid-1.markup: FAIL
+  #doCheck = false; # /layout/valid-1.markup: FAIL
 
   passthru = {
     updateScript = gnome3.updateScript {
