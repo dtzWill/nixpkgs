@@ -1,7 +1,10 @@
 { stdenv, fetchgit
 , pkgconfig, makeWrapper
-, qmake, qtbase, qtquickcontrols2, qtmultimedia
+, cmake
+, qtbase, qtquickcontrols2, qtmultimedia
 , libpulseaudio
+, qtkeychain
+, cmark
 # Not mentioned but seems needed
 , qtgraphicaleffects
 , qtdeclarative
@@ -32,17 +35,17 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  qmakeFlags = [ "CONFIG+=qtquickcompiler" ];
-
   postInstall = ''
     wrapProgram $out/bin/spectral \
       --set QML2_IMPORT_PATH "${qml2ImportPath}"
   '';
 
-  nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm ]
+  nativeBuildInputs = [ pkgconfig cmake makeWrapper ];
+  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtkeychain qtgraphicaleffects qtdeclarative olm ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
+
+  checkInputs = [ cmark ];
 
   meta = with stdenv.lib; {
     description = "A glossy client for Matrix, written in QtQuick Controls 2 and C++";
