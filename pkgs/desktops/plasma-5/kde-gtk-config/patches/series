@@ -1,2 +1,3 @@
 follow-symlinks.patch
 gsettings.patch
+pango-1.44.patch
