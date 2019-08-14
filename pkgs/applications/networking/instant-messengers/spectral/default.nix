@@ -1,7 +1,7 @@
 { stdenv, fetchgit
 , pkgconfig, makeWrapper
 , cmake
-, qtbase, qtquickcontrols2, qtmultimedia
+, qmake, qtbase, qtquickcontrols2, qtmultimedia
 , libpulseaudio
 , qtkeychain
 , cmark
@@ -40,7 +40,7 @@ in stdenv.mkDerivation rec {
       --set QML2_IMPORT_PATH "${qml2ImportPath}"
   '';
 
-  nativeBuildInputs = [ pkgconfig cmake makeWrapper ];
+  nativeBuildInputs = [ pkgconfig cmake qmake makeWrapper ];
   buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtkeychain qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
