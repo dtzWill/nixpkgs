@@ -1,6 +1,6 @@
 { theme ? null, stdenv, fetchurl, dpkg, makeWrapper , alsaLib, atk, cairo,
 cups, curl, dbus, expat, fontconfig, freetype, glib , gnome2, gtk3, gdk-pixbuf,
-libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango , systemd, xorg,
+/* libappindicator-gtk3 ,*/ libnotify, libxcb, nspr, nss, pango , systemd, xorg,
 at-spi2-atk, libuuid, nodePackages
 }:
 
@@ -26,7 +26,7 @@ let
     pango
     libnotify
     libxcb
-    libappindicator-gtk3
+    #libappindicator-gtk3
     nspr
     nss
     stdenv.cc.cc
