@@ -20,7 +20,7 @@ let
     else "amd64";
 
   major = "11";
-  update = ".0.3";
+  update = ".0.4";
   build = "ga";
   repover = "jdk-${major}${update}-${build}";
 
@@ -29,7 +29,7 @@ let
 
     src = fetchurl {
       url = "http://hg.openjdk.java.net/jdk-updates/jdk${major}u/archive/${repover}.tar.gz";
-      sha256 = "1v6pam38iidlhz46046h17hf5kki6n3kl302awjcyxzk7bmkvb8x";
+      sha256 = "0gmg0mnhzbgjld3rhhinn25w1qi86jnqs4xlbv4sh6hcv7yazhb2";
     };
 
     nativeBuildInputs = [ pkgconfig patchelfUnstable ];
