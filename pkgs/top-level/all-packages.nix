@@ -20643,6 +20643,10 @@ in
 
   dropbox-cli = callPackage ../applications/networking/dropbox/cli.nix { };
 
+  maestral = callPackage ../applications/networking/maestral { };
+
+  maestral-gui = libsForQt5.callPackage ../applications/networking/maestral { withGui = true; };
+
   insync = callPackage ../applications/networking/insync { };
 
   libstrangle = callPackage ../tools/X11/libstrangle {
@@ -23878,6 +23882,8 @@ in
   };
 
   epkowa = callPackage ../misc/drivers/epkowa { };
+
+  utsushi = callPackage ../misc/drivers/utsushi { };
 
   idsk = callPackage ../tools/filesystems/idsk { };
 
