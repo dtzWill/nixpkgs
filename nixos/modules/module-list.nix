@@ -112,6 +112,7 @@
   ./programs/firejail.nix
   ./programs/fish.nix
   ./programs/freetds.nix
+  ./programs/fuse.nix
   ./programs/gnome-disks.nix
   ./programs/gnome-documents.nix
   ./programs/gpaste.nix
