@@ -32,7 +32,7 @@ in stdenv.mkDerivation rec {
   ] else [ "--without-dbus" ])
   ++ optionals (!enableVideo) [
     "--disable-video" "--without-gtk" "--without-qt"
-  ];
+  ] ++ optional enableVideo "--with-gtk=auto";
 
   postInstall = optionalString enableDbus ''
     install -Dm644 dbus/org.linuxtv.Zbar.conf $out/etc/dbus-1/system.d/org.linuxtv.Zbar.conf
