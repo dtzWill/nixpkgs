@@ -22,6 +22,8 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [
     imagemagickBig perl libX11
+    # make this optional, python3?
+    python
   ] ++ optional enableDbus dbus
   ++ optionals enableVideo [
     libv4l gtk3 qt5.qtbase qt5.qtx11extras
@@ -30,9 +32,9 @@ in stdenv.mkDerivation rec {
   configureFlags = (if enableDbus then [
     "--with-dbusconfdir=$out/etc/dbus-1/system.d"
   ] else [ "--without-dbus" ])
-  ++ optionals (!enableVideo) [
+  ++ (if (!enableVideo) then [
     "--disable-video" "--without-gtk" "--without-qt"
-  ] ++ optional enableVideo "--with-gtk=auto";
+  ] else [ "--with-gtk=auto" ]);
 
   postInstall = optionalString enableDbus ''
     install -Dm644 dbus/org.linuxtv.Zbar.conf $out/etc/dbus-1/system.d/org.linuxtv.Zbar.conf
