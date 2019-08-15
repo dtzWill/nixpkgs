@@ -1,13 +1,13 @@
 { stdenv, fetchhg, pidgin, glib, json-glib, protobuf, protobufc }:
 
 stdenv.mkDerivation rec {
-  name = "purple-hangouts-hg-${version}";
-  version = "2018-12-02";
+  pname = "purple-hangouts-hg";
+  version = "2019-06-06";
 
   src = fetchhg {
     url = "https://bitbucket.org/EionRobb/purple-hangouts/";
-    rev = "cccf2f6";
-    sha256 = "1zd1rlzqvw1zkb0ydyz039n3xa1kv1f20a4l6rkm9a8sp6rpf3pi";
+    rev = "3f7d89b";
+    sha256 = "10prcydwz5p0p16m9arlyn5xg9dipyw5l8q9kahw8v0sv2aklifp";
   };
 
   buildInputs = [ pidgin glib json-glib protobuf protobufc ];
