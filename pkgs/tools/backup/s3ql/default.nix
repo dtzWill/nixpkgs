@@ -2,24 +2,22 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "s3ql";
-  version = "3.1";
+  version = "3.2";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "release-${version}";
-    sha256 = "0w24pvhfqbdkkx2mr3b7ilb7ni7naafz7zhlw99c56pv6nb54swl";
+    sha256 = "01ky0jc1s3w9dry5siz9b69jf2maiargz99axgxvyihap0d7qs52";
   };
 
-  nativeBuildInputs = [ python3Packages.cython which ]; # tests will fail without which
+  checkInputs = [ which ] ++ (with python3Packages; [ cython pytest ]);
   propagatedBuildInputs = with python3Packages; [
     sqlite apsw cryptography requests defusedxml dugong llfuse
-    google_auth google-auth-oauthlib
-    cython pytest pytest-catchlog
+    cython pytest pytest-catchlog google_auth google-auth-oauthlib
   ];
 
   preBuild = ''
-    # https://bitbucket.org/nikratio/s3ql/issues/118/no-module-named-s3qldeltadump-running#comment-16951851
     ${python3Packages.python.interpreter} ./setup.py build_cython build_ext --inplace
   '';
 
@@ -31,7 +29,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "A full-featured file system for online data storage";
-    homepage = https://github.com/s3ql/s3ql;
+    homepage = "https://github.com/s3ql/s3ql/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ rushmorem ];
     platforms = platforms.linux;
