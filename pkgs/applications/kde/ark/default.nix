@@ -13,8 +13,6 @@
 
   # Unfree tools
   unfreeEnableUnrar ? false, unrar,
-
-  fetchpatch
 }:
 
 let
@@ -36,12 +34,6 @@ mkDerivation {
     breeze-icons karchive kconfig kcrash kdbusaddons khtml ki18n kiconthemes kio
     kitemmodels kparts kpty kservice kwidgetsaddons
   ];
-
-  # Add missing include, fix build
-  patches = [ (fetchpatch {
-    url = "https://phabricator.kde.org/D22461?download=true";
-    sha256 = "0sipw5z60gk6l025rk4xsbc10n3bvv9743f4cbvf6hyy4mbm4p1m";
-  }) ];
 
   qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath extraTools) ];
 }
