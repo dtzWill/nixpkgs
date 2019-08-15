@@ -1,0 +1,37 @@
+From 5a96c11664eb553bc28a2142af382b190254edbb Mon Sep 17 00:00:00 2001
+From: Andreas Henriksson <andreas@fatal.se>
+Date: Sun, 11 Aug 2019 13:03:13 +0200
+Subject: [PATCH] build: create daemon storage dirs on install
+
+Upon initial install iwd fails to start because the service file
+says ReadWritePaths=/var/lib/iwd while that directory doesn't
+(yet) exist. (This commit also fixes the same problem for ead.)
+
+Addresses: https://bugs.debian.org/934194
+Reported-by: Stephen Gelman <ssgelm@debian.org>
+---
+ Makefile.am | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git b/Makefile.am a/Makefile.am
+index 22138c8..0d498ed 100644
+--- b/Makefile.am
++++ a/Makefile.am
+@@ -583,14 +583,6 @@ SED_PROCESS = $(AM_V_GEN)$(MKDIR_P) $(dir $@) && $(SED) \
+ %.1: %.txt
+ 	$(AM_V_GEN)$(A2X) --doctype manpage --format manpage $(srcdir)/$<
+ 
+-install-data-local:
+-if DAEMON
+-	$(MKDIR_P) -m 700 $(DESTDIR)$(daemon_storagedir)
+-endif
+-if WIRED
+-	$(MKDIR_P) -m 700 $(DESTDIR)$(wired_storagedir)
+-endif
+-
+ clean-local:
+ 	-rm -f unit/cert-*.pem unit/cert-*.csr unit/cert-*.srl
+ 
+-- 
+2.23.0-rc2
+
