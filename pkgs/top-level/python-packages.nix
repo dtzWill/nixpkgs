@@ -2440,6 +2440,8 @@ in {
 
   jsmin = callPackage ../development/python-modules/jsmin { };
 
+  jsonmerge = callPackage ../development/python-modules/jsonmerge { };
+
   jsonpatch = callPackage ../development/python-modules/jsonpatch { };
 
   jsonpickle = callPackage ../development/python-modules/jsonpickle { };
@@ -5009,8 +5011,6 @@ in {
   widgetsnbextension = callPackage ../development/python-modules/widgetsnbextension { };
 
   wordfreq = callPackage ../development/python-modules/wordfreq { };
-
-  wikipedia = callPackage ../development/python-modules/wikipedia { };
 
   magic-wormhole = callPackage ../development/python-modules/magic-wormhole { };
 
