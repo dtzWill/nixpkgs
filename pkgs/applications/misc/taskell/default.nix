@@ -52,10 +52,12 @@ in (haskellPackages.mkDerivation {
 
   testHaskellDepends = with haskellPackages; [
     tasty
-    tasty-discover
+    #tasty-discover
     tasty-expected-failure
     tasty-hunit
   ];
+
+  doCheck = false; # tasty-discover is currently marked "broken" in our tree
 
   description = "Command-line Kanban board/task manager with support for Trello boards and GitHub projects";
   homepage    = "https://taskell.app";
