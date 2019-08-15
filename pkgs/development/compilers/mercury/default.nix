@@ -29,13 +29,15 @@ let
         mkdir -p $out/lib/mercury/cgi-bin
       '';
 
-      configureFlags = (args.configureFlags or []) ++ [
+      configureFlags = (args.configureFlags or []) ++
         (
           if enableMinimal
-          then "--enable-minimal-install"
-          else "--enable-deep-profiler=${placeholder "out"}/lib/mercury/cgi-bin"
-        )
-      ];
+          then [ "--enable-minimal-install" ]
+          else [
+            "--enable-deep-profiler=${placeholder "out"}/lib/mercury/cgi-bin"
+            "--disable-most-grades"
+          ]
+        );
 
       preBuild = (args.preBuild or "") + ''
         # Mercury buildsystem does not take -jN directly.
