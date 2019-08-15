@@ -11,11 +11,11 @@ let
   docbookFiles = "${docbook_xsl}/share/xml/docbook-xsl/catalog.xml:${docbook_xml_dtd_44}/xml/dtd/docbook/catalog.xml";
 in
 stdenv.mkDerivation rec {
-  name = "sssd-${version}";
+  pname = "sssd";
   version = "2.2.0";
 
   src = fetchurl {
-    url = "https://fedorahosted.org/released/sssd/${name}.tar.gz";
+    url = "https://fedorahosted.org/released/sssd/${pname}-${version}.tar.gz";
     sha256 = "0n45v2vlb3l8fx63fgb23h1yysw9hbmdngc5h4a4l5ywqxrqsqdf";
   };
 
@@ -27,25 +27,28 @@ stdenv.mkDerivation rec {
     export PYTHONPATH=${ldap}/lib/python2.7/site-packages
     export PATH=$PATH:${openldap}/libexec
 
-    configureFlagsArray=(
-      --prefix=$out
-      --sysconfdir=/etc
-      --localstatedir=/var
-      --enable-pammoddir=$out/lib/security
-      --with-os=fedora
-      --with-pid-path=/run
-      --with-python2-bindings
-      --with-python3-bindings
-      --with-syslog=journald
-      --without-selinux
-      --without-semanage
+    configureFlagsArray+=(
       --with-xml-catalog-path=''${SGML_CATALOG_FILES%%:*}
-      --with-ldb-lib-dir=$out/modules/ldb
-      --with-nscd=${glibc.bin}/sbin/nscd
     )
   '' + stdenv.lib.optionalString withSudo ''
     configureFlagsArray+=("--with-sudo")
   '';
+
+  configureFlags = [
+    "--prefix=${placeholder "out"}"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--enable-pammoddir=${placeholder "out"}/lib/security"
+    "--with-os=fedora"
+    "--with-pid-path=/run"
+    "--with-python2-bindings"
+    "--with-python3-bindings"
+    "--with-syslog=journald"
+    "--without-selinux"
+    "--without-semanage"
+    "--with-ldb-lib-dir=${placeholder "out"}/modules/ldb"
+    "--with-nscd=${glibc.bin}/sbin/nscd"
+  ];
 
   enableParallelBuilding = true;
   buildInputs = [ augeas dnsutils c-ares curl cyrus_sasl ding-libs libnl libunistring nss
@@ -60,18 +63,18 @@ stdenv.mkDerivation rec {
   ];
 
   installFlags = [
-     "sysconfdir=$(out)/etc"
-     "localstatedir=$(out)/var"
-     "pidpath=$(out)/run"
-     "sss_statedir=$(out)/var/lib/sss"
-     "logpath=$(out)/var/log/sssd"
-     "pubconfpath=$(out)/var/lib/sss/pubconf"
-     "dbpath=$(out)/var/lib/sss/db"
-     "mcpath=$(out)/var/lib/sss/mc"
-     "pipepath=$(out)/var/lib/sss/pipes"
-     "gpocachepath=$(out)/var/lib/sss/gpo_cache"
-     "secdbpath=$(out)/var/lib/sss/secrets"
-     "initdir=$(out)/rc.d/init"
+     "sysconfdir=${placeholder "out"}/etc"
+     "localstatedir=${placeholder "out"}/var"
+     "pidpath=${placeholder "out"}/run"
+     "sss_statedir=${placeholder "out"}/var/lib/sss"
+     "logpath=${placeholder "out"}/var/log/sssd"
+     "pubconfpath=${placeholder "out"}/var/lib/sss/pubconf"
+     "dbpath=${placeholder "out"}/var/lib/sss/db"
+     "mcpath=${placeholder "out"}/var/lib/sss/mc"
+     "pipepath=${placeholder "out"}/var/lib/sss/pipes"
+     "gpocachepath=${placeholder "out"}/var/lib/sss/gpo_cache"
+     "secdbpath=${placeholder "out"}/var/lib/sss/secrets"
+     "initdir=${placeholder "out"}/rc.d/init"
   ];
 
   postInstall = ''
