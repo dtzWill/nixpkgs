@@ -2,16 +2,16 @@
 
 let
   pname = "manrope";
-  version = "3";
+  version = "4";
 in fetchFromGitHub {
   name = "${pname}-${version}";
   owner = "sharanda";
   repo = pname;
-  rev = "3bd68c0c325861e32704470a90dfc1868a5c37e9";
-  sha256 = "1h4chkfbp75hrrqqarf28ld4yb7hfrr7q4w5yz96ivg94lbwlnld";
+  rev = "0c04706136bf392895697bb7d76a4e659ac4d85d";
+  sha256 = "0jkq15053b0a8pl6320q4nzjh4h6vkyy9hjz7ihq87ipl9m4wzzp";
   postFetch = ''
     tar xf $downloadedFile --strip=1
-    install -Dm644 -t $out/share/fonts/opentype "desktop font"/*
+    install -Dm644 -t $out/share/fonts/opentype "fonts"/otf/*
   '';
   meta = with lib; {
     description = "Open-source modern sans-serif font family";
