@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "0l3bh965ln2xg5phwb9p1897vzn53q1iri667m4zb0dp71722rb8";
   };
 
+  patches = [ ./revert-create-dirs-on-install.patch ];
+
   nativeBuildInputs = [
     autoreconfHook
     pkgconfig
