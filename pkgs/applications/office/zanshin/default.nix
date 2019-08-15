@@ -4,7 +4,7 @@
   extra-cmake-modules,
   qtbase, boost,
   akonadi-calendar, akonadi-notes, akonadi-search, kidentitymanagement, kontactinterface, kldap,
-  krunner, kwallet
+  krunner, kwallet, kcalcore
 }:
 
 mkDerivation rec {
@@ -24,6 +24,12 @@ mkDerivation rec {
 
   patches = [ ./banner-bottom.patch ];
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace "AkonadiCalendar" "AkonadiCalendar CalendarCore"
+    substituteInPlace src/akonadi/akonadiserializer.cpp --replace kcalcore_version kcalendarcore_version
+    substituteInPlace tests/units/akonadi/akonadiserializertest.cpp --replace kcalcore_version kcalendarcore_version
+  '';
+
   nativeBuildInputs = [
     extra-cmake-modules
   ];
@@ -31,7 +37,7 @@ mkDerivation rec {
   buildInputs = [
     qtbase boost
     akonadi-calendar akonadi-notes akonadi-search kidentitymanagement kontactinterface kldap
-    krunner kwallet
+    krunner kwallet kcalcore
   ];
 
   meta = with lib; {

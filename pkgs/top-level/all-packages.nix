@@ -21779,7 +21779,7 @@ in
   zam-plugins = callPackage ../applications/audio/zam-plugins { };
 
   zanshin = libsForQt5.callPackage ../applications/office/zanshin {
-    inherit (kdeApplications) akonadi-calendar akonadi-notes akonadi-search kidentitymanagement kontactinterface kldap;
+    inherit (kdeApplications) akonadi-calendar akonadi-notes akonadi-search kidentitymanagement kontactinterface kldap kcalcore;
     inherit (kdeFrameworks) krunner kwallet;
     #boost = boost160;
   };
