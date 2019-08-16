@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, which, utillinux }:
 
 stdenv.mkDerivation rec {
   pname = "git-extras";
@@ -10,6 +10,11 @@ stdenv.mkDerivation rec {
   };
 
   dontBuild = true;
+
+  nativeBuildInputs = [ which ];
+  buildInputs = [ utillinux ];
+
+  postPatch = "patchShebangs ./check_dependencies.sh";
 
   installFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
 
