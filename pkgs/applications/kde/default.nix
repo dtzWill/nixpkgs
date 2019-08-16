@@ -179,6 +179,7 @@ let
       rocs = callPackage ./rocs.nix {};
       spectacle = callPackage ./spectacle.nix {};
       umbrello = callPackage ./umbrello.nix {};
+      yakuake = callPackage ./yakuake.nix {};
       # Okteta was removed from kde applications and will now be released independently
       # Lets keep an alias for compatibility reasons
       inherit okteta;
