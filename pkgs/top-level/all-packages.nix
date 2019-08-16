@@ -10282,6 +10282,8 @@ in
 
   procodile = callPackage ../tools/system/procodile { };
 
+  pry = callPackage ../development/tools/pry { };
+
   pup = callPackage ../development/tools/pup { };
 
   puppet-lint = callPackage ../development/tools/puppet/puppet-lint { };
