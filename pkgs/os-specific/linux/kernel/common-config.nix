@@ -139,12 +139,12 @@ let
       KEY_DH_OPERATIONS = whenAtLeast "4.7" yes;
 
       # needed for nftables
-      NF_TABLES_INET              = whenAtLeast "4.17" yes;
-      NF_TABLES_NETDEV            = whenAtLeast "4.17" yes;
-      NF_TABLES_IPV4              = whenAtLeast "4.17" yes;
-      NF_TABLES_ARP               = whenAtLeast "4.17" yes;
-      NF_TABLES_IPV6              = whenAtLeast "4.17" yes;
-      NF_TABLES_BRIDGE            = whenAtLeast "4.17" yes;
+      ## NF_TABLES_INET              = whenAtLeast "4.17" yes;
+      ## NF_TABLES_NETDEV            = whenAtLeast "4.17" yes;
+      ## NF_TABLES_IPV4              = whenAtLeast "4.17" yes;
+      ## NF_TABLES_ARP               = whenAtLeast "4.17" yes;
+      ## NF_TABLES_IPV6              = whenAtLeast "4.17" yes;
+      ## NF_TABLES_BRIDGE            = whenAtLeast "4.17" yes;
     };
 
     wireless = {
@@ -629,10 +629,11 @@ let
       IDLE_PAGE_TRACKING  = yes;
       IRDA_ULTRA          = whenOlder "4.17" yes; # Ultra (connectionless) protocol
 
-      JOYSTICK_IFORCE_232 = option yes; # I-Force Serial joysticks and wheels
-      JOYSTICK_IFORCE_USB = option yes; # I-Force USB joysticks and wheels
-      JOYSTICK_XPAD_FF    = option yes; # X-Box gamepad rumble support
-      JOYSTICK_XPAD_LEDS  = option yes; # LED Support for Xbox360 controller 'BigX' LED
+      ## JOYSTICK_IFORCE = option yes; # I-Force Serial joysticks and wheels
+      ## JOYSTICK_IFORCE_232 = option yes; # I-Force Serial joysticks and wheels
+      ## JOYSTICK_IFORCE_USB = option yes; # I-Force USB joysticks and wheels
+      ## JOYSTICK_XPAD_FF    = option yes; # X-Box gamepad rumble support
+      ## JOYSTICK_XPAD_LEDS  = option yes; # LED Support for Xbox360 controller 'BigX' LED
 
       KEXEC_FILE      = option yes;
       KEXEC_JUMP      = option yes;
