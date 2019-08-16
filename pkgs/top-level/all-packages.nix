@@ -19846,8 +19846,6 @@ in
     ffmpeg = ffmpeg_2;
   };
 
-  kipi-plugins = libsForQt5.callPackage ../applications/graphics/kipi-plugins { };
-
   kitty = callPackage ../applications/misc/kitty {
     harfbuzz = harfbuzz.override { withCoreText = stdenv.isDarwin; };
     inherit (darwin.apple_sdk.frameworks) Cocoa CoreGraphics Foundation IOKit Kernel OpenGL;
