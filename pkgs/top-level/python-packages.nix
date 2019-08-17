@@ -2000,12 +2000,15 @@ in {
 
   pyhepmc = callPackage ../development/python-modules/pyhepmc { };
 
-  pytest = self.pytest_4;
-
-  pytest_4 = callPackage ../development/python-modules/pytest {
-    # hypothesis tests require pytest that causes dependency cycle
-    hypothesis = self.hypothesis.override { doCheck = false; };
-  };
+  pytest = if isPy3k then
+    callPackage ../development/python-modules/pytest {
+      # hypothesis tests require pytest that causes dependency cycle
+      hypothesis = self.hypothesis.override { doCheck = false; };
+    }
+  else callPackage ../development/python-modules/pytest/2.nix {
+      # hypothesis tests require pytest that causes dependency cycle
+      hypothesis = self.hypothesis.override { doCheck = false; };
+    };
 
   pytest-helpers-namespace = callPackage ../development/python-modules/pytest-helpers-namespace { };
 
