@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Full color painting software for illustration drawing";
     homepage = "https://osdn.net/projects/azpainter";
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dtzWill ];
   };
 }
