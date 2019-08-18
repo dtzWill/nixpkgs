@@ -1,6 +1,6 @@
 { lib, buildPythonPackage, fetchPypi, isPy3k,
   six, txaio, twisted, zope_interface, cffi, trollius, futures,
-  mock, pytest
+  mock, pytest, cryptography, pynacl
 }:
 buildPythonPackage rec {
   pname = "autobahn";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "aebbadb700c13792a2967c79002855d1153b9ec8f2949d169e908388699596ff";
   };
 
-  propagatedBuildInputs = [ six txaio twisted zope_interface cffi ] ++
+  propagatedBuildInputs = [ six txaio twisted zope_interface cffi cryptography pynacl ] ++
     (lib.optionals (!isPy3k) [ trollius futures ]);
 
   checkInputs = [ mock pytest ];
@@ -20,6 +20,10 @@ buildPythonPackage rec {
     USE_TWISTED=true py.test $out
     runHook postCheck
   '';
+
+  # Tests do no seem to be compatible yet with pytest 5.1
+  # https://github.com/crossbario/autobahn-python/issues/1235
+  doCheck = false;
 
   meta = with lib; {
     description = "WebSocket and WAMP in Python for Twisted and asyncio.";
