@@ -23,10 +23,7 @@ stdenv.mkDerivation rec {
     ./disable-test-gpg-verify-result.patch
     # Tests access the helper using relative path
     # https://github.com/ostreedev/ostree/issues/1593
-    (fetchpatch {
-      url = https://github.com/ostreedev/ostree/pull/1633.patch;
-      sha256 = "07xiw1dr7j4yw3w92qhw37f9crlglibflcqj2kf0v5gfrl9i6g4j";
-    })
+    ./01-Drop-ostree-trivial-httpd-CLI-move-to-tests-director.patch
   ];
 
   nativeBuildInputs = [

@@ -39,16 +39,15 @@ in {
       "/var/lib/flatpak/exports"
     ];
 
-    # See portal.nix now
-    #environment.variables = {
-    #  XDG_DESKTOP_PORTAL_PATH = map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
-    #};
+    # It has been possible since https://github.com/flatpak/flatpak/releases/tag/1.3.2
+    # to build a SELinux policy module.
 
     users.users.flatpak = {
+      description = "Flatpak system helper";
       group = "flatpak";
-      uid = config.ids.uids.flatpak;
+      isSystemUser = true;
     };
 
-    users.groups.flatpak.gid = config.ids.gids.flatpak;
+    users.groups.flatpak = { };
   };
 }

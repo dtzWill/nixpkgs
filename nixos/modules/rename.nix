@@ -225,6 +225,7 @@ with lib;
     (mkRemovedOptionModule [ "services" "mysql" "pidDir" ] "Don't wait for pidfiles, describe dependencies through systemd")
     (mkRemovedOptionModule [ "services" "mysql" "rootPassword" ] "Use socket authentication or set the password outside of the nix store.")
     (mkRemovedOptionModule [ "services" "zabbixServer" "dbPassword" ] "Use services.zabbixServer.database.passwordFile instead.")
+    (mkRemovedOptionModule [ "systemd" "generator-packages" ] "Use systemd.packages instead.")
 
     # ZSH
     (mkRenamedOptionModule [ "programs" "zsh" "enableSyntaxHighlighting" ] [ "programs" "zsh" "syntaxHighlighting" "enable" ])
@@ -275,7 +276,7 @@ with lib;
           throw "services.redshift.longitude is set to null, you can remove this"
           else builtins.fromJSON value))
 
-  ] ++ (flip map [ "blackboxExporter" "collectdExporter" "fritzboxExporter"
+  ] ++ (forEach [ "blackboxExporter" "collectdExporter" "fritzboxExporter"
                    "jsonExporter" "minioExporter" "nginxExporter" "nodeExporter"
                    "snmpExporter" "unifiExporter" "varnishExporter" ]
        (opt: mkRemovedOptionModule [ "services" "prometheus" "${opt}" ] ''

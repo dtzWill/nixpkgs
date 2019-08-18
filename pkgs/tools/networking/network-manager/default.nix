@@ -58,12 +58,12 @@ in stdenv.mkDerivation rec {
     "-Dqt=false"
     # Allow using iwd when configured to do so
     "-Diwd=true"
-    #"-Dpolkit_agent=true"
-    "-Dpolkit=true"
-    "-Dconfig_dns_rc_manager_default=resolvconf"
-    "-Debpf=true"
+    ## #"-Dpolkit_agent=true"
+    ## "-Dpolkit=true"
+    ## "-Dconfig_dns_rc_manager_default=resolvconf"
+    ## "-Debpf=true"
     "-Dlibaudit=yes-disabled-by-default"
-    "-Dsession_tracking_consolekit=false"
+    ## "-Dsession_tracking_consolekit=false"
   ];
 
   patches = [

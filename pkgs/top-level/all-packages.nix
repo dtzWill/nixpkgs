@@ -1608,6 +1608,8 @@ in
 
   firecracker = callPackage ../applications/virtualization/firecracker { };
 
+  firestarter = callPackage ../applications/misc/firestarter { };
+
   fsmon = callPackage ../tools/misc/fsmon { };
 
   fsql = callPackage ../tools/misc/fsql { };
@@ -1701,6 +1703,8 @@ in
 
   gscan2pdf = callPackage ../applications/graphics/gscan2pdf { };
 
+  gsctl = callPackage ../applications/misc/gsctl { };
+
   gti = callPackage ../tools/misc/gti { };
 
   hdate = callPackage ../applications/misc/hdate { };
@@ -1714,6 +1718,8 @@ in
   hexyl = callPackage ../tools/misc/hexyl { };
 
   hid-listen = callPackage ../tools/misc/hid-listen { };
+
+  hocr-tools = with python3Packages; toPythonApplication hocr-tools;
 
   home-manager = callPackage ../tools/package-management/home-manager {};
 
@@ -1840,6 +1846,8 @@ in
   nx-libs = callPackage ../tools/X11/nx-libs { };
 
   nyx = callPackage ../tools/networking/nyx { };
+
+  ocrmypdf = callPackage ../tools/text/ocrmypdf { };
 
   onboard = callPackage ../applications/misc/onboard { };
 
@@ -2487,6 +2495,8 @@ in
   curl = callPackage ../tools/networking/curl { };
 
   curl_unix_socket = callPackage ../tools/networking/curl-unix-socket rec { };
+
+  curlie = callPackage ../tools/networking/curlie { };
 
   cunit = callPackage ../tools/misc/cunit { };
   bcunit = callPackage ../tools/misc/bcunit { };
@@ -5566,6 +5576,8 @@ in
 
   pptpd = callPackage ../tools/networking/pptpd {};
 
+  pre-commit = gitAndTools.pre-commit;
+
   prettyping = callPackage ../tools/networking/prettyping { };
 
   prey-bash-client = callPackage ../tools/security/prey { };
@@ -7003,7 +7015,7 @@ in
 
   wireguard-go = callPackage ../tools/networking/wireguard-go { };
 
-  wkhtmltopdf = callPackage ../tools/graphics/wkhtmltopdf { };
+  wkhtmltopdf = libsForQt5.callPackage ../tools/graphics/wkhtmltopdf { };
 
   wml = callPackage ../development/web/wml { };
 
@@ -8782,7 +8794,7 @@ in
   python3 = python37;
   pypy = pypy2;
   pypy2 = pypy27;
-  pypy3 = pypy35;
+  pypy3 = pypy36;
 
   # Python interpreter that is build with all modules, including tkinter.
   # These are for compatibility and should not be used inside Nixpkgs.
@@ -8801,7 +8813,7 @@ in
   python3Packages = python3.pkgs;
 
   pythonInterpreters = callPackage ./../development/interpreters/python {};
-  inherit (pythonInterpreters) python27 python35 python36 python37 python38 pypy27 pypy35;
+  inherit (pythonInterpreters) python27 python35 python36 python37 python38 pypy27 pypy36;
 
   # Python package sets.
   python27Packages = lib.hiPrioSet (recurseIntoAttrs python27.pkgs);
@@ -9852,7 +9864,7 @@ in
 
   pprof = callPackage ../development/tools/profiling/pprof { };
 
-  pyprof2calltree = pythonPackages.callPackage ../development/tools/profiling/pyprof2calltree { };
+  pyprof2calltree = with python3Packages; toPythonApplication pyprof2calltree;
 
   prelink = callPackage ../development/tools/misc/prelink { };
 
@@ -12002,10 +12014,6 @@ in
 
   libplist = callPackage ../development/libraries/libplist { };
 
-  libqglviewer = callPackage ../development/libraries/libqglviewer {
-    inherit (darwin.apple_sdk.frameworks) AGL;
-  };
-
   libre = callPackage ../development/libraries/libre {};
   librem = callPackage ../development/libraries/librem {};
 
@@ -12428,6 +12436,9 @@ in
   libva1-minimal = libva1.override { minimal = true; };
 
   libvdpau = callPackage ../development/libraries/libvdpau { };
+
+  libmodulemd = callPackage ../development/libraries/libmodulemd { };
+  libmodulemd_1 = callPackage ../development/libraries/libmodulemd/1.nix { };
 
   libvdpau-va-gl = callPackage ../development/libraries/libvdpau-va-gl { };
 
@@ -13225,6 +13236,10 @@ in
     libopenshot = callPackage ../applications/video/openshot-qt/libopenshot.nix { };
 
     libopenshot-audio = callPackage ../applications/video/openshot-qt/libopenshot-audio.nix { };
+
+    libqglviewer = callPackage ../development/libraries/libqglviewer {
+      inherit (darwin.apple_sdk.frameworks) AGL;
+    };
 
     libqtav = callPackage ../development/libraries/libqtav { };
 
@@ -14788,6 +14803,8 @@ in
 
   openxpki = callPackage ../servers/openxpki { };
 
+  openxr-loader = callPackage ../development/libraries/openxr-loader { };
+
   osrm-backend = callPackage ../servers/osrm-backend { };
 
   p910nd = callPackage ../servers/p910nd { };
@@ -14986,6 +15003,7 @@ in
   ;
   postgresql = postgresql_9_6.override { this = postgresql; };
   postgresqlPackages = recurseIntoAttrs postgresql.pkgs;
+  postgresql11Packages = recurseIntoAttrs postgresql_11.pkgs;
 
   postgresql_jdbc = callPackage ../development/java-modules/postgresql_jdbc { };
 
@@ -17011,6 +17029,8 @@ in
 
   stdmanpages = callPackage ../data/documentation/std-man-pages { };
 
+  starship = callPackage ../tools/misc/starship { };
+
   stix-otf = callPackage ../data/fonts/stix-otf { };
 
   stix-two = callPackage ../data/fonts/stix-two { };
@@ -18846,10 +18866,16 @@ in
 
   leftwm = callPackage ../applications/window-managers/leftwm { };
 
-  slack = callPackage ../applications/networking/instant-messengers/slack {
-    # We want 'asar', which I guess isn't avail in all nodePackages? So use 10 for now
-    nodePackages = nodePackages_10_x;
-  };
+  pinboard-notes-backup = haskell.lib.overrideCabal
+    (haskell.lib.generateOptparseApplicativeCompletion "pnbackup"
+      haskellPackages.pinboard-notes-backup)
+    (drv: {
+      postInstall = ''
+        install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
+      '' + (drv.postInstall or "");
+    });
+
+  slack = callPackage ../applications/networking/instant-messengers/slack { nodePackages = nodePackages_10_x; };
   slack-theme-black = callPackage ../applications/networking/instant-messengers/slack/dark-theme.nix { };
   slack-dark = pkgs.slack.override { theme = slack-theme-black; };
 

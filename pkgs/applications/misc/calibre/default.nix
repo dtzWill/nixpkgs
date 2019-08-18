@@ -6,8 +6,8 @@
 
 mkDerivation rec {
 #stdenv.mkDerivation rec {
-  version = "3.46.0";
   name = "calibre-${version}";
+  version = "3.46.0";
 
   src = fetchurl {
     url = "https://download.calibre-ebook.com/${version}/${name}.tar.xz";
