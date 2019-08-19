@@ -3072,6 +3072,8 @@ in
     stdenv = gccStdenv;
   };
 
+  flux = callPackage ../development/compilers/flux { };
+
   fierce = callPackage ../tools/security/fierce { };
 
   figlet = callPackage ../tools/misc/figlet { };
@@ -8335,7 +8337,7 @@ in
   rls = callPackage ../development/tools/rust/rls {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
-  rustfmt = callPackage ../development/tools/rust/rustfmt { };
+  rustfmt = rustPackages.rustfmt;
   rustracer = callPackage ../development/tools/rust/racer {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -9546,6 +9548,8 @@ in
   gnome-usage = callPackage ../applications/misc/gnome-usage {};
 
   gnome-latex = callPackage ../applications/editors/gnome-latex/default.nix { };
+
+  gnome-video-effects = callPackage ../development/libraries/gnome-video-effects { };
 
   gnum4 = callPackage ../development/tools/misc/gnum4 { };
   m4 = gnum4;
@@ -14965,9 +14969,9 @@ in
 
   qboot = pkgsi686Linux.callPackage ../applications/virtualization/qboot { };
 
-  OVMF = callPackage ../applications/virtualization/OVMF { seabios = null; openssl = null; };
-  OVMF-CSM = OVMF.override { openssl = null; };
-  #WIP: OVMF-secureBoot = OVMF.override { seabios = null; secureBoot = true; };
+  OVMF = callPackage ../applications/virtualization/OVMF { };
+  OVMF-CSM = OVMF.override { csmSupport = true; };
+  OVMF-secureBoot = OVMF.override { secureBoot = true; };
 
   seabios = callPackage ../applications/virtualization/seabios { };
 
@@ -19072,8 +19076,6 @@ in
 
   irssi_fish = callPackage ../applications/networking/irc/irssi/fish { };
 
-  irssi_otr = callPackage ../applications/networking/irc/irssi/otr { };
-
   ir.lv2 = callPackage ../applications/audio/ir.lv2 { };
 
   bip = callPackage ../applications/networking/irc/bip { };
@@ -20239,8 +20241,7 @@ in
 
   qiv = callPackage ../applications/graphics/qiv { };
 
-  processing = processing3;
-  processing3 = callPackage ../applications/graphics/processing3 {
+  processing = callPackage ../applications/graphics/processing {
     jdk = oraclejdk8;
   };
 
@@ -23688,7 +23689,7 @@ in
 
   ### SCIENCE/ROBOTICS
 
-  apmplanner2 = libsForQt511.callPackage ../applications/science/robotics/apmplanner2 { };
+  apmplanner2 = libsForQt5.callPackage ../applications/science/robotics/apmplanner2 { };
 
   betaflight-configurator = callPackage ../applications/science/robotics/betaflight-configurator { };
 
