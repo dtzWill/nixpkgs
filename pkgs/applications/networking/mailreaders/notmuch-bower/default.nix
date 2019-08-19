@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
-  version = "0.10.0.1"; # not really
+  version = "0.11.0.1"; # not really
 
   # Temporarily use fork until I can cleanup patch/merge mashup
   src = fetchFromGitHub {
