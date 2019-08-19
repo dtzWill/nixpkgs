@@ -1,4 +1,4 @@
-{ stdenv, pkgs, python3 }:
+{ stdenv, pkgs, python3, glibcLocales }:
 
 with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
@@ -28,7 +28,7 @@ with python3.pkgs; buildPythonApplication rec {
     pkgs.shadow
   ];
   nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
-  checkInputs = [ pytest ];
+  checkInputs = [ pytest glibcLocales /* :( */ ];
 
   postInstall = ''
     # zsh completion
