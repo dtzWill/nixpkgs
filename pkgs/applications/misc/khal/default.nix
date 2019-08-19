@@ -27,11 +27,16 @@ with python3.pkgs; buildPythonApplication rec {
     freezegun
     pkgs.shadow
   ];
-  nativeBuildInputs = [ setuptools_scm ];
-  checkInputs = [ pytest pkgs.glibcLocales  /* :( */ ];
+  nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
+  checkInputs = [ pytest ];
 
   postInstall = ''
+    # zsh completion
     install -D misc/__khal $out/share/zsh/site-functions/__khal
+
+    # man page
+    make -C doc man
+    install -Dm755 doc/build/man/khal.1 -t $out/share/man/man1
   '';
 
   doCheck = !stdenv.isAarch64;
