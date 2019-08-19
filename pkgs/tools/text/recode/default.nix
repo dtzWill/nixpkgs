@@ -2,7 +2,8 @@
 , texinfo, libiconv, libintl }:
 
 stdenv.mkDerivation rec {
-  name = "recode-3.7-2fd838565";
+  pname = "recode";
+  version = "3.7-2fd838565";
 
   src = fetchFromGitHub {
     owner = "pinard";
