@@ -4,13 +4,13 @@
 with stdenv.lib;
 
 let
-  version = "60.4.0";
+  version = "60.8.0";
 in stdenv.mkDerivation rec {
   name = "spidermonkey-${version}";
 
   src = fetchurl {
     url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
-    sha256 = "08x0nijh0ja5jza95a8y030ibk756bn7zlw3a3c4750yilfhqpqa";
+    sha256 = "1gkz90clarbhgfxhq91s0is6lw6bfymyjb0xbyyswdg68kcqfcy1";
   };
 
   buildInputs = [ readline zlib icu ];
