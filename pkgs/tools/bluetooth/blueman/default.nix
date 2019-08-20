@@ -1,5 +1,5 @@
 { config, stdenv, lib, fetchurl, intltool, pkgconfig, python3Packages, bluez, gtk3
-, obex_data_server, xdg_utils, dnsmasq, dhcp, iproute, libappindicator-gtk3
+, obex_data_server, xdg_utils, dnsmasq, dhcp, iproute, libappindicator-gtk3, networkmanager
 , hicolor-icon-theme, librsvg, wrapGAppsHook, gobject-introspection
 , withPulseAudio ? config.pulseaudio or stdenv.isLinux, libpulseaudio }:
 
@@ -21,7 +21,7 @@ in stdenv.mkDerivation rec {
     pythonPackages.wrapPython wrapGAppsHook
   ];
 
-  buildInputs = [ bluez gtk3 pythonPackages.python librsvg hicolor-icon-theme iproute libappindicator-gtk3 ]
+  buildInputs = [ bluez gtk3 pythonPackages.python librsvg hicolor-icon-theme iproute libappindicator-gtk3 networkmanager ]
                 ++ pythonPath
                 ++ lib.optional withPulseAudio libpulseaudio;
 
