@@ -23,7 +23,7 @@ in buildFHSUserEnv {
     allegro dumb
 
     # Desmume
-    lua agg soundtouch openal desktop-file-utils pangox_compat atk
+    lua agg soundtouch openal desktop-file-utils /* pangox_compat */ atk
 
     # DGen // TODO: libarchive is broken
 
