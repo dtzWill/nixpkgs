@@ -7,15 +7,40 @@
 , requests
 , retrying
 , six
+# Test inputs
+, numpy
+, matplotlib
+, coverage
+, mock
+, nose
+, pytest
+, backports_tempfile
+, xarray
+, scipy
+# Optionals:
+# https://github.com/plotly/plotly.py/blob/master/packages/python/plotly/optional-requirements.txt
+, pandas
+, psutil
+, inflect
+, colorcet
+, ipython
+, ipywidgets
+, ipykernel
+, jupyter
+, notebook # ?
+, pyshp
+, geopandas
+, shapely
+, pillow
 }:
 
 buildPythonPackage rec {
   pname = "plotly";
-  version = "3.10.0";
+  version = "4.0.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "164aav7i3ann1lv3xbb76ylpph4hissl0wsnmil1s3m0r7sk7jsx";
+    sha256 = "0iw0j2jwlbzknpbdpaqrjjlbycbwqhavp1crblvihf03knn7nkxz";
   };
 
   propagatedBuildInputs = [
@@ -25,14 +50,42 @@ buildPythonPackage rec {
     requests
     retrying
     six
+
+    # Extras/optional
+    pandas
+    psutil
+    inflect
+    colorcet
+    ipython
+    ipywidgets
+    ipykernel
+    jupyter
+    pyshp
+    geopandas
+    shapely
+    pillow
   ];
 
-  # No tests in archive
+  checkInputs = [
+    numpy
+    matplotlib
+    coverage
+    mock
+    nose
+    pytest
+    backports_tempfile
+    xarray
+    pytz
+    scipy
+  ];
+
+  # Tests mostly scold for not using a different package
   doCheck = false;
 
-  meta = {
+  meta = with lib; {
     description = "Python plotting library for collaborative, interactive, publication-quality graphs";
     homepage = https://plot.ly/python/;
-    license = with lib.licenses; [ mit ];
+    license = licenses.mit;
+    maintainers = with maintainers; [ dtzWill ];
   };
 }

@@ -1,11 +1,15 @@
 { stdenv, fetchurl, ocaml, findlib, opaline }:
 
+if !stdenv.lib.versionAtLeast ocaml.version "4.02"
+then throw "dune is not available for OCaml ${ocaml.version}"
+else
+
 stdenv.mkDerivation rec {
   pname = "dune";
-  version = "1.10.0";
+  version = "1.11.1";
   src = fetchurl {
-    url = "https://github.com/ocaml/dune/releases/download/${version}/dune-${version}.tbz";
-    sha256 = "15fx9rg16g7ig43rg4sdq0wp0br5h1mjxxgv8b15s317vqlfc5pd";
+    url = "https://github.com/ocaml/dune/releases/download/${version}/dune-build-info-${version}.tbz";
+    sha256 = "0hizfaidl1bxl614i65yvyfhsjbp93y7y9qy1a8zw448w1js5bsp";
   };
 
   buildInputs = [ ocaml findlib ];

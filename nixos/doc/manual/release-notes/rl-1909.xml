@@ -33,6 +33,21 @@
      PHP 7.1 is no longer supported due to upstream not supporting this version for the entire lifecycle of the 19.09 release.
     </para>
    </listitem>
+   <listitem>
+     <para>
+       The binfmt module is now easier to use. Additional systems can
+       be added through <option>boot.binfmt.emulatedSystems</option>.
+       For instance, <literal>boot.binfmt.emulatedSystems = [
+       "wasm32-wasi" "x86_64-windows" "aarch64-linux" ];</literal> will
+       set up binfmt interpreters for each of those listed systems.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+     The installer now uses a less privileged <literal>nixos</literal> user whereas before we logged in as root.
+     To gain root privileges use <literal>sudo -i</literal> without a password.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
@@ -47,6 +62,13 @@
    The following new services were added since the last release:
   </para>
 
+  <itemizedlist>
+   <listitem>
+    <para>
+     <literal>./programs/dwm-status.nix</literal>
+    </para>
+   </listitem>
+  </itemizedlist>
  </section>
 
  <section xmlns="http://docbook.org/ns/docbook"
@@ -130,6 +152,19 @@
     </para>
    </listitem>
    <listitem>
+     <para>
+     IPv6 Privacy Extensions are now enabled by default for undeclared
+     interfaces. The previous behaviour was quite misleading — even though
+     the default value for
+     <option>networking.interfaces.*.preferTempAddress</option> was
+     <literal>true</literal>, undeclared interfaces would not prefer temporary
+     addresses. Now, interfaces not mentioned in the config will prefer
+     temporary addresses. EUI64 addresses can still be set as preferred by
+     explicitly setting the option to <literal>false</literal> for the
+     interface in question.
+    </para>
+   </listitem>
+   <listitem>
     <para>
      Since Bittorrent Sync was superseded by Resilio Sync in 2016, the
      <literal>bittorrentSync</literal>, <literal>bittorrentSync14</literal>,
@@ -143,10 +178,22 @@
    </listitem>
    <listitem>
     <para>
-     Several of the apache subservices have been replaced with full NixOS
-     modules including LimeSurvey and WordPress.
-     These modules can be enabled using the <option>services.limesurvey.enable</option>
-     and <option>services.wordpress.enable</option> options.
+     The httpd service no longer attempts to start the postgresql service. If you have come to depend
+     on this behaviour then you can preserve the behavior with the following configuration:
+     <literal>systemd.services.httpd.after = [ "postgresql.service" ];</literal>
+    </para>
+    <para>
+     The option <option>services.httpd.extraSubservices</option> has been
+     marked as deprecated. You may still use this feature, but it will be
+     removed in a future release of NixOS. You are encouraged to convert any
+     httpd subservices you may have written to a full NixOS module.
+    </para>
+    <para>
+     Most of the httpd subservices packaged with NixOS have been replaced with
+     full NixOS modules including LimeSurvey, WordPress, and Zabbix. These
+     modules can be enabled using the <option>services.limesurvey.enable</option>,
+     <option>services.mediawiki.enable</option>, <option>services.wordpress.enable</option>,
+     and <option>services.zabbixWeb.enable</option> options.
     </para>
    </listitem>
    <listitem>
@@ -188,6 +235,40 @@
      The setopt declarations will be evaluated at the end of <literal>/etc/zshrc</literal>, so any code in <xref linkend="opt-programs.zsh.interactiveShellInit" />,
      <xref linkend="opt-programs.zsh.loginShellInit" /> and <xref linkend="opt-programs.zsh.promptInit" /> may break if it relies on those options being set.
     </para>
+   </listitem>
+   <listitem>
+    <para>
+      The <literal>prometheus-nginx-exporter</literal> package now uses the offical exporter provided by NGINX Inc.
+      Its metrics are differently structured and are incompatible to the old ones. For information about the metrics,
+      have a look at the <link xlink:href="https://github.com/nginxinc/nginx-prometheus-exporter">official repo</link>.
+    </para>
+   </listitem>
+   <listitem>
+     <para>
+       Nodejs 8 is scheduled EOL under the lifetime of 19.09 and has been dropped.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       By default, prometheus exporters are now run with <literal>DynamicUser</literal> enabled.
+       Exporters that need a real user, now run under a seperate user and group which follow the pattern <literal>&lt;exporter-name&gt;-exporter</literal>, instead of the previous default <literal>nobody</literal> and <literal>nogroup</literal>.
+       Only some exporters are affected by the latter, namely the exporters <literal>dovecot</literal>, <literal>node</literal>, <literal>postfix</literal> and <literal>varnish</literal>.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       The <literal>ibus-qt</literal> package is not installed by default anymore when <xref linkend="opt-i18n.inputMethod.enabled" /> is set to <literal>ibus</literal>.
+       If IBus support in Qt 4.x applications is required, add the <literal>ibus-qt</literal> package to your <xref linkend="opt-environment.systemPackages" /> manually.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       The CUPS Printing service now uses socket-based activation by
+       default, only starting when needed. The previous behavior can
+       be restored by setting
+       <option>services.cups.startWhenNeeded</option> to
+       <literal>false</literal>.
+     </para>
    </listitem>
   </itemizedlist>
  </section>
@@ -346,6 +427,92 @@
       <literal>19.09</literal> the state folder will migrated to its proper location
       (<literal>/var/lib/systemd/timesync</literal>), if required.
     </para>
+  </listitem>
+   <listitem>
+    <para>
+     The <literal>trac</literal> <literal>httpd.extraSubservice</literal> has been removed from nixpkgs because it was unmaintained.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The <literal>foswiki</literal> package and associated <literal>httpd.extraSubservice</literal> have been removed
+     from nixpkgs due to lack of maintainer.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The <literal>tomcat-connector</literal> <literal>httpd.extraSubservice</literal> has been removed from nixpkgs.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     It's now possible to change configuration in
+     <link linkend="opt-services.nextcloud.enable">services.nextcloud</link> after the initial deploy
+     since all config parameters are persisted in an additional config file generated by the module.
+     Previously core configuration like database parameters were set using their imperative
+     installer after creating <literal>/var/lib/nextcloud</literal>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     There exists now <literal>lib.forEach</literal>, which is like <literal>map</literal>, but with
+     arguments flipped. When mapping function body spans many lines (or has nested
+     <literal>map</literal>s), it is often hard to follow which list is modified.
+    </para>
+    <para>
+     Previous solution to this problem was either to use <literal>lib.flip map</literal>
+     idiom or extract that anonymous mapping function to a named one. Both can still be used
+     but <literal>lib.forEach</literal> is preferred over <literal>lib.flip map</literal>.
+    </para>
+    <para>
+      The <literal>/etc/sysctl.d/nixos.conf</literal> file containing all the options set via
+      <link linkend="opt-boot.kernel.sysctl">boot.kernel.sysctl</link> was moved to
+      <literal>/etc/sysctl.d/60-nixos.conf</literal>, as
+      <citerefentry><refentrytitle>sysctl.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      recommends prefixing all filenames in <literal>/etc/sysctl.d</literal> with a
+      two-digit number and a dash to simplify the ordering of the files.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      We now install the sysctl snippets shipped with systemd.
+    <itemizedlist>
+     <para>This enables:</para>
+     <listitem>
+      <para>Loose reverse path filtering</para>
+     </listitem>
+     <listitem>
+      <para>Source route filtering</para>
+     </listitem>
+     <listitem>
+      <para>
+       <literal>fq_codel</literal> as a packet scheduler (this helps to fight bufferbloat)
+      </para>
+     </listitem>
+    </itemizedlist>
+
+     This also configures the kernel to pass coredumps to <literal>systemd-coredump</literal>.
+     These sysctl snippets can be found in <literal>/etc/sysctl.d/50-*.conf</literal>,
+     and overridden via <link linkend="opt-boot.kernel.sysctl">boot.kernel.sysctl</link>
+     (which will place the parameters in <literal>/etc/sysctl.d/60-nixos.conf</literal>).
+     </para>
+   </listitem>
+   <listitem>
+    <para>
+      Coredumps are now acquired by <literal>systemd-coredump</literal> by default.
+      <literal>systemd-coredump</literal> behaviour can still be modified via
+      <option>systemd.coredump.extraConfig</option>.
+      To stick to the old behaviour (having the kernel dump to a file called <literal>core</literal>
+      in the working directory), without piping it through <literal>systemd-coredump</literal>, set
+      <option>boot.kernel.sysctl."kernel.core_pattern"</option> to <literal>"core"</literal>.
+    </para>
+   </listitem>
+  <listitem>
+   <para>
+    <literal>systemd.packages</literal> option now also supports generators and
+    shutdown scripts. Old <literal>systemd.generator-packages</literal> option has
+    been removed.
+   </para>
   </listitem>
   </itemizedlist>
  </section>

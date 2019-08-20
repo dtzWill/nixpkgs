@@ -1,12 +1,13 @@
+
 { stdenv, fetchurl, cmake, alsaLib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, fontconfig
-, GConf, gdk_pixbuf, glib, gtk2, libX11, libxcb, libXcomposite, libXcursor
+, GConf, gdk-pixbuf, glib, gtk2, libX11, libxcb, libXcomposite, libXcursor
 , libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXScrnSaver
 , libXtst, nspr, nss, pango, libpulseaudio, systemd }:
 
 let
   libPath =
     stdenv.lib.makeLibraryPath [
-      alsaLib atk at-spi2-atk at-spi2-core cairo cups dbus expat fontconfig GConf gdk_pixbuf glib gtk2
+      alsaLib atk at-spi2-atk at-spi2-core cairo cups dbus expat fontconfig GConf gdk-pixbuf glib gtk2
       libX11 libxcb libXcomposite libXcursor libXdamage libXext libXfixes libXi
       libXrandr libXrender libXScrnSaver libXtst nspr nss pango libpulseaudio
       systemd

@@ -7,11 +7,9 @@
 , r2-for-cutter
 , python3 }:
 
-let
-  version = "1.8.2";
-in
 stdenv.mkDerivation rec {
-  name = "radare2-cutter-${version}";
+  pname = "radare2-cutter";
+  version = "1.8.3";
 
   src = fetchFromGitHub {
     owner = "radareorg";

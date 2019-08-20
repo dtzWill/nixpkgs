@@ -87,7 +87,7 @@ let
     '';
     meta = {
       description = "A domain-specific language for finite element variational forms";
-      homepage = http://fenicsproject.org/;
+      homepage = https://fenicsproject.org/;
       platforms = stdenv.lib.platforms.all;
       license = stdenv.lib.licenses.lgpl3;
     };
@@ -112,7 +112,22 @@ let
     doCheck = false; # XXX: TODO: install ffc-factory from libs/ffc-factory
     meta = {
       description = "A compiler for finite element variational forms";
-      homepage = http://fenicsproject.org/;
+      homepage = https://fenicsproject.org/;
+      platforms = stdenv.lib.platforms.all;
+      license = stdenv.lib.licenses.lgpl3;
+    };
+  };
+
+  instant = pythonPackages.buildPythonPackage {
+    name = "instant-${version}";
+    src = fetchurl {
+      url = "https://bitbucket.org/fenics-project/instant/downloads/instant-${version}.tar.gz";
+      sha256 = "1rsyh6n04w0na2zirfdcdjip8k8ikb8fc2x94fq8ylc3lpcnpx9q";
+    };
+    buildInputs = [ numpy six ];
+    meta = {
+      description = "Instant inlining of C and C++ code in Python";
+      homepage = https://fenicsproject.org/;
       platforms = stdenv.lib.platforms.all;
       license = stdenv.lib.licenses.lgpl3;
     };
@@ -157,7 +172,7 @@ stdenv.mkDerivation {
   postInstall = "source $out/share/dolfin/dolfin.conf";
   meta = {
     description = "The FEniCS Problem Solving Environment in Python and C++";
-    homepage = http://fenicsproject.org/;
+    homepage = https://fenicsproject.org/;
     platforms = stdenv.lib.platforms.all;
     license = stdenv.lib.licenses.lgpl3;
   };

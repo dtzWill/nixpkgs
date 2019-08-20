@@ -1,38 +1,89 @@
-{ stdenv, fetchFromGitLab, meson, ninja, gettext, cargo, rustc, python3, rustPlatform, pkgconfig, gtksourceview
-, hicolor-icon-theme, glib, libhandy, gtk3, libsecret, dbus, openssl, gspell, sqlite, gst_all_1, wrapGAppsHook, fetchpatch }:
+{ stdenv
+, fetchFromGitLab
+, fetchpatch
+, meson
+, ninja
+, gettext
+, cargo
+, rustc
+, python3
+, rustPlatform
+, pkgconfig
+, gtksourceview
+, hicolor-icon-theme
+, glib
+, libhandy
+, gtk3
+, dbus
+, openssl
+, sqlite
+, gst_all_1
+, cairo
+, gdk-pixbuf
+, gspell
+, wrapGAppsHook
+}:
 
 rustPlatform.buildRustPackage rec {
-  version = "4.0.0.0.1"; # not really
   pname = "fractal";
+  version = "4.2.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
-    #rev = version;
-    rev = "c5c17a492f1807dc63597de926da85bffba0db25"; # 2019-06-28
-    sha256 = "1w3yiwmn86lbi4bj23if2y7d4rlmnirxi1fzzjcdcp8zzx4yx9ab";
+    rev = version;
+    sha256 = "0clwsmd6h759bzlazfq5ig56dbx7npx3h43yspk87j1rm2dp1177";
   };
 
-  nativeBuildInputs = [
-    meson ninja pkgconfig gettext cargo rustc python3 wrapGAppsHook
-  ];
-  buildInputs = [
-    glib gtk3 libhandy dbus gspell openssl sqlite
-    gtksourceview hicolor-icon-theme
-  ] ++ builtins.attrValues { inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gst-editing-services; };
+  cargoSha256 = "1hwjajkphl5439dymglgj3h92hxgbf7xpipzrga7ga8m10nx1dhl";
 
-  patches = [
+  nativeBuildInputs = [
+    cargo
+    gettext
+    meson
+    ninja
+    pkgconfig
+    python3
+    rustc
+    wrapGAppsHook
+  ];
+
+  buildInputs = [
+    cairo
+    dbus
+    gdk-pixbuf
+    glib
+    gspell
+    gst_all_1.gst-editing-services
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+    gtk3
+    gtksourceview
+    hicolor-icon-theme
+    libhandy
+    openssl
+    sqlite
+  ];
+
+  cargoPatches = [
+    # https://gitlab.gnome.org/GNOME/fractal/merge_requests/446
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/fractal/commit/2778acdc6c50bc6f034513029b66b0b092bc4c38.patch";
+      sha256 = "08v17xmbwrjw688ps4hsnd60d5fm26xj72an3zf6yszha2b97j6y";
+    })
   ];
 
   postPatch = ''
-    patchShebangs scripts/meson_post_install.py
-
-    substituteInPlace scripts/test.sh --replace /usr/bin/sh '/usr/bin/env sh'
     chmod +x scripts/test.sh
-    patchShebangs scripts/test.sh
-    substituteInPlace scripts/test.sh --replace 'cargo test -j 1' 'cargo test'
+    patchShebangs scripts/meson_post_install.py scripts/test.sh
 
+    # Don't limit tests to single thread
+    substituteInPlace scripts/test.sh --replace 'cargo test -j 1' 'cargo test'
+  '' + stdenv.lib.optionalString false ''
+    # When building from non-official-releases, modify the in-app
+    # version to indicate it was built from git and what revision.
     substituteInPlace meson.build \
       --replace "name_suffix = '" "name_suffix = ' (git)" \
       --replace "version_suffix = '" "version_suffix = '-${builtins.substring 0 8 src.rev}"
@@ -44,13 +95,11 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
-  cargoSha256 = "0ca4309cmd3zac6rdk6496nyppdhrmka3li2pbx9zlzml6hj84da";
-
   meta = with stdenv.lib; {
     description = "Matrix group messaging app";
     homepage = https://gitlab.gnome.org/GNOME/fractal;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [ dtzWill worldofpeace ];
   };
 }
 

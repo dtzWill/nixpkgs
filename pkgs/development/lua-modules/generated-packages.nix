@@ -150,7 +150,7 @@ cjson = buildLuarocksPackage {
   propagatedBuildInputs = [ lua ];
 
   meta = with stdenv.lib; {
-    homepage = "http://www.kyne.com.au/~mark/software/lua-cjson.php";
+    homepage = "https://www.kyne.com.au/~mark/software/lua-cjson.php";
     description = "A fast JSON encoding/parsing module";
     license = {
       fullName = "MIT";
@@ -196,11 +196,11 @@ coxpcall = buildLuarocksPackage {
 };
 cqueues = buildLuarocksPackage {
   pname = "cqueues";
-  version = "20171014.52-0";
+  version = "20190731.52-0";
 
   src = fetchurl {
-    url    = https://luarocks.org/cqueues-20171014.52-0.src.rock;
-    sha256 = "0q3iy1ja20nq2sn2n6badzhjq5kni86pfc09n5g2c46q9ja3vfzx";
+    url    = https://luarocks.org/cqueues-20190731.52-0.src.rock;
+    sha256 = "07rs34amsxf2bc5ccqdad0c63c70737r54316cbd9qh1a2wbvz8s";
   };
   disabled = (lua.luaversion != "5.2");
   propagatedBuildInputs = [ lua ];
@@ -236,7 +236,7 @@ cyrussasl = buildLuarocksPackage {
   propagatedBuildInputs = [ lua ];
 
   meta = with stdenv.lib; {
-    homepage = "http://github.com/JorjBauer/lua-cyrussasl";
+    homepage = "https://github.com/JorjBauer/lua-cyrussasl";
     description = "Cyrus SASL library for Lua 5.1+";
     maintainers = with maintainers; [ vcunat ];
     license = {
@@ -499,7 +499,7 @@ lrexlib-pcre = buildLuarocksPackage {
   propagatedBuildInputs = [ lua ];
 
   meta = with stdenv.lib; {
-    homepage = "http://github.com/rrthomas/lrexlib";
+    homepage = "https://github.com/rrthomas/lrexlib";
     description = "Regular expression library binding (PCRE flavour).";
     maintainers = with maintainers; [ vyp ];
     license = {
@@ -926,11 +926,11 @@ luafilesystem = buildLuarocksPackage {
 };
 luaossl = buildLuarocksPackage {
   pname = "luaossl";
-  version = "20190612-0";
+  version = "20190731-0";
 
   src = fetchurl {
-    url    = https://luarocks.org/luaossl-20190612-0.src.rock;
-    sha256 = "0q47rsfjnx3rbbr9jl2j5nlj56c6mwmnnma9m4rrbsza2p98wb4s";
+    url    = https://luarocks.org/luaossl-20190731-0.src.rock;
+    sha256 = "0gardlh547hah5w4kfsdg05jmxzrxr21macqigcmp5hw1l67jn5m";
   };
   propagatedBuildInputs = [ lua ];
 
@@ -955,7 +955,7 @@ luaposix = buildLuarocksPackage {
   propagatedBuildInputs = [ bit32 lua std_normalize ];
 
   meta = with stdenv.lib; {
-    homepage = "http://github.com/luaposix/luaposix/";
+    homepage = "https://github.com/luaposix/luaposix/";
     description = "Lua bindings for POSIX";
     maintainers = with maintainers; [ vyp lblasc ];
     license = {
@@ -1106,11 +1106,11 @@ luuid = buildLuarocksPackage {
 };
 luv = buildLuarocksPackage {
   pname = "luv";
-  version = "1.29.1-2";
+  version = "1.30.0-0";
 
   src = fetchurl {
-    url    = https://luarocks.org/luv-1.29.1-2.src.rock;
-    sha256 = "180g06lkhapb76nhlgsa8ik8z6mrlkvq9mpb8rx74lr101h1yqxg";
+    url    = https://luarocks.org/luv-1.30.0-0.src.rock;
+    sha256 = "1z5sdq9ld4sm5pws9qxpk9cadv9i7ycwad1zwsa57pj67gly11vi";
   };
   disabled = (luaOlder "5.1");
   propagatedBuildInputs = [ lua ];

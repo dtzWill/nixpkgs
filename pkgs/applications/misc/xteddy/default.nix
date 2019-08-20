@@ -1,38 +1,41 @@
-{ stdenv, fetchurl, pkg-config, xorg, imlib2 }:
+{ stdenv, fetchFromGitLab, pkg-config, xorg, imlib2, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "xteddy-${version}";
-  version = "2.2";
-  src = fetchurl {
-    url = "http://deb.debian.org/debian/pool/main/x/xteddy/xteddy_${version}.orig.tar.gz";
-    sha256 = "1qli69im6pani8wzmryavndspbcwc4298yl5d6s7qy085qg5m26q";
+  version = "2.2-5";
+  src = fetchFromGitLab {
+    domain = "salsa.debian.org";
+    owner = "games-team";
+    repo = "xteddy";
+    rev = "debian%2F${version}"; # %2F = urlquote("/");
+    sha256 = "0rm7w78d6qajq4fvi4agyqm0c70f3c1i0cy2jdb6kqql2k8w78qy";
   };
-  postPatch = ''
-    for x in configure xteddy.c Makefile.in images/Makefile.in xteddy_test xtoys; do
-      substituteInPlace $x --replace /usr/share $out/share --replace /usr/local/share $out/share
-    done
-    substituteInPlace xtoys --replace /usr/games/xteddy $out/bin/xteddy
 
-    sed -i 's/man 1 xteddy/man 6 xteddy/' xteddy.c
-  '';
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
   buildInputs = [ imlib2 xorg.libX11 xorg.libXext ];
 
-  makeFlags = [ "LIBS=-lXext" ];
+  patches = [ "${src}/debian/patches/10_libXext.patch" "${src}/debian/patches/wrong-man-page-section.patch" ];
+
+  postPatch = ''
+    sed -i "s:/usr/games/xteddy:$out/bin/xteddy:" xtoys
+    sed -i "s:/usr/share/xteddy:$out/share/xteddy:" xtoys
+  '';
 
   postInstall = ''
-    # Remove script that launches xteddy on every image, probably not desired :)
+    cp -R images $out/share/images
+    # remove broken test script
     rm $out/bin/xteddy_test
+  '';
 
-    # Create aliases for various toys O:)
-    for x in $out/share/xteddy/*.png; do
-      ln -rsv $out/bin/{xteddy,$(basename $x .png)} || :
-    done
+  postFixup = ''
+    # this is needed, because xteddy expects images to reside
+    # in the current working directory
+    wrapProgram $out/bin/xteddy --run "cd $out/share/images/"
   '';
 
   meta = with stdenv.lib; {
     description = "Cuddly teddy bear for your X desktop";
-    homepage = https://weber.itn.liu.se/~stegu/xteddy/;
+    homepage = "https://weber.itn.liu.se/~stegu/xteddy/";
     license = licenses.gpl2;
     maintainers = [ maintainers.xaverdh ];
     platforms = platforms.linux;

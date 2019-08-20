@@ -1,0 +1,118 @@
+From 0448b91762d4eb32ed829f1e50ccde6cee0dfa20 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 18 Jul 2019 16:24:52 -0500
+Subject: [PATCH] add 'phd' theme based on "phd" theme, orig source:
+ http://leetless.de/vim.html
+
+---
+ src/Themes.vala          |  2 ++
+ src/meson.build          |  1 +
+ src/themes/ThemePhd.vala | 65 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 68 insertions(+)
+ create mode 100644 src/themes/ThemePhd.vala
+
+diff --git a/src/Themes.vala b/src/Themes.vala
+index 02bdfc1..29b2ac5 100644
+--- a/src/Themes.vala
++++ b/src/Themes.vala
+@@ -35,12 +35,14 @@ public class Themes : Object {
+     /* Create the themes */
+     var default_theme         = new ThemeDefault();
+     var dark_theme            = new ThemeDark();
++    var phd_theme             = new ThemePhd();
+     var solarized_light_theme = new ThemeSolarizedLight();
+     var solarized_dark_theme  = new ThemeSolarizedDark();
+ 
+     /* Add the themes to the list */
+     _themes.append_val( default_theme );
+     _themes.append_val( dark_theme );
++    _themes.append_val( phd_theme );
+     _themes.append_val( solarized_light_theme );
+     _themes.append_val( solarized_dark_theme );
+ 
+diff --git a/src/meson.build b/src/meson.build
+index c50d61a..c004715 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -38,6 +38,7 @@ sources += files(
+     'styles/NodeBorderUnderlined.vala',
+ 
+     'themes/ThemeDark.vala',
++    'themes/ThemePhd.vala',
+     'themes/ThemeDefault.vala',
+     'themes/ThemeSolarizedDark.vala',
+     'themes/ThemeSolarizedLight.vala',
+diff --git a/src/themes/ThemePhd.vala b/src/themes/ThemePhd.vala
+new file mode 100644
+index 0000000..6f6d8a4
+--- /dev/null
++++ b/src/themes/ThemePhd.vala
+@@ -0,0 +1,65 @@
++/*
++* Copyright (c) 2018 (https://github.com/phase1geo/Minder)
++*
++* This program is free software; you can redistribute it and/or
++* modify it under the terms of the GNU General Public
++* License as published by the Free Software Foundation; either
++* version 2 of the License, or (at your option) any later version.
++*
++* This program is distributed in the hope that it will be useful,
++* but WITHOUT ANY WARRANTY; without even the implied warranty of
++* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++* General Public License for more details.
++*
++* You should have received a copy of the GNU General Public
++* License along with this program; if not, write to the
++* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++* Boston, MA 02110-1301 USA
++*
++* Authored by: Trevor Williams <phase1geo@gmail.com>
++*/
++
++using Gdk;
++using Gtk;
++
++/*
++ * Base16 PhD
++ * Original Author: Hennig Hasemann (http://leetless.de/vim.html)
++ */
++public class ThemePhd: Theme {
++
++  /* Create the theme colors */
++  public ThemePhd() {
++
++    name = _( "Phd" );
++
++    /* Generate the non-link colors */
++    background         = get_color( "#061229" );
++    foreground         = get_color( "b8bbc2" );
++    root_background    = get_color( "#1b4fb1" ); /* 40% more than bg */ /* "#d4d4d4" ); */
++    root_foreground    = get_color( "White" );
++    nodesel_background = get_color( "#64baff" );
++    nodesel_foreground = get_color( "Black" );
++    textsel_background = get_color( "#0d52bf" );
++    textsel_foreground = get_color( "White" );
++    text_cursor        = get_color( "White" );
++    attachable_color   = get_color( "#9bdb4d" );
++    /* connection_color   = get_color( "#404040" ); */
++    /* connection_color   = get_color( "#808080" ); */
++    connection_color   = get_color( "#BBFFFF" );
++    prefer_dark        = true;
++
++    /* Generate the link colors */
++    /* Maybe from a brighter scheme? */
++    add_link_color( get_color( "#d07346" ) );
++    add_link_color( get_color( "#99bf52" ) );
++    add_link_color( get_color( "#fbd461" ) );
++    add_link_color( get_color( "#5299bf" ) );
++    add_link_color( get_color( "#9989cc" ) );
++    add_link_color( get_color( "#72b9bf" ) );
++    add_link_color( get_color( "#715344" ) );
++    add_link_color( get_color( "#bbbbbb" ) );
++
++  }
++
++}
+-- 
+2.22.0
+

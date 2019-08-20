@@ -1,7 +1,7 @@
 { stdenv, cmake, ninja, intltool, fetchurl, libxml2, webkitgtk, highlight
 , pkgconfig, gtk3, glib, libnotify, gtkspell3
 , wrapGAppsHook, itstool, shared-mime-info, libical, db, gcr, sqlite
-, gnome3, librsvg, gdk_pixbuf, libsecret, nss, nspr, icu
+, gnome3, librsvg, gdk-pixbuf, libsecret, nss, nspr, icu
 , libcanberra-gtk3, bogofilter, gst_all_1, procps, p11-kit, openldap
 , libmspack
  }:
@@ -21,7 +21,7 @@ in stdenv.mkDerivation rec {
   #propagatedUserEnvPkgs = [ gnome3.evolution-data-server gnome3.evolution ];
 
   buildInputs = [
-    gtk3 glib gdk_pixbuf gnome3.defaultIconTheme librsvg db icu
+    gtk3 glib gdk-pixbuf gnome3.defaultIconTheme librsvg db icu
     gnome3.evolution-data-server libsecret libical gcr
     webkitgtk shared-mime-info gnome3.gnome-desktop gtkspell3
     libcanberra-gtk3 bogofilter gnome3.libgdata sqlite

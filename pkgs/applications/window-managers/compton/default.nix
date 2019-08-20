@@ -1,13 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45
-, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja, uthash
+{ stdenv, lib, fetchFromGitHub, pkgconfig, uthash, asciidoc, docbook_xml_dtd_45
+, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11
 , libXinerama, libXext, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
   pname = "compton";
-#  version = "6.2";
-  #version = "2019-06-24";
-  version = "7-rc1";
+  #version = "7.3";
+  version = "2019-08-18";
 
   COMPTON_VERSION = "v${version}";
 
@@ -15,14 +14,15 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = "compton";
     #rev    = COMPTON_VERSION;
-    rev = "7d28309a47ccee8fb09d863e606b11d794296bb4";
-    sha256 = "07wqxw7iacw1b0x7c4lj2shijfnz0nqwk0bv1yhy65n8a37pl9zb";
+    rev = "d6added769a056fd4495c78b3b6b2e3a4d60d449";
+    sha256 = "15i0v5pmfj5lj6j15dnw2mglvr6m7sh8xpbjjcysw3qf1rfdry4r";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
     meson ninja
     pkgconfig
+    uthash
     asciidoc
     docbook_xml_dtd_45
     docbook_xsl
@@ -55,21 +55,21 @@ stdenv.mkDerivation rec {
   ##  export -f git
   ##'';
 
-  # This isn't great but does manage to set version appropriately.
-  postPatch = ''
-    substituteInPlace meson.build --replace "version: '6'" "version: '6-git-${version}'"
-  '';
-
   doCheck = true;
 
   mesonFlags = [
     "-Dbuild_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
-    "-Dsanitize=true"
+#    "-Dsanitize=true"
   ];
 
-  #installFlags = [ "PREFIX=${placeholder "out"}" ];
+  #preBuild = ''
+  #  git() { echo "$COMPTON_VERSION"; }
+  # texport -f git
+  #'';
+
+  #installFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
     wrapProgram $out/bin/compton-trans \

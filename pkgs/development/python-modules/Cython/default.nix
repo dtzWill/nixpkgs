@@ -25,11 +25,11 @@ let
 
 in buildPythonPackage rec {
   pname = "Cython";
-  version = "0.29.11";
+  version = "0.29.13";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1866m01ggl2h3rky4hac3m5p048gg4a0jb09ljkknryiqln54fkn";
+    sha256 = "c29d069a4a30f472482343c866f7486731ad638ef9af92bfe5fca9c7323d638e";
   };
 
   nativeBuildInputs = [

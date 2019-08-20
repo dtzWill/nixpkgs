@@ -2,18 +2,14 @@
 
 stdenv.mkDerivation rec {
   name = "google-fonts-${version}";
-  version = "2019-06-04";
+  version = "2019-08-02";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "fonts";
-    rev = "87776223497b72be361b5c08ba16e9c659209f37";
-    sha256 = "1n93dbk5fy8wi487ibyi1xp46r3hl58ymgib8f7f7gnbf0hvkrx1";
+    rev = "bff01b26a688456b934f420bc442fe492595d53b";
+    sha256 = "0297cavrhwci4xx57409zs84gb4q2gmygdn3bkfxvswff23lizpx";
   };
-
-  outputHashAlgo = "sha256";
-  outputHashMode = "recursive";
-  outputHash = "0mx8yvdxrb2wxr0y1vrl5h76dz5mi770vdfb9hrykx0v1wz5g47h";
 
   phases = [ "unpackPhase" "patchPhase" "installPhase" ];
 
@@ -29,8 +25,12 @@ stdenv.mkDerivation rec {
       ofl/siamreap \
       ofl/terminaldosislight
 
-    # Remove 'static' versions of variable fonts, avoid conflict
-    rm ofl/*/static -rf
+    # See comment above, the structure of these is a bit odd
+    # We keep the ofl/<font>/static/ variants
+    rm -rv ofl/comfortaa/*.ttf \
+      ofl/mavenpro/*.ttf \
+      ofl/muli/*.ttf \
+      ofl/oswald/*.ttf
 
     if find . -name "*.ttf" | sed 's|.*/||' | sort | uniq -c | sort -n | grep -v '^.*1 '; then
       echo "error: duplicate font names"

@@ -4,7 +4,7 @@
 , isIceCatLike ? false, icversion ? null
 , isTorBrowserLike ? false, tbversion ? null }:
 
-{ lib, stdenv, pkgconfig, perl, python2, zip, libIDL
+{ lib, stdenv, pkgconfig, perl, python2, python3, zip, libIDL
 , cairo, pango, graphite2, harfbuzz
 , libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
 , freetype, fontconfig, file, nspr, nss, libnotify
@@ -98,7 +98,7 @@ let
     ./env_var_for_system_dir.patch
     ./firefox-66.0.2-system_graphite2_harfbuzz-1.patch
   ]
-  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69")
+  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69") [
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
       name = "write_error-parallel_make.diff";
       url = "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";
@@ -170,6 +170,8 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString (lib.versionAtLeast ffversion "63.0" && !isTorBrowserLike) ''
     substituteInPlace third_party/prio/prio/rand.c --replace 'nspr/prinit.h' 'prinit.h'
+  '' + lib.optionalString (lib.versionAtLeast ffversion "68") ''
+    rm -rf obj-x86_64-pc-linux-gnu
   '';
 
   nativeBuildInputs =
@@ -180,6 +182,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional gtk3Support wrapGAppsHook
     ++ lib.optionals stdenv.isDarwin [ xcbuild rsync ]
+    ++ lib.optional  (lib.versionAtLeast ffversion "61.0") [ python3 ]
     ++ lib.optionals (lib.versionAtLeast ffversion "63.0") [ rust-cbindgen nodejs ]
     ++ lib.optional (lib.versionAtLeast ffversion "66") nasm # XXX: not sure if still useful
     ++ lib.optionals (lib.versionAtLeast ffversion "67.0") [ llvmPackages.llvm ] # llvm-objdump is required in version >=67.0

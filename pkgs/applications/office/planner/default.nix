@@ -8,9 +8,11 @@
 , gnome2
 , libxslt
 , python2
+, libgda
+, evolution-data-server
 }:
 
-let version = "unstable-2019-02-17";
+let version = "unstable-2019-07-22";
 
 in stdenv.mkDerivation {
   pname = "planner";
@@ -20,8 +22,8 @@ in stdenv.mkDerivation {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "planner";
-    rev = "84f9d481aa83d531e31c435014aeaad75e9f9e65";
-    sha256 = "05mymy1yc0gi06ajqmm2l6n7n96s8r2gb4q6pvhb9jz51ywwdxir";
+    rev = "2e1044cf";
+    sha256 = "02msnzy534zw6bfg48kp2mgbplij6d3c16v604qk9rvsgyp6yys5";
   };
 
   nativeBuildInputs = with gnome2; [
@@ -44,6 +46,7 @@ in stdenv.mkDerivation {
     libxslt
     python2
     python2.pkgs.pygtk
+    libgda
     #evolution-data-server
     #libsoup
   ];
@@ -53,8 +56,8 @@ in stdenv.mkDerivation {
     "--enable-python"
     "--enable-python-plugin"
     #"--enable-eds"
-  #  "--enable-eds-backend"
-#    "--enable-simple-priority-scheduling"
+    #"--enable-eds-backend"
+    #"--enable-simple-priority-scheduling"
     ];
 
   enableParallelBuilding = true;

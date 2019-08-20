@@ -1,22 +1,22 @@
-{ stdenv, fetchurl, qmake, qttools, qtbase, qtsvg, qtdeclarative, qtxmlpatterns, qtwayland, qtwebsockets }:
+{  mkDerivation, lib, fetchurl, qmake, qttools, qtbase, qtsvg, qtdeclarative, qtxmlpatterns, qtwayland, qtwebsockets, stdenv /* for isLinux */ }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "qownnotes";
-  version = "19.6.2";
+  version = "19.8.5";
 
   src = fetchurl {
     url = "https://download.tuxfamily.org/${pname}/src/${pname}-${version}.tar.xz";
     # Can grab official version like so:
     # $ curl https://download.tuxfamily.org/qownnotes/src/qownnotes-19.1.8.tar.xz.sha256
-    sha256 = "18i5spnb3cqi1l6x3afpqj3rpc10l2frvlqp7040dmqcjlqgrlqf";
+    sha256 = "4210815ffbf20e7fe93b2c720dc363925afc53730f7de12612d24a27a7ab8c5f";
   };
 
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [
     qtbase qtsvg qtdeclarative qtxmlpatterns qtwebsockets
-  ] ++ stdenv.lib.optional stdenv.isLinux qtwayland;
+  ] ++ lib.optional stdenv.isLinux qtwayland;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Plain-text file notepad and todo-list manager with markdown support and ownCloud / Nextcloud integration";
 
     homepage = https://www.qownnotes.org/;

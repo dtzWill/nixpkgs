@@ -1,6 +1,5 @@
 { stdenv, fetchFromGitHub, cmake, pkgconfig, ncurses }:
 
-with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "cmatrix";
   version = "2.0";
@@ -18,11 +17,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ ncurses ];
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "Simulates the falling characters theme from The Matrix movie";
     longDescription = ''
       CMatrix simulates the display from "The Matrix" and is based
-      on the screensaver from the movie's website.  
+      on the screensaver from the movie's website.
     '';
     homepage = https://github.com/abishekvashok/cmatrix;
     platforms = ncurses.meta.platforms;

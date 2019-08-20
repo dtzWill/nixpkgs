@@ -1,6 +1,6 @@
 { stdenv, lib, makeWrapper, fetchurl
 , dpkg, wrapGAppsHook, autoPatchelfHook
-, gtk3, cairo, gnome2, atk, gdk_pixbuf, glib
+, gtk3, cairo, gnome2, atk, gdk-pixbuf, glib
 , at-spi2-atk, dbus, libX11, libxcb, libXi
 , libXcursor, libXdamage, libXrandr, libXcomposite
 , libXext, libXfixes, libXrender, libXtst, libXScrnSaver
@@ -10,12 +10,12 @@
 
 stdenv.mkDerivation rec {
   name = "polar-bookshelf-${version}";
-  version = "1.17.1";
+  version = "1.31.0";
 
   # fetching a .deb because there's no easy way to package this Electron app
   src = fetchurl {
     url = "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-bookshelf-${version}-amd64.deb";
-    sha256 = "1n5vpcf4lfkwqdwrispll4r003l0hrjkaglkwj0rzavf67f957j6";
+    sha256 = "0lc530xxgf2wgxyzzspqqsdy66axa0kqigsq1pc3x1pg8girsnsi";
   };
 
   buildInputs = [
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     cairo
     gnome2.pango
     atk
-    gdk_pixbuf
+    gdk-pixbuf
     at-spi2-atk
     dbus
     libX11
@@ -48,10 +48,10 @@ stdenv.mkDerivation rec {
     expat
   ];
 
-  nativeBuildInputs = [ 
+  nativeBuildInputs = [
     wrapGAppsHook
     autoPatchelfHook
-    makeWrapper 
+    makeWrapper
     dpkg
   ];
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     mv usr/share/* $out/share/
 
     ln -s $out/share/polar-bookshelf/polar-bookshelf $out/bin/polar-bookshelf
-    
+
     # Correct desktop file `Exec`
     substituteInPlace $out/share/applications/polar-bookshelf.desktop \
       --replace "/opt/Polar Bookshelf/polar-bookshelf" "$out/bin/polar-bookshelf"

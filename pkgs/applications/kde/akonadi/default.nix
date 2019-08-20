@@ -24,8 +24,7 @@ mkDerivation {
     ''-DNIXPKGS_MYSQL_MYSQLADMIN=\"${lib.getBin mysql}/bin/mysqladmin\"''
     ''-DNIXPKGS_MYSQL_MYSQL_INSTALL_DB=\"${lib.getBin mysql}/bin/mysql_install_db\"''
     ''-DNIXPKGS_MYSQL_MYSQLCHECK=\"${lib.getBin mysql}/bin/mysqlcheck\"''
-    ''-DNIXPKGS_POSTGRES_PG_CTL=\"\"''
-    ''-DNIXPKGS_POSTGRES_INITDB=\"\"''
+    ''-DNIXPKGS_POSTGRES=\"\"''
   ];
   preConfigure = ''
     NIX_CFLAGS_COMPILE+=" -DNIX_OUT=\"$out\""

@@ -1,10 +1,11 @@
-{ stdenv, fetchurl, xorgproto, libX11, libXinerama, libXft, zlib, patches ? null }:
+{ stdenv, fetchurl, xorgproto, libX11, libXinerama, libXft, zlib, patches ? [ ./xim.patch ] }:
 
 stdenv.mkDerivation rec {
-  name = "dmenu-4.9";
+  pname = "dmenu";
+  version = "4.9";
 
   src = fetchurl {
-    url = "https://dl.suckless.org/tools/${name}.tar.gz";
+    url = "https://dl.suckless.org/tools/${pname}-${version}.tar.gz";
     sha256 = "0ia9nqr83bv6x247q30bal0v42chcj9qcjgv59xs6xj46m7iz5xk";
   };
 

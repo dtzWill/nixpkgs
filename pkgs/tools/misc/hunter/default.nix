@@ -8,15 +8,15 @@ with rustPlatform;
 
 buildRustPackage rec {
   pname = "hunter";
-  version = "1.2.3";
+  version = "1.3.4";
 
-  cargoSha256 = "03srma9w8jvx5h2j8dca1z50km3ixxzxl4agc0974zdpmwpyn647";
+  cargoSha256 = "0xnd3n26qlxgiccc7a98625hxn2d61gg03mksknmipiwd3qdjs4x";
 
   src = fetchFromGitHub {
     owner = "rabite0";
     repo = pname;
     rev = "v${version}";
-    sha256 = "040m6kxgajaiwsywnnmdbapplcmpry100vkwangkld7468naqi75";
+    sha256 = "01xr8l5jqxq1hfbmdrh82yjg1013aklr5a2fiidgycy3ysd9kzaj";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -69,4 +69,10 @@ buildRustPackage rec {
   ## TODO: ##   license = licenses.mit;
   ## TODO: ##   maintainers = [ maintainers.ehegnes ];
   ## TODO: ## };
+  # XXX: this is stubbed and WRONG!
+  meta = with stdenv.lib; {
+    description = "ranger-like in rust";
+    license = licenses.wtfpl;
+    platforms = platforms.all;
+  };
 }

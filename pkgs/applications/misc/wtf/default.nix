@@ -5,22 +5,29 @@
 
 buildGoModule rec {
   pname = "wtf";
-  version = "0.13.0";
+  version = "0.19.1";
 
   src = fetchFromGitHub {
     owner = "wtfutil";
     repo = pname;
     rev = "v${version}";
-    sha256 = "13izb0v0b30v0xv3yg082n0zsk4v57x6vx3m7ln4wril762ab784";
+    sha256 = "19qzg5blqm5p7rrnaqh4f9aj53i743mawjnd1h9lfahbgmil1d24";
   };
 
-  modSha256 = "0921d2qy0jcnih7hlda0i5q45b350yp9frh3hhh91f1g0j7vn1y6";
+  modSha256 = "1q21pc4yyiq4dihsb9n7261ssj52nnik8dq6fg4gvlnnpgcjp570";
 
-  buildFlagsArray = [ "-ldflags=" "-X main.version=${version}" ];
+  # As per https://github.com/wtfutil/wtf/issues/501, one of the
+  # dependencies can't be fetched, so vendored dependencies should
+  # be used instead
+  modBuildPhase = ''
+    runHook preBuild
+    make build -mod=vendor
+    runHook postBuild
+  '';
 
   meta = with lib; {
     description = "The personal information dashboard for your terminal";
-    homepage = http://wtfutil.com/;
+    homepage = "https://wtfutil.com/";
     license = licenses.mpl20;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

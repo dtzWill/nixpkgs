@@ -95,7 +95,8 @@
     also available in Nixpkgs:
     <link xlink:href="https://www.gnu.org/software/zile/">Zile</link>,
     <link xlink:href="http://homepage.boetes.org/software/mg/">mg</link>,
-    <link xlink:href="http://yi-editor.github.io/">Yi</link>.
+    <link xlink:href="http://yi-editor.github.io/">Yi</link>,
+    <link xlink:href="https://joe-editor.sourceforge.io/">jmacs</link>.
    </para>
   </section>
 
@@ -551,7 +552,7 @@ emacsclient --create-frame --tty  # opens a new frame on the current terminal
     <xref linkend="opt-environment.systemPackages"/>
     (<link
       linkend="sec-declarative-package-mgmt">NixOS</link>), or run
-    <literal>nix-env -i pkgs.docbook5</literal>
+    <literal>nix-env -f '&lt;nixpkgs&gt;' -iA docbook5</literal>
     (<link linkend="sec-ad-hoc-packages">Nix</link>).
    </para>
 

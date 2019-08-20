@@ -728,6 +728,19 @@ lib.makeScope newScope (self: with self; {
     meta.platforms = stdenv.lib.platforms.unix;
   }) {};
 
+  libXTrap = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libX11, libXext, libXt }: stdenv.mkDerivation {
+    name = "libXTrap-1.0.1";
+    builder = ./builder.sh;
+    src = fetchurl {
+      url = mirror://xorg/individual/lib/libXTrap-1.0.1.tar.bz2;
+      sha256 = "0bi5wxj6avim61yidh9fd3j4n8czxias5m8vss9vhxjnk1aksdwg";
+    };
+    hardeningDisable = [ "bindnow" "relro" ];
+    nativeBuildInputs = [ pkgconfig ];
+    buildInputs = [ xorgproto libX11 libXext libXt ];
+    meta.platforms = stdenv.lib.platforms.unix;
+  }) {};
+
   libXau = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto }: stdenv.mkDerivation {
     name = "libXau-1.0.9";
     builder = ./builder.sh;
@@ -1119,11 +1132,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   libpciaccess = callPackage ({ stdenv, pkgconfig, fetchurl, zlib }: stdenv.mkDerivation {
-    name = "libpciaccess-0.14";
+    name = "libpciaccess-0.16";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/lib/libpciaccess-0.14.tar.bz2;
-      sha256 = "197jbcpvp4z4x6j705mq2y4fsnnypy6f85y8xalgwhgx5bhl7x9x";
+      url = mirror://xorg/individual/lib/libpciaccess-0.16.tar.bz2;
+      sha256 = "12glp4w1kgvmqn89lk19cgr6jccd3awxra4dxisp7pagi06rsk11";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -1366,11 +1379,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xauth = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXau, libXext, libXmu, xorgproto }: stdenv.mkDerivation {
-    name = "xauth-1.0.10";
+    name = "xauth-1.1";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/xauth-1.0.10.tar.bz2;
-      sha256 = "0kgwz9rmxjfdvi2syf8g0ms5rr5cgyqx4n0n1m960kyz7k745zjs";
+      url = mirror://xorg/individual/app/xauth-1.1.tar.bz2;
+      sha256 = "032klzzw8r09z36x1272ssd79bcisz8j5p8gbdy111fiknvx27bd";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -2757,11 +2770,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xrandr = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, xorgproto, libXrandr, libXrender }: stdenv.mkDerivation {
-    name = "xrandr-1.5.0";
+    name = "xrandr-1.5.1";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/xrandr-1.5.0.tar.bz2;
-      sha256 = "1kaih7rmzxr1vp5a5zzjhm5x7dn9mckya088sqqw026pskhx9ky1";
+      url = mirror://xorg/individual/app/xrandr-1.5.1.tar.xz;
+      sha256 = "0ql75s1n3dm2m3g1ilb9l6hqh15r0v709bgghpwazy3jknpnvivv";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -2860,7 +2873,7 @@ lib.makeScope newScope (self: with self; {
     meta.platforms = stdenv.lib.platforms.unix;
   }) {};
 
-  xtrap = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXt }: stdenv.mkDerivation {
+  xtrap = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXt, libXTrap }: stdenv.mkDerivation {
     name = "xtrap-1.0.3";
     builder = ./builder.sh;
     src = fetchurl {
@@ -2869,7 +2882,7 @@ lib.makeScope newScope (self: with self; {
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ libX11 libXt ];
+    buildInputs = [ libX11 libXt libXTrap ];
     meta.platforms = stdenv.lib.platforms.unix;
   }) {};
 
@@ -2900,11 +2913,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xwininfo = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libxcb, xorgproto }: stdenv.mkDerivation {
-    name = "xwininfo-1.1.4";
+    name = "xwininfo-1.1.5";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/xwininfo-1.1.4.tar.bz2;
-      sha256 = "00avrpw4h5mr1klp41lv2j4dmq465v6l5kb5bhm4k5ml8sm9i543";
+      url = mirror://xorg/individual/app/xwininfo-1.1.5.tar.bz2;
+      sha256 = "03h8clirhw5ki1xxp18xbf5vynm7r0dwspsgfin6cxn4vx0m8h3s";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper
+{ stdenv, fetchFromGitHub, cmake
 , boost, python3, eigen
 , icestorm, trellis
 
@@ -6,7 +6,7 @@
 # laptop (and over a remote X server on my server...), so mark it broken for
 # now, with intent to fix later.
 , enableGui ? false
-, qtbase
+, qtbase, wrapQtAppsHook
 }:
 
 let
@@ -26,17 +26,19 @@ let
   });
 in
 stdenv.mkDerivation rec {
-  name = "nextpnr-${version}";
-  version = "2019.04.19";
+  pname = "nextpnr";
+  version = "2019.08.10";
 
   src = fetchFromGitHub {
     owner  = "yosyshq";
     repo   = "nextpnr";
-    rev    = "5344bc3b65f4e06f983db781e9a82d30b3f1512b";
-    sha256 = "1y14jpa948cwk0i19bsfqh7yxsxkgskm4xym4z179sjcvcdvrn3a";
+    rev    = "3f26cf50767143e48d29ae691b2a0052c359eb15";
+    sha256 = "1gv84svw56ass9idbzh17h3yxkk9ydr40ijf9w72gf72rbixszdr";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs
+     = [ cmake ]
+    ++ (stdenv.lib.optional enableGui wrapQtAppsHook);
   buildInputs
      = [ boostPython python3 eigen ]
     ++ (stdenv.lib.optional enableGui qtbase);
@@ -47,6 +49,10 @@ stdenv.mkDerivation rec {
       "-DICEBOX_ROOT=${icestorm}/share/icebox"
       "-DTRELLIS_ROOT=${trellisRoot}/trellis"
       "-DUSE_OPENMP=ON"
+      # warning: high RAM usage
+      "-DSERIALIZE_CHIPDB=OFF"
+      # use PyPy for icestorm if enabled
+      "-DPYTHON_EXECUTABLE=${icestorm.pythonInterp}"
     ] ++ (stdenv.lib.optional (!enableGui) "-DBUILD_GUI=OFF");
 
   # Fix the version number. This is a bit stupid (and fragile) in practice
@@ -54,13 +60,6 @@ stdenv.mkDerivation rec {
   patchPhase = with builtins; ''
     substituteInPlace ./CMakeLists.txt \
       --replace 'git log -1 --format=%h' 'echo ${substring 0 11 src.rev}'
-  '';
-
-  postInstall = stdenv.lib.optionalString enableGui ''
-    for x in generic ice40 ecp5; do
-      wrapProgram $out/bin/nextpnr-$x \
-        --prefix QT_PLUGIN_PATH : "${qtbase}/${qtbase.qtPluginPrefix}"
-    done
   '';
 
   meta = with stdenv.lib; {

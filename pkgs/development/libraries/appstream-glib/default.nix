@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, substituteAll, pkgconfig, gettext, gtk3, glib
 , gtk-doc, libarchive, gobject-introspection, libxslt, pngquant
 , sqlite, libsoup, attr, acl, docbook_xsl, docbook_xml_dtd_42
-, libuuid, json-glib, meson, gperf, ninja, gdk_pixbuf
+, libuuid, json-glib, meson, gperf, ninja, gdk-pixbuf
 , libyaml, libstemmer
 }:
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     glib gettext sqlite libsoup
     attr acl libuuid json-glib
-    libarchive gperf gdk_pixbuf
+    libarchive gperf gdk-pixbuf
     libyaml libstemmer
   ];
   propagatedBuildInputs = [ gtk3 ];
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Objects and helper methods to read and write AppStream metadata";
     homepage = https://people.freedesktop.org/~hughsient/appstream-glib/;
     license = licenses.lgpl2Plus;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ lethalman matthewbauer ];
   };
 }

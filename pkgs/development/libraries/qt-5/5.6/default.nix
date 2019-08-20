@@ -18,18 +18,16 @@ existing packages here and modify it as necessary.
 1. Update the URL in `./fetch.sh`.
 2. Run `./maintainers/scripts/fetch-kde-qt.sh pkgs/development/libraries/qt-5/$VERSION/`
    from the top of the Nixpkgs tree.
-3. Update `qtCompatVersion` below if the minor version number changes.
-4. Check that the new packages build correctly.
-5. Commit the changes and open a pull request.
+3. Check that the new packages build correctly.
+4. Commit the changes and open a pull request.
 
 */
 
 {
   newScope,
-  stdenv, fetchurl, fetchpatch, makeSetupHook,
+  stdenv, fetchurl, fetchpatch, makeSetupHook, makeWrapper,
   bison, cups ? null, harfbuzz, libGL, perl,
   gstreamer, gst-plugins-base,
-  cf-private,
 
   # options
   developerBuild ? false,
@@ -41,7 +39,7 @@ with stdenv.lib;
 
 let
 
-  qtCompatVersion = "5.6";
+  qtCompatVersion = srcs.qtbase.version;
 
   mirror = "http://download.qt.io";
   srcs = import ./srcs.nix { inherit fetchurl; inherit mirror; };
@@ -105,14 +103,18 @@ let
     ];
   };
 
-  mkDerivation =
-    import ../mkDerivation.nix
-    { inherit stdenv; inherit (stdenv) lib; }
-    { inherit debug; };
-
   qtModule =
     import ../qtModule.nix
-    { inherit mkDerivation perl; inherit (stdenv) lib; }
+    {
+      inherit perl;
+      inherit (stdenv) lib;
+      # Use a variant of mkDerivation that does not include wrapQtApplications
+      # to avoid cyclic dependencies between Qt modules.
+      mkDerivation =
+        import ../mkDerivation.nix
+        { inherit (stdenv) lib; inherit debug; wrapQtAppsHook = null; }
+        stdenv.mkDerivation;
+    }
     { inherit self srcs patches; };
 
   addPackages = self: with self;
@@ -120,7 +122,11 @@ let
       callPackage = self.newScope { inherit qtCompatVersion qtModule srcs; };
     in {
 
-      inherit mkDerivation;
+      mkDerivationWith =
+        import ../mkDerivation.nix
+        { inherit (stdenv) lib; inherit debug; inherit (self) wrapQtAppsHook; };
+
+      mkDerivation = mkDerivationWith stdenv.mkDerivation;
 
       qtbase = callPackage ../modules/qtbase.nix {
         inherit bison cups harfbuzz libGL;
@@ -133,9 +139,7 @@ let
       /* qtactiveqt = not packaged */
       /* qtandroidextras = not packaged */
       /* qtcanvas3d = not packaged */
-      qtconnectivity = callPackage ../modules/qtconnectivity.nix {
-        inherit cf-private;
-      };
+      qtconnectivity = callPackage ../modules/qtconnectivity.nix {};
       qtdeclarative = callPackage ../modules/qtdeclarative.nix {};
       qtdoc = callPackage ../modules/qtdoc.nix {};
       qtgraphicaleffects = callPackage ../modules/qtgraphicaleffects.nix {};
@@ -176,6 +180,12 @@ let
         deps = [ self.qtbase.dev ];
         substitutions = { inherit (stdenv) isDarwin; };
       } ../hooks/qmake-hook.sh;
+
+      wrapQtAppsHook = makeSetupHook {
+        deps =
+          [ self.qtbase.dev makeWrapper ]
+          ++ optional stdenv.isLinux self.qtwayland.dev;
+      } ../hooks/wrap-qt-apps-hook.sh;
     };
 
    self = makeScope newScope addPackages;

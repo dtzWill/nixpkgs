@@ -1,14 +1,16 @@
-{ stdenv, fetchurl, cmake, ninja, pkgconfig, intltool, vala, wrapGAppsHook, gcr, libpeas
+{ stdenv, fetchFromGitHub, cmake, ninja, pkgconfig, intltool, vala, wrapGAppsHook, gcr, libpeas
 , gtk3, webkitgtk, sqlite, gsettings-desktop-schemas, libsoup, glib-networking
 }:
 
 stdenv.mkDerivation rec {
   pname = "midori";
-  version = "7";
+  version = "9.0";
 
-  src = fetchurl {
-    url = "https://github.com/midori-browser/core/releases/download/v${version}/midori-v${version}.0.tar.gz";
-    sha256 = "0ffdnjp55s0ci737vlhxikb2nihghwlb6mjcjzpgpnzi47vjqnwh";
+  src = fetchFromGitHub {
+    owner = "midori-browser";
+    repo = "core";
+    rev = "v${version}";
+    sha256 = "18jd8bm33070x4b70nagkmfyx3q61crxxs4d95m490ak8w1g3bz2";
   };
 
   nativeBuildInputs = [

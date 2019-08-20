@@ -1,4 +1,4 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub, cf-private
+{ stdenv, lib, buildGoPackage, fetchFromGitHub
 , AVFoundation, AudioToolbox, ImageIO, CoreMedia
 , Foundation, CoreGraphics, MediaToolbox
 , fuse, lsof, coreutils, utillinux, procps
@@ -10,7 +10,7 @@
 
 buildGoPackage rec {
   pname = "keybase";
-  version = "4.1.0";
+  version = "4.3.1";
 
   goPackagePath = "github.com/keybase/client";
   subPackages = [
@@ -29,25 +29,15 @@ buildGoPackage rec {
 
   dontRenameImports = true;
 
-  #src = fetchurl {
-  #  url = "https://github.com/keybase/client/archive/v${version}.tar.gz";
-  #  sha256 = "1c21ppplzd0q4qcvacszap6jdy6ggp9d4n2zxknnglvvc160yrvy";
-  #};
   src = fetchFromGitHub {
     owner = "keybase";
     repo = "client";
-#    rev = "v${version}";
-    rev = "36943bd6a6bc0db50265c24472b2695f41f2b281";
-    sha256 = "1wn6m9694x9y12h0bb3nq0zsp1n43mnm78apkg8d3m08j9fkmjdk";
+    rev = "v${version}";
+    sha256 = "1743d7a7ix882yxz9pk230vdvdj46sbscqv4wqyhb0la2pl9jqdp";
   };
 
   nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
-
-  buildInputs = lib.optionals stdenv.isDarwin [
-    AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox
-    # Needed for OBJC_CLASS_$_NSData symbols.
-    cf-private
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox ];
   buildFlags = [ "-tags production" "-buildmode pie" ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -84,7 +74,6 @@ buildGoPackage rec {
         --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret gtk2 gconf ]}
     done
   '';
-
   meta = with lib; {
     homepage = https://www.keybase.io/;
     description = "The Keybase official command-line utility and service.";

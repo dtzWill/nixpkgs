@@ -1,20 +1,22 @@
 { stdenv, fetchFromGitHub, meson, ninja, gtk3, python3, faba-icon-theme }:
 
 stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
   pname = "moka-icon-theme";
-  version = "5.4.0";
+  version = "2019-05-29";
+  #version = "5.4.0";
 
   src = fetchFromGitHub {
     owner = "snwh";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "015l02im4mha5z91dbchxf6xkp66d346bg3xskwg0rh3lglhjsrd";
+    #rev = "v${version}";
+    rev = "c0355ea31e5cfdb6b44d8108f602d66817546a09";
+    sha256 = "0m4kfarkl94wdhsds2q1l9x5hfa9l3117l8j6j7qm7sf7yzr90c8";
   };
 
   nativeBuildInputs = [ meson ninja gtk3 python3 faba-icon-theme ];
 
   postPatch = ''
+    chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 

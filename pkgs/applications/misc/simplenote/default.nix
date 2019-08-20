@@ -2,15 +2,16 @@
 , libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr
 , nss, xorg, libcap, systemd, at-spi2-atk, libnotify, libuuid, libXScrnSaver, gnome2 }:
 
-let version = "1.5.0"; in
+let version = "1.6.0"; in
 
 stdenv.mkDerivation rec {
 
-  name = "simplenote-${version}";
+  pname = "simplenote";
+  inherit version;
 
   src = fetchurl {
     url = "https://github.com/Automattic/simplenote-electron/releases/download/v${version}/Simplenote-linux-${version}-x64.tar.gz";
-    sha256 = "9993cd9fd6c9a015aa85219abbaebe611d403bce4beb0dd94d0c7d3c2e1b9140";
+    sha256 = "1awvz6f9z97cvynjakm6ajvkz3c6fwcbc23n8gmk9qk3k8pj3krf";
   };
 
   buildCommand = let

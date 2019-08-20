@@ -26,6 +26,20 @@ stdenv.mkDerivation {
     ./CVE-2016-9844.patch
     ./CVE-2018-18384.patch
     ./dont-hardcode-cc.patch
+    # XXX: nixpkgs master dropped the patch entirely, instead of adding second
+    # (note to self re:future merge resolution doubts)
+    # CVE-2019-13232 - the fix itself, and the patch it depends on
+    # (as described in the commit message of the fix)
+    (fetchurl {
+      url = "https://github.com/madler/unzip/commit/47b3ceae397d21bf822bc2ac73052a4b1daf8e1c.patch";
+      name = "CVE-2019-13232.patch";
+      sha256 = "0iy2wcjyvzwrjk02iszwcpg85fkjxs1bvb9isvdiywszav4yjs32";
+    })
+    (fetchurl {
+      url = "https://github.com/madler/unzip/commit/47b3ceae397d21bf822bc2ac73052a4b1daf8e1c~1.patch";
+      name = "CVE-2019-13232-prereq.patch";
+      sha256 = "04jzd6chg9fw4l5zadkfsrfm5llrd7vhd1dgdjjd29nrvkrjyn14";
+    })
   ] ++ stdenv.lib.optional enableNLS
     (fetchurl {
       url = "http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/app-arch/unzip/files/unzip-6.0-natspec.patch?revision=1.1";

@@ -25,6 +25,11 @@ stdenv.mkDerivation rec {
     export version="v${version}"
   '';
 
+  doInstallCheckPhase = true;
+  installCheckPhase = ''
+    $out/bin/kak -ui json -E "kill 0"
+  '';
+
   meta = {
     homepage = http://kakoune.org/;
     description = "A vim inspired text editor";

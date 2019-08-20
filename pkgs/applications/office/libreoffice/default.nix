@@ -6,7 +6,7 @@
 , openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
 , librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mysql
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
-, libwpg, dbus-glib, /* qt4,*/ clucene_core, libcdr, lcms, vigra
+, libwpg, dbus-glib, clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
 , fontsConf, pkgconfig, bluez5, libtool, carlito
 , libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
@@ -58,14 +58,14 @@ let
 
     translations = fetchSrc {
       name = "translations";
-      sha256 = "0ahyrkg1sa4a0igvvd98spjlm5k34cddpwpxl7qhir8ldgighk2c";
+      sha256 = "0730fw2kr00b2d56jkdzjdz49c4k4mxiz879c7ikw59c5zvrh009";
     };
 
     # TODO: dictionaries
 
     help = fetchSrc {
       name = "help";
-      sha256 = "0zrfm8kw6m60wz6mn4y5jhlng90ya045nxyh46sib9nl4nd4d98s";
+      sha256 = "1w9bqwzz75vvxxy9dgln0v6p6isf8mkqnkg1nzlaykvdgsn5sp4z";
     };
 
   };
@@ -112,8 +112,8 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  # QT5DIR = qtbase;
-  # QT_SELECT = "5";
+  QT5DIR = qtbase;
+  QT_SELECT = "5";
   # MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
 
@@ -158,6 +158,8 @@ in stdenv.mkDerivation rec {
       sed -e '/CPPUNIT_ASSERT_EQUAL(11148L, pOleObj->GetLogicRect().getWidth());/d ' -i sc/qa/unit/subsequent_filters-test.cxx
       # tilde expansion in path processing checks the existence of $HOME
       sed -e 's@OString sSysPath("~/tmp");@& return ; @' -i sal/qa/osl/file/osl_File.cxx
+      # fails on systems using ZFS, see https://github.com/NixOS/nixpkgs/issues/19071
+      sed -e '/CPPUNIT_TEST(getSystemPathFromFileURL_005);/d' -i './sal/qa/osl/file/osl_File.cxx'
       # rendering-dependent: on my computer the test table actually doesn't fit…
       # interesting fact: test disabled on macOS by upstream
       sed -re '/DECLARE_WW8EXPORT_TEST[(]testTableKeep, "tdf91083.odt"[)]/,+5d' -i ./sw/qa/extras/ww8export/ww8export.cxx
@@ -308,8 +310,8 @@ in stdenv.mkDerivation rec {
     # "--enable-eot" # libeot
     "--enable-release-build"
     # XXX: add needed deps
-    (lib.enableFeature kdeIntegration "kde4")
-    #(lib.enableFeature kdeIntegration "kde5")
+    #(lib.enableFeature kdeIntegration "kde4") # as of 6.3, kde5 is official
+    (lib.enableFeature kdeIntegration "kde5")
     "--enable-epm"
     "--with-jdk-home=${jdk.home}"
     "--with-ant-home=${ant}/lib/ant"
@@ -327,6 +329,9 @@ in stdenv.mkDerivation rec {
 
     # Without these, configure does not finish
     "--without-junit"
+
+    # Schema files for validation are not included in the source tarball
+    "--without-export-validation"
 
     "--disable-libnumbertext" # system-libnumbertext"
 
@@ -376,7 +381,7 @@ in stdenv.mkDerivation rec {
     [ ant ArchiveZip boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
       freetype GConf getopt gnome_vfs gperf gtk3 gtk2
-      # qtbase qtx11extras
+      qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst

@@ -12,17 +12,20 @@ let
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   name = "network-manager-${version}";
-  version = "1.19.5-dev";
+#  version = "1.19.5-dev"; # 2019-07-22
+  version = "1.21.1pre-2019-08-15";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "5f05ef916a8c346283960327873c8ea8ad64481e";
-    sha256 = "0cdzrf61lhb9vzsm3qhw4s6ihh9h2v3dm03kwidaymn81y6dhsjl";
+  #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
+  #  rev = "refs/tags/${version}";
+    rev = "78b6fd47dcee24a4709b4b9c5a30485863eea2c0";
+    sha256 = "0vrfr4lx6j0vhwvckjczllm0ydwalb1llc8ga2i0yy8i2kmwnd5l";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-  #  sha256 = "0wxx1h8k7ya0ygj045ddwwdr05wc2rkj6jx8j11vnswafrq4l6ri";
+  #  sha256 = "0wxx1h8k7ya0ygj046ddwwdr05wc2rkj6jx8j11vnswafrq4l6ri";
   #};
 
   outputs = [ "out" "dev" "devdoc" "man" "doc" ];
@@ -55,12 +58,12 @@ in stdenv.mkDerivation rec {
     "-Dqt=false"
     # Allow using iwd when configured to do so
     "-Diwd=true"
-    #"-Dpolkit_agent=true"
-    "-Dpolkit=true"
-    "-Dconfig_dns_rc_manager_default=resolvconf"
-    "-Debpf=true"
+    ## #"-Dpolkit_agent=true"
+    ## "-Dpolkit=true"
+    ## "-Dconfig_dns_rc_manager_default=resolvconf"
+    ## "-Debpf=true"
     "-Dlibaudit=yes-disabled-by-default"
-    "-Dsession_tracking_consolekit=false"
+    ## "-Dsession_tracking_consolekit=false"
   ];
 
   patches = [
@@ -80,9 +83,9 @@ in stdenv.mkDerivation rec {
     #./0001-dhcp-fallback-to-internal-DHCP-plugin-if-plugin-does.patch
     #./0001-ipv6-add-disabled-method.patch
 
-    ./vpn-persistent/0001-vpn-minor-improvements.patch
-    ./vpn-persistent/0002-vpn-fix-persistent-reconnection.patch
-    ./vpn-persistent/0003-vpn-set-STOPPED-state-when-service-disappears.patch
+    #./vpn-persistent/0001-vpn-minor-improvements.patch
+    #./vpn-persistent/0002-vpn-fix-persistent-reconnection.patch
+    #./vpn-persistent/0003-vpn-set-STOPPED-state-when-service-disappears.patch
   ];
 
   buildInputs = [

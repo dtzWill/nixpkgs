@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, perl, texinfo, yasm
+{ stdenv, fetchurl, fetchpatch, pkgconfig, perl, texinfo, yasm
 /*
  *  Licensing options (yes some are listed twice, filters and such are not listed)
  */
@@ -97,7 +97,7 @@
 , libXv ? null # Xlib support
 , libXext ? null # Xlib support
 , lzma ? null # xz-utils
-, nvenc ? true, nv-codec-headers ? null # NVIDIA NVENC support
+, nvenc ? !stdenv.isDarwin, nv-codec-headers ? null # NVIDIA NVENC support
 , openal ? null # OpenAL 1.1 capture support
 #, opencl ? null # OpenCL code
 , opencore-amr ? null # AMR-NB de/encoder & AMR-WB decoder
@@ -139,7 +139,7 @@
  *  Darwin frameworks
  */
 , Cocoa, CoreAudio, CoreServices, AVFoundation, MediaToolbox
-, VideoDecodeAcceleration, cf-private
+, VideoDecodeAcceleration
 }:
 
 /* Maintainer notes:
@@ -175,7 +175,7 @@
  */
 
 let
-  inherit (stdenv) isCygwin isFreeBSD isLinux;
+  inherit (stdenv) isCygwin isDarwin isFreeBSD isLinux;
   inherit (stdenv.lib) optional optionals optionalString enableFeature;
 in
 
@@ -189,6 +189,10 @@ assert nonfreeLicensing -> gplLicensing && version3Licensing;
  */
 assert networkBuild -> gnutls != null || opensslExtlib;
 assert pixelutilsBuild -> avutilLibrary;
+/*
+ *  Platform dependencies
+ */
+assert isDarwin -> !nvenc;
 /*
  *  Program dependencies
  */
@@ -230,12 +234,17 @@ assert opensslExtlib -> gnutls == null && openssl != null && nonfreeLicensing;
 
 stdenv.mkDerivation rec {
   name = "ffmpeg-full-${version}";
-  version = "4.1.3";
+  version = "4.2";
 
   src = fetchurl {
     url = "https://www.ffmpeg.org/releases/ffmpeg-${version}.tar.xz";
-    sha256 = "0gdnprc7gk4b7ckq8wbxbrj7i00r76r9a5g9mj7iln40512j0c0c";
+    sha256 = "1mgcxm7sqkajx35px05szsmn9mawwm03cfpmk3br7bcp3a1i0gq2";
   };
+  patches = [(fetchpatch { # remove on update
+    name = "fix-hardcoded-tables.diff";
+    url = "http://git.ffmpeg.org/gitweb/ffmpeg.git/commitdiff_plain/c8232e50074f";
+    sha256 = "0jlksks4fjajby8fjk7rfp414gxfdgd6q9khq26i52xvf4kg2dw6";
+  })];
 
   prePatch = ''
     patchShebangs .
@@ -419,7 +428,7 @@ stdenv.mkDerivation rec {
     ++ optional nvenc nv-codec-headers
     ++ optionals stdenv.isDarwin [ Cocoa CoreServices CoreAudio AVFoundation
                                    MediaToolbox VideoDecodeAcceleration
-                                   libiconv cf-private /* For _OBJC_EHTYPE_$_NSException */ ];
+                                   libiconv ];
 
   buildFlags = [ "all" ]
     ++ optional qtFaststartProgram "tools/qt-faststart"; # Build qt-faststart executable
@@ -427,14 +436,6 @@ stdenv.mkDerivation rec {
   # Hacky framework patching technique borrowed from the phantomjs2 package
   postInstall = optionalString qtFaststartProgram ''
     cp -a tools/qt-faststart $out/bin/
-  '' + optionalString stdenv.isDarwin ''
-    FILES=($(ls $out/bin/*))
-    FILES+=($(ls $out/lib/*.dylib))
-    for f in ''${FILES[@]}; do
-      if [ ! -h "$f" ]; then
-        install_name_tool -change ${cf-private}/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation "$f"
-      fi
-    done
   '';
 
   enableParallelBuilding = true;

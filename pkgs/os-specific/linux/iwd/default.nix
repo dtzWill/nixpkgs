@@ -1,18 +1,21 @@
 { stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages }:
 
+# TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
+# (and any req'd dependencies/wrapping, not sure)
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-#  version = "0.18";
-  version = "2019-07-09";
+#  version = "0.19";
+  version = "2019-08-19";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    #rev = version;
-    rev = "38099f75d6a5b8cfff1e088ced26b52f570158ff";
-    #rev = "cde9933124b215b3194bfbd3e5b489f086d81093";
-    sha256 = "0hzgzjjaipybn1n9zpa7xq206khcz90h1pzvnq82h0szspycwwrh";
+    # rev = version;
+    rev = "ed08bc35a38f83965815fe19e4e4678b206bd757";
+    sha256 = "1ksm14zqdxk8g2aypcid6axsgmvf7fjs6d0qk9vk0phrpmyv3gc0";
   };
+
+  patches = [ ./revert-create-dirs-on-install.patch ];
 
   nativeBuildInputs = [
     autoreconfHook

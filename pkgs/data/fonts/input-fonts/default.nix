@@ -5,6 +5,9 @@ stdenv.mkDerivation rec {
   version = "2017-08-10"; # date of the download and checksum
 
   src = requireFile {
+    ### name = "Input-Font.zip";
+    ### url = "https://input.fontbureau.com/download/";
+    ### sha256 = "07fkyvbb12agkb2kpnq2j45nycgbjvb4n1s5hjyqsipdh2z9zihq";
     # round 'a'
     # round 'g'
     # slash zero

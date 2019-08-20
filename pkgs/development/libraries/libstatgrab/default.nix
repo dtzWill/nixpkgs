@@ -1,26 +1,22 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig
+{ stdenv, fetchurl, pkgconfig
 , ncurses
 , IOKit ? null }:
 
 stdenv.mkDerivation rec {
-  name = "libstatgrab-0.91";
+  pname = "libstatgrab";
+  version = "0.92";
 
   src = fetchurl {
-    url = "http://ftp.i-scream.org/pub/i-scream/libstatgrab/${name}.tar.gz";
-    sha256 = "1azinx2yzs442ycwq6p15skl3mscmqj7fd5hq7fckhjp92735s83";
+    url = "https://ftp.i-scream.org/pub/i-scream/${pname}/${pname}-${version}.tar.gz";
+    sha256 = "15m1sl990l85ijf8pnc6hdfha6fqyiq74mijrzm3xz4zzxm91wav";
   };
 
   buildInputs = [ ncurses ] ++ stdenv.lib.optional stdenv.isDarwin IOKit;
 
   # perhaps limit this to musl
-  NIX_CFLAGS_COMPILE = [ "-DLINUX" "-DHAVE_PROCFS" ];
+  NIX_CFLAGS_COMPILE = if stdenv.hostPlatform.isMusl then [ "-DLINUX" "-DHAVE_PROCFS" ] else null;
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
-
-  patches = [ ./configure-musl.patch ./os_info-musl.patch ];
-  patchFlags = [ "-p0" ];
-
-  configureFlags = [ "ac_cv_header_sys_sysinfo_h=no" ];
+  nativeBuildInputs = [ pkgconfig ];
 
   meta = with stdenv.lib; {
     homepage = https://www.i-scream.org/libstatgrab/;

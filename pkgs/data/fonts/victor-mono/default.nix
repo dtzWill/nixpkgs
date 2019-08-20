@@ -1,30 +1,38 @@
-{ lib, fetchzip }:
+{ lib, fetchFromGitHub }:
 
 let
-  version = "1.2.1";
-in fetchzip rec {
-  name = "victor-mono-${version}";
+  pname = "victor-mono";
+  version = "1.2.4";
+in fetchFromGitHub rec {
+  name = "${pname}-${version}";
 
-  url = "https://github.com/rubjo/victor-mono/archive/v1.2.1.zip";
+  owner = "rubjo";
+  repo = pname;
+  rev = "v${version}";
 
-  # Grab VictorMonoAll.zip via versioned zip from github,
-  # instead of unversioned URL on main website.
-  # (they currently hash the same, happily)
+  # Upstream prefers we download from the website,
+  # but we really insist on a more versioned resource.
+  # Happily, tagged releases on github contain the same
+  # file `VictorMonoAll.zip` as from the website,
+  # so we extract it from the tagged release.
+  # Both methods produce the same file, but this way
+  # we can safely reason about what version it is.
   postFetch = ''
-  unzip -j $downloadedFile \*/public/VictorMonoAll.zip
+    tar xvf $downloadedFile --strip-components=2 ${name}/public/VictorMonoAll.zip
 
-  mkdir -p $out/share/fonts
+    mkdir -p $out/share/fonts/{true,open}type/${pname}
 
-  unzip -j VictorMonoAll.zip \*.ttf -d $out/share/fonts/truetype
-  unzip -j VictorMonoAll.zip \*.otf -d $out/share/fonts/opentype
+    unzip -j VictorMonoAll.zip \*.ttf -d $out/share/fonts/truetype/${pname}
+    unzip -j VictorMonoAll.zip \*.otf -d $out/share/fonts/opentype/${pname}
   '';
-  sha256 = "0gnnymvgc2qm8wl1dyha1ilpwr1c5bz8xy8jxg1kz0m61kr16xac";
+
+  sha256 = "0l5ccvl6wbw64vhbvjgy7gyc4v5s5dd8y1zmg4kdwiq25jx9yif7";
 
   meta = with lib; {
     description = "Free programming font with cursive italics and ligatures";
-    homepage = https://rubjo.github.io/victor-mono/;
-    maintainers = with maintainers; [ dtzWill ];
-    license = licenses.mit; # see LICENSE.txt in unpacked zip
+    homepage = "https://rubjo.github.io/victor-mono";
+    license = with licenses; [ mit ];
+    maintainers = with maintainers; [ jpotier dtzWill ];
     platforms = platforms.all;
   };
 }

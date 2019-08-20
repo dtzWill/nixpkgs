@@ -2,11 +2,15 @@
 
 stdenv.mkDerivation rec {
   pname = "cmix";
-  version = "17";
+  version = "18";
 
   src = fetchzip {
     url = "http://www.byronknoll.com/${pname}-v${version}.zip";
-    sha256 = "0vxykhka4v8smynq3za1x2nmaq662y3p5iadck86z9jvkm72g2hm";
+    sha256 = "18749mql263rdzj10jh8v4fy32qhi8rb6npfi6n8pjrr9rdi6w97";
+    # https://github.com/NixOS/nixpkgs/issues/38649
+    extraPostFetch = ''
+      chmod go-w $out
+    '';
   };
 
   makeFlags = [ "CC:=$(CXX)" /* "CC=g++", yes */ ];

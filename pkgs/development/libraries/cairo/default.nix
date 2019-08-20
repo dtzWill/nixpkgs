@@ -1,4 +1,4 @@
-{ config, stdenv, fetchurl, fetchpatch, pkgconfig, libiconv
+{ config, stdenv, fetchurl, fetchpatch, fetchFromGitLab, pkgconfig, libiconv
 , libintl, expat, zlib, libpng, pixman, fontconfig, freetype
 , x11Support? !stdenv.isDarwin, libXext, libXrender
 , gobjectSupport ? true, glib
@@ -8,47 +8,67 @@
 , libGL ? null # libGLU_combined is no longer a big dependency
 , pdfSupport ? true
 , darwin
+, autoreconfHook
+, which
+, gettext
+, gtk_doc
 }:
 
 assert glSupport -> libGL != null;
 
 let
-  version = "1.17.2";
+  version = "1.17.2-git";
   inherit (stdenv.lib) optional optionals;
 in stdenv.mkDerivation rec {
-  name = "cairo-${version}";
+  pname = "cairo";
+  inherit version;
 
-  src = fetchurl {
-    url = "https://cairographics.org/${if stdenv.lib.mod (builtins.fromJSON (stdenv.lib.versions.minor version)) 2 == 0 then "releases" else "snapshots"}/${name}.tar.xz";
-    sha256 = "1pq1i10fkcijbcjzg8589bd6wx5s555nyrhw20ms4irabrjx8w3b";
+  src = fetchFromGitLab {
+    domain = "gitlab.freedesktop.org";
+    owner = "cairo";
+    repo = "cairo";
+    rev = "52a7c79fd4ff96bb5fac175f0199819b0f8c18fc";
+    sha256 = "0cm9lcnqlpvigjjyk3x27qx7ff5p9vdhh2r1i89az3idimns5mih";
   };
 
-  patches = [
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/cairo/cairo/commit/2a21ed0293055540985e74375ff462502adc9754.patch";
-      sha256 = "1c1a70gj88wz63v5vnb8aw73hisqaz9x8m0xidsqn0ncm2d35x8c";
-    })
-    # Fix crashes
-    (fetchpatch {
-      url = https://gitlab.freedesktop.org/cairo/cairo/commit/2d1a137f3d27b60538c58b25e867288c7b0b61bc.patch;
-      sha256 = "1c95s9y065rgpwqckkgmn06vvdkrh3q8rjcgr269f163cy4lhvnc";
-    })
+  #src = fetchurl {
+  #  url = "https://cairographics.org/${if stdenv.lib.mod (builtins.fromJSON (stdenv.lib.versions.minor version)) 2 == 0 then "releases" else "snapshots"}/${name}.tar.xz";
+  #  sha256 = "1pq1i10fkcijbcjzg8589bd6wx5s555nyrhw20ms4irabrjx8w3b";
+  #};
 
-    # fix FT_PIXEL_MODE_BGRA:
-    #(fetchpatch {
-    #  url = https://gitlab.freedesktop.org/cairo/cairo/merge_requests/18.patch;
-    #  sha256 = "0ghccls55474c7lrzi6bbw2pr2f3nmhdn2m277i4rwjf1jl5ls5y";
-    #})
-    # Local copy JIC the PR or patch changes
-    ./18.patch
-  ];
+  ## patches = [
+  ##   (fetchpatch {
+  ##     url = "https://gitlab.freedesktop.org/cairo/cairo/commit/2a21ed0293055540985e74375ff462502adc9754.patch";
+  ##     sha256 = "1c1a70gj88wz63v5vnb8aw73hisqaz9x8m0xidsqn0ncm2d35x8c";
+  ##   })
+  ##   # Fix crashes
+  ##   (fetchpatch {
+  ##     url = https://gitlab.freedesktop.org/cairo/cairo/commit/2d1a137f3d27b60538c58b25e867288c7b0b61bc.patch;
+  ##     sha256 = "1c95s9y065rgpwqckkgmn06vvdkrh3q8rjcgr269f163cy4lhvnc";
+  ##   })
 
-  outputs = [ "out" "dev" "devdoc" ];
+  ##   # fix FT_PIXEL_MODE_BGRA:
+  ##   #(fetchpatch {
+  ##   #  url = https://gitlab.freedesktop.org/cairo/cairo/merge_requests/18.patch;
+  ##   #  sha256 = "0ghccls55474c7lrzi6bbw2pr2f3nmhdn2m277i4rwjf1jl5ls5y";
+  ##   #})
+  ##   # Local copy JIC the PR or patch changes
+  ##   ./18.patch
+  ## ];
+
+  outputs = [ "out" "dev" /* "devdoc" */ ];
   outputBin = "dev"; # very small
 
   nativeBuildInputs = [
     pkgconfig
+    autoreconfHook
+    which
+    gtk_doc
   ];
+
+  autoreconfPhase = ''
+    NOCONFIGURE=1 ./autogen.sh
+  '';
 
   buildInputs = [
     libiconv
@@ -73,7 +93,7 @@ in stdenv.mkDerivation rec {
     "--enable-quartz-font"
     "--enable-quartz-image"
     "--enable-ft"
-  ] else ([ "--enable-tee" ]
+  ] else ([ "--enable-tee" "--disable-gtk-doc" ]
     ++ optional xcbSupport "--enable-xcb"
     ++ optional glSupport "--enable-gl"
     ++ optional pdfSupport "--enable-pdf"

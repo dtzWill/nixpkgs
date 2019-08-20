@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vimb";
-  version = "3.4.0";
+  version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "fanglingsu";
     repo = "vimb";
     rev = version;
-    sha256 = "1p9y0xb2swly8g235yf9kpi34q4f2sdb1dyfjml10vfvf11xlvb7";
+    sha256 = "13q7mk1hhjri0s30a98r8ncy0skf6m6lrnbqaf0jimf6sbwgiirf";
   };
 
   postPatch = ''

@@ -1,23 +1,22 @@
 { stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
-, inotify-tools, makeWrapper, openssl_1_1, pcre, libsecret, fetchpatch
+, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, libsecret
 , libcloudproviders, kdeFrameworks
 }:
 
 stdenv.mkDerivation rec {
   pname = "nextcloud-client";
-  version = "2.5.3-rc1-unstable"; # 2";
+  version = "2.5.3";
 
   src = fetchgit {
     url = "git://github.com/nextcloud/desktop.git";
-    #rev = "refs/tags/v${version}";
-    rev = "419b8a3ff9af8d634241b76db56a5aece4e6f7ea";
-    sha256 = "04pzzaknm8fvmfqk9vn6197dnfis0vl3126vwdkc1pi1rrq7izvs";
+    rev = "refs/tags/v${version}";
+    sha256 = "0fbw56bfbyk3cqv94iqfsxjf01dwy1ysjz89dri7qccs65rnjswj";
     fetchSubmodules = true;
   };
 
   patches = [ ./no-webengine.patch ];
 
-  nativeBuildInputs = [ pkgconfig cmake makeWrapper ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
+  nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
 
   buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
   ++ (with kdeFrameworks; [ kio kcoreaddons ]);
@@ -38,13 +37,13 @@ stdenv.mkDerivation rec {
     "-DNO_SHIBBOLETH=ON"
   ];
 
+  qtWrapperArgs = [
+    ''--prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]}''
+  ];
+
   postInstall = ''
     sed -i 's/\(Icon.*\)=nextcloud/\1=Nextcloud/g' \
     $out/share/applications/nextcloud.desktop
-
-    wrapProgram "$out/bin/nextcloud" \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]} \
-      --prefix QT_PLUGIN_PATH : ${qtbase}/${qtbase.qtPluginPrefix}
   '';
 
   meta = with stdenv.lib; {

@@ -4,17 +4,17 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "vit";
-  version = "2.0.0a1-2019-06-27";
+  version = "2.0.0b2";
 
   src = fetchFromGitHub {
     owner = "scottkosty";
     repo = pname;
-    rev = "def0461c9fb65b200bc1c0ccb152bf077dbffdc6";
-    sha256 = "12av13f3i237hhdpbnr32cgrw75sx078m29awx3f56zllm398smc";
+    rev = "v${version}";
+    sha256 = "00c3lb3dp5ya1fnrfn1iq6brwzwl6qj2crrp3jc9ilsfag385xxp";
   };
 
   propagatedBuildInputs = [
-    future six tasklib tzlocal urwid
+    tasklib tzlocal urwid
   ];
 
   checkInputs = [ glibcLocales ];
@@ -22,6 +22,8 @@ buildPythonApplication rec {
   preCheck = ''
     export TERM=linux
   '';
+
+  patches = [ ./no-columns.patch ];
 
   meta = with lib; {
     license = licenses.mit;

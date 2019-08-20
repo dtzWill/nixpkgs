@@ -1,0 +1,43 @@
+From b96d7bbaecdf4fc5f4555456b7eec9d6ca895a9a Mon Sep 17 00:00:00 2001
+From: sin <sin@2f30.org>
+Date: Sat, 13 Jul 2019 01:24:52 +0100
+Subject: [PATCH] Fix free calls
+
+---
+ snap.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/snap.c b/snap.c
+index b47a75f..963f735 100644
+--- a/snap.c
++++ b/snap.c
+@@ -321,7 +321,7 @@ sopen(char *path, int flags, int mode, struct sctx **sctx)
+ 	shdr = &(*sctx)->shdr;
+ 
+ 	if (xread(fd, buf, SHDRSIZE) != SHDRSIZE) {
+-		free(sctx);
++		free(*sctx);
+ 		close(fd);
+ 		seterr("failed to read snapshot header: %s", strerror(errno));
+ 		return -1;
+@@ -329,7 +329,7 @@ sopen(char *path, int flags, int mode, struct sctx **sctx)
+ 	unpackshdr(buf, shdr);
+ 
+ 	if (memcmp(shdr->magic, SHDRMAGIC, NSHDRMAGIC) != 0) {
+-		free(sctx);
++		free(*sctx);
+ 		close(fd);
+ 		seterr("unknown snapshot header magic");
+ 		return -1;
+@@ -337,7 +337,7 @@ sopen(char *path, int flags, int mode, struct sctx **sctx)
+ 
+ 	/* If the major version is different, the format is incompatible */
+ 	if (((shdr->flags >> VMAJSHIFT) & VMAJMASK) != VMAJ) {
+-		free(sctx);
++		free(*sctx);
+ 		close(fd);
+ 		seterr("snapshot header version mismatch");
+ 		return -1;
+-- 
+2.22.0
+

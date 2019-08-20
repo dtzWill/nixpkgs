@@ -1,20 +1,21 @@
-{ stdenv, fetchurl, cmake, sqlite }:
+{ stdenv, fetchFromGitHub, pkg-config, sqlite, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  pname = "proj";
+  name = "proj";
   version = "6.1.1";
 
-  src = fetchurl {
-    url = "https://download.osgeo.org/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "0gsh5ng3cvz5qhd42r8j02bgs51v7xzvinryqljdgd9818va5w2w";
+  src = fetchFromGitHub {
+    owner = "OSGeo";
+    repo = "PROJ";
+    rev = version;
+    sha256 = "0w2v2l22kv0xzq5hwl7n8ki6an8vfsr0lg0cdbkwcl4xv889ysma";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ sqlite ];
+  outputs = [ "out" "dev"];
 
-  # Avoid attempts to fetch and build gtest for its own use:
-  # (I couldn't seem to convince it to use a provided version instead)
-  cmakeFlags = [ "-DPROJ_TESTS=OFF" ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
+
+  buildInputs = [ sqlite ];
 
   doCheck = stdenv.is64bit;
 

@@ -15,20 +15,16 @@ let
 in
 
 stdenv.mkDerivation rec {
-  name = "aspell-0.60.6.1";
+  pname = "aspell";
+  version = "0.60.7";
 
   src = fetchurl {
-    url = "mirror://gnu/aspell/${name}.tar.gz";
-    sha256 = "1qgn5psfyhbrnap275xjfrzppf5a83fb67gpql0kfqv37al869gm";
+    url = "mirror://gnu/aspell/${pname}-${version}.tar.gz";
+    sha256 = "1r3h7f1psh634rvqh5xz1msv6msxpk8wcr2vxg4wc31pn26gra2w";
   };
 
-  patches = [
-    (fetchpatch { # remove in >= 0.60.7
-      name = "gcc-7.patch";
-      url = "https://github.com/GNUAspell/aspell/commit/8089fa02122fed0a.diff";
-      sha256 = "1b3p1zy2lqr2fknddckm58hyk95hw4scf6hzjny1v9iaic2p37ix";
-    })
-  ] ++ stdenv.lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
+  patches = stdenv.lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
+  
 
   postPatch = ''
     patch interfaces/cc/aspell.h < ${./clang.patch}
@@ -38,12 +34,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  preConfigure = ''
-    configureFlagsArray=(
-      --enable-pkglibdir=$out/lib/aspell
-      --enable-pkgdatadir=$out/lib/aspell
-    );
-  '';
+  configureFlags = [
+    "--enable-pkglibdir=${placeholder "out"}/lib/aspell"
+    "--enable-pkgdatadir=${placeholder "out"}/lib/aspell"
+  ];
 
   # Include u-deva.cmap and u-deva.cset in the aspell package
   # to avoid conflict between 'mr' and 'hi' dictionaries as they

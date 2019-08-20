@@ -34,8 +34,8 @@ let
   elfio = fetchFromGitHub {
     owner = "avast-tl";
     repo = "elfio";
-    rev = "998374baace397ea98f3b1d768e81c978b4fba41";
-    sha256 = "09n34rdp0wpm8zy30zx40wkkc4gbv2k3cv181y6c1260rllwk5d1";
+    rev = "f85f07390b756fee61408dfe0b04ae4fb86c5477";
+    sha256 = "1ncx97zwf5lrvx3py4cpyqjzddr3bqjb7ywm9i35hv6mlvpy2hzc";
   };
   keystone = fetchFromGitHub { # only for tests
     owner = "keystone-engine";
@@ -52,14 +52,14 @@ let
   llvm = fetchFromGitHub {
     owner = "avast-tl";
     repo = "llvm";
-    rev = "725d0cee133c6ab9b95c493f05de3b08016f5c3c";
-    sha256 = "0dzvafmn4qs62w1y9vh0a11clpj6q3hb41aym4izpcyybjndf9bq";
+    rev = "3d1e5d0bc1122a027e83f57c86851a027dd09112";
+    sha256 = "0d5r7575lh494qb13pnydf40i4dkc3znwvcr4rncxlyl0iz6p3h4";
   };
   pelib = fetchFromGitHub {
     owner = "avast-tl";
     repo = "pelib";
-    rev = "a7004b2e80e4f6dc984f78b821e7b585a586050d";
-    sha256 = "0nyrb3g749lxgcymz1j584xbb1x6rvy1mc700lyn0brznvqsm81n";
+    rev = "10bd64227023a2a37f075db3de9f4626dfbfb2b9";
+    sha256 = "167yj7jgv63k093l9wjck6wg6s6dl4vx1lk7nahkq2sv7h24s9pk";
   };
   rapidjson = fetchFromGitHub {
     owner = "Tencent";
@@ -71,8 +71,8 @@ let
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";
-    rev = "v2.2.2";
-    sha256 = "0cq9h4h686q9ybamisbl797g6xjy211s3cq83nixkwkigmz48ccp";
+    rev = "v2.4.1";
+    sha256 = "0lzcwzb77kqvvyama0bcl4zcwzs3la7313gi04243gw4spn9piwf";
   };
   jsoncpp = fetchFromGitHub {
     owner = "open-source-parsers";
@@ -94,11 +94,11 @@ let
   };
 
   retdec-support = let
-    version = "2018-02-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
+    version = "2019-03-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
   in fetchzip {
     url = "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
-    sha256 = if withPEPatterns then "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
-                               else "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
+    sha256 = if withPEPatterns then "10w4k9pmsvj3fjsaz5hwwcwlhl5ccw6jbfdknmqgjnybqzh72nxp"
+                               else "06rgxhnbgfs7f518xrgi5rhw46fvg31zmkx8p0qbn4yk2npqv9x5";
     stripRoot = false;
     # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
     extraPostFetch = lib.optionalString (!withPEPatterns) ''
@@ -124,20 +124,20 @@ let
   '';
 
 in stdenv.mkDerivation rec {
-  name = "retdec-${version}";
+  pname = "retdec";
 
   # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
   # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
   # I've notified upstream about this problem here:
   # https://github.com/avast-tl/retdec/issues/412
-  version = "3.2";
+  version = "3.3";
 
   src = fetchFromGitHub {
     owner = "avast-tl";
-    repo = "retdec";
+    repo = pname;
     name = "retdec-${version}";
     rev = "refs/tags/v${version}";
-    sha256 = "0chky656lsddn20bnm3pmz6ix20y4a0y8swwr42hrhi01vkhmzrp";
+    sha256 = "1qsyrjksjrxqx4hvshhi3gsrcg6pj1417rdl2mp4n690w59xz55i";
   };
 
   nativeBuildInputs = [
@@ -182,24 +182,11 @@ in stdenv.mkDerivation rec {
     (yaramod // { dep_name = "yaramod"; })
   ];
 
-  # Use newer yaramod to fix w/bison 3.2+
-  patches = [
-    # 2.1.2 -> 2.2.1
-    (fetchpatch {
-      url = https://github.com/avast-tl/retdec/commit/c9d23da1c6e23c149ed684c6becd3f3828fb4a55.patch;
-      sha256 = "0hdq634f72fihdy10nx2ajbps561w03dfdsy5r35afv9fapla6mv";
-    })
-    # 2.2.1 -> 2.2.2
-    (fetchpatch {
-      url = https://github.com/avast-tl/retdec/commit/fb85f00754b5d13b781385651db557741679721e.patch;
-      sha256 = "0a8mwmwb39pr5ag3q11nv81ncdk51shndqrkm92shqrmdq14va52";
-    })
-  ];
-
   postPatch = (lib.concatMapStrings patchDep external_deps) + ''
     # install retdec-support
     echo "Checking version of retdec-support"
-    expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"
+    find .
+    expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'support/install-share.py' )"
     if [ "$expected_version" != '${retdec-support.version}' ]; then
       echo "The retdec-support dependency has the wrong version: ${retdec-support.version} while $expected_version is expected."
       exit 1
@@ -209,7 +196,7 @@ in stdenv.mkDerivation rec {
     chmod -R u+w "$out/share/retdec/support"
     # python file originally responsible for fetching the retdec-support archive to $out/share/retdec
     # that is not necessary anymore, so empty the file
-    echo > cmake/install-share.py
+    echo > support/install-share.py
 
     # call correct `time` and `upx` programs
     substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time

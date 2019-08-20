@@ -9,7 +9,7 @@
 , fetchurl
 , fontconfig
 , freetype
-, gdk_pixbuf
+, gdk-pixbuf
 , glib
 , gnome2
 , gtk3
@@ -55,7 +55,7 @@ let
     expat.out
     fontconfig.lib
     freetype.out
-    gdk_pixbuf.out
+    gdk-pixbuf.out
     glib.out
     gnome2.GConf
     gtk3.out
@@ -93,11 +93,11 @@ let
 in stdenv.mkDerivation rec {
 
   pname = "opera";
-  version = "62.0.3331.43";
+  version = "62.0.3331.99";
 
   src = fetchurl {
     url = "${mirror}/${version}/linux/${pname}-stable_${version}_amd64.deb";
-    sha256 = "0zylg32zn6blkgy4bwmjzc26i712lwakahvrd24ncpfa8805f7x7";
+    sha256 = "1pzas9vvypv8fsyicqam6bjkifsnwl1aqbxld8gyfz5r1s11r899";
   };
 
   unpackCmd = "${dpkg}/bin/dpkg-deb -x $curSrc .";

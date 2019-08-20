@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     bubblewrap bzip2 dbus gnome3.dconf glib gpgme json-glib libarchive libcap libseccomp
-    libsoup lzma ostree polkit python3 systemd xorg.libXau
+    libsoup lzma ostree polkit python3 systemd xorg.libXau fuse
     gsettings-desktop-schemas glib-networking
     librsvg # for flatpak-validate-icon
     fuse

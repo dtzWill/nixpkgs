@@ -25,6 +25,8 @@ stdenv.mkDerivation rec {
   checkInputs = [ coreutils gawk ];
   checkTarget = "test";
 
+  patches = [ ./fix-free-calls.patch ];
+
   meta = with stdenv.lib; {
     description = "Data deduplication program";
     homepage = https://git.2f30.org/dedup/file/README.html;

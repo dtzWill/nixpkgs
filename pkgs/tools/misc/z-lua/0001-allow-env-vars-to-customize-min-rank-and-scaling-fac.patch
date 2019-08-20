@@ -1,0 +1,64 @@
+From 3bcaf9cf4828573432d3acfec49c65f33210829d Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 26 Jul 2019 11:22:20 -0500
+Subject: [PATCH] allow env vars to customize min rank and scaling factor
+
+---
+ z.lua | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/z.lua b/z.lua
+index 5512b4a..c75bd2b 100755
+--- a/z.lua
++++ b/z.lua
+@@ -120,6 +120,8 @@ Z_CMD = 'z'
+ Z_MATCHMODE = 0
+ Z_MATCHNAME = false
+ Z_SKIPPWD = false
++Z_SCALE = 0.9
++Z_MIN = 0.001 -- don't forget paths so easily
+ 
+ os.LOG_NAME = os.getenv('_ZL_LOG_NAME')
+ 
+@@ -1150,8 +1152,8 @@ function data_insert(M, filename)
+ 		local X = {}
+ 		for i = 1, #M do
+ 			local item = M[i]
+-			item.rank = item.rank * 0.9
+-			if item.rank >= 1.0 then
++			item.rank = item.rank * Z_SCALE
++			if item.rank >= Z_MIN then
+ 				table.insert(X, item)
+ 			end
+ 		end
+@@ -1872,6 +1874,8 @@ function z_init()
+ 	local _zl_matchname = os.getenv('_ZL_MATCH_NAME')
+ 	local _zl_skippwd = os.getenv('_ZL_SKIP_PWD')
+ 	local _zl_matchmode = os.getenv('_ZL_MATCH_MODE')
++	local _zl_min = os.getenv('_ZL_MIN')
++	local _zl_scale = os.getenv('_ZL_SCALE')
+ 	if _zl_data ~= nil and _zl_data ~= "" then
+ 		if windows then
+ 			DATA_FILE = _zl_data
+@@ -1888,6 +1892,18 @@ function z_init()
+ 			MAX_AGE = _zl_maxage
+ 		end
+ 	end
++	if _zl_min ~= nil and _zl_min ~= "" then
++		_zl_min = tonumber(_zl_min)
++		if _zl_min ~= nil and _zl_min > 0 and _zl_min <= 1.0 then
++			Z_MIN = _zl_min
++		end
++	end
++	if _zl_scale ~= nil and _zl_scale ~= "" then
++		_zl_scale = tonumber(_zl_scale)
++		if _zl_scale ~= nil and _zl_scale > 0 and _zl_scale <= 1.0 then
++			Z_SCALE = _zl_scale
++		end
++	end
+ 	if _zl_exclude ~= nil and _zl_exclude ~= "" then
+ 		local part = _zl_exclude:split(',')
+ 		local insensitive = path_case_insensitive()
+-- 
+2.22.0
+

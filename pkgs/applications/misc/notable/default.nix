@@ -2,13 +2,13 @@
 
 let
   pname = "notable";
-  version = "1.6.2";
+  version = "1.7.0";
 in
 appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/notable/notable/releases/download/v${version}/Notable-${version}.AppImage";
-    sha256 = "0kd1xpy19xzcm8l9yq5xn559kmfv7y982zrdmpbhicjsj6ms0pgp";
+    sha256 = "1a3w3whm0c6njn0x5rsh2br74fixxlpdrz9p5f274g2zjx0bxn76";
   };
 
   profile = ''

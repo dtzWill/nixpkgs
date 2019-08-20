@@ -1,7 +1,7 @@
 { stdenv, fetchzip }:
 
 let
-  version = "2.0.1";
+  version = "2.0.2";
 in fetchzip {
   name = "stix-two-${version}";
 
@@ -12,7 +12,7 @@ in fetchzip {
     unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
   '';
 
-  sha256 = "1k52scpr2cm6nz9jpj84q46wnz8fhi7qj37ci7cd09gsav42dvgh";
+  sha256 = "0zm0jav22rna8qy09v8zx71xbmxrm7yc1slds6cwh6gcdbig8lv7";
 
   meta = with stdenv.lib; {
     homepage = http://www.stixfonts.org/;

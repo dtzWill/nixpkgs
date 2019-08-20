@@ -14,7 +14,7 @@
 , dbus-glib
 , fontconfig
 , freetype
-, gdk_pixbuf
+, gdk-pixbuf
 , glib
 , gtk3
 , libxcb
@@ -84,7 +84,7 @@ let
     dbus-glib
     fontconfig
     freetype
-    gdk_pixbuf
+    gdk-pixbuf
     glib
     gtk3
     libxcb

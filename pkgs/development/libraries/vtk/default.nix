@@ -2,7 +2,7 @@
 , qtLib ? null
 # Darwin support
 , Cocoa, CoreServices, DiskArbitration, IOKit, CFNetwork, Security, GLUT, OpenGL
-, ApplicationServices, CoreText, IOSurface, cf-private, ImageIO, xpc, libobjc }:
+, ApplicationServices, CoreText, IOSurface, ImageIO, xpc, libobjc }:
 
 with stdenv.lib;
 
@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "1fspgp8k0myr6p2a6wkc21ldcswb4bvmb484m12mxgk1a9vxrhrl";
   };
 
-  buildInputs =
-    if !stdenv.isDarwin
-    then [ cmake libGLU_combined libX11 xorgproto libXt ] ++ optional (qtLib != null) qtLib
-    else [ cmake qtLib xpc CoreServices DiskArbitration IOKit cf-private
-           CFNetwork Security ApplicationServices CoreText IOSurface ImageIO
-           OpenGL GLUT ];
-  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [ Cocoa libobjc ];
+  buildInputs = [ cmake ]
+    ++ optional (qtLib != null) qtLib
+    ++ optionals stdenv.isLinux [ libGLU_combined libX11 xorgproto libXt ]
+    ++ optionals stdenv.isDarwin [ xpc Cocoa CoreServices DiskArbitration IOKit
+                                   CFNetwork Security ApplicationServices CoreText
+                                   IOSurface ImageIO OpenGL GLUT ];
+  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [ libobjc ];
 
 
   preBuild = ''

@@ -4,12 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "geeqie-${version}";
-  version = "1.4";
+  pname = "geeqie";
+  version = "1.5";
 
   src = fetchurl {
-    url = "http://geeqie.org/${name}.tar.xz";
-    sha256 = "0ciygvcxb78pqg59r6p061mkbpvkgv2rv3r79j3kgv3kalb3ln2w";
+    url = "http://geeqie.org/${pname}-${version}.tar.xz";
+    sha256 = "1x8v5lnq5f3qzhna3hh3r5npbqizsg6k82bjkh59vhqwyb5whdlp";
   };
 
   patches = [
@@ -18,12 +18,6 @@ stdenv.mkDerivation rec {
       name = "geeqie-1.4-goodbye-changelog.patch";
       url = "https://src.fedoraproject.org/rpms/geeqie/raw/132fb04a1a5e74ddb333d2474f7edb9a39dc8d27/f/geeqie-1.4-goodbye-changelog.patch";
       sha256 = "00a35dds44kjjdqsbbfk0x9y82jspvsbpm2makcm1ivzlhjjgszn";
-    })
-    # Fixes build with exiv2 0.27.1
-    (fetchpatch {
-      name = "geeqie-exiv2-0.27.patch";
-      url = "https://git.archlinux.org/svntogit/packages.git/plain/trunk/geeqie-exiv2-0.27.patch?h=packages/geeqie&id=dee28a8b3e9039b9cd6927b5a93ef2a07cd8271d";
-      sha256 = "05skpbyp8pcq92psgijyccc8liwfy2cpwprw6m186pf454yb5y9p";
     })
   ];
 

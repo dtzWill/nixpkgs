@@ -4,13 +4,33 @@ let
   biberSource = stdenv.lib.head (builtins.filter (p: p.tlType == "source") texlive.biber.pkgs);
 in
 
-perlPackages.buildPerlModule {
-  pname = "biber";
-  inherit (biberSource) version;
+## perlPackages.buildPerlModule {
+##   pname = "biber";
+##   inherit (biberSource) version;
+## 
+##   src = "${biberSource}/source/bibtex/biber/biblatex-biber.tar.gz";
+## 
+##  wrappedPerl = perlPackages.perl.withPackages (pp: with pp; [
+##    autovivification BusinessISBN BusinessISMN BusinessISSN ConfigAutoConf
+##    DataCompare DataDump DateSimple EncodeEUCJPASCII EncodeHanExtra EncodeJIS2K
+##    DateTime DateTimeFormatBuilder DateTimeCalendarJulian
+##    ExtUtilsLibBuilder FileSlurper FileWhich IPCRun3 LogLog4perl LWPProtocolHttps ListAllUtils
+##    ListMoreUtils MozillaCA ReadonlyXS RegexpCommon TextBibTeX
+##    UnicodeLineBreak URI XMLLibXMLSimple XMLLibXSLT XMLWriter
+##    ClassAccessor TextCSV TextCSV_XS TextRoman DataUniqid LinguaTranslit SortKey
+##    TestDifferences
+##    PerlIOutf8_strict
+##  ]);
+##in
+
+perlPackages.buildPerlModule rec {
+   pname = "biber";
+   inherit (biberSource) version;
 
   src = "${biberSource}/source/bibtex/biber/biblatex-biber.tar.gz";
 
-  wrappedPerl = perlPackages.perl.withPackages (pp: with pp; [
+  # buildInputs = [ wrappedPerl ];
+  buildInputs = with perlPackages; [
     autovivification BusinessISBN BusinessISMN BusinessISSN ConfigAutoConf
     DataCompare DataDump DateSimple EncodeEUCJPASCII EncodeHanExtra EncodeJIS2K
     DateTime DateTimeFormatBuilder DateTimeCalendarJulian
@@ -20,16 +40,7 @@ perlPackages.buildPerlModule {
     ClassAccessor TextCSV TextCSV_XS TextRoman DataUniqid LinguaTranslit SortKey
     TestDifferences
     PerlIOutf8_strict
-  ]);
-in
-
-perlPackages.buildPerlModule rec {
-  name = "biber-${version}";
-  inherit (biberSource) version;
-
-  src = "${biberSource}/source/bibtex/biber/biblatex-biber.tar.gz";
-
-  buildInputs = [ wrappedPerl ];
+  ];
 
   meta = with stdenv.lib; {
     description = "Backend for BibLaTeX";

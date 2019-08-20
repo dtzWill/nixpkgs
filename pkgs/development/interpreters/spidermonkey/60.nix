@@ -1,13 +1,16 @@
-{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, python2, zip
+{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, python2, zip, buildPackages
 , which, readline, zlib, icu }:
 
-stdenv.mkDerivation rec {
-  pname = "spidermonkey";
-  version = "60.7.0";
+with stdenv.lib;
+
+let
+  version = "60.8.0";
+in stdenv.mkDerivation rec {
+  name = "spidermonkey-${version}";
 
   src = fetchurl {
     url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
-    sha256 = "08x0nijh0ja5jza95a8y030ibk756bn7zlw3a3c4750yilfhqpqa";
+    sha256 = "1gkz90clarbhgfxhq91s0is6lw6bfymyjb0xbyyswdg68kcqfcy1";
   };
 
   buildInputs = [ readline zlib icu ];
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     export CXXFLAGS="-fpermissive"
     export LIBXUL_DIST=$out
-    export PYTHON="${python2.interpreter}"
+    export PYTHON="${buildPackages.python2.interpreter}"
 
     # We can't build in js/src/, so create a build dir
     mkdir obj
@@ -37,7 +40,16 @@ stdenv.mkDerivation rec {
     # https://src.fedoraproject.org/rpms/mozjs38/c/761399aba092bcb1299bb4fccfd60f370ab4216e
     "--enable-optimize"
     "--enable-release"
+  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    # Spidermonkey seems to use different host/build terminology for cross
+    # compilation here.
+    "--host=${stdenv.buildPlatform.config}"
+    "--target=${stdenv.hostPlatform.config}"
   ];
+
+  configurePlatforms = [];
+
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   # Remove unnecessary static lib
   preFixup = ''

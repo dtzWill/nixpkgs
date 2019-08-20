@@ -1,19 +1,25 @@
-{ stdenv, pkgconfig, fetchurl, itstool, intltool, libxml2, glib, gtk3
+{ stdenv, meson, ninja, pkgconfig, fetchurl, itstool, intltool, libxml2, glib, gtk3
 , python3Packages, wrapGAppsHook, gnome3, libwnck3, gobject-introspection }:
 
 let
   pname = "d-feet";
-  version = "0.3.14";
+  version = "0.3.15";
 in python3Packages.buildPythonApplication rec {
   name = "${pname}-${version}";
   format = "other";
 
   src = fetchurl {
     url = "mirror://gnome/sources/d-feet/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1m8lwiwl5jhi0x7y6x5zmd3hjplgvdjrb8a8jg74rvkygslj1p7f";
+    sha256 = "1cgxgpj546jgpyns6z9nkm5k48lid8s36mvzj8ydkjqws2d19zqz";
   };
 
-  nativeBuildInputs = [ pkgconfig itstool intltool wrapGAppsHook libxml2 ];
+  postPatch = ''
+    chmod +x meson_post_install.py
+    patchShebangs meson_post_install.py
+  '';
+
+  nativeBuildInputs = [ meson ninja pkgconfig itstool intltool wrapGAppsHook libxml2 glib.dev ]
+    ++ (with python3Packages; [ pep8 pycodestyle ]);
   buildInputs = [ glib gtk3 gnome3.adwaita-icon-theme libwnck3 gobject-introspection ];
 
   propagatedBuildInputs = with python3Packages; [ pygobject3 pep8 ];

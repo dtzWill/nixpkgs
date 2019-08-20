@@ -1,15 +1,20 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, which, utillinux }:
 
 stdenv.mkDerivation rec {
-  name = "git-extras-${version}";
-  version = "4.7.0";
+  pname = "git-extras";
+  version = "5.0.0";
 
   src = fetchurl {
     url = "https://github.com/tj/git-extras/archive/${version}.tar.gz";
-    sha256 = "0pab4f5kmmcn333aswkgndf1fgilc41h8h0rk3lviz0yi8j59vaq";
+    sha256 = "16k0zwx5njmmbzkqkyl1xrsx2ykb0j35ygz39wc9s48j9kqhmdvz";
   };
 
   dontBuild = true;
+
+  nativeBuildInputs = [ which ];
+  buildInputs = [ utillinux ];
+
+  postPatch = "patchShebangs ./check_dependencies.sh";
 
   installFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
 

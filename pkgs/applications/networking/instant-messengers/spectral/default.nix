@@ -6,6 +6,7 @@
 , qtgraphicaleffects
 , qtdeclarative
 , qtmacextras
+, olm
 }:
 
 let
@@ -21,13 +22,13 @@ let
 in stdenv.mkDerivation rec {
   pname = "spectral";
   #version = "648";
-  version = "2019-07-06";
+  version = "2019-07-19";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
     #rev = "refs/tags/${version}";
-    rev = "7f2dbf70b4e25e3d26f344cbf847a6061399802a";
-    sha256 = "0386mhnifpfmk8zx0zzh9mhga7laynb33vphvra11fs6lb1xghry";
+    rev = "7d38d05babc6512b4e582c57003f49600b1f19dc";
+    sha256 = "0fv52790jqs2az18n62m97zq51wvk22ijd78if9i372y70wdwfks";
     fetchSubmodules = true;
   };
 
@@ -39,7 +40,7 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative ]
+  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 

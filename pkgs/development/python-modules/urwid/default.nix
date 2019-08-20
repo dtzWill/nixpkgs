@@ -2,13 +2,13 @@
 
 buildPythonPackage (rec {
   pname = "urwid";
-  version = "2019-05-20";
+  version = "2019-08-09";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "06986ccdbfa2645a8a075ebfb35b217bdc602a95";
-    sha256 = "1w8qy0hbj2ws5b2a7n5nw4kyw411w0c3z582ysf6nwzklx3c0za9";
+    rev = "bb5498690bb59d1ce995a843f8de7349541e883d";
+    sha256 = "0mdfrqbbwrw1pn8gi8dwa42bbsycy9lwyyw8f55xfzqgwhhjz96a";
   };
 
   #propagatedBuildInputs = [ glibcLocales ];

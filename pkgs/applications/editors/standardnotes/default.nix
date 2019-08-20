@@ -1,7 +1,7 @@
 { stdenv, appimageTools, fetchurl }:
 
 let
-  version = "3.0.8";
+  version = "3.0.15";
 
   plat = {
     "i686-linux" = "i386";
@@ -9,8 +9,8 @@ let
   }.${stdenv.hostPlatform.system};
 
   sha256 = {
-    "i686-linux" = "0v2nsis6vb1lnhmjd28vrfxqwwpycv02j0nvjlfzcgj4b3400j9a";
-    "x86_64-linux" = "02rd7chpsfz3f19iv7dh9q3gpacjnm0mkfhrc8a0gjmz24jmyx2n";
+    "i686-linux" = "0v2nsis6vb1lnhmjd28vrfxqwwpycv02j0nvjlfzcgj4b3400j7a";
+    "x86_64-linux" = "130n586cw0836zsbwqcz3pp3h0d4ny74ngqs4k4cvfb92556r7xh";
   }.${stdenv.hostPlatform.system};
 in appimageTools.wrapType2 rec {
   name = "standardnotes-${version}";

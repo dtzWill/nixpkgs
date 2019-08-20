@@ -95,7 +95,7 @@ rec {
       gtk2
       bzip2
       zlib
-      gdk_pixbuf
+      gdk-pixbuf
 
       xorg.libXinerama
       xorg.libXdamage

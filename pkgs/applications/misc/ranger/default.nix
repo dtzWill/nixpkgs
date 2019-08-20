@@ -6,14 +6,15 @@ with stdenv.lib;
 assert imagePreviewSupport -> w3m != null;
 
 python3Packages.buildPythonApplication rec {
-  name = "ranger-${version}";
-  version = "1.9.2";
+  pname = "ranger";
+  version = "2019-08-06";
 
   src = fetchFromGitHub {
     owner = "ranger";
     repo = "ranger";
-    rev = "v${version}";
-    sha256= "1ws6g8z1m1hfp8bv4msvbaa9f7948p687jmc8h69yib4jkv3qyax";
+    #rev = "v${version}";
+    rev = "3e27a680f82f759eebd90a20a4920d4984413d6b";
+    sha256= "016xciy0prlisbwn7j3ngzxbhwsqsyjxwcjh5dfkik4pkrb2kvsm";
   };
 
   LC_ALL = "en_US.UTF-8";

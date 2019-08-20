@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchFromGitHub, substituteAll, gtk-doc, pkgconfig, gobject-introspection, intltool
 , libgudev, polkit, libxmlb, gusb, sqlite, libarchive, glib-networking
-, libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, glibcLocales
-, gnu-efi, libyaml, valgrind, meson, libuuid, colord, docbook_xml_dtd_43, docbook_xsl
+, libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, gnu-efi
+, libyaml, valgrind, meson, libuuid, colord, docbook_xml_dtd_43, docbook_xsl
 , ninja, gcab, gnutls, python3, wrapGAppsHook, json-glib, bash-completion
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
@@ -19,38 +19,53 @@ let
   fontsConf = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
   };
+
+  isx86 = stdenv.isx86_64 || stdenv.isi686;
+
+  # Dell isn't supported on Aarch64
+  haveDell = isx86;
+
+  # only redfish for x86_64
+  haveRedfish = stdenv.isx86_64;
+
+  # Currently broken on Aarch64
+  haveFlashrom = isx86;
+
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.2.9";
+  #version = "1.2.10";
 
-  #src = fetchFromGitHub {
-  #  owner = "hughsie";
-  #  repo = pname;
-  #  rev = "0156b8fa7884bc1f8614de68be01a4a3afd98956";
-  #  sha256 = "0h3qhamzsc8vhznqkjckzwn3ch3jcvr3zymvslj42j8nqx1ipkq2";
-  #};
-  src = fetchurl {
-    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "180x706hg7v4myggsz4q3vfxc1z2akwb48bkcn6al665lf2xzzk5";
+  version = "2019-08-19";
+  src = fetchFromGitHub {
+    owner = "hughsie";
+    repo = pname;
+    rev = "4fa965a9f76c37d95a983c296bec42fc689df4a1";
+    sha256 = "0mp4pqrf8bxwkdx3zfgxcpn4aaik817yp6xrnlalr3hdm0as3w9k";
   };
+  #src = fetchurl {
+  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+  #  sha256 = "0inngs7i48akm9c7fmdsf9zjif595rkaba69rl76jfwfv8r21vjb";
+  #};
 
   outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
 
   nativeBuildInputs = [
-    meson ninja gtk-doc pkgconfig gobject-introspection intltool glibcLocales shared-mime-info
+    meson ninja gtk-doc pkgconfig gobject-introspection intltool shared-mime-info
     valgrind gcab docbook_xml_dtd_43 docbook_xsl help2man libxslt python wrapGAppsHook vala
   ];
+
   buildInputs = [
-    polkit libxmlb gusb sqlite libarchive libsoup elfutils libsmbios gnu-efi libyaml
-    libgudev colord gpgme libuuid gnutls glib-networking efivar json-glib umockdev
-    bash-completion cairo freetype fontconfig pango
-  ];
+    polkit libxmlb gusb sqlite libarchive libsoup elfutils gnu-efi libyaml
+    libgudev colord gpgme libuuid gnutls glib-networking json-glib umockdev
+    bash-completion cairo freetype fontconfig pango efivar
+  ] ++ stdenv.lib.optionals haveDell [ libsmbios ];
 
   LC_ALL = "C.UTF-8"; # For po/make-images
 
   patches = [
     ./fix-paths.patch
     ./add-option-for-installation-sysconfdir.patch
+    ./sysconfdir-install.patch
 
     # installed tests are installed to different output
     # we also cannot have fwupd-tests.conf in $out/etc since it would form a cycle
@@ -60,6 +75,8 @@ in stdenv.mkDerivation rec {
       inherit installedTestsPython;
     })
   ];
+
+  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "${placeholder "out"}/share/polkit-1/actions";
 
   postPatch = ''
     patchShebangs .
@@ -99,14 +116,26 @@ in stdenv.mkDerivation rec {
 
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \
-      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'"
+      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'" \
+      \
+      --replace "subdir('builder')" ""
+
+    echo '#!/bin/sh' > meson_post_install.sh
+    chmod +x meson_post_install.sh
   '';
 
   # /etc/os-release not available in sandbox
   # doCheck = true;
 
-  preFixup = ''
-    gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
+  preFixup = let
+    binPath = [ efibootmgr bubblewrap tpm2-tools ] ++ stdenv.lib.optional haveFlashrom flashrom;
+  in
+  ''
+    gappsWrapperArgs+=(
+      --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
+      # See programs reached with fu_common_find_program_in_path in source
+      --prefix PATH : "${stdenv.lib.makeBinPath binPath}"
+    )
   '';
 
   mesonFlags = [
@@ -119,6 +148,13 @@ in stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--sysconfdir=/etc"
     "-Dsysconfdir_install=${placeholder "out"}/etc"
+  ] ++ stdenv.lib.optionals (!haveDell) [
+    "-Dplugin_dell=false"
+    "-Dplugin_synaptics=false"
+  ] ++ stdenv.lib.optionals (!haveRedfish) [
+    "-Dplugin_redfish=false"
+  ] ++ stdenv.lib.optionals (!haveFlashrom) [
+    "-Dplugin_flashrom=false"
   ];
 
   # TODO: We need to be able to override the directory flags from meson setup hook

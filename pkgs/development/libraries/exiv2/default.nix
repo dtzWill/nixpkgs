@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DEXIV2_BUILD_PO=ON"
     "-DEXIV2_BUILD_DOC=ON"
+    "-DEXIV2_BUILD_SAMPLES=ON" # Apparently
+    #"-DEXIV2_BUILD_UNIT_TESTS=ON"
   ];
 
   outputs = [ "out" "dev" "doc" "man" ];
