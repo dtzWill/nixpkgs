@@ -2,25 +2,30 @@
 , buildPythonPackage
 , fetchPypi
 , fetchFromGitHub
-, coverage
+, pytest
+, pytestcov
 }:
 
 buildPythonPackage rec {
   pname = "html2text";
-  version = "2019.3.1"; # "2018.1.9";
+  version = "2019.8.11";
 
-  #src = fetchPypi {
-  #  inherit pname version;
-  #  sha256 = "627514fb30e7566b37be6900df26c2c78a030cc9e6211bda604d8181233bcdd4";
-  #};
-  src = fetchFromGitHub {
-    owner = "Alir3z4";
-    repo = pname;
-    rev = "52bfc27e6a69e6f5e171b6035419c3c1457d864c";
-    sha256 = "01c5c3vhy0jmcsfzbnb5pi8piw9ibnf3kvi6a0hka69fj1dc02sb";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "f516b9c10284174e2a974d86f91cab02b3cf983a17752075da751af0e895ef5e";
   };
+  #src = fetchFromGitHub {
+  #  owner = "Alir3z4";
+  #  repo = pname;
+  #  rev = "52bfc27e6a69e6f5e171b6035419c3c1457d864c";
+  #  sha256 = "01c5c3vhy0jmcsfzbnb5pi8piw9ibnf3kvi6a0hka69fj1dc02sb";
+  #};
 
-  checkInputs = [ coverage ];
+  checkInputs = [ pytest pytestcov ];
+
+  checkPhase = ''
+    py.test -v test
+  '';
 
   meta = with stdenv.lib; {
     description = "Turn HTML into equivalent Markdown-structured text";
