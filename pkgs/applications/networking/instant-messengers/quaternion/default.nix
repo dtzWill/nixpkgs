@@ -1,4 +1,4 @@
-{ mkDerivation, stdenv, lib, fetchFromGitHub, cmake
+{ mkDerivation, stdenv, lib, fetchFromGitHub, fetchpatch, cmake
 , qtbase, qtquickcontrols, qtkeychain, qtmultimedia, qttools
 , libqmatrixclient_0_5 }:
 
