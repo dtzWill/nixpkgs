@@ -19,8 +19,14 @@ in stdenv.mkDerivation rec {
     sha256 = "1lnbm8dhrc0k4d9v0zxngcdxwmsr9bd0lfm8i81xgpbsdg75la25";
   };
 
+  postPatch = ''
+    substituteInPlace pygobject/meson.build \
+      --replace "['python2', 'python3']" \
+                "['python3']"
+  '';
+
   nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
-  buildInputs = [ glib gtk3 gtksourceview3 libpeas libxml2 gobject-introspection gspell libgnomekbd py ];
+  buildInputs = [ glib gtk3 gtksourceview3 libpeas libxml2 gobject-introspection gspell libgnomekbd py python3.pkgs.pygobject3 ];
 }
 
