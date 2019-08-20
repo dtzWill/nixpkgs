@@ -16,6 +16,12 @@ rec {
       patch = ./modinst-arg-list-too-long.patch;
     };
 
+  modinst_arg_list_too_long_5_3 =
+    { name = "modinst-arglist-too-long";
+      patch = ./modinst-arg-list-too-long_5.3.patch;
+    };
+
+
   genksyms_fix_segfault =
     { name = "genksyms-fix-segfault";
       patch = ./genksyms-fix-segfault.patch;
