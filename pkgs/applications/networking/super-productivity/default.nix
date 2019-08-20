@@ -2,6 +2,7 @@
 , alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib
 , gnome2, gtk3, gdk_pixbuf, libnotify, libxcb, nspr, nss, pango
 , at-spi2-atk, at-spi2-core
+, libGL, ffmpeg
 , utillinux, systemd, xorg, xprintidle-ng }:
 
 let
@@ -45,6 +46,9 @@ let
     xorg.libXrender
     xorg.libXtst
     xorg.libXScrnSaver
+
+    libGL
+    ffmpeg
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
   src =
