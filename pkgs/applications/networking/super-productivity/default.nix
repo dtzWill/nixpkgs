@@ -2,7 +2,7 @@
 , alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib
 , gnome2, gtk3, gdk_pixbuf, libnotify, libxcb, nspr, nss, pango
 , at-spi2-atk, at-spi2-core
-, libGL, ffmpeg
+, libGL
 , utillinux, systemd, xorg, xprintidle-ng }:
 
 let
@@ -30,7 +30,6 @@ let
     libxcb
     nspr
     nss
-    stdenv.cc.cc
     systemd
     utillinux
 
@@ -48,8 +47,9 @@ let
     xorg.libXScrnSaver
 
     libGL
-    ffmpeg
-  ] + ":${stdenv.cc.cc.lib}/lib64";
+    stdenv.cc.cc
+    stdenv.cc.libc
+  ];
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -86,8 +86,13 @@ in stdenv.mkDerivation {
     chmod -R g-w $out
 
     # set linker and rpath
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$out/libexec/superProductivity/superproductivity"
-    patchelf --set-rpath ${rpath}:$out/libexec/superProductivity "$out/libexec/superProductivity/superproductivity"
+    for x in $out/libexec/superProductivity/superproductivity; do
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$x"
+      patchelf --set-rpath ${rpath}:$out/libexec/superProductivity "$x"
+    done
+    for x in $out/libexec/superProductivity/*.so; do
+      patchelf --set-rpath ${rpath}:$out/libexec/superProductivity "$x"
+    done
 
     # wrapper for xdg_data_dirs and xprintidle path
     makeWrapper $out/libexec/superProductivity/superproductivity $out/bin/superproductivity \
@@ -98,10 +103,13 @@ in stdenv.mkDerivation {
     substituteInPlace $out/share/applications/superproductivity.desktop \
       --replace /opt/superProductivity/ $out/bin/
 
+    rm -vrf $out/libexec/superProductivity/{libGLESv2.so,libEGL.so,swiftshader}
+
     runHook postInstall
   '';
 
   dontStrip = true;
+  dontPatchELF = true;
 
   meta = with stdenv.lib; {
     description = "To Do List / Time Tracker with Jira Integration.";
