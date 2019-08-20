@@ -1,7 +1,14 @@
 { stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, glibcLocales }:
 
-buildPythonPackage (rec {
+buildPythonPackage rec {
   pname = "urwid";
+  # version = "2.0.1";
+
+  # src = fetchPypi {
+  #   inherit pname version;
+  #   sha256 = "1g6cpicybvbananpjikmjk8npmjk4xvak1wjzji62wc600wkwkb4";
+  # };
+
   version = "2019-08-09";
 
   src = fetchFromGitHub {
@@ -21,4 +28,4 @@ buildPythonPackage (rec {
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];
   };
-})
+}

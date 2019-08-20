@@ -249,9 +249,6 @@ stdenv.mkDerivation rec {
     PREFIX=''${out/#\/}
     substituteInPlace swift-corelibs-xctest/build_script.py \
       --replace usr "$PREFIX"
-    substituteInPlace swiftpm/Utilities/bootstrap \
-      --replace \"usr\" \"$PREFIX\" \
-      --replace usr/lib "$PREFIX/lib"
   '';
 
   buildPhase = builder;
