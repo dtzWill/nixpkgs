@@ -149,6 +149,8 @@ in
 
   buildMaven = callPackage ../build-support/build-maven.nix {};
 
+  castget = callPackage ../applications/networking/feedreaders/castget { };
+
   castxml = callPackage ../development/tools/castxml { };
 
   clj-kondo = callPackage ../development/tools/clj-kondo { };
@@ -24954,4 +24956,6 @@ in
   runwayml = callPackage ../applications/graphics/runwayml {};
 
   uhubctl = callPackage ../tools/misc/uhubctl {};
+
+  kodelife = callPackage ../applications/graphics/kodelife {};
 }
