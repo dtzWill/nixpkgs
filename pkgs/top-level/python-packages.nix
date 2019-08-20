@@ -6201,6 +6201,9 @@ in {
   runway-python = callPackage ../development/python-modules/runway-python { };
 
   pyprof2calltree = callPackage ../development/python-modules/pyprof2calltree { };
+
+  simplenote = callPackage ../development/python-modules/simplenote { };
+
 });
 
 in fix' (extends overrides packages)
