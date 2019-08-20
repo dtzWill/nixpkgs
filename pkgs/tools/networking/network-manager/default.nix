@@ -13,15 +13,15 @@ let
 in stdenv.mkDerivation rec {
   name = "network-manager-${version}";
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "1.21.1pre-2019-08-15";
+  version = "1.21.1pre-2019-08-16";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "78b6fd47dcee24a4709b4b9c5a30485863eea2c0";
-    sha256 = "0vrfr4lx6j0vhwvckjczllm0ydwalb1llc8ga2i0yy8i2kmwnd5l";
+    rev = "27d380b70ea839c7badab420361e4e65e023e8e9";
+    sha256 = "0c8xg7wqlv7rrjf1n7ydc4ra724nphin65g0hqzah2kprh4sdsvg";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";

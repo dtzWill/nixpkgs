@@ -384,6 +384,10 @@ in
 
   setupSystemdUnits = callPackage ../build-support/setup-systemd-units.nix { };
 
+  shortenPerlShebang = makeSetupHook
+    { deps = [ dieHook ]; }
+    ../build-support/setup-hooks/shorten-perl-shebang.sh;
+
   singularity-tools = callPackage ../build-support/singularity-tools { };
 
   srcOnly = args: callPackage ../build-support/src-only args;
@@ -19608,6 +19612,8 @@ in
   };
 
   inherit (ocaml-ng.ocamlPackages_4_01_0) monotoneViz;
+
+  moolticute = libsForQt5.callPackage ../applications/misc/moolticute { };
 
   moonlight-embedded = callPackage ../applications/misc/moonlight-embedded { };
 

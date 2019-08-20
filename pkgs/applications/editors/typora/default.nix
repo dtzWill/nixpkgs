@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  unpackPhase = "dpkg-deb -x $src .";
+  unpackPhase = ''
+    dpkg-deb --fsys-tarfile $src | tar xvf -
+  '';
 
   installPhase = ''
     runHook preInstall
