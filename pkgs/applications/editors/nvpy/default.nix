@@ -1,14 +1,17 @@
 { pkgs, fetchurl, python2Packages }:
 
 let
+  # TODO: python3!
+  # Only python2 is supported currently, if py3 isn't officially supported
+  # consider moving to this user's fork: https://github.com/cpbotha/nvpy/issues/153#issuecomment-431517564
   pythonPackages = python2Packages;
 in pythonPackages.buildPythonApplication rec {
-  version = "0.9.7";
+  version = "1.2.1";
   pname = "nvpy";
 
   src = fetchurl {
     url = "https://github.com/cpbotha/nvpy/archive/v${version}.tar.gz";
-    sha256 = "1rd3vlaqkg16iz6qcw6rkbq0jmyvc0843wa3brnvn1nz0kla243f";
+    sha256 = "1y5qkwfnp83b09sy1dn8qyqwcs1acbpq8jc0pzax5vy41459i0pq";
   };
 
   propagatedBuildInputs = with pythonPackages; [
