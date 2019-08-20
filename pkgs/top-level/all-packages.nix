@@ -151,6 +151,8 @@ in
 
   castxml = callPackage ../development/tools/castxml { };
 
+  clj-kondo = callPackage ../development/tools/clj-kondo { };
+
   cmark = callPackage ../development/libraries/cmark { };
 
   conftest = callPackage ../development/tools/conftest {};
@@ -7988,6 +7990,8 @@ in
   jre_headless = jre8_headless;
 
   inherit (callPackages ../development/compilers/graalvm { }) mx jvmci8 graalvm8;
+
+  graalvm8-ee = callPackages ../development/compilers/graalvm/enterprise-edition.nix { };
 
   openshot-qt = libsForQt5.callPackage ../applications/video/openshot-qt { };
 
