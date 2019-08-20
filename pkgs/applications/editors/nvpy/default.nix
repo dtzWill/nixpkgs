@@ -18,6 +18,7 @@ in pythonPackages.buildPythonApplication rec {
     markdown
     tkinter
     docutils
+    simplenote
   ];
 
   # No tests
