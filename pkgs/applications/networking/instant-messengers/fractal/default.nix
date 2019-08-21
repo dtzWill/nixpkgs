@@ -9,7 +9,7 @@
 , python3
 , rustPlatform
 , pkgconfig
-, gtksourceview
+, gtksourceview4
 , hicolor-icon-theme
 , glib
 , libhandy
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage rec {
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
     gtk3
-    gtksourceview
+    gtksourceview4
     hicolor-icon-theme
     libhandy
     openssl
