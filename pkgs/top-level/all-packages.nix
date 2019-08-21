@@ -15756,6 +15756,7 @@ in
       [ kernelPatches.bridge_stp_helper
         kernelPatches.modinst_arg_list_too_long
         kernelPatches.export_kernel_fpu_functions
+        kernelPatches.pcie_delays
       ];
   };
 
