@@ -28,5 +28,6 @@ stdenv.mkDerivation rec {
     description = "Tools for working with USB devices, such as lsusb";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
+    outputsToInstall = [ "out" "man" "python" ];
   };
 }
