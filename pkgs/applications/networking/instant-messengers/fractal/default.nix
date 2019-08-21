@@ -26,17 +26,18 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fractal";
-  version = "4.2.0";
+  version = "4.2.0-git";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
-    rev = version;
-    sha256 = "0clwsmd6h759bzlazfq5ig56dbx7npx3h43yspk87j1rm2dp1177";
+    #rev = version;
+    rev = "748ab68d0153b77246a82a05501f768e3e4fca69";
+    sha256 = "02f0z7vsqivmr4z2mqb75xf3c70197ivbjl6yp3b4qjz1ncmzcir";
   };
 
-  cargoSha256 = "1hwjajkphl5439dymglgj3h92hxgbf7xpipzrga7ga8m10nx1dhl";
+  cargoSha256 = "16zh1x7azvm4899xz45ayxqfnw22abf9z379lczjal3m7zrdkfpn";
 
   nativeBuildInputs = [
     cargo
@@ -67,21 +68,13 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-  cargoPatches = [
-    # https://gitlab.gnome.org/GNOME/fractal/merge_requests/446
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/fractal/commit/2778acdc6c50bc6f034513029b66b0b092bc4c38.patch";
-      sha256 = "08v17xmbwrjw688ps4hsnd60d5fm26xj72an3zf6yszha2b97j6y";
-    })
-  ];
-
   postPatch = ''
     chmod +x scripts/test.sh
     patchShebangs scripts/meson_post_install.py scripts/test.sh
 
     # Don't limit tests to single thread
     substituteInPlace scripts/test.sh --replace 'cargo test -j 1' 'cargo test'
-  '' + stdenv.lib.optionalString false ''
+  '' + stdenv.lib.optionalString true ''
     # When building from non-official-releases, modify the in-app
     # version to indicate it was built from git and what revision.
     substituteInPlace meson.build \
