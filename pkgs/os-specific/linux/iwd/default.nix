@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zyvh05g06pd3i7dd193gg0xw25rnznh5axzya610b2v4q9mxsvc";
   };
 
-  patches = [ ./revert-create-dirs-on-install.patch ];
+  patches = [ ./revert-create-dirs-on-install.patch ./fix-sized.patch ];
 
   nativeBuildInputs = [
     autoreconfHook
