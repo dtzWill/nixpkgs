@@ -35,12 +35,12 @@ in stdenv.mkDerivation rec {
   pname = "fwupd";
   #version = "1.2.10";
 
-  version = "2019-08-19";
+  version = "2019-08-21";
   src = fetchFromGitHub {
     owner = "hughsie";
     repo = pname;
-    rev = "4fa965a9f76c37d95a983c296bec42fc689df4a1";
-    sha256 = "0mp4pqrf8bxwkdx3zfgxcpn4aaik817yp6xrnlalr3hdm0as3w9k";
+    rev = "8de8e3523a1a17affdaaf5a755eaa947ae4aa8ec";
+    sha256 = "1mc702vznl1nmzf2hrri1md7ymzyjmw3d32795gfw92fzjnjjf2g";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
