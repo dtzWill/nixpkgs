@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     # rev = version;
-    rev = "dd2daa496113d27e82571fb890719d284a44384d";
-    sha256 = "0i03c2sknixnngqzl9za1zarynsf2sjp5qb3n6y384bzmyggh243";
+    rev = "41740ceabc6c4989c0acf74b3b4c9d1559ee08dd";
+    sha256 = "1m9vxks3r5ry9yazxazrxv439irr6pscm054r3vc9jy89w2nqqzw";
   };
 
   patches = [ ./revert-create-dirs-on-install.patch ];
