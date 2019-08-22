@@ -1,5 +1,5 @@
 { python3Packages, fetchurl, lib,
-  yubikey-personalization, libu2f-host, libusb1 }:
+  yubikey-personalization, libusb1 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "yubikey-manager";
@@ -20,14 +20,13 @@ python3Packages.buildPythonPackage rec {
       six
       fido2
     ] ++ [
-      libu2f-host
       libusb1
       yubikey-personalization
     ];
 
   makeWrapperArgs = [
     "--prefix" "LD_LIBRARY_PATH" ":"
-    (lib.makeLibraryPath [ libu2f-host libusb1 yubikey-personalization ])
+    (lib.makeLibraryPath [ libusb1 yubikey-personalization ])
   ];
 
   postInstall = ''
