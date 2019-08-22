@@ -76,7 +76,12 @@ in {
 
     prunePaths = mkOption {
       type = listOf path;
-      default = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/nix/store"];
+      default = [
+        "/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool"
+        "/nix/store"
+        "/nix/var/nix/gcroots"
+        "/nix/var/logs"
+      ];
       description = ''
         Which paths to exclude from indexing
       '';
