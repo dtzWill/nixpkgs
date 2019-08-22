@@ -33,7 +33,7 @@ let
   udevRules = pkgs.runCommand "udev-rules"
     { preferLocalBuild = true;
       allowSubstitutes = false;
-      packages = unique (map toString cfg.packages);
+      packages = unique (map toString ([udev] ++ cfg.packages));
     }
     ''
       mkdir -p $out
