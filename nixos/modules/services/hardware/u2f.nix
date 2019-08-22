@@ -17,7 +17,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.libu2f-host ];
+    services.udev.packages = [ pkgs.libfido2 ];
   };
 }
 
