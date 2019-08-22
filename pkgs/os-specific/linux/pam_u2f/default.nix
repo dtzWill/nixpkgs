@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     sed -i -e '23i#include <limits.h>' util.c
     sed -i -e '9i#include <limits.h>' b64.c
+
+    substituteInPlace Makefile.am \
+      --replace "-DDEBUG_PAM" "" \
+      --replace "-DPAM_DEBUG" ""
   '';
 
   nativeBuildInputs = [ autoreconfHook pkgconfig asciidoc-full libxslt gengetopt ];
