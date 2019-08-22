@@ -2,15 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libusbmuxd";
-  version = "2019-03-23";
-
-  name = "${pname}-${version}";
+  version = "2019-08-03";
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
     repo = pname;
-    rev = "873252dc8b4e469c7dc692064ac616104fca5f65";
-    sha256 = "0qx3q0n1f2ajfm3vnairikayzln6iyb2y0i7sqfl8mj45ahl6wyj";
+    rev = "b097ea39f391f5c2c83d8f4687843a3634f7cd54";
+    sha256 = "1yziqwqaqrcdisq3nb78hb1yqljl7wd1k7hv3v2cmc8a5ak1m361";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
