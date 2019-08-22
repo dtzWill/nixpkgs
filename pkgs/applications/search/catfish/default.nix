@@ -31,6 +31,7 @@ python3Packages.buildPythonApplication rec {
     hicolor-icon-theme
     #wrapGAppsHook
     gobject-introspection
+    gnome3.adwaita-icon-theme
   ];
 
   propagatedBuildInputs = [
