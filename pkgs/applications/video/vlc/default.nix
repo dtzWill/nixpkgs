@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://get.videolan.org/vlc/${version}/${name}.tar.xz";
-    sha256 = "1xmxjpyzdhabchwncz6lvx3kzvl7fz9c42bkv3nbj68albs9w570";
+    sha256 = "e0149ef4a20a19b9ecd87309c2d27787ee3f47dfd47c6639644bc1f6fd95bdf6";
   };
 
   # VLC uses a *ton* of libraries for various pieces of functionality, many of
