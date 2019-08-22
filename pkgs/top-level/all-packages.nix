@@ -18478,7 +18478,8 @@ in
                                             Kerberos AVFoundation MediaToolbox
                                             CoreLocation Foundation AddressBook;
       inherit (darwin) libobjc;
-      stdenv = llvmPackages_latest.llvmStdenv;
+      stdenv = llvmPackages_latest.stdenv;
+      llvmPackages = llvmPackages_latest;
     };
   });
 
