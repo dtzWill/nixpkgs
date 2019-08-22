@@ -1,9 +1,10 @@
 { stdenv, fetchurl, file, which, intltool, gobject-introspection,
-  findutils, xdg_utils, gnome3, gtk3, pythonPackages, hicolor-icon-theme,
-  wrapGAppsHook
+  findutils, xdg_utils, gnome3, gtk3, python3Packages, hicolor-icon-theme,
+  wrapGAppsHook,
+  atk, cairo
 }:
 
-pythonPackages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   majorver = "1.4";
   minorver = "9";
   version = "${majorver}.${minorver}";
@@ -15,7 +16,7 @@ pythonPackages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    pythonPackages.distutils_extra
+    python3Packages.distutils_extra
     file
     which
     intltool
@@ -24,19 +25,26 @@ pythonPackages.buildPythonApplication rec {
   ];
 
   buildInputs = [
+    atk
     gtk3
     gnome3.dconf
-    pythonPackages.pyxdg
-    pythonPackages.ptyprocess
-    pythonPackages.pycairo
     hicolor-icon-theme
+    #wrapGAppsHook
+    gobject-introspection
   ];
 
   propagatedBuildInputs = [
-    pythonPackages.pygobject3
-    pythonPackages.pexpect
+    python3Packages.pygobject3
+    python3Packages.pyxdg
+    python3Packages.ptyprocess
+    python3Packages.pycairo
+    python3Packages.pexpect
+    python3Packages.dbus-python
     xdg_utils
     findutils
+    gtk3
+    cairo
+    atk
   ];
 
   # Explicitly set the prefix dir in "setup.py" because setuptools is
