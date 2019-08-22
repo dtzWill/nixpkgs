@@ -21,6 +21,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" "python" ];
   postInstall = ''
     moveToOutput "bin/lsusb.py" "$python"
+
+    install -Dm755 usbreset -t $out/bin
   '';
 
   meta = with stdenv.lib; {
