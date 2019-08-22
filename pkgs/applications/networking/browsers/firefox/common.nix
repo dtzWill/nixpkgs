@@ -247,6 +247,7 @@ stdenv.mkDerivation rec {
     "--with-system-icu"
     "--with-system-graphite2"
     "--with-system-harfbuzz"
+    "--with-system-webp"
     "--enable-system-ffi"
     "--enable-system-pixman"
     "--enable-system-sqlite"
@@ -256,10 +257,12 @@ stdenv.mkDerivation rec {
     "--disable-tests"
     "--disable-necko-wifi" # maybe we want to enable this at some point
     "--disable-updater"
-    "--enable-jemalloc"
+    "--disable-jemalloc"
     "--disable-gconf"
     "--enable-default-toolkit=${default-toolkit}"
     "--without-stdcxx-compat"
+    "--enable-hardening"
+    "--enable-rust-simd"
   ]
   ++ lib.optional (lib.versionOlder ffversion "64") "--disable-maintenance-service"
   ++ lib.optional (stdenv.isDarwin && lib.versionAtLeast ffversion "61") "--disable-xcode-checks"
@@ -294,7 +297,8 @@ stdenv.mkDerivation rec {
   ++ flag webrtcSupport "webrtc"
   ++ flag crashreporterSupport "crashreporter"
   ++ lib.optional drmSupport "--enable-eme=widevine"
-  ++ lib.optional goldLinker "--enable-linker=gold"
+  #++ lib.optional goldLinker "--enable-linker=gold"
+  ++ [ "--enable-linker=lld" ]
 
   ++ lib.optionals (lib.versionOlder ffversion "60") ([]
     ++ flag geolocationSupport "mozril-geoloc"
