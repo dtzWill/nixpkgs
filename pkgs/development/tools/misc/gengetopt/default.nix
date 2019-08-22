@@ -1,4 +1,4 @@
-{ fetchurl, stdenv }:
+{ fetchurl, stdenv, texinfo, help2man }:
 
 stdenv.mkDerivation rec {
   pname = "gengetopt";
@@ -10,6 +10,10 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
+
+  enableParallelBuilding = true;
+
+  nativeBuildInputs = [ texinfo help2man ];
 
   #Fix, see #28255
   postPatch = ''
