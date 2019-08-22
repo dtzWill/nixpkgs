@@ -5287,6 +5287,8 @@ in
 
   ossec = callPackage ../tools/security/ossec {};
 
+  osslsigncode = callPackage ../development/tools/osslsigncode {};
+
   ostree = callPackage ../tools/misc/ostree { };
 
   otfcc-stable = callPackage ../tools/misc/otfcc { };
@@ -18752,7 +18754,7 @@ in
 
   gnomecast = callPackage ../applications/video/gnomecast { };
 
-  gnome-mpv = callPackage ../applications/video/gnome-mpv { };
+  celluloid = callPackage ../applications/video/celluloid { };
 
   gnome-recipes = callPackage ../applications/misc/gnome-recipes {
     inherit (gnome3) gnome-online-accounts gnome-autoar;
