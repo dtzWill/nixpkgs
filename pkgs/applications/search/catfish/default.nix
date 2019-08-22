@@ -54,6 +54,10 @@ python3Packages.buildPythonApplication rec {
   # path in the store.
   postPatch = ''
     sed -i "/^        if self.root/i\\        self.prefix = \"$out\"" setup.py
+
+    substituteInPlace catfish_lib/catfishconfig.py \
+      --replace '/var/lib/mlocate/mlocate.db' \
+                '/var/cache/locatedb'
   '';
 
   # Disable check because there is no test in the source distribution
