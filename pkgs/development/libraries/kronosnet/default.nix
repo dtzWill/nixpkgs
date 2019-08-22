@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub
 , autoreconfHook, pkgconfig
 , libqb, libxml2, libnl, lksctp-tools
-, nss, openssl, bzip2, lzo, lz4, xz, zlib
+, nss, openssl, bzip2, lzo, lz4, xz, zlib, zstd
 , doxygen
 }:
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libqb libxml2 libnl lksctp-tools
     nss openssl
-    bzip2 lzo lz4 xz zlib
+    bzip2 lzo lz4 xz zlib zstd
   ];
 
   meta = with stdenv.lib; {
