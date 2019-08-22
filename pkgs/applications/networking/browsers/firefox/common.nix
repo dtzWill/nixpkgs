@@ -189,9 +189,6 @@ stdenv.mkDerivation rec {
     ++ extraNativeBuildInputs;
 
   preConfigure = ''
-    echo "XXXXXXX"
-    echo "XXX"
-    set +x
     # remove distributed configuration files
     rm -f configure
     rm -f js/src/configure
@@ -300,7 +297,7 @@ stdenv.mkDerivation rec {
   ++ flag webrtcSupport "webrtc"
   ++ flag crashreporterSupport "crashreporter"
   ++ lib.optional drmSupport "--enable-eme=widevine"
-  #++ lib.optional goldLinker "--enable-linker=gold"
+  ++ lib.optional goldLinker "--enable-linker=gold"
   #++ [ "--enable-linker=lld" ]
 
   ++ lib.optionals (lib.versionOlder ffversion "60") ([]
