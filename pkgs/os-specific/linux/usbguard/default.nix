@@ -1,6 +1,6 @@
 {
   stdenv, fetchurl, lib,
-  libxslt, pandoc, asciidoctor, pkgconfig,
+  libxslt, libxml2, asciidoc, pkgconfig,
   dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf,
   audit,
   libgcrypt ? null,
@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    libxslt
-    asciidoctor
-    pandoc # for rendering documentation
+    asciidoc
     pkgconfig
+    libxml2
+    libxslt
   ];
 
   buildInputs = [
