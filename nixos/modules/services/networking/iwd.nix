@@ -126,7 +126,7 @@ in {
 
     services.dbus.packages = [ pkgs.iwd ];
 
-    services.udev.packages = [ pkgs.wireless-regdb ];
+    hardware.firmware = [ pkgs.wireless-regdb ];
 
     #systemd.packages = [ pkgs.iwd ];
 
