@@ -86,10 +86,10 @@ in
   showURLs ? false
 
 , # Meta information, if any.
-  meta ? null
+  meta ? {}
 
   # Passthru information, if any.
-, passthru ? null
+, passthru ? {}
   # Doing the download on a remote machine just duplicates network
   # traffic, so don't do that by default
 , preferLocalBuild ? true
@@ -115,7 +115,7 @@ let
     else throw "fetchurl requires a hash for fixed-output derivation: ${lib.concatStringsSep ", " urls_}";
 in
 
-stdenvNoCC.mkDerivation ({
+stdenvNoCC.mkDerivation {
   name =
     if showURLs then "urls"
     else if name != "" then name
@@ -149,7 +149,6 @@ stdenvNoCC.mkDerivation ({
     curlOpts="$curlOpts --netrc-file $PWD/netrc"
   '';
 
+  inherit meta;
+  inherit passthru;
 }
-// lib.optionalAttrs (meta != null) { inherit meta; }
-// lib.optionalAttrs (passthru != null) { inherit passthru; }
-)
