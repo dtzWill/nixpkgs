@@ -21,5 +21,6 @@ mkDerivation rec {
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
     description = ''Constructive solid geometry package'';
+    broken = true; # aww
   };
 }
