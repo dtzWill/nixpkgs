@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optionals stdenv.isDarwin [ CoreServices ApplicationServices ];
   configureScript = "perl ./Configure.pl";
   configureFlags =
-    [ "--backends=moar"
+    [ "--backend=moar"
       "--gen-moar"
       "--gen-nqp"
     ];
