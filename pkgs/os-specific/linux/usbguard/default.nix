@@ -1,6 +1,6 @@
 {
   stdenv, fetchurl, lib,
-  libxslt, libxml2, asciidoc, pkgconfig,
+  libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl, asciidoc, pkgconfig,
   dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf,
   audit,
   libgcrypt ? null,
@@ -27,6 +27,8 @@ stdenv.mkDerivation rec {
     pkgconfig
     libxml2
     libxslt
+    docbook_xml_dtd_45
+    docbook_xsl
   ];
 
   buildInputs = [
