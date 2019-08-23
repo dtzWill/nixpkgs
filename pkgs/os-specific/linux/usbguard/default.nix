@@ -54,6 +54,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  # TODO: install bash and zsh completion files (postInstall)
+
   meta = {
     description = "The USBGuard software framework helps to protect your computer against BadUSB.";
     homepage = "https://usbguard.github.io/";
