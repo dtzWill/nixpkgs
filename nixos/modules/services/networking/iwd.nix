@@ -126,6 +126,8 @@ in {
 
     services.dbus.packages = [ pkgs.iwd ];
 
+    services.udev.packages = [ pkgs.wireless-regdb ];
+
     #systemd.packages = [ pkgs.iwd ];
 
     # hopefully merges with existing service nicely?
