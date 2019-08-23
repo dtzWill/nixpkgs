@@ -35,6 +35,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = true;
+  enableParallelChecking = false;
 
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;
