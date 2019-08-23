@@ -67,4 +67,10 @@ rec {
     name = "add_missing_pcie_delays_required_by_spec";
     patch = ./pcie_delays.patch;
   };
+
+  # https://patchwork.kernel.org/series/164003/mbox/
+  pci_error_response = rec {
+    name = "pci_error_response";
+    patch = ./pci-error-response.patch;
+  };
 }

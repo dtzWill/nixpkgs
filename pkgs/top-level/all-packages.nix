@@ -15774,6 +15774,7 @@ in
     kernelPatches = [
       kernelPatches.bridge_stp_helper
       kernelPatches.pcie_delays
+      kernelPatches.pci_error_response
     ];
   };
 
