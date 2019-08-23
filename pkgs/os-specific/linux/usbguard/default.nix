@@ -1,7 +1,7 @@
 {
   stdenv, fetchurl, lib,
   libxslt, pandoc, asciidoctor, pkgconfig,
-  dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, qtbase, qttools, qtsvg,
+  dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf,
   audit,
   libgcrypt ? null,
   libsodium ? null
@@ -37,10 +37,6 @@ stdenv.mkDerivation rec {
     polkit
     protobuf
     audit
-
-    qtbase
-    qtsvg
-    qttools
   ]
   ++ (lib.optional (libgcrypt != null) libgcrypt)
   ++ (lib.optional (libsodium != null) libsodium);
@@ -49,7 +45,6 @@ stdenv.mkDerivation rec {
     "--with-bundled-catch"
     "--with-bundled-pegtl"
     "--with-dbus"
-    "--with-gui-qt=qt5"
     "--with-polkit"
   ]
   ++ (lib.optional (libgcrypt != null) "--with-crypto-library=gcrypt")
