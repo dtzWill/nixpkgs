@@ -4,13 +4,13 @@
 # Also module directory needs overriding, probably common
 stdenv.mkDerivation rec {
   pname = "haxm";
-  version = "7.5.1";
+  version = "7.5.2";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = pname;
     rev = "v${version}";
-    sha256 = "164c6y5n90c30bsdvsihmwmr20n352yzmxx378gdcdzhg3wi5vwl";
+    sha256 = "1jhkygg4plpz2c7i5xmj1k9nk1sh7g994bkyd9nzw7crv2y9y93l";
   };
 
   nativeBuildInputs = [ nasm ];
