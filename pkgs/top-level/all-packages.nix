@@ -5195,6 +5195,8 @@ in
 
   offlineimap = callPackage ../tools/networking/offlineimap { };
 
+  ofono-phonesim = libsForQt5.callPackage ../development/tools/ofono-phonesim/default.nix { };
+
   oh-my-zsh = callPackage ../shells/zsh/oh-my-zsh { };
 
   ola = callPackage ../applications/misc/ola { };
@@ -6306,6 +6308,8 @@ in
   sundtek = callPackage ../misc/drivers/sundtek { };
 
   sunxi-tools = callPackage ../development/tools/sunxi-tools { };
+
+  sumorobot-manager = python3Packages.callPackage ../applications/science/robotics/sumorobot-manager { };
 
   super = callPackage ../tools/security/super { };
 
@@ -10143,6 +10147,8 @@ in
   todolist = callPackage ../applications/misc/todolist { };
 
   travis = callPackage ../development/tools/misc/travis { };
+
+  tree-sitter = callPackage ../development/tools/parsing/tree-sitter { };
 
   trellis = callPackage ../development/tools/trellis { };
 
@@ -24993,6 +24999,8 @@ in
   };
 
   tsung = callPackage ../applications/networking/tsung {};
+
+  bcompare = libsForQt5.callPackage ../applications/version-management/bcompare {};
 
   qmk_firmware = callPackage ../development/misc/qmk_firmware {
     avrgcc = pkgsCross.avr.buildPackages.gcc;
