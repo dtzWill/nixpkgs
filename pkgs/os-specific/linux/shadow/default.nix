@@ -1,7 +1,10 @@
 { stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, libxslt, libxml2
 , docbook_xml_dtd_45, docbook_xsl, gnome-doc-utils, flex, bison
+, acl ? null, attr ? null
 , pam ? null, glibcCross ? null
 }:
+
+assert stdenv.isLinux -> (acl != null && attr != null);
 
 let
 
@@ -28,7 +31,8 @@ stdenv.mkDerivation rec {
     sha256 = "0a7g9k83igfid8pybqpk6fracmz2q021isn2by3994p4hhh3s327";
   };
 
-  buildInputs = stdenv.lib.optional (pam != null && stdenv.isLinux) pam;
+  buildInputs = stdenv.lib.optional (pam != null && stdenv.isLinux) pam
+    ++ stdenv.lib.optional stdenv.isLinux [ acl attr ];
   nativeBuildInputs = [autoreconfHook libxslt libxml2
     docbook_xml_dtd_45 docbook_xsl gnome-doc-utils flex bison
     ];
