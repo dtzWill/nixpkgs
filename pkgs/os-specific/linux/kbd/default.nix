@@ -33,7 +33,6 @@ stdenv.mkDerivation rec {
       substituteInPlace src/libkbdfile/kbdfile.c \
         --replace gzip ${gzip}/bin/gzip \
         --replace bzip2 ${bzip2.bin}/bin/bzip2
-
     '';
 
   hardeningDisable = [ "format" ]; # analyze.l
