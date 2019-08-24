@@ -10,11 +10,11 @@
 with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "weston-${version}";
-  version = "6.0.1";
+  version = "7.0.0";
 
   src = fetchurl {
     url = "https://wayland.freedesktop.org/releases/${name}.tar.xz";
-    sha256 = "1d2m658ll8x7prlsfk71qgw89c7dz6y7d6nndfxwl49fmrd6sbxz";
+    sha256 = "0r4sj11hq4brv3ryrgp2wmkkfz1h59vh9ih18igzjibagch6s2m0";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
