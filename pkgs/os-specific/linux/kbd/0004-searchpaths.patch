@@ -1,3 +1,19 @@
+From 82c99dd1be9e7501800359f5075b5613305d7792 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 23 Aug 2019 19:46:50 -0500
+Subject: [PATCH 4/4] searchpaths
+
+---
+ src/libkeymap/analyze.l | 3 +++
+ src/loadkeys.c          | 2 +-
+ src/loadunimap.c        | 2 +-
+ src/mapscrn.c           | 2 +-
+ src/resizecons.c        | 2 +-
+ src/setfont.c           | 4 ++--
+ 6 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/src/libkeymap/analyze.l b/src/libkeymap/analyze.l
+index e32ace6..b9fefb7 100644
 --- a/src/libkeymap/analyze.l
 +++ b/src/libkeymap/analyze.l
 @@ -101,6 +101,9 @@ stack_pop(struct lk_ctx *ctx, void *scanner)
@@ -10,6 +26,8 @@
  	DATADIR "/" KEYMAPDIR "/include/",
  	DATADIR "/" KEYMAPDIR "/i386/include/",
  	DATADIR "/" KEYMAPDIR "/mac/include/", 0
+diff --git a/src/loadkeys.c b/src/loadkeys.c
+index 406eef5..886b7e7 100644
 --- a/src/loadkeys.c
 +++ b/src/loadkeys.c
 @@ -24,7 +24,7 @@
@@ -21,6 +39,8 @@
  static const char *const suffixes[] = { "", ".kmap", ".map", 0 };
  
  static void __attribute__((noreturn))
+diff --git a/src/loadunimap.c b/src/loadunimap.c
+index 716c6c3..0881c1e 100644
 --- a/src/loadunimap.c
 +++ b/src/loadunimap.c
 @@ -30,7 +30,7 @@
@@ -32,6 +52,8 @@
  static const char *const unisuffixes[] = { "", ".uni", ".sfm", 0 };
  
  #ifdef MAIN
+diff --git a/src/mapscrn.c b/src/mapscrn.c
+index 11739e4..cb89a82 100644
 --- a/src/mapscrn.c
 +++ b/src/mapscrn.c
 @@ -28,7 +28,7 @@ void loadnewmap(int fd, char *mfil);
@@ -43,6 +65,8 @@
  static const char *const mapsuffixes[] = { "", ".trans", "_to_uni.trans", ".acm", 0 };
  
  #ifdef MAIN
+diff --git a/src/resizecons.c b/src/resizecons.c
+index ee746f3..fc518b9 100644
 --- a/src/resizecons.c
 +++ b/src/resizecons.c
 @@ -102,7 +102,7 @@ static int vga_get_fontheight(void);
@@ -54,6 +78,8 @@
  const char *const suffixes[] = { "", 0 };
  
  int main(int argc, char **argv)
+diff --git a/src/setfont.c b/src/setfont.c
+index 3e21e7c..ac7a876 100644
 --- a/src/setfont.c
 +++ b/src/setfont.c
 @@ -52,10 +52,10 @@ int force   = 0;
@@ -69,3 +95,6 @@
  const char *const partfontsuffixes[] = { "", 0 };
  
  static inline int
+-- 
+2.23.0
+

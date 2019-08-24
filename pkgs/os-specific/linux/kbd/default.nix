@@ -18,36 +18,42 @@ stdenv.mkDerivation rec {
     "--disable-nls"
   ];
 
-  patches = [ ./search-paths.patch ];
+  patches = [
+    ./0001-configure.ac-respect-user-CFLAGS.patch
+    ./0002-libkbdfile-Do-not-stop-on-the-first-error.patch
+    ./0003-libkbdfile-Check-compression-suffix-even-if-the-suff.patch
+    ./0004-searchpaths.patch
+  ];
 
   postPatch =
+    #''
+    #  # Add Neo keymap subdirectory
+    #  sed -i -e 's,^KEYMAPSUBDIRS *= *,&i386/neo ,' data/Makefile.am
+
+    #  # Renaming keymaps with name clashes, because loadkeys just picks
+    #  # the first keymap it sees. The clashing names lead to e.g.
+    #  # "loadkeys no" defaulting to a norwegian dvorak map instead of
+    #  # the much more common qwerty one.
+    #  pushd data/keymaps/i386
+    #  mv qwertz/cz{,-qwertz}.map
+    #  mv olpc/es{,-olpc}.map
+    #  mv olpc/pt{,-olpc}.map
+    #  mv dvorak/{no.map,dvorak-no.map}
+    #  mv fgGIod/trf{,-fgGIod}.map
+    #  mv colemak/{en-latin9,colemak}.map
+    #  popd
+
+    #''
     ''
-      # Add Neo keymap subdirectory
-      sed -i -e 's,^KEYMAPSUBDIRS *= *,&i386/neo ,' data/Makefile.am
-
-      # Renaming keymaps with name clashes, because loadkeys just picks
-      # the first keymap it sees. The clashing names lead to e.g.
-      # "loadkeys no" defaulting to a norwegian dvorak map instead of
-      # the much more common qwerty one.
-      pushd data/keymaps/i386
-      mv qwertz/cz{,-qwertz}.map
-      mv olpc/es{,-olpc}.map
-      mv olpc/pt{,-olpc}.map
-      mv dvorak/{no.map,dvorak-no.map}
-      mv fgGIod/trf{,-fgGIod}.map
-      mv colemak/{en-latin9,colemak}.map
-      popd
-
       # Fix the path to gzip/bzip2.
-      substituteInPlace src/libkeymap/findfile.c \
+      substituteInPlace src/libkbdfile/kbdfile.c \
         --replace gzip ${gzip}/bin/gzip \
-        --replace bzip2 ${bzip2.bin}/bin/bzip2 \
+        --replace bzip2 ${bzip2.bin}/bin/bzip2
 
+    '' + stdenv.lib.optionalString (stdenv.isAarch32 || stdenv.hostPlatform.isMips) ''
       # We get a warning in armv5tel-linux and the fuloong2f, so we
       # disable -Werror in it.
-      ${stdenv.lib.optionalString (stdenv.isAarch32 || stdenv.hostPlatform.isMips) ''
-        sed -i s/-Werror// src/Makefile.am
-      ''}
+      sed -i s/-Werror// src/Makefile.am
     '';
 
   postInstall = ''
