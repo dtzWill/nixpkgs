@@ -1,9 +1,9 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
-, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, libsecret
+{ lib, mkDerivation, fetchgit, cmake, pkgconfig, qtbase, qtkeychain, qttools, sqlite
+, inotify-tools, openssl, pcre, qtwebengine, libsecret
 , libcloudproviders, kdeFrameworks
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "nextcloud-client";
   version = "2.5.3";
 
@@ -14,22 +14,25 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./no-webengine.patch ];
+  patches = [
+    ./0001-Explicitly-copy-dbus-files-into-the-store-dir.patch
+    ./no-webengine.patch
+  ];
 
-  nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
+  nativeBuildInputs = [ pkgconfig cmake ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
 
-  buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
-  ++ (with kdeFrameworks; [ kio kcoreaddons ]);
+  buildInputs = [ qtbase qtkeychain qttools sqlite openssl.out pcre inotify-tools /* libcloudproviders */ ]
+    ++ (with kdeFrameworks; [ kio kcoreaddons ]);
 
   enableParallelBuilding = true;
 
-  NIX_LDFLAGS = "${openssl_1_1.out}/lib/libssl.so ${openssl_1_1.out}/lib/libcrypto.so";
+  NIX_LDFLAGS = "${openssl.out}/lib/libssl.so ${openssl.out}/lib/libcrypto.so";
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"
     "-DCMAKE_BUILD_TYPE=Release"
-    "-DOPENSSL_LIBRARIES=${openssl_1_1.out}/lib"
-    "-DOPENSSL_INCLUDE_DIR=${openssl_1_1.dev}/include"
+    "-DOPENSSL_LIBRARIES=${openssl.out}/lib"
+    "-DOPENSSL_INCLUDE_DIR=${openssl.dev}/include"
     "-DINOTIFY_LIBRARY=${inotify-tools}/lib/libinotifytools.so"
     "-DINOTIFY_INCLUDE_DIR=${inotify-tools}/include"
 
@@ -38,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    ''--prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]}''
+    ''--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}''
   ];
 
   postInstall = ''
@@ -46,7 +49,7 @@ stdenv.mkDerivation rec {
     $out/share/applications/nextcloud.desktop
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Nextcloud themed desktop client";
     homepage = https://nextcloud.com;
     license = licenses.gpl2;

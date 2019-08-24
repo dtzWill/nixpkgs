@@ -1,8 +1,8 @@
 {
   stdenv, fetchurl, lib,
-  libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl, asciidoc, pkgconfig,
-  dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf,
-  audit,
+  pkgconfig, asciidoc,
+  libxml2, libxslt, docbook_xml_dtd_45, docbook_xsl,
+  dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, audit,
   libgcrypt ? null,
   libsodium ? null
 }:
@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     asciidoc
     pkgconfig
-    libxml2
-    libxslt
+    libxml2 # xmllint
+    libxslt # xsltproc
     docbook_xml_dtd_45
     docbook_xsl
   ];

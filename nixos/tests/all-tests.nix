@@ -97,6 +97,7 @@ in
   glusterfs = handleTest ./glusterfs.nix {};
   gnome3-xorg = handleTest ./gnome3-xorg.nix {};
   gnome3 = handleTest ./gnome3.nix {};
+  gnome-photos = handleTest ./gnome-photos.nix {};
   gocd-agent = handleTest ./gocd-agent.nix {};
   gocd-server = handleTest ./gocd-server.nix {};
   google-oslogin = handleTest ./google-oslogin {};
@@ -127,6 +128,7 @@ in
   jackett = handleTest ./jackett.nix {};
   jellyfin = handleTest ./jellyfin.nix {};
   jenkins = handleTest ./jenkins.nix {};
+  jormungandr = handleTest ./jormungandr.nix {};
   kafka = handleTest ./kafka.nix {};
   kerberos = handleTest ./kerberos/default.nix {};
   kernel-latest = handleTest ./kernel-latest.nix {};
