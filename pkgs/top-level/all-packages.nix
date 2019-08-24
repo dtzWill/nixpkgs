@@ -6730,6 +6730,8 @@ in
 
   upx = callPackage ../tools/compression/upx { };
 
+  uq = callPackage ../misc/uq { };
+
   uqmi = callPackage ../tools/networking/uqmi { };
 
   uriparser = callPackage ../development/libraries/uriparser {};
