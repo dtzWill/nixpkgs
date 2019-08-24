@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
   patches = [
     ./0001-configure.ac-respect-user-CFLAGS.patch
     ./0002-libkbdfile-Do-not-stop-on-the-first-error.patch
-    ./0003-libkbdfile-Check-compression-suffix-even-if-the-suff.patch
+    # Includes binary files, and patch doesn't support git's binary diff
+    # (and not worth manually applying or some such, IMHO)
+    # ./0003-libkbdfile-Check-compression-suffix-even-if-the-suff.patch
     ./0004-searchpaths.patch
   ];
 
@@ -55,6 +57,8 @@ stdenv.mkDerivation rec {
       # disable -Werror in it.
       sed -i s/-Werror// src/Makefile.am
     '';
+
+  hardeningDisable = [ "format" ]; # analyze.l
 
   postInstall = ''
     for i in $out/bin/unicode_{start,stop}; do
