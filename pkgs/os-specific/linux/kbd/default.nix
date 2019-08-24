@@ -4,12 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "kbd-${version}";
-  version = "2.0.4";
+  pname = "kbd";
+  version = "2.2.0";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/kbd/${name}.tar.xz";
-    sha256 = "124swm93dm4ca0pifgkrand3r9gvj3019d4zkfxsj9djpvv0mnaz";
+    url = "mirror://kernel/linux/utils/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "1xz9hdghzv7px9ap3753h8qhl1k86d9y85ypzplqrcdkdxgvr891";
   };
 
   configureFlags = [

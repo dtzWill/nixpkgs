@@ -1,6 +1,6 @@
 --- a/src/libkeymap/analyze.l
 +++ b/src/libkeymap/analyze.l
-@@ -101,6 +101,9 @@ stack_pop(struct lk_ctx *ctx, void *scan
+@@ -101,6 +101,9 @@ stack_pop(struct lk_ctx *ctx, void *scanner)
  static const char *const include_dirpath0[] = { "", 0 };
  static const char *const include_dirpath1[] = { "", "../include/", "../../include/", 0 };
  static const char *const include_dirpath3[] = {
@@ -12,12 +12,12 @@
  	DATADIR "/" KEYMAPDIR "/mac/include/", 0
 --- a/src/loadkeys.c
 +++ b/src/loadkeys.c
-@@ -27,7 +27,7 @@
+@@ -24,7 +24,7 @@
+ #include "paths.h"
  #include "keymap.h"
  
- static const char *progname         = NULL;
 -static const char *const dirpath1[] = { "", DATADIR "/" KEYMAPDIR "/**", KERNDIR "/", 0 };
-+static const char *const dirpath1[] = { "", "/etc/kbd/" KEYMAPDIR "/**", DATADIR "/" KEYMAPDIR "/**", 0 };
++static const char *const dirpath1[] = { "", "/etc/kbd/" KEYMAPDIR "/**", DATADIR "/" KEYMAPDIR "/**", KERNDIR "/", 0 };
  static const char *const suffixes[] = { "", ".kmap", ".map", 0 };
  
  static void __attribute__((noreturn))
@@ -34,7 +34,7 @@
  #ifdef MAIN
 --- a/src/mapscrn.c
 +++ b/src/mapscrn.c
-@@ -27,7 +27,7 @@ void loadnewmap(int fd, char *mfil);
+@@ -28,7 +28,7 @@ void loadnewmap(int fd, char *mfil);
  static int ctoi(char *);
  
  /* search for the map file in these directories (with trailing /) */
@@ -45,7 +45,7 @@
  #ifdef MAIN
 --- a/src/resizecons.c
 +++ b/src/resizecons.c
-@@ -101,7 +101,7 @@ static int vga_get_fontheight(void);
+@@ -102,7 +102,7 @@ static int vga_get_fontheight(void);
  static void vga_set_cursor(int, int);
  static void vga_set_verticaldisplayend_lowbyte(int);
  
@@ -56,7 +56,7 @@
  int main(int argc, char **argv)
 --- a/src/setfont.c
 +++ b/src/setfont.c
-@@ -53,10 +53,10 @@ int force   = 0;
+@@ -52,10 +52,10 @@ int force   = 0;
  int debug   = 0;
  
  /* search for the font in these directories (with trailing /) */
