@@ -64,12 +64,7 @@ stdenv.mkDerivation rec {
 #    "-Dsanitize=true"
   ];
 
-  #preBuild = ''
-  #  git() { echo "$COMPTON_VERSION"; }
-  # texport -f git
-  #'';
-
-  #installFlags = [ "PREFIX=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
     wrapProgram $out/bin/compton-trans \
