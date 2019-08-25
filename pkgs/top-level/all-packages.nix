@@ -21251,6 +21251,8 @@ in
 
   vdirsyncer = callPackage ../tools/misc/vdirsyncer {
     inherit (darwin.apple_sdk.frameworks) Security;
+    # https://github.com/pimutils/vdirsyncer/pull/787
+    openssl = openssl_1_0_2;
   };
 
   vdirsyncerStable = callPackage ../tools/misc/vdirsyncer/stable.nix { };
