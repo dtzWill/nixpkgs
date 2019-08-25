@@ -157,6 +157,8 @@ in
 
   cmark = callPackage ../development/libraries/cmark { };
 
+  cm256cc = callPackage ../development/libraries/cm256cc {  };
+
   conftest = callPackage ../development/tools/conftest {};
 
   corgi = callPackage ../development/tools/corgi { };
@@ -1799,7 +1801,7 @@ in
 
   massren = callPackage ../tools/misc/massren { };
 
-  megasync = callPackage ../applications/misc/megasync { };
+  megasync = libsForQt5.callPackage ../applications/misc/megasync { };
 
   meritous = callPackage ../games/meritous { };
 
@@ -8430,6 +8432,8 @@ in
   sdcc = callPackage ../development/compilers/sdcc {
     gputils = null;
   };
+
+  serialdv = callPackage ../development/libraries/serialdv {  };
 
   serpent = callPackage ../development/compilers/serpent { };
 
