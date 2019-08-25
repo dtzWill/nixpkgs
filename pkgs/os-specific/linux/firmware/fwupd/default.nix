@@ -47,11 +47,11 @@ in stdenv.mkDerivation rec {
   #  sha256 = "0inngs7i48akm9c7fmdsf9zjif595rkaba69rl76jfwfv8r21vjb";
   #};
 
-  outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
   nativeBuildInputs = [
-    meson ninja gtk-doc pkgconfig gobject-introspection intltool shared-mime-info
-    valgrind gcab docbook_xml_dtd_43 docbook_xsl help2man libxslt python wrapGAppsHook vala
+    meson ninja pkgconfig gobject-introspection intltool shared-mime-info
+    valgrind gcab help2man python wrapGAppsHook vala
   ];
 
   buildInputs = [
