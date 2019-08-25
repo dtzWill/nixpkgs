@@ -4,6 +4,7 @@
 , libpthreadstubs, libXdmcp, epoxy, at-spi2-core, dbus, libgpgerror
 , appstream-glib, desktop-file-utils, duplicity, json-glib, libsoup, packagekit
 , hicolor-icon-theme # setup-hook
+, glib-networking # needed previously
 #, nautilus # for integration/extension
 }:
 
