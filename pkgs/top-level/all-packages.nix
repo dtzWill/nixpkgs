@@ -1896,6 +1896,8 @@ in
 
   onboard = callPackage ../applications/misc/onboard { };
 
+  onnxruntime = callPackage ../development/libraries/onnxruntime { };
+
   xkbd = callPackage ../applications/misc/xkbd { };
 
   optar = callPackage ../tools/graphics/optar {};
