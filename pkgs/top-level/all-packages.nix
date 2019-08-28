@@ -15846,15 +15846,15 @@ in
       [ kernelPatches.bridge_stp_helper
         kernelPatches.modinst_arg_list_too_long
         kernelPatches.export_kernel_fpu_functions
-        kernelPatches.pcie_delays
+  #      kernelPatches.pcie_delays
       ];
   };
 
   linux_testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
     kernelPatches = [
       kernelPatches.bridge_stp_helper
-      kernelPatches.pcie_delays
-      kernelPatches.pci_error_response
+  #    kernelPatches.pcie_delays
+  #    kernelPatches.pci_error_response
     ];
   };
 
