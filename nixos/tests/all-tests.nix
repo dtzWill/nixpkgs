@@ -161,6 +161,7 @@ in
   minio = handleTest ./minio.nix {};
   misc = handleTest ./misc.nix {};
   mongodb = handleTest ./mongodb.nix {};
+  moodle = handleTest ./moodle.nix {};
   morty = handleTest ./morty.nix {};
   mosquitto = handleTest ./mosquitto.nix {};
   mpd = handleTest ./mpd.nix {};
@@ -277,6 +278,7 @@ in
   xautolock = handleTest ./xautolock.nix {};
   xdg-desktop-portal = handleTest ./xdg-desktop-portal.nix {};
   xfce = handleTest ./xfce.nix {};
+  xfce4-14 = handleTest ./xfce4-14.nix {};
   xmonad = handleTest ./xmonad.nix {};
   xrdp = handleTest ./xrdp.nix {};
   xss-lock = handleTest ./xss-lock.nix {};

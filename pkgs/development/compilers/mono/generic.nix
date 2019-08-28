@@ -1,19 +1,16 @@
-{ stdenv, fetchurl, bison, glib, gettext, perl, libgdiplus, libX11, ncurses, zlib
-, cacert, Foundation, libobjc, python, version, sha256
-, cmake, which, pkgconfig, autoreconfHook
-, withLLVM ? stdenv.hostPlatform.is64bit, callPackage
-, withNinja ? true, ninja
-, enableParallelBuilding ? true }:
+{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation, libobjc, python, version, sha256, autoconf, libtool, automake, cmake, which
+, enableParallelBuilding ? true
+, srcArchiveSuffix ? "tar.bz2"
+}:
 
 let
   llvm = callPackage ./llvm.nix {};
 in
 stdenv.mkDerivation rec {
   name = "mono-${version}";
-
   src = fetchurl {
     inherit sha256;
-    url = "https://download.mono-project.com/sources/mono/${name}.tar.bz2";
+    url = "https://download.mono-project.com/sources/mono/${name}.${srcArchiveSuffix}";
   };
 
   nativeBuildInputs = [ cmake pkgconfig which perl python autoreconfHook  ninja ];

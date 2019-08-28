@@ -17,6 +17,8 @@ buildGoModule rec {
 
   modSha256 = "1nqnjpkrjbb75yfbzh3v3vc4xy5a2aqm9jr40hwq589a4l9p5pw2";
 
+  # buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
+
   nativeBuildInputs = [ which ];
 
   # As per https://github.com/wtfutil/wtf/issues/501, one of the
