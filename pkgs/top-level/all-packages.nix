@@ -25474,4 +25474,7 @@ in
   hyperspace = callPackage ../applications/misc/hyperspace { };
 
   go-license-detector = callPackage ../development/tools/misc/go-license-detector { };
+
+  verifpal = callPackage ../tools/security/verifpal {};
+
 }
