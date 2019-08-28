@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation, libobjc, python, version, sha256, autoconf, libtool, automake, cmake, which
+{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation, libobjc, python, version, sha256, autoreconfHook, ninja, cmake, which
 , enableParallelBuilding ? true
 , srcArchiveSuffix ? "tar.bz2"
 }:
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     url = "https://download.mono-project.com/sources/mono/${name}.${srcArchiveSuffix}";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig which perl python autoreconfHook  ninja ];
+  nativeBuildInputs = [ cmake pkgconfig which perl python autoreconfHook ninja ];
 
   dontUseNinjaBuild = true;
   dontUseNinjaInstall = true;
