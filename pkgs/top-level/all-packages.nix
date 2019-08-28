@@ -25773,6 +25773,8 @@ in
 
   kodelife = callPackage ../applications/graphics/kodelife {};
 
+  pigeon = callPackage ../development/tools/pigeon {};
+
   coz = callPackage ../development/tools/analysis/coz {};
 
   wifi-password = callPackage ../os-specific/darwin/wifi-password {};
