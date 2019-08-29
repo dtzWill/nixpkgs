@@ -11536,9 +11536,7 @@ in
     lua = lua5_1;
   };
 
-  keybinder3 = callPackage ../development/libraries/keybinder3 {
-    automake = automake111x;
-  };
+  keybinder3 = callPackage ../development/libraries/keybinder3 { };
 
   kinetic-cpp-client = callPackage ../development/libraries/kinetic-cpp-client { };
 
