@@ -11531,11 +11531,6 @@ in
     in
       recurseIntoAttrs (makeOverridable mkFrameworks attrs);
 
-  keybinder = callPackage ../development/libraries/keybinder {
-    automake = automake111x;
-    lua = lua5_1;
-  };
-
   keybinder3 = callPackage ../development/libraries/keybinder3 { };
 
   kinetic-cpp-client = callPackage ../development/libraries/kinetic-cpp-client { };
@@ -21010,7 +21005,6 @@ in
   teamspeak_server = callPackage ../applications/networking/instant-messengers/teamspeak/server.nix { };
 
   taskell = callPackage ../applications/misc/taskell { };
-  #taskell = haskell.lib.justStaticExecutables haskellPackages.taskell;
 
   taskjuggler = callPackage ../applications/misc/taskjuggler { };
 
