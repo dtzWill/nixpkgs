@@ -43,6 +43,14 @@ in {
           EAP.mtu = 1400;
           EAPoL.max_4way_handshake_time = 5;
           General = {
+            # Enable/Disable iwd internal dhcp client
+            enable_network_config = false; # true;
+            #
+            # DNS helper to use: resolvconf or systemd
+            # Default to systemd-resolved service
+            #dns_resolve_method = "resolvconf";
+            dns_resolve_method = "resolvconf";
+
             control_port_over_nl80211 = true;
             roam_rssi_threshold = -70;
             # Default behavior is only available if this is NOT set
