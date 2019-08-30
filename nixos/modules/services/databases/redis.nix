@@ -208,21 +208,16 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-    systemd.services.disable-transparent-huge-pages = {
-      description = "Disable Transparent Huge Pages (required by Redis)";
-      before = [ "redis.service" ];
-      wantedBy = [ "redis.service" ];
-      script = "echo never > /sys/kernel/mm/transparent_hugepage/enabled";
-      serviceConfig.Type = "oneshot";
-    };
+    systemd.services.redis =
+      { description = "Redis Server";
 
-    systemd.services.redis_init =
-      { description = "Redis Server Initialisation";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
 
-        wantedBy = [ "redis.service" ];
-        before = [ "redis.service" ];
-
-        serviceConfig.Type = "oneshot";
+        preStart = ''
+          install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
+          chown -R ${cfg.user} ${cfg.dbpath}
+        '';
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/redis-server ${redisConfig}";
