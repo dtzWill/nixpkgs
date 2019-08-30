@@ -16601,6 +16601,8 @@ in
     withGui = false;
   };
 
+  usbtop = callPackage ../os-specific/linux/usbtop { };
+
   usbutils = callPackage ../os-specific/linux/usbutils { };
 
   usermount = callPackage ../os-specific/linux/usermount { };
