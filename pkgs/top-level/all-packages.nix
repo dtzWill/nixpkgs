@@ -19951,6 +19951,8 @@ in
 
   smtube = libsForQt5.callPackage ../applications/video/smtube {};
 
+  softmaker-office = callPackage ../applications/office/softmaker/softmaker_office.nix {};
+
   stride = callPackage ../applications/networking/instant-messengers/stride { };
 
   sudolikeaboss = callPackage ../tools/security/sudolikeaboss { };
