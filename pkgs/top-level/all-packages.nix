@@ -16727,6 +16727,8 @@ in
 
   gotests = callPackage ../development/tools/gotests { };
 
+  gotestsum = callPackage ../development/tools/gotestsum { };
+
   impl = callPackage ../development/tools/impl { };
 
   quicktemplate = callPackage ../development/tools/quicktemplate { };
