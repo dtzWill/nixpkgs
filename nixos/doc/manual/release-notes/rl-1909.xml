@@ -656,6 +656,13 @@
      The defaults from fontconfig are sufficient.
     </para>
    </listitem>
+   <listitem>
+    <para>
+      The <link linkend="opt-services.redis.enable">redis module</link> was hardcoded to use the <literal>redis</literal> user,
+      <filename class="directory">/run/redis</filename> as runtime directory and
+      <filename class="directory">/var/lib/redis</filename> as state directory.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 </section>
