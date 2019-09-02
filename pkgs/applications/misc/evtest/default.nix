@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "evtest";
-  version = "1.33";
+  version = "1.34";
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ libxml2 ];
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://anongit.freedesktop.org/${pname}";
     rev = "refs/tags/${pname}-${version}";
-    sha256 = "168gdhzj11f4nk94a6z696sm8v1njzwww69bn6wr97l17897913g";
+    sha256 = "0r0vnaw69rg2n3bydj7zwaqzp4wr810k9mi4d5yzs5qdd6h9qhfi";
   };
 
   meta = with stdenv.lib; {
