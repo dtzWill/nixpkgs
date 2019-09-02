@@ -38,8 +38,6 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ python makeWrapper ];
 
-  doBuild = false;
-
   patches = [
     ./gcloud-path.patch
   ];
