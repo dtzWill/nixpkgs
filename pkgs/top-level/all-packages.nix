@@ -17212,8 +17212,7 @@ in
 
   stilo-themes = callPackage ../data/themes/stilo { };
 
-  sudo-font-variable = callPackage ../data/fonts/sudo { variableFont = true; };
-  sudo-font = callPackage ../data/fonts/sudo { variableFont = false; };
+  sudo-font = callPackage ../data/fonts/sudo { };
 
   inherit (callPackages ../data/fonts/tai-languages { }) tai-ahom;
 
