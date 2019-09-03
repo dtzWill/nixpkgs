@@ -1,13 +1,13 @@
 { lib, fetchzip, variableFont ? true }:
 
 let
-  version = "0.39";
+  version = "0.40";
   pattern = if variableFont
     then ''\*/SudoVariable.ttf''
     else ''\*/Sudo-\*.ttf'';
   sha256 = if variableFont
-    then "13l1bp4ym3743hc2mp5hiw928kv9g6gmsj4a2jf9wvfrakpfxxs5"
-    else "18581nyvaw0xq69hvj6mwgw1aawjf0avvmby7p39vb3nkxyk1fby";
+    then "06k2p10ag2izzby0ziwwqx6mqx8f4kj9bmnxfz8rwdigj6p7iril"
+    else "1c1821kwlh8kql1n5713y82rwfk99bi5wq4ya0sg4dvk1y3kjzwi";
 in fetchzip rec {
   name = "sudo-font-${version}";
   url = "https://github.com/jenskutilek/sudo-font/releases/download/v${version}/sudo.zip";
