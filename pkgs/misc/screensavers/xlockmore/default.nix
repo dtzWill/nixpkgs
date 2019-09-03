@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  # Optionally, it can use GTK+.
+  # Optionally, it can use GTK.
   buildInputs = [
     pam
     libX11 libXext libXinerama libXdmcp libXpm libXt
