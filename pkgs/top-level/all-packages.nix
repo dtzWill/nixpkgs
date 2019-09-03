@@ -1385,6 +1385,20 @@ in
 
   corebird = callPackage ../applications/networking/corebird { };
 
+  inherit (callPackage ../tools/misc/coreboot-utils { })
+    msrtool
+    cbmem
+    ifdtool
+    intelmetool
+    cbfstool
+    nvramtool
+    superiotool
+    ectool
+    inteltool
+    amdfwtool
+    acpidump-all
+    coreboot-utils;
+
   corosync = callPackage ../servers/corosync { };
 
   cowsay = callPackage ../tools/misc/cowsay { };
@@ -11480,8 +11494,6 @@ in
 
   ilmbase = callPackage ../development/libraries/ilmbase { };
 
-  intelmetool = callPackage ../tools/misc/intelmetool { };
-
   imlib = callPackage ../development/libraries/imlib {
     libpng = libpng12;
   };
@@ -15111,14 +15123,6 @@ in
   OVMF-secureBoot = OVMF.override { secureBoot = true; };
 
   seabios = callPackage ../applications/virtualization/seabios { };
-
-  cbfstool = callPackage ../applications/virtualization/cbfstool { };
-
-  ifdtool = callPackage ../tools/misc/ifdtool { };
-
-  cbmem = callPackage ../tools/misc/cbmem { };
-
-  nvramtool = callPackage ../tools/misc/nvramtool { };
 
   vmfs-tools = callPackage ../tools/filesystems/vmfs-tools { };
 
