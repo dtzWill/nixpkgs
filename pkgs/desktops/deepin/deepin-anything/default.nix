@@ -31,7 +31,7 @@ mkDerivation rec {
 
   makeFlags = [
     "DEB_HOST_MULTIARCH="
-    "PREFIX=${placeholder ''out''}"
+    "PREFIX=${placeholder "out"}"
   ];
 
   postPatch = ''
