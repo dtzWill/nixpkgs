@@ -15,7 +15,5 @@
 
   weechat-autosort = callPackage ./weechat-autosort { };
 
-  weechat-otr = callPackage ./weechat-otr {
-    inherit pythonPackages;
-  };
+  weechat-otr = callPackage ./weechat-otr { };
 }
