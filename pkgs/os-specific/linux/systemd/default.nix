@@ -105,6 +105,9 @@ stdenv.mkDerivation {
     # Upstream usese cgroupsv2 by default. To support docker and other
     # container managers we still need v1.
     "-Ddefault-hierarchy=hybrid"
+    # Upstream defaulted to disable manpages since they optimize for the much
+    # more frequente development builds
+    "-Dman=true"
   ];
 
   preConfigure = ''
