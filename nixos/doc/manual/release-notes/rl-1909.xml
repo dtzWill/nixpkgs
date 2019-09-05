@@ -398,6 +398,13 @@
      Prometheus 2 is now configured with <literal>services.prometheus</literal>.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     The WeeChat plugin <literal>pkgs.weechatScripts.weechat-xmpp</literal> has been removed as it doesn't receive
+     any updates from upstream and depends on outdated Python2-based modules.
+    </para>
+   </listitem>
+
   </itemizedlist>
  </section>
 
@@ -681,6 +688,13 @@
       <filename class="directory">/var/lib/redis</filename> as state directory.
     </para>
    </listitem>
+    <listitem>
+     <para>
+      <literal>pkgs.weechat</literal> is now compiled against <literal>pkgs.python3</literal>.
+      Weechat also recommends <link xlink:href="https://weechat.org/scripts/python3/">to use Python3
+      in their docs.</link>
+     </para>
+    </listitem>
   </itemizedlist>
  </section>
 </section>
