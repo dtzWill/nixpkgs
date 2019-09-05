@@ -22635,7 +22635,6 @@ in
     inherit (darwin) libobjc;
     inherit (darwin.apple_sdk.frameworks) IOKit;
   };
-  go-ethereum-classic = callPackage ../applications/blockchains/go-ethereum-classic { };
 
   ledger-live-desktop = callPackage ../applications/blockchains/ledger-live-desktop { };
 
