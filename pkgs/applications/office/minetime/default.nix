@@ -17,7 +17,9 @@ appimageTools.wrapType2 rec {
   '';
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = ps: (appimageTools.defaultFhsEnvArgs.multiPkgs ps) ++ [ ps.at-spi2-core ps.at-spi2-atk ];
+  extraPkgs = ps:
+    appimageTools.defaultFhsEnvArgs.multiPkgs ps
+    ++ (with ps; [ at-spi2-core at-spi2-atk libsecret ]);
   extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
   meta = with lib; {
