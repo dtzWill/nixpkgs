@@ -24,10 +24,10 @@ in fetchFromGitHub rec {
   postFetch = ''
     mkdir -p $out/share/fonts/{true,open}type/${pname}
 
-    tar xvf $downloadedFile --strip-components=2 --wildcards --no-wildcards-match-slash \*/src/assets/\*.ttf -C $out/share/fonts/truetype/${pname}
+    tar xvf $downloadedFile -C $out/share/fonts/truetype/${pname} --strip-components=3 --wildcards --no-wildcards-match-slash \*/src/assets/\*.ttf
   '';
 
-  sha256 = "044m7sd4rbl3dsim2013v8rz2s2nn31snlb7g2pgkgcgsnjymxjh";
+  sha256 = "120fvsy2pisv9ffasxmzlglq5qsm7xm4jkckjhkcsyq65714v6cc";
 
   meta = with lib; {
     description = "Free programming font with cursive italics and ligatures";
