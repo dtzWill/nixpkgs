@@ -54,6 +54,16 @@ stdenv.mkDerivation rec {
       find $out/share/system-config-printer -name \*.py -type f -perm -0100 -print0 | while read -d "" f; do
         patchPythonScript "$f"
       done
+
+      # The below line will be unneeded when the next upstream release arrives.
+      sed -i -e "s|/usr/local/bin|$out/bin|" "$out/share/dbus-1/services/org.fedoraproject.Config.Printing.service"
+
+      # Manually expand literal "$(out)", which have failed to expand
+      sed -e "s|ExecStart=\$(out)|ExecStart=$out|" \
+          -i "$out/etc/systemd/system/configure-printer@.service"
+
+      substituteInPlace $out/etc/udev/rules.d/70-printers.rules \
+        --replace "udev-configure-printer" "$out/etc/udev/udev-configure-printer"
     '';
 
   meta = {
