@@ -7,7 +7,8 @@
 
 buildPythonPackage rec {
   pname = "alot";
-  version = "0.8.1";
+#  version = "0.8.1";
+  version = "unstable-2019-09-06";
   outputs = [ "out" ] ++ lib.optional withManpage "man";
 
   disabled = !isPy3k;
@@ -15,8 +16,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pazz";
     repo = "alot";
-    rev = "6a5d37099b2224ecb332cf9e8a00d042bfe72e3d";
-    sha256 = "0shl36nmbii3wlf8pp7lxhzyhpaw1c50fckam843dqab0dnzjsj8";
+    rev = "244180d52f4ace8181bb288e77402c766ad620c1";
+    sha256 = "0jr3h7m6k670ar3fxp0ak2wkhwcw2mr82jgbbzj6qdk9pdq7v23g";
   };
 
   nativeBuildInputs = lib.optional withManpage sphinx;
