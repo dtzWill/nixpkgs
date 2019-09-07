@@ -13,7 +13,7 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "1.21.1pre-2019-09-02";
+  version = "1.21.1pre-2019-09-06";
 
   src = fetchFromGitHub {
     owner = pname;
