@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ]; # glib 2.62.0
+
   postPatch = ''
     substituteInPlace svgtopng/Makefile --replace "-O0" "-O"
     substituteInPlace svgtopng/pngtheme.sh --replace bin/ls ${coreutils}/bin/ls
