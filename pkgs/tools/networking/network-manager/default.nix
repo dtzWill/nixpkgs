@@ -11,7 +11,7 @@ let
   pname = "NetworkManager";
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
-  name = "network-manager-${version}";
+  inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
   version = "1.21.1pre-2019-09-02";
 
@@ -20,8 +20,8 @@ in stdenv.mkDerivation rec {
     repo = pname;
   #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "74a7626940b3ac0e7439681c5fc032896b511e3f";
-    sha256 = "0myq7m44s2any05qcfzj34mgl93idfv8yrr5lk77hzpflxgjj99f";
+    rev = "11cf082a6233a5c2f17da1b49457a66266062678";
+    sha256 = "162l8d7rd074gq2wfrzg54jac5wzwmajdx0wjdmll6c0jp2b4a3p";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
