@@ -1,15 +1,14 @@
 { stdenv, fetchFromGitHub, coreutils, pkgconfig, gdk-pixbuf, optipng, librsvg, gtk3, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
-  name = "elementary-xfce-icon-theme-${version}";
-  version = "0.13.1.0.1"; # not really, git
+  pname = "elementary-xfce-icon-theme";
+  version = "0.14";
 
   src = fetchFromGitHub {
     owner = "shimmerproject";
     repo = "elementary-xfce";
-    #rev = "v${version}";
-    rev = "8f5908fcc5a2907b335edbb76751ba2b7aa6e6e8";
-    sha256 = "0p3x6pa42lylrazvb0k48aqv7ah8yc24bp3wqz2fkqfhfs524nnc";
+    rev = "v${version}";
+    sha256 = "00sk6sv0kkfb3q0jqwcllzawi30rw8nfkkfn5l1qwqha48izw3r4";
   };
 
   nativeBuildInputs = [ pkgconfig gdk-pixbuf librsvg optipng gtk3 hicolor-icon-theme ];
