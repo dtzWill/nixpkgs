@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   version = "0.0.4";
 
   src = fetchurl {
-     url = "https://github.com/hensm/fx_cast/releases/download/v${version}/fx_cast_bridge-${version}-x64.deb";
+     url = "https://github.com/hensm/fx_cast/releases/download/v${version}/${pname}-${version}-x64.deb";
      sha256 = "1p6d8idbaaqr80vxrmmyfcr5nwb0sk5vwrmizflg39p5zasmmhy2";
   };
 
@@ -29,17 +29,17 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   installPhase = ''
-    install -DT {opt/fx_cast,$out/bin}/fx_cast_bridge
-    install -DT {usr,$out}/lib/mozilla/native-messaging-hosts/fx_cast_bridge.json
+    install -DT {opt/fx_cast,$out/bin}/${pname}
+    install -DT {usr,$out}/lib/mozilla/native-messaging-hosts/${pname}.json
 
-    substituteInPlace $out/lib/mozilla/native-messaging-hosts/fx_cast_bridge.json \
-      --replace {/opt/fx_cast,$out/bin}/fx_cast_bridge
+    substituteInPlace $out/lib/mozilla/native-messaging-hosts/${pname}.json \
+      --replace {/opt/fx_cast,$out/bin}/${pname}
   '';
 
   # See now-cli/default.nix
   preFixup = let
     libPath = stdenv.lib.makeLibraryPath [stdenv.cc.cc stdenv.cc.libc];
-    bin = "$out/bin/fx_cast_bridge";
+    bin = "$out/bin/${pname}";
   in ''
 
     orig_size=$(stat --printf=%s ${bin})
