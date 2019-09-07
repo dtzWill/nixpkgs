@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, pkgconfig, glib, python3, libgudev, libmbim }:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, glib, python3, libgudev, libmbim }:
 
 stdenv.mkDerivation rec {
   pname = "libqmi";
@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
+    autoreconfHook # needed when building from git
     pkgconfig
     python3
   ];
