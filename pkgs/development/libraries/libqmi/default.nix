@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, glib, python3, libgudev, libmbim }:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, glib, python3, libgudev, libmbim, gtk-doc }:
 
 stdenv.mkDerivation rec {
   pname = "libqmi";
@@ -20,10 +20,12 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-udev-base-dir=${placeholder "out"}/lib/udev"
+    "--enable-gtk-doc"
   ];
 
   nativeBuildInputs = [
     autoreconfHook # needed when building from git
+    gtk-doc # needed to build docs, but w/releases pre-gen'd docs can be used
     pkgconfig
     python3
   ];
