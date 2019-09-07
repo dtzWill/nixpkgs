@@ -1,0 +1,100 @@
+From 82c99dd1be9e7501800359f5075b5613305d7792 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 23 Aug 2019 19:46:50 -0500
+Subject: [PATCH 4/4] searchpaths
+
+---
+ src/libkeymap/analyze.l | 3 +++
+ src/loadkeys.c          | 2 +-
+ src/loadunimap.c        | 2 +-
+ src/mapscrn.c           | 2 +-
+ src/resizecons.c        | 2 +-
+ src/setfont.c           | 4 ++--
+ 6 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/src/libkeymap/analyze.l b/src/libkeymap/analyze.l
+index e32ace6..b9fefb7 100644
+--- a/src/libkeymap/analyze.l
++++ b/src/libkeymap/analyze.l
+@@ -101,6 +101,9 @@ stack_pop(struct lk_ctx *ctx, void *scanner)
+ static const char *const include_dirpath0[] = { "", 0 };
+ static const char *const include_dirpath1[] = { "", "../include/", "../../include/", 0 };
+ static const char *const include_dirpath3[] = {
++ 	"/etc/kbd/" KEYMAPDIR "/include/",
++ 	"/etc/kbd/" KEYMAPDIR "/i386/include/",
++ 	"/etc/kbd/" KEYMAPDIR "/mac/include/",
+ 	DATADIR "/" KEYMAPDIR "/include/",
+ 	DATADIR "/" KEYMAPDIR "/i386/include/",
+ 	DATADIR "/" KEYMAPDIR "/mac/include/", 0
+diff --git a/src/loadkeys.c b/src/loadkeys.c
+index 406eef5..886b7e7 100644
+--- a/src/loadkeys.c
++++ b/src/loadkeys.c
+@@ -24,7 +24,7 @@
+ #include "paths.h"
+ #include "keymap.h"
+ 
+-static const char *const dirpath1[] = { "", DATADIR "/" KEYMAPDIR "/**", KERNDIR "/", 0 };
++static const char *const dirpath1[] = { "", "/etc/kbd/" KEYMAPDIR "/**", DATADIR "/" KEYMAPDIR "/**", KERNDIR "/", 0 };
+ static const char *const suffixes[] = { "", ".kmap", ".map", 0 };
+ 
+ static void __attribute__((noreturn))
+diff --git a/src/loadunimap.c b/src/loadunimap.c
+index 716c6c3..0881c1e 100644
+--- a/src/loadunimap.c
++++ b/src/loadunimap.c
+@@ -30,7 +30,7 @@
+ extern char *progname;
+ extern int force;
+ 
+-static const char *const unidirpath[]  = { "", DATADIR "/" UNIMAPDIR "/", 0 };
++static const char *const unidirpath[]  = { "", "/etc/kbd/" UNIMAPDIR "/", DATADIR "/" UNIMAPDIR "/", 0 };
+ static const char *const unisuffixes[] = { "", ".uni", ".sfm", 0 };
+ 
+ #ifdef MAIN
+diff --git a/src/mapscrn.c b/src/mapscrn.c
+index 11739e4..cb89a82 100644
+--- a/src/mapscrn.c
++++ b/src/mapscrn.c
+@@ -28,7 +28,7 @@ void loadnewmap(int fd, char *mfil);
+ static int ctoi(char *);
+ 
+ /* search for the map file in these directories (with trailing /) */
+-static const char *const mapdirpath[]  = { "", DATADIR "/" TRANSDIR "/", 0 };
++static const char *const mapdirpath[]  = { "", "/etc/kbd/" TRANSDIR "/", DATADIR "/" TRANSDIR "/", 0 };
+ static const char *const mapsuffixes[] = { "", ".trans", "_to_uni.trans", ".acm", 0 };
+ 
+ #ifdef MAIN
+diff --git a/src/resizecons.c b/src/resizecons.c
+index ee746f3..fc518b9 100644
+--- a/src/resizecons.c
++++ b/src/resizecons.c
+@@ -102,7 +102,7 @@ static int vga_get_fontheight(void);
+ static void vga_set_cursor(int, int);
+ static void vga_set_verticaldisplayend_lowbyte(int);
+ 
+-const char *const dirpath[]  = { "", DATADIR "/" VIDEOMODEDIR "/", 0 };
++const char *const dirpath[]  = { "", "/etc/kbd/" VIDEOMODEDIR "/", DATADIR "/" VIDEOMODEDIR "/", 0};
+ const char *const suffixes[] = { "", 0 };
+ 
+ int main(int argc, char **argv)
+diff --git a/src/setfont.c b/src/setfont.c
+index 3e21e7c..ac7a876 100644
+--- a/src/setfont.c
++++ b/src/setfont.c
+@@ -52,10 +52,10 @@ int force   = 0;
+ int debug   = 0;
+ 
+ /* search for the font in these directories (with trailing /) */
+-const char *const fontdirpath[]  = { "", DATADIR "/" FONTDIR "/", 0 };
++const char *const fontdirpath[]  = { "", "/etc/kbd/" FONTDIR "/", DATADIR "/" FONTDIR "/", 0 };
+ const char *const fontsuffixes[] = { "", ".psfu", ".psf", ".cp", ".fnt", 0 };
+ /* hide partial fonts a bit - loading a single one is a bad idea */
+-const char *const partfontdirpath[]  = { "", DATADIR "/" FONTDIR "/" PARTIALDIR "/", 0 };
++const char *const partfontdirpath[]  = { "", "/etc/kbd/" FONTDIR "/" PARTIALDIR "/", DATADIR "/" FONTDIR "/" PARTIALDIR "/", 0 };
+ const char *const partfontsuffixes[] = { "", 0 };
+ 
+ static inline int
+-- 
+2.23.0
+

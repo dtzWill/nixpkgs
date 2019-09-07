@@ -1,52 +1,67 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
-, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, libsecret
-, libcloudproviders, kdeFrameworks
+{ lib
+, mkDerivation
+, fetchFromGitHub
+, cmake
+, inotify-tools
+, kdeFrameworks
+, libcloudproviders
+, libsecret
+, openssl
+, pcre
+, pkgconfig
+, qtbase
+, qtkeychain
+, qttools
+, sqlite
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "nextcloud-client";
   version = "2.5.3";
 
-  src = fetchgit {
-    url = "git://github.com/nextcloud/desktop.git";
-    rev = "refs/tags/v${version}";
-    sha256 = "0fbw56bfbyk3cqv94iqfsxjf01dwy1ysjz89dri7qccs65rnjswj";
-    fetchSubmodules = true;
+  src = fetchFromGitHub {
+    owner = "nextcloud";
+    repo = "desktop";
+    rev = "v${version}";
+    sha256 = "1pzlq507fasf2ljf37gkw00qrig4w2r712rsy05zfwlncgcn7fnw";
   };
 
-  patches = [ ./no-webengine.patch ];
+  patches = [
+    ./0001-Explicitly-copy-dbus-files-into-the-store-dir.patch
+    ./no-webengine.patch
+  ];
 
-  nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ] ++ (with kdeFrameworks; [ extra-cmake-modules ]);
+  nativeBuildInputs = [
+    pkgconfig
+    cmake
+    kdeFrameworks.extra-cmake-modules
+  ];
 
-  buildInputs = [ qtbase qtkeychain qttools sqlite openssl_1_1.out pcre inotify-tools /* libcloudproviders */ ]
-  ++ (with kdeFrameworks; [ kio kcoreaddons ]);
+  buildInputs = [
+    inotify-tools
+    libcloudproviders
+    openssl
+    pcre
+    qtbase
+    qtkeychain
+    qttools
+    sqlite
+    kdeFrameworks.kio
+    kdeFrameworks.kcoreaddons
+  ];
 
-  enableParallelBuilding = true;
-
-  NIX_LDFLAGS = "${openssl_1_1.out}/lib/libssl.so ${openssl_1_1.out}/lib/libcrypto.so";
+  qtWrapperArgs = [
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
+  ];
 
   cmakeFlags = [
-    "-UCMAKE_INSTALL_LIBDIR"
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DOPENSSL_LIBRARIES=${openssl_1_1.out}/lib"
-    "-DOPENSSL_INCLUDE_DIR=${openssl_1_1.dev}/include"
-    "-DINOTIFY_LIBRARY=${inotify-tools}/lib/libinotifytools.so"
-    "-DINOTIFY_INCLUDE_DIR=${inotify-tools}/include"
+    "-DCMAKE_INSTALL_LIBDIR=lib" # expected to be prefix-relative by build code setting RPATH
 
     # Disable this so qtwebkit isn't needed
     "-DNO_SHIBBOLETH=ON"
   ];
 
-  qtWrapperArgs = [
-    ''--prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]}''
-  ];
-
-  postInstall = ''
-    sed -i 's/\(Icon.*\)=nextcloud/\1=Nextcloud/g' \
-    $out/share/applications/nextcloud.desktop
-  '';
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Nextcloud themed desktop client";
     homepage = https://nextcloud.com;
     license = licenses.gpl2;

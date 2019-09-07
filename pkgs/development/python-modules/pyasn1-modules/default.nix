@@ -2,19 +2,19 @@
 
 buildPythonPackage rec {
   pname = "pyasn1-modules";
-  version = "0.2.5";
+  version = "0.2.6";
 
-  src = fetchFromGitHub {
-    owner = "etingof";
-    repo = pname;
-    rev = "3d59f9af2158b2acd63dd213dad427f8e17dec16";
-    sha256 = "0sng24d1rq1iasbbp0mfhys1l1ajdz3pmijnmq07an04s24jdhfg";
-  };
-  # broken, use git for now
-  #src = fetchPypi {
-  #  inherit pname version;
-  #  sha256 = "ef721f68f7951fab9b0404d42590f479e30d9005daccb1699b0a51bb4177db96";
+  #src = fetchFromGitHub {
+  #  owner = "etingof";
+  #  repo = pname;
+  #  rev = "3d59f9af2158b2acd63dd213dad427f8e17dec16";
+  #  sha256 = "0sng24d1rq1iasbbp0mfhys1l1ajdz3pmijnmq07an04s24jdhfg";
   #};
+  # broken, use git for now
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "08hph9j1r018drnrny29l7dl2q0cin78csswrhwrh8jmq61pmha3";
+  };
 
   propagatedBuildInputs = [ pyasn1 ];
 

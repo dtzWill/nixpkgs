@@ -1,24 +1,32 @@
 { stdenv, fetchFromGitHub, meson, ninja, pkgconfig
 , glib, gtk3, gtksourceview3, libpeas, libxml2
 , gobject-introspection, gspell
-, libgnomekbd
+, libgnomekbd, vala, python3
 }:
 
-stdenv.mkDerivation rec {
+let
+  py = python3.withPackages (ps: with ps; [ pygobject3 ]);
+in stdenv.mkDerivation rec {
   pname = "xapps";
   #version = "master.mint19"; # not sure if stable
-  version = "2.0.2-mint19";
+  version = "1.4.9";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = pname;
-    #rev = "refs/tags/${version}";
-    rev = "refs/tags/master.mint19";
-    sha256 = "0rgm7m5sxrngxkq0pc06mq08k43fxin17jli203bpxd0z5p0flnk";
+    rev = "refs/tags/${version}";
+    #rev = "refs/tags/master.mint19";
+    sha256 = "1lnbm8dhrc0k4d9v0zxngcdxwmsr9bd0lfm8i81xgpbsdg75la25";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
+  postPatch = ''
+    substituteInPlace pygobject/meson.build \
+      --replace "['python2', 'python3']" \
+                "['python3']"
+  '';
 
-  buildInputs = [ glib gtk3 gtksourceview3 libpeas libxml2 gobject-introspection gspell libgnomekbd ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
+
+  buildInputs = [ glib gtk3 gtksourceview3 libpeas libxml2 gobject-introspection gspell libgnomekbd py python3.pkgs.pygobject3 ];
 }
 

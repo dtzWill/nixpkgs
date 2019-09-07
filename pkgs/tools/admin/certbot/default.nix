@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "certbot";
-  version = "0.37.1";
+  version = "0.37.2";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "0q92mala7dqv2cdvfclfy5igxb1q89jki1x0ryfd2kfci7i40mlg";
+    sha256 = "0ha5vg10n091pq9d5ijlvwld8538vkj8xfwfn0jc073nm3ak94r2";
   };
 
   propagatedBuildInputs = with python3Packages; [

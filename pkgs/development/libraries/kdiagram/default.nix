@@ -4,11 +4,12 @@
   qtbase, qtsvg,
 }:
 
-mkDerivation {
-  name = "kdiagram-2.6.0";
+mkDerivation rec {
+  pname = "kdiagram";
+  version = "2.6.1";
   src = fetchurl {
-    url = "https://download.kde.org/stable/kdiagram/2.6.0/src/kdiagram-2.6.0.tar.xz";
-    sha256 = "10hqk12wwgbiq4q5145s8v7v96j621ckq1yil9s4pihmgsnqsy02";
+    url = "https://download.kde.org/stable/kdiagram/${version}/${pname}-${version}.tar.xz";
+    sha256 = "1c6dbp9gssjrx59z8yxzq1ay56pnw7h28symjrv0gcvhxyjirrxx";
   };
   nativeBuildInputs = [ extra-cmake-modules qttools ];
   propagatedBuildInputs = [ qtbase qtsvg ];

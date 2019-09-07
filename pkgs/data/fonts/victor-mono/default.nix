@@ -2,13 +2,13 @@
 
 let
   pname = "victor-mono";
-  version = "1.2.4";
+  version = "1.2.6";
 in fetchFromGitHub rec {
   name = "${pname}-${version}";
-
   owner = "rubjo";
   repo = pname;
-  rev = "v${version}";
+  #rev = "v${version}";
+  rev = "68b7add39c619c96f0394b82b51f113501b55c77"; # 1.2.6, dist was generated after tag
 
   # Upstream prefers we download from the website,
   # but we really insist on a more versioned resource.
@@ -18,7 +18,7 @@ in fetchFromGitHub rec {
   # Both methods produce the same file, but this way
   # we can safely reason about what version it is.
   postFetch = ''
-    tar xvf $downloadedFile --strip-components=2 ${name}/public/VictorMonoAll.zip
+    tar xvf $downloadedFile --strip-components=2 ${pname}-${rev}/public/VictorMonoAll.zip
 
     mkdir -p $out/share/fonts/{true,open}type/${pname}
 
@@ -26,7 +26,7 @@ in fetchFromGitHub rec {
     unzip -j VictorMonoAll.zip \*.otf -d $out/share/fonts/opentype/${pname}
   '';
 
-  sha256 = "0l5ccvl6wbw64vhbvjgy7gyc4v5s5dd8y1zmg4kdwiq25jx9yif7";
+  sha256 = "0dqwz2acc2ipbdc136vvan56gfp9vfwfkf95k6y7cz5w1jx69ywn";
 
   meta = with lib; {
     description = "Free programming font with cursive italics and ligatures";

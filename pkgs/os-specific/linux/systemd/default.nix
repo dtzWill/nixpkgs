@@ -15,17 +15,17 @@
 , withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
 }:
 
-stdenv.mkDerivation rec {
-  version = "242";
-  name = "systemd-${version}";
+stdenv.mkDerivation {
+  version = "243";
+  pname = "systemd";
 
   # When updating, use https://github.com/systemd/systemd-stable tree, not the development one!
   # Also fresh patches should be cherry-picked from that tree to our current one.
   src = fetchFromGitHub {
-    owner = "NixOS";
+    owner = "andir";
     repo = "systemd";
-    rev = "5fb35fbc783516e2014115c3488134a2afb8494c";
-    sha256 = "0pyjvzzh8nnxv4z58n82lz1mjnzv44sylcjgkvw8sp35vx1ryxfh";
+    rev = "32f94ad90c93abdb6975bdce7bb19f9d3f23043b";
+    sha256 = "0ywaq5jfy177k4q5hwr43v66sz62l1bqhgyxs2vk9m1d5kvrjwk6";
   };
 
   outputs = [ "out" "lib" "man" "dev" ];
@@ -101,6 +101,13 @@ stdenv.mkDerivation rec {
     "-Dsulogin-path=${utillinux}/bin/sulogin"
     "-Dmount-path=${utillinux}/bin/mount"
     "-Dumount-path=${utillinux}/bin/umount"
+    "-Dcreate-log-dirs=false"
+    # Upstream usese cgroupsv2 by default. To support docker and other
+    # container managers we still need v1.
+    "-Ddefault-hierarchy=hybrid"
+    # Upstream defaulted to disable manpages since they optimize for the much
+    # more frequente development builds
+    "-Dman=true"
   ];
 
   preConfigure = ''

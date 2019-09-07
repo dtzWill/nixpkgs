@@ -27,11 +27,11 @@ in
 with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "libinput-${version}";
-  version = "1.14.0";
+  version = "1.14.1";
 
   src = fetchurl {
     url = "https://www.freedesktop.org/software/libinput/${name}.tar.xz";
-    sha256 = "0rzw2kx06ywc19lwf147f474xav7w83h28k0afy822wjz0j5rf3w";
+    sha256 = "0w7fas37mp2k06f12i3lnj717lw73asziknj6z51kh1m50ja6cz3";
   };
 
   outputs = [ "bin" "out" "dev" ];

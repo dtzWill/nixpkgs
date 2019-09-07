@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig file intltool makeWrapper ];
-  buildInputs = [ glib gtk3 gobject-introspection libxklavier ];
+  buildInputs = [ glib gtk3 gobject-introspection ];
+  propagatedBuildInputs = [ libxklavier ];
 
   preFixup = ''
     wrapProgram $out/bin/gkbd-keyboard-display \

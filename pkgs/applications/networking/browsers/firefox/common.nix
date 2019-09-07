@@ -96,7 +96,7 @@ let
 
   browserPatches = [
     ./env_var_for_system_dir.patch
-    ./firefox-66.0.2-system_graphite2_harfbuzz-1.patch
+    ./firefox-68.0.2-system_graphite2_harfbuzz-1.patch
   ]
   ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69") [
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
@@ -247,6 +247,7 @@ stdenv.mkDerivation rec {
     "--with-system-icu"
     "--with-system-graphite2"
     "--with-system-harfbuzz"
+    "--with-system-webp"
     "--enable-system-ffi"
     "--enable-system-pixman"
     "--enable-system-sqlite"
@@ -256,10 +257,12 @@ stdenv.mkDerivation rec {
     "--disable-tests"
     "--disable-necko-wifi" # maybe we want to enable this at some point
     "--disable-updater"
-    "--enable-jemalloc"
+    "--disable-jemalloc"
     "--disable-gconf"
     "--enable-default-toolkit=${default-toolkit}"
     "--without-stdcxx-compat"
+    "--enable-hardening"
+    "--enable-rust-simd"
   ]
   ++ lib.optional (lib.versionOlder ffversion "64") "--disable-maintenance-service"
   ++ lib.optional (stdenv.isDarwin && lib.versionAtLeast ffversion "61") "--disable-xcode-checks"
@@ -268,7 +271,7 @@ stdenv.mkDerivation rec {
     "--with-libclang-path=${llvmPackages.libclang}/lib"
     "--with-clang-path=${llvmPackages.clang}/bin/clang"
   ]
-  ++ lib.optionals (lib.versionAtLeast ffversion "57") [
+  ++ lib.optionals (lib.versionAtLeast ffversion "57" && lib.versionOlder ffversion "69") [
     "--enable-webrender=build"
   ]
 
@@ -295,6 +298,7 @@ stdenv.mkDerivation rec {
   ++ flag crashreporterSupport "crashreporter"
   ++ lib.optional drmSupport "--enable-eme=widevine"
   ++ lib.optional goldLinker "--enable-linker=gold"
+  #++ [ "--enable-linker=lld" ]
 
   ++ lib.optionals (lib.versionOlder ffversion "60") ([]
     ++ flag geolocationSupport "mozril-geoloc"

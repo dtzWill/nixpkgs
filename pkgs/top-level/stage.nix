@@ -218,8 +218,11 @@ let
         parsed = stdenv.hostPlatform.parsed // {
           abi = {
             "gnu" = lib.systems.parse.abis.musl;
+            "musl" = lib.systems.parse.abis.musl;
             "gnueabi" = lib.systems.parse.abis.musleabi;
+            "musleabi" = lib.systems.parse.abis.musleabi;
             "gnueabihf" = lib.systems.parse.abis.musleabihf;
+            "musleabihf" = lib.systems.parse.abis.musleabihf;
           }.${stdenv.hostPlatform.parsed.abi.name}
             or lib.systems.parse.abis.musl;
         };

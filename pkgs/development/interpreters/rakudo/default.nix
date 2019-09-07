@@ -2,19 +2,19 @@
 , CoreServices, ApplicationServices }:
 
 stdenv.mkDerivation rec {
-  name = "rakudo-star-${version}";
-  version = "2017.01";
+  pname = "rakudo-star";
+  version = "2019.03";
 
   src = fetchurl {
-    url    = "http://rakudo.org/downloads/star/${name}.tar.gz";
-    sha256 = "07zjqdzxm30pmjqwlnr669d75bsbimy09sk0dvgm0pnn3zr92fjq";
+    url    = "https://rakudo.org/dl/star/${pname}-${version}.tar.gz";
+    sha256 = "0260kk3s7pz3aw8bcnqxx983dpkhhw7080aswx4nqkrb7bg6j2k4";
   };
 
   buildInputs = [ icu zlib gmp readline perl ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ CoreServices ApplicationServices ];
   configureScript = "perl ./Configure.pl";
   configureFlags =
-    [ "--backends=moar"
+    [ "--backend=moar"
       "--gen-moar"
       "--gen-nqp"
     ];

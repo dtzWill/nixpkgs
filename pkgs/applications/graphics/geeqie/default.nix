@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "geeqie";
-  version = "1.5";
+  version = "1.5.1";
 
   src = fetchurl {
     url = "http://geeqie.org/${pname}-${version}.tar.xz";
-    sha256 = "1x8v5lnq5f3qzhna3hh3r5npbqizsg6k82bjkh59vhqwyb5whdlp";
+    sha256 = "02m1vqaasin249xx792cdj11xyag8lnanwzxd108y7y34g9xam28";
   };
 
   patches = [

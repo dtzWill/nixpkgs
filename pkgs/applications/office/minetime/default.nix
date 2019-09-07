@@ -2,13 +2,13 @@
 
 let
   pname = "minetime";
-  version = "1.5.1";
+  version = "1.6.1";
 in
 appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
-    url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}-x86_64.AppImage";
-    sha256 = "0099cq4p7j01bzs7q79y9xi7g6ji17v9g7cykfjggwsgqfmvd0hz";
+    url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}.AppImage";
+    sha256 = "1ar38wcfzcs4knx2khmja60fa8rnzawm6004wp5gp8kddb831xrw";
   };
 
   profile = ''
@@ -17,7 +17,9 @@ appimageTools.wrapType2 rec {
   '';
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
+  extraPkgs = ps:
+    appimageTools.defaultFhsEnvArgs.multiPkgs ps
+    ++ (with ps; [ at-spi2-core at-spi2-atk libsecret libnotify ]);
   extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
   meta = with lib; {

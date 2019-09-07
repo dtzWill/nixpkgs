@@ -11,17 +11,17 @@ let
   pname = "NetworkManager";
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
-  name = "network-manager-${version}";
+  inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "1.21.1pre-2019-08-16";
+  version = "1.21.1pre-2019-09-06";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "27d380b70ea839c7badab420361e4e65e023e8e9";
-    sha256 = "0c8xg7wqlv7rrjf1n7ydc4ra724nphin65g0hqzah2kprh4sdsvg";
+    rev = "11cf082a6233a5c2f17da1b49457a66266062678";
+    sha256 = "162l8d7rd074gq2wfrzg54jac5wzwmajdx0wjdmll6c0jp2b4a3p";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -143,7 +143,7 @@ in stdenv.mkDerivation rec {
     homepage = https://wiki.gnome.org/Projects/NetworkManager;
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ phreedom rickynils domenkozar obadz ];
+    maintainers = with maintainers; [ phreedom domenkozar obadz ];
     platforms = platforms.linux;
   };
 }

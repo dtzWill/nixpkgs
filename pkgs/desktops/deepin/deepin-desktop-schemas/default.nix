@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     # fix default background url
     sed -i -e 's,/usr/share/backgrounds/default_background.jpg,/usr/share/backgrounds/deepin/desktop.jpg,' \
       overrides/common/com.deepin.wrap.gnome.desktop.override
-      
+
     fixPath ${deepin-wallpapers} /usr/share/backgrounds \
       overrides/common/com.deepin.wrap.gnome.desktop.override
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     #   /usr/share/desktop-directories
   '';
 
-  makeFlags = [ "PREFIX=${placeholder ''out''}" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   doCheck = true;
   checkTarget = "test";

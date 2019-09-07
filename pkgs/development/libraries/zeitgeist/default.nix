@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitLab, pkgconfig, glib, sqlite, gobject-introspection, vala
 , autoconf, automake, libtool, gettext, dbus, telepathy-glib
 , gtk3, json-glib, librdf_raptor2, dbus-glib
-, pythonSupport ? true, python2Packages
+, pythonSupport ? true, python3Packages
 }:
 
 stdenv.mkDerivation rec {
@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [ "--with-session-bus-services-dir=${placeholder ''out''}/share/dbus-1/services" ];
+  configureFlags = [ "--with-session-bus-services-dir=${placeholder "out"}/share/dbus-1/services" ];
 
   nativeBuildInputs = [
-    autoconf automake libtool pkgconfig gettext gobject-introspection vala python2Packages.python
+    autoconf automake libtool pkgconfig gettext gobject-introspection vala python3Packages.python
   ];
   buildInputs = [
     glib sqlite dbus telepathy-glib dbus-glib
-    gtk3 json-glib librdf_raptor2 python2Packages.rdflib
+    gtk3 json-glib librdf_raptor2 python3Packages.rdflib
   ];
 
   postPatch = ''
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postFixup = stdenv.lib.optionalString pythonSupport ''
-    moveToOutput lib/${python2Packages.python.libPrefix} "$py"
+    moveToOutput lib/${python3Packages.python.libPrefix} "$py"
   '';
 
   meta = with stdenv.lib; {

@@ -21,6 +21,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" "python" ];
   postInstall = ''
     moveToOutput "bin/lsusb.py" "$python"
+
+    install -Dm755 usbreset -t $out/bin
   '';
 
   meta = with stdenv.lib; {
@@ -28,5 +30,6 @@ stdenv.mkDerivation rec {
     description = "Tools for working with USB devices, such as lsusb";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
+    outputsToInstall = [ "out" "man" "python" ];
   };
 }

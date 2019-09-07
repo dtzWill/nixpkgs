@@ -7,16 +7,16 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-#  version = "0.21";
-  version = "2019-08-17";
+  version = "0.22";
+  #version = "2019-08-24";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
-     #rev = version;
-     rev = "abb10b79c5f9f27c71aa131f0f087d7b6dd06206";
-     sha256 = "08252qcwk0icvvrcn8ddakhazvj2ad7cadmx2k6sw09017mvq6qm";
+     rev = version;
+     #rev = "513f33c6a1185e0863131a81295ad9be242c6690";
+     sha256 = "0dk4j1b8sy4j6w91cq5ga99f3hln9fgh79ayi9kvn8xgzksmhjdp";
   };
 
   patches = [
@@ -35,6 +35,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = true;
+  enableParallelChecking = false;
 
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;

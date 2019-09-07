@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "configparser";
-  version = "3.7.4";
+  version = "3.7.5"; # 3.8.1 is avail, FWIW
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "da60d0014fd8c55eb48c1c5354352e363e2d30bbf7057e5e171a468390184c75";
+    sha256 = "13kgding6zyvwzzcar6xhql8x4j6b4lpnf06waczjb9ph0q075ck";
   };
 
   # No tests available

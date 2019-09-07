@@ -35,23 +35,23 @@ in stdenv.mkDerivation rec {
   pname = "fwupd";
   #version = "1.2.10";
 
-  version = "2019-08-19";
+  version = "2019-08-23";
   src = fetchFromGitHub {
-    owner = "hughsie";
+    owner = pname;
     repo = pname;
-    rev = "4fa965a9f76c37d95a983c296bec42fc689df4a1";
-    sha256 = "0mp4pqrf8bxwkdx3zfgxcpn4aaik817yp6xrnlalr3hdm0as3w9k";
+    rev = "b56571eceb810448a7058cb5fe23ea85425e5088";
+    sha256 = "07n33ddrscvbnal9bbdz0kxb7p92z4hcdqs4fglyhlc6xydqbhi6";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
   #  sha256 = "0inngs7i48akm9c7fmdsf9zjif595rkaba69rl76jfwfv8r21vjb";
   #};
 
-  outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
   nativeBuildInputs = [
-    meson ninja gtk-doc pkgconfig gobject-introspection intltool shared-mime-info
-    valgrind gcab docbook_xml_dtd_43 docbook_xsl help2man libxslt python wrapGAppsHook vala
+    meson ninja pkgconfig gobject-introspection intltool shared-mime-info
+    valgrind gcab help2man python wrapGAppsHook vala
   ];
 
   buildInputs = [

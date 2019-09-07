@@ -70,7 +70,7 @@ let
   startScript = cfg:
     ''
       mkdir -p -m 0755 "$root/etc" "$root/var/lib"
-      mkdir -p -m 0700 "$root/var/lib/private" "$root/root"
+      mkdir -p -m 0700 "$root/var/lib/private" "$root/root" /run/containers
       if ! [ -e "$root/etc/os-release" ]; then
         touch "$root/etc/os-release"
       fi
@@ -248,13 +248,17 @@ let
 
     Type = "notify";
 
-    RuntimeDirectory = [ "containers" ] ++ lib.optional cfg.ephemeral "containers/%i";
+    RuntimeDirectory = lib.optional cfg.ephemeral "containers/%i";
 
     # Note that on reboot, systemd-nspawn returns 133, so this
     # unit will be restarted. On poweroff, it returns 0, so the
     # unit won't be restarted.
     RestartForceExitStatus = "133";
     SuccessExitStatus = "133";
+
+    # Some containers take long to start
+    # especially when you automatically start many at once
+    TimeoutStartSec = cfg.timeoutStartSec;
 
     Restart = "on-failure";
 
@@ -423,6 +427,7 @@ let
       extraVeths = {};
       additionalCapabilities = [];
       ephemeral = false;
+      timeoutStartSec = "15s";
       allowedDevices = [];
       hostAddress = null;
       hostAddress6 = null;
@@ -595,6 +600,18 @@ in
               '';
             };
 
+		    timeoutStartSec = mkOption {
+		      type = types.str;
+		      default = "1min";
+		      description = ''
+		        Time for the container to start. In case of a timeout,
+		        the container processes get killed.
+		        See <citerefentry><refentrytitle>systemd.time</refentrytitle>
+		        <manvolnum>7</manvolnum></citerefentry>
+		        for more information about the format.
+		       '';
+		    };
+
             bindMounts = mkOption {
               type = with types; loaOf (submodule bindMountOpts);
               default = {};
@@ -683,7 +700,14 @@ in
     unit = {
       description = "Container '%i'";
 
+      unitConfig.RequiresMountsFor = "/var/lib/containers/%i";
+
       path = [ pkgs.iproute ];
+
+      environment = {
+        root = "/var/lib/containers/%i";
+        INSTANCE = "%i";
+      };
 
       preStart = preStartScript dummyConfig;
 
@@ -722,14 +746,13 @@ in
             }
           else {});
         in
-          unit // {
+          recursiveUpdate unit {
             preStart = preStartScript containerConfig;
             script = startScript containerConfig;
             postStart = postStartScript containerConfig;
             serviceConfig = serviceDirectives containerConfig;
             unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "/var/lib/containers/%i";
             environment.root = if containerConfig.ephemeral then "/run/containers/%i" else "/var/lib/containers/%i";
-            environment.INSTANCE = "%i";
           } // (
           if containerConfig.autoStart then
             {

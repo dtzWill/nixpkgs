@@ -569,9 +569,13 @@ in {
 
   favicon = callPackage ../development/python-modules/favicon {  };
 
+  fdint = callPackage ../development/python-modules/fdint { };
+
   fido2 = callPackage ../development/python-modules/fido2 {  };
 
   filterpy = callPackage ../development/python-modules/filterpy { };
+
+  filemagic = callPackage ../development/python-modules/filemagic { };
 
   fints = callPackage ../development/python-modules/fints { };
 
@@ -579,9 +583,13 @@ in {
 
   firetv = callPackage ../development/python-modules/firetv { };
 
-  fdint = callPackage ../development/python-modules/fdint { };
+  flufl_bounce = callPackage ../development/python-modules/flufl/bounce.nix { };
 
-  filemagic = callPackage ../development/python-modules/filemagic { };
+  flufl_i18n = callPackage ../development/python-modules/flufl/i18n.nix { };
+
+  flufl_lock = callPackage ../development/python-modules/flufl/lock.nix { };
+
+  foxdot = callPackage ../development/python-modules/foxdot { };
 
   fsspec = callPackage ../development/python-modules/fsspec { };
 
@@ -683,6 +691,10 @@ in {
 
   langdetect = callPackage ../development/python-modules/langdetect { };
 
+  lazr_config = callPackage ../development/python-modules/lazr/config.nix { };
+
+  lazr_delegates = callPackage ../development/python-modules/lazr/delegates.nix { };
+
   libmr = callPackage ../development/python-modules/libmr { };
 
   limitlessled = callPackage ../development/python-modules/limitlessled { };
@@ -698,6 +710,10 @@ in {
   macropy = callPackage ../development/python-modules/macropy { };
 
   mail-parser = callPackage ../development/python-modules/mail-parser { };
+
+  mailman = disabledIf (!isPy3k) (callPackage ../servers/mail/mailman/core.nix { });
+
+  mailmanclient = callPackage ../development/python-modules/mailmanclient { };
 
   manhole = callPackage ../development/python-modules/manhole { };
 
@@ -806,6 +822,8 @@ in {
   pims = callPackage ../development/python-modules/pims { };
 
   poetry = callPackage ../development/python-modules/poetry { };
+
+  postorius = disabledIf (!isPy3k) (callPackage ../servers/mail/mailman/postorius.nix { });
 
   pplpy = callPackage ../development/python-modules/pplpy { };
 
@@ -1569,6 +1587,8 @@ in {
   cornice = callPackage ../development/python-modules/cornice { };
 
   cram = callPackage ../development/python-modules/cram { };
+
+  crc16 = callPackage ../development/python-modules/crc16 { };
 
   csscompressor = callPackage ../development/python-modules/csscompressor {};
 
@@ -2856,6 +2876,8 @@ in {
 
   django-logentry-admin = callPackage ../development/python-modules/django-logentry-admin { };
 
+  django-mailman3 = callPackage ../development/python-modules/django-mailman3 { };
+
   django-pglocks = callPackage ../development/python-modules/django-pglocks { };
 
   django-picklefield = callPackage ../development/python-modules/django-picklefield { };
@@ -3757,7 +3779,7 @@ in {
 
   mpd2 = callPackage ../development/python-modules/mpd2 { };
 
-  mpv = callPackage ../development/python-modules/mpv { };
+  mpv = callPackage ../development/python-modules/mpv { mpv = pkgs.mpv; };
 
   mrbob = callPackage ../development/python-modules/mrbob {};
 
@@ -4131,11 +4153,7 @@ in {
 
   pgspecial = callPackage ../development/python-modules/pgspecial { };
 
-  pgpy = callPackage ../development/python-modules/pgpy {
-    cryptography = self.cryptography.override {
-      openssl = pkgs.openssl_1_1;
-    };
-  };
+  pgpy = callPackage ../development/python-modules/pgpy { };
 
   pickleshare = callPackage ../development/python-modules/pickleshare { };
 
@@ -4318,7 +4336,7 @@ in {
     inherit (pkgs) graphviz;
   };
 
-  pydot_ng = callPackage ../development/python-modules/pydot_ng { };
+  pydot_ng = callPackage ../development/python-modules/pydot_ng { graphviz = pkgs.graphviz; };
 
   pyelftools = callPackage ../development/python-modules/pyelftools { };
 
@@ -5057,6 +5075,8 @@ in {
   xmltodict = callPackage ../development/python-modules/xmltodict { };
 
   xarray = callPackage ../development/python-modules/xarray { };
+
+  xapian = callPackage ../development/python-modules/xapian { xapian = pkgs.xapian; };
 
   xlwt = callPackage ../development/python-modules/xlwt { };
 
@@ -5835,6 +5855,7 @@ in {
     cudatoolkit = pkgs.cudatoolkit_10;
     cudnn = pkgs.cudnn_cudatoolkit_10;
     nccl = pkgs.nccl_cudatoolkit_10;
+    openssl = pkgs.openssl_1_0_2;
   };
 
   tensorflow = if stdenv.isDarwin then self.tensorflow-bin else self.tensorflow-build;
@@ -6085,7 +6106,10 @@ in {
 
   us = callPackage ../development/python-modules/us { };
 
-  wsproto = callPackage ../development/python-modules/wsproto { };
+  wsproto = if (pythonAtLeast "3.6") then
+      callPackage ../development/python-modules/wsproto { }
+    else
+      callPackage ../development/python-modules/wsproto/0.14.nix { };
 
   h11 = callPackage ../development/python-modules/h11 { };
 
@@ -6201,6 +6225,9 @@ in {
   runway-python = callPackage ../development/python-modules/runway-python { };
 
   pyprof2calltree = callPackage ../development/python-modules/pyprof2calltree { };
+
+  simplenote = callPackage ../development/python-modules/simplenote { };
+
 });
 
 in fix' (extends overrides packages)

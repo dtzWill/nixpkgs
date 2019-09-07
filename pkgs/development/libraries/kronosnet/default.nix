@@ -1,18 +1,18 @@
 { stdenv, fetchFromGitHub
 , autoreconfHook, pkgconfig
 , libqb, libxml2, libnl, lksctp-tools
-, nss, openssl, bzip2, lzo, lz4, xz, zlib
+, nss, openssl, bzip2, lzo, lz4, xz, zlib, zstd
 , doxygen
 }:
 
 stdenv.mkDerivation rec {
   pname = "kronosnet";
-  version = "1.7";
+  version = "1.11";
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "1vfwwv8i1n2yvlyx14sgyr2q5igf68qlsdhb1yisnw4bjs1g1s4x";
+    sha256 = "0xk25mdli6znx9dwp79f62ahvhi1g79ndzc3p1ld0a10m43vm76z";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig doxygen ];
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libqb libxml2 libnl lksctp-tools
     nss openssl
-    bzip2 lzo lz4 xz zlib
+    bzip2 lzo lz4 xz zlib zstd
   ];
 
   meta = with stdenv.lib; {

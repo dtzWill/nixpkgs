@@ -43,11 +43,60 @@ in {
           EAP.mtu = 1400;
           EAPoL.max_4way_handshake_time = 5;
           General = {
-            ControlPortOverNL80211 = true;
+            # Enable/Disable iwd internal dhcp client
+            enable_network_config = false; # true;
+            #
+            # DNS helper to use: resolvconf or systemd
+            # Default to systemd-resolved service
+            #dns_resolve_method = "resolvconf";
+            dns_resolve_method = "resolvconf";
+
+            control_port_over_nl80211 = true;
             roam_rssi_threshold = -70;
             # Default behavior is only available if this is NOT set
             # (either true or false)-- see docs.
             #use_default_interface = true;
+
+            #
+            # Explicitly enforce/disable management frame protection
+            #
+            # 0 - Disable management frame protection
+            # 1 - Set management frame protection capable (default)
+            # 2 - Management frame protection required
+            #
+            management_frame_protection = 1;
+
+            #
+            # Enable/disable ANQP queries. The way IWD does ANQP queries is dependent on
+            # a recent kernel patch. If your kernel does not have this functionality this
+            # should be disabled (default). Some drivers also do a terrible job of sending
+            # public action frames (freezing or crashes) which is another reason why this
+            # has been turned off by default. All aside, if you want to connect to Hotspot
+            # 2.0 networks ANQP is most likely going to be required (you may be able to
+            # pre-provision to avoid ANQP).
+            #
+            disable_anqp = true;
+            #
+            # Control the behavior of MAC address randomization by setting the
+            # mac_randomize option.  iwd supports the following options:
+            #   "default" - Lets the kernel assign a mac address from the permanent mac
+            #   address store when the interface is created by iwd.  Alternatively,
+            #   if the 'use_default_interface' is set to true, then the mac address is
+            #   not touched.
+            #   "once" - MAC address is randomized once when iwd starts.  If
+            #   'use_default_interface' is set to true, only the interface(s) managed
+            #   by iwd will be randomized.
+            #
+            # One can control which part of the address is randomized using
+            # mac_randomize_bytes option.  iwd supports the following options:
+            #   "nic" - Randomize only the NIC specific octets (last 3 octets).  Note that
+            #   the randomization range is limited to 00:00:01 to 00:00:FE.  The permanent
+            #   mac address of the card is used for the initial 3 octets.
+            #   "full" - Randomize the full 6 octets.  The locally-administered bit will
+            #   be set.
+            #
+            mac_randomize = "default";
+            mac_randomize_bytes = "full";
           };
           Scan = {
             disable_periodic_scan = false;
@@ -55,9 +104,16 @@ in {
             disable_mac_address_randomization = false;
           };
           # TODO: BSS blacklist settings
-          # TODO: Rank settings
 
           Rank = {
+            #
+            # Manually specify a 5G ranking factor. 5G networks are already preferred but
+            # only in terms of calculated data rate, which is RSSI dependent. This means it
+            # is still possible for IWD to prefer a 2.4GHz AP in the right conditions.
+            # This ranking provides a way to further weight the ranking towards 5G if
+            # required. Also, a lower 5G factor could be used to weight 2.4GHz if that is
+            # desired. The default is 1.0, which does not affect the calculated ranking.
+            #
             rank_5g_factor = "1.0"; # XXX: why aren't floats/doubles handled automatically?
           };
         };
@@ -77,6 +133,8 @@ in {
     environment.systemPackages =  [ pkgs.iwd ];
 
     services.dbus.packages = [ pkgs.iwd ];
+
+    hardware.firmware = [ pkgs.wireless-regdb ];
 
     #systemd.packages = [ pkgs.iwd ];
 

@@ -4,13 +4,13 @@
  }:
 
 stdenv.mkDerivation rec {
-  version = "1.3.12";
-  name = "graphite2-${version}";
+  version = "1.3.13";
+  pname = "graphite2";
 
   src = fetchurl {
     url = "https://github.com/silnrsi/graphite/releases/download/"
-      + "${version}/${name}.tgz";
-    sha256 = "1l1940d8fz67jm6a0x8cjb5p2dv48cvz3wcskwa83hamd70k15fd";
+      + "${version}/${pname}-${version}.tgz";
+    sha256 = "01jzhwnj1c3d68dmw15jdxly0hwkmd8ja4kw755rbkykn1ly2qyx";
   };
 
   nativeBuildInputs = [ pkgconfig cmake ];

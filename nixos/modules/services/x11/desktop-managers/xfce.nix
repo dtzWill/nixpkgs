@@ -15,14 +15,15 @@ in
         description = "Enable the Xfce desktop environment.";
       };
 
-      thunarPlugins = mkOption {
-        default = [];
-        type = types.listOf types.package;
-        example = literalExample "[ pkgs.xfce.thunar-archive-plugin ]";
-        description = ''
-          A list of plugin that should be installed with Thunar.
-        '';
-      };
+      # thunarPlugins... not supported w/xfce4-14?
+      #thunarPlugins = mkOption {
+      #  default = [];
+      #  type = types.listOf types.package;
+      #  example = literalExample "[ pkgs.xfce.thunar-archive-plugin ]";
+      #  description = ''
+      #    A list of plugin that should be installed with Thunar.
+      #  '';
+      #};
 
       noDesktop = mkOption {
         type = types.bool;
@@ -47,7 +48,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs.xfceUnstable // pkgs; [
+    environment.systemPackages = with pkgs.xfce // pkgs; [
       # Get GTK+ themes and gtk-update-icon-cache
       gtk2.out
 
@@ -78,11 +79,11 @@ in
       xfce4-settings
       xfce4-terminal
 
-      thunar
       #(thunar.override { thunarPlugins = cfg.thunarPlugins; })
+      thunar
       thunar-volman # TODO: drop
     ] ++ (if config.hardware.pulseaudio.enable
-          then [ xfce4-mixer /* -pulse */ xfce4-volumed-pulse ]
+          then [ /* xfce4-mixer-pulse */ xfce4-volumed-pulse ]
           else [ xfce4-mixer xfce4-volumed ])
       # TODO: NetworkManager doesn't belong here
       ++ optionals config.networking.networkmanager.enable [ networkmanagerapplet ]
@@ -125,6 +126,6 @@ in
     services.udisks2.enable = true;
     services.upower.enable = config.powerManagement.enable;
     services.gvfs.enable = true;
-    services.gvfs.package = pkgs.xfce.gvfs;
+    services.gvfs.package = pkgs.gvfs.override { samba = null; /* heavy */ };
   };
 }
