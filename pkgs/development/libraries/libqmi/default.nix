@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.freedesktop.org/wiki/Software/libqmi/;
+    homepage = https://www.freedesktop.org/wiki/Software/libqmi;
     description = "Modem protocol helper library";
     platforms = platforms.linux;
     license = licenses.gpl2;
