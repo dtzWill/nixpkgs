@@ -4,13 +4,14 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "vit";
-  version = "2.0.0b2";
+  version = "2.0.0b2-git";
 
   src = fetchFromGitHub {
     owner = "scottkosty";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "00c3lb3dp5ya1fnrfn1iq6brwzwl6qj2crrp3jc9ilsfag385xxp";
+  #  rev = "v${version}";
+    rev = "b276fbc18fa314e949af59337dc3a289c8f1bc4f";
+    sha256 = "0c8yzb8bl0dhyiilnsrhc19yb851spyhcmdfc21pgrnds50zlriv";
   };
 
   propagatedBuildInputs = [
