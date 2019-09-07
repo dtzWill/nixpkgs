@@ -61,7 +61,7 @@ let
     outputHash =
       # Downloaded AWT jars differ by platform.
       if stdenv.system == "x86_64-linux" then "1brxb0yarhhpa4gp87py14hkfidd79mpig3j111p14h4qlj1w9xk"
-      else if stdenv.system == "i686-linux" then (throw "updateme!"); # "0mjlyf6jvbis7nrm5d394sjv4hjw6k3753hr1nwdxk8skwc3ry08"
+      else if stdenv.system == "i686-linux" then (throw "updateme!") # "0mjlyf6jvbis7nrm5d394sjv4hjw6k3753hr1nwdxk8skwc3ry08"
       else throw "Unsupported platform";
   };
 
