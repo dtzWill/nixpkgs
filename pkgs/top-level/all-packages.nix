@@ -25825,4 +25825,7 @@ in
   unstick = callPackage ../os-specific/linux/unstick {};
 
   lowdown = callPackage ../tools/text/lowdown {};
+
+  nix-store-gcs-proxy = callPackage ../tools/nix/nix-store-gcs-proxy {};
+
 }
