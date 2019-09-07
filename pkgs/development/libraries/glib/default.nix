@@ -110,6 +110,8 @@ stdenv.mkDerivation rec {
     patchShebangs glib/gen-unicode-tables.pl
     patchShebangs tests/gen-casefold-txt.py
     patchShebangs tests/gen-casemap-txt.py
+    chmod +x docs/reference/gio/concat-files-helper.py
+    patchShebangs docs/reference/gio/concat-files-helper.py
   '';
 
   LIBELF_CFLAGS = optional stdenv.isFreeBSD "-I${libelf}";
