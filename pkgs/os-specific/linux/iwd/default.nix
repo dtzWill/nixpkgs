@@ -6,13 +6,13 @@ stdenv.mkDerivation rec {
   pname = "iwd";
 
   #version = "0.20";
-  version = "2019-09-04";
+  version = "2019-09-05";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "df32279a31c3ee1226c1c50cb81f7674d764a0fd";
-    sha256 = "1dw1arnxkgylh16f5qxw5gnhf602q5lpa0mmqpdbrvmd48w521js";
+    rev = "8a0c1483681dffce9df00704b823cdb13efc7664";
+    sha256 = "17dp2d1ihavanp17h6b57ligxv6pskzndiffd9iz56k8xnmi4qxs";
   };
 
   patches = [ ./revert-create-dirs-on-install.patch ];
