@@ -106,7 +106,7 @@ in {
       extraConfDefaults = mkOption {
         type = types.str;
         default = "";
-        description = "Extra config for <Defaults> section.";
+        description = "Extra config for <literal>&lt;Defaults&gt;</literal> section.";
       };
 
       extraConf = mkOption {
@@ -158,7 +158,7 @@ in {
             extraConf = mkOption {
               type = types.str;
               default = "";
-              description = "Extra config for <FileSystem> section.";
+              description = "Extra config for <literal>&lt;FileSystem&gt;</literal> section.";
             };
 
             troveSyncMeta = mkOption {
@@ -176,7 +176,7 @@ in {
             extraConfStorageHints = mkOption {
               type = types.str;
               default = "";
-              description = "Extra config for <StorageHints> section.";
+              description = "Extra config for <literal>&lt;StorageHints&gt;</literal> section.";
             };
           };
         }));
