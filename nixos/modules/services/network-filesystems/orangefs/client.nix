@@ -19,6 +19,17 @@ in {
       };
 
       fileSystems = mkOption {
+        description = ''
+          The orangefs file systems to be mounted.
+          This option is prefered over using <option>fileSystems</option> directly since
+          the pvfs client service needs to be running for the mounting.
+        '';
+
+        example = [{
+          mountPoint = "/orangefs";
+          target = "tcp://server:3334/orangefs";
+        }];
+
         type = with types; listOf (submodule ({ ... } : {
           options = {
 

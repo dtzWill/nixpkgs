@@ -128,9 +128,12 @@ in {
       };
 
       fileSystems = mkOption {
+        description = ''
+          These options will create the <literal>&lt;FileSystem&gt;</literal> sections of config file.
+        '';
         default = { orangefs = {}; };
-        defaultText = "{ orangefs = {}; }";
-        example = ''
+        defaultText = literalExample "{ orangefs = {}; }";
+        example = literalExample ''
           {
             fs1 = {
               id = 101;
