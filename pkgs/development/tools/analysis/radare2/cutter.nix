@@ -1,12 +1,16 @@
 { stdenv, fetchFromGitHub
 # nativeBuildInputs
-, qmake, pkgconfig
+, cmake, qmake, pkgconfig
 # Qt
 , qtbase, qtsvg
+, wrapQtAppsHook
 # buildInputs
 , r2-for-cutter
 , python3
-, wrapQtAppsHook }:
+# optional
+, graphviz
+, syntax-highlighting
+}:
 
 stdenv.mkDerivation rec {
   pname = "radare2-cutter";
@@ -30,17 +34,19 @@ stdenv.mkDerivation rec {
       --replace "include(lib_radare2.pri)" ""
   '';
 
-  nativeBuildInputs = [ qmake pkgconfig ];
-  buildInputs = [ qtbase qtsvg r2-for-cutter python3 wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake qmake pkgconfig ];
+  buildInputs = [ qtbase qtsvg r2-for-cutter python3 graphviz syntax-highlighting wrapQtAppsHook ];
 
-  qmakeFlags = [
-    "CONFIG+=link_pkgconfig"
-    "PKGCONFIG+=r_core"
-    # Leaving this enabled doesn't break build but generates errors
-    # at runtime (to console) about being unable to load needed bits.
-    # Disable until can be looked at.
-    "CUTTER_ENABLE_JUPYTER=false"
-  ];
+  #qmakeFlags = [
+  #  "CONFIG+=link_pkgconfig"
+  #  "PKGCONFIG+=r_core"
+  #  "CUTTER_ENABLE_GRAPHVIZ=true"
+  #  "CUTTER_ENABLE_KSYNTAXHIGHLIGHTING=true"
+  #  # Leaving this enabled doesn't break build but generates errors
+  #  # at runtime (to console) about being unable to load needed bits.
+  #  # Disable until can be looked at.
+  #  "CUTTER_ENABLE_JUPYTER=false"
+  #];
 
   enableParallelBuilding = true;
 
