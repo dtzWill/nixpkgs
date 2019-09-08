@@ -8,6 +8,7 @@
 , bubblewrap, efibootmgr, flashrom, tpm2-tss
 , plymouth /* offline */
 , diffutils
+, nixosTests
 }:
 
 # Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
@@ -76,10 +77,13 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "${placeholder "out"}/share/polkit-1/actions";
-
   postPatch = ''
-    patchShebangs .
+    patchShebangs \
+      libfwupd/generate-version-script.py \
+      meson_post_install.sh \
+      po/make-images \
+      po/make-images.sh \
+      po/test-deps
 
     # we cannot use placeholder in substituteAll
     # https://github.com/NixOS/nix/issues/1846
@@ -167,6 +171,10 @@ in stdenv.mkDerivation rec {
 
   FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
 
+  # error: “PolicyKit files are missing”
+  # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
+  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "/run/current-system/sw/share/polkit-1/actions";
+
   # TODO: wrapGAppsHook wraps efi capsule even though it is not elf
   dontWrapGApps = true;
   # so we need to wrap the executables manually
@@ -196,11 +204,15 @@ in stdenv.mkDerivation rec {
       "pki/fwupd-metadata/GPG-KEY-Linux-Vendor-Firmware-Service"
       "pki/fwupd-metadata/LVFS-CA.pem"
     ];
+
+    tests = {
+      installedTests = nixosTests.fwupd;
+    };
   };
 
   meta = with stdenv.lib; {
     homepage = https://fwupd.org/;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ jtojnar ];
     license = [ licenses.gpl2 ];
     platforms = platforms.linux;
   };
