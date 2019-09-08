@@ -1,6 +1,14 @@
 { mkDerivation, lib, cmake, xorg, plasma-framework, fetchurl
-, extra-cmake-modules, karchive, kwindowsystem, qtx11extras, kcrash, knewstuff }:
+, extra-cmake-modules, karchive, kcoreaddons, kwindowsystem, kcrash, knewstuff, libksysguard
+, qtbase, qtquickcontrols, qtquickcontrols2, qtgraphicaleffects, qtdeclarative, qtx11extras }:
 
+let
+  # satisfy compile-time checks for runtime QML deps
+  qmlPath = qmlLib: "${qmlLib}/${qtbase.qtQmlPrefix}";
+  qml2ImportPath = lib.concatMapStringsSep ":" qmlPath [
+    qtbase.bin qtdeclarative.bin qtquickcontrols qtquickcontrols2.bin qtgraphicaleffects plasma-framework
+  ];
+in
 mkDerivation rec {
   pname = "latte-dock";
   version = "0.9.2";
@@ -12,12 +20,22 @@ mkDerivation rec {
     name = "${name}.tar.xz";
   };
 
-  buildInputs = [ plasma-framework xorg.libpthreadstubs xorg.libXdmcp xorg.libSM ];
+  buildInputs = [
+    plasma-framework
+    xorg.libpthreadstubs xorg.libXdmcp xorg.libSM
+    karchive kcoreaddons kcrash knewstuff libksysguard kwindowsystem
+    qtbase qtx11extras qtquickcontrols qtquickcontrols2 qtgraphicaleffects qtdeclarative
+  ];
 
-  nativeBuildInputs = [ extra-cmake-modules cmake karchive kwindowsystem
-    qtx11extras kcrash knewstuff ];
+  nativeBuildInputs = [
+    cmake extra-cmake-modules
+  ];
 
-
+  # It seems that there is a bug in qtdeclarative: qmlplugindump fails
+  # because it can not find or load the Qt platform plugin "minimal".
+  # A workaround is to set QT_PLUGIN_PATH and QML2_IMPORT_PATH explicitly.
+  QT_PLUGIN_PATH = "${qtbase.bin}/${qtbase.qtPluginPrefix}";
+  QML2_IMPORT_PATH = "${qml2ImportPath}";
 
   meta = with lib; {
     description = "Dock-style app launcher based on Plasma frameworks";
