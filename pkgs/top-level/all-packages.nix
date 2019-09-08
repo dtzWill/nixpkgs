@@ -3443,6 +3443,8 @@ in
 
   gnome-builder = callPackage ../applications/editors/gnome-builder { };
 
+  gnome-keysign = callPackage ../tools/security/gnome-keysign { };
+
   gnome-podcasts = callPackage ../applications/audio/gnome-podcasts { };
 
   gnome-photos = callPackage ../applications/graphics/gnome-photos {
@@ -4456,9 +4458,9 @@ in
 
   nixnote2 = libsForQt5.callPackage ../applications/misc/nixnote2 { };
 
-  nodejs = hiPrio nodejs-10_x;
+  nodejs = hiPrio nodejs-12_x;
 
-  nodejs-slim = nodejs-slim-10_x;
+  nodejs-slim = nodejs-slim-12_x;
 
 
   nodejs-10_x = callPackage ../development/web/nodejs/v10.nix { };
@@ -5317,6 +5319,8 @@ in
   opl3bankeditor = libsForQt5.callPackage ../tools/audio/opl3bankeditor { };
 
   opn2bankeditor = callPackage ../tools/audio/opl3bankeditor/opn2bankeditor.nix { };
+
+  orangefs = callPackage ../tools/filesystems/orangefs { };
 
   os-prober = callPackage ../tools/misc/os-prober {};
 
@@ -7979,6 +7983,7 @@ in
       null
     else
       callPackage ../development/compilers/openjdk/openjfx/11.nix {
+        stdenv = gcc9Stdenv;
         openjdk = openjdk11;
       };
 
@@ -8009,6 +8014,7 @@ in
       callPackage ../development/compilers/openjdk/openjfx/12.nix {
         openjdk = openjdk12;
         bootjdk = openjdk11;
+        stdenv = gcc9Stdenv;
       };
 
   /* current JDK */

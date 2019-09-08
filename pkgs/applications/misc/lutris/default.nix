@@ -30,14 +30,14 @@ let
   ];
 
 in buildPythonApplication rec {
-  name = "lutris-original-${version}";
-  version = "0.5.2.2";
+  pname = "lutris-original";
+  version = "0.5.3";
 
   src = fetchFromGitHub {
     owner = "lutris";
     repo = "lutris";
     rev = "v${version}";
-    sha256 = "0v2p7cq43j62rs891dfr1r793ndbf585r0wlh2az8czl4gpsw867";
+    sha256 = "0n6xa3pnwvsvfipinrkbhxwjzfbw2cjpc9igv97nffcmpydmn5xv";
   };
 
   buildInputs = [

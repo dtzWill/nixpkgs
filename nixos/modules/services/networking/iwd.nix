@@ -156,6 +156,7 @@ in {
 
     systemd.tmpfiles.rules = [
       "d /var/lib/iwd 0700 root root -"
+      "d /var/lib/ead 0700 root root -"
     ];
 
     environment.etc."iwd/main.conf".text = generators.toINI {} cfg.mainConfig;

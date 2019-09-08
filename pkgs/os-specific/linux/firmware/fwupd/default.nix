@@ -5,9 +5,10 @@
 , ninja, gcab, gnutls, python3, wrapGAppsHook, json-glib, bash-completion
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
-, bubblewrap, efibootmgr, flashrom, tpm2-tools
+, bubblewrap, efibootmgr, flashrom, tpm2-tss
 , plymouth /* offline */
 , diffutils
+, nixosTests
 }:
 
 # Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
@@ -35,12 +36,12 @@ in stdenv.mkDerivation rec {
   pname = "fwupd";
   #version = "1.2.10";
 
-  version = "2019-08-23";
+  version = "2019-09-06";
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "b56571eceb810448a7058cb5fe23ea85425e5088";
-    sha256 = "07n33ddrscvbnal9bbdz0kxb7p92z4hcdqs4fglyhlc6xydqbhi6";
+    rev = "ccda6790f5447da007cd2fe56dcdcece5f3b6690";
+    sha256 = "1kfnl76wqw5f2g476arzgifgxk57sjn468qg6x9vh885rxn3fdjg";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
@@ -57,7 +58,7 @@ in stdenv.mkDerivation rec {
   buildInputs = [
     polkit libxmlb gusb sqlite libarchive libsoup elfutils gnu-efi libyaml
     libgudev colord gpgme libuuid gnutls glib-networking json-glib umockdev
-    bash-completion cairo freetype fontconfig pango efivar
+    bash-completion cairo freetype fontconfig pango efivar tpm2-tss
   ] ++ stdenv.lib.optionals haveDell [ libsmbios ];
 
   LC_ALL = "C.UTF-8"; # For po/make-images
@@ -76,10 +77,13 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "${placeholder "out"}/share/polkit-1/actions";
-
   postPatch = ''
-    patchShebangs .
+    patchShebangs \
+      libfwupd/generate-version-script.py \
+      meson_post_install.sh \
+      po/make-images \
+      po/make-images.sh \
+      po/test-deps
 
     # we cannot use placeholder in substituteAll
     # https://github.com/NixOS/nix/issues/1846
@@ -101,10 +105,6 @@ in stdenv.mkDerivation rec {
                 'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"' \
       --replace 'g_spawn_command_line_sync ("efibootmgr -v"' \
                 'g_spawn_command_line_sync ("${efibootmgr}/bin/efibootmgr -v"'
-
-    substituteInPlace plugins/uefi/fu-uefi-pcrs.c --replace \
-      'fu_common_find_program_in_path ("tpm2_pcrlist"' \
-      'fu_common_find_program_in_path ("${tpm2-tools}/bin/tpm2_pcrlist"'
 
     substituteInPlace src/fu-common.c --replace \
       'fu_common_find_program_in_path ("bwrap"' \
@@ -128,7 +128,7 @@ in stdenv.mkDerivation rec {
   # doCheck = true;
 
   preFixup = let
-    binPath = [ efibootmgr bubblewrap tpm2-tools ] ++ stdenv.lib.optional haveFlashrom flashrom;
+    binPath = [ efibootmgr bubblewrap ] ++ stdenv.lib.optional haveFlashrom flashrom;
   in
   ''
     gappsWrapperArgs+=(
@@ -171,6 +171,10 @@ in stdenv.mkDerivation rec {
 
   FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
 
+  # error: “PolicyKit files are missing”
+  # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
+  PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "/run/current-system/sw/share/polkit-1/actions";
+
   # TODO: wrapGAppsHook wraps efi capsule even though it is not elf
   dontWrapGApps = true;
   # so we need to wrap the executables manually
@@ -200,11 +204,15 @@ in stdenv.mkDerivation rec {
       "pki/fwupd-metadata/GPG-KEY-Linux-Vendor-Firmware-Service"
       "pki/fwupd-metadata/LVFS-CA.pem"
     ];
+
+    tests = {
+      installedTests = nixosTests.fwupd;
+    };
   };
 
   meta = with stdenv.lib; {
     homepage = https://fwupd.org/;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ jtojnar ];
     license = [ licenses.gpl2 ];
     platforms = platforms.linux;
   };

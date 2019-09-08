@@ -38,6 +38,8 @@ let
 
       runHook postBuild
     '';
+
+    NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ]; # glib 2.62.0
   } // args);
 
   # Fake build to pre-download deps into fixed-output derivation.
@@ -59,7 +61,7 @@ let
     outputHash =
       # Downloaded AWT jars differ by platform.
       if stdenv.system == "x86_64-linux" then "0d4msxswdav1xsfkpr0qd3xgqkcbxzf47v1zdy5jmg5w4bs6a78a"
-      else if stdenv.system == "i686-linux" then "0mjlyf6jvbis7nrm5d394sjv4hjw6k3753hr1nwdxk8skwc3ry08"
+      else if stdenv.system == "i686-linux" then (throw "updateme!") # "0mjlyf6jvbis7nrm5d394sjv4hjw6k3753hr1nwdxk8skwc3ry08"
       else throw "Unsupported platform";
   };
 

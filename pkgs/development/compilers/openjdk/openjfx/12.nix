@@ -38,6 +38,8 @@ let
 
       runHook postBuild
     '';
+
+    NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ]; # glib 2.62.0
   } // args);
 
   # Fake build to pre-download deps into fixed-output derivation.
