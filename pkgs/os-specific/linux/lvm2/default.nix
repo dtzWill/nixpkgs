@@ -3,7 +3,7 @@
 , enable_dmeventd ? false }:
 
 let
-  version = "2.03.05";
+  version = "2.03.01";
 in
 
 stdenv.mkDerivation {
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
     rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "106kqrd2j1rl96d4fxd3mi76w9w21yl4va3xpvrkyx2dk29lj00x";
+    sha256 = "0jlaswf1srdxiqpgpp97j950ddjds8z0kr4pbwmal2za2blrgvbl";
   };
 
   configureFlags = [
@@ -40,7 +40,8 @@ stdenv.mkDerivation {
       sed -i /DEFAULT_PROFILE_DIR/d conf/Makefile.in
     '';
 
-  enableParallelBuilding = true;
+  # gcc: error: ../../device_mapper/libdevice-mapper.a: No such file or directory
+  enableParallelBuilding = false;
 
   #patches = [ ./purity.patch ];
   patches = stdenv.lib.optionals stdenv.hostPlatform.isMusl [
@@ -78,9 +79,6 @@ stdenv.mkDerivation {
       mkdir -p $out/etc/systemd/system $out/lib/systemd/system-generators
       cp scripts/blk_availability_systemd_red_hat.service $out/etc/systemd/system
       cp scripts/lvm2_activation_generator_systemd_red_hat $out/lib/systemd/system-generators
-
-      substituteInPlace $out/lib/udev/rules.d/69-dm-lvm-metad.rules \
-        --replace $out/bin/systemd-run systemd-run
     '';
 
   meta = with stdenv.lib; {
