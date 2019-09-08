@@ -7981,7 +7981,7 @@ in
       null
     else
       callPackage ../development/compilers/openjdk/openjfx/11.nix {
-        stdenv = clangStdenv;
+        stdenv = gcc9Stdenv;
         openjdk = openjdk11;
       };
 
@@ -8012,7 +8012,7 @@ in
       callPackage ../development/compilers/openjdk/openjfx/12.nix {
         openjdk = openjdk12;
         bootjdk = openjdk11;
-        stdenv = clangStdenv;
+        stdenv = gcc9Stdenv;
       };
 
   /* current JDK */
