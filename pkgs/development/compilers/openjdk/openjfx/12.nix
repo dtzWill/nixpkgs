@@ -8,7 +8,7 @@ let
   repover = "${major}${update}+${build}";
   gradle_ = (gradleGen.override {
     java = bootjdk;
-  }).gradle_4_10;
+  }).gradle_5_3;
 
   makePackage = args: stdenv.mkDerivation ({
     version = "${major}${update}-${repover}";
@@ -60,8 +60,8 @@ let
     outputHashMode = "recursive";
     outputHash =
       # Downloaded AWT jars differ by platform.
-      if stdenv.system == "x86_64-linux" then "1z5qar5l28ja4pkf5l5m48xbv3x1yrnilsv9lpf2j3vkdk9h1nci"
-      else if stdenv.system == "i686-linux" then "0rbygvjc7w197fi5nxldqdrm6mpiyd3n45042g3gd4s5qk08spjd"
+      if stdenv.system == "x86_64-linux" then "1brxb0yarhhpa4gp87py14hkfidd79mpig3j111p14h4qlj1w9xk"
+      else if stdenv.system == "i686-linux" then (throw "updateme!") # "0rbygvjc7w197fi5nxldqdrm6mpiyd3n45042g3gd4s5qk08spjd"
       else throw "Unsupported platform";
   };
 
