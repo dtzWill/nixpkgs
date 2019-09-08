@@ -92,7 +92,7 @@ in
 
   nixpkgs-lint = callPackage ../../maintainers/scripts/nixpkgs-lint.nix { };
 
-  common-updater-scripts = callPackage ../common-updater/scripts.nix { };
+  common-updater-scripts = callPackage ../common-updater/scripts.nix { nix = nixUnstable; };
 
   ### Push NixOS tests inside the fixed point
 
