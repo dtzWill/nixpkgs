@@ -1,23 +1,24 @@
-From 3f636cba7e0cf2e1c0cad94ce4a62aacb65250ae Mon Sep 17 00:00:00 2001
+From e5cb78377d8c323a04b668f36986c362ce690427 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Tue, 23 Apr 2019 08:09:08 -0500
 Subject: [PATCH] paths
 
 ---
- data/meson.build              | 4 ++--
- data/pki/meson.build          | 8 ++++----
- data/remotes.d/meson.build    | 6 +++---
- meson.build                   | 6 ++++++
- plugins/dell-esrt/meson.build | 2 +-
- plugins/redfish/meson.build   | 2 +-
- plugins/uefi/meson.build      | 2 +-
- 7 files changed, 18 insertions(+), 12 deletions(-)
+ data/meson.build                | 4 ++--
+ data/pki/meson.build            | 8 ++++----
+ data/remotes.d/meson.build      | 6 +++---
+ meson.build                     | 6 ++++++
+ plugins/dell-esrt/meson.build   | 2 +-
+ plugins/redfish/meson.build     | 2 +-
+ plugins/thunderbolt/meson.build | 2 +-
+ plugins/uefi/meson.build        | 2 +-
+ 8 files changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/data/meson.build b/data/meson.build
-index c40d5683..92f49784 100644
+index 829c01f8..13fd1cf4 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -11,7 +11,7 @@ if get_option('daemon')
+@@ -12,7 +12,7 @@ if get_option('daemon')
  endif
  
  install_data(['daemon.conf'],
@@ -26,7 +27,7 @@ index c40d5683..92f49784 100644
  )
  
  install_data(['org.freedesktop.fwupd.metainfo.xml'],
-@@ -23,7 +23,7 @@ install_data(['org.freedesktop.fwupd.svg'],
+@@ -24,7 +24,7 @@ install_data(['org.freedesktop.fwupd.svg'],
  )
  
  install_data(['org.freedesktop.fwupd.conf'],
@@ -100,10 +101,10 @@ index a27c31ef..374e09b6 100644
 +  install_dir: join_paths(sysconfdir_install, 'fwupd', 'remotes.d'),
  )
 diff --git a/meson.build b/meson.build
-index 1c177e0b..d1c4405e 100644
+index d30a6432..ad748de7 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -145,6 +145,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
+@@ -146,6 +146,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
  mandir = join_paths(prefix, get_option('mandir'))
  localedir = join_paths(prefix, get_option('localedir'))
  
@@ -140,11 +141,24 @@ index 5c88504e..7706da71 100644
  )
  
  if get_option('tests')
+diff --git a/plugins/thunderbolt/meson.build b/plugins/thunderbolt/meson.build
+index 42718abf..bc815491 100644
+--- a/plugins/thunderbolt/meson.build
++++ b/plugins/thunderbolt/meson.build
+@@ -46,7 +46,7 @@ executable('tbtfwucli',
+ )
+ 
+ install_data(['thunderbolt.conf'],
+-  install_dir:  join_paths(sysconfdir, 'fwupd')
++  install_dir:  join_paths(sysconfdir_install, 'fwupd')
+ )
+ # we use functions from 2.52 in the tests
+ if get_option('tests') and umockdev.found() and gio.version().version_compare('>= 2.52')
 diff --git a/plugins/uefi/meson.build b/plugins/uefi/meson.build
-index b78e3cfc..127ba982 100644
+index e3d39431..1c4e8fd3 100644
 --- a/plugins/uefi/meson.build
 +++ b/plugins/uefi/meson.build
-@@ -81,7 +81,7 @@ executable(
+@@ -83,7 +83,7 @@ executable(
  )
  
  install_data(['uefi.conf'],
@@ -154,5 +168,5 @@ index b78e3cfc..127ba982 100644
  
  if get_option('tests')
 -- 
-2.23.0-rc1
+2.23.0
 
