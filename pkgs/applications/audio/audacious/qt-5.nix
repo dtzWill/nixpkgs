@@ -1,5 +1,5 @@
 {
-  mkDerivation, lib, fetchurl, fetchpatch,
+  mkDerivation, lib, fetchurl,
   gettext, pkgconfig,
   qtbase,
   alsaLib, curl, faad2, ffmpeg, flac, fluidsynth, gdk-pixbuf, lame, libbs2b,
@@ -10,35 +10,28 @@
 }:
 
 let
-  version = "3.9";
+  version = "3.10.1";
   sources = {
     "audacious-${version}" = fetchurl {
       url = "http://distfiles.audacious-media-player.org/audacious-${version}.tar.bz2";
-      sha256 = "0pmhrhsjhqnrq3zh4rhfys5jas53ph5ijkq010dxg1n779kl901d";
+      sha256 = "14vbkhld5hwh96j8p8hjq9ybvc2m060a1y8crz14i51wpd0fhrl3";
     };
 
     "audacious-plugins-${version}" = fetchurl {
       url = "http://distfiles.audacious-media-player.org/audacious-plugins-${version}.tar.bz2";
-      sha256 = "1f17r7ar0mngcf7z41s6xh073vjafw3i7iy9ijb0cd6bi48g5xwb";
+      sha256 = "0hi61825ayrwc4snwr76f2669k06fii3n8ll1szjk5zr65v1ghzf";
     };
-  };
-
-  qt510_plugins_patch = fetchpatch {
-    url = "https://github.com/audacious-media-player/audacious-plugins/commit/971f7ff7c3d8a0b9b420bf4fd19ab97755607637.patch";
-    sha256 = "15fy37syj9ygl2ibkkz3g3b9wd22vk9bjfmvqhhkpxphry2zwb17";
   };
 in
 
 mkDerivation {
   inherit version;
-  name = "audacious-qt5-${version}";
+  pname = "audacious-qt5";
 
   sourceFiles = lib.attrValues sources;
   sourceRoots = lib.attrNames sources;
 
   nativeBuildInputs = [ gettext pkgconfig ];
-
-  inherit qt510_plugins_patch;
 
   buildInputs = [
     # Core dependencies
@@ -62,10 +55,6 @@ mkDerivation {
     for (( i=0 ; i < ''${#sourceFiles[*]} ; i++ )); do
 
       (
-        # only patch the plugins
-        if [ "$i" -eq "1" ]; then
-          patches=( $qt510_plugins_patch )
-        fi
         src=''${sourceFiles[$i]}
         sourceRoot=''${sourceRoots[$i]}
         source $stdenv/setup
