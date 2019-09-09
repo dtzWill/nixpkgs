@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, intltool, pkgconfig
+{ stdenv, fetchurl, intltool, pkgconfig, meson, ninja
 , gnome3, glib, gtk3, ncurses, gobject-introspection, vala, libxml2, gnutls
 , gperf, pcre2
 }:
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     updateScript = gnome3.updateScript { packageName = pname; };
   };
 
-  nativeBuildInputs = [ gobject-introspection intltool pkgconfig vala gperf libxml2 ];
+  nativeBuildInputs = [ meson ninja gobject-introspection intltool pkgconfig vala gperf libxml2 ];
   buildInputs = [ glib gtk3 ncurses ];
 
   propagatedBuildInputs = [
