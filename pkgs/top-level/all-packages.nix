@@ -15515,7 +15515,7 @@ in
   bridge-utils = callPackage ../os-specific/linux/bridge-utils { };
 
   busybox = callPackage ../os-specific/linux/busybox { };
-  busybox-sandbox-shell = callPackage ../os-specific/linux/busybox/sandbox-shell.nix { };
+  busybox-sandbox-shell = pkgsMusl.callPackage ../os-specific/linux/busybox/sandbox-shell.nix { };
 
   cachefilesd = callPackage ../os-specific/linux/cachefilesd { };
 
