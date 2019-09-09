@@ -14,6 +14,9 @@
 , wrapGAppsHook
 , gst_all_1
 , gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ]
+, libgudev
+, libnotify
+, libsecret
 }:
 let
   pname = "rhythmbox";
@@ -46,6 +49,9 @@ in stdenv.mkDerivation rec {
 
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
+    libgudev
+    libnotify
+    libsecret
   ] ++ gst_plugins;
 
   enableParallelBuilding = true;
