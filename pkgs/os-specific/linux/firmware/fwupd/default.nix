@@ -11,10 +11,14 @@
 , nixosTests
 }:
 
-# Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
-
 let
-  python = python3.withPackages (p: with p; [ pygobject3 pycairo pillow ]);
+  python = python3.withPackages (p: with p; [
+    pygobject3
+    pycairo
+    pillow
+    setuptools
+  ]);
+
   installedTestsPython = python3.withPackages (p: with p; [ pygobject3 requests ]);
 
   fontsConf = makeFontsConf {
