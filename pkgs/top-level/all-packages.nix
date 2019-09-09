@@ -3647,6 +3647,7 @@ in
   gx = callPackage ../tools/package-management/gx { };
 
   gxi = callPackage ../applications/editors/gxi { };
+  tau = gxi; # TODO: move to aliases and rename gxi directory to tau
 
   gx-go = callPackage ../tools/package-management/gx/go { };
 
