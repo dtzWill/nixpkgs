@@ -14,6 +14,8 @@
 , wrapGAppsHook
 , gst_all_1
 , gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ]
+, grilo
+, grilo-plugins
 , libgudev
 , libnotify
 , libsecret
@@ -49,6 +51,8 @@ in stdenv.mkDerivation rec {
 
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
+    grilo
+    grilo-plugins
     libgudev
     libnotify
     libsecret
