@@ -7,6 +7,7 @@
 , enableGtk2Plugins ? false, gtk2 ? null
 , gst-plugins-base, gst-plugins-bad, woff2
 , libwpe
+, bubblewrap, libseccomp, xdg-dbus-proxy
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
@@ -95,6 +96,7 @@ stdenv.mkDerivation rec {
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
     # TODO: wpebackend-fdo
     # libwpe
+    bubblewrap libseccomp xdg-dbus-proxy
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
     ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender  ])
