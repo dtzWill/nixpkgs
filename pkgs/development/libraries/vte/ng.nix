@@ -15,6 +15,9 @@ vte.overrideAttrs (oldAttrs: rec {
   # vte-ng doesn't support meson yet, while vte now requires it.
   # Disable until vte-ng supports it.
   dontUseMesonConfigure = true;
+  # Similarly, disable ninja
+  dontUseNinjaBuild = true;
+  dontUseNinjaInstall = true;
 
   patches = [
     # Fix build with vala 0.44
