@@ -1,6 +1,6 @@
 { stdenv, fetchurl, desktop-file-utils, gettext,
   meson, ninja, pkgconfig, rustc, cargo, wrapGAppsHook,
-  cairo, glib, gtk3-x11, pango
+  cairo, glib, gtk3-x11, pango, libhandy
 }:
 
 stdenv.mkDerivation rec {
@@ -13,16 +13,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    meson ninja rustc cargo pkgconfig
+    meson ninja rustc cargo pkgconfig glib.dev
     gettext desktop-file-utils wrapGAppsHook
   ];
-  buildInputs = [ stdenv cairo glib gtk3-x11 pango ];
+  buildInputs = [ stdenv cairo glib gtk3-x11 pango libhandy ];
 
   enableParallelBuilding = true;
-
-  preConfigure = ''
-    export DESTDIR=/
-  '';
 
   meta = with stdenv.lib; {
     description = "GTK frontend for the xi text editor, written in Rust";
