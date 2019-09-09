@@ -6,7 +6,8 @@
   libcddb, libcdio, libcue, libjack2, libmad, libmms, libmodplug,
   libmowgli, libnotify, libogg, libpulseaudio, libsamplerate, libsidplayfp,
   libsndfile, libvorbis, libxml2, lirc, mpg123, neon, qtmultimedia, soxr,
-  wavpack
+  wavpack,
+  SDL, ncurses
 }:
 
 let
@@ -42,6 +43,7 @@ mkDerivation {
     libcdio libcue libjack2 libmad libmms libmodplug libmowgli
     libnotify libogg libpulseaudio libsamplerate libsidplayfp libsndfile
     libvorbis libxml2 lirc mpg123 neon qtmultimedia soxr wavpack
+    SDL ncurses
   ];
 
   configureFlags = [ "--enable-qt" "--disable-gtk" ];
