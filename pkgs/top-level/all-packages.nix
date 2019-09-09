@@ -25218,4 +25218,6 @@ in
 
   coz = callPackage ../development/tools/analysis/coz {};
 
+  wifi-password = callPackage ../os-specific/darwin/wifi-password {};
+
 }
