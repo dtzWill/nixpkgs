@@ -126,6 +126,6 @@ in
     services.udisks2.enable = true;
     services.upower.enable = config.powerManagement.enable;
     services.gvfs.enable = true;
-    services.gvfs.package = pkgs.gvfs.override { samba = null; /* heavy */ };
+    #services.gvfs.package = pkgs.gvfs.override { samba = null; /* heavy */ };
   };
 }
