@@ -12,6 +12,10 @@ vte.overrideAttrs (oldAttrs: rec {
     sha256 = "1r7d9m07cpdr4f7rw3yx33hmp4jmsk0dn5byq5wgksb2qjbc4ags";
   };
 
+  # vte-ng doesn't support meson yet, while vte now requires it.
+  # Disable until vte-ng supports it.
+  dontUseMesonConfigure = true;
+
   patches = [
     # Fix build with vala 0.44
     # See: https://github.com/thestinger/vte-ng/issues/32
