@@ -4,12 +4,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "gxi-${version}";
-  version = "0.5.5";
+  pname = "tau";
+  version = "0.9.2";
 
   src = fetchurl {
-    url = "https://github.com/Cogitri/gxi/releases/download/v${version}/gxi-${version}.tar.xz";
-    sha256 = "00h7a4qa60b0aljw1vr9pqk1i6g7yjhg9ysgjrsw70w6cfsl39hv";
+    url = "https://gitlab.gnome.org/World/Tau/uploads/fdf09640e3837ad509f5c4b1da0c26e3/tau-0.9.2.tar.xz";
+    sha256 = "07ahl1h72w9sggq1r24k4mlfn9hx5r90kvdlra170bgpdcsvg3g4";
   };
 
   nativeBuildInputs = [
