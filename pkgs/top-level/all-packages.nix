@@ -12573,6 +12573,8 @@ in
   libwnck2 = callPackage ../development/libraries/libwnck { };
   libwnck3 = callPackage ../development/libraries/libwnck/3.x.nix { };
 
+  libwpe = callPackage ../development/libraries/libwpe { };
+
   libwpd = callPackage ../development/libraries/libwpd { };
 
   libwpd_08 = callPackage ../development/libraries/libwpd/0.8.nix { };
