@@ -54,6 +54,7 @@ stdenv.mkDerivation rec {
   "-DPORT=GTK"
   "-DUSE_LIBHYPHEN=OFF"
   "-DENABLE_INTROSPECTION=ON"
+  "-DUSE_WPE_RENDERER=OFF"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
   ++ optional stdenv.isLinux "-DENABLE_GLES2=ON"
@@ -92,7 +93,8 @@ stdenv.mkDerivation rec {
     libintl libwebp enchant2 libnotify gnutls pcre nettle libidn libgcrypt woff2
     libxml2 libsecret libxslt harfbuzz libpthreadstubs libtasn1 p11-kit openjpeg
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
-    libwpe
+    # TODO: wpebackend-fdo
+    # libwpe
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
     ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender  ])
