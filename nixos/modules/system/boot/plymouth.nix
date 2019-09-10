@@ -120,7 +120,7 @@ in
 
       if [ -n "$imageDir" ]; then
         if [ -d "$imageDir" ]; then
-          cp -r -L "$imageDir" themes/
+          cp -f -r -L "$imageDir" themes/
         else
           echo "ImageDir from theme is set (=\"$imageDir\"), but doesn't exist"
           exit 1
