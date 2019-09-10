@@ -1,7 +1,7 @@
 { version, sha256, extraPreConfigure ? null }:
-{ lib, pkgs, stdenv, fetchFromGitHub, qtbase, qmake }:
+{ lib, mkDerivation, fetchFromGitHub, qtbase, qmake }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   passthru = {
     inherit version;
     inherit sha256;
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     cp UEFITool "$out"/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "UEFI firmware image viewer and editor";
     homepage = https://github.com/LongSoft/uefitool;
     license = licenses.bsd2;
