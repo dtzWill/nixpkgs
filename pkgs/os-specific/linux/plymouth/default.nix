@@ -1,18 +1,24 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, libxslt, docbook_xsl
+{ stdenv, fetchurl, fetchgit, autoreconfHook, intltool, pkgconfig, libxslt, docbook_xsl
 , gtk3, udev, systemd
 }:
 
 stdenv.mkDerivation rec {
-  name = "plymouth-${version}";
-  version = "0.9.4";
+  pname = "plymouth";
+  #version = "0.9.4";
+  version = "2019-09-09";
 
-  src = fetchurl {
-    url = "https://www.freedesktop.org/software/plymouth/releases/${name}.tar.xz";
-    sha256 = "0l8kg7b2vfxgz9gnrn0v2w4jvysj2cirp0nxads5sy05397pl6aa";
+  src = fetchgit {
+    url = "https://gitlab.freedesktop.org/plymouth/plymouth.git";
+    rev = "c97d52e2ade82b416e50c532630f5c6a8f303ab3";
+    sha256 = "1iv03ny71gnvws0jwk6ll9ndg1xh61q765ngfjphgz6iwbs59pdw";
   };
+  #src = fetchurl {
+  #  url = "https://www.freedesktop.org/software/plymouth/releases/${name}.tar.xz";
+  #  sha256 = "0l8kg7b2vfxgz9gnrn0v2w4jvysj2cirp0nxads5sy05397pl6aa";
+  #};
 
   nativeBuildInputs = [
-    autoreconfHook pkgconfig libxslt docbook_xsl
+    autoreconfHook intltool pkgconfig libxslt docbook_xsl
   ];
 
   buildInputs = [
