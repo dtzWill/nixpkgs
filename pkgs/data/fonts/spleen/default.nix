@@ -1,4 +1,4 @@
-{ lib, fetchurl, netbsd, xorg }:
+{ lib, fetchurl }:
 
 let
   pname = "spleen";
@@ -10,16 +10,12 @@ in fetchurl rec {
   downloadToTemp = true;
   recursiveHash = true;
   postFetch = ''
-    tar xf $downloadedFile --strip=1
+    tar xvf $downloadedFile --strip=1
     d="$out/share/fonts/X11/misc/spleen"
-    export PATH=$PATH:${xorg.bdftopcf}/bin
-    ${netbsd.makeMinimal}/bin/make pcf
-    gzip -n9 *.pcf
-    install -Dm644 *.pcf.gz  -t $d
-    install -Dm644 *.bdf -t $d
+    install -Dm644 *.{pcf.gz,psfu,bdf} -t $d
     install -m644 fonts.alias-spleen $d/fonts.alias
   '';
-  sha256 = "0mqfv6026d79wfbs7787ialqd2dy5f5nqs4kqhfnrxh6qbbjgs3g";
+  sha256 = "1daqqabww2s000r93arf5j8cyn8kkjwd88rq7x4qyngwx9bmpz5i";
 
   meta = with lib; {
     description = "Monospaced bitmap fonts";
