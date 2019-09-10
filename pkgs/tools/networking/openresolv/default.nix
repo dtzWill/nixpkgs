@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "openresolv-${version}";
-  version = "3.9.1";
+  version = "3.9.2";
 
   src = fetchurl {
     url = "mirror://roy/openresolv/${name}.tar.xz";
-    sha256 = "1wlzi88837rf4ygswmzpbcmgkbbjhn5n322n9q6ir6x367hygf1q";
+    sha256 = "0wyk9sl1xgvxjvj1v3nlgs79nykdr0b76k5zp3v6cm9fd10y5mql";
   };
 
   buildInputs = [ makeWrapper ];
