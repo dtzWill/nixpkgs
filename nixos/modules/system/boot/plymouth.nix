@@ -116,22 +116,13 @@ in
       cp -r -L ${themesEnv}/share/plymouth/themes/{text,details,${cfg.theme}} themes
 
       imageDir="$(sed -n 's,ImageDir *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
+      # If ImageDir refers to /etc/plymouth/themes or /nix/store/.../share/plymouth/themes, look in themesEnv instead
+      imageDir="''${imageDir/\/*\/plymouth/themes/${themesEnv}/share/plymouth/themes}"
       if [ -n "$imageDir" ]; then
-        if [[ ! $imageDir =~ ^/etc/plymouth/themes ]]; then
-          echo "Unsupported ImageDir (=$imageDir) in theme, must start with /etc/plymouth/themes/"
-          exit 1
-        fi
-        imageDirSuffix="''${imageDir#/etc/plymouth/themes}"
-        mappedImageDir="${themesEnv}/share/plymouth/themes/$imageDirSuffix"
-
-        if [ -d "$mappedImageDir" ]; then
-          if [ "$imageDirSuffix" != "${cfg.theme}" ]; then
-            cp -f -r -L "$mappedimageDir" themes/
-          else
-            echo "(ImageDir is set to theme directory, no extra copying required)"
-          fi
+        if [ -d "$imageDir" ]; then
+          cp -n -v -r -L "$imageDir" themes/
         else
-          echo "ImageDir from theme is set (=\"$imageDir\"), but doesn't exist"
+          echo "ImageDir from theme is set (translated as \"$imageDir\"), but doesn't exist"
           exit 1
         fi
       fi
