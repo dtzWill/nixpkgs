@@ -6,13 +6,13 @@ stdenv.mkDerivation rec {
   pname = "iwd";
 
   #version = "0.20";
-  version = "2019-09-08";
+  version = "2019-09-09";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "689fd7b92b3d5431bd33494c8f359dc6ff3bbfae";
-    sha256 = "11xh9bi21jdaavriki38mdmn9hm9kdrbp6cj8cijx08nlaqks8l8";
+    rev = "99483489bc4f63bf8fefab6e2f914e9ba3c7e0e1";
+    sha256 = "1c9rl4hk0wrqr0d5hixxyrc91yqpqy9ybw3zwkik77ybsg8dzm7p";
   };
 
   nativeBuildInputs = [
