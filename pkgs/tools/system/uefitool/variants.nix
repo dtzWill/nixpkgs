@@ -7,9 +7,8 @@ in rec {
     sha256 = "126ay3qk38z67pr1lz3nz8qjs1sr1csc4fa45j37a2wk2fbwwra4";
   };
   unstable = common rec {
-    #version = "t20190818";
-    version = "f2e343d8bf3ed393cf65fa03224e798317eb9ad8"; # unstable-2019-09-06";
-    sha256 = "0g005y0n5bncd9v8zm22yldx49gw31s3wdwmhr928k0bss3b9spp";
+    version = "t20190818";
+    sha256 = "007qf50gmam23kzmkr7vnv9n0mwd7p32ai67qmd4ga6qmjbq1acm";
   };
   old-engine = common rec {
     version = "0.26.0";
