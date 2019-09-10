@@ -1,5 +1,5 @@
 { version, sha256, extraPreConfigure ? null }:
-{ lib, mkDerivation, fetchFromGitHub, qtbase, qmake }:
+{ lib, mkDerivation, fetchFromGitHub, qtbase, qmake, cmake }:
 
 mkDerivation rec {
   passthru = {
@@ -17,16 +17,26 @@ mkDerivation rec {
   };
 
   buildInputs = [ qtbase ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ cmake qmake ];
 
-  preConfigure = ''
-    export qmakeFlags="$qmakeFlags uefitool.pro"
-    ${lib.optionalString (extraPreConfigure != null) extraPreConfigure}
+  dontUseQmakeConfigure = true;
+  dontUseCmakeConfigure = true;
+
+  postPatch = ''
+    patchShebangs ./unixbuild.sh
+    sed -i '/zip /d' ./unixbuild.sh
+  '';
+  # TODO: run hooks or don't override entire phase...?
+
+  configurePhase = ''
+    ./unixbuild.sh --configure
+  '';
+  buildPhase = ''
+    ./unixbuild.sh --build
   '';
 
   installPhase = ''
-    mkdir -p "$out"/bin
-    cp UEFITool "$out"/bin
+    install -Dm755 -t $out/bin UEFITool/UEFITool UEFIExtract/UEFIExtract UEFIFind/UEFIFind
   '';
 
   meta = with lib; {
