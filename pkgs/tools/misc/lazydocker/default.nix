@@ -2,13 +2,13 @@
 
 buildGoPackage rec {
   pname = "lazydocker";
-  version = "0.7";
+  version = "0.7.4";
 
   src = fetchFromGitHub {
     owner = "jesseduffield";
     repo = "lazydocker";
     rev = "v${version}";
-    sha256 = "0vai88g31yf55988paqzs7fqlxgi0ydrsgszzjig9ai3x9c52xim";
+    sha256 = "03l6gs4p9p8g0ai6wqg9024rp0pd13m0b9y3sy1ww5afwxb82br6";
   };
 
   goPackagePath = "github.com/jesseduffield/lazydocker";
