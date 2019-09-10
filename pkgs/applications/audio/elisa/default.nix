@@ -9,16 +9,16 @@
 }:
 
 mkDerivation rec {
-  name = "elisa-${version}";
+  pname = "elisa";
   #version = "0.4.2";
-  version = "unstable-2019-09-08";
+  version = "unstable-2019-09-09";
 
   src = fetchFromGitHub {
     owner  = "KDE";
     repo   = "elisa";
     #rev    = "v${version}";
-    rev = "a1ca107d948fff02d4b7e58cb12f1b03843f1e36";
-    sha256 = "1p83sh2jab6cqnr0adhr64kmgs64gmpz6yh9jrr10akm44cb4nnq";
+    rev = "7d815c9fa3803f06d592d9885fa8bf6031d51b7e";
+    sha256 = "0hsdgmqldjfiwc3pdgck4s9i8pr2s37r6bm1hswgrgsb5hxx563s";
   };
 
   buildInputs = [ vlc ];
