@@ -2718,7 +2718,7 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xorgserver = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, openssl, libX11, libXau, libXaw, libxcb, xcbutil, xcbutilwm, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, libXdmcp, libXfixes, libxkbfile, libXmu, libXpm, libXrender, libXres, libXt }: stdenv.mkDerivation {
-    name = "xorg-server-1.20.5";
+    name = "xorg-server-1.20.5-git";
     builder = ./builder.sh;
     src = fetchurl {
       url = mirror://xorg/individual/xserver/xorg-server-1.20.5.tar.bz2;
