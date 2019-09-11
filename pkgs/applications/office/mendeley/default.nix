@@ -1,4 +1,5 @@
 { fetchurl, stdenv, dpkg, which
+, mkDerivation
 , makeWrapper
 , alsaLib
 , desktop-file-utils
@@ -90,7 +91,7 @@ let
 
 in
 
-stdenv.mkDerivation {
+mkDerivation {
   name = "mendeley-${version}";
 
   src = fetchurl {
