@@ -1,4 +1,4 @@
-{ mkDerivation, lib, cmake, xorg, plasma-framework, fetchurl
+{ mkDerivation, lib, cmake, xorg, plasma-framework, fetchurl, fetchFromGitHub
 , extra-cmake-modules, karchive, kcoreaddons, kwindowsystem, kcrash, knewstuff, libksysguard
 , qtbase, qtquickcontrols, qtquickcontrols2, qtgraphicaleffects, qtdeclarative, qtx11extras }:
 
@@ -11,14 +11,21 @@ let
 in
 mkDerivation rec {
   pname = "latte-dock";
-  version = "0.9.2";
+  #version = "0.9.2";
+  version = "unstable-2019-09-11";
   name = "${pname}-${version}";
 
-  src = fetchurl {
-    url = "https://download.kde.org/stable/${pname}/${name}.tar.xz";
-    sha256 = "0xpwyqhry9hmk1k5z3r0q07czmwv6ca89sv4v5mlm42mlhpy0qzs";
-    name = "${name}.tar.xz";
+  src = fetchFromGitHub {
+    owner = "KDE";
+    repo = pname;
+    rev = "ac11a3a2d7d669d20ad16e8ce745032845704df1";
+    sha256 = "16m4gixbdcnc7y94ayax8b9ih0sizgpvvbn8ckj939md8s85zz5i";
   };
+  #src = fetchurl {
+  #  url = "https://download.kde.org/stable/${pname}/${name}.tar.xz";
+  #  sha256 = "0xpwyqhry9hmk1k5z3r0q07czmwv6ca89sv4v5mlm42mlhpy0qzs";
+  #  name = "${name}.tar.xz";
+  #};
 
   buildInputs = [
     plasma-framework
