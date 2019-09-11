@@ -45,6 +45,8 @@ buildPythonPackage rec {
     "build_lazy_extractors"
   ];
 
+  patches = [ ./quick-youtube-tempfix.patch ];
+
   postPatch = ''
     patch -p1 <<EOF
     index 3282f84ee..0fcac8c2b 100644
