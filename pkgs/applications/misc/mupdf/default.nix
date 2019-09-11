@@ -14,12 +14,12 @@ let
 
 
 in stdenv.mkDerivation rec {
-  version = "1.15.0";
-  name = "mupdf-${version}";
+  version = "1.16.1";
+  pname = "mupdf";
 
   src = fetchurl {
-    url = "https://mupdf.com/downloads/archive/${name}-source.tar.gz";
-    sha256 = "0wflzx1v66lfdn0cvlw1mnlb3ghc2m8np25pg0c2s6fww0z7grlz";
+    url = "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
+    sha256 = "0iz4ickj52fxjp8crg573kjrl4viq279g589isdpgpckslysf7g7";
   };
 
   patches =
