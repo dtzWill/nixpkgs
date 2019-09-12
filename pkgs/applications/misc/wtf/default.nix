@@ -21,13 +21,9 @@ buildGoModule rec {
 
   nativeBuildInputs = [ which ];
 
-  # As per https://github.com/wtfutil/wtf/issues/501, one of the
-  # dependencies can't be fetched, so vendored dependencies should
-  # be used instead
-  modBuildPhase = ''
-    runHook preBuild
-    make build -mod=vendor
-    runHook postBuild
+  postInstall = ''
+    mv "$out/bin/wtf" "$out/bin/wtfutil"
+    wrapProgram "$out/bin/wtfutil" --prefix PATH : "${ncurses.dev}/bin"
   '';
 
   meta = with lib; {
