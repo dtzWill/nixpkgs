@@ -2,7 +2,7 @@
 
 let
   pname = "spleen";
-  version = "1.2.0";
+  version = "1.3.0";
 in fetchurl rec {
   name = "${pname}-${version}";
   url = "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
@@ -15,7 +15,7 @@ in fetchurl rec {
     install -Dm644 *.{pcf.gz,psfu,bdf} -t $d
     install -m644 fonts.alias-spleen $d/fonts.alias
   '';
-  sha256 = "1daqqabww2s000r93arf5j8cyn8kkjwd88rq7x4qyngwx9bmpz5i";
+  sha256 = "0bgmvvdak60fy1l1h3z77mf9qpwasgdxkxydymqbafsf1xmw1264";
 
   meta = with lib; {
     description = "Monospaced bitmap fonts";
