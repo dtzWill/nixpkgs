@@ -18,6 +18,8 @@
 , pytest
 , glibcLocales
 , nose
+, jsonschema
+, setuptools
 , send2trash
 , CoreAudio
 # This little flag adds a huge number of dependencies, but we assume that
@@ -84,7 +86,7 @@ buildPythonApplication rec {
 
     propagatedBuildInputs = [
       pyqtwebengine sqlalchemy beautifulsoup4 send2trash pyaudio requests decorator
-      markdown
+      markdown jsonschema setuptools
     ]
       ++ lib.optional plotsSupport matplotlib
       ++ lib.optional stdenv.isDarwin [ CoreAudio ]
