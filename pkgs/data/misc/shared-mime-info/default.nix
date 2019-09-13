@@ -1,17 +1,16 @@
-{stdenv, fetchurl, pkgconfig, gettext, perlPackages, itstool
+{stdenv, fetchurl, pkgconfig, gettext, perlPackages, intltool
 , libxml2, glib}:
 
-let version = "1.13.1"; in
+let version = "1.12"; in
 stdenv.mkDerivation rec {
-  pname = "shared-mime-info";
-  inherit version;
+  name = "shared-mime-info-${version}";
 
   src = fetchurl {
-    url = "https://gitlab.freedesktop.org/xdg/${pname}/uploads/5349e18c86eb96eee258a5c1f19122d0/${pname}-${version}.tar.xz";
-    sha256 = "1bic8z5nz08qxv1x6zlxnx2j4cmlzm12kygrn3rrh1djqxdhma3f";
+    url = "https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/80c7f1afbcad2769f38aeb9ba6317a51/shared-mime-info-1.12.tar.xz";
+    sha256 = "0gj0pp36qpsr9w6v4nywnjpcisadwkndapqsjn0ny3gd0zzg1chq";
   };
 
-  nativeBuildInputs = [ pkgconfig gettext itstool ] ++ (with perlPackages; [ perl XMLParser ]);
+  nativeBuildInputs = [ pkgconfig gettext intltool ] ++ (with perlPackages; [ perl XMLParser ]);
   buildInputs = [ libxml2 glib ];
 
   meta = with stdenv.lib; {
