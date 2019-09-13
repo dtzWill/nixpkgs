@@ -55,7 +55,6 @@ stdenv.mkDerivation rec {
   "-DPORT=GTK"
   "-DUSE_LIBHYPHEN=OFF"
   "-DENABLE_INTROSPECTION=ON"
-  "-DUSE_WPE_RENDERER=OFF"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
   ++ optional stdenv.isLinux "-DENABLE_GLES2=ON"
