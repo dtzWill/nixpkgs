@@ -123,7 +123,7 @@ EOF
     ];
 
   preConfigure = ''
-    export NINJAFLAGS=-j$NIX_BUILD_CORES
+    export NINJAFLAGS="-j$NIX_BUILD_CORES -l$NIX_BUILD_CORES"
 
     if [ -d "$PWD/tools/qmake" ]; then
         QMAKEPATH="$PWD/tools/qmake''${QMAKEPATH:+:}$QMAKEPATH"
