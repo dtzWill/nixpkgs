@@ -5,6 +5,7 @@
 , ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
 , docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
 , fetchFromGitHub
+, mobile-broadband-provider-info
 , openconnect, curl, meson, ninja, libpsl, libredirect }:
 
 let
@@ -91,6 +92,7 @@ in stdenv.mkDerivation rec {
   buildInputs = [
     systemd libselinux audit libpsl libuuid polkit ppp libndp curl
     bluez5 dnsmasq gobject-introspection modemmanager readline newt libsoup jansson
+    mobile-broadband-provider-info
   ];
 
   propagatedBuildInputs = [ dbus-glib gnutls libgcrypt ];
