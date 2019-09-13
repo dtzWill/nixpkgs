@@ -1,5 +1,5 @@
 { lib, stdenv, fetchurl, pkgconfig, autoreconfHook
-, libsndfile, libtool, makeWrapper
+, libsndfile, libtool, makeWrapper, perlPackages
 , xorg, libcap, alsaLib, glib, gnome3
 , avahi, libjack2, libasyncns, lirc, dbus
 , sbc, bluez5, udev, openssl, fftwFloat
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
+  nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper perlPackages.perl perlPackages.XMLParser ];
 
   propagatedBuildInputs =
     lib.optionals stdenv.isLinux [ libcap ];
