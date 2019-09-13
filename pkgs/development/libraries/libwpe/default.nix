@@ -11,5 +11,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [ libxkbcommon libGL xorg.libX11 ];
+  buildInputs = [ libGL ];
+  propagatedBuildInputs = [ libxkbcommon xorg.libX11 ];
 }
