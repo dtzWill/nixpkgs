@@ -12581,6 +12581,7 @@ in
   libwnck3 = callPackage ../development/libraries/libwnck/3.x.nix { };
 
   libwpe = callPackage ../development/libraries/libwpe { };
+  wpebackend-fdo = callPackage ../development/libraries/wpebackend-fdo { };
 
   libwpd = callPackage ../development/libraries/libwpd { };
 
