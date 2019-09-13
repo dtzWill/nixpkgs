@@ -482,6 +482,8 @@ in {
         mkdir -m 755 -p ${stateDirs}
         mkdir -m 700 -p /etc/NetworkManager/dispatcher.d/{no-wait.d,pre-down.d,pre-up.d}
       '';
+
+      aliases = [ "dbus-org.freedesktop.NetworkManager.service" ];
     };
 
     systemd.services.NetworkManager-wait-online = {
@@ -509,6 +511,7 @@ in {
 
       # useful binaries for user-specified hooks
       path = [ pkgs.iproute pkgs.utillinux pkgs.coreutils ];
+      aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
     # Turn off NixOS' network management
