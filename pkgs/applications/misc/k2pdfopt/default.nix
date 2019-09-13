@@ -30,18 +30,14 @@ stdenv.mkDerivation rec {
     cp -r ${v251a_src}/* $sourceRoot
   '';
 
-  patches = [ ./k2pdfopt.patch ];
+  patches = [ ./k2pdfopt.patch ./k2pdfopt-mupdf-1.16.1.patch ];
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs =
   let
     mupdf_modded = mupdf.overrideAttrs (attrs: {
-      # Excluded the pdf-*.c files, since they mostly just broke the #includes
-      prePatch = ''
-        cp ${src}/mupdf_mod/{font,stext-device,string}.c source/fitz/
-        cp ${src}/mupdf_mod/font-win32.c source/pdf/
-      '';
+      patches = attrs.patches ++ [ ./mupdf.patch ]; # Last verified with mupdf 1.16.1
     });
 
     leptonica_modded = leptonica.overrideAttrs (attrs: {
