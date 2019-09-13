@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ lua ];
+  buildInputs = [ (lua.withPackages (p: with p; [ luafilesystem ])) ];
 
   installPhase = ''
     install -Dm755 z.lua $out/bin/z
