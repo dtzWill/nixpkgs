@@ -3212,6 +3212,8 @@ in {
     cudaSupport = false;
   };
 
+  pythondialog = callPackage ../development/python-modules/pythondialog { };
+
   python2-pythondialog = callPackage ../development/python-modules/python2-pythondialog { };
 
   pyRFC3339 = callPackage ../development/python-modules/pyrfc3339 { };
