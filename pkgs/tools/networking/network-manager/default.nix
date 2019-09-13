@@ -13,15 +13,15 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "1.21.1pre-2019-09-06";
+  version = "1.21.1pre-2019-09-13";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "11cf082a6233a5c2f17da1b49457a66266062678";
-    sha256 = "162l8d7rd074gq2wfrzg54jac5wzwmajdx0wjdmll6c0jp2b4a3p";
+    rev = "8cd8a5fbed8732786e5bb1640920c0ea23e559f7";
+    sha256 = "0d28jixrcdkphqi60v0j2mqf9lw3z7bxlsn6x42pz4rr9l0sbgan";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -59,9 +59,9 @@ in stdenv.mkDerivation rec {
     # Allow using iwd when configured to do so
     "-Diwd=true"
     ## #"-Dpolkit_agent=true"
-    ## "-Dpolkit=true"
+    "-Dpolkit=true"
     ## "-Dconfig_dns_rc_manager_default=resolvconf"
-    ## "-Debpf=true"
+    "-Debpf=true"
     "-Dlibaudit=yes-disabled-by-default"
     ## "-Dsession_tracking_consolekit=false"
   ];
