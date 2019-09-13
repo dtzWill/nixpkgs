@@ -125,8 +125,9 @@ in stdenv.mkDerivation rec {
   postInstall = ''
     # systemd in NixOS doesn't use `systemctl enable`, so we need to establish
     # aliases ourselves.
-    ln -s $out/etc/systemd/system/NetworkManager-dispatcher.service $out/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
-    ln -s $out/etc/systemd/system/NetworkManager.service $out/etc/systemd/system/dbus-org.freedesktop.NetworkManager.service
+    # Relative symlinks are treated differently than linking outside service path
+    ln -sr $out/etc/systemd/system/{NetworkManager-dispatcher.service,dbus-org.freedesktop.nm-dispatcher.service}
+    ln -sr $out/etc/systemd/system/{NetworkManager.service,dbus-org.freedesktop.NetworkManager.service}
 
     # Add the legacy service name from before #51382 to prevent NetworkManager
     # from not starting back up:
