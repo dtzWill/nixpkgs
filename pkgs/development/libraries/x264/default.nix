@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "x264";
-  version = "20190517-2245";
+  version = "20190912-2245";
 
   src = fetchurl {
     url = "https://download.videolan.org/x264/snapshots/x264-snapshot-${version}-stable.tar.bz2";
-    sha256 = "1xv41z04km3rf374xk3ny7v8ibr211ph0j5am0909ln63mphc48f";
+    sha256 = "06kphlclfwv166ncfm1dwbxbi1b5g202mqw2yn7l4nlsm4svxkiy";
   };
 
   postPatch = ''
