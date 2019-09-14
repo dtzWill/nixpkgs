@@ -83,9 +83,9 @@ let
   '';
 
   dispatcherTypesSubdirMap = {
-    "basic" = "";
-    "pre-up" = "pre-up.d/";
-    "pre-down" = "pre-down.d/";
+    basic = "";
+    pre-up = "pre-up.d/";
+    pre-down = "pre-down.d/";
   };
 
   macAddressOpt = mkOption {
@@ -198,7 +198,7 @@ in {
 
       dhcp = mkOption {
         type = types.enum [ "dhclient" "dhcpcd" "internal" ];
-        default = "dhclient";
+        default = "internal";
         description = ''
           Which program (or internal library) should be used for DHCP.
         '';
@@ -472,7 +472,7 @@ in {
 
     systemd.packages = cfg.packages;
 
-    systemd.services."NetworkManager" = {
+    systemd.services.NetworkManager = {
       wantedBy = [ "network.target" ];
       restartTriggers = [ configFile ];
 
