@@ -1,18 +1,17 @@
 { stdenv, lib, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
-  name = "smemstat-${version}";
+  pname = "smemstat";
   version = "0.02.05";
   src = fetchurl {
-    url = "https://kernel.ubuntu.com/~cking/tarballs/smemstat/smemstat-${version}.tar.xz";
+    url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
     sha256 = "00586w6f1cq7rayv6galh9qxk7wrz62zbha9qhrb1cf85axchvbw";
   };
   buildInputs = [ ncurses ];
-  installFlags = [ "DESTDIR=$(out)" ];
-  postInstall = ''
-    mv $out/usr/* $out
-    rm -r $out/usr
-  '';
+  installFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/share/man/man8"
+  ];
   meta = with lib; {
     description = "Memory usage monitoring tool";
     homepage = https://kernel.ubuntu.com/~cking/smemstat/;

@@ -4,14 +4,13 @@ stdenv.mkDerivation rec {
   pname = "fnotifystat";
   version = "0.02.03";
   src = fetchurl {
-    url = "https://kernel.ubuntu.com/~cking/tarballs/fnotifystat/fnotifystat-${version}.tar.gz";
+    url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.gz";
     sha256 = "1b5s50dc8ag6k631nfp09chrqfpwai0r9ld822xqwp3qlszp0pv9";
   };
-  installFlags = [ "DESTDIR=$(out)" ];
-  postInstall = ''
-    mv $out/usr/* $out
-    rm -r $out/usr
-  '';
+  installFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/share/man/man8"
+  ];
   meta = with lib; {
     description = "File activity monitoring tool";
     homepage = https://kernel.ubuntu.com/~cking/fnotifystat/;
