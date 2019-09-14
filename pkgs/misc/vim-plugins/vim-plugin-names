@@ -176,6 +176,8 @@ ledger/vim-ledger
 lepture/vim-jinja
 lervag/vimtex
 lfilho/cosco.vim
+lifepillar/vim-mucomplete
+lilydjwg/colorizer
 liuchengxu/vista.vim
 lvht/tagbar-markdown
 LnL7/vim-nix
