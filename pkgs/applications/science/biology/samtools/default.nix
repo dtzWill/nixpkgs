@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = http://www.htslib.org/;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mimadrid ];
+    maintainers = [ maintainers.mimame ];
   };
 }
