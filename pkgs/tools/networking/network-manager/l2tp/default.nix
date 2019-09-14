@@ -3,16 +3,15 @@
 , gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret
 , withGnome ? true, networkmanagerapplet }:
 
-let pname = "NetworkManager-l2tp"; in
 stdenv.mkDerivation rec {
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";
-  #pname = "NetworkManager-l2tp";
+  pname = "NetworkManager-l2tp";
   version = "1.2.12";
 
   src = fetchFromGitHub {
     owner = "nm-l2tp";
     repo = "network-manager-l2tp";
-    rev = "${version}";
+    rev = version;
     sha256 = "0cq07kvlm98s8a7l4a3zmqnif8x3307kv7n645zx3f1r7x72b8m4";
   };
 
