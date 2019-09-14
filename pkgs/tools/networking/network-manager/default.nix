@@ -122,19 +122,6 @@ in stdenv.mkDerivation rec {
     ln -s $PWD/libnm/libnm.so.0 ${placeholder "out"}/lib/libnm.so.0
   '';
 
-  postInstall = ''
-    # systemd in NixOS doesn't use `systemctl enable`, so we need to establish
-    # aliases ourselves.
-    # Relative symlinks are treated differently than linking outside service path
-    ln -sr $out/etc/systemd/system/{NetworkManager-dispatcher.service,dbus-org.freedesktop.nm-dispatcher.service}
-    ln -sr $out/etc/systemd/system/{NetworkManager.service,dbus-org.freedesktop.NetworkManager.service}
-
-    # Add the legacy service name from before #51382 to prevent NetworkManager
-    # from not starting back up:
-    # TODO: remove this once 19.10 is released
-    ln -s $out/etc/systemd/system/NetworkManager.service $out/etc/systemd/system/network-manager.service
-  '';
-
   passthru = {
     updateScript = gnome3.updateScript {
       packageName = pname;
