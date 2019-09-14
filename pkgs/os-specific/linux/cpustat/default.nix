@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
     homepage = https://kernel.ubuntu.com/~cking/cpustat/;
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [ dtzWill ];
   };
 }
