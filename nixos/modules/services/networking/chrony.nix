@@ -78,14 +78,10 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.chrony ];
 
-    users.groups = singleton
-      { name = "chrony";
-        gid = config.ids.gids.chrony;
-      };
+    users.groups.chrony.gid = config.ids.gids.chrony;
 
-    users.users = singleton
-      { name = "chrony";
-        uid = config.ids.uids.chrony;
+    users.users.chrony =
+      { uid = config.ids.uids.chrony;
         group = "chrony";
         description = "chrony daemon user";
         home = stateDir;
