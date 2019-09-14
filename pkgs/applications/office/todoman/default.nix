@@ -20,7 +20,7 @@ buildPythonApplication rec {
 
   buildInputs = [ glibcLocales ];
   propagatedBuildInputs = with python3.pkgs;
-    [ atomicwrites click click-log configobj humanize icalendar parsedatetime
+    [ atomicwrites click click-log click-repl configobj humanize icalendar parsedatetime
       python-dateutil pyxdg tabulate urwid ];
 
   checkInputs = with python3.pkgs;
