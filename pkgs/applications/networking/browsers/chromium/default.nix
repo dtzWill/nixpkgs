@@ -42,7 +42,7 @@ in let
     browser = callPackage ./browser.nix { inherit channel enableWideVine; };
 
     plugins = callPackage ./plugins.nix {
-      inherit enablePepperFlash enableWideVine;
+      inherit enablePepperFlash;
     };
   };
 
@@ -59,7 +59,8 @@ in let
     unpackCmd = let
       chan = if upstream-info.channel == "dev"    then "chrome-unstable"
         else if upstream-info.channel == "stable" then "chrome"
-        else "chrome-${upstream-info.channel}";
+        else if upstream-info.channel == "beta" then "chrome-beta"
+        else throw "Unknown chromium channel.";
     in ''
       mkdir -p plugins
       ar p "$src" data.tar.xz | tar xJ -C plugins --strip-components=4 \
@@ -167,13 +168,7 @@ in stdenv.mkDerivation {
   '';
 
   inherit (chromium.browser) packageName;
-  meta = chromium.browser.meta // {
-    broken = if enableWideVine then
-          builtins.trace "WARNING: WideVine is not functional, please only use for testing"
-             true
-        else false;
-  };
-
+  meta = chromium.browser.meta;
   passthru = {
     inherit (chromium) upstream-info browser;
     mkDerivation = chromium.mkChromiumDerivation;
