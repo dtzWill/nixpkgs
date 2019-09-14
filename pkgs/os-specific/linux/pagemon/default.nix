@@ -1,25 +1,23 @@
-{ stdenv, fetchFromGitHub, ncurses }:
+{ stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
-  name = "pagemon-${version}";
+  pname = "pagemon";
   version = "0.01.16";
 
-  src = fetchFromGitHub {
-    sha256 = "0fpxjw6sg6r9r7yy03brri37wmmc32rhzayzlmwgmzay8rifmm7i";
-    rev = "V${version}";
-    repo = "pagemon";
-    owner = "ColinIanKing";
+  src = fetchurl {
+    url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "058qllbsgdvhdcyqrwp0xr1hbasfrbbnnzqvbqn47fcck5nc15xp";
   };
 
   buildInputs = [ ncurses ];
 
-  makeFlags = [
-    "BINDIR=$(out)/bin"
-    "MANDIR=$(out)/share/man/man8"
+  installFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/share/man/man8"
   ];
 
   meta = with stdenv.lib; {
-    inherit (src.meta) homepage;
+    homepage = "https://kernel.ubuntu.com/~cking/pagemon/";
     description = "Interactive memory/page monitor for Linux";
     longDescription = ''
       pagemon is an ncurses based interactive memory/page monitoring tool
@@ -33,5 +31,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ dtzWill ];
   };
 }
