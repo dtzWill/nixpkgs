@@ -3534,6 +3534,8 @@ in {
 
   icalendar = callPackage ../development/python-modules/icalendar { };
 
+  ics = callPackage ../development/python-modules/ics { };
+
   ifaddr = callPackage ../development/python-modules/ifaddr { };
 
   imagecorruptions = callPackage ../development/python-modules/imagecorruptions { };
