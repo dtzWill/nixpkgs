@@ -1,6 +1,8 @@
 { stdenv, fetchFromGitHub, lua }:
 
-stdenv.mkDerivation rec {
+let
+  lualfs = lua.withPackages (p: with p; [ luafilesystem ]);
+in stdenv.mkDerivation rec {
   pname = "z-lua";
   version = "1.7.3";
 
@@ -20,7 +22,13 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ (lua.withPackages (p: with p; [ luafilesystem ])) ];
+  postPatch = ''
+    substituteInPlace z.lua --replace \
+      '.. os.interpreter() ..' \
+      '.. "${lualfs}/bin/lua" ..'
+  '';
+
+  buildInputs = [ lualfs ];
 
   installPhase = ''
     install -Dm755 z.lua $out/bin/z
