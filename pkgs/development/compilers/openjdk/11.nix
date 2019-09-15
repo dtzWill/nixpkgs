@@ -60,7 +60,7 @@ let
         "--with-build-number=${build}"
         "--with-milestone=fcs"
         "--enable-unlimited-crypto"
-        "--disable-debug-symbols"
+        "--with-native-debug-symbols=none"
         "--with-zlib=system"
         "--with-giflib=system"
         "--with-libjpeg=system"

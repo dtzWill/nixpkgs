@@ -64,6 +64,7 @@ let
       configureFlagsArray=(
         "--with-boot-jdk=${bootjdk.home}"
         "--enable-unlimited-crypto"
+        "--with-native-debug-symbols=none"
         "--with-zlib=system"
         "--with-giflib=system"
         "--with-libjpeg=system"
