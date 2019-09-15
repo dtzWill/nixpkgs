@@ -1,3 +1,26 @@
+From 39aa8502eee7bb669a29d1a9b3bfe5c9595ad960 Mon Sep 17 00:00:00 2001
+From: Daniel Fullmer <danielrf12@gmail.com>
+Date: Fri, 13 Sep 2019 13:45:05 -0400
+Subject: [PATCH] Willus mod changes from k2pdfopt
+
+---
+ src/api/Makefile.am        |   1 +
+ src/api/baseapi.cpp        |  87 +++++++++++
+ src/api/baseapi.h          |   3 +
+ src/api/tesscapi.cpp       | 311 +++++++++++++++++++++++++++++++++++++
+ src/api/tesseract.h        |  29 ++++
+ src/ccmain/tessedit.cpp    |   5 +-
+ src/ccutil/ccutil.h        |   7 +
+ src/ccutil/genericvector.h |  21 ++-
+ src/ccutil/mainblk.cpp     |  17 +-
+ src/ccutil/params.cpp      |   3 +-
+ src/ccutil/serialis.cpp    |   3 +
+ src/ccutil/serialis.h      |   2 +
+ src/lstm/input.cpp         |   3 +
+ 13 files changed, 488 insertions(+), 4 deletions(-)
+ create mode 100644 src/api/tesscapi.cpp
+ create mode 100644 src/api/tesseract.h
+
 diff --git a/src/api/Makefile.am b/src/api/Makefile.am
 index d8c1e54..46ead13 100644
 --- a/src/api/Makefile.am
