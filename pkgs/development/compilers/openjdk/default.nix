@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, bash, cpio, autoconf, pkgconfig, file, which, unzip, zip, cups, freetype
 , alsaLib, bootjdk, perl, liberation_ttf, fontconfig, zlib, lndir
 , libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama, libXcursor, libXrandr
-, libjpeg, giflib
+, libjpeg, giflib, libpng
 , setJavaClassPath
 , minimal ? false
 , enableJavaFX ? true, openjfx
@@ -34,7 +34,7 @@ let
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [
       autoconf cpio file which unzip zip perl bootjdk zlib cups freetype alsaLib
-      libjpeg giflib libX11 libICE libXext libXrender libXtst libXt libXtst
+      libjpeg giflib libpng libX11 libICE libXext libXrender libXtst libXt libXtst
       libXi libXinerama libXcursor libXrandr lndir fontconfig
     ] ++ lib.optionals (!minimal && enableGnome2) [
       gtk3 gnome_vfs GConf glib
@@ -66,6 +66,8 @@ let
         "--enable-unlimited-crypto"
         "--with-zlib=system"
         "--with-giflib=system"
+        "--with-libjpeg=system"
+        "--with-libpng=system"
         "--with-stdc++lib=dynamic"
 
         # glibc 2.24 deprecated readdir_r so we need this
