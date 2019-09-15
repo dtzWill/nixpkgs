@@ -43,7 +43,6 @@ stdenv.mkDerivation rec {
     mupdf_modded = mupdf.overrideAttrs (attrs: {
       patches = attrs.patches ++ [ ./mupdf.patch ]; # Last verified with mupdf 1.16.1
     });
-
     leptonica_modded = leptonica.overrideAttrs (attrs: {
       patches = [ ./leptonica.patch ]; # Last verified with leptonica 1.78.0
     });
