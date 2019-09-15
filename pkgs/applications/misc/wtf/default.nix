@@ -1,8 +1,8 @@
 { buildGoModule
 , fetchFromGitHub
 , lib
+, makeWrapper
 , ncurses
-, which
 }:
 
 buildGoModule rec {
@@ -22,9 +22,9 @@ buildGoModule rec {
 
   modSha256 = "0m180571j4564py5mzdcbyypk71fdlp2vkfdwi6q85nd2q94sx6h";
 
-  # buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
+  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     mv "$out/bin/wtf" "$out/bin/wtfutil"
