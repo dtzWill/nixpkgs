@@ -108,6 +108,7 @@ let
       "systemd-backlight@.service"
       "systemd-rfkill.service"
       "systemd-rfkill.socket"
+      "systemd-boot-system-token.service"
 
       # Hibernate / suspend.
       "hibernate.target"
