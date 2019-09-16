@@ -1,24 +1,26 @@
 { lib
-, fetchPypi
+, fetchFromGitHub
 , buildPythonPackage
 , pythonOlder
+, pytest
 }:
 
 buildPythonPackage rec {
   pname = "websockets";
-  version = "7.0";
+  version = "8.0.2";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "08e3c3e0535befa4f0c4443824496c03ecc25062debbcf895874f8a0b4c97c9f";
+  src = fetchFromGitHub {
+    owner = "aaugustin";
+    repo = pname;
+    rev = version;
+    sha256 = "02fgb8gib4z5fqv30brz3mhxmblw9bw0978fhpjdrkj7wvqrz5h8";
   };
 
   disabled = pythonOlder "3.3";
-  doCheck = false; # protocol tests fail
 
-  meta = {
+  meta = with lib; {
     description = "WebSocket implementation in Python 3";
-    homepage = https://github.com/aaugustin/websockets;
-    license = lib.licenses.bsd3;
+    homepage = "https://github.com/aaugustin/websockets";
+    license = licenses.bsd3;
   };
 }
