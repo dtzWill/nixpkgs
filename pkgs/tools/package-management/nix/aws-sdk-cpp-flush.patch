@@ -11,17 +11,18 @@ index 4e72116e..f7407b60 100644
  
  
 diff --git a/src/libstore/s3-binary-cache-store.cc b/src/libstore/s3-binary-cache-store.cc
-index 4603701d..6893414a 100644
+index cd547a96..6893414a 100644
 --- a/src/libstore/s3-binary-cache-store.cc
 +++ b/src/libstore/s3-binary-cache-store.cc
-@@ -57,9 +57,11 @@ class AwsLogger : public Aws::Utils::Logging::FormattedLogSystem
+@@ -56,6 +56,12 @@ class AwsLogger : public Aws::Utils::Logging::FormattedLogSystem
+     {
          debug("AWS: %s", chomp(statement));
      }
- 
++
 +#if AWS_VERSION_MAJOR == 1 && AWS_VERSION_MINOR == 7 && AWS_VERSION_PATCH >= 151
-     void Flush() override {
-       /* no-op */
-     };
++    void Flush() override {
++      /* no-op */
++    };
 +#endif
  };
  
