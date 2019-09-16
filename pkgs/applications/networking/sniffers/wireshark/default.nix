@@ -1,26 +1,27 @@
 { stdenv, fetchurl, pkgconfig, pcre, perl, flex, bison, gettext, libpcap, libnl, c-ares
 , gnutls, libgcrypt, libgpgerror, geoip, openssl, lua5, python3, libcap, glib
 , libssh, nghttp2, zlib, cmake, fetchpatch, makeWrapper
-, withQt ? true, qt5 ? null
+, qt5 ? null
 , ApplicationServices, SystemConfiguration, gmp
 }:
 
-assert withQt  -> qt5  != null;
 
 with stdenv.lib;
 
 let
-  version = "3.0.3";
+common = { version, sources-sha256, withQt }:
+let
   variant = if withQt then "qt" else "cli";
-
-in stdenv.mkDerivation {
+in
+assert withQt -> qt5 != null;
+stdenv.mkDerivation {
   pname = "wireshark-${variant}";
   inherit version;
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "https://www.wireshark.org/download/src/all-versions/wireshark-${version}.tar.xz";
-    sha256 = "0711jilp9sbgi46d105m3galw8n4wk5yncawi08031qxg2f754mg";
+    sha256 = sources-sha256;
   };
 
   cmakeFlags = [
@@ -56,7 +57,7 @@ in stdenv.mkDerivation {
     export LD_LIBRARY_PATH="$PWD/run"
   '';
 
-  postInstall = ''
+  postInstall = optionalString (versionAtLeast version "3.0") ''
     # to remove "cycle detected in the references"
     mkdir -p $dev/lib/wireshark
     mv $out/lib/wireshark/cmake $dev/lib/wireshark
@@ -112,5 +113,37 @@ in stdenv.mkDerivation {
 
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ bjornfor fpletz ];
+  };
+};
+in {
+  wireshark-qt_2_4  = common {
+    version        = "2.4.16";
+    sources-sha256 = "0f92yz9a2z46zlm1mci45039pi835bbk759yfrar342sk32hga56";
+    withQt         = true;
+  };
+  wireshark-cli_2_4 = common {
+    version        = "2.4.16";
+    sources-sha256 = "0f92yz9a2z46zlm1mci45039pi835bbk759yfrar342sk32hga56";
+    withQt         = false;
+  };
+  wireshark-qt_2_6  = common {
+    version        = "2.6.11";
+    sources-sha256 = "11as7zqxw0mwjn0pdhcidihrk90hjh5qzrj0g6an55alr20iax99";
+    withQt         = true;
+  };
+  wireshark-cli_2_6 = common {
+    version        = "2.6.11";
+    sources-sha256 = "11as7zqxw0mwjn0pdhcidihrk90hjh5qzrj0g6an55alr20iax99";
+    withQt         = false;
+  };
+  wireshark-qt_3_0  = common {
+    version        = "3.0.4";
+    sources-sha256 = "1gzcpsggqc36d7nrwafnryclg8iv50sgpyxpl2a1dbmfy9yxafvp";
+    withQt         = true;
+  };
+  wireshark-cli_3_0 = common {
+    version        = "3.0.4";
+    sources-sha256 = "1gzcpsggqc36d7nrwafnryclg8iv50sgpyxpl2a1dbmfy9yxafvp";
+    withQt         = false;
   };
 }

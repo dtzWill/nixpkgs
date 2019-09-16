@@ -18552,14 +18552,21 @@ in
 
   welle-io = libsForQt5.callPackage ../applications/radio/welle-io { };
 
-  wireshark = callPackage ../applications/networking/sniffers/wireshark {
+  inherit (callPackages ../applications/networking/sniffers/wireshark {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices SystemConfiguration;
-  };
-  wireshark-qt = wireshark;
+  })
+    wireshark-qt_2_4
+    wireshark-cli_2_4
+    wireshark-qt_2_6
+    wireshark-cli_2_6
+    wireshark-qt_3_0
+    wireshark-cli_3_0;
+
+  wireshark = wireshark-qt_3_0;
+  wireshark-cli = wireshark-qt_3_0;
 
   # The GTK UI is deprecated by upstream. You probably want the QT version.
   wireshark-gtk = throw "Not supported anymore. Use wireshark-qt or wireshark-cli instead.";
-  wireshark-cli = wireshark.override { withQt = false; };
 
   sngrep = callPackage ../applications/networking/sniffers/sngrep {};
 
