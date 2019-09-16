@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "18kvsgl3kpla33dp1nbpd1kdgndfqcmlwwpjls55fp4mlczf8lcx";
   };
 
-  cargoSha256 = "0wfx7shsdqrwbnzr2a0fnly1kd93mxbm96zjq5pzrq94lphkhqhz";
+  cargoSha256 = "18kr9ad3y1f557vq95af8nvxgb0zhaq10yvr8phlxv9kb7ldbphl";
 
   meta = with lib; {
     description = "Nix code formatter for nixpkgs";
