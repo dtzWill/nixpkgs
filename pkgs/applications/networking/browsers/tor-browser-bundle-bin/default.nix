@@ -172,15 +172,14 @@ stdenv.mkDerivation rec {
     # interpreter for pre-compiled Go binaries by invoking the interpreter
     # directly.
     sed -i TorBrowser/Data/Tor/torrc-defaults \
-        -e "s|\(ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit\) exec|\1 exec $interp|" \
+        -e "s|\(ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit\) exec|\1 exec $interp|"
 
-    # Fixup fte transport
-    #
-    # Note: the script adds its dirname to search path automatically
-    sed -i TorBrowser/Tor/PluggableTransports/fteproxy.bin \
-        -e "s,/usr/bin/env python,${python27.interpreter},"
-
-    patchelf --set-rpath "${fteLibPath}" TorBrowser/Tor/PluggableTransports/fte/cDFA.so
+    echo
+    echo "---------------"
+    echo "torrc-defaults:"
+    cat TorBrowser/Data/Tor/torrc-defaults
+    echo "---------------"
+    echo
 
     # Prepare for autoconfig.
     #
@@ -244,6 +243,7 @@ stdenv.mkDerivation rec {
 
     # Preload extensions by moving into the runtime instead of storing under the
     # user's profile directory.
+    mkdir -p "$TBB_IN_STORE/browser/extensions"
     mv "$TBB_IN_STORE/TorBrowser/Data/Browser/profile.default/extensions/"* \
       "$TBB_IN_STORE/browser/extensions"
 
