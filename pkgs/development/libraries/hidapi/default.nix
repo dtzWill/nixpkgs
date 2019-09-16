@@ -22,7 +22,6 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ IOKit Cocoa ]);
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/libusb/hidapi;
     description = "Library for communicating with USB and Bluetooth HID devices";
     homepage = "https://github.com/libusb/hidapi";
     # Actually, you can chose between GPLv3, BSD or HIDAPI license (more liberal)
