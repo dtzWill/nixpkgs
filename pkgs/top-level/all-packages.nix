@@ -21653,7 +21653,9 @@ in
 
   teleprompter = callPackage ../applications/misc/teleprompter {};
 
-  tendermint = callPackage ../tools/networking/tendermint {};
+  tendermint = callPackage ../tools/networking/tendermint {
+    buildGoModule = buildGo112Module;
+  };
 
   termdown = (newScope python3Packages) ../applications/misc/termdown { };
 
