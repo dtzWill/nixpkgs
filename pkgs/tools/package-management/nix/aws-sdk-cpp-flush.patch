@@ -1,0 +1,28 @@
+diff --git a/configure.ac b/configure.ac
+index 4e72116e..f7407b60 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -238,6 +238,7 @@ if test -n "$enable_s3"; then
+   declare -a aws_version_tokens=($(printf '#include <aws/core/VersionConfig.h>\nAWS_SDK_VERSION_STRING' | $CPP $CPPFLAGS - | grep -v '^#.*' | sed 's/"//g' | tr '.' ' '))
+   AC_DEFINE_UNQUOTED([AWS_VERSION_MAJOR], ${aws_version_tokens@<:@0@:>@}, [Major version of aws-sdk-cpp.])
+   AC_DEFINE_UNQUOTED([AWS_VERSION_MINOR], ${aws_version_tokens@<:@1@:>@}, [Minor version of aws-sdk-cpp.])
++  AC_DEFINE_UNQUOTED([AWS_VERSION_PATCH], ${aws_version_tokens@<:@2@:>@}, [Patch version of aws-sdk-cpp.])
+ fi
+ 
+ 
+diff --git a/src/libstore/s3-binary-cache-store.cc b/src/libstore/s3-binary-cache-store.cc
+index 4603701d..6893414a 100644
+--- a/src/libstore/s3-binary-cache-store.cc
++++ b/src/libstore/s3-binary-cache-store.cc
+@@ -57,9 +57,11 @@ class AwsLogger : public Aws::Utils::Logging::FormattedLogSystem
+         debug("AWS: %s", chomp(statement));
+     }
+ 
++#if AWS_VERSION_MAJOR == 1 && AWS_VERSION_MINOR == 7 && AWS_VERSION_PATCH >= 151
+     void Flush() override {
+       /* no-op */
+     };
++#endif
+ };
+ 
+ static void initAWS()

@@ -35,6 +35,8 @@ common =
 
       outputs = [ "out" "dev" "man" "doc" ];
 
+      patches = [ ./aws-sdk-cpp-flush.patch ];
+
       nativeBuildInputs =
         [ pkgconfig utillinuxMinimal /* unshare */ ]
         ++ lib.optionals (!is20) [ curl perl ]
