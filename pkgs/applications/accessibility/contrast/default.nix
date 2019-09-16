@@ -6,7 +6,6 @@
 , gettext
 , glib
 , gtk3
-, hicolor-icon-theme
 , libhandy
 , meson
 , ninja
@@ -26,12 +25,12 @@ rustPlatform.buildRustPackage rec {
     domain = "gitlab.gnome.org";
     group = "World";
     owner = "design";
-    repo = pname;
+    repo = "contrast";
     rev = version;
     sha256 = "0rm705zrk9rfv31pwbqxrswi5v6vhnghxa8dgxjmcrh00l8dm6j9";
   };
 
-  cargoSha256 = "123ikk37nblw9p259bi3n5wj1vqmqdygd7b8hafdr84lwmzssrwb"; # /* upstream: */ "06vgc89d93fhjcyy9d1v6lf8kr34pl5bbpwbv2jpfahpj9y84bgj";
+  cargoSha256 = "06vgc89d93fhjcyy9d1v6lf8kr34pl5bbpwbv2jpfahpj9y84bgj";
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -48,7 +47,6 @@ rustPlatform.buildRustPackage rec {
     dbus
     glib
     gtk3
-    hicolor-icon-theme
     libhandy
     pango
   ];
