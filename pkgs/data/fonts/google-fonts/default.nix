@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "google-fonts-${version}";
-  version = "2019-08-02";
+  version = "2019-09-16";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "fonts";
-    rev = "bff01b26a688456b934f420bc442fe492595d53b";
-    sha256 = "0297cavrhwci4xx57409zs84gb4q2gmygdn3bkfxvswff23lizpx";
+    rev = "e4d288afa97b46d56ca13313ac81dc3f3dff905e";
+    sha256 = "1vwsxl4qngam1c9brh7ypfmv2x7l3vmn7xj2dmzvzv4dhx4f19c6";
   };
 
   phases = [ "unpackPhase" "patchPhase" "installPhase" ];
