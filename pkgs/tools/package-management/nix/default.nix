@@ -40,7 +40,8 @@ common =
       nativeBuildInputs =
         [ pkgconfig utillinuxMinimal /* unshare */ ]
         ++ lib.optionals (!is20) [ curl perl ]
-        ++ lib.optionals fromGit [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook_xsl_ns jq ];
+        # unconditionally autoreconf since we patch configure.ac
+        ++ lib.optionals true /* fromGit */ [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook_xsl_ns jq ];
 
       buildInputs = [ curl openssl sqlite xz bzip2 ]
         ++ lib.optional (stdenv.isLinux || stdenv.isDarwin) libsodium
