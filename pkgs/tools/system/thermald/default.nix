@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--sysconfdir=${placeholder "out"}/etc"
     "--localstatedir=/var"
-    "--with-dbus-sys-dir=${placeholder "out"}/etc/dbus-1/system.d"
+    "--with-dbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
     "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     ];
 
