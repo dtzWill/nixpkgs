@@ -33,16 +33,6 @@ stdenv.mkDerivation {
       url = "https://github.com/systemd/systemd/commit/d45ee2f31a8358db0accde2e7c81777cedadc3c2.patch";
       sha256 = "1kg4ba9s610qhfv3canda94im3b63xdbmrfn28b04081g79dan4g";
     })
-    (fetchpatch {
-      name = "only-disable-opts-for-debug-builds.patch";
-      url = "https://github.com/systemd/systemd/commit/d4f4179e908dfd3efd2dda322b936cda0d4be23c.patch";
-      sha256 = "0z7rcw4s28nmda4f2ydrjr1dya1zbsspqrxcd65l0d5sgi9vzr8y";
-    })
-    (fetchpatch {
-      name = "dont-loudly-complain-if-rng-protocol-isnt-available.patch";
-      url = "https://github.com/systemd/systemd/commit/a2834a86bafae652e4ea6eb3a8f90aafb9a0d346.patch";
-      sha256 = "0ri9l9qpl36h44qds1jy8y4clrca2cwp3w2rjmxa21hkkqcf1g39";
-    })
   ];
 
   outputs = [ "out" "lib" "man" "dev" ];
