@@ -172,7 +172,11 @@ stdenv.mkDerivation rec {
     # interpreter for pre-compiled Go binaries by invoking the interpreter
     # directly.
     sed -i TorBrowser/Data/Tor/torrc-defaults \
-        -e "s|\(ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit\) exec|\1 exec $interp|"
+        -e "s|\(ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit\) exec|\1 exec $interp|"
+
+    # Similarly fixup snowflake
+    sed -i TorBrowser/Data/Tor/torrc-defaults \
+        -e "s|\(ClientTransportPlugin snowflake\) exec|\1 exec $interp|"
 
     echo
     echo "---------------"
