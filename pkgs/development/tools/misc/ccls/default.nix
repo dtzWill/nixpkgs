@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ccls";
-  version = "0.20190823";
+  version = "0.20190823.2";
 
   src = fetchFromGitHub {
     owner = "MaskRay";
     repo = "ccls";
     rev = version;
-    sha256 = "1qy1kf83mrvbhwl8m0h7ralwd3sid8y8fpk7pmy81y1nq8f1cf6f";
+    sha256 = "178s54nk40y4bc1811lgigk1qbwsvghpmanipawi1xf19lf9dg9b";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.12"
   ];
 
+
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
   '';
-
   shell = runtimeShell;
   postFixup = ''
     # We need to tell ccls where to find the standard library headers.
