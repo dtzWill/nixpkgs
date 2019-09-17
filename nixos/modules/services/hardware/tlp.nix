@@ -10,6 +10,7 @@ enableRDW = config.networking.networkmanager.enable;
 
 tlp = pkgs.tlp.override {
   inherit enableRDW;
+  inherit (config.boot.kernelPackages) x86_energy_perf_policy;
 };
 
 # XXX: We can't use writeTextFile + readFile here because it triggers
