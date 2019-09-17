@@ -25204,4 +25204,7 @@ in
   uhubctl = callPackage ../tools/misc/uhubctl {};
 
   kodelife = callPackage ../applications/graphics/kodelife {};
+
+  coz = callPackage ../development/tools/analysis/coz {};
+
 }
