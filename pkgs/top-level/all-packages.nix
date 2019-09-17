@@ -13447,7 +13447,7 @@ in
 
   raul = callPackage ../development/libraries/audio/raul { };
 
-  readline = readline6;
+  readline = readline80;
   readline6 = readline63;
 
   readline5 = callPackage ../development/libraries/readline/5.x.nix { };
