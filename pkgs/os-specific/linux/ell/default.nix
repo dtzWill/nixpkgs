@@ -7,16 +7,16 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-  version = "0.22";
-  #version = "2019-08-24";
+#  version = "0.22";
+  version = "2019-09-17";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
-     rev = version;
-     #rev = "513f33c6a1185e0863131a81295ad9be242c6690";
-     sha256 = "0dk4j1b8sy4j6w91cq5ga99f3hln9fgh79ayi9kvn8xgzksmhjdp";
+     #rev = version;
+     rev = "e54ed93c00d2f7e5a35ddebb0ff8f8ad3027e14e";
+     sha256 = "0y836fcvpvj57fwcb0sacza49mxlzdffjvvj9a84mxv2ra6z71cd";
   };
 
   patches = [
