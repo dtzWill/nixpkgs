@@ -13,13 +13,13 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "remmina";
-  version = "1.3.4";
+  version = "1.3.6";
 
   src = fetchFromGitLab {
     owner  = "Remmina";
     repo   = "Remmina";
     rev    = "v${version}";
-    sha256 = "18p6v2lalpiba0r318grlc2bvqh2qlpjw811i0934g33faviyfj1";
+    sha256 = "1fihvaqvmr3m7bbarzkqsd5nql64gqm15j0n5ny5cvy4c01v6777";
   };
 
   nativeBuildInputs = [ cmake ninja pkgconfig wrapGAppsHook ];
