@@ -1,9 +1,10 @@
 { lib, stdenv, fetchurl, python, pkgconfig, perl, libxslt, docbook_xsl, rpcgen
 , fixDarwinDylibNames
 , docbook_xml_dtd_42, readline
-, popt, iniparser, libbsd, libarchive, libiconv, gettext
+, popt, iniparser, libbsd, libarchive, libiconv, gettext, talloc, tdb, cmocka
 , krb5Full, zlib, openldap, cups, pam, avahi, acl, libaio, fam, libceph, glusterfs
-, gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme
+, gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme, libtasn1
+, bison, flex
 
 , enableLDAP ? false
 , enablePrinting ? false
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
     [ python pkgconfig perl libxslt docbook_xsl docbook_xml_dtd_42 /*
       docbook_xml_dtd_45 */ readline popt iniparser jansson
       libbsd libarchive zlib fam libiconv gettext libunwind krb5Full
-      gnutls
+      gnutls talloc tdb libtasn1
+      bison flex
     ]
     ++ optionals stdenv.isLinux [ libaio systemd ]
     ++ optional enableLDAP openldap
