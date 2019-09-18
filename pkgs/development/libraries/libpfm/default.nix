@@ -19,6 +19,18 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
 
+  outputs = [ "out" "examples" ];
+
+  installTargets = [ "install" "install_examples" ];
+
+  enableParallelBuilding = true;
+
+  postInstall = ''
+    mkdir -p $examples/bin
+    find $out/share/doc/*/{perf_,}examples -executable -type f -print0 | xargs -0 -r mv -vt $examples/bin
+    find $out/share/doc -type d -empty -print -delete
+  '';
+
   meta = with stdenv.lib; {
     description = "Helper library to program the performance monitoring events";
     longDescription = ''
