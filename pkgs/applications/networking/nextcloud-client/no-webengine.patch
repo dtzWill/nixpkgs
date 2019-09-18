@@ -12,7 +12,7 @@ index 68952605a..da9cb1176 100644
  message(STATUS "For HTTP/2 support, compile with Qt 5.9 or higher.")
  endif()
 diff --git a/src/gui/CMakeLists.txt b/src/gui/CMakeLists.txt
-index e806bebba..948d68c74 100644
+index e806bebba..3e24c9e48 100644
 --- a/src/gui/CMakeLists.txt
 +++ b/src/gui/CMakeLists.txt
 @@ -43,7 +43,6 @@ set(client_UI_SRCS
@@ -23,7 +23,16 @@ index e806bebba..948d68c74 100644
  )
  
  set(client_SRCS
-@@ -122,8 +121,6 @@ set(client_SRCS
+@@ -108,8 +107,6 @@ set(client_SRCS
+     creds/httpcredentialsgui.cpp
+     creds/oauth.cpp
+     creds/flow2auth.cpp
+-    creds/webflowcredentials.cpp
+-    creds/webflowcredentialsdialog.cpp
+     wizard/postfixlineedit.cpp
+     wizard/abstractcredswizardpage.cpp
+     wizard/owncloudadvancedsetuppage.cpp
+@@ -122,8 +119,6 @@ set(client_SRCS
      wizard/owncloudwizardcommon.cpp
      wizard/owncloudwizard.cpp
      wizard/owncloudwizardresultpage.cpp
@@ -32,7 +41,7 @@ index e806bebba..948d68c74 100644
      wizard/slideshow.cpp
  )
  
-@@ -306,7 +303,7 @@ else()
+@@ -306,7 +301,7 @@ else()
  endif()
  
  add_library(updater STATIC ${updater_SRCS})
@@ -110,10 +119,18 @@ index fb2499c86..1c57f412d 100644
      return WizardCommon::Page_HttpCreds;
  }
 diff --git a/src/gui/wizard/owncloudwizard.cpp b/src/gui/wizard/owncloudwizard.cpp
-index e4dda0fbd..9e126c724 100644
+index e4dda0fbd..1b281dffa 100644
 --- a/src/gui/wizard/owncloudwizard.cpp
 +++ b/src/gui/wizard/owncloudwizard.cpp
-@@ -53,7 +53,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
+@@ -26,7 +26,6 @@
+ #endif
+ #include "wizard/owncloudadvancedsetuppage.h"
+ #include "wizard/owncloudwizardresultpage.h"
+-#include "wizard/webviewpage.h"
+ #include "wizard/flow2authcredspage.h"
+ 
+ #include "QProgressIndicator.h"
+@@ -53,7 +52,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
      , _advancedSetupPage(new OwncloudAdvancedSetupPage)
      , _resultPage(new OwncloudWizardResultPage)
      , _credentialsPage(nullptr)
@@ -121,7 +138,7 @@ index e4dda0fbd..9e126c724 100644
      , _setupLog()
      , _registration(false)
  {
-@@ -67,7 +66,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
+@@ -67,7 +65,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
  #endif
      setPage(WizardCommon::Page_AdvancedSetup, _advancedSetupPage);
      setPage(WizardCommon::Page_Result, _resultPage);
@@ -129,7 +146,7 @@ index e4dda0fbd..9e126c724 100644
  
      connect(this, &QDialog::finished, this, &OwncloudWizard::basicSetupFinished);
  
-@@ -83,7 +81,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
+@@ -83,7 +80,6 @@ OwncloudWizard::OwncloudWizard(QWidget *parent)
  #ifndef NO_SHIBBOLETH
      connect(_shibbolethCredsPage, &OwncloudShibbolethCredsPage::connectToOCUrl, this, &OwncloudWizard::connectToOCUrl);
  #endif
@@ -137,7 +154,7 @@ index e4dda0fbd..9e126c724 100644
      connect(_advancedSetupPage, &OwncloudAdvancedSetupPage::createLocalAndRemoteFolders,
          this, &OwncloudWizard::createLocalAndRemoteFolders);
      connect(this, &QWizard::customButtonClicked, this, &OwncloudWizard::skipFolderConfiguration);
-@@ -178,10 +175,6 @@ void OwncloudWizard::successfulStep()
+@@ -178,10 +174,6 @@ void OwncloudWizard::successfulStep()
          break;
  #endif
  
@@ -148,11 +165,28 @@ index e4dda0fbd..9e126c724 100644
      case WizardCommon::Page_AdvancedSetup:
          _advancedSetupPage->directoriesCreated();
          break;
+@@ -207,8 +199,6 @@ void OwncloudWizard::setAuthType(DetermineAuthTypeJob::AuthType type)
+         _credentialsPage = _browserCredsPage;
+     } else if (type == DetermineAuthTypeJob::LoginFlowV2) {
+         _credentialsPage = _flow2CredsPage;
+-    } else if (type == DetermineAuthTypeJob::WebViewFlow) {
+-        _credentialsPage = _webViewPage;
+     } else { // try Basic auth even for "Unknown"
+         _credentialsPage = _httpCredsPage;
+     }
 diff --git a/src/gui/wizard/owncloudwizard.h b/src/gui/wizard/owncloudwizard.h
-index c1d290d4b..917fb2fda 100644
+index c1d290d4b..55c47f00f 100644
 --- a/src/gui/wizard/owncloudwizard.h
 +++ b/src/gui/wizard/owncloudwizard.h
-@@ -109,7 +109,6 @@ private:
+@@ -39,7 +39,6 @@ class OwncloudAdvancedSetupPage;
+ class OwncloudWizardResultPage;
+ class AbstractCredentials;
+ class AbstractCredentialsWizardPage;
+-class WebViewPage;
+ class Flow2AuthCredsPage;
+ 
+ /**
+@@ -109,7 +108,6 @@ private:
      OwncloudAdvancedSetupPage *_advancedSetupPage;
      OwncloudWizardResultPage *_resultPage;
      AbstractCredentialsWizardPage *_credentialsPage;
@@ -173,3 +207,15 @@ index c17889519..f3dcab1a3 100644
      }
  
      // LoginFlowV2 > WebViewFlow > OAuth > Shib > Basic
+diff --git a/src/libsync/networkjobs.h b/src/libsync/networkjobs.h
+index d0829b463..c58cf4b10 100644
+--- a/src/libsync/networkjobs.h
++++ b/src/libsync/networkjobs.h
+@@ -412,7 +412,6 @@ public:
+         Basic, // also the catch-all fallback for backwards compatibility reasons
+         OAuth,
+         Shibboleth,
+-        WebViewFlow,
+         LoginFlowV2
+     };
+ 
