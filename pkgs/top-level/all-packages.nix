@@ -25228,4 +25228,6 @@ in
 
   wifi-password = callPackage ../os-specific/darwin/wifi-password {};
 
+  cog = callPackage ../applications/misc/cog/default.nix { };
+
 }
