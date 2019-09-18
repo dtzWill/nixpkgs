@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       chmod u+rw -R ~/.xmind
     fi
 
-    exec "$out/libexec/XMind" "$@"
+    exec "$out/libexec/XMind" "\$@"
     EOF
     chmod +x $out/bin/XMind
 
