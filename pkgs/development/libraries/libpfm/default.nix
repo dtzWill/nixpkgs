@@ -1,12 +1,13 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
-  version = "4.10.1";
-  name = "libpfm-${version}";
+  version = "unstable-2019-08-08";
+  name = "libpfm";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/perfmon2/libpfm4/${name}.tar.gz";
-    sha256 = "0jabhjx77yppr7x38bkfww6n2a480gj62rw0qp7prhdmg19mf766";
+  src = fetchgit {
+    url = "https://git.code.sf.net/p/perfmon2/libpfm4";
+    rev = "815ff28a0b2a3bebf3fc1bf744d71af303d474d6";
+    sha256 = "1mgylpxqbg49w84hm1wcf7zs24xiy3dlz996ixlgm521gnlg9317";
   };
 
   makeFlags = [
