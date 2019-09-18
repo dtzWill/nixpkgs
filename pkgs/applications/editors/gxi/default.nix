@@ -1,6 +1,6 @@
 { stdenv, fetchurl, desktop-file-utils, gettext,
   meson, ninja, pkgconfig, rustc, cargo, wrapGAppsHook,
-  cairo, glib, gtk3-x11, pango, libhandy
+  cairo, glib, gtk3-x11, pango, libhandy, hicolor-icon-theme
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     meson ninja rustc cargo pkgconfig glib.dev
     gettext desktop-file-utils wrapGAppsHook
   ];
-  buildInputs = [ stdenv cairo glib gtk3-x11 pango libhandy ];
+  buildInputs = [ stdenv cairo glib gtk3-x11 pango libhandy hicolor-icon-theme ];
 
   enableParallelBuilding = true;
 
