@@ -21,8 +21,8 @@ in stdenv.mkDerivation rec {
     repo = pname;
   #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "c177a38e88021392412a796154d47168b8b17598";
-    sha256 = "1381pdavq2fnqrmdvlhcrgnhnln3y8malqwcq1a7z25qr0kby133";
+    rev = "a7dd935d87a5ff2981f8465a0c263e3db46ce9ac";
+    sha256 = "12amw1gy05xrdv7d9vrp4k8a0d0rx9i675xw2v4lb03m4b8i6kh6";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -70,7 +70,7 @@ in stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      inherit iputils kmod openconnect ethtool gnused dbus;
+      inherit iputils kmod openconnect ethtool gnused systemd;
       inherit (stdenv) shell;
     })
 
