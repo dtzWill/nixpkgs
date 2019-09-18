@@ -23,12 +23,6 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Simple Network Manager frontend written in Qt";
-    longDescription = ''
-      nm-tray is a simple NetworkManager front end with information icon residing
-      in system tray (like e.g. nm-applet). It's a pure Qt application. For
-      interaction with NetworkManager it uses API provided by KF5::NetworkManagerQt
-      -> plain DBus communication.
-    '';
     homepage = "https://github.com/palinek/nm-tray";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dtzWill ];
