@@ -12,6 +12,7 @@
 , qtbase
 , qtkeychain
 , qttools
+, qtwebengine, qtwebkit # :( :( :(
 , sqlite
 }:
 
@@ -29,7 +30,7 @@ mkDerivation rec {
 
   patches = [
     ./0001-Explicitly-copy-dbus-files-into-the-store-dir.patch
-    ./no-webengine.patch
+    # ./no-webengine.patch
   ];
 
   nativeBuildInputs = [
@@ -46,6 +47,7 @@ mkDerivation rec {
     qtbase
     qtkeychain
     qttools
+    qtwebengine qtwebkit
     sqlite
     kdeFrameworks.kio
     kdeFrameworks.kcoreaddons
@@ -59,7 +61,7 @@ mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib" # expected to be prefix-relative by build code setting RPATH
 
     # Disable this so qtwebkit isn't needed
-    "-DNO_SHIBBOLETH=ON"
+    # "-DNO_SHIBBOLETH=ON"
   ];
 
   meta = with lib; {
