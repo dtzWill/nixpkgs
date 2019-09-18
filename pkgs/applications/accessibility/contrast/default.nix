@@ -1,7 +1,6 @@
 { stdenv
 , fetchFromGitLab
 , cairo
-, cargo
 , dbus
 , desktop-file-utils
 , gettext
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     domain = "gitlab.gnome.org";
     group = "World";
     owner = "design";
-    repo = "contrast";
+    repo = pname;
     rev = version;
     sha256 = "0rm705zrk9rfv31pwbqxrswi5v6vhnghxa8dgxjmcrh00l8dm6j9";
   };
