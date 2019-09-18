@@ -6,6 +6,7 @@
 , gettext
 , glib
 , gtk3
+, hicolor-icon-theme
 , libhandy
 , meson
 , ninja
@@ -47,6 +48,7 @@ rustPlatform.buildRustPackage rec {
     dbus
     glib
     gtk3
+    hicolor-icon-theme
     libhandy
     pango
   ];
