@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "wpebackend-fdo";
-  version = "1.3.91";
+  version = "1.4.0";
 
   src = fetchurl {
     url = "https://wpewebkit.org/releases/${pname}-${version}.tar.xz";
-    sha256 = "1qhmn301xk8ayyq913pwlwpswpyx10wqshrhlryfhyq1al3nbd7b";
+    sha256 = "1bwbs47v4nlzhsqrw9fpyny5m3n9ry0kfzsvk90zjif4bd5cl6d9";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
