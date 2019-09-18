@@ -4,11 +4,11 @@
 
 stdenv.mkDerivation rec {
   pname = "tevent";
-  version = "0.10.0";
+  version = "0.10.1";
 
   src = fetchurl {
     url = "mirror://samba/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "1rm4d9245ya15wyrh9vqn1dnz14l2ic88mr46ykyc6kdrl99dwrk";
+    sha256 = "1dhhd7fz6wyvlwrk1a6gj5m2mcjsc3ilx0mcv1qsr1lbndldm93r";
   };
 
   nativeBuildInputs = [ pkgconfig python docbook_xsl docbook_xml_dtd_42 which ];
