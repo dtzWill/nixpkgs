@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner  = "NicoHood";
     repo   = pname;
     rev    = version;
-    sha256 = "086lvl4zn92vk65pxf0lg2ac6lcq8amw7z52zdnw1br2izgnn0rr";
+    sha256 = "1qgpk4p2hi5hd4yy0hj93kq1vs0b32wb8qkaj1wi90c8gwddq5wa";
   };
 
   nativeBuildInputs = [
