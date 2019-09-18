@@ -42,12 +42,13 @@ stdenv.mkDerivation rec {
     [ python pkgconfig perl libxslt docbook_xsl docbook_xml_dtd_42 /*
       docbook_xml_dtd_45 */ readline popt iniparser jansson
       libbsd libarchive zlib fam libiconv gettext libunwind krb5Full
+      gnutls
     ]
     ++ optionals stdenv.isLinux [ libaio systemd ]
     ++ optional enableLDAP openldap
     ++ optional (enablePrinting && stdenv.isLinux) cups
     ++ optional enableMDNS avahi
-    ++ optionals enableDomainController [ gnutls gpgme lmdb ]
+    ++ optionals enableDomainController [ gpgme lmdb ]
     ++ optional enableRegedit ncurses
     ++ optional (enableCephFS && stdenv.isLinux) libceph
     ++ optional (enableGlusterFS && stdenv.isLinux) glusterfs
