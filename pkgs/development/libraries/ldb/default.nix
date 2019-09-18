@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://samba/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "1z3bghjh3c94rlgqma1vpgakhzhxcrq8k4s6lb0f51nj4cg6qvjg"                                                                                                                                                             ;
+    sha256 = "1z3bghjh3c94rlgqma1vpgakhzhxcrq8k4s6lb0f51nj4cg6qvjg";
   };
 
   outputs = [ "out" "dev" ];
