@@ -32,7 +32,11 @@ in buildPythonApplication rec {
     sha256 = "1zrvr543zzsiapda75vdd2669fgijmx4cv7nfj5d1jsyz4qnif7b";
   };
 
-  pythonPath = with pythonPackages; [ bsddb3 PyICU pygobject3 pycairo lxml ];
+  pythonPath = with pythonPackages; [
+    bsddb3 PyICU pygobject3 pycairo
+    # for tests
+    lxml jsonschema mock PyICU
+  ];
 
   # Same installPhase as in buildPythonApplication but without --old-and-unmanageble
   # install flag.
