@@ -14,11 +14,6 @@ buildGoModule rec {
 
   goPackagePath = "github.com/kubernetes-sigs/cri-tools";
 
-  buildPhase = ''
-    pushd go/src/${goPackagePath}
-    make
-  '';
-
   meta = with lib; {
     description = "CLI and validation tools for Kubelet Container Runtime Interface (CRI)";
     homepage = https://github.com/kubernetes-sigs/cri-tools;
