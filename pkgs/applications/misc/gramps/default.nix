@@ -9,8 +9,8 @@
 let
   inherit (pythonPackages) python buildPythonApplication;
 in buildPythonApplication rec {
-  version = "5.0.1";
-  name = "gramps-${version}";
+  version = "5.1.1";
+  pname = "gramps";
 
   nativeBuildInputs = [ wrapGAppsHook gettext ];
   buildInputs = [ intltool gtk3 gobject-introspection pango gnome3.gexiv2 ] 
@@ -27,7 +27,7 @@ in buildPythonApplication rec {
     owner = "gramps-project";
     repo = "gramps";
     rev = "v${version}";
-    sha256 = "1jz1fbjj6byndvir7qxzhd2ryirrd5h2kwndxpp53xdc05z1i8g7";
+    sha256 = "1zrvr543zzsiapda75vdd2669fgijmx4cv7nfj5d1jsyz4qnif7b";
   };
 
   pythonPath = with pythonPackages; [ bsddb3 PyICU pygobject3 pycairo ];
@@ -48,7 +48,7 @@ in buildPythonApplication rec {
     eapth="$out/lib/${python.libPrefix}"/site-packages/easy-install.pth
     if [ -e "$eapth" ]; then
         # move colliding easy_install.pth to specifically named one
-        mv "$eapth" $(dirname "$eapth")/${name}.pth
+        mv "$eapth" $(dirname "$eapth")/${pname}-${version}.pth
     fi
 
     rm -f "$out/lib/${python.libPrefix}"/site-packages/site.py*
