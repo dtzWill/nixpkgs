@@ -16,21 +16,19 @@
 }:
 
 stdenv.mkDerivation rec {
-  inherit version;
   pname = "lldb";
+  inherit version;
 
   src = fetch pname "1507dl0xw03nppxpz2xsq4s30jdbkplx4w14za54ngqm3xm2yk0y";
 
   patches = [ ./lldb-procfs.patch ];
 
-  nativeBuildInputs = [ cmake python which swig ];
+  nativeBuildInputs = [ cmake python which swig lit ];
   buildInputs = [
     ncurses zlib libedit libxml2 llvm
   ]
   ++ stdenv.lib.optionals stdenv.isDarwin [
     darwin.libobjc darwin.apple_sdk.libs.xpc darwin.apple_sdk.frameworks.Foundation darwin.bootstrap_cmds darwin.apple_sdk.frameworks.Carbon darwin.apple_sdk.frameworks.Cocoa ];
-
-  checkInputs = [ lit ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
@@ -38,6 +36,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     "-DClang_DIR=${clang-unwrapped}/lib/cmake"
+    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
   ];
 
   enableParallelBuilding = true;
