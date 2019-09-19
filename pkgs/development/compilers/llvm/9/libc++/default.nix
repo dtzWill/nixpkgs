@@ -14,10 +14,6 @@ stdenv.mkDerivation rec {
 
   patches = stdenv.lib.optional stdenv.hostPlatform.isMusl ../../libcxx-0001-musl-hacks.patch;
 
-  prePatch = ''
-    substituteInPlace lib/CMakeLists.txt --replace "/usr/lib/libc++" "\''${LIBCXX_LIBCXXABI_LIB_PATH}/libc++"
-  '';
-
   preConfigure = ''
     # Get headers from the cxxabi source so we can see private headers not installed by the cxxabi package
     cmakeFlagsArray=($cmakeFlagsArray -DLIBCXX_CXX_ABI_INCLUDE_PATHS="$LIBCXXABI_INCLUDE_DIR")
