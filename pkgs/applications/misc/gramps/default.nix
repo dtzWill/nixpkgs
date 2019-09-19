@@ -35,7 +35,7 @@ in buildPythonApplication rec {
   pythonPath = with pythonPackages; [
     bsddb3 PyICU pygobject3 pycairo
     # for tests
-    lxml jsonschema mock PyICU
+    lxml jsonschema mock
   ];
 
   # Same installPhase as in buildPythonApplication but without --old-and-unmanageble
