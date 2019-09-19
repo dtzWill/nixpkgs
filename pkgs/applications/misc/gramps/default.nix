@@ -3,7 +3,9 @@
 # Optional packages:
  enableOSM ? true, osm-gps-map,
  enableGraphviz ? true, graphviz,
- enableGhostscript ? true, ghostscript
+ enableGhostscript ? true, ghostscript,
+ # For testing
+ glibcLocales,
  }:
 
 let
@@ -56,6 +58,7 @@ in buildPythonApplication rec {
     runHook postInstall
   '';
 
+  checkInputs = [ glibcLocales ];
   preCheck = ''
     export HOME=$TMPDIR
   '';
