@@ -3,11 +3,10 @@
   enableWiimote ? false, enableMidi ? false, enableSixaxis ? false }:
 
 stdenv.mkDerivation rec {
-  pname = "bluez";
-  version = "5.50";
+  name = "bluez-5.50";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/bluetooth/${pname}-${version}.tar.xz";
+    url = "mirror://kernel/linux/bluetooth/${name}.tar.xz";
     sha256 = "048r91vx9gs5nwwbah2s0xig04nwk14c5s0vb7qmaqdvighsmz2z";
   };
 
