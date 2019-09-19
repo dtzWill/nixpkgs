@@ -62,6 +62,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
     ln -s $out/bin/lldb-vscode $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
     # vim: (TODO: test, maybe help the plugin find lldb's python bits?)
+    mkdir -p $out/share/vim-plugins
     cp -arvt $out/share/vim-plugins/ ../utils/vim-lldb
   '';
 
