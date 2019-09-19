@@ -45,16 +45,19 @@ in stdenv.mkDerivation {
     libglade
     libxslt
     python2
-    python2.pkgs.pygtk
+    #python2.pkgs.pygtk
     libgda
     #evolution-data-server
     #libsoup
   ];
 
+  # glib-2.62 deprecations
+  NIX_CFLAGS_COMPILE = [ "-DGLIB_DISABLE_DEPRECATION_WARNINGS" ];
+
   preConfigure = ''NOCONFIGURE=1 ./autogen.sh'';
   configureFlags = [
     "--enable-python"
-    "--enable-python-plugin"
+    # "--enable-python-plugin"
     #"--enable-eds"
     #"--enable-eds-backend"
     #"--enable-simple-priority-scheduling"
