@@ -10,7 +10,7 @@
 
 buildGoPackage rec {
   pname = "keybase";
-  version = "4.4.2";
+  version = "4.5.0";
 
   goPackagePath = "github.com/keybase/client";
   subPackages = [
@@ -33,7 +33,7 @@ buildGoPackage rec {
     owner = "keybase";
     repo = "client";
     rev = "v${version}";
-    sha256 = "121abm2d6rj9h4ydkp7p7fr8qq9g8dqhp57nb0lzfk9k1w17sndd";
+    sha256 = "0hn4fm5v85zl0q255qz9xihi4j80cnkqawiblid9d70234vxmsin";
   };
 
   nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
