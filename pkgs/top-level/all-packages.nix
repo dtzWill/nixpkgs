@@ -8197,6 +8197,7 @@ in
   llvm_38 = llvmPackages_38.llvm;
   llvm_35 = llvmPackages_35.llvm;
 
+  # Keep this on 8 until 9 is actually (fully) released
   llvmPackages = recurseIntoAttrs llvmPackages_8;
 
   llvmPackages_35 = callPackage ../development/compilers/llvm/3.5 ({
@@ -8269,7 +8270,7 @@ in
     stdenv = gcc6Stdenv; # with gcc-7: undefined reference to `__divmoddi4'
   });
 
-  llvmPackages_latest = llvmPackages_8;
+  llvmPackages_latest = llvmPackages_9;
 
   lorri = throw "lorri is not stable yet. Please go to https://github.com/target/lorri and follow the installation instructions there, for the time being.";
 
