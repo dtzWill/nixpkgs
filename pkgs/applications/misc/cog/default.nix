@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, cmake, webkitgtk, libwpe, wpebackend-fdo, glib }:
+{ stdenv, fetchurl, cmake, pkgconfig, webkitgtk, libwpe, wpebackend-fdo, glib }:
 
 stdenv.mkDerivation rec {
   pname = "cog";
@@ -9,6 +9,10 @@ stdenv.mkDerivation rec {
     sha256 = "1y7fvzik7jzz2khz5cwksgnlch6fszjsysw4my9a9fa1pisv1hcr";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ libwpe wpebackend-fdo webkitgtk glib ];
+
+  cmakeFlags = [
+    "-DCOG_USE_WEBKITGTK=ON" # default is wpe-webkit
+  ];
 }
