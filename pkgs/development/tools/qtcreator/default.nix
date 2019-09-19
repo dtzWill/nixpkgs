@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, fetchgit, fetchpatch, makeWrapper
+{ mkDerivation, lib, fetchurl, fetchgit, fetchpatch
 , qtbase, qtquickcontrols, qtscript, qtdeclarative, qmake, llvmPackages_8
 , withDocumentation ? false, withClangPlugins ? true 
 }:
 
-with stdenv.lib;
+with lib;
 
 let
   # Fetch clang from qt vendor, this contains submodules like this:
@@ -18,7 +18,7 @@ let
   });
 in
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "qtcreator";
   version = "4.10.0";
   baseVersion = builtins.concatStringsSep "." (lib.take 2 (builtins.splitVersion version));
