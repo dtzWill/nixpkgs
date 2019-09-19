@@ -12,7 +12,13 @@ buildGoModule rec {
 
   modSha256 = "0anzqgbqifd3mgnsn5agchifs1f9dafxjkdiifrfsf745g9wx29k";
 
-  goPackagePath = "github.com/kubernetes-sigs/cri-tools";
+  ## goPackagePath = "github.com/kubernetes-sigs/cri-tools";
+
+  subPackages = [ "cmd/crictl" ];
+
+  ## buildPhase = ''
+  ##   make
+  ## '';
 
   meta = with lib; {
     description = "CLI and validation tools for Kubelet Container Runtime Interface (CRI)";
