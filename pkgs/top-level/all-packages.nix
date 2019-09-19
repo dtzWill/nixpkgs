@@ -20075,6 +20075,8 @@ in
 
   pdfdiff = callPackage ../applications/misc/pdfdiff { };
 
+  pdfsam-basic = callPackage ../applications/misc/pdfsam-basic { };
+
   mupdf = callPackage ../applications/misc/mupdf { };
 
   mystem = callPackage ../applications/misc/mystem { };
