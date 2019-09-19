@@ -6,7 +6,7 @@
 , version
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "lld";
   inherit version;
 
