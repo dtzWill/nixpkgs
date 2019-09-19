@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   inherit version;
   pname = "lldb";
 
-  src = fetch "lldb" "1mriw4adrwm6kzabrjr7yqmdiylxd6glf6samd80dp8idnm9p9z8";
+  src = fetch pname "1507dl0xw03nppxpz2xsq4s30jdbkplx4w14za54ngqm3xm2yk0y";
 
   postPatch = ''
     # Fix up various paths that assume llvm and clang are installed in the same place
