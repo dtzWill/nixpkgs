@@ -56,9 +56,8 @@ in buildPythonApplication rec {
     runHook postInstall
   '';
 
-  preInstallCheck = ''
-    export HOME=$PWD/home-test
-    mkdir -p $HOME
+  preCheck = ''
+    export HOME=$TMPDIR
   '';
 
   meta = with stdenv.lib; {
