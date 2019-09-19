@@ -56,6 +56,11 @@ in buildPythonApplication rec {
     runHook postInstall
   '';
 
+  preInstallCheck = ''
+    export HOME=$PWD/home-test
+    mkdir -p $HOME
+  '';
+
   meta = with stdenv.lib; {
     description = "Genealogy software";
     homepage = https://gramps-project.org;
