@@ -12980,6 +12980,8 @@ in
 
   one_gadget = callPackage ../development/tools/misc/one_gadget { };
 
+  onedrive = callPackage ../applications/networking/sync/onedrive { };
+
   oneko = callPackage ../applications/misc/oneko { };
 
   oniguruma = callPackage ../development/libraries/oniguruma { };
