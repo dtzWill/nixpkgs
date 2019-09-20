@@ -24,8 +24,8 @@ mkDerivation rec {
     owner = "nextcloud";
     repo = "desktop";
     #rev = "v${version}";
-    rev = "179bbffd761292fa8fd1ebf0c17b312c92b48911";
-    sha256 = "1hyg677f051z3hyhbh68gz1v2g7592vid40w5ljp0d3d0f1a9a8w";
+    rev = "1138118d8e9f830cf729961d46d5ca35c7493727"; # 2019-09-20
+    sha256 = "1c8jjjjx6rd76w9alwc2mcwsp7m64b7djb34m4j8s9xlzcc7zgsl";
   };
 
   patches = [
