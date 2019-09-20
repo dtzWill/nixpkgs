@@ -29,6 +29,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  outputs = [ "out" "dev" ];
+
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
