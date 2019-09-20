@@ -7658,7 +7658,7 @@ in
 
   crossLibcStdenv = overrideCC stdenv
     (if stdenv.targetPlatform.useLLVM or false
-     then buildPackages.llvmPackages_8.lldClangNoLibc
+     then buildPackages.llvmPackages_latest.lldClangNoLibc
      else buildPackages.gccCrossStageStatic);
 
   # The GCC used to build libc for the target platform. Normal gccs will be
