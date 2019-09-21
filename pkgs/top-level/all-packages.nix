@@ -7565,7 +7565,9 @@ in
 
   dotty = callPackage ../development/compilers/scala/dotty.nix { jre = jre8;};
 
-  drumstick = libsForQt5.callPackage ../development/libraries/drumstick { };
+  drumstick = libsForQt5.callPackage ../development/libraries/drumstick {
+    fluidsynth = fluidsynth_1;
+  };
 
   ecl = callPackage ../development/compilers/ecl { };
   ecl_16_1_2 = callPackage ../development/compilers/ecl/16.1.2.nix { };
