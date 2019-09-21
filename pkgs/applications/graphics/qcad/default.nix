@@ -42,6 +42,7 @@ mkDerivation rec {
     qtsvg
     qtxmlpatterns
     */
+    full
     sqlite
   ];
   # ++ lib.optional hostPlatform.isDarwin qtmacextras;
