@@ -3,12 +3,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "xmrig-${version}";
+  pname = "xmrig";
   version = "3.0.0";
 
   src = fetchFromGitHub {
-    owner = "xmrig";
-    repo = "xmrig";
+    owner = pname;
+    repo = pname;
     rev = "v${version}";
     sha256 = "1m0rsjb7y1j77mzg5cqb3fdvzgvjkrwgmkjn9nv1xl2757z8hcl4";
   };
