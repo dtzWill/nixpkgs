@@ -47,6 +47,9 @@ mkDerivation rec {
         --subst-var-by NIX_PLUGINS_DIR ${placeholder "out"}/lib/qcad/plugins \
         --subst-var-by NIX_SHARED_DATA_DIR ${placeholder "out"}/share/qcad
     done
+
+    substituteInPlace src/run/run.pri \
+      --replace '$$[QT_INSTALL_PLUGINS]' '${qtbase.bin}/${qtbase.qtPluginPrefix}'
   '';
 
   installPhase = ''
