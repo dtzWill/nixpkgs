@@ -16,7 +16,7 @@ mkDerivation rec {
   nativeBuildInputs = [ makeWrapper python3 ];
   propagatedBuildInputs = with python3.pkgs; [
     pyqt5 docutils
-    meta
+    # meta
     pyenchant
     # shortcutter # desktop integration
     # flexx # LeoWapp
