@@ -1,4 +1,4 @@
-{ stdenv, fetchpatch, python3Packages }:
+{ stdenv, fetchpatch, python3Packages, glibcLocales }:
 
 with stdenv.lib;
 with python3Packages;
@@ -12,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "15mkhm3b5ka42h8qph0mhh8izfc1200v7651c62k7ldcs50ib9j6";
   };
 
-  checkInputs = [ mock pytest coverage tox ];
+  checkInputs = [ mock pytest coverage tox glibcLocales ];
   propagatedBuildInputs = [ urwid tweepy future ];
 
   patches = [
