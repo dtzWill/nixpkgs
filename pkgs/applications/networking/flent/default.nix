@@ -4,12 +4,12 @@
 
 buildPythonApplication rec {
   pname = "flent";
-  version = "1.2.2";
+  version = "1.3.0";
   src = fetchFromGitHub {
     owner = "tohojo";
     repo = "flent";
     rev = "v${version}";
-    sha256 = "1llcdakk0nk9xlpjjz7mv4a80yq4sjnbqhaqvyj9m6lbcxgssh2r";
+    sha256 = "16qvr4saphmf7y246bvc4w2h3dg0ghci18nw6fkl837sbrywwcd6";
   };
 
   buildInputs = [ sphinx ];
