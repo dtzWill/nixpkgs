@@ -54,6 +54,14 @@ mkDerivation rec {
       plugins platforminputcontexts platforms xcbglintegrations
   '';
 
+  # qt wrapper doesn't process symlinks presently (temporary regression),
+  # so handle this explicitly ourselves:
+  preFixup = ''
+    echo "Replacing symlink with wrapper..."
+    rm -v $out/bin/qcad
+    makeQtWrapper $out/lib/qcad-bin $out/bin/qcad
+  '';
+
   meta = with lib; {
     description = "2D CAD package based upon Qt";
     homepage = "https://qcad.org";
