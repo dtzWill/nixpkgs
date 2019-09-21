@@ -75,6 +75,8 @@ mkDerivation rec {
       --set PYTHONPATH "$PYTHONPATH:$out/share/leo-editor" \
       --add-flags "-O $out/share/leo-editor/launchLeo.py" \
       ''${qtWrapperArgs[@]}
+
+      patchShebangs $out
   '';
 
   meta = with lib; {
