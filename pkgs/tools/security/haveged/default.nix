@@ -1,11 +1,11 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  name = "haveged-${version}";
+  pname = "haveged";
   version = "1.9.2";
 
   src = fetchurl {
-    url = "http://www.issihosts.com/haveged/haveged-${version}.tar.gz";
+    url = "http://www.issihosts.com/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0w5ypz6451msckivjriwyw8djydlwffam7x23xh626s2vzdrlzgp";
   };
 
