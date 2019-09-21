@@ -5,6 +5,7 @@
 , qtsvg
 , qtdeclarative
 , qtwebchannel
+, qtmultimedia
 , withConnectivity ? false, qtconnectivity
 , withWebKit ? false, qtwebkit
 , withWebSockets ? false, qtwebsockets
@@ -47,6 +48,7 @@ in buildPythonPackage rec {
     qtbase
     qtsvg
     qtdeclarative
+    qtmultimedia
     qtwebchannel
   ]
     ++ lib.optional withConnectivity qtconnectivity
@@ -59,6 +61,7 @@ in buildPythonPackage rec {
     qtbase
     qtsvg
     qtdeclarative
+    qtmultimedia
   ]
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
