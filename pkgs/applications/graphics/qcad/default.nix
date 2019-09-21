@@ -35,6 +35,17 @@ mkDerivation rec {
   ]
   ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
+  postPatch = ''
+    substituteInPlace src/core/RS.cpp \
+      --replace /usr/share $out/share
+  '';
+
+  # TODO:
+  # * put in $out/share/qcad instead
+  #   * patch up resource code
+  # * put qcad-bin in $out/libexec
+  # * put libs into $out/lib, ensure they're found (maybe fixup rpath)
+  # * qt bits into $out/lib ..?
   installPhase = ''
     mkdir -p $out/{bin,lib,share/man/man1}
     install -t $out/lib release/qcad-bin
@@ -46,7 +57,6 @@ mkDerivation rec {
     install qcad.1 -t $out/share/man/man1
 
     # Data resources
-    # TODO: put in $out/share/qcad instead, patch up resource code
     cp -vr -t $out/lib \
       examples fonts libraries linetypes patterns scripts themes ts
     # Qt
