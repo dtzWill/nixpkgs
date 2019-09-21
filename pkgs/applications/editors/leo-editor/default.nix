@@ -1,5 +1,16 @@
 { lib, mkDerivation, python3, fetchFromGitHub, makeWrapper, makeDesktopItem }:
 
+let
+  py = python3.withPackages (ps: with ps; [
+    pyqt5 docutils
+    # meta
+    pyenchant
+    # shortcutter # desktop integration
+    # flexx # LeoWapp
+    sphinx # rST plugin
+    nbformat # Jupyter integration
+  ]);
+in
 mkDerivation rec {
   pname = "leo-editor";
   version = "6.0";
@@ -13,16 +24,16 @@ mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper python3 ];
-  propagatedBuildInputs = with python3.pkgs; [
-    pyqt5 docutils
-    # meta
-    pyenchant
-    # shortcutter # desktop integration
-    # flexx # LeoWapp
-    sphinx # rST plugin
-    nbformat # Jupyter integration
-  ];
+  nativeBuildInputs = [ makeWrapper py ];
+  #propagatedBuildInputs = with python3.pkgs; [
+  #  pyqt5 docutils
+  #  # meta
+  #  pyenchant
+  #  # shortcutter # desktop integration
+  #  # flexx # LeoWapp
+  #  sphinx # rST plugin
+  #  nbformat # Jupyter integration
+  #];
 
   desktopItem = makeDesktopItem rec {
     name = "leo-editor";
@@ -48,6 +59,8 @@ mkDerivation rec {
     ];
   };
 
+  dontWrapQtApps = true;
+
   installPhase = ''
     mkdir -p "$out/share/icons/hicolor/32x32/apps"
     cp leo/Icons/leoapp32.png "$out/share/icons/hicolor/32x32/apps"
@@ -58,7 +71,7 @@ mkDerivation rec {
     mkdir -p $out/share/leo-editor
     mv * $out/share/leo-editor
 
-    makeWrapper ${python3.interpreter} $out/bin/leo \
+    makeWrapper ${py.interpreter} $out/bin/leo \
       --set PYTHONPATH "$PYTHONPATH:$out/share/leo-editor" \
       --add-flags "-O $out/share/leo-editor/launchLeo.py" \
       ''${qtWrapperArgs[@]}
