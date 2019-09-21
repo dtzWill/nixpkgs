@@ -40,36 +40,28 @@ mkDerivation rec {
       --replace /usr/share $out/share
   '';
 
-  # TODO:
-  # * put in $out/share/qcad instead
-  #   * patch up resource code
-  # * put qcad-bin in $out/libexec
-  # * put libs into $out/lib, ensure they're found (maybe fixup rpath)
-  # * qt bits into $out/lib ..?
   installPhase = ''
-    mkdir -p $out/{bin,lib,share/man/man1}
-    install -t $out/lib release/qcad-bin
-    ln -rsv $out/lib/qcad-bin $out/bin/qcad
+    mkdir -p $out/{bin,lib/qcad,share/qcad,share/man/man1,share/applications}
 
-    install -t $out/lib \
-      release/lib{spatialindexnavel,qcad}*${hostPlatform.extensions.sharedLibrary}
+    # Bin
+    install release/qcad-bin $out/bin/qcad
 
-    install qcad.1 -t $out/share/man/man1
+    # Libs
+    install -t $out/lib release/*${hostPlatform.extensions.sharedLibrary}
 
     # Data resources
-    cp -vr -t $out/lib \
+    cp -vr -t $out/share/qcad \
       examples fonts libraries linetypes patterns scripts themes ts
-    # Qt
-    cp -vr -t $out/lib \
-      plugins platforminputcontexts platforms xcbglintegrations
-  '';
 
-  # qt wrapper doesn't process symlinks presently (temporary regression),
-  # so handle this explicitly ourselves:
-  preFixup = ''
-    echo "Replacing symlink with wrapper..."
-    rm -v $out/bin/qcad
-    makeQtWrapper $out/lib/qcad-bin $out/bin/qcad
+    # Qt plugins and related
+    cp -vr -t $out/lib/qcad \
+      plugins platforminputcontexts platforms xcbglintegrations
+
+    # Man
+    install qcad.1 -t $out/share/man/man1
+
+    # Desktop file
+    install qcad.desktop -t $out/share/applications
   '';
 
   meta = with lib; {
