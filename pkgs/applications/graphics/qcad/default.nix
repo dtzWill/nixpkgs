@@ -49,7 +49,8 @@ mkDerivation rec {
     done
 
     substituteInPlace src/run/run.pri \
-      --replace '$$[QT_INSTALL_PLUGINS]' '${qtbase.bin}/${qtbase.qtPluginPrefix}'
+      --replace '$$[QT_INSTALL_PLUGINS]' '${qtbase.bin}/${qtbase.qtPluginPrefix}' \
+      --replace 'system(cp ' 'system(ln -svf '
   '';
 
   installPhase = ''
