@@ -5,14 +5,18 @@
 , fetchFromGitHub
 , qmake
 , qttools
+/* 
 , qtbase
 , qtmultimedia
 , qtimageformats
 , qtscript
 , qtsvg
 , qtxmlpatterns
-, libGLU_combined
 , qtmacextras
+*/
+, qtbase # qtPluginPrefix
+, full # :(
+, libGLU_combined
 , sqlite
 }:
 
@@ -30,15 +34,17 @@ mkDerivation rec {
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [
     libGLU_combined
+    /*
     qtbase
     qtmultimedia
     qtimageformats
     qtscript
     qtsvg
     qtxmlpatterns
+    */
     sqlite
-  ]
-  ++ lib.optional hostPlatform.isDarwin qtmacextras;
+  ];
+  # ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
   patches = [ ./fix-paths.patch ];
 
@@ -50,9 +56,8 @@ mkDerivation rec {
         --subst-var-by NIX_SHARED_DATA_DIR ${placeholder "out"}/share/qcad
     done
 
-    # TODO: some of the files aren't from qtbase-- qtimageformats, for example.
     substituteInPlace src/run/run.pri \
-      --replace '$$[QT_INSTALL_PLUGINS]' '${qtbase.bin}/${qtbase.qtPluginPrefix}' \
+      --replace '$$[QT_INSTALL_PLUGINS]' '${full}/${qtbase.qtPluginPrefix}' \
       --replace 'system(cp ' 'system(ln -svf '
   '';
 
