@@ -35,10 +35,13 @@ mkDerivation rec {
   ]
   ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
-  postPatch = ''
-    substituteInPlace src/core/RS.cpp \
-      --replace /usr/share $out/share
-  '';
+  patches = [
+    (substituteAll {
+      src = ./fix-paths.patch;
+      NIX_PLUGINS_DIR = "${placeholder "out"}/lib/qcad/plugins";
+      NIX_SHARED_DATA_DIR = "${placeholder "out"}/share/qcad";
+    })
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib/qcad,share/qcad,share/man/man1,share/applications}

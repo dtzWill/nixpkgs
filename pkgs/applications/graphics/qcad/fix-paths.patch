@@ -1,0 +1,59 @@
+From b06979cbf3988d0ba2e171e9749703963688c1f9 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Sat, 21 Sep 2019 11:53:22 -0500
+Subject: [PATCH] fix paths, based on Debian patches
+
+---
+ src/core/RPluginLoader.cpp | 1 +
+ src/core/RS.cpp            | 2 +-
+ src/core/RSettings.cpp     | 2 ++
+ 3 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/RPluginLoader.cpp b/src/core/RPluginLoader.cpp
+index 80be12908..516a15399 100644
+--- a/src/core/RPluginLoader.cpp
++++ b/src/core/RPluginLoader.cpp
+@@ -269,6 +269,7 @@ RPluginInfo RPluginLoader::getPluginInfo(const QString& id) {
+ }
+ 
+ QString RPluginLoader::getPluginsPath() {
++    return QString("@NIX_PLUGINS_DIR@");
+     QDir pluginsDir = QDir(".");
+     if (!pluginsDir.cd("plugins")) {
+         pluginsDir.cdUp();
+diff --git a/src/core/RS.cpp b/src/core/RS.cpp
+index d8a135d6f..83ba90a54 100644
+--- a/src/core/RS.cpp
++++ b/src/core/RS.cpp
+@@ -139,7 +139,7 @@ bool RS::compare(const QPair<QVariant, RPropertyAttributes>& p1, const QPair<
+ QStringList RS::getDirectoryList(const QString& subDirectory) {
+     QStringList dirList;
+ 
+-    QString appDir = QCoreApplication::applicationDirPath();
++    QString appDir = QString("@NIX_SHARED_DATA_DIR@");
+     QFileInfo fi(appDir);
+     if (fi.fileName() == "debug" || fi.fileName() == "release") {
+         appDir = fi.absolutePath();
+diff --git a/src/core/RSettings.cpp b/src/core/RSettings.cpp
+index 3efd6c05d..f5a9cf415 100644
+--- a/src/core/RSettings.cpp
++++ b/src/core/RSettings.cpp
+@@ -345,6 +345,7 @@ bool RSettings::isDeployed() {
+  * \return Path where all application resources are stored ('scripts', 'patterns', 'ts', 'doc', 'linetypes', ...)
+  */
+ QString RSettings::getApplicationPath() {
++    return QString("@NIX_SHARED_DATA_DIR@");
+     QDir ret(QApplication::applicationDirPath());
+ 
+ #ifdef Q_OS_MAC
+@@ -398,6 +399,7 @@ QStringList RSettings::getPluginPaths() {
+  * \return Path to the application plugins folder.
+  */
+ QString RSettings::getPluginPath() {
++    return QString("@NIX_PLUGINS_DIR@");
+     QDir appDir = QDir(getApplicationPath());
+ 
+ #ifdef Q_OS_MAC
+-- 
+2.23.GIT
+
