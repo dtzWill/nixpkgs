@@ -121,6 +121,7 @@ in buildPythonPackage rec {
       "PyQt5.QtQml"
       "PyQt5.QtWidgets"
       "PyQt5.QtGui"
+      "PyQt5.QtMultimedia"
     ]
     ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
