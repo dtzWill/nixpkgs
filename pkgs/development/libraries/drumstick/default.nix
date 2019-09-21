@@ -1,4 +1,4 @@
-{ lib, mkDerivation, fetchurl, alsaLib, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen
+{ lib, mkDerivation, fetchurl, alsaLib, libpulseaudio, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen
 , fluidsynth, pkgconfig, qtbase, qtsvg
 }:
 
@@ -17,7 +17,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig docbook_xsl docbook_xml_dtd_45 docbook_xml_dtd_45 ];
   buildInputs = [
-    alsaLib doxygen fluidsynth qtbase qtsvg
+    alsaLib libpulseaudio doxygen fluidsynth qtbase qtsvg
   ];
 
   meta = with lib; {
