@@ -1,5 +1,6 @@
 { lib
 , mkDerivation
+, substituteAll
 , hostPlatform
 , fetchFromGitHub
 , qmake
