@@ -7,6 +7,7 @@
 , qttools
 , qtbase
 , qtmultimedia
+, qtimageformats
 , qtscript
 , qtsvg
 , qtxmlpatterns
@@ -31,6 +32,7 @@ mkDerivation rec {
     libGLU_combined
     qtbase
     qtmultimedia
+    qtimageformats
     qtscript
     qtsvg
     qtxmlpatterns
@@ -48,6 +50,7 @@ mkDerivation rec {
         --subst-var-by NIX_SHARED_DATA_DIR ${placeholder "out"}/share/qcad
     done
 
+    # TODO: some of the files aren't from qtbase-- qtimageformats, for example.
     substituteInPlace src/run/run.pri \
       --replace '$$[QT_INSTALL_PLUGINS]' '${qtbase.bin}/${qtbase.qtPluginPrefix}' \
       --replace 'system(cp ' 'system(ln -svf '
