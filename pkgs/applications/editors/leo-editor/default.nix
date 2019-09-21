@@ -72,8 +72,9 @@ mkDerivation rec {
     mv * $out/share/leo-editor
 
     makeWrapper ${py.interpreter} $out/bin/leo \
-      --set PYTHONPATH "$PYTHONPATH:$out/share/leo-editor" \
+      --prefix PYTHONPATH : "$out/share/leo-editor" \
       --add-flags "-O $out/share/leo-editor/launchLeo.py" \
+      --prefix PATH : ${py}/bin \
       ''${qtWrapperArgs[@]}
 
       patchShebangs $out
