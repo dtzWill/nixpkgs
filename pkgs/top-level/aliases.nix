@@ -425,6 +425,7 @@ mapAliases ({
   terraform-provider-libvirt = terraform-providers.libvirt; # added 2018-09-28
   terraform-provider-nixos = terraform-providers.nixos; # added 2018-09-28
   tesseract_4 = tesseract4; # added 2018-12-19
+  testdisk-photorec = throw "This package was a duplicate, please use testdisk or testdisk-qt instead"; # added 2019-10-13
   tetra-gtk-theme = adementary-theme; # added 2019-05-10
   tex-gyre-bonum-math = tex-gyre-math.bonum; # added 2018-04-03
   tex-gyre-pagella-math = tex-gyre-math.pagella; # added 2018-04-03
