@@ -35,6 +35,25 @@ mkDerivation rec {
   ]
   ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
+  installPhase = ''
+    mkdir -p $out/{bin,lib,share/man/man1}
+    install -t $out/lib release/qcad-bin
+    ln -rsv $out/lib/qcad-bin $out/bin/qcad
+
+    install -t $out/lib \
+      release/lib{spatialindexnavel,qcad}*${hostPlatform.extensions.sharedLibrary}
+
+    install qcad.1 -t $out/share/man/man1
+
+    # Data resources
+    # TODO: put in $out/share/qcad instead, patch up resource code
+    cp -vr -t $out/lib \
+      examples fonts libraries linetypes patterns scripts themes ts
+    # Qt
+    cp -vr -t $out/lib \
+      plugins platforminputcontexts platforms xcbglintegrations
+  '';
+
   meta = with lib; {
     description = "2D CAD package based upon Qt";
     homepage = "https://qcad.org";
