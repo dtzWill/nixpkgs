@@ -77,8 +77,6 @@ in stdenv.mkDerivation rec {
     # Meson does not support using different directories during build and
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
-
-    ./iwd-sae.patch
   ];
 
   buildInputs = [
