@@ -14,7 +14,15 @@ mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [ makeWrapper python3 ];
-  propagatedBuildInputs = with python3.pkgs; [ pyqt5 docutils ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pyqt5 docutils
+    meta
+    pyenchant
+    # shortcutter # desktop integration
+    # flexx # LeoWapp
+    sphinx # rST plugin
+    nbformat # Jupyter integration
+  ];
 
   desktopItem = makeDesktopItem rec {
     name = "leo-editor";
