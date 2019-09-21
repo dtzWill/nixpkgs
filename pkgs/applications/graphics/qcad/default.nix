@@ -12,6 +12,7 @@
 , qtxmlpatterns
 , libGLU_combined
 , qtmacextras
+, sqlite
 }:
 
 mkDerivation rec {
@@ -33,6 +34,7 @@ mkDerivation rec {
     qtscript
     qtsvg
     qtxmlpatterns
+    sqlite
   ]
   ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
