@@ -11,14 +11,14 @@
 mkDerivation rec {
   pname = "elisa";
   #version = "0.4.2";
-  version = "unstable-2019-09-09";
+  version = "unstable-2019-09-19";
 
   src = fetchFromGitHub {
     owner  = "KDE";
     repo   = "elisa";
     #rev    = "v${version}";
-    rev = "7d815c9fa3803f06d592d9885fa8bf6031d51b7e";
-    sha256 = "0hsdgmqldjfiwc3pdgck4s9i8pr2s37r6bm1hswgrgsb5hxx563s";
+    rev = "5e0c768598c16e42a73f67a7bf7c750fd2e09e2e";
+    sha256 = "0np0s4rw943dpdjgpy0hsiz7ibdc2ha4zphyck9ljhrprwhr5pzv";
   };
 
   buildInputs = [ vlc ];
