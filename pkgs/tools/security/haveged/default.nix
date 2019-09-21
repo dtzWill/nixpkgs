@@ -1,12 +1,14 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "haveged";
-  version = "1.9.2";
+  version = "1.9.6";
 
-  src = fetchurl {
-    url = "http://www.issihosts.com/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "0w5ypz6451msckivjriwyw8djydlwffam7x23xh626s2vzdrlzgp";
+  src = fetchFromGitHub {
+    owner = "jirka-h";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "11kr19n2f87izsj341lv5amhd1wc2ckfmqr9pq5fxix8pkbs94rh";
   };
 
   meta = {
