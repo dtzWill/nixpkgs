@@ -29,12 +29,12 @@ let
 
 in buildPythonPackage rec {
   pname = "pyqt";
-  version = "5.13.0";
+  version = "5.13.1";
   format = "other";
 
   src = fetchurl {
     url = "https://www.riverbankcomputing.com/static/Downloads/PyQt5/${version}/PyQt5_gpl-${version}.tar.gz";
-    sha256 = "1ydgdz28f1v17qqz3skyv26k5l0w63fr4dncc5xm49jr2gjzznqc";
+    sha256 = "1byl0vhynlj1di4i4rc8bqipz9iffqvnhy0fjfryx28v6ibg9dsl";
   };
 
   outputs = [ "out" "dev" ];
