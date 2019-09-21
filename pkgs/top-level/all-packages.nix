@@ -4422,7 +4422,7 @@ in
 
   mxisd = callPackage ../servers/mxisd { };
 
-  nagstamon = callPackage ../tools/misc/nagstamon {
+  nagstamon = libsForQt5.callPackage ../tools/misc/nagstamon {
     pythonPackages = python3Packages;
   };
 
