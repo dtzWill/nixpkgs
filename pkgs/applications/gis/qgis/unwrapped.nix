@@ -11,8 +11,7 @@ let
       chardet dateutil pyyaml pytz requests urllib3 pygments pyqt5 sip owslib six ];
 in stdenv.mkDerivation rec {
   version = "3.8.0";
-  pname = "qgis";
-  name = "${pname}-unwrapped-${version}";
+  pname = "qgis-unwrapped";
 
   src = fetchFromGitHub {
     owner = "qgis";
