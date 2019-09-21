@@ -1,7 +1,17 @@
-{ lib, mkDerivation, hostPlatform, fetchFromGitHub
-, qmake, qttools
-, qtbase, qtmultimedia, qtscript, qtsvg, qtxmlpatterns
-, libGLU_combined, qtmacextras }:
+{ lib
+, mkDerivation
+, hostPlatform
+, fetchFromGitHub
+, qmake
+, qttools
+, qtbase
+, qtmultimedia
+, qtscript
+, qtsvg
+, qtxmlpatterns
+, libGLU_combined
+, qtmacextras
+}:
 
 mkDerivation rec {
   pname = "qcad";
@@ -17,7 +27,11 @@ mkDerivation rec {
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [
     libGLU_combined
-    qtbase qtmultimedia qtscript qtsvg qtxmlpatterns
+    qtbase
+    qtmultimedia
+    qtscript
+    qtsvg
+    qtxmlpatterns
   ]
   ++ lib.optional hostPlatform.isDarwin qtmacextras;
 
