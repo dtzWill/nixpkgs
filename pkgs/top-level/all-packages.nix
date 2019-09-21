@@ -15815,6 +15815,8 @@ in
 
   tgt = callPackage ../tools/networking/tgt { };
 
+  wpan-tools = callPackage ../os-specific/linux/wpan-tools { };
+
   # -- Linux kernel expressions ------------------------------------------------
 
   lkl = callPackage ../applications/virtualization/lkl { };
