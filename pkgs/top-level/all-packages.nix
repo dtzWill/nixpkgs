@@ -15753,7 +15753,9 @@ in
   iputils = callPackage ../os-specific/linux/iputils { };
   iputils-nosystemd = callPackage ../os-specific/linux/iputils { systemd = null; };
 
-  iptables = callPackage ../os-specific/linux/iptables { };
+  iptables = iptables-legacy;
+  iptables-legacy = callPackage ../os-specific/linux/iptables { };
+  iptables-nftables-compat = callPackage ../os-specific/linux/iptables { nftablesCompat = true; };
 
   iptstate = callPackage ../os-specific/linux/iptstate { } ;
 
