@@ -8217,8 +8217,7 @@ in
   llvm_38 = llvmPackages_38.llvm;
   llvm_35 = llvmPackages_35.llvm;
 
-  # Keep this on 8 until 9 is actually (fully) released
-  llvmPackages = recurseIntoAttrs llvmPackages_8;
+  llvmPackages = recurseIntoAttrs llvmPackages_9;
 
   llvmPackages_35 = callPackage ../development/compilers/llvm/3.5 ({
     isl = isl_0_14;
