@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    curl glib glib-networking json-glib libnotify libsecret sqlite gumbo gtk3
+    curl glib json-glib libnotify libsecret sqlite gumbo gtk3
     libgee libpeas gnome3.libsoup librest webkitgtk gsettings-desktop-schemas
     gnome-online-accounts
   ] ++ (with gst_all_1; [
