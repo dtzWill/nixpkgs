@@ -33,6 +33,11 @@ stdenv.mkDerivation {
       url = "https://github.com/systemd/systemd/commit/d45ee2f31a8358db0accde2e7c81777cedadc3c2.patch";
       sha256 = "1kg4ba9s610qhfv3canda94im3b63xdbmrfn28b04081g79dan4g";
     })
+    # Updates to stable-v243 not in our fork yet
+    (fetchpatch {
+      url = "https://github.com/systemd/systemd-stable/compare/64d0f7042d..fab6f010ac.patch";
+      sha256 = "0cnp9aqnzxcnjq5p4xwj1x6wg1nnjc3xkzwimwbl26675ypf03qw";
+    })
   ];
 
   outputs = [ "out" "lib" "man" "dev" ];
