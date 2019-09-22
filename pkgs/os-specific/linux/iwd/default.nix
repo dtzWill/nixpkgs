@@ -43,6 +43,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var/"
     "--enable-wired"
     "--enable-external-ell"
+    "--enable-ofono"
   ];
 
   postUnpack = ''
