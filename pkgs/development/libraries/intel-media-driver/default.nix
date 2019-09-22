@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo   = "media-driver";
     # rev    = "intel-media-${version}";
     rev = "cf80fa0e3c81361696ada1285ea17a417114be47";
-    sha256 = "1ydmncgfz0w9iwfsz3dss78cc35wdhgy5kdvgwb72ybc3c951cx2";
+    sha256 = "17vgzdwmdln55fhadnp6ywhmh8ndivi3ijhn3p808g17lzczpkwy";
   };
 
   cmakeFlags = [
