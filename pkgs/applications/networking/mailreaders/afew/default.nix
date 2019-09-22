@@ -19,8 +19,8 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = with python3Packages; [ sphinx setuptools_scm git freezegun notmuch ];
 
   propagatedBuildInputs = with python3Packages; [
-    python3Packages.notmuch chardet dkimpy
-  ];
+    setuptools notmuch chardet dkimpy
+  ] ++ stdenv.lib.optional (!pythonPackages.isPy3k) subprocess32;
 
   makeWrapperArgs = [
     ''--prefix PATH ':' "${notmuch}/bin"''
