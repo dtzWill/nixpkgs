@@ -4311,6 +4311,8 @@ in
 
   lbreakouthd = callPackage ../games/lbreakouthd { };
 
+  lefthook = gitAndTools.lefthook;
+
   lego = callPackage ../tools/admin/lego { };
 
   leocad = callPackage ../applications/graphics/leocad { };
