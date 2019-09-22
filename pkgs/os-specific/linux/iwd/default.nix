@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, python3Packages }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, openssl, python3Packages }:
 
 # TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
 # (and any req'd dependencies/wrapping, not sure)
@@ -28,6 +28,8 @@ stdenv.mkDerivation rec {
     python3Packages.python
   ];
 
+  checkInputs = [ openssl ];
+
   pythonPath = with python3Packages; [
     dbus-python
     pygobject3
@@ -46,6 +48,8 @@ stdenv.mkDerivation rec {
   postUnpack = ''
     patchShebangs .
   '';
+
+  doCheck = true;
 
   postInstall = ''
     cp -a test/* $out/bin/
