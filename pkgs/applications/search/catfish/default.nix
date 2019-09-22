@@ -1,7 +1,6 @@
 { stdenv, fetchurl, file, which, intltool, gobject-introspection,
-  findutils, xdg_utils, gnome3, gtk3, python3Packages, hicolor-icon-theme,
-  wrapGAppsHook,
-  atk, cairo
+  findutils, xdg_utils, gnome3, gtk3, python3Packages,
+  wrapGAppsHook
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -25,16 +24,15 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    atk
     gtk3
     gnome3.dconf
-    hicolor-icon-theme
-    #wrapGAppsHook
-    gobject-introspection
-    gnome3.adwaita-icon-theme
+    pythonPackages.pyxdg
+    pythonPackages.ptyprocess
+    pythonPackages.pycairo
   ];
 
   propagatedBuildInputs = [
+    # TODO: DTZ: prune, compare to master
     python3Packages.pygobject3
     python3Packages.pyxdg
     python3Packages.ptyprocess
@@ -43,9 +41,6 @@ python3Packages.buildPythonApplication rec {
     python3Packages.dbus-python
     xdg_utils
     findutils
-    gtk3
-    cairo
-    atk
   ];
 
   # Explicitly set the prefix dir in "setup.py" because setuptools is

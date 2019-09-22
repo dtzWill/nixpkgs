@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgconfig, which, qmake, 
-  qtbase, qtmultimedia, frei0r, opencolorio, hicolor-icon-theme, ffmpeg-full,
+{ stdenv, fetchFromGitHub, pkgconfig, which, qmake, mkDerivation,
+  qtbase, qtmultimedia, frei0r, opencolorio, ffmpeg-full,
   CoreFoundation  }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "olive-editor";
   version = "0.1.1";
 
@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "15q4qwf5rc3adssywl72jrhkpqk55ihpd5h5wf07baw0s47vv5kq";
   };
 
-  nativeBuildInputs = [ 
-    pkgconfig 
-    which 
+  nativeBuildInputs = [
+    pkgconfig
+    which
     qmake
   ];
 
@@ -26,7 +26,6 @@ stdenv.mkDerivation rec {
     qtbase
     qtmultimedia
     qtmultimedia.dev
-    hicolor-icon-theme
   ] ++ stdenv.lib.optional stdenv.isDarwin CoreFoundation;
 
   meta = with stdenv.lib; {
