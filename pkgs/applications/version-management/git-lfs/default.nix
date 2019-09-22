@@ -1,10 +1,8 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  name = "git-lfs-${version}";
-  version = "2.7.2";
-
-  goPackagePath = "github.com/git-lfs/git-lfs";
+  pname = "git-lfs";
+  version = "2.8.0";
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -13,8 +11,12 @@ buildGoPackage rec {
     sha256 = "1nf40rbdz901vsahg5cm09pznpina6wimmxl0lmh8pn0mi51yzvc";
   };
 
+  goPackagePath = "github.com/git-lfs/git-lfs";
+
+  subPackages = [ "." ];
+
   preBuild = ''
-    pushd go/src/github.com/git-lfs/git-lfs
+    cd go/src/${goPackagePath}
     go generate ./commands
     popd
   '';
