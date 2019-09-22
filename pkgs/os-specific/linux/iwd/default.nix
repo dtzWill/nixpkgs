@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, python3Packages }:
 
 # TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
 # (and any req'd dependencies/wrapping, not sure)
@@ -6,18 +6,19 @@ stdenv.mkDerivation rec {
   pname = "iwd";
 
   #version = "0.21";
-  version = "2019-09-20";
+  version = "2019-09-21";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "73f6e0b43b086d661bd7919b51979df0f646109e";
-    sha256 = "08h5k45948dnlmvnxzj2ha1mj531jppmqjsj1ixw2x6j46f5f5r4";
+    rev = "765bb9208484fa6004a16016a953dd07203765e5";
+    sha256 = "0vmvynyb16sfhj9555r3ql54xyr534fnxfsq3k5hhg7bllhpnk12";
   };
 
   nativeBuildInputs = [
     autoreconfHook
     pkgconfig
+    docutils # rst2man
     python3Packages.wrapPython
   ];
 
