@@ -44,6 +44,10 @@ stdenv.mkDerivation rec {
     cp "${vimrc}" $out/share/vim/vimrc
   '';
 
+  doCheck = false;
+
+  checkTarget = "test";
+
   __impureHostDeps = [ "/dev/ptmx" ];
 
   # To fix the trouble in vim73, that it cannot cross-build with this patch
