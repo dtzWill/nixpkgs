@@ -15,7 +15,7 @@
 , withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   version = "243";
   pname = "systemd";
 
@@ -35,8 +35,9 @@ stdenv.mkDerivation {
     })
     # Updates to stable-v243 not in our fork yet
     (fetchpatch {
-      url = "https://github.com/systemd/systemd-stable/compare/64d0f7042d..fab6f010ac.patch";
-      sha256 = "0cnp9aqnzxcnjq5p4xwj1x6wg1nnjc3xkzwimwbl26675ypf03qw";
+      name = "engage_stabilizers.patch";
+      url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
+      sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
     })
   ];
 
