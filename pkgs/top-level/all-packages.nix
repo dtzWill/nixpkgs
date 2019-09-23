@@ -665,7 +665,7 @@ in
 
   aws-iam-authenticator = callPackage ../tools/security/aws-iam-authenticator {};
 
-  awscli = callPackage ../tools/admin/awscli { };
+  awscli = callPackage ../tools/admin/awscli { python = python3; };
 
   awsebcli = callPackage ../tools/virtualization/awsebcli {};
 
