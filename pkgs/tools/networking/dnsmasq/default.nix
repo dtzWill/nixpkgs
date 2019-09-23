@@ -1,10 +1,10 @@
 { stdenv, fetchurl, pkgconfig, dbus, nettle
-, libidn, libnetfilter_conntrack }:
+, libidn2, libnetfilter_conntrack }:
 
 with stdenv.lib;
 let
   copts = concatStringsSep " " ([
-    "-DHAVE_IDN"
+    "-DHAVE_IDN2"
     "-DHAVE_DNSSEC"
   ] ++ optionals stdenv.isLinux [
     "-DHAVE_DBUS"
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "DESTDIR="
-    "BINDIR=$(out)/bin"
-    "MANDIR=$(out)/man"
-    "LOCALEDIR=$(out)/share/locale"
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/man"
+    "LOCALEDIR=${placeholder "out"}/share/locale"
   ];
 
   hardeningEnable = [ "pie" ];
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ nettle libidn ]
+  buildInputs = [ nettle libidn2 ]
     ++ optionals stdenv.isLinux [ dbus libnetfilter_conntrack ];
 
   meta = {
