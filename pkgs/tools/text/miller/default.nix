@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "miller";
-  version = "5.6.1";
+  version = "v5.6.2";
 
   src = fetchFromGitHub {
     owner = "johnkerl";
     repo = pname;
     rev = "v${version}";
-    sha256 = "18pgp2paj3ynrjiil3c2adbyczgvmp3sjhqbccp017d3sl5jg945";
+    sha256 = "error: cannot download source from any mirror";
   };
 
   nativeBuildInputs = [ autoreconfHook flex libtool ];
