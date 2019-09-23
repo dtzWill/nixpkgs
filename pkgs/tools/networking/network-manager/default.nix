@@ -20,8 +20,8 @@ in stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "e79f1b623d4154631f66d8bc6cca151a1d840b4e";
-    sha256 = "01hfyyp3lpgxys74zcy7gsh2r0n0fri91iakaqx7k105cdcyj4wj";
+    rev = "87680c4148679a0eb21cd601f919751986838ff0";
+    sha256 = "158mr8knn3ajnszmn0kq2456bhx9nvsgsk2cagm105hxb56j1z8h";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
