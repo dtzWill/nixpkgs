@@ -2871,6 +2871,8 @@ in {
 
   django-cache-url = callPackage ../development/python-modules/django-cache-url { };
 
+  django-cleanup = callPackage ../development/python-modules/django-cleanup { };
+
   django-configurations = callPackage ../development/python-modules/django-configurations { };
 
   django_compressor = callPackage ../development/python-modules/django_compressor { };
