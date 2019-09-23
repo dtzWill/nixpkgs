@@ -1,5 +1,6 @@
 { stdenv, fetchurl, lib
-, cmocka, curl, pandoc, pkgconfig, openssl, tpm2-tss }:
+, curl, pandoc, pkgconfig, openssl, tpm2-tss
+, cmocka, dbus, tpm2-abrmd, ibm-sw-tpm2, bash, xxd, python }:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-tools";
@@ -15,9 +16,9 @@ stdenv.mkDerivation rec {
     curl openssl tpm2-tss
   ];
 
-  checkInputs = [ cmocka ];
+  checkInputs = [ bash dbus cmocka ibm-sw-tpm2 (python.withPackages (ps: [ ps.pyyaml ])) tpm2-abrmd  xxd ];
 
-  configureFlags = [ "--enable-unit" ];
+  configureFlags = [ "--enable-unit" "--disable-integration" ];
   doCheck = true;
 
   meta = with lib; {
