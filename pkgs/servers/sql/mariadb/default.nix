@@ -222,11 +222,11 @@ server = stdenv.mkDerivation (common // {
 
 connector-c = stdenv.mkDerivation rec {
   name = "mariadb-connector-c-${version}";
-  version = "2.3.7";
+  version = "3.1.4";
 
   src = fetchurl {
     url = "https://downloads.mariadb.org/interstitial/connector-c-${version}/mariadb-connector-c-${version}-src.tar.gz/from/http%3A//nyc2.mirrors.digitalocean.com/mariadb/";
-    sha256 = "13izi35vvxhiwl2dsnqrz75ciisy2s2k30giv7hrm01qlwnmiycl";
+    sha256 = "05jkaq151a45rqpyh0vrn6xcpawayfxyzhwn1w32hk0fw3z746ks";
     name   = "mariadb-connector-c-${version}-src.tar.gz";
   };
 
