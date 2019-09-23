@@ -16,6 +16,10 @@ stdenv.mkDerivation rec {
     "--enable-integration"
   ];
 
+  postPatch = ''
+    patchShebangs ./scripts
+  '';
+
   nativeBuildInputs = [ pkgconfig which ];
   buildInputs = [ tpm2-tss glib ];
   checkInputs = [ cmocka ibm-sw-tpm2 dbus ];
