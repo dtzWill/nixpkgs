@@ -40,6 +40,8 @@ stdenv.mkDerivation rec {
     rm -R $out/lib/udev
   '';
 
+  dontPatchELF = true; # rpath
+
   meta = with lib; {
     description = "OSS implementation of the TCG TPM2 Software Stack (TSS2)";
     homepage = https://github.com/tpm2-software/tpm2-tss;
