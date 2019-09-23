@@ -1,4 +1,5 @@
 { stdenv, fetchurl, perl
+, libuchardet
 , ghostscript #for postscript and html output
 , psutils, netpbm #for html output
 , buildPackages
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
       --replace "@PNMTOPS_NOSETPAGE@" "${netpbm}/bin/pnmtops -nosetpage"
   '';
 
-  buildInputs = [ ghostscript psutils netpbm perl texinfo ];
+  buildInputs = [ ghostscript psutils netpbm perl texinfo libuchardet ];
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   # Builds running without a chroot environment may detect the presence
@@ -69,7 +70,7 @@ stdenv.mkDerivation rec {
     rm $out/share/doc/${name}/examples/hdtbl/*color*ps
     find $out/share/doc/${name}/ -type f -print0 | xargs -0 sed -i -e 's/%%CreationDate: .*//'
     for f in 'man.local' 'mdoc.local'; do
-        cat '${./site.tmac}' >> "share/groff/site-tmac/$f"
+        cat '${./site.tmac}' >> "$out/share/groff/site-tmac/$f"
     done
 
     moveToOutput bin/gropdf $perl
