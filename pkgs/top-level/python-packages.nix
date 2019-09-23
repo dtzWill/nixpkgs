@@ -467,6 +467,8 @@ in {
 
   chalice = callPackage ../development/python-modules/chalice { };
 
+  channels-redis = callPackage ../development/python-modules/channels-redis { };
+
   cleo = callPackage ../development/python-modules/cleo { };
 
   clikit = callPackage ../development/python-modules/clikit { };
