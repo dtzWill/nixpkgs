@@ -152,6 +152,8 @@ in {
         "" # empty, reset upstream value
         iwdCmd
       ];
+
+      environment.IWD_GENL_DEBUG = "1";
     };
 
     systemd.tmpfiles.rules = [
