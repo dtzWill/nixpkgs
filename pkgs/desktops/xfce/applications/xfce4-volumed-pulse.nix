@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pkgconfig, libpulseaudio
 , gtk2, libnotify
-, keybinder, xfconf
+, keybinder ? null, xfconf
 }:
 
 stdenv.mkDerivation rec {
