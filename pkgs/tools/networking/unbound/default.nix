@@ -25,6 +25,16 @@ stdenv.mkDerivation rec {
     "--enable-relro-now"
   ];
 
+  # Fix use of nettle-internal symbols that were renamed in 3.5.1 to force the issue.
+  # Use the get methods instead.
+  postPatch = ''
+    substituteInPlace validator/val_secalgo.c \
+      --replace '&nettle_secp_256r1' \
+                'nettle_get_secp_256r1()' \
+      --replace '&nettle_secp_384r1' \
+                'nettle_get_secp_3841()'
+  '';
+
   installFlags = [ "configfile=${placeholder "out"}/etc/unbound/unbound.conf" ];
 
   preFixup = stdenv.lib.optionalString (stdenv.isLinux && !stdenv.hostPlatform.isMusl) # XXX: revisit
