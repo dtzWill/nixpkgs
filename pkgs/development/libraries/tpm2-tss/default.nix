@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-unit"
     "--enable-integration"
-    "--enable-nodl"
   ];
 
   checkInputs = [
