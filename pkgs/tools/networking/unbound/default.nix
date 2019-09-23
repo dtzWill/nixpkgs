@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       --replace '&nettle_secp_256r1' \
                 'nettle_get_secp_256r1()' \
       --replace '&nettle_secp_384r1' \
-                'nettle_get_secp_3841()'
+                'nettle_get_secp_384r1()'
   '';
 
   installFlags = [ "configfile=${placeholder "out"}/etc/unbound/unbound.conf" ];
