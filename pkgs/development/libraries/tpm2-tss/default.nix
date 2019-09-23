@@ -32,6 +32,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  enableParallelBuilding = true;
+
   postInstall = ''
     # Do not install the upstream udev rules, they rely on specific
     # users/groups which aren't guaranteed to exist on the system.
