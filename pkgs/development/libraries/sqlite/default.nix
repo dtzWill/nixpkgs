@@ -41,9 +41,11 @@ stdenv.mkDerivation rec {
     "-DSQLITE_SECURE_DELETE"
     "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
     "-DSQLITE_MAX_EXPR_DEPTH=10000"
+    "-DSQLITE_ENABLE_SESSION"
+    "-DSQLITE_ENABLE_STMTVTAB"
     # Release notes for 3.29.0 say this is recommended
     # https://www.sqlite.org/compile.html#rcmd
-    "-DSQLITE_DQS=0"
+    # "-DSQLITE_DQS=0"
   ];
 
   # Test for features which may not be available at compile time
