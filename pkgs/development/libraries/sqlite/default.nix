@@ -23,7 +23,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ] ++ optionals interactive [ readline ncurses ];
 
-  configureFlags = [ "--enable-threadsafe" ] ++ optional interactive "--enable-readline";
+  configureFlags = [
+    "--enable-threadsafe"
+    "--enable-fts3"
+    "--enable-fts4"
+    "--enable-fts5"
+    "--enable-json1"
+    "--enable-rtree"
+    "--enable-session"
+  ] ++ optional interactive "--enable-readline";
 
   NIX_CFLAGS_COMPILE = [
     "-DSQLITE_ENABLE_COLUMN_METADATA"
