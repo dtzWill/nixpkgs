@@ -2,14 +2,14 @@
 
 buildPythonPackage rec {
   pname = "pastel";
-  version = "0.1.1";
+  version = "0.1.0";
 
   # No tests in PyPi tarball
   src = fetchFromGitHub {
     owner = "sdispater";
     repo = "pastel";
     rev = version;
-    sha256 = "1l906dakby2f8ybg6pc0z6v057idxhz2zm6valjm84clk9kv21pr";
+    sha256 = "1b4ag7jr7j0sxly5g29imdq8g0d4ixhbck55dblr45mlsidydx0s";
   };
 
   checkInputs = [ pytest ];
