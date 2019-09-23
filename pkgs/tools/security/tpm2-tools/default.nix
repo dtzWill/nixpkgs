@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pandoc pkgconfig ];
   buildInputs = [
     curl openssl tpm2-tss
-    # For unit tests.
-    cmocka
   ];
+
+  checkInputs = [ cmocka ];
 
   configureFlags = [ "--enable-unit" ];
   doCheck = true;
