@@ -350,8 +350,8 @@ stdenv.mkDerivation {
           "-I" "${cups.dev}/include"
         ]
         ++ lib.optionals (mysql != null) [
-          "-L" "${mysql.out}/lib"
-          "-I" "${mysql.out}/include"
+          "-L" "${mysql.connector-c}/lib"
+          "-I" "${mysql.connector-c}/include"
         ]
     );
 
