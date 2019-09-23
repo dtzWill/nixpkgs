@@ -7,7 +7,7 @@
 
 let
 
-  version = "2.10.12";
+  version = "2.12.1";
 
   rpath = stdenv.lib.makeLibraryPath [
     alsaLib
@@ -55,7 +55,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
         url = "https://github.com/johannesjo/super-productivity/releases/download/v${version}/superProductivity_${version}_amd64.deb";
-        sha256 = "18sp2a0pxzh36fag93yv5g2xg9f502s4pbq90aqq0192rmw0q7iv";
+        sha256 = "19rwvg74iddgr36vxj8hbnbqsa1246153zw0s0hniqwsy48rq4wz";
       }
     else
       throw "super-productivity is not supported on ${stdenv.hostPlatform.system}";
