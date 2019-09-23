@@ -20703,7 +20703,7 @@ in
 
   reaper = callPackage ../applications/audio/reaper { };
 
-  recode = callPackage ../tools/text/recode { };
+  recode = callPackage ../tools/text/recode { python = python3; };
 
   rednotebook = python3Packages.callPackage ../applications/editors/rednotebook { };
 
