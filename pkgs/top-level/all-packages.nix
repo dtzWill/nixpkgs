@@ -222,7 +222,7 @@ in
   etBook = callPackage ../data/fonts/et-book { };
 
   fetchbower = callPackage ../build-support/fetchbower {
-    inherit (nodePackages) bower2nix;
+    inherit (nodePackages_10_x) bower2nix;
   };
 
   fetchbzr = callPackage ../build-support/fetchbzr { };
@@ -1636,7 +1636,7 @@ in
 
   fastJson = callPackage ../development/libraries/fastjson { };
 
-  fast-cli = nodePackages.fast-cli;
+  fast-cli = nodePackages_10_x.fast-cli;
 
   fd = callPackage ../tools/misc/fd { };
 
@@ -6179,7 +6179,7 @@ in
 
   shotwell = callPackage ../applications/graphics/shotwell { };
 
-  shout = nodePackages.shout;
+  shout = nodePackages_10_x.shout;
 
   shellinabox = callPackage ../servers/shellinabox {
     openssl = openssl_1_0_2;
@@ -6554,7 +6554,7 @@ in
 
   theharvester = callPackage ../tools/security/theharvester { };
 
-  inherit (nodePackages) thelounge;
+  inherit (nodePackages_10_x) thelounge;
 
   thefuck = python3Packages.callPackage ../tools/misc/thefuck { };
 
@@ -6690,7 +6690,7 @@ in
 
   trickle = callPackage ../tools/networking/trickle {};
 
-  inherit (nodePackages) triton;
+  inherit (nodePackages_10_x) triton;
 
   triggerhappy = callPackage ../tools/inputmethods/triggerhappy {};
 
@@ -6926,11 +6926,11 @@ in
 
   wbox = callPackage ../tools/networking/wbox {};
 
-  webassemblyjs-cli = nodePackages."@webassemblyjs/cli";
-  webassemblyjs-repl = nodePackages."@webassemblyjs/repl";
-  wasm-strip = nodePackages."@webassemblyjs/wasm-strip";
-  wasm-text-gen = nodePackages."@webassemblyjs/wasm-text-gen";
-  wast-refmt = nodePackages."@webassemblyjs/wast-refmt";
+  webassemblyjs-cli = nodePackages_10_x."@webassemblyjs/cli";
+  webassemblyjs-repl = nodePackages_10_x."@webassemblyjs/repl";
+  wasm-strip = nodePackages_10_x."@webassemblyjs/wasm-strip";
+  wasm-text-gen = nodePackages_10_x."@webassemblyjs/wasm-text-gen";
+  wast-refmt = nodePackages_10_x."@webassemblyjs/wast-refmt";
 
   welkin = callPackage ../tools/graphics/welkin {};
 
@@ -7166,7 +7166,7 @@ in
 
   wpgtk = callPackage ../tools/X11/wpgtk { };
 
-  wring = nodePackages.wring;
+  wring = nodePackages_10_x.wring;
 
   wrk = callPackage ../tools/networking/wrk { };
 
@@ -8198,7 +8198,7 @@ in
     fpc = fpc;
   };
 
-  lessc = nodePackages.less;
+  lessc = nodePackages_10_x.less;
 
   liquibase = callPackage ../development/tools/database/liquibase { };
 
@@ -10168,7 +10168,7 @@ in
 
   sloccount = callPackage ../development/tools/misc/sloccount { };
 
-  sloc = nodePackages.sloc;
+  sloc = nodePackages_10_x.sloc;
 
   smatch = callPackage ../development/tools/analysis/smatch {
     buildllvmsparse = false;
@@ -15741,7 +15741,7 @@ in
 
   gradm = callPackage ../os-specific/linux/gradm { };
 
-  inherit (nodePackages) gtop;
+  inherit (nodePackages_10_x) gtop;
 
   hd-idle = callPackage ../os-specific/linux/hd-idle { };
 
@@ -16937,7 +16937,7 @@ in
   emacs-all-the-icons-fonts = callPackage ../data/fonts/emacs-all-the-icons-fonts { };
 
   emojione = callPackage ../data/fonts/emojione {
-    inherit (nodePackages) svgo;
+    inherit (nodePackages_10_x) svgo;
   };
 
   encode-sans = callPackage ../data/fonts/encode-sans { };
@@ -17382,7 +17382,7 @@ in
   ttf-envy-code-r = callPackage ../data/fonts/ttf-envy-code-r {};
 
   twemoji-color-font = callPackage ../data/fonts/twemoji-color-font {
-    inherit (nodePackages) svgo;
+    inherit (nodePackages_10_x) svgo;
   };
 
   twitter-color-emoji = callPackage ../data/fonts/twitter-color-emoji { };
@@ -19069,7 +19069,7 @@ in
 
   hue-cli = callPackage ../tools/networking/hue-cli { };
 
-  inherit (nodePackages) hueadm;
+  inherit (nodePackages_10_x) hueadm;
 
   hugin = callPackage ../applications/graphics/hugin {
     wxGTK = wxGTK30;
@@ -19273,7 +19273,7 @@ in
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
   });
 
-  inherit (nodePackages) imapnotify;
+  inherit (nodePackages_10_x) imapnotify;
 
   img2pdf = callPackage ../applications/misc/img2pdf { };
 
@@ -24298,7 +24298,7 @@ in
 
   illum = callPackage ../tools/system/illum { };
 
-  image_optim = callPackage ../applications/graphics/image_optim { inherit (nodePackages) svgo; };
+  image_optim = callPackage ../applications/graphics/image_optim { inherit (nodePackages_10_x) svgo; };
 
   # using the new configuration style proposal which is unstable
   jack1 = callPackage ../misc/jackaudio/jack1.nix { };
