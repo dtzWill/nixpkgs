@@ -62,6 +62,12 @@ buildGoPackage rec {
     substituteInPlace $bin/lib/systemd/user/keybase.service \
       --replace /usr/bin $bin/bin
 
+    # Don't use debug logging as default, it's way too verbose
+    substituteInPlace $bin/lib/systemd/user/keybase.service \
+      --replace  " --debug" ""
+    substituteInPlace $bin/lib/systemd/user/kbfs.service \
+      --replace  " -debug" ""
+
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service
 
