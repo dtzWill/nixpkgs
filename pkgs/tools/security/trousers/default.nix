@@ -9,6 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "0iwgsbrbb7nfqgl61x8aailwxm8akxh9gkcwxhsvf50x4qx72l6f";
   };
 
+  sourceRoot = ".";
+
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl ];
 
