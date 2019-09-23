@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, lib, pkgconfig, tpm2-tss, glib, which }:
+{ stdenv, fetchurl, lib, pkgconfig, tpm2-tss, glib, which
+, cmocka, ibm-sw-tpm2, dbus
+ }:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-abrmd";
@@ -9,8 +11,18 @@ stdenv.mkDerivation rec {
     sha256 = "1lbfhyyh9k54r8s1h8ca2czxv4hg0yq984kdh3vqh3990aca0x9a";
   };
 
+  configureFlags = [
+    "--enable-unit"
+    "--enable-integration"
+  ];
+
   nativeBuildInputs = [ pkgconfig which ];
   buildInputs = [ tpm2-tss glib ];
+  checkInputs = [ cmocka ibm-sw-tpm2 dbus ];
+
+  doCheck = true;
+
+  enableParallelBuilding = true;
 
   meta = with lib; {
     description = "TPM2 Access Broker & Resource Management Daemon implementing the TCG spec";
