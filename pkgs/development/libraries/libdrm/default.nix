@@ -27,8 +27,6 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  patches = [ ./cross-build-nm-path.patch ];
-
   postPatch = ''
     for a in */*-symbol-check ; do
       patchShebangs $a
