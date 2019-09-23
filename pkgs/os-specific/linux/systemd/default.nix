@@ -30,11 +30,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      name = "CVE-2019-15718.patch";
-      url = https://github.com/systemd/systemd/pull/13457/commits/35e528018f315798d3bffcb592b32a0d8f5162bd.patch;
-      sha256 = "0m0ypnnllx4r6a2qy1586as15i2qrzxwi1sqdp14rzdwajz1rvnv";
-    })
-    (fetchpatch {
       url = "https://github.com/systemd/systemd/commit/d45ee2f31a8358db0accde2e7c81777cedadc3c2.patch";
       sha256 = "1kg4ba9s610qhfv3canda94im3b63xdbmrfn28b04081g79dan4g";
     })
