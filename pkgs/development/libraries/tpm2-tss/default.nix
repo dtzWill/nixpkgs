@@ -13,13 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     doxygen perl pkgconfig
-    # For unit tests and integration tests.
-    ibm-sw-tpm2 iproute procps which
   ];
   buildInputs = [
     openssl
-    # For unit tests and integration tests.
-    cmocka uthash
   ];
 
   postPatch = "patchShebangs script";
@@ -27,6 +23,11 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-unit"
     "--enable-integration"
+  ];
+
+  checkInputs = [
+    ibm-sw-tpm2 iproute procps which
+    cmocka uthash
   ];
 
   doCheck = true;
