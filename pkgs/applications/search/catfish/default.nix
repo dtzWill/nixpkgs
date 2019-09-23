@@ -26,9 +26,9 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [
     gtk3
     gnome3.dconf
-    pythonPackages.pyxdg
-    pythonPackages.ptyprocess
-    pythonPackages.pycairo
+    python3Packages.pyxdg
+    python3Packages.ptyprocess
+    python3Packages.pycairo
   ];
 
   propagatedBuildInputs = [
