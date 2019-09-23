@@ -2500,7 +2500,7 @@ in
 
   crackxls = callPackage ../tools/security/crackxls { };
 
-  create-cycle-app = nodePackages.create-cycle-app;
+  create-cycle-app = nodePackages_10_x.create-cycle-app;
 
   createrepo_c = callPackage ../tools/package-management/createrepo_c { };
 
