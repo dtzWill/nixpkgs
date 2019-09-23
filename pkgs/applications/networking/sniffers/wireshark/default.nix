@@ -137,13 +137,13 @@ in {
     withQt         = false;
   };
   wireshark-qt_3_0  = common {
-    version        = "3.0.4";
-    sources-sha256 = "1gzcpsggqc36d7nrwafnryclg8iv50sgpyxpl2a1dbmfy9yxafvp";
+    version        = "3.0.5";
+    sources-sha256 = "087qv7nd7zlbckvcs37fkkg7v0mw0hjd5yfbghqym764fpjgqlf5";
     withQt         = true;
   };
   wireshark-cli_3_0 = common {
-    version        = "3.0.4";
-    sources-sha256 = "1gzcpsggqc36d7nrwafnryclg8iv50sgpyxpl2a1dbmfy9yxafvp";
+    version        = "3.0.5";
+    sources-sha256 = "087qv7nd7zlbckvcs37fkkg7v0mw0hjd5yfbghqym764fpjgqlf5";
     withQt         = false;
   };
 }
