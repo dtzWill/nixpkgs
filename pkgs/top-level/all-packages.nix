@@ -3632,6 +3632,9 @@ in
     ghostscript = null;
     psutils = null;
     netpbm = null;
+    libuchardet = libuchardet.override {
+      cmake = cmake.override { isBootstrap = true; };
+    };
   };
 
   gromit-mpx = callPackage ../tools/graphics/gromit-mpx {
