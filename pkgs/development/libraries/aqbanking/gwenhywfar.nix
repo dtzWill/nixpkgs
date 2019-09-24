@@ -36,10 +36,6 @@ in stdenv.mkDerivation rec {
     "--with-openssl-libs=${openssl.out}/lib"
   ];
 
-  preConfigure = ''
-    configureFlagsArray+=("--with-guis=gtk2 gtk3 qt5")
-  '';
-
   postPatch = let
     isRelative = path: builtins.substring 0 1 path != "/";
     mkSearchPath = path: ''
@@ -56,6 +52,10 @@ in stdenv.mkDerivation rec {
         }
       }
     }' src/gwenhywfar.c
+  '';
+
+  preConfigure = ''
+    configureFlagsArray+=("--with-guis=gtk2 gtk3 qt5")
 
     # Strip off the effective SO version from the path so that for example
     # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
