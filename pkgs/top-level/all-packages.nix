@@ -18862,6 +18862,7 @@ in
 
   gnucash = callPackage ../applications/office/gnucash {
     inherit (gnome3) dconf;
+    stdenv = gcc9Stdenv;
   };
 
   goffice = callPackage ../development/libraries/goffice { };
