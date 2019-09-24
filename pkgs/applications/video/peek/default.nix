@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "peek";
-  version = "1.3.1";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "phw";
     repo = pname;
     rev = version;
-    sha256 = "1fnvlklmg6s5rs3ql74isa5fgdkqqrpsyf8k2spxj520239l4vgb";
+    sha256 = "0q70hz9anqywqgksd43i8v9ijwy6djyzwnzzd94j44xqwsk9zdbb";
   };
 
   preConfigure = ''
