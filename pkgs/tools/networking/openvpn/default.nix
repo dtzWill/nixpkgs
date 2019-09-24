@@ -40,13 +40,6 @@ in stdenv.mkDerivation rec {
                   ++ optional useSystemd systemd
                   ++ optional pkcs11Support pkcs11helper;
 
-  patches = [
-    ( fetchpatch {
-      url = "https://sources.debian.org/data/main/o/openvpn/2.4.7-1/debian/patches/fix-pkcs11-helper-hang.patch";
-      sha256 = "0c8jzbfsmb0mm9f7kkjxac1hk8q6igm267s687vx3mdqs1wys6bm";
-    })
-  ];
-
   configureFlags = optionals stdenv.isLinux [
     "--enable-iproute2"
     "IPROUTE=${iproute}/sbin/ip" ]
