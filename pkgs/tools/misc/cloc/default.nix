@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, makeWrapper, perlPackages }:
 
 stdenv.mkDerivation rec {
-  name = "cloc-${version}";
+  pname = "cloc";
   version = "1.82";
 
   src = fetchFromGitHub {
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     perl AlgorithmDiff ParallelForkManager RegexpCommon
   ]);
 
-  makeFlags = [ "prefix=" "DESTDIR=$(out)" "INSTALL=install" ];
+  makeFlags = [ "prefix=${placeholder "out"}" "DESTDIR=" "INSTALL=install" ];
 
   postFixup = "wrapProgram $out/bin/cloc --prefix PERL5LIB : $PERL5LIB";
 
