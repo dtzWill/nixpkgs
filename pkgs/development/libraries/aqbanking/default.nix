@@ -27,7 +27,7 @@ in stdenv.mkDerivation rec {
   #  inherit sha256;
   #};
 
-  postPatch = ''
+  preConfigure = ''
     sed -i -e '/^aqbanking_plugindir=/ {
       c aqbanking_plugindir="\''${libdir}/gwenhywfar/plugins"
     }' configure
