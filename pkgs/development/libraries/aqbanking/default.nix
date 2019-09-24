@@ -39,6 +39,11 @@ in stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-gwen-dir=${gwenhywfar}" ];
 
+  postInstall = ''
+    substituteInPlace $out/lib/cmake/aqbanking-*/aqbanking-config.cmake \
+      --replace "{includedir}" "{prefix}/include"
+  '';
+
   meta = with stdenv.lib; {
     description = "An interface to banking tasks, file formats and country information";
     homepage = http://www2.aquamaniac.de/sites/download/packages.php?package=03&showall=1;
