@@ -1,5 +1,5 @@
 { stdenv, fetchurl, fetchFromGitHub, gmp, gwenhywfar, libtool, libxml2, libxslt
-, pkgconfig, gettext, xmlsec, zlib
+, autoreconfHook, pkgconfig, gettext, xmlsec, zlib
 }:
 
 let
@@ -35,7 +35,7 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ gmp gwenhywfar libtool libxml2 libxslt xmlsec zlib ];
 
-  nativeBuildInputs = [ pkgconfig gettext ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig gettext ];
 
   configureFlags = [ "--with-gwen-dir=${gwenhywfar}" ];
 

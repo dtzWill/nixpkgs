@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, pkgconfig, gwenhywfar, pcsclite, zlib }:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, gwenhywfar, pcsclite, zlib }:
 
 let
   inherit ((import ./sources.nix).libchipcard) sha256 releaseId version;
@@ -21,7 +21,7 @@ in stdenv.mkDerivation rec {
   #  inherit sha256;
   #};
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   buildInputs = [ gwenhywfar pcsclite zlib ];
 
