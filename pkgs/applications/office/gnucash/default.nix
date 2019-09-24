@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
 
   propagatedUserEnvPkgs = [ dconf ];
 
-  # glib-2.58 deprecrated g_type_class_add_private
-  # Should probably be removed next version bump
-  CXXFLAGS = [ "-Wno-deprecated-declarations" ];
+  patches = [ ./gnucash-glib-warnings.patch ];
 
   postPatch = ''
     patchShebangs .
