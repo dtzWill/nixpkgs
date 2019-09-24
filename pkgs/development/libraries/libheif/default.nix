@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libde265, x265, libpng, libjpeg }:
 
 stdenv.mkDerivation rec {
-  version = "1.5.0";
   pname = "libheif";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "strukturag";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1nvfjmnha06689imm8v24nlc011814gc9xq3x54cnmqvh5gn98ah";
+    sha256 = "0x6207hiy15k2696476qx9jcbzs90fq8cfv4jw6hi14w4wzq89kr";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
