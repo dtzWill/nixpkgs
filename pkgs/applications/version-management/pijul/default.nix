@@ -1,15 +1,19 @@
 { stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang, libclang, pkgconfig }:
 
 rustPlatform.buildRustPackage rec {
-  name = "pijul-${version}";
-  version = "0.12.0";
+  pname = "pijul";
+  version = "0.12.2";
 
   src = fetchurl {
-    url = "https://pijul.org/releases/${name}.tar.gz";
-    sha256 = "1rm787kkh3ya8ix0rjvj7sbrg9armm0rnpkga6gjmsbg5bx20y4q";
+    # url = "https://pijul.org/releases/${name}.tar.gz";
+    name = "${pname}-${version}.tar.gz";
+    url = "https://crates.io/api/v1/crates/${pname}/${version}/download";
+    sha256 = "12aqpfd2si70qbvfnn9kvznxyd5g5gsb1kk1q52wm077cd03yapr";
   };
 
   nativeBuildInputs = [ pkgconfig clang ];
+
+  cargoPatches = [ ./add-Cargo.lock.patch ];
 
   postInstall = ''
     mkdir -p $out/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d}
@@ -25,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  cargoSha256 = "1w77s5q18yr1gqqif15wmrfdvv2chq8rq3w4dnmxg2gn0r7bmz2k";
+  cargoSha256 = "056ffa8wmf4k4gk2xngpkxh1g75swap6hnzkzcvalidfcxvl9v7q";
 
   meta = with stdenv.lib; {
     description = "A distributed version control system";
