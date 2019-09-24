@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libfido2";
-  version = "2019-09-17";
+  version = "2019-09-19";
   #version = "1.2.0";
   #src = fetchurl {
   #  url = "https://developers.yubico.com/libfido2/Releases/libfido2-${version}.tar.gz";
@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = pname;
-    rev = "5bcf1315b9d86cb5e40f14c04343aff4fc3917a3";
-    sha256 = "0nas7l29vfs249wsb0jiq6vrlyhs3frm2qpj5p69bf7zk7ir532r";
+    rev = "5d0c77e5dc675762185ede1ef178286c7e2ab7d8";
+    sha256 = "0n99q0zr3sv7b7aa516s787xrbvb7lmsw38wj44gna2p9y13swkh";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
