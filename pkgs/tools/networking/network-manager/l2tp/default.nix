@@ -1,6 +1,6 @@
 { stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig
 , file, findutils
-, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret
+, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret, openssl
 , withGnome ? true, networkmanagerapplet }:
 
 let pname = "NetworkManager-l2tp"; in
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ networkmanager ppp ]
+  buildInputs = [ networkmanager ppp openssl ]
     ++ stdenv.lib.optionals withGnome [ gtk3 libsecret networkmanagerapplet ];
 
   nativeBuildInputs = [ autoreconfHook libtool intltool pkgconfig file findutils ];
