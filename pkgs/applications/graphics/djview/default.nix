@@ -15,7 +15,7 @@ mkDerivation rec {
   version = "4.10.6";
 
   src = fetchurl {
-    url = "mirror://sourceforge/djvu/${name}.tar.gz";
+    url = "mirror://sourceforge/djvu/${pname}-${version}.tar.gz";
     sha256 = "08bwv8ppdzhryfcnifgzgdilb12jcnivl4ig6hd44f12d76z6il4";
   };
 
