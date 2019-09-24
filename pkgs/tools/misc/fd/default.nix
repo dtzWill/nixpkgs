@@ -22,6 +22,11 @@ rustPlatform.buildRustPackage rec {
       "$out/share/fish/vendor_completions.d/fd.fish"
     install -Dm644 target/release/build/fd-find-*/out/_fd \
       "$out/share/zsh/site-functions/_fd"
+
+    # Upstream issue 487
+    substituteInPlace $out/share/zsh/site-functions/_fd \
+      --replace 'the search pattern: a regular' \
+                'the search pattern\: a regular'
   '';
 
   meta = with stdenv.lib; {
