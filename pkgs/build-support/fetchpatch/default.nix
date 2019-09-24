@@ -53,5 +53,6 @@ fetchurl ({
     ${patchutils}/bin/interdiff "$out" /dev/null > "$tmpfile"
     mv "$tmpfile" "$out"
   '' + (args.postFetch or "");
-  meta.broken = excludes != [] && includes != [];
-} // builtins.removeAttrs args ["stripLen" "extraPrefix" "excludes" "includes" "revert" "postFetch"])
+}
+// lib.optionalAttrs (excludes != [] && includes != []) { meta.broken = true; }
+// builtins.removeAttrs args ["stripLen" "extraPrefix" "excludes" "includes" "revert" "postFetch"])
