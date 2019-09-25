@@ -9,7 +9,7 @@
 , python3
 , rustPlatform
 , pkgconfig
-, gtksourceview
+, gtksourceview4
 , glib
 , libhandy
 , gtk3
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     gst_all_1.gstreamer
     gst_all_1.gst-validate
     gtk3
-    gtksourceview
+    gtksourceview4
     libhandy
     openssl
     sqlite
