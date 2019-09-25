@@ -1,23 +1,15 @@
 { stdenv, fetchFromGitHub, fetchpatch, cmake, shared ? false }:
 
 stdenv.mkDerivation rec {
-  name = "pugixml-${version}";
-  version = "1.9";
+  pname = "pugixml";
+  version = "1.10";
 
   src = fetchFromGitHub {
     owner = "zeux";
     repo = "pugixml";
     rev = "v${version}";
-    sha256 = "0iraznwm78pyyzc9snvd3dyz8gddvmxsm1b3kpw7wixkvcawdviv";
+    sha256 = "0bpliqha1gic6j5wy5x5np90nr3ibax4q9gdvy8ncy2748njfb3p";
   };
-
-  patches = [
-    # To be removed after a version newer than 1.9 is released
-    (fetchpatch {
-      url = "https://github.com/zeux/pugixml/pull/193.patch";
-      sha256 = "0s4anqlr2ppfibxyl29nrqbcprrg89k7il6303dm91s6620ydmka";
-    })
-  ];
 
   nativeBuildInputs = [ cmake ];
 
