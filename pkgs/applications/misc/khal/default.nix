@@ -33,6 +33,10 @@ with python3.pkgs; buildPythonApplication rec {
   nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
   checkInputs = [ pytest glibcLocales /* :( */ ];
 
+  patches = [
+    ./no-dev-tty-is-okay.patch
+  ];
+
   postInstall = ''
     # zsh completion
     install -D misc/__khal $out/share/zsh/site-functions/__khal
@@ -49,6 +53,8 @@ with python3.pkgs; buildPythonApplication rec {
 
   checkPhase = ''
     export LC_ALL=C.UTF-8
+    export HOME=$PWD/tmp
+    mkdir -p $HOME
     py.test
   '';
 
