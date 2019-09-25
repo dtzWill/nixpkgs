@@ -101,8 +101,9 @@ in stdenv.mkDerivation rec {
     patchShebangs ./tools
     patchShebangs libnm/generate-setting-docs.py
 
-    substituteInPlace meson.build \
-      --replace 'python.path(), generate_setting_docs' ""
+    substituteInPlace libnm/meson.build \
+      --replace 'python.path()' \
+                "'${pythonForDocs.interpreter}'"
   '';
 
   preBuild = ''
