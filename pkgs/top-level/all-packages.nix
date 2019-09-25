@@ -1842,6 +1842,7 @@ in
   meson = callPackage ../development/tools/build-managers/meson { };
   mesonClang = callPackage meson.override { inherit (llvmPackages_latest) stdenv; };
   meson_gcc8 = callPackage meson.override { stdenv = gcc8Stdenv; };
+  meson_gcc9 = callPackage meson.override { stdenv = gcc9Stdenv; };
 
   metabase = callPackage ../servers/metabase { };
 
@@ -10405,7 +10406,9 @@ in
 
   anttweakbar = callPackage ../development/libraries/AntTweakBar { };
 
-  appstream = callPackage ../development/libraries/appstream { };
+  appstream = callPackage ../development/libraries/appstream {
+    meson = mesonClang; # not gcc7,8,9; -Wno-error=deprecated-copy
+  };
 
   appstream-glib = callPackage ../development/libraries/appstream-glib { };
 
