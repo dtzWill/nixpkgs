@@ -6,11 +6,11 @@
 
 stdenv.mkDerivation rec {
   pname = "appstream";
-  version = "0.12.6";
+  version = "0.12.9";
 
   src = fetchurl {
     url = "https://www.freedesktop.org/software/appstream/releases/AppStream-${version}.tar.xz";
-    sha256 = "050dmfwvhhpjn4g42nxms3x4dv2341p7vy08hrqa0yi06rq0c85b";
+    sha256 = "07d39a81rbv3hl2kqqpniwkz0qcfh05jqly984s3k35gmbip74j5";
   };
 
   nativeBuildInputs = [
