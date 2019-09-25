@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "google-fonts-${version}";
+  pname = "google-fonts";
   version = "2019-09-16";
 
   src = fetchFromGitHub {
