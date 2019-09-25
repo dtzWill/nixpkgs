@@ -2,13 +2,13 @@
 
 with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
-  version = "0.10.1";
+  version = "unstable-2019-09-16";
 
   src = fetchFromGitHub {
     owner = "pimutils";
     repo = pname;
-    rev = "1f93d238fec7c934dd2f8e48f54925d22130e3aa";
-    sha256 = "1111111111111111111111111111111111111111111111111111";
+    rev = "c4f5cd7248abb08a65dbb337bfe5e7e57e2e4a4d";
+    sha256 = "09p0cr7x7gy6lwf3kvc90abzwvlqv9a7j47nbk5j6312n23rdz6w";
   };
 
   propagatedBuildInputs = [
