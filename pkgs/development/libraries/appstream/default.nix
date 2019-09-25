@@ -1,18 +1,16 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gettext
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext
 , xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt
 , libstemmer, glib, xapian, libxml2, libyaml, gobject-introspection
 , pcre, itstool, gperf, vala
 }:
 
 stdenv.mkDerivation rec {
-  name = "appstream-${version}";
+  pname = "appstream";
   version = "0.12.6";
 
-  src = fetchFromGitHub {
-    owner  = "ximion";
-    repo   = "appstream";
-    rev    = "APPSTREAM_${stdenv.lib.replaceStrings ["."] ["_"] version}";
-    sha256 = "0hbl26aw3g2hag7z4di9z59qz057qcywrxpnnmp86z7rngvjbqpx";
+  src = fetchurl {
+    url = "https://www.freedesktop.org/software/appstream/releases/AppStream-${version}.tar.xz";
+    sha256 = "050dmfwvhhpjn4g42nxms3x4dv2341p7vy08hrqa0yi06rq0c85b";
   };
 
   nativeBuildInputs = [
