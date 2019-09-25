@@ -1,7 +1,7 @@
 { stdenv, fetchurl, meson, ninja, pkgconfig, gettext
 , xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt
 , libstemmer, glib, xapian, libxml2, libyaml, gobject-introspection
-, pcre, itstool, gperf, vala
+, pcre, itstool, gperf, vala, lmdb
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     gobject-introspection itstool vala
   ];
 
-  buildInputs = [ libstemmer pcre glib xapian libxml2 libyaml gperf ];
+  buildInputs = [ libstemmer pcre glib xapian libxml2 libyaml gperf lmdb ];
 
   prePatch = ''
     substituteInPlace meson.build \
