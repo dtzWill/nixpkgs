@@ -4,7 +4,7 @@ with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
   version = "unstable-2019-09-16";
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = "0.10.1-${version}";
   src = fetchFromGitHub {
     owner = "pimutils";
     repo = pname;
