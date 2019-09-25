@@ -13,6 +13,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
+  postPatch = ''
+    # Remove mention of directory that doesn't exist.
+    # GTK warns often about this otherwise.
+    substituteInPlace src/index.theme \
+      --replace "48/mimetypes," ""
+  '';
+
   installPhase = ''
     patchShebangs install.sh
     mkdir -p $out/share/icons
