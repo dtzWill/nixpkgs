@@ -5,7 +5,7 @@ with python3.pkgs; buildPythonApplication rec {
   version = "0.10.1";
 
   src = fetchFromGitHub {
-    owner = "pim-utils";
+    owner = "pimutils";
     repo = pname;
     rev = "1f93d238fec7c934dd2f8e48f54925d22130e3aa";
     sha256 = "1111111111111111111111111111111111111111111111111111";
