@@ -1036,6 +1036,8 @@ in {
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
 
+  pytest-check = callPackage ../development/python-modules/pytest-check { };
+
   pytest-env = callPackage ../development/python-modules/pytest-env { };
 
   pytest-flask = callPackage ../development/python-modules/pytest-flask { };
@@ -1258,6 +1260,8 @@ in {
   aafigure = callPackage ../development/python-modules/aafigure { };
 
   addic7ed-cli = callPackage ../development/python-modules/addic7ed-cli { };
+
+  algebraic-data-types = callPackage ../development/python-modules/algebraic-data-types { };
 
   altair = callPackage ../development/python-modules/altair { };
 
@@ -1875,6 +1879,8 @@ in {
   eth-typing = callPackage ../development/python-modules/eth-typing { };
 
   eth-utils = callPackage ../development/python-modules/eth-utils { };
+
+  impacket = callPackage ../development/python-modules/impacket { };
 
   jsonrpc-async = callPackage ../development/python-modules/jsonrpc-async { };
 

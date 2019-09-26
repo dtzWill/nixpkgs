@@ -1,30 +1,29 @@
-{ stdenv, fetchFromGitHub, makeWrapper
+{ stdenv, fetchFromGitHub
 , cmake, llvmPackages, rapidjson, runtimeShell }:
 
 stdenv.mkDerivation rec {
-  name    = "ccls-${version}";
-  version = "0.20190314.1";
+  pname = "ccls";
+  version = "0.20190823.3";
 
   src = fetchFromGitHub {
     owner = "MaskRay";
     repo = "ccls";
     rev = version;
-    sha256 = "1yvxliryqx2bc7r6ri4iafbrjx19jk8hnfbvq5xla72q0gqb97lf";
+    sha256 = "1sx31zp6q2qc6fz3r78rx34zp2x4blrqzxwbpww71vb6lp1clmdm";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = with llvmPackages; [ all /* clang-unwrapped llvm */ rapidjson ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = with llvmPackages; [ clang-unwrapped llvm rapidjson ];
 
   cmakeFlags = [
-    #"-DLLVM_ENABLE_RTTI=ON"
-    #"-DLLVM_LINK_LLVM_DYLIB=ON"
+    "-DCCLS_VERSION=${version}"
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.12"
   ];
+
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
   '';
-
   shell = runtimeShell;
   postFixup = ''
     # We need to tell ccls where to find the standard library headers.

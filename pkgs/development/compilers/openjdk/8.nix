@@ -199,7 +199,8 @@ let
       ln -s $jre/lib/openjdk/jre $out/jre
     '';
 
-    # FIXME: this is unnecessary once the multiple-outputs branch is merged.
+    propagatedBuildInputs = [ setJavaClassPath ];
+
     preFixup = ''
       prefix=$jre stripDirs "$STRIP" "$stripDebugList" "''${stripDebugFlags:--S}"
       patchELF $jre

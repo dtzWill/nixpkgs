@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpgerror, pkgconfig, gettext
-, which
+{ stdenv, fetchurl, fetchFromGitHub, gnutls, openssl, libgcrypt, libgpgerror
+, autoreconfHook, pkgconfig, gettext , which
 
 # GUI support
 , gtk2, gtk3, qt5
@@ -11,28 +11,30 @@
 }:
 
 let
-  inherit ((import ./sources.nix).gwenhywfar) sha256 releaseId version;
+  inherit ((import ./sources.nix).gwenhywfar) sha256 version;
 in stdenv.mkDerivation rec {
-  name = "gwenhywfar-${version}";
+  pname = "gwenhywfar";
   inherit version;
 
-  src = let
-    qstring = "package=01&release=${releaseId}&file=02";
-    mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
-  in fetchurl {
-    name = "${name}.tar.gz";
-    urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+  src = fetchFromGitHub {
+    owner = "aqbanking";
+    repo = pname;
+    rev = version;
     inherit sha256;
   };
+  ## src = let
+  ##   qstring = "package=01&release=${releaseId}&file=02";
+  ##   mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
+  ## in fetchurl {
+  ##   name = "${pname}-${version}.tar.gz";
+  ##   urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+  ##   inherit sha256;
+  ## };
 
   configureFlags = [
     "--with-openssl-includes=${openssl.dev}/include"
     "--with-openssl-libs=${openssl.out}/lib"
   ];
-
-  preConfigure = ''
-    configureFlagsArray+=("--with-guis=gtk2 gtk3 qt5")
-  '';
 
   postPatch = let
     isRelative = path: builtins.substring 0 1 path != "/";
@@ -50,6 +52,10 @@ in stdenv.mkDerivation rec {
         }
       }
     }' src/gwenhywfar.c
+  '';
+
+  preConfigure = ''
+    configureFlagsArray+=("--with-guis=gtk2 gtk3 qt5")
 
     # Strip off the effective SO version from the path so that for example
     # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
@@ -57,7 +63,7 @@ in stdenv.mkDerivation rec {
       configure
   '';
 
-  nativeBuildInputs = [ pkgconfig gettext which ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig gettext which ];
 
   buildInputs = [ gtk2 gtk3 qt5.qtbase gnutls openssl libgcrypt libgpgerror ];
 

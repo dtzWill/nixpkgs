@@ -1,21 +1,16 @@
-{ stdenv, pkgs, python3, glibcLocales, fetchpatch }:
+{ stdenv, fetchFromGitHub, pkgs, python3, glibcLocales, fetchpatch }:
 
 with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
-  version = "0.10.1";
+  version = "unstable-2019-09-16";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1r8bkgjwkh7i8ygvsv51h1cnax50sb183vafg66x5snxf3dgjl6l";
+  SETUPTOOLS_SCM_PRETEND_VERSION = "0.10.1-${version}";
+  src = fetchFromGitHub {
+    owner = "pimutils";
+    repo = pname;
+    rev = "c4f5cd7248abb08a65dbb337bfe5e7e57e2e4a4d";
+    sha256 = "09p0cr7x7gy6lwf3kvc90abzwvlqv9a7j47nbk5j6312n23rdz6w";
   };
-
-  # Include a khal.desktop file via upstream commit.
-  # This patch should be removed when updating to the next version, probably.
-  patches = [ (fetchpatch {
-    name = "add-khal-dot-desktop.patch";
-    url = "https://github.com/pimutils/khal/commit/1f93d238fec7c934dd2f8e48f54925d22130e3aa.patch";
-    sha256 = "06skn3van7zd93348fc6axllx71ckkc7h2zljqlvwa339vca608c";
-  }) ];
 
   propagatedBuildInputs = [
     atomicwrites
@@ -38,6 +33,10 @@ with python3.pkgs; buildPythonApplication rec {
   nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
   checkInputs = [ pytest glibcLocales /* :( */ ];
 
+  patches = [
+    ./no-dev-tty-is-okay.patch
+  ];
+
   postInstall = ''
     # zsh completion
     install -D misc/__khal $out/share/zsh/site-functions/__khal
@@ -54,6 +53,8 @@ with python3.pkgs; buildPythonApplication rec {
 
   checkPhase = ''
     export LC_ALL=C.UTF-8
+    export HOME=$PWD/tmp
+    mkdir -p $HOME
     py.test
   '';
 

@@ -47,10 +47,6 @@ stdenv.mkDerivation rec {
   ];
 
 
-  # Attempt to fix this error when running "mcs --version":
-  # The file /nix/store/xxx-mono-2.4.2.1/lib/mscorlib.dll is an invalid CIL image
-  dontStrip = true;
-
   dontUseCmakeConfigure = true;
 
   # We want pkg-config to take priority over the dlls in the Mono framework and the GAC

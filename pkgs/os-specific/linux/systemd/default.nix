@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, intltool, gperf, libcap, kmod
+{ stdenv, lib, fetchFromGitHub, fetchpatch, pkgconfig, intltool, gperf, libcap, kmod
 , xz, pam, acl, libuuid, m4, utillinux, libffi
 , glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor
 , audit, lz4, bzip2, libmicrohttpd, pcre2
@@ -15,18 +15,41 @@
 , withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   version = "243";
   pname = "systemd";
 
   # When updating, use https://github.com/systemd/systemd-stable tree, not the development one!
   # Also fresh patches should be cherry-picked from that tree to our current one.
   src = fetchFromGitHub {
-    owner = "andir";
+    owner = "NixOS";
     repo = "systemd";
-    rev = "32f94ad90c93abdb6975bdce7bb19f9d3f23043b";
-    sha256 = "0ywaq5jfy177k4q5hwr43v66sz62l1bqhgyxs2vk9m1d5kvrjwk6";
+    rev = "ccec67cab6c0fda85a1762eee7aeea422a0dc15e";
+    sha256 = "12nq2ah33amhyfma464a4ssf90wh2ai8c7w55j381cks8jliny40";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/systemd/systemd/commit/d45ee2f31a8358db0accde2e7c81777cedadc3c2.patch";
+      sha256 = "1kg4ba9s610qhfv3canda94im3b63xdbmrfn28b04081g79dan4g";
+    })
+    (fetchpatch {
+      name = "only-disable-opts-for-debug-builds.patch";
+      url = "https://github.com/systemd/systemd/commit/d4f4179e908dfd3efd2dda322b936cda0d4be23c.patch";
+      sha256 = "0z7rcw4s28nmda4f2ydrjr1dya1zbsspqrxcd65l0d5sgi9vzr8y";
+    })
+    (fetchpatch {
+      name = "dont-loudly-complain-if-rng-protocol-isnt-available.patch";
+      url = "https://github.com/systemd/systemd/commit/a2834a86bafae652e4ea6eb3a8f90aafb9a0d346.patch";
+      sha256 = "0ri9l9qpl36h44qds1jy8y4clrca2cwp3w2rjmxa21hkkqcf1g39";
+    })
+    # Updates to stable-v243 not in our fork yet
+    (fetchpatch {
+      name = "engage_stabilizers.patch";
+      url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
+      sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
+    })
+  ];
 
   outputs = [ "out" "lib" "man" "dev" ];
 
@@ -79,7 +102,6 @@ stdenv.mkDerivation {
     "-Dlibcurl=false"
     "-Dlibidn=false"
     "-Dlibidn2=true"
-    #"-Dlink-udev-shared=false"
     "-Dquotacheck=false"
     "-Dldconfig=false"
     "-Dsmack=true"
@@ -102,11 +124,11 @@ stdenv.mkDerivation {
     "-Dmount-path=${utillinux}/bin/mount"
     "-Dumount-path=${utillinux}/bin/umount"
     "-Dcreate-log-dirs=false"
-    # Upstream usese cgroupsv2 by default. To support docker and other
+    # Upstream uses cgroupsv2 by default. To support docker and other
     # container managers we still need v1.
     "-Ddefault-hierarchy=hybrid"
     # Upstream defaulted to disable manpages since they optimize for the much
-    # more frequente development builds
+    # more frequent development builds
     "-Dman=true"
   ];
 
@@ -229,6 +251,6 @@ stdenv.mkDerivation {
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     priority = 10;
-    maintainers = [ maintainers.eelco ];
+    maintainers = with maintainers; [ eelco andir mic92 ];
   };
 }

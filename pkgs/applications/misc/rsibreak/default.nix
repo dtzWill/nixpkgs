@@ -7,13 +7,13 @@
 let
   pname = "rsibreak";
   version = "0.12";
-  revision = ".8";
+  revision = ".11";
 in mkDerivation rec {
   name = "rsibreak-${version}${revision}";
 
   src = fetchurl {
     url = "https://download.kde.org/stable/${pname}/${version}/${name}.tar.xz";
-    sha256 = "1qn9xdjx9zzw47jsj7f4nkqmrangfhdgafm2jxm7cm6z6kcvzr28";
+    sha256 = "09axg6gbmpnxsk88mdjbxxvfaj5af7xaf1gmnr17b0506zcfgwhv";
   };
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];

@@ -115,6 +115,18 @@ in
       # use -L to copy the directories proper, not the symlinks to them
       cp -r -L ${themesEnv}/share/plymouth/themes/{text,details,${cfg.theme}} themes
 
+      imageDir="$(sed -n 's,ImageDir *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
+      # If ImageDir refers to /etc/plymouth/themes or /nix/store/.../share/plymouth/themes, look in themesEnv instead
+      imageDir="''${imageDir/\/*\/plymouth\/themes/${themesEnv}/share/plymouth/themes}"
+      if [ -n "$imageDir" ]; then
+        if [ -d "$imageDir" ]; then
+          cp -n -v -r -L "$imageDir" themes/
+        else
+          echo "ImageDir from theme is set (translated as \"$imageDir\"), but doesn't exist"
+          exit 1
+        fi
+      fi
+
       # patch out any attempted references to the theme or plymouth's themes directory
       chmod -R +w themes
       find themes -type f | while read file

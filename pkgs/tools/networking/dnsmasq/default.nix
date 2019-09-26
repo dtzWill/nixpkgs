@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, pkgconfig, dbus, nettle
-, libidn, libnetfilter_conntrack }:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, dbus, nettle
+, libidn2, libnetfilter_conntrack }:
 
 with stdenv.lib;
 let
   copts = concatStringsSep " " ([
-    "-DHAVE_IDN"
+    "-DHAVE_IDN2"
     "-DHAVE_DNSSEC"
   ] ++ optionals stdenv.isLinux [
     "-DHAVE_DBUS"
@@ -12,12 +12,21 @@ let
   ]);
 in
 stdenv.mkDerivation rec {
-  name = "dnsmasq-2.80";
+  pname = "dnsmasq";
+  version = "2.80";
 
   src = fetchurl {
-    url = "http://www.thekelleys.org.uk/dnsmasq/${name}.tar.xz";
+    url = "http://www.thekelleys.org.uk/${pname}/${pname}-${version}.tar.xz";
     sha256 = "1fv3g8vikj3sn37x1j6qsywn09w1jipvlv34j3q5qrljbrwa5ayd";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "fix-for-nettle-3.5.patch";
+      url = "http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commitdiff_plain;h=ab73a746a0d6fcac2e682c5548eeb87fb9c9c82e;hp=69bc94779c2f035a9fffdb5327a54c3aeca73ed5";
+      sha256 = "1hnixij3jp1p6zc3bx2dr92yyf9jp1ahhl9hiiq7bkbhbrw6mbic";
+    })
+  ];
 
   preBuild = ''
     makeFlagsArray=("COPTS=${copts}")
@@ -25,9 +34,9 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "DESTDIR="
-    "BINDIR=$(out)/bin"
-    "MANDIR=$(out)/man"
-    "LOCALEDIR=$(out)/share/locale"
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/man"
+    "LOCALEDIR=${placeholder "out"}/share/locale"
   ];
 
   hardeningEnable = [ "pie" ];
@@ -62,7 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ nettle libidn ]
+  buildInputs = [ nettle libidn2 ]
     ++ optionals stdenv.isLinux [ dbus libnetfilter_conntrack ];
 
   meta = {

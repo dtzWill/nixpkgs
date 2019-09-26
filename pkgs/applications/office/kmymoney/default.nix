@@ -16,11 +16,11 @@
 
 stdenv.mkDerivation rec {
   name = "kmymoney-${version}";
-  version = "5.0.6";
+  version = "5.0.7";
 
   src = fetchurl {
     url = "mirror://kde/stable/kmymoney/${version}/src/${name}.tar.xz";
-    sha256 = "10wiz9y63fk8niy9p6lmid2s4ldx4b950bqkw6aiyn7zdyr5z55s";
+    sha256 = "1h5mzvgpfyl2j66b3nsw17yxvg0ja1qhjlcmfkz62221vcqsrp6m";
   };
 
   # Hidden dependency that wasn't included in CMakeLists.txt:

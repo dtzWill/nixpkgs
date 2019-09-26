@@ -9,12 +9,10 @@ stdenv.mkDerivation rec {
     sha256 = "1qsxk055pfjqnd9w4nx6js7a8bzvq6nfjiwjs4h9ik6jlsrhb4v7";
   };
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
-
-  postInstall = ''
-    mv $out/usr/* $out
-    rm -r $out/usr
-  '';
+  installFlags = [
+    "BINDIR=${placeholder "out"}/bin"
+    "MANDIR=${placeholder "out"}/share/man/man8"
+  ];
   
   meta = with lib; {
     description = "Laptop power measuring tool";

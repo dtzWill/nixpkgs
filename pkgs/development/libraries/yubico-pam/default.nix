@@ -4,12 +4,12 @@
 
 stdenv.mkDerivation rec {
   pname = "yubico-pam";
-  version = "unstable-2019-07-01";
+  version = "unstable-2019-09-24";
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = pname;
-    rev = "b5bd00db81e0e0e0ecced65c684080bb56ddc35b";
-    sha256 = "10dq8dqi3jldllj6p8r9hldx9sank9n82c44w8akxrs1vli6nj3m";
+    rev = "3d71fce7baf694ff8a3ef54d657f5fcbda5b507b";
+    sha256 = "06q1b9dvkpwi1g3770mjxyxk74jxcb9g50mrvbzwibg6hx1aja72";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig asciidoc libxslt docbook_xsl ];

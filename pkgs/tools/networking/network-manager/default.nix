@@ -5,6 +5,7 @@
 , ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
 , docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
 , fetchFromGitHub
+, mobile-broadband-provider-info
 , openconnect, curl, meson, ninja, libpsl, libredirect }:
 
 let
@@ -13,15 +14,14 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "1.21.1pre-2019-09-06";
+  version = "unstable-2019-09-25";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-  #  rev = "f6d7af9ca6979ba28f63fe49c5bd8748acf8d4bf";
   #  rev = "refs/tags/${version}";
-    rev = "11cf082a6233a5c2f17da1b49457a66266062678";
-    sha256 = "162l8d7rd074gq2wfrzg54jac5wzwmajdx0wjdmll6c0jp2b4a3p";
+    rev = "a4b7b053f87e5deb77ed892b00198b69ca552dd3";
+    sha256 = "187k6say75z1h35vvzsidrx124cv962igf4p4ndkn77wbcv44cks";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -59,9 +59,9 @@ in stdenv.mkDerivation rec {
     # Allow using iwd when configured to do so
     "-Diwd=true"
     ## #"-Dpolkit_agent=true"
-    ## "-Dpolkit=true"
+    "-Dpolkit=true"
     ## "-Dconfig_dns_rc_manager_default=resolvconf"
-    ## "-Debpf=true"
+    "-Debpf=true"
     "-Dlibaudit=yes-disabled-by-default"
     ## "-Dsession_tracking_consolekit=false"
   ];
@@ -69,28 +69,19 @@ in stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      inherit iputils kmod openconnect ethtool gnused dbus;
+      inherit iputils kmod openconnect ethtool gnused systemd;
       inherit (stdenv) shell;
     })
 
     # Meson does not support using different directories during build and
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
-
-    #./mtu.patch
-
-    # Included:
-    #./0001-dhcp-fallback-to-internal-DHCP-plugin-if-plugin-does.patch
-    #./0001-ipv6-add-disabled-method.patch
-
-    #./vpn-persistent/0001-vpn-minor-improvements.patch
-    #./vpn-persistent/0002-vpn-fix-persistent-reconnection.patch
-    #./vpn-persistent/0003-vpn-set-STOPPED-state-when-service-disappears.patch
   ];
 
   buildInputs = [
     systemd libselinux audit libpsl libuuid polkit ppp libndp curl
     bluez5 dnsmasq gobject-introspection modemmanager readline newt libsoup jansson
+    mobile-broadband-provider-info
   ];
 
   propagatedBuildInputs = [ dbus-glib gnutls libgcrypt ];
@@ -109,6 +100,10 @@ in stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs ./tools
     patchShebangs libnm/generate-setting-docs.py
+
+    substituteInPlace libnm/meson.build \
+      --replace 'python.path()' \
+                "'${pythonForDocs.interpreter}'"
   '';
 
   preBuild = ''
@@ -118,18 +113,6 @@ in stdenv.mkDerivation rec {
     # We are using a symlink that will be overridden during installation.
     mkdir -p ${placeholder "out"}/lib
     ln -s $PWD/libnm/libnm.so.0 ${placeholder "out"}/lib/libnm.so.0
-  '';
-
-  postInstall = ''
-    # systemd in NixOS doesn't use `systemctl enable`, so we need to establish
-    # aliases ourselves.
-    ln -s $out/etc/systemd/system/NetworkManager-dispatcher.service $out/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
-    ln -s $out/etc/systemd/system/NetworkManager.service $out/etc/systemd/system/dbus-org.freedesktop.NetworkManager.service
-
-    # Add the legacy service name from before #51382 to prevent NetworkManager
-    # from not starting back up:
-    # TODO: remove this once 19.10 is released
-    ln -s $out/etc/systemd/system/NetworkManager.service $out/etc/systemd/system/network-manager.service
   '';
 
   passthru = {

@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, cmake, gmock, boost, pkgconfig, protobuf, icu }:
 
 let
-  version = "8.10.17";
+  version = "8.10.19";
 in
 stdenv.mkDerivation {
   name = "phonenumber-${version}";
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     owner = "googlei18n";
     repo = "libphonenumber";
     rev = "v${version}";
-    sha256 = "0h2zkcymzbfpirccgij3dm9jzagsqzsz2mq1j13cykcxa0n8a5fb";
+    sha256 = "111rpafqwc9ay88mnxlpfqkggc3pddi5sf92pcljmba9a2lbmqks";
   };
 
   nativeBuildInputs = [

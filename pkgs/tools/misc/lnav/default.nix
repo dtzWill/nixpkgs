@@ -1,21 +1,21 @@
-{ stdenv, fetchFromGitHub, pcre-cpp, sqlite, ncurses
-, readline, zlib, bzip2, autoconf, automake, curl }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pcre-cpp, sqlite, ncurses
+, readline, zlib, bzip2, curl }:
 
 stdenv.mkDerivation rec {
 
-  name = "lnav-${meta.version}";
+  pname = "lnav";
+  inherit (meta) version;
 
   src = fetchFromGitHub {
     owner = "tstack";
-    repo = "lnav";
-    rev = "v${meta.version}";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "0z8bsr0falxlkmd1b5gy871vyafyih0sw7lgg858lqnbsy0q2m4i";
-    inherit name;
   };
 
+  nativeBuildInputs = [ autoreconfHook ];
+
   buildInputs = [
-    autoconf
-    automake
     zlib
     bzip2
     ncurses
@@ -24,10 +24,6 @@ stdenv.mkDerivation rec {
     sqlite
     curl
   ];
-
-  preConfigure = ''
-    ./autogen.sh
-  '';
 
   meta = with stdenv.lib; {
     homepage = https://github.com/tstack/lnav;

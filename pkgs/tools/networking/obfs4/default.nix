@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "obfs4";
-  version = "0.0.10";
+  version = "0.0.11";
 
   src = fetchgit {
     url = meta.repositories.git;
     rev = "refs/tags/${pname}proxy-${version}";
-    sha256 = "05aqmw8x8s0yqyqmdj5zcsq06gsbcmrlcd52gaqm20m1pg9503ad";
+    sha256 = "1y2kjwrk64l1h8b87m4iqsanib5rn68gzkdri1vd132qrlypycjn";
   };
 
-  modSha256 = "150kg22kznrdj5icjxk3qd70g7wpq8zd2zklw1y2fgvrggw8zvyv";
+  modSha256 = "106cg00i2ml9lv7jgd1dfby2n9721r5d3b31zdw7nimgr8jrpr1g";
 
   meta = with lib; {
     description = "A pluggable transport proxy";

@@ -2,16 +2,16 @@
 , python3, tzdata, glib, libxml2, icu }:
 
 stdenv.mkDerivation rec {
-  name = "libical-${version}";
-  version = "3.0.4";
+  pname = "libical";
+  version = "3.0.6";
 
   outputs = [ "out" "dev" ]; #"devdoc" ];
 
   src = fetchFromGitHub {
-    owner = "libical";
-    repo = "libical";
+    owner = pname;
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1qgpbdjd6jsivw87v5w52268kqp0rv780kli8cgb3ndlv592wlbm";
+    sha256 = "181lf07fj36fp0rbcjjmb53yzdvv9i4qxpnbpax8hayjhha8pjh3";
   };
 
   nativeBuildInputs = [
@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DGOBJECT_INTROSPECTION=True"
     "-DICAL_GLIB_VAPI=True"
+    "-DENABLE_GTK_DOC=OFF"
   ];
 
   patches = [

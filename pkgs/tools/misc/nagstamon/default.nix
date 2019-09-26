@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pythonPackages }:
+{ stdenv, fetchurl, mkDerivationWith, pythonPackages }:
 
-pythonPackages.buildPythonApplication rec {
+mkDerivationWith pythonPackages.buildPythonApplication rec {
   name = "nagstamon-${version}";
   version = "3.2.1";
 
@@ -14,6 +14,9 @@ pythonPackages.buildPythonApplication rec {
 
   propagatedBuildInputs = with pythonPackages; [ configparser pyqt5 psutil requests
      beautifulsoup4 keyring requests-kerberos kerberos lxml ];
+
+  dontWrapQtApps = true;
+  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
 
   meta = with stdenv.lib; {
     description = "A status monitor for the desktop";

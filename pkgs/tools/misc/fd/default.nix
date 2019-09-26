@@ -1,17 +1,17 @@
 { stdenv, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
-  name = "fd-${version}";
-  version = "7.3.0";
+  pname = "fd";
+  version = "7.4.0";
 
   src = fetchFromGitHub {
     owner = "sharkdp";
     repo = "fd";
     rev = "v${version}";
-    sha256 = "0y4657w1pi4x9nmbv551dj00dyiv935m8ph7jlv00chwy3hrb3yi";
+    sha256 = "108p1p9bxhg4qzwfs6wqcakcvlpqw3w498jkz1vhmg6jp1mbmgdr";
   };
 
-  cargoSha256 = "1qqlii9693ih7pxl80v515a13jar3yayr5v7pa57x14i9syir10c";
+  cargoSha256 = "0ldivmjgwjhrhvcs53whn7ma2bc35araabjvm1f2wa69fg8vd3df";
 
   preFixup = ''
     install -Dm644 "$src/doc/fd.1" "$out/man/man1/fd.1"
@@ -22,6 +22,11 @@ rustPlatform.buildRustPackage rec {
       "$out/share/fish/vendor_completions.d/fd.fish"
     install -Dm644 target/release/build/fd-find-*/out/_fd \
       "$out/share/zsh/site-functions/_fd"
+
+    # Upstream issue 487
+    substituteInPlace $out/share/zsh/site-functions/_fd \
+      --replace 'the search pattern: a regular' \
+                'the search pattern\: a regular'
   '';
 
   meta = with stdenv.lib; {

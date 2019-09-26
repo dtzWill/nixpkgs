@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gtk3, xcursorgen, papirus-icon-theme, deepin }:
+{ stdenv, fetchFromGitHub, gtk3, xcursorgen, papirus-icon-theme, deepin, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,6 +15,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gtk3 xcursorgen ];
 
   buildInputs = [ papirus-icon-theme ];
+
+  propagatedBuildInputs = [
+    hicolor-icon-theme
+  ];
+
+  dontDropIconThemeCache = true;
 
   postPatch = ''
     patchShebangs tools/hicolor.links

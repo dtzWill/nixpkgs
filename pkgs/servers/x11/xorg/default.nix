@@ -872,11 +872,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   libXfont2 = callPackage ({ stdenv, pkgconfig, fetchurl, libfontenc, xorgproto, freetype, xtrans, zlib }: stdenv.mkDerivation {
-    name = "libXfont2-2.0.3";
+    name = "libXfont2-2.0.4";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/lib/libXfont2-2.0.3.tar.bz2;
-      sha256 = "0klwmimmhm3axpj8pwn5l41lbggh47r5aazhw63zxkbwfgyvg2hf";
+      url = mirror://xorg/individual/lib/libXfont2-2.0.4.tar.bz2;
+      sha256 = "1rk9pjxcm01lbr1dxhnvk4f2qrn6zp068qjbvvz5w0z5d0rin5bd";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -2718,7 +2718,7 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xorgserver = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, openssl, libX11, libXau, libXaw, libxcb, xcbutil, xcbutilwm, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, libXdmcp, libXfixes, libxkbfile, libXmu, libXpm, libXrender, libXres, libXt }: stdenv.mkDerivation {
-    name = "xorg-server-1.20.5";
+    name = "xorg-server-1.20.5-git";
     builder = ./builder.sh;
     src = fetchurl {
       url = mirror://xorg/individual/xserver/xorg-server-1.20.5.tar.bz2;

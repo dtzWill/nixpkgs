@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder
+{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder ? null
 , gtk2, libX11, libfm, libwnck, libXmu, libXpm, cairo, gdk-pixbuf
 , menu-cache, lxmenu-data, wirelesstools
 , supportAlsa ? false, alsaLib

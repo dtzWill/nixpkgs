@@ -4,11 +4,11 @@
 
 stdenv.mkDerivation rec {
   pname = "tdb";
-  version = "1.4.0";
+  version = "1.4.2";
 
   src = fetchurl {
     url = "mirror://samba/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "0d9d2f1c83gmmq30bkfs50yb8399mr9xjjzscma4kyq0ajf75861";
+    sha256 = "0jh0iqbb6pkvqrqn033w5g6gwa4bdgkvp49z0qpkk3h2wk6b4h4h";
   };
 
   nativeBuildInputs = [ pkgconfig wafHook python which docbook_xsl docbook_xml_dtd_42 ];

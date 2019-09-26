@@ -1,23 +1,20 @@
 { stdenv, fetchurl, lib
-, cmocka, curl, pandoc, pkgconfig, openssl, tpm2-tss }:
+, curl, pandoc, pkgconfig, openssl, tpm2-tss }:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-tools";
-  version = "3.2.0";
+  version = "4.0";
 
   src = fetchurl {
     url = "https://github.com/tpm2-software/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
-    sha256 = "057gg84zly6gjp6ypj6bv6zzmnr77cqsygl8x0147cylwa1ywydd";
+    sha256 = "02p0wj87fnrpsijd2zaqcxqxicqs36q7vakp6y8and920x36jb0y";
   };
 
   nativeBuildInputs = [ pandoc pkgconfig ];
   buildInputs = [
     curl openssl tpm2-tss
-    # For unit tests.
-    cmocka
   ];
 
-  configureFlags = [ "--enable-unit" ];
   doCheck = true;
 
   meta = with lib; {

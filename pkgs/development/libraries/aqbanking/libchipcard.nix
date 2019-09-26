@@ -1,21 +1,27 @@
-{ stdenv, fetchurl, pkgconfig, gwenhywfar, pcsclite, zlib }:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, gwenhywfar, pcsclite, zlib }:
 
 let
   inherit ((import ./sources.nix).libchipcard) sha256 releaseId version;
 in stdenv.mkDerivation rec {
-  name = "libchipcard-${version}";
+  pname = "libchipcard";
   inherit version;
 
-  src = let
-    qstring = "package=02&release=${releaseId}&file=01";
-    mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
-  in fetchurl {
-    name = "${name}.tar.gz";
-    urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+  src = fetchFromGitHub {
+    owner = "aqbanking";
+    repo = pname;
+    rev = version;
     inherit sha256;
   };
+  #src = let
+  #  qstring = "package=02&release=${releaseId}&file=01";
+  #  mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
+  #in fetchurl {
+  #  name = "${pname}-${version}.tar.gz";
+  #  urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+  #  inherit sha256;
+  #};
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   buildInputs = [ gwenhywfar pcsclite zlib ];
 

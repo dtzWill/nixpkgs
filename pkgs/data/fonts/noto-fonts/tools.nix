@@ -1,6 +1,6 @@
 { fetchFromGitHub, lib, buildPythonPackage, isPy3k, fonttools, numpy, pillow, scour }:
 
-pythonPackages.buildPythonPackage rec {
+buildPythonPackage rec {
   version = "unstable-2019-03-20";
   name = "nototools-${version}";
 

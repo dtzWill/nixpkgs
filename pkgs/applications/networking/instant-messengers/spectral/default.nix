@@ -1,52 +1,40 @@
 { stdenv, fetchgit
-, pkgconfig, makeWrapper
-, qmake, qtbase, qtquickcontrols2, qtmultimedia
+, pkgconfig, wrapQtAppsHook
+, cmake
+, qtbase, qttools, qtquickcontrols2, qtmultimedia, qtkeychain
 , libpulseaudio
 # Not mentioned but seems needed
 , qtgraphicaleffects
 , qtdeclarative
 , qtmacextras
-, olm
+, olm, cmark
 }:
 
-let
-  # Following "borrowed" from yubikey-manager-qt
-  qmlPath = qmlLib: "${qmlLib}/${qtbase.qtQmlPrefix}";
-
-  inherit (stdenv) lib;
-
-  qml2ImportPath = lib.concatMapStringsSep ":" qmlPath [
-    qtbase.bin qtdeclarative.bin qtquickcontrols2.bin qtgraphicaleffects qtmultimedia
-  ];
-
-in stdenv.mkDerivation rec {
+let qtkeychain-qt5 = qtkeychain.override {
+  inherit qtbase qttools;
+  withQt5 = true;
+};
+in stdenv.mkDerivation {
   pname = "spectral";
-  #version = "648";
-  version = "2019-07-19";
+  version = "unstable-2019-08-30";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
-    #rev = "refs/tags/${version}";
-    rev = "7d38d05babc6512b4e582c57003f49600b1f19dc";
-    sha256 = "0fv52790jqs2az18n62m97zq51wvk22ijd78if9i372y70wdwfks";
+    rev = "ee86c948aec5fe72979fc6df97f4a6ef711bdf94";
+    sha256 = "1mqabdkvzq48wki92wm2r79kj8g8m7ganpl47sh60qfsk4bxa8b2";
     fetchSubmodules = true;
   };
 
-  qmakeFlags = [ "CONFIG+=qtquickcompiler" ];
+  #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
 
-  postInstall = ''
-    wrapProgram $out/bin/spectral \
-      --set QML2_IMPORT_PATH "${qml2ImportPath}"
-  '';
-
-  nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm ]
+  nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
+  buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 
   meta = with stdenv.lib; {
-    description = "A glossy client for Matrix, written in QtQuick Controls 2 and C++";
-    homepage = https://gitlab.com/b0/spectral;
+    description = "A glossy cross-platform Matrix client.";
+    homepage = "https://gitlab.com/b0/spectral";
     license = licenses.gpl3;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ dtzWill ];

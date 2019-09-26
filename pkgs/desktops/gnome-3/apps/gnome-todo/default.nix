@@ -78,12 +78,6 @@ stdenv.mkDerivation rec {
     };
   };
 
-  postPatch = ''
-    chmod +x meson_post_install.py
-    patchShebangs meson_post_install.py
-  '';
-
-
   meta = with stdenv.lib; {
     description = "Personal task manager for GNOME";
     homepage = https://wiki.gnome.org/Apps/Todo;

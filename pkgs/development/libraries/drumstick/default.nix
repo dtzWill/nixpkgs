@@ -1,31 +1,26 @@
-{ stdenv, fetchurl, alsaLib, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen
-, fluidsynth, pkgconfig, qt5
+{ lib, mkDerivation, fetchurl, alsaLib, libpulseaudio, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen
+, fluidsynth, pkgconfig, qtbase, qtsvg
 }:
 
-stdenv.mkDerivation rec {
-  name = "drumstick-${version}";
-  version = "1.1.2";
+mkDerivation rec {
+  pname = "drumstick";
+  version = "1.1.3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/drumstick/${version}/${name}.tar.bz2";
-    sha256 = "0kljqyqj7s1i2z52i24x7ail1bywn6dcxxfbad5c59drm8wv94bp";
+    url = "mirror://sourceforge/${pname}/${version}/${pname}-${version}.tar.bz2";
+    sha256 = "1n9wvg79yvkygrkc8xd8pgrd3d7hqmr7gh24dccf0px23lla9b3m";
   };
 
   outputs = [ "out" "dev" "man" ];
 
   enableParallelBuilding = true;
 
-  #Temporarily remove drumstick-piano; Gives segment fault. Submitted ticket
-  postInstall = ''
-    rm $out/bin/drumstick-vpiano
-    '';
-
   nativeBuildInputs = [ cmake pkgconfig docbook_xsl docbook_xml_dtd_45 docbook_xml_dtd_45 ];
   buildInputs = [
-    alsaLib doxygen fluidsynth qt5.qtbase qt5.qtsvg
+    alsaLib libpulseaudio doxygen fluidsynth qtbase qtsvg
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     maintainers = with maintainers; [ solson ];
     description = "MIDI libraries for Qt5/C++";
     homepage = http://drumstick.sourceforge.net/;

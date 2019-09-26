@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = "pam-u2f";
-    rev = "35bc006635370522e09685b06b709c8cd6b0ccf2";
-    sha256 = "1hfnh0rhqk96r4x7ac2qlavjpygmjkynnqag84s8bis6s52d0lcm";
+    rev = "17ec95577a60f5da3fd9bd5af5960d344ce39950";
+    sha256 = "13lcq63v45dwayxgd6iyyxaxvr9fcs6j073y0q18ygwwxhmfpi82";
   };
 
   postPatch = ''

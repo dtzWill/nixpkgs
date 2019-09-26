@@ -1,12 +1,12 @@
 { stdenv, fetchurl, cmake, pkgconfig, gtk3, perl, vte, pcre, glib , makeWrapper }:
 
 stdenv.mkDerivation rec {
-  name = "sakura-${version}";
-  version = "3.6.0";
+  pname = "sakura";
+  version = "3.7.0";
 
   src = fetchurl {
-    url = "https://launchpad.net/sakura/trunk/${version}/+download/${name}.tar.bz2";
-    sha256 = "1q463qm41ym7jb3kbzjz7b6x549vmgkb70arpkhsf86yxly1y5m1";
+    url = "https://launchpad.net/sakura/trunk/${version}/+download/${pname}-${version}.tar.gz";
+    sha256 = "15gskj5yv5qs3cj4ps43735kfx2nzjlhq4dk9ghirl8lvhhxsm5m";
   };
 
   nativeBuildInputs = [ cmake perl pkgconfig ];

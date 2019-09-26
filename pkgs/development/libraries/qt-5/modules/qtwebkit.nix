@@ -51,8 +51,13 @@ qtModule {
   '';
 
   NIX_CFLAGS_COMPILE =
-    # with gcc7 this warning blows the log over Hydra's limit
-    [ "-Wno-expansion-to-defined" ]
+    [
+      # with gcc7 this warning blows the log over Hydra's limit
+      "-Wno-expansion-to-defined"
+    ] ++ stdenv.lib.optionals (stdenv.cc.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "8") [
+      # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
+      "-Wno-class-memaccess"
+    ]
     # with clang this warning blows the log over Hydra's limit
     ++ optional stdenv.isDarwin "-Wno-inconsistent-missing-override"
     ++ optionals flashplayerFix

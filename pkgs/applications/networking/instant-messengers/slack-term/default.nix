@@ -11,8 +11,8 @@ buildGoModule rec {
     owner = "erroneousboat";
     repo = "slack-term";
     #rev = "v${version}";
-    rev = "c8f10dcc559adcf779d99d361edc2f35e98abe5d";
-    sha256 = "0ij6irh49xkb0fx883sg60rqq1pfmq8h0apapa5qdnb0bzw49ar3";
+    rev = "d36cd2d125bc2e5037110cfd0a8ca0e3efa72642";
+    sha256 = "19k2rkfqqjz3jhi1bbrah9rwfqhnw13rf5xdy8rbgjv992d84vpv";
   };
 
   modSha256 = "0lw5j1nxbsc1clvwscyvpy8vkww4yk3qiffpnqqrn4sqz0m8cb83";

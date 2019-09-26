@@ -1,6 +1,6 @@
 { stdenv, fetchurl, intltool, gettext, makeWrapper, coreutils, gnused, gnome3
-, gnugrep, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme
-, gpart, hdparm, procps, utillinux, polkit, wrapGAppsHook, substituteAll, yelp_tools
+, gnugrep, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, yelp_tools
+, gpart, hdparm, procps, utillinux, polkit, wrapGAppsHook, substituteAll
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-doc" ];
 
-  buildInputs = [ parted glib libuuid gtkmm3 yelp_tools libxml2 hicolor-icon-theme polkit.bin gnome3.adwaita-icon-theme  ];
+  buildInputs = [ parted glib libuuid gtkmm3 yelp_tools libxml2 polkit.bin gnome3.adwaita-icon-theme  ];
   nativeBuildInputs = [ intltool gettext pkgconfig wrapGAppsHook ];
 
   preFixup = ''

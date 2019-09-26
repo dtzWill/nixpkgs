@@ -5,14 +5,14 @@ assert stdenv.lib.versionAtLeast kernel.version "4.10";
 
 let
   release = "0.4.0";
-  revbump = "rev25"; # don't forget to change forum download id...
+  revbump = "rev31"; # don't forget to change forum download id...
 in stdenv.mkDerivation rec {
   name = "linux-phc-intel-${version}-${kernel.version}";
   version = "${release}-${revbump}";
 
   src = fetchurl {
-    sha256 = "1w91hpphd8i0br7g5qra26jdydqar45zqwq6jq8yyz6l0vb10zlz";
-    url = "http://www.linux-phc.org/forum/download/file.php?id=194";
+    sha256 = "0a9imjz5jwrmxrvf56fd5na7z8wg7mq7a3fy4m395zmc39563vmd";
+    url = "http://www.linux-phc.org/forum/download/file.php?id=201";
     name = "phc-intel-pack-${revbump}.tar.bz2";
   };
 
@@ -48,6 +48,6 @@ in stdenv.mkDerivation rec {
     downloadPage = "http://www.linux-phc.org/forum/viewtopic.php?f=7&t=267";
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];
-    broken = stdenv.lib.versionAtLeast kernel.version "4.18";
+    broken = false; # stdenv.lib.versionAtLeast kernel.version "5.3";
   };
 }

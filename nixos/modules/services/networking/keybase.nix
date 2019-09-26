@@ -66,6 +66,7 @@ in {
         # (which is only in `keybase`, not `kbfsfuse` used here)
         KEYBASE_MOUNTDIR = cfg.mountDir;
       };
+      unitConfig.ConditionUser = "!@system";
     };
 
     systemd.packages = [ pkgs.keybase ];

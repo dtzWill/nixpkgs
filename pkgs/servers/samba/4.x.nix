@@ -1,9 +1,10 @@
 { lib, stdenv, fetchurl, python, pkgconfig, perl, libxslt, docbook_xsl, rpcgen
 , fixDarwinDylibNames
 , docbook_xml_dtd_42, readline
-, popt, iniparser, libbsd, libarchive, libiconv, gettext
+, popt, iniparser, libbsd, libarchive, libiconv, gettext, talloc, tdb, cmocka
 , krb5Full, zlib, openldap, cups, pam, avahi, acl, libaio, fam, libceph, glusterfs
-, gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme
+, gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme, libtasn1
+, bison, flex
 
 , enableLDAP ? false
 , enablePrinting ? false
@@ -19,12 +20,12 @@
 with lib;
 
 stdenv.mkDerivation rec {
-  name = "samba-${version}";
-  version = "4.10.6";
+  pname = "samba";
+  version = "4.11.0";
 
   src = fetchurl {
-    url = "mirror://samba/pub/samba/stable/${name}.tar.gz";
-    sha256 = "0hpgdqlyczj98pkh2ldglvvnkrb1q541r3qikdvxq0qjvd9fpywy";
+    url = "mirror://samba/pub/samba/stable/${pname}-${version}.tar.gz";
+    sha256 = "174fwi8n191dnb8ix9afchfp59hic6iwa3062iz3y7zzmxs1rpva";
   };
 
   outputs = [ "out" "dev" "man" ];
@@ -42,12 +43,14 @@ stdenv.mkDerivation rec {
     [ python pkgconfig perl libxslt docbook_xsl docbook_xml_dtd_42 /*
       docbook_xml_dtd_45 */ readline popt iniparser jansson
       libbsd libarchive zlib fam libiconv gettext libunwind krb5Full
+      gnutls talloc tdb libtasn1
+      bison flex
     ]
     ++ optionals stdenv.isLinux [ libaio systemd ]
     ++ optional enableLDAP openldap
     ++ optional (enablePrinting && stdenv.isLinux) cups
     ++ optional enableMDNS avahi
-    ++ optionals enableDomainController [ gnutls gpgme lmdb ]
+    ++ optionals enableDomainController [ gpgme lmdb ]
     ++ optional enableRegedit ncurses
     ++ optional (enableCephFS && stdenv.isLinux) libceph
     ++ optional (enableGlusterFS && stdenv.isLinux) glusterfs

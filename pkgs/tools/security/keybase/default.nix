@@ -10,7 +10,7 @@
 
 buildGoPackage rec {
   pname = "keybase";
-  version = "4.4.0";
+  version = "4.5.0";
 
   goPackagePath = "github.com/keybase/client";
   subPackages = [
@@ -33,7 +33,7 @@ buildGoPackage rec {
     owner = "keybase";
     repo = "client";
     rev = "v${version}";
-    sha256 = "1306njakrfwmvykg2d2vfq95i4qs42yrx30dxmxkcdlrphpj1kv0";
+    sha256 = "0hn4fm5v85zl0q255qz9xihi4j80cnkqawiblid9d70234vxmsin";
   };
 
   nativeBuildInputs = [ makeWrapper ]; # TODO: patch paths instead?
@@ -61,6 +61,12 @@ buildGoPackage rec {
 
     substituteInPlace $bin/lib/systemd/user/keybase.service \
       --replace /usr/bin $bin/bin
+
+    # Don't use debug logging as default, it's way too verbose
+    substituteInPlace $bin/lib/systemd/user/keybase.service \
+      --replace  " --debug" ""
+    substituteInPlace $bin/lib/systemd/user/kbfs.service \
+      --replace  " -debug" ""
 
     # Drop this, until we build GUI here too
     rm $bin/lib/systemd/user/keybase.gui.service

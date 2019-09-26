@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pkgconfig, makeWrapper
 , gstreamer, gtk2, gst-plugins-base, libnotify
-, keybinder, xfconf
+, keybinder ? null, xfconf
 }:
 
 let

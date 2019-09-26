@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ mkDerivation, lib, fetchFromGitHub
 # nativeBuildInputs
 , qmake, pkgconfig
 # Qt
@@ -8,15 +8,15 @@
 , python3
 , wrapQtAppsHook }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "radare2-cutter";
-  version = "1.8.3";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "radareorg";
     repo = "cutter";
     rev = "v${version}";
-    sha256 = "0wiini5bsm8ws4r4ydm4yqj13jivxfrsr4gmqg42bwj9nry1rq5w";
+    sha256 = "1ln55ssrasbaam267lwc2vxnm8j0c2x35qsda44xi2p8hqxslf8k";
   };
 
   postUnpack = "export sourceRoot=$sourceRoot/src";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A Qt and C++ GUI for radare2 reverse engineering framework";
     homepage = src.meta.homepage;
     license = licenses.gpl3;

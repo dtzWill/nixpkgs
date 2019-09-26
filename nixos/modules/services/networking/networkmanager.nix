@@ -83,9 +83,9 @@ let
   '';
 
   dispatcherTypesSubdirMap = {
-    "basic" = "";
-    "pre-up" = "pre-up.d/";
-    "pre-down" = "pre-down.d/";
+    basic = "";
+    pre-up = "pre-up.d/";
+    pre-down = "pre-down.d/";
   };
 
   macAddressOpt = mkOption {
@@ -198,7 +198,7 @@ in {
 
       dhcp = mkOption {
         type = types.enum [ "dhclient" "dhcpcd" "internal" ];
-        default = "dhclient";
+        default = "internal";
         description = ''
           Which program (or internal library) should be used for DHCP.
         '';
@@ -472,7 +472,7 @@ in {
 
     systemd.packages = cfg.packages;
 
-    systemd.services."NetworkManager" = {
+    systemd.services.NetworkManager = {
       wantedBy = [ "network.target" ];
       restartTriggers = [ configFile ];
 
@@ -482,11 +482,15 @@ in {
         mkdir -m 755 -p ${stateDirs}
         mkdir -m 700 -p /etc/NetworkManager/dispatcher.d/{no-wait.d,pre-down.d,pre-up.d}
       '';
+
+      aliases = [ "dbus-org.freedesktop.NetworkManager.service" ];
     };
 
     systemd.services.NetworkManager-wait-online = {
       wantedBy = [ "network-online.target" ];
     };
+
+    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
 
     systemd.services.nm-setup-hostsdirs = mkIf dynamicHostsEnabled {
       wantedBy = [ "NetworkManager.service" ];
@@ -509,6 +513,7 @@ in {
 
       # useful binaries for user-specified hooks
       path = [ pkgs.iproute pkgs.utillinux pkgs.coreutils ];
+      aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
     # Turn off NixOS' network management

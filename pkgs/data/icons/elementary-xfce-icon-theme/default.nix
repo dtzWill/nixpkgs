@@ -11,7 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "00sk6sv0kkfb3q0jqwcllzawi30rw8nfkkfn5l1qwqha48izw3r4";
   };
 
-  nativeBuildInputs = [ pkgconfig gdk-pixbuf librsvg optipng gtk3 hicolor-icon-theme ];
+  nativeBuildInputs = [ pkgconfig gdk-pixbuf librsvg optipng gtk3 ];
+
+  propagatedBuildInputs = [
+    hicolor-icon-theme
+  ];
+
+  dontDropIconThemeCache = true;
 
   enableParallelBuilding = true;
 
@@ -34,7 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Elementary icons for Xfce and other GTK+ desktops like GNOME";
+    description = "Elementary icons for Xfce and other GTK desktops like GNOME";
     homepage = https://github.com/shimmerproject/elementary-xfce;
     license = licenses.gpl2;
     # darwin cannot deal with file names differing only in case

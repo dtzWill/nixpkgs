@@ -1,4 +1,4 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme }:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtwebengine }:
 
 let
   description = "A note-taking application that knows programmers and Markdown better";
@@ -10,12 +10,13 @@ in mkDerivation rec {
     owner = "tamlok";
     repo = "vnote";
     fetchSubmodules = true;
-    rev = "v${version}";
-    sha256 = "0mk1ingcyznpwq4bfkxa8nx9yx5y3kgsmr4qffriq7bh1cx9dwjy";
+    #rev = "v${version}";
+    rev = "f61e2b95965aa9382a1514350cbd54405e777dad";
+    sha256 = "085hy0y1sfkphcgmbbak4agqikzfrli1zkj118icxvyrksc9apvr";
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtwebengine hicolor-icon-theme ];
+  buildInputs = [ qtbase qtwebengine ];
 
   meta = with lib; {
     inherit description;

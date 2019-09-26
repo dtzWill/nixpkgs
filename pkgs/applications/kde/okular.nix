@@ -5,7 +5,7 @@
   karchive, kbookmarks, kcompletion, kconfig, kconfigwidgets, kcoreaddons,
   kdbusaddons, kdegraphics-mobipocket, kiconthemes, kjs, khtml, kio, kparts,
   kpty, kwallet, kwindowsystem, libkexiv2, libspectre, libzip, phonon, poppler,
-  qca-qt5, qtdeclarative, qtsvg, threadweaver, kcrash
+  qca-qt5, qtdeclarative, qtspeech, qtsvg, threadweaver, kcrash, kirigami2, kpurpose
 }:
 
 mkDerivation {
@@ -16,7 +16,7 @@ mkDerivation {
     kcompletion kconfig kconfigwidgets kcoreaddons kdbusaddons
     kdegraphics-mobipocket kiconthemes kjs khtml kio kparts kpty kwallet
     kwindowsystem libkexiv2 libspectre libzip phonon poppler qca-qt5
-    qtdeclarative qtsvg threadweaver kcrash
+    qtdeclarative qtspeech qtsvg threadweaver kcrash kirigami2 kpurpose
   ] ++ lib.optional (!stdenv.isAarch64) chmlib;
   meta = with lib; {
     homepage = http://www.kde.org;

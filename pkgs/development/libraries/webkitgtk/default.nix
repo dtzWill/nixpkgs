@@ -6,6 +6,8 @@
 , enableGeoLocation ? true, geoclue2, sqlite
 , enableGtk2Plugins ? false, gtk2 ? null
 , gst-plugins-base, gst-plugins-bad, woff2
+, libwpe, wpebackend-fdo
+, bubblewrap, libseccomp, xdg-dbus-proxy
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
@@ -15,10 +17,10 @@ assert stdenv.isDarwin -> !enableGtk2Plugins;
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "webkitgtk";
-  version = "2.24.4";
+  version = "2.26.1";
 
   meta = {
-    description = "Web content rendering engine, GTK+ port";
+    description = "Web content rendering engine, GTK port";
     homepage = https://webkitgtk.org/;
     license = licenses.bsd2;
     platforms = platforms.linux;
@@ -28,7 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://webkitgtk.org/releases/${pname}-${version}.tar.xz";
-    sha256 = "1n3x5g1z6rg9n1ssna7wi0z6zlprjm4wzk544v14wqi6q0lv2s46";
+    sha256 = "0mfikjfjhwcnrxbzdyh3fl9bbs2azgbdnx8h5910h41b3n022jvb";
   };
 
   patches = optionals stdenv.isDarwin [
@@ -91,6 +93,8 @@ stdenv.mkDerivation rec {
     libintl libwebp enchant2 libnotify gnutls pcre nettle libidn libgcrypt woff2
     libxml2 libsecret libxslt harfbuzz libpthreadstubs libtasn1 p11-kit openjpeg
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
+    libwpe wpebackend-fdo
+    bubblewrap libseccomp xdg-dbus-proxy
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
     ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender  ])

@@ -1,14 +1,16 @@
 { stdenv, fetchFromGitHub, lua }:
 
-stdenv.mkDerivation rec {
+let
+  lualfs = lua.withPackages (p: with p; [ luafilesystem ]);
+in stdenv.mkDerivation rec {
   pname = "z-lua";
-  version = "1.7.2";
+  version = "1.7.3";
 
   src = fetchFromGitHub {
     owner = "skywind3000";
     repo = "z.lua";
     rev = "v${version}";
-    sha256 = "17klcw2iv7d636mp7fb80kjvqd3xqkzqhwz41ri1l029dxji4zzh";
+    sha256 = "13cfdghkprkaxgrbwsjndbza2mjxm2x774lnq7q4gfyc48mzwi70";
   };
 
   # May not be desirable for everyone
@@ -20,7 +22,13 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ lua ];
+  postPatch = ''
+    substituteInPlace z.lua --replace \
+      '.. os.interpreter() ..' \
+      '.. "${lualfs}/bin/lua" ..'
+  '';
+
+  buildInputs = [ lualfs ];
 
   installPhase = ''
     install -Dm755 z.lua $out/bin/z

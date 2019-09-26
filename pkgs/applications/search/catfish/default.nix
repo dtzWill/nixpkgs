@@ -1,18 +1,17 @@
 { stdenv, fetchurl, file, which, intltool, gobject-introspection,
-  findutils, xdg_utils, gnome3, gtk3, python3Packages, hicolor-icon-theme,
-  wrapGAppsHook,
-  atk, cairo
+  findutils, xdg_utils, gnome3, gtk3, python3Packages,
+  wrapGAppsHook
 }:
 
 python3Packages.buildPythonApplication rec {
   majorver = "1.4";
-  minorver = "9";
+  minorver = "10";
   version = "${majorver}.${minorver}";
   pname = "catfish";
 
   src = fetchurl {
     url = "https://archive.xfce.org/src/apps/${pname}/${majorver}/${pname}-${version}.tar.bz2";
-    sha256 = "0kllxm4jdasskfs29q6p25z4p455jcv21zyfkn0y8dj3h22rp8r9";
+    sha256 = "0g9l5sv5d7wmyb23cvpz5mpvjnxiqjh25v9gr5qzhcah202a0wr5";
   };
 
   nativeBuildInputs = [
@@ -25,16 +24,15 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    atk
     gtk3
     gnome3.dconf
-    hicolor-icon-theme
-    #wrapGAppsHook
-    gobject-introspection
-    gnome3.adwaita-icon-theme
+    python3Packages.pyxdg
+    python3Packages.ptyprocess
+    python3Packages.pycairo
   ];
 
   propagatedBuildInputs = [
+    # TODO: DTZ: prune, compare to master
     python3Packages.pygobject3
     python3Packages.pyxdg
     python3Packages.ptyprocess
@@ -43,9 +41,6 @@ python3Packages.buildPythonApplication rec {
     python3Packages.dbus-python
     xdg_utils
     findutils
-    gtk3
-    cairo
-    atk
   ];
 
   # Explicitly set the prefix dir in "setup.py" because setuptools is
@@ -69,7 +64,7 @@ python3Packages.buildPythonApplication rec {
     description = "A handy file search tool";
     longDescription = ''
       Catfish is a handy file searching tool. The interface is
-      intentionally lightweight and simple, using only GTK+3.
+      intentionally lightweight and simple, using only GTK 3.
       You can configure it to your needs by using several command line
       options.
     '';

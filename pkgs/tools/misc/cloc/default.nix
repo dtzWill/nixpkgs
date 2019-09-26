@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, makeWrapper, perlPackages }:
 
 stdenv.mkDerivation rec {
-  name = "cloc-${version}";
-  version = "1.82";
+  pname = "cloc";
+  version = "1.84";
 
   src = fetchFromGitHub {
     owner = "AlDanial";
     repo = "cloc";
     rev = version;
-    sha256 = "0fsz07z0slfg58512fmnlj8pnxkc360bgf7fclg60v9clvcjbjsw";
+    sha256 = "14xikdwcr6pcnkk2i43zrsj88z8b3mrv0svbnbvxvarw1id83pnn";
   };
 
   setSourceRoot = ''
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     perl AlgorithmDiff ParallelForkManager RegexpCommon
   ]);
 
-  makeFlags = [ "prefix=" "DESTDIR=$(out)" "INSTALL=install" ];
+  makeFlags = [ "prefix=${placeholder "out"}" "DESTDIR=" "INSTALL=install" ];
 
   postFixup = "wrapProgram $out/bin/cloc --prefix PERL5LIB : $PERL5LIB";
 

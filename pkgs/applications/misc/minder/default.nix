@@ -7,14 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "minder";
-  version = "1.4.1-2019-08-28";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "phase1geo";
     repo = pname;
-#    rev = version;
-    rev = "729756d62037cf3f6cc6ff0dac866ab3c0aa522a";
-    sha256 = "1d7kg6g76vj1ig4pp1nscj4cvdw00ry06cmyddqwa5kqzx1y8432";
+    rev = version;
+    sha256 = "0lhmv3z2jifv4cksxa27jigdfj9n81myjsxg38xp28fx5x3h8bzc";
   };
 
   nativeBuildInputs = [ pkgconfig meson ninja python3 wrapGAppsHook vala shared-mime-info ];

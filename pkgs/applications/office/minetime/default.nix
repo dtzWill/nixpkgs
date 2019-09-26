@@ -2,13 +2,13 @@
 
 let
   pname = "minetime";
-  version = "1.6.1";
+  version = "1.6.2";
 in
 appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}.AppImage";
-    sha256 = "1ar38wcfzcs4knx2khmja60fa8rnzawm6004wp5gp8kddb831xrw";
+    sha256 = "019j6ax3gihn4fngm4cdkkzy4sh7xnvx1kxpbayki750bwkac6vw";
   };
 
   profile = ''

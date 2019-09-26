@@ -13,13 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     doxygen perl pkgconfig
-    # For unit tests and integration tests.
-    ibm-sw-tpm2 iproute procps which
   ];
   buildInputs = [
     openssl
-    # For unit tests and integration tests.
-    cmocka uthash
   ];
 
   postPatch = "patchShebangs script";
@@ -29,13 +25,22 @@ stdenv.mkDerivation rec {
     "--enable-integration"
   ];
 
+  checkInputs = [
+    ibm-sw-tpm2 iproute procps which
+    cmocka uthash
+  ];
+
   doCheck = true;
+
+  enableParallelBuilding = true;
 
   postInstall = ''
     # Do not install the upstream udev rules, they rely on specific
     # users/groups which aren't guaranteed to exist on the system.
     rm -R $out/lib/udev
   '';
+
+  dontPatchELF = true; # rpath
 
   meta = with lib; {
     description = "OSS implementation of the TCG TPM2 Software Stack (TSS2)";

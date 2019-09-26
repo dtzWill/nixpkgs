@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     url = git://git.notmuchmail.org/git/notmuch;
     #rev = "bc396c967c7cd8e7a109858e428d7bf97173f7a7";
 #    rev = "refs/tags/${version}";
-    rev = "b6e589f54f25594f6beb7b5ee9e884c75f3bd633";
-    sha256 = "0619zivqvqhgy2c4p0maxgzgxrxrdcp85yq97jpbg411mf4kircg";
+    rev = "74a1b5ac65b31f7ebc1258b259b8c355023e21b4";
+    sha256 = "0gbfwh9sccykb84mrckz8lyk2h76p4g2di4j0jkhjf4lzy5q414r";
   };
   #src = fetchurl {
   #  url = "https://notmuchmail.org/releases/${name}.tar.gz";

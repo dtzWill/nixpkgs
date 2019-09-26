@@ -1,25 +1,24 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, openssl, python3Packages }:
 
 # TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
 # (and any req'd dependencies/wrapping, not sure)
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  #version = "0.20";
-  version = "2019-09-05";
+  #version = "0.21";
+  version = "2019-09-24";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "8a0c1483681dffce9df00704b823cdb13efc7664";
-    sha256 = "17dp2d1ihavanp17h6b57ligxv6pskzndiffd9iz56k8xnmi4qxs";
+    rev = "64ff5dda7777957480462249bfe685e7823f9cc7";
+    sha256 = "02ija5yk0fsgy7fcvnjv15xd38r4l7s9371m3yfa6p89dg3000ck";
   };
-
-  patches = [ ./revert-create-dirs-on-install.patch ];
 
   nativeBuildInputs = [
     autoreconfHook
     pkgconfig
+    docutils # rst2man
     python3Packages.wrapPython
   ];
 
@@ -28,6 +27,8 @@ stdenv.mkDerivation rec {
     readline
     python3Packages.python
   ];
+
+  checkInputs = [ openssl ];
 
   pythonPath = with python3Packages; [
     dbus-python
@@ -42,11 +43,14 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var/"
     "--enable-wired"
     "--enable-external-ell"
+    "--enable-ofono"
   ];
 
   postUnpack = ''
     patchShebangs .
   '';
+
+  doCheck = true;
 
   postInstall = ''
     cp -a test/* $out/bin/

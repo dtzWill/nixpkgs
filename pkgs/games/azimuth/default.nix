@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, SDL, which }:
+{ stdenv, fetchFromGitHub, SDL, which, installTool ? false }:
 
 stdenv.mkDerivation rec {
   pname = "azimuth";
@@ -24,11 +24,8 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "BUILDTYPE=release"
     "CC:=$(CC)"
-  ];
-
-  nativeBuildInputs = [ which ];
-
-  buildInputs = [ SDL ];
+    "INSTALLDIR=$(out)"
+  ] ++ (if installTool then ["INSTALLTOOL=true"] else ["INSTALLTOOL=false"]);
 
   enableParallelBuilding = true;
 

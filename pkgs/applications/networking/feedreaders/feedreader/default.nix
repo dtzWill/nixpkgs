@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, meson, ninja, pkgconfig, vala, gettext, python3
 , appstream-glib, desktop-file-utils, wrapGAppsHook, gnome-online-accounts
-, gtk3, libgee, libpeas, librest, webkitgtk, gsettings-desktop-schemas, hicolor-icon-theme
-, curl, glib, glib-networking, gnome3, gst_all_1, json-glib, libnotify, libsecret, sqlite, gumbo, libxml2
+, gtk3, libgee, libpeas, librest, webkitgtk, gsettings-desktop-schemas
+, curl, glib, gnome3, gst_all_1, json-glib, libnotify, libsecret, sqlite, gumbo, libxml2
 }:
 
 stdenv.mkDerivation rec {
@@ -21,10 +21,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    curl glib glib-networking json-glib libnotify libsecret sqlite gumbo gtk3
+    curl glib json-glib libnotify libsecret sqlite gumbo gtk3
     libgee libpeas gnome3.libsoup librest webkitgtk gsettings-desktop-schemas
     gnome-online-accounts
-    hicolor-icon-theme # for setup hook
   ] ++ (with gst_all_1; [
     gstreamer gst-plugins-base gst-plugins-good
   ]);

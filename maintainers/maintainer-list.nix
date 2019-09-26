@@ -693,7 +693,7 @@
     name = "Aycan iRiCAN";
   };
   babariviere = {
-    email = "babariviere@protonmail.com";
+    email = "babathriviere@gmail.com";
     github = "babariviere";
     githubId = 12128029;
     name = "babariviere";
@@ -1109,10 +1109,6 @@
     githubId = 977929;
     name = "Cody Allen";
   };
-  cf6b88f = {
-    email = "elmo.todurov@eesti.ee";
-    name = "Elmo Todurov";
-  };
   cfouche = {
     email = "chaddai.fouche@gmail.com";
     github = "Chaddai";
@@ -1218,6 +1214,12 @@
     github = "ciil";
     githubId = 3956062;
     name = "Simon Lackerbauer";
+  };
+  cizra = {
+    email = "todurov+nix@gmail.com";
+    github = "cizra";
+    githubId = 2131991;
+    name = "Elmo Todurov";
   };
   ck3d = {
     email = "ck3d@gmx.de";
@@ -1473,6 +1475,16 @@
     email = "davidrusu.me@gmail.com";
     github = "davidrusu";
     name = "David Rusu";
+  };
+  davidtwco = {
+    email = "nix@david.davidtw.co";
+    github = "davidtwco";
+    githubId = 1295100;
+    name = "David Wood";
+    keys = [{
+      longkeyid = "rsa4096/0x01760B4F9F53F154";
+      fingerprint = "5B08 313C 6853 E5BF FA91  A817 0176 0B4F 9F53 F154";
+    }];
   };
   davorb = {
     email = "davor@davor.se";
@@ -4749,6 +4761,12 @@
     github = "pakhfn";
     githubId = 11016164;
     name = "Fedor Pakhomov";
+  };
+  pamplemousse = {
+    email = "xav.maso@gmail.com";
+    github = "Pamplemousse";
+    githubId = 2647236;
+    name = "Xavier Maso";
   };
   panaeon = {
     email = "vitalii.voloshyn@gmail.com";

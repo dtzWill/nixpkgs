@@ -6,14 +6,14 @@
 stdenv.mkDerivation rec {
   pname = "font-manager";
 #  version = "0.7.5";
-  version = "2019-06-17";
+  version = "2019-09-21";
 
   src = fetchFromGitHub {
     owner = "FontManager";
     repo = "master";
     #rev = version;
-    rev = "66450a1aa53eacfdf0582c5baf1148e65e1cfb14";
-    sha256 = "1bnlr41vngc5xp9wsixfswsk7n45lhhrcqka6m7hr9pf48xr45sx";
+    rev = "62ffcd0ba2f682768ad2db899ecc94a36c936a91";
+    sha256 = "0ay2y9z8kzhmqhahjzrbc9g5xa89rdb2yzdhlfnvgmanjwb9l76r";
   };
 
   nativeBuildInputs = [
@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     homepage = https://fontmanager.github.io/;
-    description = "Simple font management for GTK+ desktop environments";
+    description = "Simple font management for GTK desktop environments";
     longDescription = ''
       Font Manager is intended to provide a way for average users to
       easily manage desktop fonts, without having to resort to command
       line tools or editing configuration files by hand. While designed
       primarily with the Gnome Desktop Environment in mind, it should
-      work well with other Gtk+ desktop environments.
+      work well with other GTK desktop environments.
 
       Font Manager is NOT a professional-grade font management solution.
     '';

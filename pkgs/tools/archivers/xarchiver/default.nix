@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gtk3, pkgconfig, intltool, libxslt, hicolor-icon-theme }:
+{ stdenv, fetchFromGitHub, gtk3, pkgconfig, intltool, libxslt }:
 
 stdenv.mkDerivation rec {
   version = "0.5.4.14";
@@ -12,10 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ gtk3 intltool libxslt hicolor-icon-theme ];
+  buildInputs = [ gtk3 intltool libxslt ];
 
   meta = {
-    description = "GTK+ frontend to 7z,zip,rar,tar,bzip2, gzip,arj, lha, rpm and deb (open and extract only)";
+    description = "GTK frontend to 7z,zip,rar,tar,bzip2, gzip,arj, lha, rpm and deb (open and extract only)";
     homepage = https://github.com/ib/xarchiver;
     maintainers = [ stdenv.lib.maintainers.domenkozar ];
     license = stdenv.lib.licenses.gpl2;

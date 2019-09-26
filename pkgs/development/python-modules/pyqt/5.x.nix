@@ -5,6 +5,7 @@
 , qtsvg
 , qtdeclarative
 , qtwebchannel
+, qtmultimedia
 , withConnectivity ? false, qtconnectivity
 , withWebKit ? false, qtwebkit
 , withWebSockets ? false, qtwebsockets
@@ -29,12 +30,12 @@ let
 
 in buildPythonPackage rec {
   pname = "pyqt";
-  version = "5.13.0";
+  version = "5.13.1";
   format = "other";
 
   src = fetchurl {
     url = "https://www.riverbankcomputing.com/static/Downloads/PyQt5/${version}/PyQt5_gpl-${version}.tar.gz";
-    sha256 = "1ydgdz28f1v17qqz3skyv26k5l0w63fr4dncc5xm49jr2gjzznqc";
+    sha256 = "1byl0vhynlj1di4i4rc8bqipz9iffqvnhy0fjfryx28v6ibg9dsl";
   };
 
   outputs = [ "out" "dev" ];
@@ -47,6 +48,7 @@ in buildPythonPackage rec {
     qtbase
     qtsvg
     qtdeclarative
+    qtmultimedia
     qtwebchannel
   ]
     ++ lib.optional withConnectivity qtconnectivity
@@ -59,6 +61,7 @@ in buildPythonPackage rec {
     qtbase
     qtsvg
     qtdeclarative
+    qtmultimedia
   ]
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
@@ -118,6 +121,7 @@ in buildPythonPackage rec {
       "PyQt5.QtQml"
       "PyQt5.QtWidgets"
       "PyQt5.QtGui"
+      "PyQt5.QtMultimedia"
     ]
     ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"

@@ -1,4 +1,5 @@
 { fetchurl, stdenv, dpkg, which
+, mkDerivation
 , makeWrapper
 , alsaLib
 , desktop-file-utils
@@ -90,7 +91,7 @@ let
 
 in
 
-stdenv.mkDerivation {
+mkDerivation {
   name = "mendeley-${version}";
 
   src = fetchurl {
@@ -129,7 +130,7 @@ stdenv.mkDerivation {
   '';
 
   dontStrip = true;
-  dontPatchElf = true;
+  dontPatchELF = true;
 
   updateScript = import ./update.nix { inherit writeScript runtimeShell; };
 

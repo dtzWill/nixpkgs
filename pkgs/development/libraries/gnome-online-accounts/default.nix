@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pkgconfig, vala, glib, libxslt, gtk3, wrapGAppsHook
-, webkitgtk, json-glib, librest, libsecret, gtk-doc, gobject-introspection, dbus
-, gettext, icu, glib-networking, hicolor-icon-theme
+, webkitgtk, json-glib, librest, libsecret, gtk-doc, gobject-introspection
+, gettext, icu, glib-networking, dbus
 , libsoup, docbook_xsl, docbook_xml_dtd_412, gnome3, gcr, kerberos
 }:
 
@@ -55,7 +55,6 @@ in stdenv.mkDerivation rec {
 #    meson ninja
     pkgconfig gobject-introspection vala gettext wrapGAppsHook
     libxslt docbook_xsl docbook_xml_dtd_412 gtk-doc
-    hicolor-icon-theme # for setup-hook
   ];
   buildInputs = [
     glib gtk3 webkitgtk json-glib librest libsecret glib-networking icu libsoup

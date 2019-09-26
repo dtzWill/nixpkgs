@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
-  version = "0.9.3";
+  version = "0.9.6";
 
   src = fetchFromGitHub {
     owner = "Canop";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1k4ya4wwgix25n9frbdmlgp96sj4d738nhaxd9h9ixxm8n2w8f8w";
+    sha256 = "199w09bxl1gbczcc2217abll8nlpq7c2h97x31qhh3s7jxjd6h47";
   };
 
-  cargoSha256 = "1rz3di6m6s38vm1c8wsxlma8bq4my723jy4pqdx8m4hbvm75rz4j";
+  cargoSha256 = "0avcwcbacsppv2an1sk50bpdhwkxr1b5ypq26rgzwnn53fcs8bm3";
 
   meta = with stdenv.lib; {
     description = "An interactive tree view, a fuzzy search, a balanced BFS descent and customizable commands";

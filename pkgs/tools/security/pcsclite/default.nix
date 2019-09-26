@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "14l7irs1nsh8b036ag4cfy8wryyysch78scz5dw6xxqwqgnpjvfp";
   };
 
-  patches = [ ./no-dropdir-literals.patch ];
+  patches = [
+    ./no-dropdir-literals.patch
+    ./0001-Exit-with-EXIT_SUCCESS-on-shutdown-to-please-systemd.patch
+  ];
 
   configureFlags = [
     # The OS should care on preparing the drivers into this location

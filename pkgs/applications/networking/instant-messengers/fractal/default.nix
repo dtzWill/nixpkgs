@@ -10,7 +10,6 @@
 , rustPlatform
 , pkgconfig
 , gtksourceview4
-, hicolor-icon-theme
 , glib
 , libhandy
 , gtk3
@@ -26,15 +25,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fractal";
-  version = "4.2.0-git";
+#  version = "4.2.1";
+  version = "unstable-2019-09-25";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
-    #rev = version;
-    rev = "748ab68d0153b77246a82a05501f768e3e4fca69";
-    sha256 = "02f0z7vsqivmr4z2mqb75xf3c70197ivbjl6yp3b4qjz1ncmzcir";
+    # rev = version;
+    rev = "e964b5ec5e123ce484796cc219c3e3cb143a06ae";
+    sha256 = "0fqvwwz17zpyxkh9wn33f9zflgjp3j7dh0b5ry9hbnagdbxxj9hm";
   };
 
   cargoSha256 = "16zh1x7azvm4899xz45ayxqfnw22abf9z379lczjal3m7zrdkfpn";
@@ -60,9 +60,9 @@ rustPlatform.buildRustPackage rec {
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
+    gst_all_1.gst-validate
     gtk3
     gtksourceview4
-    hicolor-icon-theme
     libhandy
     openssl
     sqlite

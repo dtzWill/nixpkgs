@@ -1,4 +1,4 @@
-From e5cb78377d8c323a04b668f36986c362ce690427 Mon Sep 17 00:00:00 2001
+From ee80b3c2db0d8f477d2691d9a5fe65df932aa9e9 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Tue, 23 Apr 2019 08:09:08 -0500
 Subject: [PATCH] paths
@@ -15,27 +15,27 @@ Subject: [PATCH] paths
  8 files changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/data/meson.build b/data/meson.build
-index 829c01f8..13fd1cf4 100644
+index 814c77cd..895e7510 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -12,7 +12,7 @@ if get_option('daemon')
+@@ -13,7 +13,7 @@ endif
+ if build_daemon
+   subdir('installed-tests')
+   install_data(['daemon.conf'],
+-    install_dir : join_paths(sysconfdir, 'fwupd')
++    install_dir : join_paths(sysconfdir_install, 'fwupd')
+   )
  endif
  
- install_data(['daemon.conf'],
--  install_dir : join_paths(sysconfdir, 'fwupd')
-+  install_dir : join_paths(sysconfdir_install, 'fwupd')
- )
+@@ -27,7 +27,7 @@ install_data(['org.freedesktop.fwupd.svg'],
  
- install_data(['org.freedesktop.fwupd.metainfo.xml'],
-@@ -24,7 +24,7 @@ install_data(['org.freedesktop.fwupd.svg'],
- )
- 
- install_data(['org.freedesktop.fwupd.conf'],
--  install_dir : join_paths(sysconfdir, 'dbus-1', 'system.d')
-+  install_dir : join_paths(sysconfdir_install, 'dbus-1', 'system.d')
- )
- 
- if get_option('daemon')
+ if build_daemon
+   install_data(['org.freedesktop.fwupd.conf'],
+-    install_dir : join_paths(sysconfdir, 'dbus-1', 'system.d')
++    install_dir : join_paths(sysconfdir_install, 'dbus-1', 'system.d')
+   )
+   install_data(['90-fwupd-devices.rules'],
+     install_dir : join_paths(udevdir, 'rules.d')
 diff --git a/data/pki/meson.build b/data/pki/meson.build
 index eefcc914..dc801fa1 100644
 --- a/data/pki/meson.build
@@ -73,10 +73,10 @@ index eefcc914..dc801fa1 100644
  endif
  
 diff --git a/data/remotes.d/meson.build b/data/remotes.d/meson.build
-index a27c31ef..374e09b6 100644
+index 826a3c1d..b78db663 100644
 --- a/data/remotes.d/meson.build
 +++ b/data/remotes.d/meson.build
-@@ -3,7 +3,7 @@ if get_option('daemon') and get_option('lvfs')
+@@ -3,7 +3,7 @@ if build_daemon and get_option('lvfs')
        'lvfs.conf',
        'lvfs-testing.conf',
      ],
@@ -101,10 +101,10 @@ index a27c31ef..374e09b6 100644
 +  install_dir: join_paths(sysconfdir_install, 'fwupd', 'remotes.d'),
  )
 diff --git a/meson.build b/meson.build
-index d30a6432..ad748de7 100644
+index b4ea56e2..c00bf2dd 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -146,6 +146,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
+@@ -158,6 +158,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
  mandir = join_paths(prefix, get_option('mandir'))
  localedir = join_paths(prefix, get_option('localedir'))
  
@@ -115,8 +115,8 @@ index d30a6432..ad748de7 100644
 +endif
 +
  gio = dependency('gio-2.0', version : '>= 2.45.8')
+ giounix = dependency('gio-unix-2.0', version : '>= 2.45.8')
  if gio.version().version_compare ('>= 2.55.0')
-   conf.set('HAVE_GIO_2_55_0', '1')
 diff --git a/plugins/dell-esrt/meson.build b/plugins/dell-esrt/meson.build
 index cb9f4555..b972d7fb 100644
 --- a/plugins/dell-esrt/meson.build

@@ -17,23 +17,23 @@ directly, and to do so it needs the full path of the daemon.
  create mode 100644 obexd/src/org.bluez.obex.service.in
 
 diff --git a/Makefile.obexd b/Makefile.obexd
-index 3760867..142e7c3 100644
+index d36874770..ea84603db 100644
 --- a/Makefile.obexd
 +++ b/Makefile.obexd
-@@ -2,12 +2,12 @@
+@@ -1,12 +1,12 @@
  if SYSTEMD
- systemduserunitdir = @SYSTEMD_USERUNITDIR@
+ systemduserunitdir = $(SYSTEMD_USERUNITDIR)
  systemduserunit_DATA = obexd/src/obex.service
 +endif
  
- dbussessionbusdir = @DBUS_SESSIONBUSDIR@
+ dbussessionbusdir = $(DBUS_SESSIONBUSDIR)
  dbussessionbus_DATA = obexd/src/org.bluez.obex.service
 -endif
  
 -EXTRA_DIST += obexd/src/obex.service.in obexd/src/org.bluez.obex.service
 +EXTRA_DIST += obexd/src/obex.service.in obexd/src/org.bluez.obex.service.in
  
- obex_plugindir = $(libdir)/obex/plugins
+ if OBEX
  
 diff --git a/obexd/src/org.bluez.obex.service b/obexd/src/org.bluez.obex.service
 deleted file mode 100644

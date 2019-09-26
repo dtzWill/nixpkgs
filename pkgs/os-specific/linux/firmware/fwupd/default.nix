@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchFromGitHub, substituteAll, gtk-doc, pkgconfig, gobject-introspection, intltool
 , libgudev, polkit, libxmlb, gusb, sqlite, libarchive, glib-networking
 , libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, gnu-efi
-, libyaml, valgrind, meson, libuuid, colord, docbook_xml_dtd_43, docbook_xsl
+, libyaml, valgrind, meson, libuuid, docbook_xml_dtd_43, docbook_xsl
 , ninja, gcab, gnutls, python3, wrapGAppsHook, json-glib, bash-completion
 , shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
 , cairo, freetype, fontconfig, pango
@@ -34,19 +34,19 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  #version = "1.2.10";
+  version = "1.3.1";
 
-  version = "2019-09-06";
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "ccda6790f5447da007cd2fe56dcdcece5f3b6690";
-    sha256 = "1kfnl76wqw5f2g476arzgifgxk57sjn468qg6x9vh885rxn3fdjg";
-  };
-  #src = fetchurl {
-  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-  #  sha256 = "0inngs7i48akm9c7fmdsf9zjif595rkaba69rl76jfwfv8r21vjb";
+  #version = "2019-09-06";
+  #src = fetchFromGitHub {
+  #  owner = pname;
+  #  repo = pname;
+  #  rev = "ccda6790f5447da007cd2fe56dcdcece5f3b6690";
+  #  sha256 = "1kfnl76wqw5f2g476arzgifgxk57sjn468qg6x9vh885rxn3fdjg";
   #};
+  src = fetchurl {
+    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+    sha256 = "183s3y4cqiw3mnx0ln80fizqfsnbsb7ynsm8gayi5zp1l9rngjvg";
+  };
 
   outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
@@ -57,7 +57,7 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [
     polkit libxmlb gusb sqlite libarchive libsoup elfutils gnu-efi libyaml
-    libgudev colord gpgme libuuid gnutls glib-networking json-glib umockdev
+    libgudev gpgme libuuid gnutls glib-networking json-glib umockdev
     bash-completion cairo freetype fontconfig pango efivar tpm2-tss
   ] ++ stdenv.lib.optionals haveDell [ libsmbios ];
 

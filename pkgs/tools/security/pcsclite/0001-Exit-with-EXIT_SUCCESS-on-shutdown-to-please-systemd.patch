@@ -1,0 +1,55 @@
+From 3896019ce7cbc8899d7150544dde6b0d619eeb27 Mon Sep 17 00:00:00 2001
+From: Ludovic Rousseau <ludovic.rousseau@free.fr>
+Date: Wed, 11 Sep 2019 15:44:16 +0200
+Subject: [PATCH] Exit with EXIT_SUCCESS on shutdown to please systemd
+
+From Jakub Jelen nice bug report:
+" The pcscd daemon exits with exit code 1 when it is killed by systemd,
+which confuses system thinking that there was some failure on the exit:
+
+Sep 11 13:22:54 workstation-uefi pcscd[8750]: 08450216 pcscdaemon.c:193:signal_thread() Received signal: 15
+Sep 11 13:22:54 workstation-uefi pcscd[8750]: 00000015 pcscdaemon.c:213:signal_thread() Direct suicide
+Sep 11 13:22:54 workstation-uefi pcscd[8750]: 00000004 pcscdaemon.c:786:at_exit() cleaning /var/run/pcscd
+Sep 11 13:22:54 workstation-uefi systemd[1]: Stopping PC/SC Smart Card Daemon...
+Sep 11 13:22:54 workstation-uefi systemd[1]: pcscd.service: Main process exited, code=exited, status=1/FAILURE
+Sep 11 13:22:54 workstation-uefi systemd[1]: pcscd.service: Failed with result 'exit-code'.
+Sep 11 13:22:54 workstation-uefi systemd[1]: Stopped PC/SC Smart Card Daemon.
+
+Reading through the code, it looks like it exits always with 1 (except
+for the alarm) so I think we should either
+
+- modify the shipped systemd service file to mark the exit code 1 as a
+  successful exit code using SuccessExitStatus or - sign in front of
+  ExecStart.
+- modify the pcscd to exit "cleanly" in case of termination by systemd.
+
+I do not have any strong opinions which way is more correct, nor the
+systemd maintainers do so this is merely cosmetic issue avoiding bogus
+error messages filling log files on every reboot.
+
+Initially filled as a Fedora bug:
+https://bugzilla.redhat.com/show_bug.cgi?id=1751153 "
+
+I implemented the second solution.
+
+Fixes https://github.com/LudovicRousseau/PCSC/issues/70
+"Unclean exit when the pcscd is killed by systemd (for example on reboot)"
+---
+ src/pcscdaemon.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/pcscdaemon.c b/src/pcscdaemon.c
+index 2b28b17..45d622a 100644
+--- a/src/pcscdaemon.c
++++ b/src/pcscdaemon.c
+@@ -211,6 +211,7 @@ static void *signal_thread(void *arg)
+ 		if (SIGTERM == sig)
+ 		{
+ 			Log1(PCSC_LOG_INFO, "Direct suicide");
++			ExitValue = EXIT_SUCCESS;
+ 			at_exit();
+ 		}
+ 
+-- 
+2.23.0
+

@@ -1,21 +1,21 @@
 { stdenv, fetchurl, mkDerivation
-, qmake, qtbase, qtquickcontrols
+, qmake, qtbase, qtquickcontrols, qtquickcontrols2
 , python3, pyotherside
 , pcsclite, yubikey-personalization
 , yubikey-manager, makeWrapper }:
 
 mkDerivation rec {
   pname = "yubioath-desktop";
-  version = "4.3.6";
+  version = "5.0.0";
 
   src = fetchurl {
     url = "https://developers.yubico.com/yubioath-desktop/Releases/yubioath-desktop-${version}.tar.gz";
-    sha256 = "0s04anjbb5zm98kfdpp9hr68k3mx3gqlp8fa1miy7nq87pr4f7a5";
+    sha256 = "1dvl8dj09vwh3k324dpmsvrbidrgvsryhjyaj0589m4m8kcqdm1f";
   };
 
   doCheck = false;
 
-  buildInputs = [ stdenv qtbase qtquickcontrols python3 ];
+  buildInputs = [ stdenv qtbase qtquickcontrols qtquickcontrols2 python3 ];
 
   nativeBuildInputs = [ qmake makeWrapper python3.pkgs.wrapPython ];
 

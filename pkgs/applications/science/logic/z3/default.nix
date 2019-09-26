@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "z3";
-  version = "4.8.5";
+  version = "4.8.6";
 
   src = fetchFromGitHub {
     owner  = "Z3Prover";
     repo   = pname;
-    rev    = "Z3-${version}";
-    sha256 = "11sy98clv7ln0a5vqxzvh6wwqbswsjbik2084hav5kfws4xvklfa";
+    rev    = "${pname}-${version}";
+    sha256 = "1sywcqj5y8yp28m4cdvzsgw74kd6zr1s3y1x17ky8pr9prvpvl6x";
   };
 
   buildInputs = [ python fixDarwinDylibNames ];

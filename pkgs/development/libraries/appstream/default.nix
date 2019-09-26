@@ -1,18 +1,16 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gettext
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext
 , xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt
 , libstemmer, glib, xapian, libxml2, libyaml, gobject-introspection
-, pcre, itstool, gperf, vala
+, pcre, itstool, gperf, vala, lmdb
 }:
 
 stdenv.mkDerivation rec {
-  name = "appstream-${version}";
-  version = "0.12.6";
+  pname = "appstream";
+  version = "0.12.9";
 
-  src = fetchFromGitHub {
-    owner  = "ximion";
-    repo   = "appstream";
-    rev    = "APPSTREAM_${stdenv.lib.replaceStrings ["."] ["_"] version}";
-    sha256 = "0hbl26aw3g2hag7z4di9z59qz057qcywrxpnnmp86z7rngvjbqpx";
+  src = fetchurl {
+    url = "https://www.freedesktop.org/software/appstream/releases/AppStream-${version}.tar.xz";
+    sha256 = "07d39a81rbv3hl2kqqpniwkz0qcfh05jqly984s3k35gmbip74j5";
   };
 
   nativeBuildInputs = [
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
     gobject-introspection itstool vala
   ];
 
-  buildInputs = [ libstemmer pcre glib xapian libxml2 libyaml gperf ];
+  buildInputs = [ libstemmer pcre glib xapian libxml2 libyaml gperf lmdb ];
 
   prePatch = ''
     substituteInPlace meson.build \
