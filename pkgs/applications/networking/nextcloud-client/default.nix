@@ -18,14 +18,14 @@
 
 mkDerivation rec {
   pname = "nextcloud-client";
-  version = "2.5.3-git";
+  version = "unstable-2019-09-24";
 
   src = fetchFromGitHub {
     owner = "nextcloud";
     repo = "desktop";
     #rev = "v${version}";
-    rev = "1138118d8e9f830cf729961d46d5ca35c7493727"; # 2019-09-20
-    sha256 = "1c8jjjjx6rd76w9alwc2mcwsp7m64b7djb34m4j8s9xlzcc7zgsl";
+    rev = "8ebacae8468274dc8cd026892af9f27afdfdcd17"; # 2019-09-20
+    sha256 = "1l5krx6v8x9van0rjcrx4rnyvr1sk4lcnjkxrvi9sg3wqxi8dq0h";
   };
 
   patches = [
