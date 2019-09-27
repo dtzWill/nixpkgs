@@ -20135,6 +20135,8 @@ in
 
   speedread = callPackage ../applications/misc/speedread { };
 
+  station = callPackage ../applications/networking/station { };
+
   sup = callPackage ../applications/networking/mailreaders/sup {
     bundlerApp = bundlerApp.override{
       ruby = ruby.override { cursesSupport = true; };
