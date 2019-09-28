@@ -3445,6 +3445,11 @@
     githubId = 1362179;
     name = "Kyle Lacy";
   };
+  laikq = {
+    email = "gwen@quasebarth.de";
+    github = "laikq";
+    name = "Gwendolyn Quasebarth";
+  };
   lasandell = {
     email = "lasandell@gmail.com";
     github = "lasandell";
