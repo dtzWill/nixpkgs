@@ -3793,13 +3793,6 @@ in {
 
   msgpack-numpy = callPackage ../development/python-modules/msgpack-numpy {};
 
-  msgpack-python = self.msgpack.overridePythonAttrs {
-    pname = "msgpack-python";
-    postPatch = ''
-      substituteInPlace setup.py --replace "TRANSITIONAL = False" "TRANSITIONAL = True"
-    '';
-  };
-
   msrplib = callPackage ../development/python-modules/msrplib { };
 
   multipledispatch = callPackage ../development/python-modules/multipledispatch { };

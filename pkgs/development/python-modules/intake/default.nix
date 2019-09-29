@@ -6,7 +6,7 @@
 , holoviews
 , jinja2
 , msgpack-numpy
-, msgpack-python
+, msgpack
 , numpy
 , pandas
 , python-snappy
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     holoviews
     jinja2
     msgpack-numpy
-    msgpack-python
+    msgpack
     numpy
     pandas
     python-snappy
