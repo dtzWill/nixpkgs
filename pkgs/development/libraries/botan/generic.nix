@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, lzma, boost
+{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, lzma, boost, sqlite, trousers
 # Passed by version specific builders
 , baseVersion, revision, sha256, ext
 , extraConfigureFlags ? ""
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   inherit postPatch;
 
   nativeBuildInputs = [ python /* configure */ ];
-  buildInputs = [ python bzip2 zlib gmp openssl lzma boost ]
+  buildInputs = [ python bzip2 zlib gmp openssl lzma boost sqlite trousers ]
              ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   preConfigure = ''
