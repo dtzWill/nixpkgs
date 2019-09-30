@@ -87,5 +87,5 @@ index dfa3b37c3..0854df456 100644
      struct xorg_list output_list;
      struct xorg_list seat_list;
 -- 
-2.23.0
+2.23.GIT
 
