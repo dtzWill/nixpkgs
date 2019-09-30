@@ -11,8 +11,6 @@ stdenv.mkDerivation rec {
     sha256 = "0w72qqd9zs7wf4ppn64316ck4wlz8sdm51h0rzzqyqg4573liva4";
   };
 
-  patches = [ ./dont-create-var.patch ];
-
   postPatch = ''
     substituteInPlace ./src/bin/keactrl/Makefile.am --replace '@sysconfdir@' "$out/etc"
     substituteInPlace ./src/bin/keactrl/Makefile.am --replace '@(sysconfdir)@' "$out/etc"
