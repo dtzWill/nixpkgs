@@ -18,4 +18,3 @@
 0018-xwayland-Separate-DamagePtr-into-separate-window-dat.patch
 0019-xwayland-Refactor-surface-creation-into-a-separate-f.patch
 0020-xwayland-Handle-the-case-of-windows-being-realized-b.patch
-series
