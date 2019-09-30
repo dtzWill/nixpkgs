@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, lzma, boost, sqlite
+{ stdenv, fetchurl, python, doxygen
+, boost, bzip2, gmp, openssl, lzma, sqlite, zlib
 # Passed by version specific builders
 , baseVersion, revision, sha256, ext
 , extraConfigureFlags ? ""
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
   inherit patches;
   inherit postPatch;
 
-  nativeBuildInputs = [ python /* configure */ ];
+  nativeBuildInputs = [ python /* configure */ doxygen ];
   buildInputs = [ python bzip2 zlib gmp openssl lzma boost sqlite ]
              ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
@@ -31,6 +32,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--prefix=${placeholder "out"}"
     "--with-bzip2"
+    "--with-doxygen"
     "--with-openssl"
     "--with-zlib"
   ] ++ extraConfigureFlags
