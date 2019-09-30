@@ -9,7 +9,6 @@ callPackage ./generic.nix (args // {
   boost = null;
   lzma = null;
   sqlite = null;
-  trousers = null;
   postPatch = ''
     sed -e 's@lang_flags "@&--std=c++11 @' -i src/build-data/cc/{gcc,clang}.txt
   '';
