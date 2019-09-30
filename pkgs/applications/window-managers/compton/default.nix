@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   mesonFlags = [
-    "-Dbuild_docs=true"
+    "-Dwith_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
 #    "-Dsanitize=true"
