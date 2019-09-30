@@ -5042,7 +5042,7 @@ in
 
   ndisc6 = callPackage ../tools/networking/ndisc6 { };
 
-  neopg = callPackage ../tools/security/neopg { botan = botan27; };
+  neopg = callPackage ../tools/security/neopg { botan2 = botan27; };
 
   netboot = callPackage ../tools/networking/netboot {};
 
