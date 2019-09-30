@@ -28,7 +28,6 @@ stdenv.mkDerivation rec {
   configureScript = "./configure.py";
   configureFlags = [
     "--prefix=${placeholder "out"}"
-    "--with-boost"
     "--with-bzip2"
     "--with-openssl"
     "--with-zlib"

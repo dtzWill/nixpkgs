@@ -6,6 +6,7 @@ callPackage ./generic.nix (args // {
   sha256 = "04rnha712dd3sdb2q7k2yw45sf405jyigk7yrjfr6bwd9fvgyiv8";
   ext = "tgz";
   extraConfigureFlags = [ "--with-gnump" ];
+  boost = null;
   lzma = null;
   postPatch = ''
     sed -e 's@lang_flags "@&--std=c++11 @' -i src/build-data/cc/{gcc,clang}.txt
