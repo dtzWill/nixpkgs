@@ -32,7 +32,7 @@ in stdenv.mkDerivation {
   buildInputs = [ openconnect networkmanager ]
     ++ stdenv.lib.optionals withGnome [ gtk3 gcr libsecret ];
 
-  nativeBuildInputs = [ intltool pkgconfig file ];
+  nativeBuildInputs = [ intltool pkgconfig file autoreconfHook ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
