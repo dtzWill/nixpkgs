@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "bettercap";
-  version = "2.24";
+  version = "2.25";
 
   goPackagePath = "github.com/bettercap/bettercap";
 
@@ -10,7 +10,7 @@ buildGoPackage rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "1f8bzxbcyf0bpyqj6hz4l8dp5xknnb537xy9y5skcznp03i44h55";
+    sha256 = "0ai577z47wri23m2788622k8b3ajyc49pbiy0vi8jlbzsh4952hl";
   };
 
   nativeBuildInputs = [ pkgconfig ];
