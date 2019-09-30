@@ -34,6 +34,10 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ intltool pkgconfig file autoreconfHook ];
 
+  autoreconfPhase = ''
+    ./autogen.sh
+  '';
+
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
     "--enable-absolute-paths"
