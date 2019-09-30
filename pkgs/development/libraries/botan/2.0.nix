@@ -1,12 +1,20 @@
-{ callPackage, fetchpatch, ... } @ args:
+{ callPackage, fetchpatch, boost16x, ... } @ args:
 
 callPackage ./generic.nix (args // {
-  baseVersion = "2.11";
+  baseVersion = "2.10"; # 2.11.0 causes build neopg failure, TODO: investigate
   revision = "0";
-  sha256 = "1gllh0zgp0qyk464k2amdyv91gvrg09v4h6zfzyiih5qmsi4v1zp";
-  ext = "tar.xz";
-  extraConfigureFlags = [ "--with-boost" "--with-lzma" "--with-sqlite3" ];
+  sha256 = "0cddf64ckfq333a63rfzkv4mk7rxsh86d9zy4i3r49wcaybijj48";
+  ext = "tgz";
+  # 2.11 moves to tar.xz
+  #ext = "tar.xz";
+  extraConfigureFlags = [
+    "--with-boost"
+    "--with-lzma"
+    "--with-sqlite3"
+    "--with-os-features=getentropy"
+  ];
   gmp = null; # removed in 1.11.10, see 9faceec939b2a00043720f07f49e9fee22c60984 for example
+  boost = boost16x; # boost 1.70+ not supported until 2.11
 
   patches = [
     # Fix getentropy include
