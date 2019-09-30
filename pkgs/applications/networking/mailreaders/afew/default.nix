@@ -2,18 +2,21 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "afew";
-  version = "2.0.0";
+  #version = "2.0.0";
+  version = "2019-09-30";
 
-  src = python3Packages.fetchPypi {
-    inherit pname version;
-    sha256 = "0j60501nm242idf2ig0h7p6wrg58n5v2p6zfym56v9pbvnbmns0s";
+  src = fetchgit {
+    url = "https://github.com/afewmail/afew";
+    rev = "6664b457441dbcb752cabebba4631192b5fea8ec";
+    sha256 = "17dminlnyrclxzxw5zji9834rwmzbl8168xxvwccgla3f6w16qcw";
+    leaveDotGit = true;
   };
-  #src = pythonPackages.fetchPypi {
+  #src = python3Packages.fetchPypi {
   #  inherit pname version;
-  #  sha256 = "0105glmlkpkjqbz350dxxasvlfx9dk0him9vwbl86andzi106ygz";
+  #  sha256 = "0j60501nm242idf2ig0h7p6wrg58n5v2p6zfym56v9pbvnbmns0s";
   #};
 
-  nativeBuildInputs = with python3Packages; [ sphinx setuptools_scm git ];
+  nativeBuildInputs = with python3Packages; [ sphinx setuptools_scm git freezegun notmuch ];
 
   propagatedBuildInputs = with python3Packages; [
     python3Packages.notmuch chardet dkimpy
