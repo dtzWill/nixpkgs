@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkg-config, ncurses, libiconv }:
+{ stdenv, fetchurl, pkgconfig, ncurses, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "dte";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b8sz1ac0wqsha253a95yrj2h0ysik11dk3f2bhva253d4i77ll0";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ ncurses libiconv ];
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
