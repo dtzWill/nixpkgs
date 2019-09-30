@@ -5042,7 +5042,7 @@ in
 
   ndisc6 = callPackage ../tools/networking/ndisc6 { };
 
-  neopg = callPackage ../tools/security/neopg { };
+  neopg = callPackage ../tools/security/neopg { botan = botan27; };
 
   netboot = callPackage ../tools/networking/netboot {};
 
@@ -10545,6 +10545,8 @@ in
 
   botan = callPackage ../development/libraries/botan { openssl = openssl_1_0_2; };
   botan2 = callPackage ../development/libraries/botan/2.0.nix { };
+  # For neopg
+  botan27 = callPackage ../development/libraries/botan/2.7.nix { };
 
   box2d = callPackage ../development/libraries/box2d { };
 
