@@ -5,18 +5,17 @@
 
 assert par2Support -> par2cmdline != null;
 
-let version = "0.29.3"; in
-
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "bup-${version}";
+  pname = "bup";
+  version = "0.30";
 
   src = fetchFromGitHub {
-    repo = "bup";
-    owner = "bup";
+    repo = pname;
+    owner = pname;
     rev = version;
-    sha256 = "1b5ynljd9gs1vzbsa0kggw32s3r4zhbprc2clvjm5qmvnx23hxh8";
+    sha256 = "1xgicrdna45v1c2k2v62isji00sj93wxr0anv1662v0gqzskxxz5";
   };
 
   buildInputs = [
