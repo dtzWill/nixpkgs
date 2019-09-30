@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--prefix=${placeholder "out"}"
     "--with-bzip2"
-    "--with-doxygen"
     "--with-openssl"
     "--with-zlib"
   ] ++ extraConfigureFlags
+  ++ stdenv.lib.optional (doxygen != null) "--with-doxygen"
   ++ stdenv.lib.optional stdenv.cc.isClang "--cc=clang";
 
   enableParallelBuilding = true;
