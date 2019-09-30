@@ -1,29 +1,20 @@
-{ stdenv, fetchurl, fetchpatch, gettext, libnl, ncurses, pciutils, pkgconfig, zlib }:
+{ stdenv, fetchFromGitHub, fetchpatch, gettext, libnl, ncurses, pciutils, pkgconfig, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "powertop";
-  version = "2.10";
+  version = "2.11";
 
-  src = fetchurl {
-    url = "https://01.org/sites/default/files/downloads/${pname}-v${version}.tar.gz";
-    sha256 = "0xaazqccyd42v2q532dxx40nqhb9sfsa6cyx8641rl57mfg4bdyk";
+  src = fetchFromGitHub {
+    owner = "fenrus75";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "1mm1hf92vdy15n4y15wzp7hxv12p8s09g6j2aqsfwa7npqrdzcmi";
   };
 
   outputs = [ "out" "man" ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ gettext libnl ncurses pciutils zlib ];
-
-  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl (
-    fetchpatch {
-      name = "strerror_r.patch";
-      url = "https://git.alpinelinux.org/aports/plain/main/powertop/strerror_r.patch?id=3b9214d436f1611f297b01f72469d66bfe729d6e";
-      sha256 = "1kzddhcrb0n2iah4lhgxwwy4mkhq09ch25jjngyq6pdj6pmfkpfw";
-    }
-  ) ++ [
-    # Fix vertical scrolling, see: https://lists.01.org/pipermail/powertop/2019-March/002046.html
-    ./fix-vertical-scrolling.patch
-  ];
 
   postPatch = ''
     substituteInPlace src/main.cpp --replace "/sbin/modprobe" "modprobe"
