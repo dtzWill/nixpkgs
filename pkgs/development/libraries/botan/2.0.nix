@@ -1,4 +1,4 @@
-{ callPackage, ... } @ args:
+{ callPackage, fetchpatch, ... } @ args:
 
 callPackage ./generic.nix (args // {
   baseVersion = "2.11";
@@ -6,7 +6,12 @@ callPackage ./generic.nix (args // {
   sha256 = "1gllh0zgp0qyk464k2amdyv91gvrg09v4h6zfzyiih5qmsi4v1zp";
   ext = "tar.xz";
   extraConfigureFlags = [ "--with-boost" "--with-lzma" ];
-  postPatch = ''
-    sed -e 's@lang_flags "@&--std=c++11 @' -i src/build-data/cc/{gcc,clang}.txt
-  '';
+
+  patches = [
+    # Fix getentropy include
+    (fetchpatch {
+      url = "https://github.com/randombit/botan/commit/02aee1fb53dae4439c14f113b2963711890cbde0.patch";
+      sha256 = "09zr7qa1ccz6r5myjlxi2mrxsa8xjvx92fxplad0gcd0g148a57g";
+    })
+  ];
 })

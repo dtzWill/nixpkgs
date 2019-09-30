@@ -4,6 +4,7 @@
 , extraConfigureFlags ? ""
 , postPatch ? null
 , darwin
+, patches ? []
 , ...
 }:
 
@@ -16,6 +17,7 @@ stdenv.mkDerivation rec {
     url = "http://botan.randombit.net/releases/Botan-${version}.${ext}";
     inherit sha256;
   };
+  inherit patches;
   inherit postPatch;
 
   nativeBuildInputs = [ python /* configure */ ];
