@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, boost
+{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, lzma, boost
 # Passed by version specific builders
 , baseVersion, revision, sha256, ext
 , extraConfigureFlags ? ""
@@ -18,12 +18,22 @@ stdenv.mkDerivation rec {
   };
   inherit postPatch;
 
-  buildInputs = [ python bzip2 zlib gmp openssl boost ]
+  nativeBuildInputs = [ python /* configure */ ];
+  buildInputs = [ python bzip2 zlib gmp openssl lzma boost ]
              ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
-  configurePhase = ''
-    python configure.py --prefix=$out --with-bzip2 --with-zlib ${if openssl != null then "--with-openssl" else ""} ${extraConfigureFlags}${if stdenv.cc.isClang then " --cc=clang" else "" }
+  preConfigure = ''
+    patchShebangs configure.py
   '';
+  configureScript = "./configure.py";
+  configureFlags = [
+    "--prefix=${placeholder "out"}"
+    "--with-boost"
+    "--with-bzip2"
+    "--with-openssl"
+    "--with-zlib"
+  ] ++ extraConfigureFlags
+  ++ stdenv.lib.optional stdenv.cc.isClang "--cc=clang";
 
   enableParallelBuilding = true;
 
