@@ -1,6 +1,6 @@
 { stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, boost
 # Passed by version specific builders
-, baseVersion, revision, sha256
+, baseVersion, revision, sha256, ext
 , extraConfigureFlags ? ""
 , postPatch ? null
 , darwin
@@ -12,11 +12,8 @@ stdenv.mkDerivation rec {
   version = "${baseVersion}.${revision}";
 
   src = fetchurl {
-    name = "Botan-${version}.tgz";
-    urls = [
-       "http://files.randombit.net/botan/v${baseVersion}/Botan-${version}.tgz"
-       "http://botan.randombit.net/releases/Botan-${version}.tgz"
-    ];
+    name = "Botan-${version}.${ext}";
+    url = "http://botan.randombit.net/releases/Botan-${version}.${ext}";
     inherit sha256;
   };
   inherit postPatch;
