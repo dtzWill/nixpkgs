@@ -25,15 +25,16 @@
 , libstemmer
 }:
 stdenv.mkDerivation rec {
-  name = "appstream-glib-0.7.15";
+  pname = "appstream-glib";
+  version = "0.7.15";
 
   outputs = [ "out" "dev" "man" "installedTests" ];
   outputBin = "dev";
 
   src = fetchFromGitHub {
     owner = "hughsie";
-    repo = "appstream-glib";
-    rev = stdenv.lib.replaceStrings [ "." "-" ] [ "_" "_" ] name;
+    repo = pname;
+    rev = stdenv.lib.replaceStrings [ "." "-" ] [ "_" "_" ] "${pname}-${version}";
     sha256 = "16cqs1s7nqc551sipgaxbbzwap1km0n12s4lcgfbxzzl9bcjbp9m";
   };
 
