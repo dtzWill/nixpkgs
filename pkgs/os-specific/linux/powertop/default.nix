@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, gettext, libnl, ncurses, pciutils, pkgconfig, zlib }:
+{ stdenv, fetchFromGitHub, fetchpatch, gettext, libnl, ncurses, pciutils, autoreconfHook, pkgconfig, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "powertop";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "man" ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ gettext libnl ncurses pciutils zlib ];
 
   postPatch = ''
@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
       --replace "/sbin/modprobe" "modprobe" \
       --replace "/bin/mount" "mount"
     substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "xset"
+
+    echo "v${version}" > version-long
+    echo '"v${version}"' > version-short
   '';
 
   meta = with stdenv.lib; {
