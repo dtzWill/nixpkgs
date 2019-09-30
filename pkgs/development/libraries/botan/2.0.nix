@@ -1,4 +1,4 @@
-{ callPackage, fetchpatch, boost16x, ... } @ args:
+{ callPackage, fetchpatch, boost15x, ... } @ args:
 
 callPackage ./generic.nix (args // {
   baseVersion = "2.7"; # 2.11.0 causes build neopg failure, TODO: investigate
@@ -14,7 +14,9 @@ callPackage ./generic.nix (args // {
     "--with-os-features=getentropy"
   ];
   gmp = null; # removed in 1.11.10, see 9faceec939b2a00043720f07f49e9fee22c60984 for example
-  boost = boost16x; # boost 1.70+ not supported until 2.11
+  # boost 1.70+ not supported until 2.11
+  # boost 1.6x not supported in 2.7, dunno
+  boost = boost15x;
 
   ##patches = [
   ##  # Fix getentropy include
