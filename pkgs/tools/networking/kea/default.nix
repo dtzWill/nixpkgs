@@ -2,14 +2,20 @@
 , boost, python3, postgresql, libmysqlclient, gmp, bzip2 }:
 
 stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
   pname = "kea";
-  version = "1.6.0";
+  version = "1.5.0-P1";
 
   src = fetchurl {
-    url = "https://ftp.isc.org/isc/${pname}/${version}/${name}.tar.gz";
-    sha256 = "0w72qqd9zs7wf4ppn64316ck4wlz8sdm51h0rzzqyqg4573liva4";
+    url = "https://ftp.isc.org/isc/${pname}/${version}/${pname}-${version}.tar.gz";
+    sha256 = "0bqxzp3f7cmraa5davj2az1hx1gbbchqzlz3ai26c802agzafyhz";
   };
+
+  patches = [ ./dont-create-var.patch ];
+
+  postPatch = ''
+    substituteInPlace ./src/bin/keactrl/Makefile.am --replace '@sysconfdir@' "$out/etc"
+    substituteInPlace ./src/bin/keactrl/Makefile.am --replace '@(sysconfdir)@' "$out/etc"
+  '';
 
   configureFlags = [
     "--localstatedir=/var"
