@@ -2762,6 +2762,8 @@ in
 
   dtc = callPackage ../development/compilers/dtc { };
 
+  dte = callPackage ../applications/editors/dte {};
+
   dub = callPackage ../development/tools/build-managers/dub { };
 
   duc = callPackage ../tools/misc/duc { };
