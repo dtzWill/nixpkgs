@@ -24692,6 +24692,8 @@ in
 
   pgadmin = callPackage ../applications/misc/pgadmin { };
 
+  pgmodeler = libsForQt5.callPackage ../applications/misc/pgmodeler { };
+
   pgf = pgf2;
 
   # Keep the old PGF since some documents don't render properly with
