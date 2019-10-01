@@ -12,14 +12,3 @@
    enable_docs ? 'install_docs' : '',
    nm_mandir,
  )
---- a/src/settings/plugins/ifcfg-rh/meson.build
-+++ b/src/settings/plugins/ifcfg-rh/meson.build
-@@ -70,7 +70,7 @@
- )
- 
- meson.add_install_script('sh', '-c',
--                         'mkdir -p $DESTDIR/@0@/sysconfig/network-scripts'.format(nm_sysconfdir))
-+                         'mkdir -p $DESTDIR/@0@/sysconfig/network-scripts'.format(nm_prefix + nm_sysconfdir))
- 
- if enable_tests
-   subdir('tests')
