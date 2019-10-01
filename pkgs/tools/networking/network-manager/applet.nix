@@ -18,8 +18,8 @@ in stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "f1f1c280de83a28bbe5a57f2e13d36ef758e9086";
-    sha256 = "07hpg49dkcm2d6krpnzav89996fikqzhl7q7wgznw8322pjz2nb5";
+    rev = "c876badd40dcf3374c4010d3d12ab837ec648b49";
+    sha256 = "0mxa6s554h6k81bidf8vx8cgdxw2xr38i49ifbxj9xj04akckzib";
   };
 
   mesonFlags = [
