@@ -141,9 +141,9 @@ EOF
     "-webengine-alsa"
     # "-webengine-pulseaudio"
     "-webengine-icu"
-    "-webengine-ffmpeg"
     "-webengine-opus"
     "-webengine-webp"
+    "-webengine-ffmpeg"
     #"-webengine-png"
     #"-webengine-jpeg"
     #"-webengine-libxml2"
@@ -165,9 +165,11 @@ EOF
     harfbuzz icu
 
     libevent
-  ] ++ optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
+
     ffmpeg
-  ] ++ optionals (!stdenv.isDarwin) [
+  ]/* ++ optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
+    #ffmpeg
+  ]*/ ++ optionals (!stdenv.isDarwin) [
     dbus zlib minizip snappy nss protobuf jsoncpp
 
     # Audio formats
