@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab }:
+{ stdenv, fetchFromGitLab, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "olm";
@@ -19,13 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "19lpdhl6qvc8arahy4z0989q92paq68bd8a44x2ynwvppzhv37k2";
   };
 
+  nativeBuildInputs = [ cmake ];
+
   doCheck = true;
-  checkTarget = "test";
-
-  # requires optimisation but memory operations are compiled with -O0
-  hardeningDisable = ["fortify"];
-
-  makeFlags = if stdenv.cc.isClang then [ "CC=cc" ] else null;
-
-  installFlags = "PREFIX=$(out)";
 }
