@@ -1,11 +1,10 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  pname = "libogg";
-  version = "1.3.3";
+  name = "libogg-1.3.3";
 
   src = fetchurl {
-    url = "http://downloads.xiph.org/releases/ogg/${pname}-${version}.tar.xz";
+    url = "http://downloads.xiph.org/releases/ogg/${name}.tar.xz";
     sha256 = "022wjlzn8fx7mfby4pcgyjwx8zir7jr7cizichh3jgaki8bwcgsg";
   };
 
