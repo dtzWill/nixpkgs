@@ -24,8 +24,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "6ccb3b2e3ae841934ecb461461ac1e212da64109";
-    sha256 = "1pp2n7g3457jdba9pbavwa1cqx9cbdy96dzvfd9kxx85fan44r4w";
+    rev = "ef2c7b2fa4fd9fae934e608e37dc8d98edbace5f";
+    sha256 = "1gfgpg323vj6850192ndzx0bd962sz8rr124bpr0dnqg2lsg35wx";
   };
   #src = fetchurl {
   #  url = "https://swupdate.openvpn.net/community/releases/${name}.tar.xz";
