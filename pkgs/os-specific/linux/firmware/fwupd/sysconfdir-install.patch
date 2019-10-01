@@ -1,21 +1,5 @@
-From ee80b3c2db0d8f477d2691d9a5fe65df932aa9e9 Mon Sep 17 00:00:00 2001
-From: Will Dietz <w@wdtz.org>
-Date: Tue, 23 Apr 2019 08:09:08 -0500
-Subject: [PATCH] paths
-
----
- data/meson.build                | 4 ++--
- data/pki/meson.build            | 8 ++++----
- data/remotes.d/meson.build      | 6 +++---
- meson.build                     | 6 ++++++
- plugins/dell-esrt/meson.build   | 2 +-
- plugins/redfish/meson.build     | 2 +-
- plugins/thunderbolt/meson.build | 2 +-
- plugins/uefi/meson.build        | 2 +-
- 8 files changed, 19 insertions(+), 13 deletions(-)
-
 diff --git a/data/meson.build b/data/meson.build
-index 814c77cd..895e7510 100644
+index 25db9509..f394eb25 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -13,7 +13,7 @@ endif
@@ -101,7 +85,7 @@ index 826a3c1d..b78db663 100644
 +  install_dir: join_paths(sysconfdir_install, 'fwupd', 'remotes.d'),
  )
 diff --git a/meson.build b/meson.build
-index b4ea56e2..c00bf2dd 100644
+index 0de0d5eb..2373d0ee 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -158,6 +158,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
@@ -155,10 +139,10 @@ index 42718abf..bc815491 100644
  # we use functions from 2.52 in the tests
  if get_option('tests') and umockdev.found() and gio.version().version_compare('>= 2.52')
 diff --git a/plugins/uefi/meson.build b/plugins/uefi/meson.build
-index e3d39431..1c4e8fd3 100644
+index 45b18d7d..ef8e0b04 100644
 --- a/plugins/uefi/meson.build
 +++ b/plugins/uefi/meson.build
-@@ -83,7 +83,7 @@ executable(
+@@ -85,7 +85,7 @@ executable(
  )
  
  install_data(['uefi.conf'],
@@ -167,6 +151,3 @@ index e3d39431..1c4e8fd3 100644
  )
  
  if get_option('tests')
--- 
-2.23.0
-
