@@ -16,6 +16,7 @@
   # optional dependencies
   cups ? null, libmysqlclient ? null, postgresql ? null,
   withGtk3 ? false, dconf ? null, gtk3 ? null,
+  vulkan-headers ? null,
 
   # options
   libGLSupported ? !stdenv.isDarwin,
@@ -70,6 +71,8 @@ stdenv.mkDerivation {
           # X11 libs
           libX11 libXcomposite libXext libXi libXrender libxcb libxkbcommon xcbutil
           xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
+
+          vulkan-headers
         ]
         ++ lib.optional libGLSupported libGL
     );
@@ -330,8 +333,6 @@ stdenv.mkDerivation {
 
           "-no-eglfs"
           "-no-gbm"
-          "-no-kms"
-          "-no-linuxfb"
 
           ''-${lib.optionalString (cups == null) "no-"}cups''
           "-dbus-linked"
