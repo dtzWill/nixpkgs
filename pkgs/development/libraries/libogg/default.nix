@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libogg";
-  version = "1.3.3";
+  version = "1.3.4";
 
   src = fetchurl {
     url = "http://downloads.xiph.org/releases/ogg/${pname}-${version}.tar.xz";
-    sha256 = "022wjlzn8fx7mfby4pcgyjwx8zir7jr7cizichh3jgaki8bwcgsg";
+    sha256 = "1zlk33vxvxr0l9lhkbhkdwvylw96d2n0fnd3d8dl031hph9bqqy1";
   };
 
   outputs = [ "out" "dev" "doc" ];
