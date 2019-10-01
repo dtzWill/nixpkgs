@@ -11,15 +11,6 @@ index 25db9509..f394eb25 100644
    )
  endif
  
-@@ -27,7 +27,7 @@ install_data(['org.freedesktop.fwupd.svg'],
- 
- if build_daemon
-   install_data(['org.freedesktop.fwupd.conf'],
--    install_dir : join_paths(sysconfdir, 'dbus-1', 'system.d')
-+    install_dir : join_paths(sysconfdir_install, 'dbus-1', 'system.d')
-   )
-   install_data(['90-fwupd-devices.rules'],
-     install_dir : join_paths(udevdir, 'rules.d')
 diff --git a/data/pki/meson.build b/data/pki/meson.build
 index eefcc914..dc801fa1 100644
 --- a/data/pki/meson.build
