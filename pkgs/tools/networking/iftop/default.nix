@@ -1,12 +1,12 @@
-{ stdenv, fetchFromGitHub, updateAutotoolsGnuConfigScriptsHook, autoreconfHook, ncurses, libpcap }:
+{ stdenv, fetchFromGitHub, updateAutotoolsGnuConfigScriptsHook, autoreconfHook, ncurses, libpcap, enableColors ? true }:
 
 stdenv.mkDerivation rec {
-  pname = "iftop";
+  pname = "iftop" + stdenv.lib.optionalString enableColors "color";
   version = "unstable-2018-10-03";
 
   src = fetchFromGitHub {
     owner = "dtzWill"; # upstream git has an expired cert, so for now use this
-    repo = pname;
+    repo = "iftop";
     rev = "77901c8c53e01359d83b8090aacfe62214658183";
     sha256 = "0wyhnxf2ph31hl1dhk230wj1vxr28wcihr4ww07jfanvcrv5m4f4";
   };
@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./getnameinfo-is-okay-now.patch
-    ./ui-colours.patch
-  ];
+  ] ++ stdenv.lib.optional enableColors ./ui-colours.patch;
 
   nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
 
