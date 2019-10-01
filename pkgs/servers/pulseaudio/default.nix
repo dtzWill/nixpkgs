@@ -43,11 +43,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper perlPackages.perl perlPackages.XMLParser ];
 
   propagatedBuildInputs =
-    lib.optionals stdenv.isLinux [ libcap dbus ];
+    lib.optionals stdenv.isLinux [ libcap ];
 
   buildInputs =
     [ libtool libsndfile speexdsp fftwFloat ]
-    ++ lib.optionals stdenv.isLinux [ glib ]
+    ++ lib.optionals stdenv.isLinux [ glib dbus ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit Cocoa ]
     ++ lib.optionals (!libOnly) (
       [ libasyncns webrtc-audio-processing ]
