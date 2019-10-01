@@ -40,8 +40,13 @@ qtModule {
   hardeningDisable = [ "format" ];
 
   postPatch =
-    # Patch Chromium build tools
+    # no jumbo
     ''
+    sed -i -e 's|use_jumbo_build=true|use_jumbo_build=false|' \
+      src/core/config/common.pri
+    ''
+    # Patch Chromium build tools
+    + ''
       ( cd src/3rdparty/chromium; patchShebangs . )
     ''
     # Patch Chromium build files
@@ -227,7 +232,7 @@ EOF
   dontUseNinjaInstall = true;
   dontUseXcbuild = true;
 
-  LDFLAGS = [ "-Wl,--no-keep-memory" ];
+  # LDFLAGS = [ "-Wl,--no-keep-memory" ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     cat > $out/libexec/qt.conf <<EOF
