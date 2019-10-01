@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pkgconfig
 , boost, libyamlcpp, libsodium, sqlite, protobuf, botan2, libressl
-, mariadb-connector-c, postgresql, lua, openldap, geoip, curl, opendbx, unixODBC
+, mariadb-connector-c, postgresql, lua, openldap, krb5, geoip, curl, opendbx, unixODBC
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    boost mariadb-connector-c postgresql lua openldap sqlite protobuf geoip
+    boost mariadb-connector-c postgresql lua openldap krb5 sqlite protobuf geoip
     libyamlcpp libsodium curl opendbx unixODBC botan2 libressl
   ];
 
