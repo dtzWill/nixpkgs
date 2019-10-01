@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
   LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 
-  patches = [ ./getnameinfo-is-okay-now.patch ];
+  patches = [
+    ./getnameinfo-is-okay-now.patch
+    ./ui-colours.patch
+  ];
 
   nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
 
