@@ -1,4 +1,4 @@
-{stdenv, fetchurl, ncurses, libpcap, automake}:
+{stdenv, fetchurl, ncurses, libpcap, updateAutotoolsGnuConfigScriptsHook}:
 
 stdenv.mkDerivation rec {
   name = "iftop-1.0pre4";
@@ -12,9 +12,11 @@ stdenv.mkDerivation rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
   LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 
-  preConfigure = ''
-    cp ${automake}/share/automake*/config.{sub,guess} config
-  '';
+  configureFlags = [
+    "--with-resolver=netdb" # don't 'guess' via build-time test
+  ];
+
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
   buildInputs = [ncurses libpcap];
 
