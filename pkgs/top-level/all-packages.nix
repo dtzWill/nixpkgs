@@ -17219,6 +17219,10 @@ in
 
   open-sans = callPackage ../data/fonts/open-sans { };
 
+  openmoji-color = callPackage ../data/fonts/openmoji { variant = "color"; };
+
+  openmoji-black = callPackage ../data/fonts/openmoji { variant = "black"; };
+
   orbitron = callPackage ../data/fonts/orbitron { };
 
   overpass = callPackage ../data/fonts/overpass { };
