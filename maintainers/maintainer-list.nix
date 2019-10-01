@@ -1645,6 +1645,12 @@
     githubId = 10913120;
     name = "Dje4321";
   };
+  dkudriavtsev = {
+    email = "dkudriavtsev@gmail.com";
+    github = "dkudriavtsev";
+    githubId = 9790772;
+    name = "Dmitry Kudriavtsev";
+  };
   dmalikov = {
     email = "malikov.d.y@gmail.com";
     github = "dmalikov";
