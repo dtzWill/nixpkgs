@@ -19,17 +19,13 @@ in
 
 {
   brotli = {
-    src = let gitsrc = pkgs.fetchFromGitHub {
+    src = fetchFromGitHub {
       owner = "google";
       repo = "ngx_brotli";
       rev = "e505dce68acc190cc5a1e780a3b0275e39f160ca";
-      sha256 = "00j48lffki62y1nmjyy81iklw5nlyzvrjy3z04qch4fp3p57hwla";
-    }; in pkgs.runCommandNoCC "ngx_brotli-src" {} ''
-      cp -a ${gitsrc} $out
-      substituteInPlace $out/config \
-        --replace /usr/local ${lib.getDev pkgs.brotli}
-    '';
-    inputs = [ pkgs.brotli ];
+      sha256 = "18l3rfc2c8ah92sdiyvbisz2sv1h5lzldzrjcjjfazsdhyi0h72m";
+      fetchSubmodules = true;
+    };
   };
 
   coolkit = {
