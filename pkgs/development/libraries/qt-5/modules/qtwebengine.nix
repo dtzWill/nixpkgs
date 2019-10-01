@@ -227,6 +227,8 @@ EOF
   dontUseNinjaInstall = true;
   dontUseXcbuild = true;
 
+  LDFLAGS = [ "-Wl,--no-keep-memory" ];
+
   postInstall = lib.optionalString stdenv.isLinux ''
     cat > $out/libexec/qt.conf <<EOF
     [Paths]
