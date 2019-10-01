@@ -167,6 +167,8 @@ EOF
     libevent
 
     ffmpeg
+
+    re2 libxml2 lcms2
   ]/* ++ optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
     #ffmpeg
   ]*/ ++ optionals (!stdenv.isDarwin) [
