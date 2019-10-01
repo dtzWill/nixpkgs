@@ -13365,7 +13365,8 @@ in
       inherit newScope;
       inherit fetchurl fetchFromGitHub makeSetupHook makeWrapper;
       stdenv = clangStdenv;
-      bison = bison2; # error: too few arguments to function 'int yylex(...
+      # bison = bison2; # error: too few arguments to function 'int yylex(...
+      inherit bison;
       inherit cups;
       inherit harfbuzz;
       inherit libGL;
