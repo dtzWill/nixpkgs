@@ -11,6 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "0xyl0riakh6kwb3yvxihb451kqs4ai4q0aygqygnlb2rlr1dn1zb";
   };
 
+  preBuild = ''
+    export HOME=$TMPDIR/zig-tmp-home
+    mkdir -p $HOME
+  '';
+
   nativeBuildInputs = [ cmake ];
   buildInputs = [ llvmPackages.clang-unwrapped llvmPackages.llvm libxml2 zlib ];
 
