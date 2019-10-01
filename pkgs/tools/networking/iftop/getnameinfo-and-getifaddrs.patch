@@ -1,0 +1,64 @@
+diff --git a/addrs_ioctl.c b/addrs_ioctl.c
+index 7d01fb2..1e811c8 100644
+--- a/addrs_ioctl.c
++++ b/addrs_ioctl.c
+@@ -18,6 +18,9 @@
+ #include <net/if.h>
+ #include <netinet/in.h>
+ 
++// Include before checking USE_GETIFADDRS
++#include "config.h"
++
+ #if defined __FreeBSD__ || defined __OpenBSD__ || defined __APPLE__ \
+       || ( defined __GLIBC__ && ! defined __linux__ )
+ #include <sys/param.h>
+diff --git a/configure.ac b/configure.ac
+index cfb9c6d..38fca83 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -162,6 +162,19 @@ dnl name resolution. Naturally, UNIX vendors have come up with a variety of
+ dnl incompatible schemes for this, many of which don't work at all.
+ dnl
+ 
++
++AC_SEARCH_LIBS([getnameinfo], [nsl resolv])
++AC_SEARCH_LIBS([getifaddrs], [nsl resolv])
++AC_CHECK_FUNCS([ \
++  getifaddrs \
++  getnameinfo \
++])
++
++if test "x$ac_cv_func_getifaddrs" = "xyes"; then
++  AC_DEFINE(USE_GETIFADDRS, 1, [use getifaddrs])
++  AC_MSG_NOTICE([getifaddrs found, using (setting USE_GETIFADDRS=1)])
++fi
++
+ dnl First, the default resolver, which uses getnameinfo or gethostbyaddr_r. If
+ dnl not available, we fall back to gethostbyaddr. We could fall back to ARES,
+ dnl but that's probably not available on typical machines.
+@@ -172,19 +185,13 @@ dnl experiments we've done so far, or "guess" if we have no idea.
+ specified_resolver=$resolver
+ if test x$specified_resolver = xguess ; then
+     dnl Best possibility is getnameinfo.
+-    use_getnameinfo=0
+-    AC_SEARCH_LIBS(getnameinfo, [nsl], [use_getnameinfo=1])
+-
+-    dnl XXX For the moment, don't use getnameinfo, since it isn't actually
+-    dnl thread safe on, e.g., NetBSD.
+-    use_getnameinfo=0
+-
+-    if test $use_getnameinfo = 1 ; then
+-        dnl Done.
+-        AC_DEFINE(USE_GETNAMEINFO, 1, [use getnameinfo for name resolution])
++    if test "x$ac_cv_func_getnameinfo" = "xyes"; then
++      AC_DEFINE(USE_GETNAMEINFO, 1, [use getnameinfo for name resolution])
++      resolver=getnameinfo # not guess
++      AC_MSG_NOTICE([getnameinfo found, using for name resolution (setting USE_GETNAMEINFO=1)])
+     else
+-	dnl Best hope is netdb, which presently means gethostbyaddr_r.
+-	resolver=netdb
++      dnl Best hope is netdb, which presently means gethostbyaddr_r.
++      resolver=netdb
+     fi
+ fi
+ 
