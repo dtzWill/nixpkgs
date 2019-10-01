@@ -28,6 +28,7 @@ top-level attribute to `top-level/all-packages.nix`.
 
 with stdenv.lib;
 
+assert stdenv.cc.isClang;
 let
 
   qtCompatVersion = srcs.qtbase.version;
@@ -98,7 +99,7 @@ let
 
   addPackages = self: with self;
     let
-      callPackage = self.newScope { inherit qtCompatVersion qtModule srcs; };
+      callPackage = self.newScope { inherit qtCompatVersion qtModule srcs stdenv; };
     in {
 
       mkDerivationWith =
