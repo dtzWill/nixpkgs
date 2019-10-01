@@ -7,6 +7,7 @@
 , fontconfig, freetype, harfbuzz, icu, dbus, libdrm
 , zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus
 , jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent
+, re2, libxml2, lcms2
 , alsaLib
 , libcap
 , pciutils
@@ -135,7 +136,19 @@ EOF
 
   qmakeFlags = if stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64
     then [ "--" "-system-ffmpeg" ] ++ optional enableProprietaryCodecs "-proprietary-codecs"
-    else optional enableProprietaryCodecs "-- -proprietary-codecs";
+    else optional enableProprietaryCodecs "-- -proprietary-codecs"
+  ++ [
+    "-webengine-alsa"
+    # "-webengine-pulseaudio"
+    "-webengine-system-icu"
+    "-webengine-system-ffmpeg"
+    "-webengine-system-opus"
+    "-webengine-system-webp"
+    "-webengine-system-png"
+    "-webengine-system-jpeg"
+    "-webengine-system-libxml2"
+    "-webengine-system-lcms2"
+  ];
 
   propagatedBuildInputs = [
     # Image formats
