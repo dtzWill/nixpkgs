@@ -150,8 +150,8 @@ stdenv.mkDerivation {
         lib.optionalString libGLSupported
           ''
             sed -i mkspecs/common/linux.conf \
-                -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
-                -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
+                -e "/^QMAKE_INCDIR_\(OPEN\|E\)GL\>/ s|$|${libGL.dev or libGL}/include|" \
+                -e "/^QMAKE_LIBDIR_\(OPEN\|E\)GL\>/ s|$|${libGL.out}/lib|"
           '' +
         lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU)
           ''
