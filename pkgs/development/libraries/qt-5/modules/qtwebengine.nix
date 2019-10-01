@@ -140,14 +140,15 @@ EOF
   ++ [
     "-webengine-alsa"
     # "-webengine-pulseaudio"
-    "-webengine-system-icu"
-    "-webengine-system-ffmpeg"
-    "-webengine-system-opus"
-    "-webengine-system-webp"
-    "-webengine-system-png"
-    "-webengine-system-jpeg"
-    "-webengine-system-libxml2"
-    "-webengine-system-lcms2"
+    "-webengine-icu"
+    "-webengine-ffmpeg"
+    "-webengine-opus"
+    "-webengine-webp"
+    #"-webengine-png"
+    #"-webengine-jpeg"
+    #"-webengine-libxml2"
+    #"-webengine-lcms2"
+    #"-webengine-jsoncpp"
   ];
 
   propagatedBuildInputs = [
