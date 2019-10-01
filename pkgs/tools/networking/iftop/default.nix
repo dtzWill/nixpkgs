@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = http://ex-parrot.com/pdw/iftop/;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }
