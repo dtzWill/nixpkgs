@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --with-sqlite3
       --with-socketdir=/var/lib/powerdns
       --with-libcrypto=${libressl.dev}
-      --enable-libsodium
+      --with-libsodium
       --enable-botan
       --enable-tools
       --disable-dependency-tracking
