@@ -19,7 +19,6 @@ top-level attribute to `top-level/all-packages.nix`.
   stdenv, fetchurl, fetchFromGitHub, makeSetupHook, makeWrapper,
   bison, cups ? null, harfbuzz, libGL, perl,
   gstreamer, gst-plugins-base, gtk3, dconf,
-  llvmPackages_5,
 
   # options
   developerBuild ? false,
@@ -33,7 +32,7 @@ let
 
   qtCompatVersion = srcs.qtbase.version;
 
-  stdenvActual = if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
+  stdenvActual = stdenv; # if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
 
   mirror = "https://download.qt.io";
   srcs = import ./srcs.nix { inherit fetchurl; inherit mirror; } // {

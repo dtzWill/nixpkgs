@@ -13363,7 +13363,8 @@ in
   qt512 = recurseIntoAttrs (makeOverridable
     (import ../development/libraries/qt-5/5.12) {
       inherit newScope;
-      inherit stdenv fetchurl fetchFromGitHub makeSetupHook makeWrapper;
+      inherit fetchurl fetchFromGitHub makeSetupHook makeWrapper;
+      stdenv = clangStdenv;
       bison = bison2; # error: too few arguments to function 'int yylex(...
       inherit cups;
       inherit harfbuzz;
@@ -13372,7 +13373,6 @@ in
       inherit gtk3;
       inherit (gnome3) dconf;
       inherit (gst_all_1) gstreamer gst-plugins-base;
-      inherit llvmPackages_5;
     });
 
   libsForQt512 = recurseIntoAttrs (lib.makeScope qt512.newScope mkLibsForQt5);
