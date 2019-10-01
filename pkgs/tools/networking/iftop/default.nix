@@ -1,24 +1,27 @@
-{stdenv, fetchurl, ncurses, libpcap, updateAutotoolsGnuConfigScriptsHook}:
+{ stdenv, fetchFromGitHub, updateAutotoolsGnuConfigScriptsHook, autoreconfHook, ncurses, libpcap }:
 
 stdenv.mkDerivation rec {
-  name = "iftop-1.0pre4";
+  pname = "iftop";
+  version = "unstable-2018-10-03";
 
-  src = fetchurl {
-    url = http://ex-parrot.com/pdw/iftop/download/iftop-1.0pre4.tar.gz;
-    sha256 = "15sgkdyijb7vbxpxjavh5qm5nvyii3fqcg9mzvw7fx8s6zmfwczp";
+  src = fetchFromGitHub {
+    owner = "dtzWill"; # upstream git has an expired cert, so for now use this
+    repo = pname;
+    rev = "77901c8c53e01359d83b8090aacfe62214658183";
+    sha256 = "0wyhnxf2ph31hl1dhk230wj1vxr28wcihr4ww07jfanvcrv5m4f4";
   };
 
   # Explicitly link against libgcc_s, to work around the infamous
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
   LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 
-  configureFlags = [
-    "--with-resolver=netdb" # don't 'guess' via build-time test
-  ];
+  patches = [ ./getnameinfo-is-okay-now.patch ];
 
-  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
+  nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
 
-  buildInputs = [ncurses libpcap];
+  CFLAGS = [ "-DUSE_GETIFADDRS=1" /* debian prefers this, must be set ourselves apparently */ ];
+
+  buildInputs = [ ncurses libpcap ];
 
   meta = with stdenv.lib; {
     description = "Display bandwidth usage on a network interface";
