@@ -1,20 +1,20 @@
 { stdenv, fetchurl, pkgconfig
 , boost, libyamlcpp, libsodium, sqlite, protobuf, botan2, libressl
-, mysql57, postgresql, lua, openldap, geoip, curl, opendbx, unixODBC
+, mariadb-connector-c, postgresql, lua, openldap, krb5, geoip, curl, opendbx, unixODBC
 }:
 
 stdenv.mkDerivation rec {
-  name = "powerdns-${version}";
-  version = "4.1.13";
+  pname = "powerdns";
+  version = "4.2.0";
 
   src = fetchurl {
     url = "https://downloads.powerdns.com/releases/pdns-${version}.tar.bz2";
-    sha256 = "09az5yp5d9wvzw8faifyzsljhmmc8ifm4j70m4n2sr83i9i9rsp7";
+    sha256 = "0flhia156vir03np8va53rw31jsbg9wz3dyqqwddgai5bvr0f812";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    boost mysql57.connector-c postgresql lua openldap sqlite protobuf geoip
+    boost mariadb-connector-c postgresql lua openldap krb5 sqlite protobuf geoip
     libyamlcpp libsodium curl opendbx unixODBC botan2 libressl
   ];
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --with-sqlite3
       --with-socketdir=/var/lib/powerdns
       --with-libcrypto=${libressl.dev}
-      --enable-libsodium
+      --with-libsodium
       --enable-botan
       --enable-tools
       --disable-dependency-tracking

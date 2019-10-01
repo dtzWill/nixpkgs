@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://neopg.io/;
+    homepage = https://github.com/das-labor/neopg;
     description = "Modern replacement for GnuPG 2";
     license = licenses.gpl3;
     longDescription = ''

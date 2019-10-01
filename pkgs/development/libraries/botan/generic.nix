@@ -1,32 +1,42 @@
-{ stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, boost
+{ stdenv, fetchurl, python, doxygen
+, boost, bzip2, gmp, openssl, lzma, sqlite, zlib
 # Passed by version specific builders
-, baseVersion, revision, sha256
+, baseVersion, revision, sha256, ext
 , extraConfigureFlags ? ""
 , postPatch ? null
 , darwin
+, patches ? []
 , ...
 }:
 
 stdenv.mkDerivation rec {
-  name = "botan-${version}";
+  pname = "botan";
   version = "${baseVersion}.${revision}";
 
   src = fetchurl {
-    name = "Botan-${version}.tgz";
-    urls = [
-       "http://files.randombit.net/botan/v${baseVersion}/Botan-${version}.tgz"
-       "http://botan.randombit.net/releases/Botan-${version}.tgz"
-    ];
+    name = "Botan-${version}.${ext}";
+    url = "http://botan.randombit.net/releases/Botan-${version}.${ext}";
     inherit sha256;
   };
+  inherit patches;
   inherit postPatch;
 
-  buildInputs = [ python bzip2 zlib gmp openssl boost ]
+  nativeBuildInputs = [ python /* configure */ doxygen ];
+  buildInputs = [ python bzip2 zlib gmp openssl lzma boost sqlite ]
              ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
-  configurePhase = ''
-    python configure.py --prefix=$out --with-bzip2 --with-zlib ${if openssl != null then "--with-openssl" else ""} ${extraConfigureFlags}${if stdenv.cc.isClang then " --cc=clang" else "" }
+  preConfigure = ''
+    patchShebangs configure.py
   '';
+  configureScript = "./configure.py";
+  configureFlags = [
+    "--prefix=${placeholder "out"}"
+    "--with-bzip2"
+    "--with-openssl"
+    "--with-zlib"
+  ] ++ extraConfigureFlags
+  ++ stdenv.lib.optional (doxygen != null) "--with-doxygen"
+  ++ stdenv.lib.optional stdenv.cc.isClang "--cc=clang";
 
   enableParallelBuilding = true;
 

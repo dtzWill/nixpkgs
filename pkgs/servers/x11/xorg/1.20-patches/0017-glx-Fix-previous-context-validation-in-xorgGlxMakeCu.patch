@@ -36,5 +36,5 @@ index 54d452e58..75e42823c 100644
              client->errorValue = prevglxc->id;
              return __glXError(GLXBadContextState);
 -- 
-2.23.0
+2.23.GIT
 

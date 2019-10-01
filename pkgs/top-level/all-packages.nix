@@ -2762,6 +2762,8 @@ in
 
   dtc = callPackage ../development/compilers/dtc { };
 
+  dte = callPackage ../applications/editors/dte {};
+
   dub = callPackage ../development/tools/build-managers/dub { };
 
   duc = callPackage ../tools/misc/duc { };
@@ -5040,7 +5042,7 @@ in
 
   ndisc6 = callPackage ../tools/networking/ndisc6 { };
 
-  neopg = callPackage ../tools/security/neopg { };
+  neopg = callPackage ../tools/security/neopg { botan2 = botan27; };
 
   netboot = callPackage ../tools/networking/netboot {};
 
@@ -9821,7 +9823,7 @@ in
   };
 
   include-what-you-use = callPackage ../development/tools/analysis/include-what-you-use {
-    llvmPackages = llvmPackages_6;
+    llvmPackages = llvmPackages_8;
   };
 
   indent = callPackage ../development/tools/misc/indent { };
@@ -10543,6 +10545,8 @@ in
 
   botan = callPackage ../development/libraries/botan { openssl = openssl_1_0_2; };
   botan2 = callPackage ../development/libraries/botan/2.0.nix { };
+  # For neopg
+  botan27 = callPackage ../development/libraries/botan/2.7.nix { };
 
   box2d = callPackage ../development/libraries/box2d { };
 
@@ -12008,6 +12012,8 @@ in
 
   liburing = callPackage ../development/libraries/liburing { };
 
+  librseq = callPackage ../development/libraries/librseq { };
+
   libseccomp = callPackage ../development/libraries/libseccomp { };
 
   libsecret = callPackage ../development/libraries/libsecret { };
@@ -13358,7 +13364,10 @@ in
     (import ../development/libraries/qt-5/5.12) {
       inherit newScope;
       inherit stdenv fetchurl fetchFromGitHub makeSetupHook makeWrapper;
-      bison = bison2; # error: too few arguments to function 'int yylex(...
+      #stdenv = clangStdenv;
+      #stdenv = gcc8Stdenv;
+      # bison = bison2; # error: too few arguments to function 'int yylex(...
+      inherit bison;
       inherit cups;
       inherit harfbuzz;
       inherit libGL;
@@ -13366,7 +13375,6 @@ in
       inherit gtk3;
       inherit (gnome3) dconf;
       inherit (gst_all_1) gstreamer gst-plugins-base;
-      inherit llvmPackages_5;
     });
 
   libsForQt512 = recurseIntoAttrs (lib.makeScope qt512.newScope mkLibsForQt5);
@@ -14220,8 +14228,6 @@ in
   webkitgtk = callPackage ../development/libraries/webkitgtk {
     harfbuzz = harfbuzzFull;
     inherit (gst_all_1) gst-plugins-base gst-plugins-bad;
-    #stdenv = gcc9Stdenv; # must be 7.3 or newer, or clang
-    stdenv = clangStdenv;
   };
 
   webkitgtk24x-gtk3 = callPackage ../development/libraries/webkitgtk/2.4.nix {
@@ -14399,7 +14405,7 @@ in
   zmqpp = callPackage ../development/libraries/zmqpp { };
 
   zig = callPackage ../development/compilers/zig {
-    llvmPackages = llvmPackages_8;
+    llvmPackages = llvmPackages_9;
   };
 
   zimlib = callPackage ../development/libraries/zimlib { };
@@ -16499,7 +16505,7 @@ in
 
   semodule-utils = callPackage ../os-specific/linux/semodule-utils { };
 
-  powerdns = callPackage ../servers/dns/powerdns { libressl = libressl_2_8; };
+  powerdns = callPackage ../servers/dns/powerdns { };
 
   dnsdist = callPackage ../servers/dns/dnsdist { };
 
@@ -17433,6 +17439,8 @@ in
   weather-icons = callPackage ../data/fonts/weather-icons { };
 
   wireless-regdb = callPackage ../data/misc/wireless-regdb { };
+
+  work-sans  = callPackage ../data/fonts/work-sans { };
 
   wqy_microhei = callPackage ../data/fonts/wqy-microhei { };
 
@@ -19147,6 +19155,8 @@ in
 
   super-productivity = callPackage ../applications/networking/super-productivity { };
 
+  wlr-randr = callPackage ../tools/misc/wlr-randr { };
+
   wlroots = callPackage ../development/libraries/wlroots { };
 
   sway = callPackage ../applications/window-managers/sway { };
@@ -20120,6 +20130,8 @@ in
   sawfish = callPackage ../applications/window-managers/sawfish { };
 
   sidplayfp = callPackage ../applications/audio/sidplayfp { };
+
+  sndpeek = callPackage ../applications/audio/sndpeek { };
 
   sxhkd = callPackage ../applications/window-managers/sxhkd { };
 

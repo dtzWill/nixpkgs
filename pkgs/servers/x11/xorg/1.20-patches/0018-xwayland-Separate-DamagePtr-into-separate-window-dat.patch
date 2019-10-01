@@ -168,5 +168,5 @@ index 463622669..dfa3b37c3 100644
      struct wl_callback *frame_callback;
      Bool allow_commits;
 -- 
-2.23.0
+2.23.GIT
 

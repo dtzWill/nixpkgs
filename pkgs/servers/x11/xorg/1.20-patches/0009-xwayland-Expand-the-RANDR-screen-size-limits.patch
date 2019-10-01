@@ -32,5 +32,5 @@ index 9d33ed862..aa6f37864 100644
      rp = rrGetScrPriv(xwl_screen->screen);
      rp->rrGetInfo = xwl_randr_get_info;
 -- 
-2.23.0
+2.23.GIT
 

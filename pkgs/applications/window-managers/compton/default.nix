@@ -6,7 +6,7 @@
 stdenv.mkDerivation rec {
   pname = "compton";
   #version = "7.3";
-  version = "unstable-2019-09-25";
+  version = "unstable-2019-09-28";
 
   COMPTON_VERSION = "v${version}";
 
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = "compton";
     #rev    = COMPTON_VERSION;
-    rev = "0c7a19fda67c05ad09cf4930b0615938a780f1da";
-    sha256 = "1649dgml45ws5i93sy2i0c4y823myv7qdc8qg8f4m9dpvmwck264";
+    rev = "93f0d80572e47a1297dbf1af18a4ef498fa0bfe2";
+    sha256 = "149vj7mi19z3m6hz5azqgl2masbrxsjhxylvn6p892hskn90n5ga";
     fetchSubmodules = true;
   };
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   mesonFlags = [
-    "-Dbuild_docs=true"
+    "-Dwith_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
 #    "-Dsanitize=true"

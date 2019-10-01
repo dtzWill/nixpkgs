@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "haveged";
-  version = "1.9.6";
+  version = "1.9.8";
 
   src = fetchFromGitHub {
     owner = "jirka-h";
     repo = pname;
     rev = "v${version}";
-    sha256 = "11kr19n2f87izsj341lv5amhd1wc2ckfmqr9pq5fxix8pkbs94rh";
+    sha256 = "1znr58fb3faq4nmrvc3c5whkc1f3chivm4vhicdwr9pdsyqqsd51";
   };
 
   meta = {

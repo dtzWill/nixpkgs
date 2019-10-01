@@ -3445,6 +3445,11 @@
     githubId = 1362179;
     name = "Kyle Lacy";
   };
+  laikq = {
+    email = "gwen@quasebarth.de";
+    github = "laikq";
+    name = "Gwendolyn Quasebarth";
+  };
   lasandell = {
     email = "lasandell@gmail.com";
     github = "lasandell";
@@ -5796,6 +5801,12 @@
     github = "sikmir";
     githubId = 688044;
     name = "Nikolay Korotkiy";
+  };
+  simonchatts = {
+    email = "code@chatts.net";
+    github = "simonchatts";
+    githubId = 11135311;
+    name = "Simon Chatterjee";
   };
   simonvandel = {
     email = "simon.vandel@gmail.com";

@@ -16,6 +16,7 @@
   # optional dependencies
   cups ? null, libmysqlclient ? null, postgresql ? null,
   withGtk3 ? false, dconf ? null, gtk3 ? null,
+  vulkan-headers ? null,
 
   # options
   libGLSupported ? !stdenv.isDarwin,
@@ -31,6 +32,8 @@ assert withGtk3 -> gtk3 != null;
 
 let
   compareVersion = v: builtins.compareVersions version v;
+  qmakeCacheName =
+    if compareVersion "5.12.4" < 0 then ".qmake.cache" else ".qmake.stash";
 in
 
 stdenv.mkDerivation {
@@ -47,7 +50,7 @@ stdenv.mkDerivation {
 
       # Image formats
       libjpeg libpng libtiff
-      (if compareVersion "5.9.0" >= 0 then pcre2 else pcre16)
+      (if compareVersion "5.9.0" < 0 then pcre16 else pcre2)
     ]
     ++ (
       if stdenv.isDarwin
@@ -68,6 +71,8 @@ stdenv.mkDerivation {
           # X11 libs
           libX11 libXcomposite libXext libXi libXrender libxcb libxkbcommon xcbutil
           xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
+
+          vulkan-headers
         ]
         ++ lib.optional libGLSupported libGL
     );
@@ -98,6 +103,7 @@ stdenv.mkDerivation {
     . "$fix_qt_builtin_paths"
     . "$fix_qt_module_paths"
     . ${../hooks/move-qt-dev-tools.sh}
+    . ${../hooks/fix-qmake-libtool.sh}
   '';
 
   postPatch =
@@ -171,8 +177,17 @@ stdenv.mkDerivation {
         -qmldir $out/$qtQmlPrefix \
         -docdir $out/$qtDocPrefix"
 
-    createQmakeCache() {
-        cat >>"$1" <<EOF
+    NIX_CFLAGS_COMPILE+=" -DNIXPKGS_QT_PLUGIN_PREFIX=\"$qtPluginPrefix\""
+  '';
+
+  postConfigure = ''
+    qmakeCacheInjectNixOutputs() {
+        local cache="$1/${qmakeCacheName}"
+        echo "qmakeCacheInjectNixOutputs: $cache"
+        if ! [ -f "$cache" ]; then
+            echo >&2 "qmakeCacheInjectNixOutputs: WARNING: $cache does not exist"
+        fi
+        cat >>"$cache" <<EOF
     NIX_OUTPUT_BIN = $bin
     NIX_OUTPUT_DEV = $dev
     NIX_OUTPUT_OUT = $out
@@ -183,14 +198,9 @@ stdenv.mkDerivation {
     }
 
     find . -name '.qmake.conf' | while read conf; do
-        cache=$(dirname $conf)/.qmake.cache
-        echo "Creating \`$cache'"
-        createQmakeCache "$cache"
+        qmakeCacheInjectNixOutputs "$(dirname $conf)"
     done
-
-    NIX_CFLAGS_COMPILE+=" -DNIXPKGS_QT_PLUGIN_PREFIX=\"$qtPluginPrefix\""
   '';
-
 
   NIX_CFLAGS_COMPILE =
     [
@@ -323,8 +333,6 @@ stdenv.mkDerivation {
 
           "-no-eglfs"
           "-no-gbm"
-          "-no-kms"
-          "-no-linuxfb"
 
           ''-${lib.optionalString (cups == null) "no-"}cups''
           "-dbus-linked"
@@ -332,6 +340,7 @@ stdenv.mkDerivation {
           "-system-libjpeg"
           "-system-libpng"
         ]
+        ++ lib.optional (stdenv.isLinux && stdenv.cc.isClang) "-platform linux-clang"
         ++ lib.optional withGtk3 "-gtk"
         ++ lib.optional (compareVersion "5.9.0" >= 0) "-inotify"
         ++ lib.optionals (compareVersion "5.10.0" >= 0) [
@@ -392,13 +401,11 @@ stdenv.mkDerivation {
       moveToOutput bin "$dev"
     ''
 
-    + (
-        # fixup .pc file (where to find 'moc' etc.)
-        ''
-          sed -i "$dev/lib/pkgconfig/Qt5Core.pc" \
-              -e "/^host_bins=/ c host_bins=$dev/bin"
-        ''
-    );
+    # fixup .pc file (where to find 'moc' etc.)
+    + ''
+      sed -i "$dev/lib/pkgconfig/Qt5Core.pc" \
+          -e "/^host_bins=/ c host_bins=$dev/bin"
+    '';
 
   setupHook = ../hooks/qtbase-setup-hook.sh;
 

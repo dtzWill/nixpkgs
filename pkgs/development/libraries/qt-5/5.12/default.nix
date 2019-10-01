@@ -19,7 +19,6 @@ top-level attribute to `top-level/all-packages.nix`.
   stdenv, fetchurl, fetchFromGitHub, makeSetupHook, makeWrapper,
   bison, cups ? null, harfbuzz, libGL, perl,
   gstreamer, gst-plugins-base, gtk3, dconf,
-  llvmPackages_5,
 
   # options
   developerBuild ? false,
@@ -29,11 +28,12 @@ top-level attribute to `top-level/all-packages.nix`.
 
 with stdenv.lib;
 
+# assert stdenv.cc.isClang;
 let
 
   qtCompatVersion = srcs.qtbase.version;
 
-  stdenvActual = if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
+  stdenvActual = stdenv; # if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
 
   mirror = "https://download.qt.io";
   srcs = import ./srcs.nix { inherit fetchurl; inherit mirror; } // {
@@ -51,10 +51,23 @@ let
   };
 
   patches = {
-    qtbase = [
-      ./qtbase.patch
-#      ./qtbase-fixguicmake.patch
-    ];
+    qtbase =
+      optionals stdenv.isDarwin [
+        ./qtbase.patch.d/0001-qtbase-mkspecs-mac.patch
+        ./qtbase.patch.d/0002-qtbase-mac.patch
+      ]
+      ++ [
+        ./qtbase.patch.d/0003-qtbase-mkspecs.patch
+        ./qtbase.patch.d/0004-qtbase-replace-libdir.patch
+        ./qtbase.patch.d/0005-qtbase-cmake.patch
+        ./qtbase.patch.d/0006-qtbase-gtk3.patch
+        ./qtbase.patch.d/0007-qtbase-xcursor.patch
+        ./qtbase.patch.d/0008-qtbase-xcompose.patch
+        ./qtbase.patch.d/0009-qtbase-tzdir.patch
+        ./qtbase.patch.d/0010-qtbase-qtpluginpath.patch
+        ./qtbase.patch.d/0011-qtbase-assert.patch
+        ./qtbase.patch.d/0012-fix-header_module.patch
+      ];
     qtdeclarative = [ ./qtdeclarative.patch ];
     qtscript = [ ./qtscript.patch ];
     qtserialport = [ ./qtserialport.patch ];
@@ -86,7 +99,7 @@ let
 
   addPackages = self: with self;
     let
-      callPackage = self.newScope { inherit qtCompatVersion qtModule srcs; };
+      callPackage = self.newScope { inherit qtCompatVersion qtModule srcs stdenv; };
     in {
 
       mkDerivationWith =
@@ -150,9 +163,7 @@ let
       qmake = makeSetupHook {
         deps = [ self.qtbase.dev ];
         substitutions = {
-          inherit (stdenv) isDarwin;
-          qtbase_dev = self.qtbase.dev;
-          fix_qt_builtin_paths = ../hooks/fix-qt-builtin-paths.sh;
+          fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
         };
       } ../hooks/qmake-hook.sh;
 

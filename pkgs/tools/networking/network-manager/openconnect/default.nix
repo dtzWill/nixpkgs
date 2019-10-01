@@ -1,23 +1,23 @@
-{ stdenv, fetchurl, substituteAll, openconnect, intltool, pkgconfig, autoreconfHook, networkmanager, gcr, libsecret, file
+{ stdenv, fetchurl, fetchFromGitLab, substituteAll, openconnect, intltool, pkgconfig, autoreconfHook, networkmanager, gcr, libsecret, file
 , gtk3, withGnome ? true, gnome3, kmod }:
 
 let
   pname   = "NetworkManager-openconnect";
-  version = "1.2.6";
+  version = "1.2.7-dev-9"; # 2019-09-25
 in stdenv.mkDerivation {
   name    = "${pname}${if withGnome then "-gnome" else ""}-${version}";
 
-  src = fetchurl {
-    url    = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "0nlp290nkawc4wqm978n4vhzg3xdqi8kpjjx19l855vab41rh44m";
-  };
-  #src = fetchFromGitLab {
-  #  domain = "gitlab.gnome.org";
-  #  owner = "GNOME";
-  #  repo = pname;
-  #  rev = "24c2c899e223c5e8ddb8a1159f51aec9090a8b2d";
-  #  sha256 = "0jsyilrrxglq2wsypcf0xypa36n789yaar9ib8p26laagmk19nmp";
+  #src = fetchurl {
+  #  url    = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+  #  sha256 = "0nlp290nkawc4wqm978n4vhzg3xdqi8kpjjx19l855vab41rh44m";
   #};
+  src = fetchFromGitLab {
+    domain = "gitlab.gnome.org";
+    owner = "GNOME";
+    repo = pname;
+    rev = "de44e42509d85c0ce94492441b5aa70a90d186fb";
+    sha256 = "1n044w9793m95nml3va1dnwg23y82lwga4mz2g9i8b4jr64ijqpw";
+  };
 
   patches = [
     (substituteAll {
@@ -32,7 +32,11 @@ in stdenv.mkDerivation {
   buildInputs = [ openconnect networkmanager ]
     ++ stdenv.lib.optionals withGnome [ gtk3 gcr libsecret ];
 
-  nativeBuildInputs = [ intltool pkgconfig file ];
+  nativeBuildInputs = [ intltool pkgconfig file autoreconfHook ];
+
+  autoreconfPhase = ''
+    ./autogen.sh
+  '';
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

@@ -34,19 +34,19 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.1";
+  version = "unstable-2019-09-30";
 
   #version = "2019-09-06";
-  #src = fetchFromGitHub {
-  #  owner = pname;
-  #  repo = pname;
-  #  rev = "ccda6790f5447da007cd2fe56dcdcece5f3b6690";
-  #  sha256 = "1kfnl76wqw5f2g476arzgifgxk57sjn468qg6x9vh885rxn3fdjg";
-  #};
-  src = fetchurl {
-    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "183s3y4cqiw3mnx0ln80fizqfsnbsb7ynsm8gayi5zp1l9rngjvg";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "34c366aab26d05bb968c088938a979eb599e9138";
+    sha256 = "0ymfi3vdn0lyaksk9k9ppm8abr0myr17paags7g75dnp3k3kfy0y";
   };
+  #src = fetchurl {
+  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+  #  sha256 = "07l9cprnd9zkv2pjwaprihr8fczjk85lsrs9nq6qdc5n81hjp99k";
+  #};
 
   outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
