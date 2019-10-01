@@ -3976,7 +3976,9 @@ in
 
   idle3tools = callPackage ../tools/system/idle3tools { };
 
-  iftop = callPackage ../tools/networking/iftop { };
+  iftop-color = callPackage ../tools/networking/iftop { };
+  iftop-nocolor = callPackage ../tools/networking/iftop { enableColors = false; };
+  iftop = iftop-color;
 
   ifuse = callPackage ../tools/filesystems/ifuse { };
   ideviceinstaller = callPackage ../tools/misc/ideviceinstaller { };
