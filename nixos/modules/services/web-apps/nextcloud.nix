@@ -512,12 +512,13 @@ in {
               "~ \\.(?:css|js|woff2?|svg|gif)$".extraConfig = ''
                 try_files $uri /index.php$request_uri;
                 add_header Cache-Control "public, max-age=15778463";
-                add_header X-Content-Type-Options nosniff;
-                add_header X-XSS-Protection "1; mode=block";
-                add_header X-Robots-Tag none;
-                add_header X-Download-Options noopen;
-                add_header X-Permitted-Cross-Domain-Policies none;
-                add_header Referrer-Policy no-referrer;
+                add_header Referrer-Policy "no-referrer" always;
+                add_header X-Content-Type-Options "nosniff" always;
+                add_header X-Download-Options "noopen" always;
+                add_header X-Frame-Options "SAMEORIGIN" always;
+                add_header X-Permitted-Cross-Domain-Policies "none" always;
+                add_header X-Robots-Tag "none" always;
+                add_header X-XSS-Protection "1; mode=block" always;
                 access_log off;
               '';
               "~ \\.(?:png|html|ttf|ico|jpg|jpeg)$".extraConfig = ''
@@ -526,12 +527,13 @@ in {
               '';
             };
             extraConfig = ''
-              add_header X-Content-Type-Options nosniff;
-              add_header X-XSS-Protection "1; mode=block";
-              add_header X-Robots-Tag none;
-              add_header X-Download-Options noopen;
-              add_header X-Permitted-Cross-Domain-Policies none;
-              add_header Referrer-Policy no-referrer;
+              add_header Referrer-Policy "no-referrer" always;
+              add_header X-Content-Type-Options "nosniff" always;
+              add_header X-Download-Options "noopen" always;
+              add_header X-Frame-Options "SAMEORIGIN" always;
+              add_header X-Permitted-Cross-Domain-Policies "none" always;
+              add_header X-Robots-Tag "none" always;
+              add_header X-XSS-Protection "1; mode=block" always;
               error_page 403 /core/templates/403.php;
               error_page 404 /core/templates/404.php;
               client_max_body_size ${cfg.maxUploadSize};

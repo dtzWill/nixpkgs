@@ -150,8 +150,8 @@ stdenv.mkDerivation {
         lib.optionalString libGLSupported
           ''
             sed -i mkspecs/common/linux.conf \
-                -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
-                -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
+                -e "/^QMAKE_INCDIR_\(OPEN\|E\)GL\>/ s|$|${libGL.dev or libGL}/include|" \
+                -e "/^QMAKE_LIBDIR_\(OPEN\|E\)GL\>/ s|$|${libGL.out}/lib|"
           '' +
         lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU)
           ''
@@ -234,7 +234,7 @@ stdenv.mkDerivation {
 
       "-release"
       "-shared"
-      "-accessibility"
+      "-accessibility" # TODO: needs at-spi (and dbus)
       "-optimized-qmake"
       "-strip"
       "-system-proxies"
@@ -243,6 +243,7 @@ stdenv.mkDerivation {
       "-gui"
       "-widgets"
       "-opengl desktop"
+
       "-icu"
       "-L" "${icu.out}/lib"
       "-I" "${icu.dev}/include"
@@ -331,8 +332,10 @@ stdenv.mkDerivation {
 
           "-libinput"
 
-          "-no-eglfs"
-          "-no-gbm"
+          "-egl"
+          "-eglfs"
+          "-gbm"
+          "-kms"
 
           ''-${lib.optionalString (cups == null) "no-"}cups''
           "-dbus-linked"
