@@ -28,7 +28,7 @@ top-level attribute to `top-level/all-packages.nix`.
 
 with stdenv.lib;
 
-assert stdenv.cc.isClang;
+# assert stdenv.cc.isClang;
 let
 
   qtCompatVersion = srcs.qtbase.version;

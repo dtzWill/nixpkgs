@@ -13372,7 +13372,8 @@ in
     (import ../development/libraries/qt-5/5.12) {
       inherit newScope;
       inherit fetchurl fetchFromGitHub makeSetupHook makeWrapper;
-      stdenv = clangStdenv;
+      #stdenv = clangStdenv;
+      stdenv = gcc9Stdenv;
       # bison = bison2; # error: too few arguments to function 'int yylex(...
       inherit bison;
       inherit cups;
@@ -14235,8 +14236,8 @@ in
   webkitgtk = callPackage ../development/libraries/webkitgtk {
     harfbuzz = harfbuzzFull;
     inherit (gst_all_1) gst-plugins-base gst-plugins-bad;
-    #stdenv = gcc9Stdenv; # must be 7.3 or newer, or clang
-    stdenv = clangStdenv;
+    stdenv = gcc9Stdenv; # must be 7.3 or newer, or clang
+    # stdenv = clangStdenv;
   };
 
   webkitgtk24x-gtk3 = callPackage ../development/libraries/webkitgtk/2.4.nix {
