@@ -234,7 +234,7 @@ stdenv.mkDerivation {
 
       "-release"
       "-shared"
-      "-accessibility"
+      "-accessibility" # TODO: needs at-spi (and dbus)
       "-optimized-qmake"
       "-strip"
       "-system-proxies"
@@ -243,6 +243,7 @@ stdenv.mkDerivation {
       "-gui"
       "-widgets"
       "-opengl desktop"
+
       "-icu"
       "-L" "${icu.out}/lib"
       "-I" "${icu.dev}/include"
@@ -331,8 +332,10 @@ stdenv.mkDerivation {
 
           "-libinput"
 
-          "-no-eglfs"
-          "-no-gbm"
+          "-egl"
+          "-eglfs"
+          "-gbm"
+          "-kms"
 
           ''-${lib.optionalString (cups == null) "no-"}cups''
           "-dbus-linked"
