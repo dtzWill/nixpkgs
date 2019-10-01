@@ -340,6 +340,7 @@ stdenv.mkDerivation {
           "-system-libjpeg"
           "-system-libpng"
         ]
+        ++ lib.optional (stdenv.isLinux && stdenv.cc.isClang) "-platform linux-clang"
         ++ lib.optional withGtk3 "-gtk"
         ++ lib.optional (compareVersion "5.9.0" >= 0) "-inotify"
         ++ lib.optionals (compareVersion "5.10.0" >= 0) [
