@@ -34,7 +34,7 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.1";
+  version = "1.3.2";
 
   #version = "2019-09-06";
   #src = fetchFromGitHub {
@@ -45,7 +45,7 @@ in stdenv.mkDerivation rec {
   #};
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "183s3y4cqiw3mnx0ln80fizqfsnbsb7ynsm8gayi5zp1l9rngjvg";
+    sha256 = "07l9cprnd9zkv2pjwaprihr8fczjk85lsrs9nq6qdc5n81hjp99k";
   };
 
   outputs = [ "out" "lib" "dev" "man" "installedTests" ];
