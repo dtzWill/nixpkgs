@@ -1,4 +1,4 @@
-{ fetchFromGitHub, lib, buildPythonPackage, isPy3k, fonttools, numpy, pillow, scour }:
+{ fetchFromGitHub, fetchpatch, lib, buildPythonPackage, fonttools, numpy, pillow, scour }:
 
 buildPythonPackage rec {
   version = "unstable-2019-03-20";
@@ -10,6 +10,14 @@ buildPythonPackage rec {
     rev = "9c4375f07c9adc00c700c5d252df6a25d7425870";
     sha256 = "0z9i23vl6xar4kvbqbc8nznq3s690mqc5zfv280l1c02l5n41smc";
   };
+
+  patches = [
+    # XXX: This is WIP and may eat your fonts or even change hash as it evolves
+    (fetchpatch {
+      url = "https://github.com/googlefonts/nototools/pull/488.patch";
+      sha256 = "0h5956vzsbdzg2glvxpx4f5njkrgpd4sa3h6x96x1mp8433krn0h";
+    })
+  ];
 
   propagatedBuildInputs = [
     fonttools numpy
@@ -24,8 +32,6 @@ buildPythonPackage rec {
     # scour==0.37
     scour
   ];
-
-  disabled = isPy3k;
 
   meta = {
     description = "Noto fonts support tools and scripts plus web site generation";
