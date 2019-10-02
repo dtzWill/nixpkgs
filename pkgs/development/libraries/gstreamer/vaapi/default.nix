@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-vaapi";
-  version = "1.16.0";
+  version = "1.16.1";
 
   src = fetchurl {
     url = "${meta.homepage}/src/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "07qpynamiz0lniqajcaijh3n7ixs4lfk9a5mfk50sng0dricwzsf";
+    sha256 = "error: cannot download gst-vaapi-1.16.1.tar.xz from any mirror";
   };
 
   outputs = [ "out" "dev" ];
