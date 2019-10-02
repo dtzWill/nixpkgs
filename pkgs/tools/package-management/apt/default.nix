@@ -15,8 +15,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "apt-${version}";
-
+  pname = "apt";
   version = "1.8.1";
 
   src = fetchzip {
@@ -35,20 +34,18 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  preConfigure = ''
-    cmakeFlagsArray+=(
-      -DBERKELEY_DB_INCLUDE_DIRS=${db.dev}/include
-      -DDOCBOOK_XSL="${docbook_xsl}"/share/xml/docbook-xsl
-      -DROOT_GROUP=root
-      -DWITH_DOC=${if withDocs then "ON" else "OFF"}
-      -DUSE_NLS=${if withNLS then "ON" else "OFF"}
-    )
-  '';
+  cmakeFlags = [
+    "-DBERKELEY_DB_INCLUDE_DIRS=${db.dev}/include"
+    "-DDOCBOOK_XSL=${docbook_xsl}/share/xml/docbook-xsl"
+    "-DROOT_GROUP=root"
+    "-DWITH_DOC=${if withDocs then "ON" else "OFF"}"
+    "-DUSE_NLS=${if withNLS then "ON" else "OFF"}"
+  ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "";
+    description = "Command-line package manager used on Debian-based systems";
     homepage = https://launchpad.net/ubuntu/+source/apt;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
