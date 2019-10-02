@@ -1,17 +1,17 @@
 { stdenv, rustPlatform, fetchFromGitHub, pkgconfig }:
 
 rustPlatform.buildRustPackage rec {
-  name = "gifski-${version}";
-  version = "0.8.7";
+  pname = "gifski";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "ImageOptim";
-    repo = "gifski";
+    repo = pname;
     rev = version;
-    sha256 = "0x41gyc5jk45jlx0hcq80j5gj1f66lcmbclqyx70l43ggslsi26f";
+    sha256 = "0dl5725imb2a2s0fskdqlnh2207ryyi2v5gz37cr5mf6khz898p2";
   };
 
-  cargoSha256 = "1pik6jcxg3amb5widpxn8j9szghbrhl0wsxjisizas3033xzrhcf";
+  cargoSha256 = "0m343qyw8i853i329i4d9bvsqay32yliwqyvfc638vjbi2jyk5lv";
 
   nativeBuildInputs = [ pkgconfig ];
 
