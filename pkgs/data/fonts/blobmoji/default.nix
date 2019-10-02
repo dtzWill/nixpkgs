@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, cairo, pngquant, zopfli
-, which, python3Packages, pkgconfig, imagemagick }: stdenv.mkDerivation rec {
+, which, pythonPackages, pkgconfig, imagemagick }: stdenv.mkDerivation rec {
   pname = "blobmoji";
   version = "2019-06-14-Emoji-12";
 
@@ -12,7 +12,7 @@
 
   buildInputs = [ cairo ];
   nativeBuildInputs = [ cairo pngquant zopfli which pkgconfig imagemagick ]
-                      ++ (with python3Packages; [ python fonttools nototools ]);
+                      ++ (with pythonPackages; [ python fonttools nototools ]);
   enableParallelBuilding = true;
 
   postPatch = ''
