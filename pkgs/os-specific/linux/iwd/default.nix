@@ -52,7 +52,6 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  enableParallelTesting = false;
 
   postInstall = ''
     cp -a test/* $out/bin/
