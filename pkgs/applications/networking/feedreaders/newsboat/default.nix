@@ -3,13 +3,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "newsboat";
-  version = "2.17";
+  version = "2.17.1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "refs/tags/r${version}";
-    sha256 = "0slibycy4pfsnk7wyvi7rnfch7xqfyh8sjbw1x9qcmx65f3xgdd6";
+    sha256 = "1xdy45rc3zzmf59zzszq9wpks6pvc0flmmwak39ww7laj2vgb4a7";
   };
 
   cargoSha256 = "0db4j6y43gacazrvcmq823fzl5pdfdlg8mkjpysrw6h9fxisq83f";
