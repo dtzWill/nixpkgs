@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-plugins-ugly";
-  version = "1.16.1";
+  version = "1.16.0";
 
   meta = with lib; {
     description = "Gstreamer Ugly Plugins";

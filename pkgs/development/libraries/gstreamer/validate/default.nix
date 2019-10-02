@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-validate";
-  version = "1.16.1";
+  version = "1.16.0";
 
   meta = {
     description = "Integration testing infrastructure for the GStreamer framework";

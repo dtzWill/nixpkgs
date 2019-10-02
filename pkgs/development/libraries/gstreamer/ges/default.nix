@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gstreamer-editing-services";
-  version = "1.16.1";
+  version = "1.16.0";
 
   meta = with stdenv.lib; {
     description = "Library for creation of audio/video non-linear editors";
