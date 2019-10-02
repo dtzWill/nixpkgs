@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-rtsp-server";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = with stdenv.lib; {
     description = "Gstreamer RTSP server";

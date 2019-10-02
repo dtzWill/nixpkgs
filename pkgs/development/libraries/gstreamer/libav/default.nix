@@ -10,7 +10,7 @@ assert withSystemLibav -> libav != null;
 
 stdenv.mkDerivation rec {
   pname = "gst-libav";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = {
     homepage = https://gstreamer.freedesktop.org;

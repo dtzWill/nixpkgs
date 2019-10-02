@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-plugins-base";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = with lib; {
     description = "Base plugins and helper libraries";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     # See for example
     #     https://gitlab.gnome.org/GNOME/gnome-build-meta/issues/38
     # for it failing because some Wayland symbols are missing.
-    # This problem appeared between 1.15.1 and 1.16.0.
+    # This problem appeared between 1.15.1 and 1.16.1.
     "-Dgtk_doc=disabled"
   ]
   ++ lib.optional (!enableX11) "-Dx11=disabled"

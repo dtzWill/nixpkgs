@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gstreamer";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = with lib ;{
     description = "Open source multimedia framework";

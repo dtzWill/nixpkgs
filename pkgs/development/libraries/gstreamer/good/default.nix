@@ -26,7 +26,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gst-plugins-good";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = with stdenv.lib; {
     description = "Gstreamer Good Plugins";

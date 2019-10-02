@@ -52,7 +52,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gst-plugins-bad";
-  version = "1.16.0";
+  version = "1.16.1";
 
   meta = with stdenv.lib; {
     description = "Gstreamer Bad Plugins";

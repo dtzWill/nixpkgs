@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gst-vaapi";
-  version = "1.16.0";
+  version = "1.16.1";
 
   src = fetchurl {
     url = "${meta.homepage}/src/${pname}/${pname}-${version}.tar.xz";
