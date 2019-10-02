@@ -63,6 +63,7 @@ direnv/direnv.vim
 dleonard0/pony-vim-syntax
 dracula/vim
 drmingdrmer/xptemplate
+dtzWill/ayu-vim
 dylanaraps/wal.vim
 eagletmt/ghcmod-vim
 eagletmt/neco-ghc
@@ -118,6 +119,7 @@ itchyny/thumbnail.vim
 itchyny/vim-cursorword
 itchyny/vim-gitbranch
 ivanov/vim-ipython
+jackguo380/vim-lsp-cxx-highlight
 jacoborus/tender.vim
 jamessan/vim-gnupg
 janko-m/vim-test
@@ -191,6 +193,7 @@ lukaszkorecki/workflowish
 lumiliet/vim-twig
 luochen1990/rainbow
 lyokha/vim-xkbswitch
+m-pilia/vim-ccls
 machakann/vim-highlightedyank
 majutsushi/tagbar
 maksimr/vim-jsbeautify
