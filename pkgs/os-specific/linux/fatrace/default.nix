@@ -14,9 +14,6 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace power-usage-report \
       --replace "'which'" "'${which}/bin/which'"
-
-    # Avoid a glibc >= 2.25 deprecation warning that gets fatal via -Werror.
-    sed 1i'#include <sys/sysmacros.h>' -i fatrace.c
   '';
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
