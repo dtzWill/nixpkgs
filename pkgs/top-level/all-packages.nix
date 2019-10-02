@@ -3223,6 +3223,7 @@ in
 
   fontforge = lowPrio (callPackage ../tools/misc/fontforge {
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa;
+    python = python3;
   });
   fontforge-gtk = fontforge.override {
     withSpiro = true;
@@ -6126,7 +6127,7 @@ in
     qtbase = qt4;
   };
 
-  scfbuild = python2.pkgs.callPackage ../tools/misc/scfbuild { };
+  scfbuild = python3.pkgs.callPackage ../tools/misc/scfbuild { };
 
   scriptaculous = callPackage ../development/libraries/scriptaculous { };
 
