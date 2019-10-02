@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0z3hb1ha0yvi09hrndrzzh95g3m42pfsi0gzw7hfx9r0n8r2qgkd";
   };
 
-  sourceRoot = name;
+  sourceRoot = "${pname}-${version}";
 
   nativeBuildInputs = [ makeWrapper ];
 
