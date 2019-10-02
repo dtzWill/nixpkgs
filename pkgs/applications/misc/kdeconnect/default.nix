@@ -20,9 +20,6 @@
 
 , kirigami2
 , kpeople
-# missing:
-# , kpeoplevcard # https://github.com/KDE/kpeoplevcard maybe? Looks new! :)
-# , kpulseaudioqt
 , krunner
 , qtmultimedia
 , kconfig
@@ -32,6 +29,8 @@
 # vcard
 # (TODO)
 , kcontacts
+
+, pulseaudio-qt
 }:
 
 let
@@ -73,7 +72,7 @@ mkDerivation rec {
     ki18n kiconthemes kcmutils kconfigwidgets kdbusaddons knotifications
     qca-qt5 qtx11extras makeWrapper kwayland
     kirigami2 kpeople krunner qtmultimedia kconfig kio kservice
-    kpeoplevcard
+    kpeoplevcard pulseaudio-qt
   ];
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
