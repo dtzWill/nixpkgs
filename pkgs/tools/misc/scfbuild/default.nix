@@ -19,7 +19,7 @@ buildPythonApplication rec {
     })
   ];
 
-  phases = [ "unpackPhase" "patchPhase" "installPhase" "fixupPhase" ];
+  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
 
   propagatedBuildInputs = [ pyyaml fonttools fontforge ];
 
