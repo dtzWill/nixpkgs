@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   version = "1.16.1";
 
   src = fetchurl {
-    url = "${meta.homepage}/src/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "error: cannot download gst-vaapi-1.16.1.tar.xz from any mirror";
+    url = "${meta.homepage}/src/gstreamer-vaapi/gstreamer-vaapi-${version}.tar.xz";
+    sha256 = "0fk0nymvbfc04fv63fj2r6q9vvi431svhkrwpr7kdjvq3rphymyb";
   };
 
   outputs = [ "out" "dev" ];
