@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 
   patches = [
-     ./getnameinfo-and-getifaddrs.patch
+    ./getnameinfo-and-getifaddrs.patch
   ] ++ stdenv.lib.optional enableColors ./ui-colours.patch;
 
   nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
