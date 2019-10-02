@@ -74,16 +74,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix_pkgconfig_includedir.patch
-    # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/99790eaad9083cce5ab2b1646489e1a1c0faad1e.patch";
-      sha256 = "11bqy4sl05qq5mj4bx5s09rq106s3j0vnpjl4np058im32j69lr3";
-    })
-    # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/1872da81c48d3a719bd39955fd97deac7d037d74.patch";
-      sha256 = "11zwrr5ggflmvr0qfssj7dmhgd3ybiadmy79b4zh24022zgw3xpz";
-    })
   ];
 
   src = fetchurl {
