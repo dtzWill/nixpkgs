@@ -17,6 +17,16 @@
 , sshfs
 , makeWrapper
 , kwayland
+
+, kirigami2
+, kpeople
+# missing:
+# , kpeoplevcard
+, krunner
+, qtmultimedia
+, kconfig
+, kio
+, kservice
 }:
 
 mkDerivation rec {
@@ -39,9 +49,15 @@ mkDerivation rec {
     libfakekey libXtst
     ki18n kiconthemes kcmutils kconfigwidgets kdbusaddons knotifications
     qca-qt5 qtx11extras makeWrapper kwayland
+    kirigami2 kpeople krunner qtmultimedia kconfig kio kservice
   ];
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+
+  postPatch = ''
+    substituteInPlace plugins/runcommand/CMakeLists.txt \
+      --replace 'KF5::I18n' 'KF5::I18n KF5::KCMUtils'
+  '';
 
   postInstall = ''
     wrapProgram $out/libexec/kdeconnectd --prefix PATH : ${lib.makeBinPath [ sshfs ]}
