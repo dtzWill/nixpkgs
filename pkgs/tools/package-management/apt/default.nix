@@ -16,11 +16,11 @@
 
 stdenv.mkDerivation rec {
   pname = "apt";
-  version = "1.8.1";
+  version = "1.8.4";
 
   src = fetchzip {
     url = "https://launchpad.net/ubuntu/+archive/primary/+files/apt_${version}.tar.xz";
-    sha256 = "1aldd7mmdf98lfglqgajdym1mxik6pqgshj4azi1hwsk4mhs2r2r";
+    sha256 = "15hjsa6vf4skd3kmbgwsibr58i0qh1ywqfr9852f04jz1ri9maby";
   };
 
   nativeBuildInputs = [ pkgconfig ];
