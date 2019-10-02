@@ -8036,6 +8036,8 @@ in
 
   idris = idrisPackages.with-packages [ idrisPackages.base ] ;
 
+  intel-graphics-compiler = callPackage ../development/compilers/intel-graphics-compiler { };
+
   intercal = callPackage ../development/compilers/intercal { };
 
   irony-server = callPackage ../development/tools/irony-server {
@@ -8552,6 +8554,8 @@ in
   solc = callPackage ../development/compilers/solc { };
 
   souffle = callPackage ../development/compilers/souffle { };
+
+  spirv-llvm-translator = callPackage ../development/compilers/spirv-llvm-translator { };
 
   sqldeveloper = callPackage ../development/tools/database/sqldeveloper { };
 
@@ -12793,6 +12797,8 @@ in
 
   lzo = callPackage ../development/libraries/lzo { };
 
+  opencl-clang = callPackage ../development/libraries/opencl-clang { };
+
   mapnik = callPackage ../development/libraries/mapnik { };
 
   marisa = callPackage ../development/libraries/marisa {};
@@ -15792,6 +15798,8 @@ in
   };
 
   intel2200BGFirmware = callPackage ../os-specific/linux/firmware/intel2200BGFirmware { };
+
+  intel-compute-runtime = callPackage ../os-specific/linux/intel-compute-runtime { };
 
   intel-ocl = callPackage ../os-specific/linux/intel-ocl { };
 
