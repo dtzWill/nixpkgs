@@ -21,14 +21,37 @@
 , kirigami2
 , kpeople
 # missing:
-# , kpeoplevcard
+# , kpeoplevcard # https://github.com/KDE/kpeoplevcard maybe? Looks new! :)
+# , kpulseaudioqt
 , krunner
 , qtmultimedia
 , kconfig
 , kio
 , kservice
+
+# vcard
+# (TODO)
+, kcontacts
 }:
 
+let
+  kpeoplevcard = mkDerivation rec {
+    pname = "kpeoplevcard";
+    version = "unstable-2019-09-17";
+
+    src = fetchFromGitHub {
+      owner = "KDE";
+      repo = pname;
+      rev = "d91281414eb1bb45212a707af8805995cdbfd41f";
+      sha256 = "1qrszxlcgz85cnasg1z9pggn8r6mhhkr03sz0r2qyiqqd23b86hv";
+    };
+
+    buildInputs = kpeople.buildInputs # O:)
+    ++ [ kpeople kcontacts ];
+
+    nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  };
+in
 mkDerivation rec {
   pname = "kdeconnect";
   #version = "1.3.5";
@@ -50,6 +73,7 @@ mkDerivation rec {
     ki18n kiconthemes kcmutils kconfigwidgets kdbusaddons knotifications
     qca-qt5 qtx11extras makeWrapper kwayland
     kirigami2 kpeople krunner qtmultimedia kconfig kio kservice
+    kpeoplevcard
   ];
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
