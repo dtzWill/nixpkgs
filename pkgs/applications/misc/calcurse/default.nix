@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "lfos";
     repo = pname;
     rev = "657172f687d06f23860468a3246e6548eb9d49a1";
-    sha256 = "";
+    sha256 = "17l5m13p8215fc23z7wwamsmr7mv5smdz9bsi3x2li2s5plxxp9b";
   };
   #src = fetchurl {
   #  #url = "https://calcurse.org/files/${pname}-${version}.tar.gz";
