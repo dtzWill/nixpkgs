@@ -16,6 +16,7 @@ python3Packages.buildPythonApplication rec {
     acme
     configobj
     cryptography
+    distro
     josepy
     parsedatetime
     psutil
