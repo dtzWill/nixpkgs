@@ -16,13 +16,10 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest pytest-flake8 ];
 
-  propagatedBuildInputs = [ entrypoints ] ++ stdenv.lib.optional stdenv.isLinux secretstorage;
+  propagatedBuildInputs = [ dbus-python entrypoints ] ++ stdenv.lib.optional stdenv.isLinux secretstorage;
 
-  doCheck = !stdenv.isDarwin;
-
-  checkPhase = ''
-    py.test
-  '';
+  # checks try to access a darwin path on linux
+  doCheck = false;
 
   meta = with stdenv.lib; {
     description = "Store and access your passwords safely";
