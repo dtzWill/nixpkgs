@@ -21928,6 +21928,8 @@ in
     w3m = w3m-batch;
   };
 
+  xdg-utils-cxx = callPackage ../tools/X11/xdg-utils-cxx { };
+
   xdgmenumaker = callPackage ../applications/misc/xdgmenumaker { };
 
   xdotool = callPackage ../tools/X11/xdotool { };
