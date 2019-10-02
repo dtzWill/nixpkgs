@@ -1,4 +1,5 @@
 { stdenv, pkgs, buildBazelPackage, lib, fetchFromGitHub, fetchpatch, symlinkJoin
+, addOpenGLRunpath
 # Python deps
 , buildPythonPackage, isPy3k, pythonOlder, pythonAtLeast, python
 # Python libraries
@@ -96,8 +97,8 @@ let
     # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
 
     nativeBuildInputs = [
-      swig which cython
-    ];
+      swig which pythonEnv
+    ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
     buildInputs = [
       python
@@ -298,6 +299,12 @@ let
         bazel-bin/tensorflow/tools/pip_package/build_pip_package --src "$PWD/dist"
         cp -Lr "$PWD/dist" "$python"
       '';
+
+      postFixup = lib.optionalString cudaSupport ''
+        find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
+          addOpenGLRunpath "$lib"
+        done
+      '';
     };
 
     meta = with stdenv.lib; {
@@ -354,6 +361,14 @@ in buildPythonPackage rec {
   ] ++ lib.optionals withTensorboard [
     tensorflow-tensorboard
   ];
+
+  nativeBuildInputs = lib.optional cudaSupport addOpenGLRunpath;
+
+  postFixup = lib.optionalString cudaSupport ''
+    find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
+      addOpenGLRunpath "$lib"
+    done
+  '';
 
   # Actual tests are slow and impure.
   # TODO try to run them anyway
