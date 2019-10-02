@@ -2,8 +2,8 @@
 , git, ninja, python2 }:
 
 let
-  rev = "64b846c96daeb3eaf08e26d8a84d8451c6cb712b";
-  sha256 = "1v2kzsshhxn0ck6gd5w16gi2m3higwd9vkyylmsczxfxnw8skgpy";
+  rev = "bbc9dd04ea881b4bc0c36a1ff4ccc65111bab250";
+  sha256 = "01j7bhnax0jrk1by35n181xb5vpmq2bz5zh1r1n5yhz8lwy2zwsl";
 
   shortRev = builtins.substring 0 7 rev;
   lastCommitPosition = writeText "last_commit_position.h" ''
@@ -16,9 +16,9 @@ let
   '';
 
 in
-stdenv.mkDerivation rec {
-  name = "gn-${version}";
-  version = "20190403";
+stdenv.mkDerivation {
+  pname = "gn";
+  version = "20190925";
 
   src = fetchgit {
     url = "https://gn.googlesource.com/gn";
