@@ -52,6 +52,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-crypto-copy-size.patch ];
 
+  postPatch = ''
+    # Disable test-eapol, requires loading 'pkcs8_key_parser' kernel module (on builder)
+    sed -i Makefile.am -e 's,\<unit/test-eapol\>,,'
+    # Tweak variable names to quiet warnings about nothing having the canonical name we just removed
+    sed -i Makefile.am -e 's,^unit_test_eapol_[A-Z]\+\>,&_disabled,'
+  '';
+
   doCheck = true;
 
   postInstall = ''
