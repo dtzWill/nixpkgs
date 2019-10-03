@@ -44,14 +44,7 @@ stdenv.mkDerivation rec {
     "--enable-wired"
     "--enable-external-ell"
     "--enable-ofono"
-
-    "--enable-debug"
-    "--disable-optimization"
-    "--enable-asan"
-    "--enable-ubsan"
   ];
-
-  dontStrip = true;
 
   postUnpack = ''
     patchShebangs .
