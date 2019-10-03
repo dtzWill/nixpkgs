@@ -1,12 +1,15 @@
-{ mkDerivationWith, lib, zlib, fetchFromGitHub
+{ lib, zlib, fetchFromGitHub
 , python3Packages
 , qtsvg
+, wrapQtAppsHook
 , pandoc
  }:
 
-mkDerivationWith python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "manuskript";
   version = "0.10.0";
+
+  format = "other";
 
   src = fetchFromGitHub {
     repo = pname;
@@ -14,6 +17,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     rev = version;
     sha256 = "0q413vym7hzjpyg3krj5y63hwpncdifjkyswqmr76zg5yqnklnh3";
   };
+
+  nativeBuildInputs = [ wrapQtAppsHook ];
 
   propagatedBuildInputs =
     (with python3Packages; [
@@ -27,8 +32,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
       pandoc
     ];
 
-  dontWrapQtApps = true;
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  ## dontWrapQtApps = true;
+  ## makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
 
   patchPhase = ''
     substituteInPlace manuskript/ui/welcome.py \
@@ -41,6 +46,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     mkdir -p $out/share/${pname}
     cp -av  bin/ i18n/ libs/ manuskript/ resources/ icons/ $out
     cp -r sample-projects/ $out/share/${pname}
+  '';
+
+  postFixup = ''
+    wrapQtApp $out/bin/manuskript
   '';
 
   doCheck = false;
