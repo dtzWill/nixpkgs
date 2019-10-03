@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub
 , bison, flex
-, libedit, libevent, libressl, zlib
-, libcurses
+, libedit, libevent, libressl, ncurses, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +15,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ bison flex ];
-  buildInputs = [ libedit libevent libressl libcurses zlib ];
+  buildInputs = [ libedit libevent libressl ncurses zlib ];
+
+  postPatch = ''
+    for x in bc ftp telnet ul; do
+      substituteInPlace usr.bin/$x/Makefile \
+        --replace lcurses lncurses
+    done
+
+    find . -name Makefile -type f -print0 | xargs -0r sed -i -e 's,-o ''${[A-Z]\+OWN},,g' -e 's,-g ''${[A-Z]\+GRP},,g'
+  '';
 
   enableParallelBuilding = true;
 }

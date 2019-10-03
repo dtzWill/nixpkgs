@@ -3192,7 +3192,7 @@ in
 
   libbladeRF = callPackage ../development/libraries/libbladeRF { };
 
-  lobase = callPackage ../tools/misc/lobase { inherit (netbsd) libcurses; };
+  lobase = callPackage ../tools/misc/lobase { };
 
   lp_solve = callPackage ../applications/science/math/lp_solve { };
 
