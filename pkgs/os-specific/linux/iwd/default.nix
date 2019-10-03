@@ -46,12 +46,11 @@ stdenv.mkDerivation rec {
     "--enable-ofono"
 
     "--enable-debug"
-    "--disable-optimization"
     "--enable-asan"
     "--enable-ubsan"
   ];
 
-  dontStrip = true;
+  separateDebugInfo = true;
 
   postUnpack = ''
     patchShebangs .
