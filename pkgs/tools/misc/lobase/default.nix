@@ -26,7 +26,12 @@ stdenv.mkDerivation rec {
     find . -name Makefile -type f -print0 | xargs -0r \
       sed -i \
         -e 's,-o $[{(][A-Z]\+OWN[)}],,g' \
-        -e 's,-g $[{(][A-Z]\+GRP[)}],,g'
+        -e 's,-g $[{(][A-Z]\+GRP[)}],,g' \
+        \
+        -e 's,/usr/,/,g'
+
+    substituteInPlace usr.bin/file/Makefile \
+      --replace /usr/libdata $out
   '';
 
   enableParallelBuilding = true;
