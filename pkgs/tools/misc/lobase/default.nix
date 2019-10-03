@@ -32,6 +32,8 @@ stdenv.mkDerivation rec {
         -e 's,-g $[{(][A-Z]\+GRP[)}],,g' \
         \
         -e 's,/usr/,/,g'
+
+    sed -i -e 's,SKIPDIR=.*,\0 spell,' usr.bin/Makefile
   '';
 
   enableParallelBuilding = true;
