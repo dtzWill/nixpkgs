@@ -2,14 +2,15 @@
 
 with stdenv.lib;
 
-stdenv.mkDerivation {
-  name = "polkit-qt-1-qt5-0.112.0";
+stdenv.mkDerivation rec {
+  pname = "polkit-qt-1";
+  version = "0.113.0";
 
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://kde/stable/apps/KDE4.x/admin/polkit-qt-1-0.112.0.tar.bz2";
-    sha256 = "1ip78x20hjqvm08kxhp6gb8hf6k5n6sxyx6kk2yvvq53djzh7yv7";
+    url = "mirror://kde/stable/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "19v3ap742l1gn28llbnzm0l5a6rjs25gxqjnc6vgy47gahlnm1jv";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
