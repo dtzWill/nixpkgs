@@ -17,6 +17,9 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     zlib
   ];
 
+  dontWrapQtApps = true;
+  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+
   patchPhase = ''
     substituteInPlace manuskript/ui/welcome.py \
       --replace sample-projects $out/share/${pname}/sample-projects
