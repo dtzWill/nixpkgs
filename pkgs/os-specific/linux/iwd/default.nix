@@ -57,7 +57,10 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  patches = [ ./fix-crypto-copy-size.patch ];
+  patches = [
+    ./fix-crypto-copy-size.patch
+    ./dont-crash-by-default-please.patch
+  ];
 
   postPatch = ''
     # Disable test-eapol, requires loading 'pkcs8_key_parser' kernel module (on builder)
