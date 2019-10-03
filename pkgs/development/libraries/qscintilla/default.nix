@@ -4,19 +4,25 @@
 , fixDarwinDylibNames
 }:
 
-# Fix Xcode 8 compilation problem
-let xcodePatch =
-  fetchurl { url = "https://raw.githubusercontent.com/Homebrew/formula-patches/a651d71/qscintilla2/xcode-8.patch";
-             sha256 = "1a88309fdfd421f4458550b710a562c622d72d6e6fdd697107e4a43161d69bc9"; };
-in
-stdenv.mkDerivation rec {
-  pname = "qscintilla-${if withQt5 then "qt5" else "qt4"}";
+let
+  # Fix Xcode 8 compilation problem
+  xcodePatch = fetchurl {
+    url = "https://raw.githubusercontent.com/Homebrew/formula-patches/a651d71/qscintilla2/xcode-8.patch";
+    sha256 = "1a88309fdfd421f4458550b710a562c622d72d6e6fdd697107e4a43161d69bc9";
+  };
+
+  pname = "qscintilla-qt${if withQt5 then "5" else "4"}";
   version = "2.11.2";
+
+in stdenv.mkDerivation rec {
+  inherit pname version;
 
   src = fetchurl {
     url = "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla_gpl-${version}.tar.gz";
     sha256 = "18glb2v07mwfz6p8qmwhzcaaczyc36x3gn9wx8ndm7q6d93xr6q2";
   };
+
+  sourceRoot = "QScintilla_gpl-${version}/Qt4Qt5";
 
   buildInputs = [ (if withQt5 then qtbase else qt4) ];
 
@@ -25,7 +31,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ]
     ++ (if withQt5 then [ qmake ] else [ qmake4Hook ])
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
-
 
   patches = lib.optional (stdenv.isDarwin && withQt5) [ xcodePatch ];
 
@@ -63,9 +68,10 @@ stdenv.mkDerivation rec {
       proportional fonts, bold and italics, multiple foreground and
       background colours and multiple fonts.
     '';
-    homepage = http://www.riverbankcomputing.com/software/qscintilla/intro;
+    homepage = https://www.riverbankcomputing.com/software/qscintilla/intro;
     license = with licenses; [ gpl2 gpl3 ]; # and commercial
-    platforms = platforms.unix;
     maintainers = with maintainers; [ peterhoeg ];
+    platforms = platforms.unix;
+    broken = !withQt5;
   };
 }
