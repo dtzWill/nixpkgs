@@ -3279,7 +3279,7 @@ in
 
   libbladeRF = callPackage ../development/libraries/libbladeRF { };
 
-  lobase = callPackage ../tools/misc/lobase { };
+  lobase = callPackage ../tools/misc/lobase { ssl = openssl; };
 
   lp_solve = callPackage ../applications/science/math/lp_solve { };
 
