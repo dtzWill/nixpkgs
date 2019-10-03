@@ -6757,6 +6757,8 @@ in
 
   ua = callPackage ../tools/networking/ua { };
 
+  ubase = callPackage ../tools/misc/ubase { };
+
   ubridge = callPackage ../tools/networking/ubridge { };
 
   ucl = callPackage ../development/libraries/ucl { };
