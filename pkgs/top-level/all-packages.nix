@@ -3192,6 +3192,8 @@ in
 
   libbladeRF = callPackage ../development/libraries/libbladeRF { };
 
+  lobase = callPackage ../tools/misc/lobase { inherit (netbsd) libcurses; };
+
   lp_solve = callPackage ../applications/science/math/lp_solve { };
 
   lprof = callPackage ../tools/graphics/lprof { };
