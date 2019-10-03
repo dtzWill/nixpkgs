@@ -85,16 +85,16 @@ index 57899b75..9236996f 100755
 -    fi
 -}
 -
- for i in $@ bash ls cat echo readlink; do
+ for i in $@ bash ls cat echo readlink socat; do
 -    I=`which $i`
 -    add_bin $I
 -done
 -for i in `cat $BINS`; do
--    echo Adding binary $i 1>&2
+-    #echo Adding binary $i 1>&2
 -    cp "$i" ${DIR}/usr/bin/
 -done
 -for i in `cat $LIBS`; do
--    echo Adding library $i 1>&2
+-    #echo Adding library $i 1>&2
 -    cp "$i" ${DIR}/usr/lib/
 +    I=$(readlink -f $(which $i))
 +    requisites=$(nix-store --query --requisites "$I")
