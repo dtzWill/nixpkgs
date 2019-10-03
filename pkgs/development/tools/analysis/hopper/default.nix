@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname    = "hopper";
-  version = "4.5.14";
+  version = "4.5.16";
   rev = "v${lib.versions.major version}";
 
   src = fetchurl {
     url = "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux.pkg.tar.xz";
-    sha256 = "020nd5jp422fk17gacgrdapq2qmbynisbdqwxqcc4q15svhv422j";
+    sha256 = "0gjnn7f6ibfx46k4bbj8ra7k04s0mrpq7316brgzks6x5yd1m584";
   };
 
   sourceRoot = ".";
