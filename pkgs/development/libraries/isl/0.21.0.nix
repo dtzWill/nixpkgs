@@ -1,11 +1,11 @@
 { stdenv, fetchurl, gmp }:
 
 stdenv.mkDerivation rec {
-  name = "isl-0.20";
+  name = "isl-0.21";
 
   src = fetchurl {
     url = "http://isl.gforge.inria.fr/${name}.tar.xz";
-    sha256 = "1akpgq0rbqbah5517blg2zlnfvjxfcl9cjrfc75nbcx5p2gnlnd5";
+    sha256 = "0q29lpb4r5zfbvd00k2r9g6nwkr1h542j7inah4m1f9x5a2mhw3p";
   };
 
   buildInputs = [ gmp ];
