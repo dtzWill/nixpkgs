@@ -29,21 +29,22 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional (stdenv.isDarwin && withQt5) [ xcodePatch ];
 
+  # Make sure that libqscintilla2.so is available in $out/lib since it is expected
+  # by some packages such as sqlitebrowser
+  postFixup = ''
+    ln -s $out/lib/libqscintilla2_qt?.so $out/lib/libqscintilla2.so
+  '';
+
   enableParallelBuilding = true;
 
-  preConfigure = ''
-    cd Qt4Qt5
-    sed -i qscintilla.pro \
-      -e "s,\$\$\\[QT_INSTALL_LIBS\\],$out/lib," \
-      -e "s,\$\$\\[QT_INSTALL_HEADERS\\],$out/include/," \
-      -e "s,\$\$\\[QT_INSTALL_TRANSLATIONS\\],$out/translations," \
-    ${if withQt5 then ''
-      -e "s,\$\$\\[QT_HOST_DATA\\]/mkspecs,$out/mkspecs," \
-      -e "s,\$\$\\[QT_INSTALL_DATA\\]/mkspecs,$out/mkspecs," \
-      -e "s,\$\$\\[QT_INSTALL_DATA\\],$out/share,"
-    '' else ''
-      -e "s,\$\$\\[QT_INSTALL_DATA\\],$out/share/qt,"
-    ''}
+  postPatch = ''
+    substituteInPlace qscintilla.pro \
+      --replace '$$[QT_INSTALL_LIBS]'         $out/lib \
+      --replace '$$[QT_INSTALL_HEADERS]'      $out/include \
+      --replace '$$[QT_INSTALL_TRANSLATIONS]' $out/translations \
+      --replace '$$[QT_HOST_DATA]/mkspecs'    $out/mkspecs \
+      --replace '$$[QT_INSTALL_DATA]/mkspecs' $out/mkspecs \
+      --replace '$$[QT_INSTALL_DATA]'         $out/share${lib.optionalString (! withQt5) "/qt"}
   '';
 
   meta = with stdenv.lib; {
