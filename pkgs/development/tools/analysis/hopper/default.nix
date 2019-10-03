@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
+  # TODO: cleanup/modernize/simplify (and get deps as args not from pkgs)
   ldLibraryPath = with pkgs; stdenv.lib.makeLibraryPath  [
 libbsd.out libffi.out gmpxx.out python27Full.out python27Packages.libxml2 qt5.qtbase zlib  xlibs.libX11.out xorg_sys_opengl.out xlibs.libXrender.out gcc-unwrapped.lib
   ];
@@ -21,15 +22,18 @@ libbsd.out libffi.out gmpxx.out python27Full.out python27Packages.libxml2 qt5.qt
   qtWrapperArgs = [ ''--suffix LD_LIBRARY_PATH : ${ldLibraryPath}'' ];
 
   installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/lib
-    mkdir -p $out/share
+    mkdir -p $out/{bin,lib,share}
     cp $sourceRoot/opt/hopper-${rev}/bin/Hopper $out/bin/hopper
-    cp -r $sourceRoot/opt/hopper-${rev}/lib $out
-    cp -r $sourceRoot/usr/share $out/share
+    cp -r -t $out \
+      $sourceRoot/opt/hopper-${rev}/lib \
+      $sourceRoot/usr/share
+
     patchelf \
-      --set-interpreter ${stdenv.glibc}/lib/ld-linux-x86-64.so.2 \
+      --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
       $out/bin/hopper
+
+    substituteInPlace $out/share/applications/hopper-${rev}.desktop \
+      --replace /opt/hopper-${rev}/bin/Hopper $out/bin/hopper
   '';
 
   meta = {
