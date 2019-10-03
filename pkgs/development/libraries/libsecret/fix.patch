@@ -1,0 +1,55 @@
+From c4fb5f033fe6b55a97946bb251fb86618ad999ae Mon Sep 17 00:00:00 2001
+From: Xi Ruoyao <xry111@mengyan1223.wang>
+Date: Fri, 20 Sep 2019 23:32:14 +0800
+Subject: [PATCH] build: Fix FTBFS using meson without valgrind
+
+Now with meson build system libsecret FTBFS without valgrind installed.
+Two issues: (1) egg-testing.c depends on valgrind/valgrind.h unnecessarily;
+(2) we forgot to add "build" directory as a header directory for meson.
+
+This commit resolves both of them.
+---
+ egg/egg-testing.c | 2 --
+ egg/meson.build   | 2 +-
+ meson.build       | 1 +
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/egg/egg-testing.c b/egg/egg-testing.c
+index b702b04..9e7cba5 100644
+--- a/egg/egg-testing.c
++++ b/egg/egg-testing.c
+@@ -27,8 +27,6 @@
+ 
+ #include <glib-object.h>
+ 
+-#include <valgrind/valgrind.h>
+-
+ #include <glib.h>
+ #include <glib/gstdio.h>
+ 
+diff --git a/egg/meson.build b/egg/meson.build
+index 791ab82..7de614c 100644
+--- a/egg/meson.build
++++ b/egg/meson.build
+@@ -21,5 +21,5 @@ endif
+ libegg = static_library('egg',
+   libegg_sources,
+   dependencies: libegg_deps,
+-  include_directories: config_h_dir,
++  include_directories: [config_h_dir, build_dir],
+ )
+diff --git a/meson.build b/meson.build
+index b5e3814..b796495 100644
+--- a/meson.build
++++ b/meson.build
+@@ -24,6 +24,7 @@ with_gtkdoc = get_option('gtk_doc')
+ 
+ # Some variables
+ config_h_dir = include_directories('.')
++build_dir = include_directories('build')
+ libsecret_prefix = get_option('prefix')
+ datadir = get_option('datadir')
+ includedir = get_option('includedir')
+-- 
+2.23.GIT
+
