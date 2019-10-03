@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     #rev = version;
     rev = "14519aacba5590183db5e342b3f2b8f2dbfae836";
-    sha256 = "";
+    sha256 = "12pk279hyr0xzd09lfcdf8w2sbnzd76rgap5qwlwx846yzgds6s1";
   };
 
   nativeBuildInputs = [
