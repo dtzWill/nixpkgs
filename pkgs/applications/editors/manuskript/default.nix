@@ -1,4 +1,8 @@
-{ mkDerivationWith, lib, zlib, fetchFromGitHub, python3Packages }:
+{ mkDerivationWith, lib, zlib, fetchFromGitHub
+, python3Packages
+, qtsvg
+, pandoc
+ }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "manuskript";
@@ -11,11 +15,17 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     sha256 = "0q413vym7hzjpyg3krj5y63hwpncdifjkyswqmr76zg5yqnklnh3";
   };
 
-  propagatedBuildInputs = [
-    python3Packages.pyqt5
-    python3Packages.lxml
-    zlib
-  ];
+  propagatedBuildInputs =
+    (with python3Packages; [
+      pyqt5_with_qtwebkit
+      lxml
+      markdown
+      pyenchant
+    ]) ++ [
+      qtsvg
+      zlib
+      pandoc
+    ];
 
   dontWrapQtApps = true;
   makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
