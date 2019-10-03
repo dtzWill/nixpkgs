@@ -4109,11 +4109,11 @@ in
 
   ised = callPackage ../tools/misc/ised {};
 
-  isl = isl_0_21;
+  isl = isl_0_20;
   isl_0_11 = callPackage ../development/libraries/isl/0.11.1.nix { };
   isl_0_14 = callPackage ../development/libraries/isl/0.14.1.nix { };
   isl_0_17 = callPackage ../development/libraries/isl/0.17.1.nix { };
-  isl_0_21 = callPackage ../development/libraries/isl/0.21.0.nix { };
+  isl_0_20 = callPackage ../development/libraries/isl/0.20.0.nix { };
 
   ispike = callPackage ../development/libraries/science/robotics/ispike { };
 
@@ -7719,7 +7719,7 @@ in
         inherit noSysDirs;
         # PGO seems to speed up compilation by gcc by ~10%, see #445 discussion
         profiledCompiler = with stdenv; (!isDarwin && (isi686 || isx86_64));
-        isl = if !stdenv.isDarwin then isl else null;
+        isl = if !stdenv.isDarwin then isl_0_17 else null;
 
         # just for stage static
         crossStageStatic = true;
@@ -7788,7 +7788,7 @@ in
 
     libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then libcCross else null;
 
-    isl = if !stdenv.isDarwin then isl else null;
+    isl = if !stdenv.isDarwin then isl_0_17 else null;
   }));
 
   gcc8 = lowPrio (wrapCC (callPackage ../development/compilers/gcc/8 {
@@ -7799,7 +7799,7 @@ in
 
     libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then libcCross else null;
 
-    isl = if !stdenv.isDarwin then isl else null;
+    isl = if !stdenv.isDarwin then isl_0_17 else null;
   }));
 
   gcc9 = lowPrio (wrapCC (callPackage ../development/compilers/gcc/9 {
@@ -7810,7 +7810,7 @@ in
 
     libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then libcCross else null;
 
-    isl = if !stdenv.isDarwin then isl else null;
+    isl = if !stdenv.isDarwin then isl_0_17 else null;
   }));
 
   gcc-snapshot = lowPrio (wrapCC (callPackage ../development/compilers/gcc/snapshot {
@@ -7820,6 +7820,8 @@ in
     profiledCompiler = with stdenv; (!isDarwin && (isi686 || isx86_64));
 
     libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then libcCross else null;
+
+    isl = isl_0_17;
   }));
 
   gfortran = gfortran7;
