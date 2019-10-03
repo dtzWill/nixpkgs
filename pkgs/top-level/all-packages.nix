@@ -6095,6 +6095,8 @@ in
 
   sasview = callPackage ../applications/science/misc/sasview {};
 
+  sbase = callPackage ../tools/misc/sbase { };
+
   scallion = callPackage ../tools/security/scallion { };
 
   scanbd = callPackage ../tools/graphics/scanbd { };
