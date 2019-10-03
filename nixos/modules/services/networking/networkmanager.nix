@@ -15,12 +15,14 @@ let
     networkmanager-openconnect
     networkmanager-openvpn
     networkmanager-vpnc
-   ] ++ optional (!delegateWireless) wpa_supplicant;
+   ] ++ optional (!delegateWireless && !enableIwd) wpa_supplicant;
 
   dynamicHostsEnabled =
     cfg.dynamicHosts.enable && cfg.dynamicHosts.hostsDirs != {};
 
   delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [];
+
+  enableIwd = cfg.wifi.backend == "iwd";
 
   # /var/lib/misc is for dnsmasq.leases.
   stateDirs = "/var/lib/NetworkManager /var/lib/dhclient /var/lib/misc";
@@ -49,8 +51,7 @@ let
 
     [device]
     wifi.scan-rand-mac-address=${if cfg.wifi.scanRandMacAddress then "yes" else "no"}
-    ${optionalString (cfg.wifi.backend != null)
-      ''wifi.backend=${cfg.wifi.backend}''}
+    wifi.backend=${cfg.wifi.backend}
 
     ${cfg.extraConfig}
   '';
@@ -238,9 +239,12 @@ in {
         macAddress = macAddressOpt;
 
         backend = mkOption {
-          type = types.enum ["wpa_supplicant" "iwd"];
+          type = types.enum [ "wpa_supplicant" "iwd" ];
           default = "wpa_supplicant";
-          description = "WiFi Backend to be used by NetworkManager";
+          description = ''
+            Specify the Wi-Fi backend used for the device.
+            Currently supported are <option>wpa_supplicant</option> or <option>iwd</option> (experimental).
+          '';
         };
 
         powersave = mkOption {
@@ -397,7 +401,7 @@ in {
       { assertion = !dynamicHostsEnabled || (dynamicHostsEnabled && cfg.dns == "dnsmasq");
         message = ''
           To use networking.networkmanager.dynamicHosts you also need to set
-          networking.networkmanager.dns = "dnsmasq"
+          `networking.networkmanager.dns = "dnsmasq"`
         '';
       }
       { assertion = config.networking.wireless.iwd.enable;
@@ -528,6 +532,8 @@ in {
       wireless.enable = mkDefault false;
     }) // (mkIf cfg.enableStrongSwan {
       networkmanager.packages = [ pkgs.networkmanager_strongswan ];
+    }) // (mkIf enableIwd {
+      wireless.iwd.enable = true;
     });
 
     security.polkit.extraConfig = polkitConf;
