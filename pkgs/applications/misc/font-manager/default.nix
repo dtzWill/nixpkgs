@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "FontManager";
-    repo = "master";
+    repo = pname;
     #rev = version;
     rev = "952a2b540db40f559c2b6f52ac723b589d7f5beb";
     sha256 = "01973kc9zj9ply9gpikd29jrl4x9xaklq1yksvhi3v4fbxl77049";
