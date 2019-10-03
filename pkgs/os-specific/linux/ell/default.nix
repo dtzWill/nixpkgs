@@ -37,6 +37,14 @@ stdenv.mkDerivation rec {
   doCheck = true;
   enableParallelChecking = false;
 
+  configureFlags = [
+    "--enable-debug"
+    "--disable-optimization"
+    "--enable-asan"
+    "--enable-ubsan"
+  ];
+  dontStrip = true;
+
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;
     description = "Embedded Linux Library";
