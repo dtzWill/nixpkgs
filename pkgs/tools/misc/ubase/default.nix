@@ -10,6 +10,11 @@ stdenv.mkDerivation rec {
     sha256 = "0j38k85kngdnnqj00y3gfdcid3yivpwv4f2hz5fnwpswpcqqxq71";
   };
 
+  postPatch = ''
+    sed -i -e '1i#include <sys/sysmacros.h>' \
+      mknod.c mountpoint.c stat.c libutil/tty.c
+  '';
+
   makeFlags = [
     "PREFIX=${placeholder "out"}"
   ];
