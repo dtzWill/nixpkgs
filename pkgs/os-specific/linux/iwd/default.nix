@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "3e634bfbcc0933f8f23433cef9380771447cb770";
-    sha256 = "03yb98nzrs4z8xawmkfajnswlyr0ai11l6da5l55pnlp0lpd7iqg";
+    rev = "44ae6a46dafb1bf246f13e82d7c75ec91b76b280";
+    sha256 = "12zb69arq8rs7cnmk514b4ldbmg99y24passr0vz29xyx3p0z7k9";
   };
 
   nativeBuildInputs = [
@@ -55,11 +55,6 @@ stdenv.mkDerivation rec {
   postUnpack = ''
     patchShebangs .
   '';
-
-  patches = [
-    ./fix-crypto-copy-size.patch
-    ./dont-crash-by-default-please.patch
-  ];
 
   postPatch = ''
     # Disable test-eapol, requires loading 'pkcs8_key_parser' kernel module (on builder)
