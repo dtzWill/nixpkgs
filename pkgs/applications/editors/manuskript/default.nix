@@ -1,6 +1,6 @@
-{ stdenv, zlib, fetchFromGitHub, python3Packages }:
+{ mkDerivationWith, lib, zlib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonApplication rec {
+mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "manuskript";
   version = "0.10.0";
 
@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = {
+  meta = with lib; {
     description = "A open-source tool for writers";
     homepage = http://www.theologeek.ch/manuskript;
     longDescription = ''
@@ -47,8 +47,8 @@ python3Packages.buildPythonApplication rec {
     outline your story. Organize your ideas about the world your
     characters live in.
     '';
-    license = stdenv.lib.licenses.gpl3;
-    maintainers = [ stdenv.lib.maintainers.steveej ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.gpl3;
+    maintainers = [ maintainers.steveej ];
+    platforms = platforms.linux;
   };
 }
