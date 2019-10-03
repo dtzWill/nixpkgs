@@ -15,6 +15,8 @@
 , libintl
 , dbus
 , xvfb_run
+, meson
+, ninja
 }:
 
 stdenv.mkDerivation rec {
@@ -26,6 +28,8 @@ stdenv.mkDerivation rec {
     sha256 = "0fhflcsr70b1pps2pcvqcbdhip2ny5am9nbm634f4sj5g40y30w5";
   };
 
+  patches = [ ./fix.patch ./38.patch ];
+
   postPatch = ''
     patchShebangs .
   '';
@@ -33,13 +37,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   propagatedBuildInputs = [ glib ];
-  nativeBuildInputs = [ pkgconfig gettext libxslt docbook_xsl docbook_xml_dtd_42 libintl gobject-introspection vala gtk-doc ];
+  nativeBuildInputs = [ pkgconfig gettext libxslt docbook_xsl docbook_xml_dtd_42 libintl gobject-introspection vala gtk-doc meson ninja libgcrypt ];
   buildInputs = [ libgcrypt ];
   # optional: build docs with gtk-doc? (probably needs a flag as well)
-
-  configureFlags = [
-    "--with-libgcrypt-prefix=${libgcrypt.dev}"
-  ];
 
   enableParallelBuilding = true;
 
