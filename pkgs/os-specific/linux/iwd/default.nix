@@ -57,6 +57,8 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
+  patches = [ ./fix-crypto-copy-size.patch ];
+
   doCheck = true;
 
   postInstall = ''
