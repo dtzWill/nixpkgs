@@ -1,12 +1,18 @@
-{ stdenv, fetchurl, which, utillinux }:
+{ stdenv, fetchFromGitHub, which, utillinux }:
 
 stdenv.mkDerivation rec {
   pname = "git-extras";
   version = "5.0.0";
 
-  src = fetchurl {
-    url = "https://github.com/tj/git-extras/archive/${version}.tar.gz";
-    sha256 = "16k0zwx5njmmbzkqkyl1xrsx2ykb0j35ygz39wc9s48j9kqhmdvz";
+  #src = fetchurl {
+  #  url = "https://github.com/tj/git-extras/archive/${version}.tar.gz";
+  #  sha256 = "16k0zwx5njmmbzkqkyl1xrsx2ykb0j35ygz39wc9s48j9kqhmdvz";
+  #};
+  src = fetchFromGitHub {
+    owner = "tj";
+    repo = pname;
+    rev = "refs/tags/5.0.0";
+    sha256 = "0c839kc5mhi1iqhc696p4dj67i5hm2gi4d8cvdpskaapb124mj2f";
   };
 
   dontBuild = true;
