@@ -75,7 +75,7 @@ let
           ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
           ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false) plasma-browser-integration
           ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
-           ++ lib.optional (cfg.enableRofiTabSwitcher or false) assert rofi-tab-switcher != null; rofi-tab-switcher
+          ++ lib.optional (cfg.enableRofiTabSwitcher or false) (assert rofi-tab-switcher != null; rofi-tab-switcher)
           ++ lib.optional (cfg.enableFF2MPV or false) ff2mpv
           ++ extraNativeMessagingHosts
         );
