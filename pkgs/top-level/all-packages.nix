@@ -25398,4 +25398,6 @@ in
 
   cog = callPackage ../applications/misc/cog/default.nix { };
 
+  boxfort = callPackage ../development/libraries/boxfort { };
+  criterion = callPackage ../development/libraries/criterion { };
 }
