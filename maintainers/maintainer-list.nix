@@ -7040,6 +7040,12 @@
     githubId = 1866448;
     name = "Eric Bailey";
   };
+  Yumasi = {
+    email = "gpagnoux@gmail.com";
+    github = "Yumasi";
+    githubId = 24368641;
+    name = "Guillaume Pagnoux";
+  };
   z77z = {
     email = "maggesi@math.unifi.it";
     github = "maggesi";
