@@ -1353,11 +1353,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   viewres = callPackage ({ stdenv, pkgconfig, fetchurl, libXaw, libXmu, libXt }: stdenv.mkDerivation {
-    name = "viewres-1.0.5";
+    name = "viewres-1.0.6";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/viewres-1.0.5.tar.bz2;
-      sha256 = "1mz319kfmvcrdpi22dmdr91mif1j0j3ck1f8mmnz5g1r9kl1in2y";
+      url = mirror://xorg/individual/app/viewres-1.0.6.tar.bz2;
+      sha256 = "0d09p3zyzp44lh0v3i1pgvw144bcs62v3ygb7zydbhb642q5vh8i";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
