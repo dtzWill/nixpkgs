@@ -7,14 +7,14 @@ assert imagePreviewSupport -> w3m != null;
 
 python3Packages.buildPythonApplication rec {
   pname = "ranger";
-  version = "2019-08-06";
+  version = "unstable-2019-10-02";
 
   src = fetchFromGitHub {
     owner = "ranger";
     repo = "ranger";
     #rev = "v${version}";
-    rev = "3e27a680f82f759eebd90a20a4920d4984413d6b";
-    sha256= "016xciy0prlisbwn7j3ngzxbhwsqsyjxwcjh5dfkik4pkrb2kvsm";
+    rev = "7338801c355e72354ec73beee798c21c46757b03";
+    sha256= "0jbil1yg7pji50pg13h9pjw5jhhsknglm4djwxq0zfa7hqxqriiq";
   };
 
   LC_ALL = "en_US.UTF-8";
