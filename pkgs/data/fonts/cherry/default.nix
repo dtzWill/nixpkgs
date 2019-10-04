@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fonttosfnt }:
+{ stdenv, fetchFromGitHub, fonttosfnt, mkfontdir }:
 
 stdenv.mkDerivation rec {
   pname = "cherry";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "13zkxwp6r6kcxv4x459vwscr0n0sik4a3kcz5xnmlpvcdnbxi586";
   };
 
-  nativeBuildInputs = [ fonttosfnt ];
+  nativeBuildInputs = [ fonttosfnt mkfontdir ];
 
   buildPhase = ''
     patchShebangs make.sh
@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/share/fonts/misc
     cp *.otb $out/share/fonts/misc
+
+    # create fonts.dir so NixOS xorg module adds to fp
+    mkfontdir $out/share/fonts/misc
   '';
 
   meta = with stdenv.lib; {
