@@ -11,7 +11,7 @@
 , fx_cast_bridge, ff2mpv
 # shame and dishonor, FIXME
 , dtz ? null
-, rofi-tab-switcher ? if (dtz != null) then dtz.pkgs.rofi-tab-switcher else null
+, rofi-tab-switcher ? if (dtz != null) then dtz.pkgs.rofi-tab-switcher.plugin /* manifest */ else null
 , udev
 , kerberos
 }:
