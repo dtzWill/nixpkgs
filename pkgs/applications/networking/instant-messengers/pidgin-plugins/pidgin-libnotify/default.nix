@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, pidgin, libnotify, pkgconfig, intltool }:
+{ stdenv, fetchurl, fetchpatch, pidgin, libnotify, autoreconfHook, pkgconfig, intltool }:
 
 stdenv.mkDerivation rec {
   pname = "pidgin-libnotify";
@@ -26,6 +26,13 @@ stdenv.mkDerivation rec {
 
   patchFlags = [ "-p0" ];
 
-  nativeBuildInputs = [ pkgconfig intltool ];
+  postPatch = ''
+    substituteInPlace src/Makefile.am \
+      --replace '$(LIBPURPLE_LIBDIR)/purple-2' \
+                '${placeholder "out"}/lib/purple-2'
+    
+  '';
+
+  nativeBuildInputs = [ autoreconfHook pkgconfig intltool ];
   buildInputs = [ pidgin libnotify ];
 }
