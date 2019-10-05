@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, extra-cmake-modules, kdoctools, qtscript, kconfig
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, qtscript, kconfig
 , kinit, karchive, kcrash, kcmutils, kconfigwidgets, knewstuff, kparts
 , qca-qt5, shared-mime-info }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   name = "okteta-${version}";
   version = "0.26.2";
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     kcrash
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg bkchr ];
     platforms = platforms.linux;
