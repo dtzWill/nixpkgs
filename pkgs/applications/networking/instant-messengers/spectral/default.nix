@@ -27,6 +27,12 @@ in stdenv.mkDerivation {
 
   #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
 
+  postPatch = ''
+    substituteInPlace src/spectraluser.cpp \
+      --replace ', 0.7, 0.5, 1)' \
+                ', 0.4, 0.4, 0.8)'
+  '';
+
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
   buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
