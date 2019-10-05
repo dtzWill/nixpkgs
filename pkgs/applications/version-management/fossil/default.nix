@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   pname = "fossil";
-  version = "2.9";
+  version = "2.10";
 
   src = fetchurl {
     urls =
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
         "https://www.fossil-scm.org/index.html/uv/fossil-src-${version}.tar.gz"
       ];
     name = "${pname}-${version}.tar.gz";
-    sha256 = "0kwb7pkp7y2my916rhyl6kmcf0fk8gkzaxzy13hfgqs35nlsvchw";
+    sha256 = "041bs4fgk52fw58p7s084pxk9d9vs5v2f2pjbznqawz75inpg8yq";
   };
 
   buildInputs = [ zlib openssl readline sqlite which ed ]
@@ -26,16 +26,6 @@ stdenv.mkDerivation rec {
     export TCLLIBPATH="${tcllib}/lib/tcllib${tcllib.version}"
   '';
   configureFlags = stdenv.lib.optional withJson "--json";
-
-  preBuild=''
-    export USER=nonexistent-but-specified-user
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    INSTALLDIR=$out/bin make install
-  '';
-
   meta = {
     description = "Simple, high-reliability, distributed software configuration management";
     longDescription = ''
