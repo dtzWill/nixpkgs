@@ -24,6 +24,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  patchFlags = [ "-p0" ];
+
   nativeBuildInputs = [ pkgconfig intltool ];
   buildInputs = [ pidgin libnotify ];
 }
