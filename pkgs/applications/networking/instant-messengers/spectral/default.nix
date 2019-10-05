@@ -27,9 +27,9 @@ in stdenv.mkDerivation {
 
   #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
 
-  postPatch = ''
-    find . -name "*.qml" -exec sed -i 's@darker([^)]*, 1.1@\0 + 0.9@' '{}' +
-  '';
+  #postPatch = ''
+  #  find . -name "*.qml" -exec sed -i 's@darker([^)]*, 1.1@\0 + 0.9@' '{}' +
+  #'';
     #grep -r darker
     #exit 1
 
