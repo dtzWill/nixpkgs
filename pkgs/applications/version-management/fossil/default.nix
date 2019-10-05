@@ -25,7 +25,19 @@ stdenv.mkDerivation rec {
   preCheck = ''
     export TCLLIBPATH="${tcllib}/lib/tcllib${tcllib.version}"
   '';
-  configureFlags = stdenv.lib.optional withJson "--json";
+  configureFlags = [
+    "--disable-internal-sqlite"
+  ] ++ stdenv.lib.optional withJson "--json";
+
+  preBuild=''
+    export USER=nonexistent-but-specified-user
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin
+    INSTALLDIR=$out/bin make install
+  '';
+
   meta = {
     description = "Simple, high-reliability, distributed software configuration management";
     longDescription = ''
