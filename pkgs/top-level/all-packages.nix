@@ -20486,6 +20486,8 @@ in
 
   purple-hangouts = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-hangouts { };
 
+  pidgin-libnotify = callPackage ../applications/networking/instant-messengers/pidgin-plugins/pidgin-libnotify { };
+
   purple-libnotify-plus = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-libnotify-plus { };
 
   purple-lurch = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-lurch { };
