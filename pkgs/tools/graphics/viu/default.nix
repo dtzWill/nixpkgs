@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1ds6a5d248wddlkpdaadvbwc7si3l363znzhkxy1y2b1shg93car";
   };
 
-  cargoSha256 = "1nbpqfp19r7prcc35052yz2snqnm1415m8nbycac3kz46prdy6i5";
+  cargoSha256 = "0zq9lwxsnrv54kc2wkh97imbr0f6jn6mb5s2bsxiyayr9msljx7x";
 
   meta = with lib; {
     description = "A command-line application to view images from the terminal written in Rust";
