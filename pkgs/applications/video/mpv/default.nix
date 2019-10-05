@@ -23,6 +23,8 @@
   , shaderc ? null
   , vulkan-headers ? null
   , vulkan-loader ? null
+  # TODO: libplacebo may be used to avoid needing shaderc/headers/etc, check
+  , libplacebo ? null
 
 , alsaSupport        ? stdenv.isLinux, alsaLib       ? null
 , bluraySupport      ? true,           libbluray     ? null
@@ -31,7 +33,6 @@
 , cmsSupport         ? true,           lcms2         ? null
 , drmSupport         ? stdenv.isLinux, libdrm        ? null
 , dvdnavSupport      ? stdenv.isLinux, libdvdnav     ? null
-, dvdreadSupport     ? stdenv.isLinux, libdvdread    ? null
 , libpngSupport      ? true,           libpng        ? null
 , pulseSupport       ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
 , rubberbandSupport  ? stdenv.isLinux, rubberband ? null
@@ -64,7 +65,6 @@ assert cddaSupport        -> all available [libcdio libcdio-paranoia];
 assert cmsSupport         -> available lcms2;
 assert drmSupport         -> available libdrm;
 assert dvdnavSupport      -> available libdvdnav;
-assert dvdreadSupport     -> available libdvdread;
 assert jackaudioSupport   -> available libjack2;
 assert libpngSupport      -> available libpng;
 assert openalSupport      -> available openalSoft;
@@ -117,7 +117,6 @@ in stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-libmpv-shared"
     "--enable-manpage-build"
-    "--enable-zsh-comp"
     "--disable-libmpv-static"
     "--disable-static-build"
     "--disable-build-date" # Purity
@@ -125,7 +124,6 @@ in stdenv.mkDerivation rec {
     (enableFeature archiveSupport  "libarchive")
     (enableFeature cddaSupport     "cdda")
     (enableFeature dvdnavSupport   "dvdnav")
-    (enableFeature dvdreadSupport  "dvdread")
     (enableFeature openalSupport   "openal")
     (enableFeature vaapiSupport    "vaapi")
     (enableFeature waylandSupport  "wayland")
@@ -150,7 +148,6 @@ in stdenv.mkDerivation rec {
     ++ optional cacaSupport        libcaca
     ++ optional cmsSupport         lcms2
     ++ optional drmSupport         libdrm
-    ++ optional dvdreadSupport     libdvdread
     ++ optional jackaudioSupport   libjack2
     ++ optional libpngSupport      libpng
     ++ optional openalSupport      openalSoft
@@ -172,7 +169,7 @@ in stdenv.mkDerivation rec {
     ++ optionals dvdnavSupport     [ libdvdnav libdvdnav.libdvdread ]
     ++ optionals waylandSupport    [ wayland wayland-protocols libxkbcommon ]
     ++ optionals x11Support        [ libX11 libXext libGLU_combined libXxf86vm libXrandr ]
-    ++ optionals vulkanSupport     [ shaderc vulkan-headers vulkan-loader ]
+    ++ optionals vulkanSupport     [ shaderc vulkan-headers vulkan-loader libplacebo ]
     ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       CoreFoundation Cocoa CoreAudio
     ]);
