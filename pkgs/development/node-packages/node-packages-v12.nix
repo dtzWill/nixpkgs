@@ -1057,13 +1057,13 @@ let
         sha512 = "D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==";
       };
     };
-    "es-abstract-1.14.2" = {
+    "es-abstract-1.15.0" = {
       name = "es-abstract";
       packageName = "es-abstract";
-      version = "1.14.2";
+      version = "1.15.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.14.2.tgz";
-        sha512 = "DgoQmbpFNOofkjJtKwr87Ma5EW4Dc8fWhD0R+ndq7Oc456ivUfGOOP6oAZTTKl5/CcNMP+EN+e3/iUzgE0veZg==";
+        url = "https://registry.npmjs.org/es-abstract/-/es-abstract-1.15.0.tgz";
+        sha512 = "bhkEqWJ2t2lMeaJDuk7okMkJWI/yqgH/EoGwpcvv0XW9RWQsRspI4wt6xuyuvMvvQE3gg/D9HXppgk21w78GyQ==";
       };
     };
     "es-to-primitive-1.2.0" = {
@@ -5336,7 +5336,7 @@ in
       sources."encoding-0.1.12"
       sources."end-of-stream-1.4.4"
       sources."entities-1.1.2"
-      sources."es-abstract-1.14.2"
+      sources."es-abstract-1.15.0"
       sources."es-to-primitive-1.2.0"
       sources."es6-promise-pool-2.5.0"
       sources."escape-string-regexp-1.0.5"
