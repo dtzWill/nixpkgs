@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
     owner = "davatorium";
     repo = "rofi";
     rev = "8590a7ccf2f73552a0501fa39c54cceae1f2f79c";
-    sha256 = "0i9wjk9hyghb66c6cgnlvh4bl437db8fgaladq3a31vjcdv2ygmb";
+    sha256 = "0q41pxnznv3qj0b3f91v80kcp3fsxa0yngjd6m95c174qpshyvn3";
+    fetchSubmodules = true;
   };
 
   preConfigure = ''
