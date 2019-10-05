@@ -8,6 +8,11 @@ let
 
   cfg = config.environment;
 
+  pamProfiles =
+    map
+      (replaceStrings ["$HOME" "$USER"] ["@{HOME}" "@{PAM_USER}"])
+      cfg.profiles;
+
 in
 
 {
@@ -70,20 +75,13 @@ in
       let
         suffixedVariables =
           flip mapAttrs cfg.profileRelativeSessionVariables (envVar: suffixes:
-            flip concatMap cfg.profiles (profile:
+            flip concatMap pamProfiles (profile:
               map (suffix: "${profile}${suffix}") suffixes
             )
           );
 
-        # We're trying to use the same syntax for PAM variables and env variables.
-        # That means we need to map the env variables that people might use to their
-        # equivalent PAM variable.
-        # Note: PAM_USER is a PAM_ITEM, HOME is an environment variable, they have 
-        # different syntax.
-        replaceEnvVars = replaceStrings ["$HOME" "$USER"] ["\${HOME}" "@{PAM_USER}"];
-
         pamVariable = n: v:
-          ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
+          ''${n}   DEFAULT="${concatStringsSep ":" (toList v)}"'';
 
         pamVariables =
           concatStringsSep "\n"
