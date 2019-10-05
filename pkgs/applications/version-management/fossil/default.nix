@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
     export USER=nonexistent-but-specified-user
   '';
 
-  installPhase = ''
-    mkdir -p $out/bin
-    INSTALLDIR=$out/bin make install
-  '';
+#  installPhase = ''
+#    mkdir -p $out/bin
+#    INSTALLDIR=$out/bin make install
+#  '';
 
   meta = {
     description = "Simple, high-reliability, distributed software configuration management";
