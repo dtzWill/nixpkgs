@@ -96,7 +96,6 @@
   ./programs/bandwhich.nix
   ./programs/bash/bash.nix
   ./programs/bcc.nix
-  ./programs/blcr.nix
   ./programs/browserpass.nix
   ./programs/captive-browser.nix
   ./programs/ccache.nix
