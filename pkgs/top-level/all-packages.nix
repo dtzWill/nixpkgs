@@ -10693,7 +10693,10 @@ in
 
   cppdb = callPackage ../development/libraries/cppdb { };
 
-  cpp-utilities = callPackage ../development/libraries/cpp-utilities { };
+  cpp-utilities = callPackage ../development/libraries/cpp-utilities {
+    # Needs c++17
+    stdenv = gcc9Stdenv;
+  };
 
   cpp-hocon = callPackage ../development/libraries/cpp-hocon { };
 
