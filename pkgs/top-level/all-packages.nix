@@ -2738,7 +2738,10 @@ in
   doom-bcc = callPackage ../games/zdoom/bcc-git.nix { };
 
   slade = callPackage ../applications/misc/slade {
-    wxGTK = wxGTK30;
+    wxGTK = wxGTK30.override {
+      withGtk2 = false; # gtk3
+      withWebKit = false; # default, but explicit
+    };
   };
 
   sladeUnstable = callPackage ../applications/misc/slade/git.nix {
