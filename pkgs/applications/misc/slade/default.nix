@@ -19,6 +19,15 @@ stdenv.mkDerivation rec {
   ];
   patchFlags = [ "-p0" ];
 
+  postPatch = ''
+    sed -i -e '32imessage("-- wxWidgets version is: ''${WX_VERSION}")' src/CMakeLists.txt
+  '';
+
+  cmakeFlags = [
+    "-DwxWidgets_CONFIG_EXECUTABLE=${wxGTK}/bin/wx-config"
+    "-DCL_WX_CONFIG=wx-config"
+  ];
+
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
