@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk2, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip }:
 
 stdenv.mkDerivation rec {
-  name = "slade-${version}";
-  version = "3.1.1.5";
+  pname = "slade";
+  version = "3.1.7";
 
   src = fetchFromGitHub {
     owner = "sirjuddington";
     repo = "SLADE";
     rev = version;
-    sha256 = "0mdn59jm6ab4cdh99bgvadif3wdlqmk5mq635gg7krq35njgw6f6";
+    sha256 = "1yfq7ghg9whys7a07xfcza8rwyfhnrcz6qi5bay1ilj3ml4m12zy";
   };
 
   nativeBuildInputs = [ cmake pkgconfig zip ];
