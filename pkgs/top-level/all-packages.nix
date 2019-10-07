@@ -1635,6 +1635,8 @@ in
 
   fast-cli = nodePackages_10_x.fast-cli;
 
+  faudio = callPackage ../development/libraries/faudio { };
+
   fd = callPackage ../tools/misc/fd { };
 
   fdroidserver = python3Packages.callPackage ../development/tools/fdroidserver { };
