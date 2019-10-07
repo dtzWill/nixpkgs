@@ -2741,6 +2741,7 @@ in
     wxGTK = wxGTK30.override {
       withGtk2 = false; # gtk3
       withWebKit = false; # default, but explicit
+      # TODO: seems to build w/webkit support regardless? :(
     };
   };
 
