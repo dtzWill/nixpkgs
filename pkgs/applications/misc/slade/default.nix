@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk2, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk3, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip }:
 
 stdenv.mkDerivation rec {
   pname = "slade";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig zip ];
-  buildInputs = [ wxGTK gtk2 sfml fluidsynth curl freeimage ftgl glew ];
+  buildInputs = [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew ];
 
   enableParallelBuilding = true;
 
