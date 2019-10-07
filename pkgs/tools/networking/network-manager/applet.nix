@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     chmod +x meson_post_install.py # patchShebangs requires executable file
     patchShebangs meson_post_install.py
 
-    substituteInPlace src/wireless-security/eap-method.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${name}/glib-2.0/schemas
+    substituteInPlace src/wireless-security/eap-method.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${pname}-${version}/glib-2.0/schemas
   '';
 
   passthru = {
