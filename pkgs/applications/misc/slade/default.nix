@@ -14,6 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig zip which wrapGAppsHook ];
   buildInputs = [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew ];
 
+  cmakeFlags = [ "-DNO_WEBVIEW=1" ];
+
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {

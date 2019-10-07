@@ -2740,13 +2740,9 @@ in
   slade = callPackage ../applications/misc/slade {
     wxGTK = wxGTK30.override {
       withGtk2 = false; # gtk3
-      withWebKit = true;
     };
   };
-
-  sladeUnstable = callPackage ../applications/misc/slade/git.nix {
-    wxGTK = wxGTK30;
-  };
+  sladeUnstable = slade; # 2019-10-07
 
   drive = callPackage ../applications/networking/drive { };
 
