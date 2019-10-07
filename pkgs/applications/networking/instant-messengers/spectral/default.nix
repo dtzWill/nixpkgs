@@ -16,12 +16,12 @@ let qtkeychain-qt5 = qtkeychain.override {
 };
 in stdenv.mkDerivation {
   pname = "spectral";
-  version = "unstable-2019-10-02";
+  version = "unstable-2019-10-05";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
-    rev = "410d45f6eb60b8038a97fc97a441044229c65945";
-    sha256 = "1arja0cxgxk242hvszzyz0gjnlgj5j5pa1m5fqif96wr4zyn99wc";
+    rev = "a3a7d9a3be8af562eff1d1ddabaf48b37c37e598";
+    sha256 = "0v193cirkq00hn8mqxy7wrkjdrvc84gjyfvzaww6yyi51l66515m";
     fetchSubmodules = true;
   };
 
