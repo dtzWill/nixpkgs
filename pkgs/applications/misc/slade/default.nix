@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk3, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk3, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip, which }:
 
 stdenv.mkDerivation rec {
   pname = "slade";
@@ -11,8 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "1yfq7ghg9whys7a07xfcza8rwyfhnrcz6qi5bay1ilj3ml4m12zy";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig zip ];
+  nativeBuildInputs = [ cmake pkgconfig zip which ];
   buildInputs = [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew ];
+
+  patches = [ 
+    ./0001-Use-wxWidgets_CONFIG_EXECUTABLE-in-cmake-when-it-is-.patch
+  ];
 
   enableParallelBuilding = true;
 
