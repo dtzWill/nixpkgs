@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
   patches = [ 
     ./0001-Use-wxWidgets_CONFIG_EXECUTABLE-in-cmake-when-it-is-.patch
   ];
+  patchFlags = [ "-p0" ];
 
   enableParallelBuilding = true;
 
