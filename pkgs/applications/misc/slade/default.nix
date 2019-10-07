@@ -14,20 +14,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig zip which ];
   buildInputs = [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew ];
 
-  patches = [ 
-    ./0001-Use-wxWidgets_CONFIG_EXECUTABLE-in-cmake-when-it-is-.patch
-  ];
-  patchFlags = [ "-p0" ];
-
-  postPatch = ''
-    sed -i -e '32imessage("-- wxWidgets version is: ''${WX_VERSION}")' src/CMakeLists.txt
-  '';
-
-  cmakeFlags = [
-    "-DwxWidgets_CONFIG_EXECUTABLE=${wxGTK}/bin/wx-config"
-    "-DCL_WX_CONFIG=wx-config"
-  ];
-
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
