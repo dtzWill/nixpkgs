@@ -4,11 +4,10 @@
 , libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3
 , libappindicator-gtk3, withGnome ? false, gcr }:
 
-let
+stdenv.mkDerivation rec {
   pname = "network-manager-applet";
-  version = "1.8.22";
-in stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
+  #version = "1.8.22";
+  version = "unstable-2019-10-04";
 
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
