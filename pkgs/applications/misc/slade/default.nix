@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk3, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip, which }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wrapGAppsHook, wxGTK, gtk3, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip, which }:
 
 stdenv.mkDerivation rec {
   pname = "slade";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1yfq7ghg9whys7a07xfcza8rwyfhnrcz6qi5bay1ilj3ml4m12zy";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig zip which ];
+  nativeBuildInputs = [ cmake pkgconfig zip which wrapGAppsHook ];
   buildInputs = [ wxGTK gtk3 sfml fluidsynth curl freeimage ftgl glew ];
 
   enableParallelBuilding = true;
