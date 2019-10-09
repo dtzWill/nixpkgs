@@ -25291,8 +25291,8 @@ in
   sct = callPackage ../tools/X11/sct {};
 
   scylladb = callPackage ../servers/scylladb {
-   thrift = thrift-0_10;
-   };
+    thrift = thrift-0_10;
+  };
 
   seafile-shared = callPackage ../misc/seafile-shared { };
 

@@ -95,5 +95,6 @@ gcc8Stdenv.mkDerivation rec {
     license = licenses.agpl3;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.farlion ];
+    requiredSystemFeatures = [ "big-parallel" ];
   };
 }
