@@ -6,13 +6,13 @@
 
 buildPythonPackage rec {
   pname = "pelican";
-  version = "4.1.2";
+  version = "4.1.3";
 
   src = fetchFromGitHub {
     owner = "getpelican";
     repo = "pelican";
     rev = version;
-    sha256 = "1m3h0vhnw3r40cm8bv5dgrhp0db88lnsxkd42mzq0p6653zdqfi0";
+    sha256 = "07709j8z4yp8xgi23f1a8z641p010qd77apr8zmhix0l6yv29fv1";
     # Remove unicode file names which leads to different checksums on HFS+
     # vs. other filesystems because of unicode normalisation.
     extraPostFetch = ''
