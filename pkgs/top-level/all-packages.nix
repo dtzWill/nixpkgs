@@ -25401,6 +25401,8 @@ in
 
   vttest = callPackage ../tools/misc/vttest { };
 
+  wacomtablet = libsForQt5.callPackage ../tools/misc/wacomtablet { };
+
   wasmer = callPackage ../development/interpreters/wasmer { };
 
   wasm-pack = callPackage ../development/tools/wasm-pack {
