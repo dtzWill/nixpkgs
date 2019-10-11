@@ -153,6 +153,7 @@ let
       # - https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/chromium
       # - https://github.com/chromium/chromium/search?q=GCC&s=committer-date&type=Commits
       #
+      # ++ optionals (channel == "dev") [ ( githubPatch "<patch>" "0000000000000000000000000000000000000000000000000000000000000000" ) ]
       # ++ optional (versionRange "68" "72") ( githubPatch "<patch>" "0000000000000000000000000000000000000000000000000000000000000000" )
     ] ++ optionals (useVaapi) [
       # source: https://aur.archlinux.org/cgit/aur.git/plain/chromium-vaapi.patch?h=chromium-vaapi
