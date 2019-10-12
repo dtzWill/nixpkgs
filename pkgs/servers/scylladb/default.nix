@@ -96,6 +96,7 @@ gcc8Stdenv.mkDerivation rec {
     homepage = "https://scylladb.com";
     license = licenses.agpl3;
     platforms = stdenv.lib.platforms.linux;
+    hydraPlatforms = []; # It's huge ATM, about 18 GB.
     maintainers = [ stdenv.lib.maintainers.farlion ];
   };
 }
