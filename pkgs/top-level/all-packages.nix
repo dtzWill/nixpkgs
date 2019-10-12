@@ -21341,6 +21341,8 @@ in
 
   split2flac = callPackage ../applications/audio/split2flac { };
 
+  spotify-tui = callPackage ../applications/audio/spotify-tui { };
+
   squishyball = callPackage ../applications/audio/squishyball {
     ncurses = ncurses5;
   };
