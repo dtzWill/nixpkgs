@@ -1,5 +1,5 @@
 { stdenv, buildPythonPackage, fetchPypi, isPy3k
-, google_api_python_client, simplejson, oauth2client
+, google_api_python_client, simplejson, oauth2client, setuptools
 }:
 
 buildPythonPackage rec {
@@ -12,7 +12,9 @@ buildPythonPackage rec {
     sha256 = "0sanlki1rcqvhbds7a049v2kzglgpm761i728115mdracw0s6i3h";
   };
 
-  propagatedBuildInputs = [ google_api_python_client simplejson oauth2client ];
+  propagatedBuildInputs = [
+    google_api_python_client simplejson oauth2client setuptools
+  ];
 
   meta = with stdenv.lib; {
     description = "Search your google contacts from the command-line or mutt";
