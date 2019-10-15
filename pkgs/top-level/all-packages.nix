@@ -25408,4 +25408,6 @@ in
 
   boxfort = callPackage ../development/libraries/boxfort { };
   criterion = callPackage ../development/libraries/criterion { };
+
+  hyperspace = callPackage ../applications/misc/hyperspace { };
 }
