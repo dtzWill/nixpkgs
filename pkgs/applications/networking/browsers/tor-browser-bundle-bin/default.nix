@@ -91,7 +91,7 @@ let
 
   # Upstream source
   # version = "8.5.5";
-  version = "9.0a7";
+  version = "9.0a8";
 
   lang = "en-US";
 
@@ -104,7 +104,7 @@ let
         #"https://github.com/TheTorProject/gettorbrowser/releases/download/v${version}/tor-browser-linux64-${version}_${lang}.tar.xz"
         #"https://dist.torproject.org/torbrowser/${version}/tor-browser-linux64-${version}_${lang}.tar.xz"
       ];
-      sha256 = "1342xmf585yc7gqf66iiaasvsklnka64l3p29zm1hnah0c36hn9l";
+      sha256 = "0273s9yy27l3lr0ar89cd4r9f8wih3v1w5n7fcsi0iwga8s7laj8";
     };
 
     ## "i686-linux" = fetchurl {
