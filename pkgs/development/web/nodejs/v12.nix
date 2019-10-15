@@ -5,8 +5,8 @@ let
 in
   buildNodejs {
     inherit enableNpm;
-    version = "12.11.1";
-    sha256 = "1vi4xj7gg4g7pkhnj9cwzy8gbyg3mq5z6ljqi7z392mbhmwvqgz5";
+    version = "12.12.0";
+    sha256 = "1hcc9arbc6vpzjvf3sd6alm2rc18x3ay2p0i36wz2r4pp9d8gynr";
 
     patches = stdenv.lib.optionals stdenv.isDarwin [ ./disable-libatomic-darwin.patch ];
   }
