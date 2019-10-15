@@ -1,6 +1,6 @@
 { lib, mkDerivation, fetchFromGitHub
 , cmake, ffmpeg, libopus, qtbase, qtmultimedia, qtsvg, qtgamepad, pkgconfig, protobuf
-, python3Packages, SDL2 }:
+, openssl, python3Packages, SDL2 }:
 
 mkDerivation rec {
   pname = "chiaki";
@@ -17,7 +17,7 @@ mkDerivation rec {
   nativeBuildInputs = [
     cmake pkgconfig protobuf python3Packages.python python3Packages.protobuf
   ];
-  buildInputs = [ ffmpeg libopus qtbase qtmultimedia qtsvg protobuf SDL2 qtgamepad ];
+  buildInputs = [ ffmpeg openssl libopus qtbase qtmultimedia qtsvg protobuf SDL2 qtgamepad ];
 
   cmakeFlags = [
     "-DCHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER=OFF"
