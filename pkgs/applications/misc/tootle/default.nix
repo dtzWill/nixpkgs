@@ -49,14 +49,14 @@ stdenv.mkDerivation rec {
     pantheon.granite
   ];
 
-  patches = [
-    # Fix build with Vala 0.46
-    # https://github.com/bleakgrey/tootle/pull/164
-    (fetchpatch {
-      url = "https://github.com/worldofpeace/tootle/commit/0a88bdad6d969ead1e4058b1a19675c9d6857b16.patch";
-      sha256 = "0xyx00pgswnhxxbsxngsm6khvlbfcl6ic5wv5n64x7klk8rzh6cm";
-    })
-  ];
+  #patches = [
+  #  # Fix build with Vala 0.46
+  #  # https://github.com/bleakgrey/tootle/pull/164
+  #  (fetchpatch {
+  #    url = "https://github.com/worldofpeace/tootle/commit/0a88bdad6d969ead1e4058b1a19675c9d6857b16.patch";
+  #    sha256 = "0xyx00pgswnhxxbsxngsm6khvlbfcl6ic5wv5n64x7klk8rzh6cm";
+  #  })
+  #];
 
   postPatch = ''
     chmod +x meson/post_install.py
