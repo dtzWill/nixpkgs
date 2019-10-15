@@ -27,8 +27,8 @@ in stdenv.mkDerivation rec {
     domain = "gitlab.freedesktop.org";
     owner = "cairo";
     repo = "cairo";
-    rev = "52a7c79fd4ff96bb5fac175f0199819b0f8c18fc";
-    sha256 = "0cm9lcnqlpvigjjyk3x27qx7ff5p9vdhh2r1i89az3idimns5mih";
+    rev = "f93fc72c0c3e158982740015304389192ce8a567";
+    sha256 = "0zc0r27sf6q4jy6h9z2sxd9vsp6lcbrcifz6c6fv7j9c8dka0nl4";
   };
 
   #src = fetchurl {
