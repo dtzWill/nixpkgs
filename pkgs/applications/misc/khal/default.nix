@@ -2,14 +2,14 @@
 
 with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
-  version = "unstable-2019-09-16";
+  version = "unstable-2019-10-09";
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "0.10.1-${version}";
   src = fetchFromGitHub {
     owner = "pimutils";
     repo = pname;
-    rev = "c4f5cd7248abb08a65dbb337bfe5e7e57e2e4a4d";
-    sha256 = "09p0cr7x7gy6lwf3kvc90abzwvlqv9a7j47nbk5j6312n23rdz6w";
+    rev = "19d8dce4f7a9a6950e851422a7099640dddae2d3";
+    sha256 = "0gwsmcyvwmgmhkcjf8j4raz1iyzhwghjrq4qjhqx8qpfmsvjx4px";
   };
 
   propagatedBuildInputs = [
