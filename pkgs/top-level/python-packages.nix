@@ -823,6 +823,8 @@ in {
 
   phonopy = callPackage ../development/python-modules/phonopy { };
 
+  phik = callPackage ../development/python-modules/phik {};
+
   piccata = callPackage ../development/python-modules/piccata {};
 
   pims = callPackage ../development/python-modules/pims { };
