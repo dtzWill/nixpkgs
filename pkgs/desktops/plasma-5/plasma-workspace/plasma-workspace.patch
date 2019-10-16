@@ -10,22 +10,32 @@ index 69d3070..52e9102 100644
 -background=${CMAKE_INSTALL_PREFIX}/${WALLPAPER_INSTALL_DIR}/Next/contents/images/5120x2880.png
 +background=${NIXPKGS_WALLPAPER_INSTALL_DIR}/Next/contents/images/5120x2880.png
 diff --git a/startkde/CMakeLists.txt b/startkde/CMakeLists.txt
-index ac997d838..a52d19ad4 100644
+index 6a1a212..f03fd34 100644
 --- a/startkde/CMakeLists.txt
 +++ b/startkde/CMakeLists.txt
-@@ -24,12 +24,6 @@ target_link_libraries(startplasma-wayland PRIVATE Qt5::Core Qt5::DBus KF5::Confi
- target_link_libraries(startplasma-waylandsession PRIVATE Qt5::Core Qt5::DBus KF5::ConfigCore)
- add_subdirectory(plasma-session)
+@@ -4,11 +4,6 @@ add_subdirectory(ksyncdbusenv)
+ add_subdirectory(waitforname)
+ add_subdirectory(kcheckrunning)
  
 -#FIXME: reconsider, looks fishy
 -if(NOT CMAKE_INSTALL_PREFIX STREQUAL "/usr")
--    set_property(SOURCE startplasma.cpp APPEND PROPERTY COMPILE_DEFINITIONS
--        XCURSOR_PATH="${KDE_INSTALL_FULL_DATAROOTDIR}/icons:$XCURSOR_PATH:~/.icons:/usr/share/icons:/usr/share/pixmaps:/usr/X11R6/lib/X11/icons")
+-    set(EXPORT_XCURSOR_PATH "XCURSOR_PATH=${KDE_INSTALL_FULL_DATAROOTDIR}/icons:$XCURSOR_PATH\":~/.icons:/usr/share/icons:/usr/share/pixmaps:/usr/X11R6/lib/X11/icons\"; export XCURSOR_PATH")
 -endif()
 -
- configure_file(config-startplasma.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-startplasma.h)
- 
- install(TARGETS startplasma-x11 ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+ configure_file(startkde.cmake ${CMAKE_CURRENT_BINARY_DIR}/startkde  @ONLY)
+ configure_file(startplasmacompositor.cmake ${CMAKE_CURRENT_BINARY_DIR}/startplasmacompositor  @ONLY)
+ configure_file(startplasma.cmake ${CMAKE_CURRENT_BINARY_DIR}/startplasma  @ONLY)
+diff --git a/startkde/kstartupconfig/kstartupconfig.cpp b/startkde/kstartupconfig/kstartupconfig.cpp
+index 493218e..d507aa5 100644
+--- a/startkde/kstartupconfig/kstartupconfig.cpp
++++ b/startkde/kstartupconfig/kstartupconfig.cpp
+@@ -147,5 +147,5 @@ int main()
+     fclose( keys );
+     fclose( config );
+   doit:
+-    return system( "kdostartupconfig5" );
++    return system( NIXPKGS_KDOSTARTUPCONFIG5 );
+     }
 diff --git a/startkde/startkde.cmake b/startkde/startkde.cmake
 index b68f0c6..a0ec214 100644
 --- a/startkde/startkde.cmake
