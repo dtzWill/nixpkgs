@@ -98,14 +98,14 @@ let
 in stdenv.mkDerivation rec {
   pname = "mpv";
   #version = "0.29.1";
-  version = "unstable-2019-10-05";
+  version = "unstable-2019-10-17";
 
   src = fetchFromGitHub {
     owner = "mpv-player";
     repo  = pname;
     #rev    = "v${version}";
-    rev = "2b19a7c964b821945e3ea06cfa81c1c064f2504d";
-    sha256 = "1gq8735xz1vrarqb29ighnzm2y3qyidm9mk27xcf4v2yjci1p1xb";
+    rev = "60ab82df322bd91fd1c999dfaa3dd1784617734b";
+    sha256 = "0cib7b2i9zbinb6r6qnh5x48srkcaq2flnlqn7xc4xd824yr5a4i";
   };
 
   postPatch = ''
