@@ -2,16 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "simp_le-client";
-  version = "0.14.0";
+  version = "0.16.0";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "0kqdgbdb835b74l8y79n2nvwgvbz07ij5k7f3q3hj7w4y49ribr3";
+    sha256 = "17azqlb1xsnh9p0m75apb19j7pramgj00cf5k6fwzz2zqz0x0hpp";
   };
 
   postPatch = ''
-    # drop upper bound of acme requirement
-    sed -ri "s/'(acme>=[^,]+),<[^']+'/'\1'/" setup.py
     # drop upper bound of idna requirement
     sed -ri "s/'(idna)<[^']+'/'\1'/" setup.py
     substituteInPlace simp_le.py \
