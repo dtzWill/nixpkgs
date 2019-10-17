@@ -8777,7 +8777,7 @@ in
 
   j = callPackage ../development/interpreters/j {};
 
-  janet = callPackage ../development/interpreters/janet {};
+  janet = callPackage ../development/interpreters/janet { stdenv = gcc9Stdenv; meson = meson_gcc9; /* :( */ };
 
   jimtcl = callPackage ../development/interpreters/jimtcl {};
 
