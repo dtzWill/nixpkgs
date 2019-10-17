@@ -19,14 +19,14 @@
 
 stdenv.mkDerivation rec {
   pname = "tootle";
-  version = "0.2.0";
+  version = "unstable-2019-09-16";
 
   src = fetchFromGitHub {
     owner = "bleakgrey";
     repo = pname;
     #rev = version;
-    rev = "1e42721faa04d3be2dc9ac09f1421ae7f3e72278";
-    sha256 = "16l1xhxqm9wm9mjjlqs88135hxskz0d320jdlsfn968nsplj01nw";
+    rev = "d8fc951fb0c0c0f85a3869c6abfc79b2c3d83215";
+    sha256 = "14fnxrvlllgnn3f0xzcg82ai2kwhk1lpagr2qr934h9yvh4zqhdn";
   };
 
   nativeBuildInputs = [
