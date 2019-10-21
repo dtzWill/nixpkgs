@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   name = "intel-media-driver-${version}";
-  version = "19.3";
+  version = "19.3.0";
   #version = "git-20190919";
 
   src = fetchFromGitHub {
