@@ -46,10 +46,6 @@ let
   sources = {
     # FYI: SourceKit probably would work but currently requires building everything twice
     # For more inforation, see: https://github.com/apple/swift/pull/3594#issuecomment-234169759
-    clang = fetch {
-      repo = "swift-clang";
-      sha256 = "046p7f4044ls8hhgklsz32md5jvxkaaim1d75n0fmnwap6di3n1q";
-    };
     llvm = fetch {
       repo = "swift-llvm";
       sha256 = "1bnscqsiljiclij60f44h2fyx5c84pzry0lz1jbwknphwmqd6f84";
@@ -57,6 +53,10 @@ let
     compilerrt = fetch {
       repo = "swift-compiler-rt";
       sha256 = "0bba54xa7z0wj6k7a24q74gc4yajc6s64g1m894i3yd6swdk7f6r";
+    };
+    clang = fetch {
+      repo = "swift-clang";
+      sha256 = "046p7f4044ls8hhgklsz32md5jvxkaaim1d75n0fmnwap6di3n1q";
     };
     cmark = fetch {
       repo = "swift-cmark";
@@ -153,9 +153,9 @@ stdenv.mkDerivation {
     export sourceRoot=$PWD
     export SWIFT_SOURCE_ROOT=$PWD
 
-    cp -r ${sources.clang} clang
     cp -r ${sources.llvm} llvm
     cp -r ${sources.compilerrt} compiler-rt
+    cp -r ${sources.clang} clang
     cp -r ${sources.cmark} cmark
     cp -r ${sources.lldb} lldb
     cp -r ${sources.llbuild} llbuild
@@ -219,23 +219,22 @@ stdenv.mkDerivation {
   configurePhase = ''
     cd ..
 
-    export INSTALLABLE_PACKAGE=$PWD/swift.tar.gz
-
     mkdir build install
     export SWIFT_BUILD_ROOT=$PWD/build
     export SWIFT_INSTALL_DIR=$PWD/install
 
-    cd $SWIFT_BUILD_ROOT
-
     unset CC
     unset CXX
 
+    export INSTALLABLE_PACKAGE=$PWD/swift.tar.gz
     export NIX_ENFORCE_PURITY=
+
+    cd $SWIFT_BUILD_ROOT
   '';
 
   buildPhase = ''
     # gcc-6.4.0/include/c++/6.4.0/cstdlib:75:15: fatal error: 'stdlib.h' file not found
-    NIX_CFLAGS_COMPILE="$( echo ${clang.default_cxx_stdlib_compile} ) $NIX_CFLAGS_COMPILE"
+    export NIX_CFLAGS_COMPILE="$( echo ${clang.default_cxx_stdlib_compile} ) $NIX_CFLAGS_COMPILE"
     # During the Swift build, a full local LLVM build is performed and the resulting clang is invoked.
     # This compiler is not using the Nix wrappers, so it needs some help to find things.
     export NIX_LDFLAGS_BEFORE="-rpath ${clang.cc.gcc.lib}/lib -L${clang.cc.gcc.lib}/lib $NIX_LDFLAGS_BEFORE"
@@ -264,8 +263,7 @@ stdenv.mkDerivation {
     mkdir -p $out
 
     # Extract the generated tarball into the store
-    PREFIX=''${out/#\/}
-    tar xf $INSTALLABLE_PACKAGE -C $out --strip-components=3 $PREFIX
+    tar xf $INSTALLABLE_PACKAGE -C $out --strip-components=3 ''${out/#\/}
     find $out -type d -empty -delete
 
     wrapProgram $out/bin/swift \
