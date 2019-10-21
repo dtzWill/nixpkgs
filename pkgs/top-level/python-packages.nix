@@ -1006,7 +1006,9 @@ in {
 
   pyschedule = callPackage ../development/python-modules/pyschedule { };
 
-  pyside = callPackage ../development/python-modules/pyside { };
+  pyside = callPackage ../development/python-modules/pyside {
+    inherit (pkgs) mesa;
+  };
 
   pysideShiboken = callPackage ../development/python-modules/pyside/shiboken.nix {
     inherit (pkgs) libxml2 libxslt; # Do not need the Python bindings.
