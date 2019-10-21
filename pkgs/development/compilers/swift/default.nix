@@ -33,16 +33,13 @@
 }:
 
 let
-  v_base = "5.0.2";
-  version = "${v_base}-RELEASE";
-  version_friendly = v_base;
+  version = "5.0.2";
 
-  tag = "refs/tags/swift-${version}";
   fetch = { repo, sha256, fetchSubmodules ? false }:
     fetchFromGitHub {
       owner = "apple";
       inherit repo sha256 fetchSubmodules;
-      rev = tag;
+      rev = "refs/tags/swift-${version}-RELEASE";
       name = "${repo}-${version}-src";
     };
 
@@ -132,7 +129,7 @@ let
 
 in
 stdenv.mkDerivation {
-  name = "swift-${version_friendly}";
+  name = "swift-${version}";
 
   nativeBuildInputs = [
     autoconf
