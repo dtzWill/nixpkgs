@@ -14,6 +14,8 @@ buildGoModule rec {
   };
   modSha256 = "01zmhrkgdfkf0ssd7mydf6lhqipwcqbm9bim5sayhms4bzbljaic";
 
+  patches = [ ./mkv.patch ];
+
   meta = with lib; {
     homepage = https://github.com/vishen/go-chromecast;
     description = "cli for Google Chromecast, Home devices and Cast Groups";
