@@ -24,6 +24,6 @@ buildGoPackage rec {
     description = "A Distributed, Highly Available, Datacenter-Aware Scheduler";
     platforms = platforms.unix;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ rushmorem pradeepchhetri ];
+    maintainers = with maintainers; [ rushmorem pradeepchhetri endocrimes ];
   };
 }
