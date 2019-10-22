@@ -42,6 +42,10 @@ stdenv.mkDerivation rec {
     ln -s $out/share/hyperspace/hyperspace $out/bin/hyperspace
 
     rm -vrf $out/share/hyperspace/{libGLESv2.so,libEGL.so,swiftshader}
+
+    substituteInPlace $out/share/applications/hyperspace.desktop \
+     --replace "Exec=/opt/Hyperspace/hyperspace" \
+               "Exec=$out/bin/hyperspace"
   '';
 
   buildInputs = [
