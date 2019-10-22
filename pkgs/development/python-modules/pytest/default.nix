@@ -6,6 +6,8 @@ buildPythonPackage rec {
   version = "5.1.0";
   pname = "pytest";
 
+  disabled = !isPy3k;
+
   preCheck = ''
     # don't test bash builtins
     rm testing/test_argcomplete.py
@@ -19,10 +21,10 @@ buildPythonPackage rec {
   checkInputs = [ hypothesis mock ];
   nativeBuildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ attrs py setuptools six pluggy more-itertools atomicwrites wcwidth packaging ]
-    ++ stdenv.lib.optionals (!isPy3k) [ funcsigs ]
     ++ stdenv.lib.optionals (pythonOlder "3.6") [ pathlib2 ];
 
   doCheck = !isPyPy; # https://github.com/pytest-dev/pytest/issues/3460
+
   # Ignored file https://github.com/pytest-dev/pytest/pull/5605#issuecomment-522243929
   checkPhase = ''
     runHook preCheck
