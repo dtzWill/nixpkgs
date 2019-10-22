@@ -25,6 +25,13 @@ mkDerivation rec {
     cairo
   ];
 
+  postPatch = ''
+    # The Qt5 platforms plugin is vendored in the package, however what's there is not always up-to-date with what's in nixpkgs.
+    # We simply copy the headers from qtbase's source tarball.
+    mkdir -p platformplugin/libqt5xcbqpa-dev/${qtbase.version}
+    cp -r ../qtbase-everywhere-src-${qtbase.version}/src/plugins/platforms/xcb/*.h platformplugin/libqt5xcbqpa-dev/${qtbase.version}/
+  '';
+
   qmakeFlags = [
     "INSTALL_PATH=${placeholder "out"}/${qtbase.qtPluginPrefix}/platforms"
   ];
