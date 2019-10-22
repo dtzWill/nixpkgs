@@ -3,7 +3,7 @@
 buildGoModule rec {
   # https://github.com/erroneousboat/slack-term
   name = "slack-term-${version}";
-  version = "unstable-2019-10-05";
+  version = "unstable-2019-10-12";
 
   goPackagePath = "github.com/erroneousboat/slack-term";
 
@@ -11,8 +11,8 @@ buildGoModule rec {
     owner = "erroneousboat";
     repo = "slack-term";
     #rev = "v${version}";
-    rev = "69db448dd3a806950032bf4b631f2ec2a2c7a13c";
-    sha256 = "12xhnpcbxkc3ic692svhfvndkjykpb7kmar30sis25r5fa76yk6v";
+    rev = "aa5d501a0db4cbddb1072dc8030813f91a1bd2eb";
+    sha256 = "1g3fdhxidcjcd3wxwmly4dzdjfa46cmrsv5c39v5f3nlzvz9ssk5";
   };
 
   modSha256 = "1jsyxqkmw4ap4c1fh1vj4j31wnbfyrhh2qgp3rnlryp004v6x9qs";
