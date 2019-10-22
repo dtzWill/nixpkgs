@@ -1,11 +1,11 @@
 { stdenv, fetchFromGitHub, boost, cmake, curl, ruby }:
 
 stdenv.mkDerivation rec {
-  name = "leatherman-${version}";
-  version = "1.7.1";
+  pname = "leatherman";
+  version = "1.8.0";
 
   src = fetchFromGitHub {
-    sha256 = "0m2dm1gzwj0kwyl031bif89h3n4znml3m5n97hywlbra58ni8km1";
+    sha256 = "0iizy20pdkbnsfj6bzrkkj7faizc85lcpkpandvnxfybiq7j60iw";
     rev = version;
     repo = "leatherman";
     owner = "puppetlabs";
