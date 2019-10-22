@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, utillinux }:
 
 stdenv.mkDerivation rec {
-  name = "mcelog-${version}";
+  pname = "mcelog";
   version = "164";
 
   src = fetchFromGitHub {
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "DESTDIR=$(out)" "prefix=" "DOCDIR=/share/doc" ];
+  installFlags = [ "DESTDIR=${placeholder "out"}" "prefix=" "DOCDIR=/share/doc" ];
 
   postInstall = ''
     mkdir -p $out/lib/systemd/system
