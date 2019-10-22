@@ -5,14 +5,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "libinput-gestures";
-  version = "2.39";
+  version = "2.47";
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "bulletmark";
     repo = "libinput-gestures";
     rev = version;
-    sha256 = "0bzyi55yhr9wyar9mnd09cr6pi88jkkp0f9lndm0a9jwi1xr4bdf";
+    sha256 = "1z9g39ngnajl39988y0834184ng0x4x710zljhadg9rc7rznskar";
   };
   patches = [
     ./0001-hardcode-name.patch
