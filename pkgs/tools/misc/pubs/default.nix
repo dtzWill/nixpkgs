@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages }:
+{ stdenv, fetchFromGitHub, python3Packages, git }:
 
 python3Packages.buildPythonApplication rec {
   pname = "pubs";
@@ -15,7 +15,15 @@ python3Packages.buildPythonApplication rec {
     argcomplete dateutil configobj feedparser bibtexparser pyyaml requests six beautifulsoup4
   ];
 
+  nativeBuildInputs = [ git ];
+
   checkInputs = with python3Packages; [ pyfakefs mock ddt ];
+
+  preCheck = ''
+    # dummy config for tests
+    git config --global user.email "nobody@example.com"
+    git config --global user.name "Nobody"
+  '';
 
   meta = with stdenv.lib; {
     description = "Command-line bibliography manager";
