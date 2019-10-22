@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
+{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch
 , sqlite, isPyPy }:
 
 buildPythonPackage rec {
@@ -15,6 +15,14 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ sqlite ];
+
+  patches = [
+    # fix w/sqlte 3.30 using upstream commit.
+    (fetchpatch {
+      url = "https://github.com/rogerbinns/apsw/commit/13df0b57bff59542978abf7c0a440c9274e3aac3.patch";
+      sha256 = "1wi1mfis2mr21389wdnvq44phg0bpm5vpwmxhvrj211vwfm0q7dv";
+    })
+  ];
 
   meta = with stdenv.lib; {
     description = "A Python wrapper for the SQLite embedded relational database engine";
