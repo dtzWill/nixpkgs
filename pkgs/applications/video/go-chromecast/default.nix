@@ -2,17 +2,17 @@
 
 buildGoModule rec {
   pname = "go-chromecast";
-  #version = "0.0.11";
-  version = "2019-10-01";
+  #version = "0.0.12";
+  version = "2019-10-20";
 
   src = fetchFromGitHub {
     owner = "vishen";
     repo = pname;
     #rev = "refs/tags/v${version}";
-    rev = "984c9839525b07d00ca62f1459d95d6ad5232c94";
-    sha256 = "15vz51rwf2h95n11ibfw5b9rp3ajzvbm68wina4mmx5d91ba58fl";
+    rev = "5912b85e5506b9f55e88c1ddece05ce79c3171c0";
+    sha256 = "1nydi3kw35gdwx60h8qnl491xavw87vgj4ffw8124gbakrq470w7";
   };
-  modSha256 = "01zmhrkgdfkf1ssd7mydf6lhqipwcqbm9bim5sayhms4bzbljaic";
+  modSha256 = "01zmhrkgdfkf0ssd7mydf6lhqipwcqbm9bim5sayhms4bzbljaic";
 
   meta = with lib; {
     homepage = https://github.com/vishen/go-chromecast;
