@@ -2,7 +2,7 @@
 , requests, filetype, pyparsing, configparser, arxiv2bib
 , pyyaml, chardet, beautifulsoup4, colorama, bibtexparser
 , pylibgen, click, python-slugify, habanero, isbnlib
-, prompt_toolkit, pygments, stevedore, tqdm
+, prompt_toolkit, pygments, stevedore, tqdm, lxml
 #, optional, dependencies
 , jinja2, whoosh, pytest
 , stdenv
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     requests filetype pyparsing configparser arxiv2bib
     pyyaml chardet beautifulsoup4 colorama bibtexparser
     pylibgen click python-slugify habanero isbnlib
-    prompt_toolkit pygments stevedore tqdm
+    prompt_toolkit pygments stevedore tqdm lxml
     # optional dependencies
     jinja2 whoosh
   ];
