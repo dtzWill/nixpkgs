@@ -6245,6 +6245,8 @@ in {
 
   simplenote = callPackage ../development/python-modules/simplenote { };
 
+  python-doi = callPackage ../development/python-modules/python-doi { };
+
 });
 
 in fix' (extends overrides packages)
