@@ -64,6 +64,8 @@ buildPythonPackage rec {
         # fail with 5.x
         "test_export_yaml"
         "test_citations"
+        # expected failure: arxivid validation by querying sefver
+        "test_validate_arxivid"
       ]}"
   '';
 
