@@ -43,18 +43,16 @@ stdenv.mkDerivation rec {
     make oldconfig
   '';
 
-  makeFlags = [ "PREFIX=$(out)/bin" ] ++ lib.optional enableStatic "LDFLAGS=--static";
+  makeFlags = [ "PREFIX=${placeholder "out"}/bin" ]
+    ++ lib.optional enableStatic "LDFLAGS=--static";
 
   installTargets = "install_flat";
 
-  # tests currently (as of 0.8.0) get stuck in an infinite loop...
-  # ...this is fixed in latest git, so doCheck can likely be enabled for next release
-  # see https://github.com/landley/toybox/commit/b928ec480cd73fd83511c0f5ca786d1b9f3167c3
-  #doCheck = true;
+  doCheck = true;
   checkInputs = [ which ]; # used for tests with checkFlags = [ "DEBUG=true" ];
   checkTarget = "tests";
 
-  NIX_CFLAGS_COMPILE = "-Wno-error";
+  NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
 
   meta = with stdenv.lib; {
     description = "Lightweight implementation of some Unix command line utilities";
