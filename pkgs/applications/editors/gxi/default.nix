@@ -5,11 +5,12 @@
 
 stdenv.mkDerivation rec {
   pname = "tau";
-  version = "0.9.2";
+  version = "0.9.3";
 
   src = fetchurl {
-    url = "https://gitlab.gnome.org/World/Tau/uploads/fdf09640e3837ad509f5c4b1da0c26e3/tau-0.9.2.tar.xz";
-    sha256 = "07ahl1h72w9sggq1r24k4mlfn9hx5r90kvdlra170bgpdcsvg3g4";
+    # XXX: yes, this URL needs replacing withe every version :(
+    url = "https://gitlab.gnome.org/World/Tau/uploads/375ce054c0bc98e0c1a3e95fdcd4e46c/tau-0.9.3.tar.xz";
+    sha256 = "02xfvav3hm7v33ai4dxhygl5a0rnd8m769q4c6kd2zgvhq7412z5";
   };
 
   nativeBuildInputs = [
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GTK frontend for the xi text editor, written in Rust";
-    homepage = https://gxi.cogitri.dev;
+    homepage = https://gitlab.gnome.org/World/Tau;
     license = licenses.mit;
     maintainers = [ maintainers.jansol ];
     platforms = platforms.linux;
