@@ -10,15 +10,15 @@
 
 buildPythonPackage rec {
   pname = "papis";
-  version = "0.8.2";
+  version = "0.9";
 
   # Missing tests on Pypi
   src = fetchFromGitHub {
     owner = "papis";
     repo = pname;
-    #rev = "v${version}";
-    rev = "1bbcfc001dd4449f9f99e89b4a63bd04f0373d4f";
-    sha256 = "05mqhdss6kbkw4kfgi6cg058v9xicnb0y0xnxjjgd0gmhk2z9bcl";
+    rev = "v${version}";
+    #rev = "1bbcfc001dd4449f9f99e89b4a63bd04f0373d4f";
+    sha256 = "15i79q6nr7gcpcafdz5797axmp6r3081sys07k1k2vi5b2g3qc4k";
   };
 
   propagatedBuildInputs = [
