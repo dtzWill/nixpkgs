@@ -1,26 +1,32 @@
-{ stdenv, fetchurl, fetchpatch, ncurses }:
+{ stdenv, fetchurl, fetchpatch, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
-  version = "0.7.4";
-  name = "nload-${version}";
+  version = "0.7.4-git";
+  pname = "nload";
 
-  src = fetchurl {
-    url = "http://www.roland-riegel.de/nload/${name}.tar.gz";
-    sha256 = "1rb9skch2kgqzigf19x8bzk211jdfjfdkrcvaqyj89jy2pkm3h61";
+  src = fetchFromGitHub {
+    owner = "rolandriegel";
+    repo = pname;
+    rev = "8f92dc04fad283abdd2a4538cd4c2093d957d9da";
+    sha256 = "0b3gn1wpfhcchcka7w8is33yw1xlwimabv2maykp1y5jgjlkrcb4";
   };
+  #src = fetchurl {
+  #  url = "http://www.roland-riegel.de/nload/${name}.tar.gz";
+  #  sha256 = "1rb9skch2kgqzigf19x8bzk211jdfjfdkrcvaqyj89jy2pkm3h61";
+  #};
 
-  patches = [
-    # Fixes an ugly bug of graphs scrolling to the side, corrupting the view.
-    # There is an upstream fix, but not a new upstream release that includes it.
-    # Other distributions like Gentoo also patch this as a result; see:
-    #   https://github.com/rolandriegel/nload/issues/3#issuecomment-427579143
-    # TODO Remove when https://github.com/rolandriegel/nload/issues/3 is merged and available
-    (fetchpatch {
-      url = "https://github.com/rolandriegel/nload/commit/8a93886e0fb33a81b8fe32e88ee106a581fedd34.patch";
-      name = "nload-0.7.4-Eliminate-flicker-on-some-terminals.patch";
-      sha256 = "10yppy5l50wzpcvagsqkbyf1rcan6aj30am4rw8hmkgnbidf4zbq";
-    })
-  ];
+  #patches = [
+  #  # Fixes an ugly bug of graphs scrolling to the side, corrupting the view.
+  #  # There is an upstream fix, but not a new upstream release that includes it.
+  #  # Other distributions like Gentoo also patch this as a result; see:
+  #  #   https://github.com/rolandriegel/nload/issues/3#issuecomment-427579143
+  #  # TODO Remove when https://github.com/rolandriegel/nload/issues/3 is merged and available
+  #  (fetchpatch {
+  #    url = "https://github.com/rolandriegel/nload/commit/8a93886e0fb33a81b8fe32e88ee106a581fedd34.patch";
+  #    name = "nload-0.7.4-Eliminate-flicker-on-some-terminals.patch";
+  #    sha256 = "10yppy5l50wzpcvagsqkbyf1rcan6aj30am4rw8hmkgnbidf4zbq";
+  #  })
+  #];
 
   buildInputs = [ ncurses ];
 
