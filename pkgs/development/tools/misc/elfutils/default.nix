@@ -13,13 +13,6 @@ stdenv.mkDerivation rec {
   patches = [
     ./debug-info-from-env.patch
 
-    /* For gcc8. Fixes -Werror=packed-not-aligned errors.
-    incorporated in upstream, so can probably be removed at next update */
-    (fetchurl {
-      url = http://git.openembedded.org/openembedded-core/plain/meta/recipes-devtools/elfutils/files/0001-Ensure-that-packed-structs-follow-the-gcc-memory-lay.patch?id=49aae1d75ff1c6a9643c30a8cc5776a2ffa83dd3;
-      sha256 = "11sg2dn3vjvgq2fb9n8pgw1ajvs3gliks7djg1794wxlfg0rvifb";
-    })
-
     (fetchpatch {
       name = "support-pax-flags.patch";
       url = https://115100.bugs.gentoo.org/attachment.cgi?id=74902;
