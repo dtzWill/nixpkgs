@@ -4,7 +4,7 @@
 , pylibgen, click, python-slugify, habanero, isbnlib
 , prompt_toolkit, pygments, stevedore, tqdm, lxml
 #, optional, dependencies
-, jinja2, whoosh, pytest
+, whoosh, pytest
 , stdenv
 }:
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     pylibgen click python-slugify habanero isbnlib
     prompt_toolkit pygments stevedore tqdm lxml
     # optional dependencies
-    jinja2 whoosh
+    whoosh
   ];
 
   doCheck = !stdenv.isDarwin;
