@@ -2,7 +2,6 @@
 , mock
 , pysqlite
 , pytest
-, fetchpatch
 }:
 
 buildPythonPackage rec {
@@ -13,14 +12,6 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "0v74sl9xr5llv1q14hsn0wa9bwjcs5rjqmz1yphifiarvfsnh1qg";
   };
-
-  patches = [
-    # fix two tests started failing w/sqlite 3.30, using upstream PR (not merged!)
-    (fetchpatch {
-      url = "https://github.com/sqlalchemy/sqlalchemy/pull/4921.patch";
-      sha256 = "0y37kjsfz7j82ic9fvc5cg5fj0yayr4v5mz3q3pd15j0vbljpci9";
-    })
-  ];
 
   checkInputs = [
     pytest
