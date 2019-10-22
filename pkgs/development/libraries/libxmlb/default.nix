@@ -29,13 +29,6 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    # Fix installed tests
-    # https://github.com/hughsie/libxmlb/pull/2
-    (fetchpatch {
-      url = "https://github.com/hughsie/libxmlb/commit/78850c8b0f644f729fa21e2bf9ebed0d9d6010f3.diff";
-      sha256 = "0zw7c6vy8hscln7za7ijqd9svirach3zdskvbzyxxcsm3xcwxpjm";
-    })
-
     ./installed-tests-path.patch
   ];
 
