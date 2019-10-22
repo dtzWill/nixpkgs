@@ -3,7 +3,7 @@
 
 buildPythonPackage rec {
   pname = "apsw";
-  version = "3.22.0-r1";
+  version = "3.29.0-r1";
 
   disabled = isPyPy;
 
@@ -11,7 +11,7 @@ buildPythonPackage rec {
     owner = "rogerbinns";
     repo = "apsw";
     rev = version;
-    sha256 = "02ldvshcgr4c7c8anp4flfnw8g8ys5bflkb8b51rb618qxhhwyak";
+    sha256 = "1p3sgmk9qwd0a634lirva44qgpyq0a74r9d70wxb6hsa52yjj9xb";
   };
 
   buildInputs = [ sqlite ];
