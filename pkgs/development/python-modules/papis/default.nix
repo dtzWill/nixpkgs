@@ -21,6 +21,17 @@ buildPythonPackage rec {
     sha256 = "15i79q6nr7gcpcafdz5797axmp6r3081sys07k1k2vi5b2g3qc4k";
   };
 
+  # Remove limit on lxml version (ours is newer),
+  # perhaps there is a good reason but the commit adding this limit
+  # introduced comment indicating it was "for python 3.4" which
+  # doesn't seem worth breaking the build or introducing local
+  # variant of lxml with the requested version.
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace '"lxml<=4.3.5"' \
+                '"lxml"'
+  '';
+
   propagatedBuildInputs = [
     requests filetype pyparsing configparser arxiv2bib
     pyyaml chardet beautifulsoup4 colorama bibtexparser
