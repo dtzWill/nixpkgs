@@ -56,6 +56,10 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
+  # Fix write past end of buffer in certain circumstances
+  # ... circumstances I encounter often, thanks neighbors ;)
+  patches = [ ./completion-crash-fix-wip.patch ];
+
   doCheck = true;
 
   postInstall = ''
