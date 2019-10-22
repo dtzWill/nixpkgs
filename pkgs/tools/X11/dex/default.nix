@@ -12,9 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "13dkjd1373mbvskrdrp0865llr3zvdr90sc6a6jqswh3crmgmz4k";
   };
 
-  propagatedBuildInputs = [ python3 ];
-  nativeBuildInputs = [ python3.pkgs.sphinx ];
-  makeFlags = [ "PREFIX=$(out)" "VERSION=$(version)" ];
+  buildInputs = [ python3 ];
+  nativeBuildInputs = [ python3.pkgs.sphinx python3.pkgs.setuptools ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" "VERSION=${version}" ];
 
   patches = [
     (fetchpatch {
