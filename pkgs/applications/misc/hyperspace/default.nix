@@ -32,6 +32,8 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/bin
     ln -s $out/share/hyperspace/hyperspace $out/bin/hyperspace
+
+    rm -vrf $out/share/hyperspace/{libGLESv2.so,libEGL.so,swiftshader}
   '';
 
   buildInputs = /* FIXME: don't be lazy */ atomEnv.packages;
