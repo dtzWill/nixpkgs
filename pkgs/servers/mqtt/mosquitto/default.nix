@@ -3,14 +3,14 @@
 , systemd ? null, withSystemd ? stdenv.isLinux }:
 
 stdenv.mkDerivation rec {
-  name = "mosquitto-${version}";
-  version = "1.6.4";
+  pname = "mosquitto";
+  version = "1.6.7";
 
   src = fetchFromGitHub {
     owner  = "eclipse";
     repo   = "mosquitto";
     rev    = "v${version}";
-    sha256 = "1kr1dgc4nzhyg3rzymbv4rka3rpb30rwsy6binb7apnw3n3ff58l";
+    sha256 = "1g9g9c95ypfa9dv53ga3hjqxrrlqmcf1lmpxgrifl2l34q4zzfln";
   };
 
   postPatch = ''
