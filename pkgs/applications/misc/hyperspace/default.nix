@@ -1,6 +1,14 @@
 { stdenv, fetchurl, lib
 , autoPatchelfHook, wrapGAppsHook, dpkg
-, atomEnv /* XXX: lazy */
+, libX11, libXext, libXi, libXau, libXrender, libXft, libXmu, libSM, libXcomposite, libXfixes, libXpm
+, libXinerama, libXdamage, libICE, libXtst, libXaw, fontconfig, pango, cairo, glib, libxml2, atk, gtk3
+, gdk-pixbuf
+# more
+, nss, nspr
+, libXScrnSaver
+, alsaLib
+# rt?
+, udev, libGL
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    wrapGAppsHook
+    #wrapGAppsHook
     dpkg
   ];
 
@@ -36,7 +44,18 @@ stdenv.mkDerivation rec {
     rm -vrf $out/share/hyperspace/{libGLESv2.so,libEGL.so,swiftshader}
   '';
 
-  buildInputs = /* FIXME: don't be lazy */ atomEnv.packages;
+  buildInputs = [
+    # From maxx, only w/gtk3
+    stdenv.cc.cc libX11 libXext libXi libXau libXrender libXft libXmu libSM libXcomposite libXfixes libXpm
+    libXinerama libXdamage libICE libXtst libXaw fontconfig pango cairo glib libxml2 atk gtk3
+    gdk-pixbuf
+    # more
+    nss nspr
+    libXScrnSaver
+    alsaLib
+  ];
+
+  runtimeDependencies = [ libGL udev.lib ];
 
   dontBuild = true;
   dontStrip = true;
