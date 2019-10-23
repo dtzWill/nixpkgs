@@ -32,10 +32,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with stdenvNoCC.lib; {
-    description = "Material Based Cursor";
-    homepage = https://github.com/KaizIqbal/Bibata_Cursor;
+    description = "Cursors Based on Bibata";
+    homepage = https://github.com/KaizIqbal/Bibata_Extra_Cursor;
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rawkode ];
+    maintainers = with maintainers; [ dtzWill ];
   };
 }
