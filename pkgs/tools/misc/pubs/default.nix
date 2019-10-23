@@ -21,6 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   preCheck = ''
     # dummy config for tests
+    export HOME=$TMPDIR
     git config --global user.email "nobody@example.com"
     git config --global user.name "Nobody"
   '';
