@@ -14,7 +14,7 @@
  install-swiftpm
  install-xctest
 -install-libicu
- install-prefix=$(install_prefix)s
+ install-prefix=%(install_prefix)s
 -install-libcxx
  install-sourcekit-lsp
  build-swift-static-stdlib
