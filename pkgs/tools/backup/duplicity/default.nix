@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ librsync makeWrapper python3Packages.wrapPython ];
   propagatedBuildInputs = [ backblaze-b2 ] ++ (with python3Packages; [
     boto cffi cryptography ecdsa idna pygobject3 fasteners
-    ipaddress lockfile paramiko pyasn1 pycrypto six
+    ipaddress lockfile paramiko pyasn1 pycrypto six future
   ]);
   checkInputs = [
     gnupg  # Add 'gpg' to PATH.
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     par2cmdline  # Add 'par2' to PATH.
   ] ++ stdenv.lib.optionals stdenv.isLinux [
     utillinux  # Add 'setsid' to PATH.
-  ] ++ (with python3Packages; [ lockfile mock pexpect ]);
+  ] ++ (with python3Packages; [ lockfile mock pexpect pytest pytestrunner fasteners]);
 
   postInstall = ''
     wrapProgram $out/bin/duplicity \
