@@ -40,11 +40,17 @@ with python3.pkgs; buildPythonApplication rec {
   postInstall = ''
     # zsh completion
     install -D misc/__khal $out/share/zsh/site-functions/__khal
-
+  ''
+  # Punt on man page for now :(...
+  # sphinx isn't able to find sphinxcontrib_newsfeed
+  # and only fix I found so far is to bundle together in python.withPackages.
+  # Unfortunately that build fails later on, due to dup dependencies apparently.
+  # Oh well.
+  + stdenv.lib.optionalString false ''
     # man page
     make -C doc man
     install -Dm755 doc/build/man/khal.1 -t $out/share/man/man1
-
+  '' + ''
     # desktop
     install -Dm755 misc/khal.desktop -t $out/share/applications
   '';
