@@ -2217,6 +2217,8 @@ in
 
   cdrkit = callPackage ../tools/cd-dvd/cdrkit { };
 
+  isomd5sum = callPackage ../tools/cd-dvd/isomd5sum { };
+
   mdf2iso = callPackage ../tools/cd-dvd/mdf2iso { };
 
   nrg2iso = callPackage ../tools/cd-dvd/nrg2iso { };
