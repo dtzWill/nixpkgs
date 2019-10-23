@@ -48,6 +48,11 @@ let
       #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/synctex-missing-header.patch?h=packages/texlive-bin&id=da56abf0f8a1e85daca0ec0f031b8fa268519e6b;
       #  sha256 = "1c4aq8lk8g3mlfq3mdjnxvmhss3qs7nni5rmw0k054dmj6q1xj5n";
       #})
+      (fetchurl {
+        name = "texlive-poppler-0.76.patch";
+        url = "https://git.archlinux.org/svntogit/packages.git/plain/trunk/pdftex-poppler0.76.patch?h=packages/texlive-bin&id=ff0f2e09254df1c85d1bdf6675d9e20ea8900062";
+        sha256 = "03vc88dz37mjjyaspzv0fik2fp5gp8qv82114869akd1dhszbaax";
+      })
     ];
 
     postPatch = ''
