@@ -12,12 +12,7 @@ python3Packages.buildPythonApplication rec {
     url = "https://launchpad.net/duplicity/${stdenv.lib.versions.majorMinor version}-series/${version}/+download/${pname}-${version}.tar.gz";
     sha256 = "078ilcnlpmwdmivhvim1dbh6vy1as69q9jnpy82zy0r0977p4ih6";
   };
-  patches = [
-    ./gnutar-in-test.patch
-    ./use-installed-scripts-in-test.patch
-  ] ++ stdenv.lib.optionals stdenv.isLinux [
-    ./linux-disable-timezone-test.patch
-  ];
+  patches = stdenv.lib.optional stdenv.isLinux ./linux-disable-timezone-test.patch;
 
   buildInputs = [ librsync makeWrapper python3Packages.wrapPython ];
   propagatedBuildInputs = [ backblaze-b2 ] ++ (with python3Packages; [
