@@ -30,7 +30,18 @@ with python3.pkgs; buildPythonApplication rec {
     freezegun
     pkgs.shadow
   ];
-  nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
+  nativeBuildInputs = [
+    setuptools_scm
+    #(pkgs.buildEnv {
+    #  name = "sphinx-env";
+    #  paths = [ (python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])) ];
+    #})
+    #("${python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin/sphinx-build")
+    #(sphinx.overrideAttrs(o: {
+    #  propagatedBuildInputs = o.propagatedBuildInputs or [] ++ [ sphinxcontrib_newsfeed ];
+    #}))
+    #sphinx
+  ];
   checkInputs = [ pytest glibcLocales /* :( */ ];
 
   patches = [
@@ -46,9 +57,11 @@ with python3.pkgs; buildPythonApplication rec {
   # and only fix I found so far is to bundle together in python.withPackages.
   # Unfortunately that build fails later on, due to dup dependencies apparently.
   # Oh well.
-  # XXX: Maybe it'd work if built entirely separately? :D
-  + stdenv.lib.optionalString false ''
+  # XXX: Maybe it'd work if built entirely separately? (and linked back in)
+  # Oh hey, the following kludgetasmadoodle does the job:
+  + stdenv.lib.optionalString true ''
     # man page
+    PATH="${python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin:$PATH" \
     make -C doc man
     install -Dm755 doc/build/man/khal.1 -t $out/share/man/man1
   '' + ''
