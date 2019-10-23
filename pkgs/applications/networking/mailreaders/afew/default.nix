@@ -16,11 +16,14 @@ python3Packages.buildPythonApplication rec {
   #  sha256 = "0j60501nm242idf2ig0h7p6wrg58n5v2p6zfym56v9pbvnbmns0s";
   #};
 
-  nativeBuildInputs = with python3Packages; [ sphinx setuptools_scm git freezegun notmuch ];
+  nativeBuildInputs = with python3Packages; [ sphinx setuptools_scm git freezegun ];
 
-  propagatedBuildInputs = with python3Packages; [
-    setuptools notmuch chardet dkimpy
-  ] ++ stdenv.lib.optional (!pythonPackages.isPy3k) subprocess32;
+  propagatedBuildInputs = [ notmuch python3Packages.notmuch ]
+  ++ (with python3Packages; [
+    setuptools chardet dkimpy
+  ] ++ stdenv.lib.optional (!python3Packages.isPy3k) subprocess32);
+
+  checkInputs = [ notmuch ];
 
   makeWrapperArgs = [
     ''--prefix PATH ':' "${notmuch}/bin"''
