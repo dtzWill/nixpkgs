@@ -16,6 +16,12 @@
 , sqlite
 }:
 
+let
+  qtkeychainWithLibsecret = qtkeychain.override {
+    withLibsecret = true;
+  };
+in
+
 mkDerivation rec {
   pname = "nextcloud-client";
   version = "unstable-2019-10-22";
@@ -45,7 +51,7 @@ mkDerivation rec {
     openssl
     pcre
     qtbase
-    qtkeychain
+    qtkeychainWithLibsecret
     qttools
     qtwebengine qtwebkit
     sqlite
