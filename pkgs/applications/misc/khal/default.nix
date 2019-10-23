@@ -46,6 +46,7 @@ with python3.pkgs; buildPythonApplication rec {
   # and only fix I found so far is to bundle together in python.withPackages.
   # Unfortunately that build fails later on, due to dup dependencies apparently.
   # Oh well.
+  # XXX: Maybe it'd work if built entirely separately? :D
   + stdenv.lib.optionalString false ''
     # man page
     make -C doc man
