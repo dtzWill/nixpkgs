@@ -1,0 +1,26 @@
+From 5ef8f08cab94092b8bd1b44650549dc81487cec3 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 23 Oct 2019 11:16:15 -0500
+Subject: [PATCH] don't try installing clangd, ninja says unknown target
+
+Maybe there's a dep missing? Dunno.
+---
+ utils/build-presets.ini | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/utils/build-presets.ini b/utils/build-presets.ini
+index 9a27b59bc3..5a1b482430 100644
+--- a/utils/build-presets.ini
++++ b/utils/build-presets.ini
+@@ -727,7 +727,7 @@ swift-enable-ast-verifier=0
+ #===------------------------------------------------------------------------===#
+ [preset: mixin_linux_install_components_with_clang]
+ swift-install-components=autolink-driver;compiler;clang-resource-dir-symlink;stdlib;swift-remote-mirror;sdk-overlay;parser-lib;toolchain-tools;license;sourcekit-inproc
+-llvm-install-components=llvm-cov;llvm-profdata;IndexStore;clang;clang-resource-headers;compiler-rt;clangd
++llvm-install-components=llvm-cov;llvm-profdata;IndexStore;clang;clang-resource-headers;compiler-rt
+ 
+ [preset: mixin_linux_installation]
+ mixin-preset=
+-- 
+2.24.0-rc0
+
