@@ -235,9 +235,6 @@ stdenv.mkDerivation rec {
       \
       -e 's/^swift-install-components=autolink.*$/\0;editor-integration/'
 
-    # https://bugs.swift.org/browse/SR-10559
-    patch -p1 -d swift-corelibs-libdispatch -i ${./patches/libdispatch-fortify-fix.patch}
-
     substituteInPlace clang/lib/Driver/ToolChains/Linux.cpp \
       --replace 'SysRoot + "/usr/lib' '"${glibc}/lib" "'
     patch -p1 -d clang -i ${./patches/llvm-include-dirs.patch}
