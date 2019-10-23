@@ -14,7 +14,6 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./respect-path-env-var.patch
     (substituteAll {
       src = ./fix-paths.patch;
       inherit flatpak;
