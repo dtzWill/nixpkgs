@@ -2,7 +2,7 @@
 , docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11
-, libXinerama, libXext, xwininfo, libxdg_basedir }:
+, libXinerama, libXext, xprop, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
   pname = "picom";
   #version = "7.3";
@@ -73,8 +73,10 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
-    wrapProgram $out/bin/compton-trans \
-      --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
+    wrapProgram $out/bin/picom-trans \
+      --prefix PATH : ${lib.makeBinPath [ xprop xwininfo ]}
+    # just replace compton-trans symlink instead of wrapping it too
+    ln -srfv $out/bin/{picom,compton}-trans
   '';
 
   meta = with lib; {
