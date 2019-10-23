@@ -47,8 +47,6 @@ let
     };
 
   sources = {
-    # FYI: SourceKit probably would work but currently requires building everything twice
-    # For more inforation, see: https://github.com/apple/swift/pull/3594#issuecomment-234169759
     clang = fetch {
       repo = "swift-clang";
       sha256 = "0n7k6nvzgqp6h6bfqcmna484w90db3zv4sh5rdh89wxyhdz6rk4v";
@@ -93,6 +91,14 @@ let
     swift = fetch {
       repo = "swift";
       sha256 = "0m4r1gzrnn0s1c7haqq9dlmvpqxbgbkbdfmq6qaph869wcmvdkvy";
+    };
+    sourcekit-lsp = fetch {
+      repo = "sourcekit-lsp";
+      sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
+    };
+    indexstore-db = fetch {
+      repo = "indexstore-db";
+      sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
     };
   };
 
@@ -199,6 +205,8 @@ stdenv.mkDerivation rec {
     cp -r ${sources.foundation} swift-corelibs-foundation
     cp -r ${sources.libdispatch} swift-corelibs-libdispatch
     cp -r ${sources.swift} swift
+    cp -r ${sources.sourcekit-lsp} sourcekit-lsp
+    cp -r ${sources.indexstore-db} indexstore-db
 
     chmod -R u+w .
   '';
