@@ -8,7 +8,7 @@ with lib;
 assert withQt5; # XXX: DTZ: I want to know if/when/how my configs try qt4 instead
 
 let
-  v = "4.10.2";
+  v = "4.11.1";
 
   soname = if withQt5 then "phonon4qt5" else "phonon";
   buildsystemdir = "share/cmake/${soname}";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://kde/stable/phonon/${v}/phonon-${v}.tar.xz";
-    sha256 = "02c8fyyvg5qb0lxwxmnxc5grkg6p3halakjf02vmwmvqaycb3v9l";
+    sha256 = "0bfy8iqmjhlg3ma3iqd3kxjc2zkzpjgashbpf5x17y0dc2i1whxl";
   };
 
   buildInputs =
