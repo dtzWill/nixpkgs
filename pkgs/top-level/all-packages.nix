@@ -21952,10 +21952,12 @@ in
 
   inherit (xorg) xcompmgr;
 
-  compton = callPackage ../applications/window-managers/compton {
+  picom = callPackage ../applications/window-managers/picom {
     inherit (llvmPackages_latest) stdenv;
     meson = mesonClang;
   };
+  # XXX: alias
+  compton = picom;
 
   xdaliclock = callPackage ../tools/misc/xdaliclock {};
 

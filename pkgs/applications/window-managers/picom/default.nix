@@ -4,18 +4,18 @@
 , dbus, libconfig, libdrm, libGL, pcre, libX11
 , libXinerama, libXext, xwininfo, libxdg_basedir }:
 stdenv.mkDerivation rec {
-  pname = "compton";
+  pname = "picom";
   #version = "7.3";
-  version = "unstable-2019-10-12";
+  version = "unstable-2019-10-23";
 
   COMPTON_VERSION = "v${version}";
 
   src = fetchFromGitHub {
     owner  = "yshui";
-    repo   = "compton";
+    repo   = "compton"; # pname;
     #rev    = COMPTON_VERSION;
-    rev = "f227e6c8c7c98742d31a1d69b45091aa3252c861";
-    sha256 = "1v9xy4pzjlvfk4fx71cmafysyljkms7hpqxjcwv16lz4vnl7s7ag";
+    rev = "43b21731f82d72701f45e64759c4573b332daef0";
+    sha256 = "0vn4svh3gvqa99ph2dzjsck0v6850bw112ar4jrx9z992gav1c6f";
     fetchSubmodules = true;
   };
 
