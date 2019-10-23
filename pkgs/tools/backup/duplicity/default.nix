@@ -44,7 +44,9 @@ python3Packages.buildPythonApplication rec {
     # shebang is incorrect and it fails to run inside Nix' sandbox.
     # In combination with use-installed-scripts-in-test.patch, make 'setup.py
     # test' use the installed 'duplicity' instead.
-    PATH="$out/bin:$PATH"
+    export PATH="$out/bin:$PATH"
+
+    ln -sf $out/bin/duplicity ./bin/
 
     # Don't run developer-only checks (pep8, etc.).
     export RUN_CODE_TESTS=0
