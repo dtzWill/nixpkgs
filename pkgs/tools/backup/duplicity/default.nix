@@ -46,9 +46,7 @@ python3Packages.buildPythonApplication rec {
     # test' use the installed 'duplicity' instead.
     PATH="$out/bin:$PATH"
 
-    substituteInPlace ./bin/duplicity --replace '/usr/bin/env python2' '/usr/bin/env python'
-    substituteInPlace ./bin/rdiffdir --replace '/usr/bin/env python2' '/usr/bin/env python'
-    # ln -sf $out/bin/duplicity ./bin/
+    ln -sf $out/bin/{duplicity,rdiffdir} ./bin/
 
     # Don't run developer-only checks (pep8, etc.).
     export RUN_CODE_TESTS=0
