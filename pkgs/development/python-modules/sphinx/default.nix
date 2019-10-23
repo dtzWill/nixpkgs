@@ -20,6 +20,7 @@
 , whoosh
 , imagesize
 , requests
+, sphinxcontrib-applehelp
 , sphinxcontrib-websupport
 , typing
 , setuptools
@@ -54,6 +55,7 @@ buildPythonPackage rec {
     whoosh
     imagesize
     requests
+    sphinxcontrib-applehelp
     sphinxcontrib-websupport
   ] ++ lib.optional (pythonOlder "3.5") typing;
 

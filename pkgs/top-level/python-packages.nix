@@ -4938,6 +4938,8 @@ in {
       };
     });
 
+  sphinxcontrib-applehelp = callPackage ../development/python-modules/sphinxcontrib-applehelp { };
+
   sphinx-argparse = callPackage ../development/python-modules/sphinx-argparse { };
 
   sphinxcontrib-websupport = callPackage ../development/python-modules/sphinxcontrib-websupport { };
