@@ -11,6 +11,8 @@
 , nss
 , pam
 , systemd
+, autoreconfHook
+, gtk-doc
 }:
 
 stdenv.mkDerivation rec {
@@ -25,6 +27,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     intltool
     pkgconfig
+    autoreconfHook # Drop with above patch
+    gtk-doc # Drop with above patch
   ];
 
   buildInputs = [
