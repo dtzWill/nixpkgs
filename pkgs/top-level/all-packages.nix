@@ -1593,10 +1593,7 @@ in
 
   elementary-xfce-icon-theme = callPackage ../data/icons/elementary-xfce-icon-theme { };
 
-  ell = callPackage ../os-specific/linux/ell {
-    # use clang for superior sanitizers
-    stdenv = clangStdenv;
-  };
+  ell = callPackage ../os-specific/linux/ell { };
 
   elm-github-install = callPackage ../tools/package-management/elm-github-install { };
 
@@ -15872,8 +15869,6 @@ in
   iwd = callPackage ../os-specific/linux/iwd {
     # latest readline, no (good) reason :)
     readline = readline80;
-    # use clang for superior sanitizers
-    stdenv = clangStdenv;
   };
 
   jfbview = callPackage ../os-specific/linux/jfbview { };
