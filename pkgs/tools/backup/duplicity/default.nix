@@ -1,10 +1,10 @@
-{ stdenv, fetchpatch, fetchurl, python2Packages, librsync, ncftp, gnupg
+{ stdenv, fetchpatch, fetchurl, python3Packages, librsync, ncftp, gnupg
 , gnutar
 , par2cmdline
 , utillinux
 , rsync, backblaze-b2, makeWrapper }:
 
-python2Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "duplicity";
   version = "0.8.05";
 
@@ -19,9 +19,9 @@ python2Packages.buildPythonApplication rec {
     ./linux-disable-timezone-test.patch
   ];
 
-  buildInputs = [ librsync makeWrapper python2Packages.wrapPython ];
-  propagatedBuildInputs = [ backblaze-b2 ] ++ (with python2Packages; [
-    boto cffi cryptography ecdsa enum idna pygobject3 fasteners
+  buildInputs = [ librsync makeWrapper python3Packages.wrapPython ];
+  propagatedBuildInputs = [ backblaze-b2 ] ++ (with python3Packages; [
+    boto cffi cryptography ecdsa idna pygobject3 fasteners
     ipaddress lockfile paramiko pyasn1 pycrypto six
   ]);
   checkInputs = [
@@ -31,7 +31,7 @@ python2Packages.buildPythonApplication rec {
     par2cmdline  # Add 'par2' to PATH.
   ] ++ stdenv.lib.optionals stdenv.isLinux [
     utillinux  # Add 'setsid' to PATH.
-  ] ++ (with python2Packages; [ lockfile mock pexpect ]);
+  ] ++ (with python3Packages; [ lockfile mock pexpect ]);
 
   postInstall = ''
     wrapProgram $out/bin/duplicity \
