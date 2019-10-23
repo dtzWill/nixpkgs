@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   version = "4.7.1"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
 
   src = fetchurl {
-    url = "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${version + "-" + versionSuffix}_amd64.deb";
+    url = "https://prerelease.keybase.io/deb/pool/main/k/keybase/keybase_${version + "-" + versionSuffix}_amd64.deb";
     sha256 = "e3a5bcc531ce1304c1f7e48e6786f25e50233ef7c07c15c1007783cc906c66f3"; # <-- hash from same URL as above
   };
 
