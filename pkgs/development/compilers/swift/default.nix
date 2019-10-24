@@ -51,6 +51,10 @@ let
       repo = "swift-clang";
       sha256 = "0n7k6nvzgqp6h6bfqcmna484w90db3zv4sh5rdh89wxyhdz6rk4v";
     };
+    clang-tools-extra = fetch {
+      repo = "swift-clang-tools-extra";
+      sha256 = "0snp2rpd60z239pr7fxpkj332rkdjhg63adqvqdkjsbrxcqqcgqa";
+    };
     llvm = fetch {
       repo = "swift-llvm";
       sha256 = "00ldd9dby6fl6nk3z17148fvb7g9x4jkn1afx26y51v8rwgm1i7f";
@@ -204,6 +208,7 @@ stdenv.mkDerivation rec {
     export SWIFT_SOURCE_ROOT=$PWD
 
     cp -r ${sources.clang} clang
+    cp -r ${sources.clang-tools-extra} clang-tools-extra
     cp -r ${sources.llvm} llvm
     cp -r ${sources.compilerrt} compiler-rt
     cp -r ${sources.cmark} cmark
