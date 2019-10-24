@@ -1,5 +1,5 @@
 diff --git a/client/display.c b/client/display.c
-index 0faa084..ed4663f 100644
+index b22b6e9..fea8131 100644
 --- a/client/display.c
 +++ b/client/display.c
 @@ -30,6 +30,7 @@
@@ -10,9 +10,24 @@ index 0faa084..ed4663f 100644
  #include <ell/ell.h>
  
  #include "agent.h"
-@@ -372,7 +373,9 @@ static void display_completion_matches(char **matches, int num_matches,
+@@ -364,6 +365,7 @@ static void display_completion_matches(char **matches, int num_matches,
+ 	char line[LINE_LEN];
+ 	size_t index;
+ 	size_t line_used;
++	size_t match_len;
+ 	char *input = rl_copy_text(0, rl_end);
+ 
+ 	prompt = l_strdup_printf("%s%s\n", IWD_PROMPT, input);
+@@ -372,8 +374,16 @@ static void display_completion_matches(char **matches, int num_matches,
+ 	display_text(prompt);
  	l_free(prompt);
  
++	// Fix max_length, account for quoting (apparently??)
++	for (index = 1; matches[index]; index++) {
++		match_len = strlen(matches[index]);
++		max_length = match_len > max_length ? match_len : max_length;
++	}
++
  	for (index = 1, line_used = 0; matches[index]; index++) {
 -		if ((line_used + max_length) > LINE_LEN) {
 +		assert(index <= num_matches);
@@ -21,7 +36,7 @@ index 0faa084..ed4663f 100644
  			strcpy(&line[line_used], "\n");
  
  			display_text(line);
-@@ -380,10 +383,11 @@ static void display_completion_matches(char **matches, int num_matches,
+@@ -381,10 +391,11 @@ static void display_completion_matches(char **matches, int num_matches,
  			line_used = 0;
  		}
  
