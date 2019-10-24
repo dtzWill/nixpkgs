@@ -8,13 +8,13 @@ let inherit (stdenv) lib; in
 
 buildPythonPackage rec {
   pname = "cheroot";
-  version = "6.5.8";
+  version = "8.2.1";
 
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "427e7e3ce51ad5a6e5cf953252b5782d5dfbeb544c09910634971bc06df6621b";
+    sha256 = "5b525b3e4a755adf78070ab54c1821fb860d4255a9317dba2b88eb2df2441cff";
   };
 
   patches = [ ./tests.patch ];
