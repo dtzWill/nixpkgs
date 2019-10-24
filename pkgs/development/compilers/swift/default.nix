@@ -92,14 +92,19 @@ let
       repo = "swift";
       sha256 = "0m4r1gzrnn0s1c7haqq9dlmvpqxbgbkbdfmq6qaph869wcmvdkvy";
     };
-    sourcekit-lsp = fetch {
-      repo = "sourcekit-lsp";
-      sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
-    };
-    indexstore-db = fetch {
-      repo = "indexstore-db";
-      sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
-    };
+    # These likely can be added, however they require a working toolchain
+    # which is what we're primarily creating here.
+    # If build turnaround for this all was faster i'd try accomplishing that
+    # at the end... instead it may be easier to have these as separate expressions
+    # and hope they work just as well as if they were included originally.
+    ##sourcekit-lsp = fetch {
+    ##  repo = "sourcekit-lsp";
+    ##  sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
+    ##};
+    ##indexstore-db = fetch {
+    ##  repo = "indexstore-db";
+    ##  sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
+    ##};
   };
 
   devInputs = [
@@ -205,9 +210,10 @@ stdenv.mkDerivation rec {
     cp -r ${sources.foundation} swift-corelibs-foundation
     cp -r ${sources.libdispatch} swift-corelibs-libdispatch
     cp -r ${sources.swift} swift
+  '' + stdenv.lib.optionalString false /* one day, perhaps */ ''
     cp -r ${sources.sourcekit-lsp} sourcekit-lsp
     cp -r ${sources.indexstore-db} indexstore-db
-
+  '' + ''
     chmod -R u+w .
   '';
 
@@ -232,7 +238,7 @@ stdenv.mkDerivation rec {
     patch -p1 -d swift -i ${./patches/0002-build-presets-linux-allow-custom-install-prefix.patch}
     patch -p1 -d swift -i ${./patches/0003-build-presets-linux-don-t-build-extra-libs.patch}
     patch -p1 -d swift -i ${./patches/0004-build-presets-linux-plumb-extra-cmake-options.patch}
-    patch -p1 -d swift -i ${./patches/dont-install-clangd-since-not-available.patch}
+    patch -p1 -d swift -i ${./patches/nothing-too-fancy-yet.patch}
 
     sed -i swift/utils/build-presets.ini \
       -e 's/^test-installable-package$/# \0/' \
@@ -255,10 +261,12 @@ stdenv.mkDerivation rec {
     PREFIX=''${out/#\/}
     substituteInPlace swift-corelibs-xctest/build_script.py \
       --replace usr "$PREFIX"
-
-    substituteInPlace indexstore-db/Utilities/build-script-helper.py \
-      --replace "'usr'" "'$PREFIX'"
   '';
+
+  #''
+  #  substituteInPlace indexstore-db/Utilities/build-script-helper.py \
+  #    --replace "'usr'" "'$PREFIX'"
+  #'';
 
   buildPhase = builder;
 
