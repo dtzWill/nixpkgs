@@ -133,11 +133,12 @@ index fd09a779e4..9ec1df70af 100644
  ios
  tvos
  watchos
-@@ -1121,7 +1105,6 @@ skip-install-swiftsyntax-module
+@@ -1122,8 +1108,6 @@ skip-install-swiftsyntax-module
  install-skstresstester
  install-swiftevolve
  install-playgroundsupport
 -install-libcxx
+-install-sourcekit-lsp
  
  install-destdir=%(install_destdir)s
  

@@ -17,9 +17,9 @@ index a9e15c9e27..348bf6f2de 100644
  install-libicu
 -install-prefix=/usr
 +install-prefix=%(install_prefix)s
+ swift-install-components=autolink-driver;compiler;clang-resource-dir-symlink;stdlib;swift-remote-mirror;sdk-overlay;parser-lib;toolchain-tools;license;sourcekit-inproc
+ llvm-install-components=llvm-cov;llvm-profdata;IndexStore;clang;clang-headers;compiler-rt;clangd
  install-libcxx
- install-sourcekit-lsp
- build-swift-static-stdlib
 -- 
 2.24.0-rc0
 

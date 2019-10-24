@@ -234,10 +234,10 @@ stdenv.mkDerivation rec {
     substituteInPlace swift/utils/build-script-impl \
       --replace '/usr/include/c++' "${clang.cc.gcc}/include/c++"
     patch -p1 -d swift -i ${./patches/glibc-arch-headers.patch}
+    patch -p1 -d swift -i ${./patches/nothing-too-fancy-yet.patch}
     patch -p1 -d swift -i ${./patches/0001-build-presets-linux-don-t-require-using-Ninja.patch}
     patch -p1 -d swift -i ${./patches/0002-build-presets-linux-allow-custom-install-prefix.patch}
     patch -p1 -d swift -i ${./patches/0004-build-presets-linux-plumb-extra-cmake-options.patch}
-    patch -p1 -d swift -i ${./patches/nothing-too-fancy-yet.patch}
 
     sed -i swift/utils/build-presets.ini \
       -e 's/^test-installable-package$/# \0/' \
