@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchgit, python3Packages, docutils, help2man
+{ lib, stdenv, fetchurl, python3Packages, docutils, help2man
 , acl, apktool, binutils-unwrapped, bzip2, cbfstool, cdrkit, colord, colordiff, coreutils, cpio, db, diffutils, dtc
 , e2fsprogs, file, findutils, fontforge-fonttools, fpc, gettext, ghc, ghostscriptX, giflib, gnumeric, gnupg, gnutar
 , gzip, imagemagick, jdk, libarchive, libcaca, llvm, lz4, mono, openssh, pdftk, pgpdump, poppler_utils, sng, sqlite
@@ -8,13 +8,12 @@
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python3Packages.buildPythonApplication rec {
-  name = "diffoscope-${version}";
-  version = "117"; # TODO: 126+
+  pname = "diffoscope";
+  version = "127";
 
-  src = fetchgit {
-    url    = "https://anonscm.debian.org/git/reproducible/diffoscope.git";
-    rev    = "refs/tags/${version}";
-    sha256 = "10g1mdmbly3cdq1gb1cxmsrz9wynhnpl9n04y4gri0nlvv6mh7z2";
+  src = fetchurl {
+    url    = "https://diffoscope.org/archive/diffoscope-${version}.tar.bz2";
+    sha256 = "029v3lbv281n7axl97khdh4m1p7b614p1fp838mm84v0wgz7q34i";
   };
 
   patches = [
