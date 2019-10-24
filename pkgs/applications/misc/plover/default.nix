@@ -19,7 +19,7 @@
     nativeBuildInputs     = [ setuptools_scm ];
     buildInputs           = [ pytest mock ];
     propagatedBuildInputs = [
-      six setuptools pyserial appdirs hidapi wxPython xlib wmctrl
+      six setuptools pyserial appdirs hidapi wxPython xlib wmctrl dbus-python
     ];
   };
 
@@ -43,6 +43,6 @@
     postPatch = "sed -i /PyQt5/d setup.cfg";
 
     checkInputs           = [ pytest mock ];
-    propagatedBuildInputs = [ Babel pyqt5 xlib pyserial appdirs wcwidth ];
+    propagatedBuildInputs = [ Babel pyqt5 xlib pyserial appdirs wcwidth setuptools ];
   };
 }

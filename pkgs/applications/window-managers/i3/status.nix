@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "all" "PREFIX=$(out)" ];
 
   meta = {
-    description = "A tiling window manager";
+    description = "Generates a status line for i3bar, dzen2, xmobar or lemonbar";
     homepage = https://i3wm.org;
     maintainers = [ ];
     license = stdenv.lib.licenses.bsd3;

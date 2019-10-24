@@ -144,7 +144,7 @@ let
     { shortName, shortDescription, dictFileName, src }:
     mkDict rec {
       inherit src dictFileName;
-      version = "2018.04.16";
+      version = "2019.10.06";
       name = "hunspell-dict-${shortName}-wordlist-${version}";
       readmeFile = "README_" + dictFileName + ".txt";
       meta = with stdenv.lib; {
@@ -296,8 +296,8 @@ in rec {
     shortDescription = "English (United States)";
     dictFileName = "en_US";
     src = fetchurl {
-      url = mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_US-2018.04.16.zip;
-      sha256 = "18hbncvqnckzqarrmnzk58plymjqyi93k4qj98fac5mr71jbmzaf";
+      url = mirror://sourceforge/wordlist/speller/2019.10.06/hunspell-en_US-2019.10.06.zip;
+      sha256 = "19bbhp6590w3i8qidq8i8axbl6sb3wi8pansm679ka8dqaxwiyg0";
     };
   };
 
@@ -307,8 +307,8 @@ in rec {
     shortDescription = "English (Canada)";
     dictFileName = "en_CA";
     src = fetchurl {
-      url = mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_CA-2018.04.16.zip;
-      sha256 = "06yf3s7y1215jmikbs18cn4j8a13csp4763w3jfgah8zlim6vc47";
+      url = mirror://sourceforge/wordlist/speller/2019.10.06/hunspell-en_CA-2019.10.06.zip;
+      sha256 = "02rb1wh4i3vgp11x72gr1vigwma80il8wa06q3x2kixd2cdndskd";
     };
   };
 
@@ -317,8 +317,8 @@ in rec {
     shortDescription = "English (Australia)";
     dictFileName = "en_AU";
     src = fetchurl {
-      url = mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_AU-2018.04.16.zip;
-      sha256 = "1kp06npl1kd05mm9r52cg2iwc13x02zwqgpibdw15b6x43agg6f5";
+      url = mirror://sourceforge/wordlist/speller/2019.10.06/hunspell-en_AU-2019.10.06.zip;
+      sha256 = "1g6wdjib32z6c55n7ynmwzhrg882fiy7bh881xkxvb23q5sd3nrj";
     };
   };
   en_AU = en-au;
@@ -329,8 +329,8 @@ in rec {
     shortDescription = "English (United Kingdom, 'ise' ending)";
     dictFileName = "en_GB-ise";
     src = fetchurl {
-      url = mirror://sourceforge/wordlist/speller//hunspell-en_GB-ise-2018.04.16.zip;
-      sha256 = "0ylg1zvfvsawamymcc9ivrqcb9qhlpgpnizm076xc56jz554xc2l";
+      url = mirror://sourceforge/wordlist/speller/2019.10.06/hunspell-en_GB-ise-2019.10.06.zip;
+      sha256 = "10rg5q4v5i02fvbxdm287qq19jlwnjhfp4k72c7ldikfxpxmwgq2";
     };
   };
 
@@ -340,8 +340,8 @@ in rec {
     shortDescription = "English (United Kingdom, 'ize' ending)";
     dictFileName = "en_GB-ize";
     src = fetchurl {
-      url = mirror://sourceforge/wordlist/speller//hunspell-en_GB-ize-2018.04.16.zip;
-      sha256 = "1rmwy6sxmd400cwjf58az6g14sq28p18f5mlq8ybg8y33q9m42ps";
+      url = mirror://sourceforge/wordlist/speller/2019.10.06/hunspell-en_GB-ize-2019.10.06.zip;
+      sha256 = "1df2dxpj9l4dvan9zcb7mqzzmwhabn4g3jlx2zildbkq5hj0x690";
     };
   };
 

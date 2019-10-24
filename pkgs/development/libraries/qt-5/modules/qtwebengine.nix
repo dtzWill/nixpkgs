@@ -7,6 +7,7 @@
 , fontconfig, freetype, harfbuzz, icu, dbus, libdrm
 , zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus
 , jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent
+, re2, libxml2, lcms2
 , alsaLib
 , libcap
 , pciutils
@@ -39,8 +40,13 @@ qtModule {
   hardeningDisable = [ "format" ];
 
   postPatch =
-    # Patch Chromium build tools
+    # no jumbo
     ''
+    sed -i -e 's|use_jumbo_build=true|use_jumbo_build=false|' \
+      src/core/config/common.pri
+    ''
+    # Patch Chromium build tools
+    + ''
       ( cd src/3rdparty/chromium; patchShebangs . )
     ''
     # Patch Chromium build files
@@ -135,7 +141,20 @@ EOF
 
   qmakeFlags = if stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64
     then [ "--" "-system-ffmpeg" ] ++ optional enableProprietaryCodecs "-proprietary-codecs"
-    else optional enableProprietaryCodecs "-- -proprietary-codecs";
+    else optional enableProprietaryCodecs "-- -proprietary-codecs"
+  ++ [
+    "-webengine-alsa"
+    # "-webengine-pulseaudio"
+    "-webengine-icu"
+    "-webengine-opus"
+    "-webengine-webp"
+    "-webengine-ffmpeg"
+    #"-webengine-png"
+    #"-webengine-jpeg"
+    #"-webengine-libxml2"
+    #"-webengine-lcms2"
+    #"-webengine-jsoncpp"
+  ];
 
   propagatedBuildInputs = [
     # Image formats
@@ -151,9 +170,13 @@ EOF
     harfbuzz icu
 
     libevent
-  ] ++ optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
+
     ffmpeg
-  ] ++ optionals (!stdenv.isDarwin) [
+
+    re2 libxml2 lcms2
+  ]/* ++ optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
+    #ffmpeg
+  ]*/ ++ optionals (!stdenv.isDarwin) [
     dbus zlib minizip snappy nss protobuf jsoncpp
 
     # Audio formats
@@ -208,6 +231,8 @@ EOF
   dontUseNinjaBuild = true;
   dontUseNinjaInstall = true;
   dontUseXcbuild = true;
+
+  # LDFLAGS = [ "-Wl,--no-keep-memory" ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     cat > $out/libexec/qt.conf <<EOF

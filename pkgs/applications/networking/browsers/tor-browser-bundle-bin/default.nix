@@ -90,8 +90,7 @@ let
   fteLibPath = makeLibraryPath [ stdenv.cc.cc gmp ];
 
   # Upstream source
-  # version = "8.5.5";
-  version = "9.0a6";
+  version = "9.0";
 
   lang = "en-US";
 
@@ -104,7 +103,7 @@ let
         #"https://github.com/TheTorProject/gettorbrowser/releases/download/v${version}/tor-browser-linux64-${version}_${lang}.tar.xz"
         #"https://dist.torproject.org/torbrowser/${version}/tor-browser-linux64-${version}_${lang}.tar.xz"
       ];
-      sha256 = "0dm0p3z4w35ckd2yqgrbk9v98xjgzq7ikrrph6fbqdafpwz3f8li";
+      sha256 = "0aajbk65lpcazn8mdk7ngaqp0sykql8zjlkhznphxxw9v59mq3b7";
     };
 
     ## "i686-linux" = fetchurl {
@@ -385,7 +384,11 @@ stdenv.mkDerivation rec {
     cp $desktopItem/share/applications"/"* $out/share/applications
     sed -i $out/share/applications/torbrowser.desktop \
         -e "s,Exec=.*,Exec=$out/bin/tor-browser," \
-        -e "s,Icon=.*,Icon=web-browser,"
+        -e "s,Icon=.*,Icon=tor-browser,"
+    for i in 16 32 48 64 128; do
+      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps/
+      ln -s $out/share/tor-browser/browser/chrome/icons/default/default$i.png $out/share/icons/hicolor/''${i}x''${i}/apps/tor-browser.png
+    done
 
     # Check installed apps
     echo "Checking bundled Tor ..."

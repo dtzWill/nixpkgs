@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "olm";
-  version = "3.1.3";
+  version = "3.1.4";
 
   meta = {
     description = "Implements double cryptographic ratchet and Megolm ratchet";
@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     domain = "gitlab.matrix.org";
     owner = "matrix-org";
     repo = "olm";
-    rev = "ebd3ba6cc17862aefc9cb3299d60aeae953cc143"; # can't seem to specify the tag?
-    sha256 = "19lpdhl6qvc8arahy4z0989q92paq68bd8a44x2ynwvppzhv37k2";
+    rev = "6753595300767dd70150831dbbe6f92d64e75038"; # can't seem to specify the tag?
+    sha256 = "06s7rw4a9vn35wzz7chxn54mp0sjgbpv2bzz9lq0g4hnzw33cjbi";
   };
 
   nativeBuildInputs = [ cmake ];

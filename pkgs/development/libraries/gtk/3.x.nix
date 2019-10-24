@@ -44,7 +44,7 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "gtk+3";
-  version = "3.24.11";
+  version = "3.24.12";
 
   outputs = [ "out" "dev" ];
   outputBin = "dev";
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/gtk+/${stdenv.lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
-    sha256 = "1598k357xvffbswsrvc63lyj73wq0b510lhg4vcgl6rf1a6nb9yv";
+    sha256 = "10xyyhlfb0yk4hglngxh2zsv9xrxkqv343df8h01dvagc6jyp10k";
   };
 
   patches = [

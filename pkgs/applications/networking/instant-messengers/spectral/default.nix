@@ -16,16 +16,22 @@ let qtkeychain-qt5 = qtkeychain.override {
 };
 in stdenv.mkDerivation {
   pname = "spectral";
-  version = "unstable-2019-09-30";
+  version = "unstable-2019-10-19";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
-    rev = "4d46390186d3708d762ef11754baf39027daf50e";
-    sha256 = "1dy7hqvj051r03ms1s0q4kjdpxg229arn5pq3n9z0k5k0vfrgbcx";
+    rev = "04bb4b1e98aa1a7064a5783d05428f0bf2d214d4";
+    sha256 = "1l23caiwrzvi8dx38hh99rh6px1r0dah7ixpn9az8yfdhwblvvw2";
     fetchSubmodules = true;
   };
 
   #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
+
+  #postPatch = ''
+  #  find . -name "*.qml" -exec sed -i 's@darker([^)]*, 1.1@\0 + 0.9@' '{}' +
+  #'';
+    #grep -r darker
+    #exit 1
 
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
   buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]

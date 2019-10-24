@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   pname = "flatpak";
-  version = "1.4.3";
+  version = "1.5.0";
 
   # TODO: split out lib once we figure out what to do with triggerdir
   outputs = [ "out" /* "man" "doc" */ "installedTests" ];
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   #};
   src = fetchurl {
     url = "https://github.com/flatpak/flatpak/releases/download/${version}/${pname}-${version}.tar.xz";
-    sha256 = "11bfxmv8pxlb5x0lb2rsl45615fzfvq5r6wldf0l6ab2ngryd7i7";
+    sha256 = "07j7iicdf5rrly58c5xgdjcdbnc4dgr4cs20js774vhk9k2z84qs";
   };
 
   patches = [
@@ -71,6 +71,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-system-bubblewrap=${bubblewrap}/bin/bwrap"
     "--with-system-dbus-proxy=${xdg-dbus-proxy}/bin/xdg-dbus-proxy"
+    "--with-dbus-config-dir=${placeholder "out"}/share/dbus-1/system.d"
     "--localstatedir=/var"
     "--enable-installed-tests"
     "--disable-documentation"

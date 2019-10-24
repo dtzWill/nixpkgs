@@ -51,8 +51,8 @@ let
   inherit (stdenv.lib) optional optionals;
 in
 stdenv.mkDerivation rec {
-  name = "gst-plugins-bad-${version}";
-  version = "1.16.0";
+  pname = "gst-plugins-bad";
+  version = "1.16.1";
 
   meta = with stdenv.lib; {
     description = "Gstreamer Bad Plugins";
@@ -74,21 +74,11 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix_pkgconfig_includedir.patch
-    # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/99790eaad9083cce5ab2b1646489e1a1c0faad1e.patch";
-      sha256 = "11bqy4sl05qq5mj4bx5s09rq106s3j0vnpjl4np058im32j69lr3";
-    })
-    # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/1872da81c48d3a719bd39955fd97deac7d037d74.patch";
-      sha256 = "11zwrr5ggflmvr0qfssj7dmhgd3ybiadmy79b4zh24022zgw3xpz";
-    })
   ];
 
   src = fetchurl {
-    url = "${meta.homepage}/src/gst-plugins-bad/${name}.tar.xz";
-    sha256 = "019b0yqjrcg6jmfd4cc336h1bz5p4wxl58yz1c4sdb96avirs4r2";
+    url = "${meta.homepage}/src/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "1dddqacxgp77f3nl153x5a6139wdphc9phds2fpqb2cv6faiqj2n";
   };
 
   outputs = [ "out" "dev" ];

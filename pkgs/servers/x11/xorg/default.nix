@@ -703,11 +703,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   libX11 = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libxcb, xtrans }: stdenv.mkDerivation {
-    name = "libX11-1.6.8";
+    name = "libX11-1.6.9";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/lib/libX11-1.6.8.tar.bz2;
-      sha256 = "1mbkwhhprhf49s2iwx7kiliprsdvd690zk44x3h53ql9q52si2dj";
+      url = mirror://xorg/individual/lib/libX11-1.6.9.tar.bz2;
+      sha256 = "1ldyn9c6pyx54sxzaw120n3q42rqi7b503aqmyjky6fn038fiiww";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -1353,11 +1353,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   viewres = callPackage ({ stdenv, pkgconfig, fetchurl, libXaw, libXmu, libXt }: stdenv.mkDerivation {
-    name = "viewres-1.0.5";
+    name = "viewres-1.0.6";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/app/viewres-1.0.5.tar.bz2;
-      sha256 = "1mz319kfmvcrdpi22dmdr91mif1j0j3ck1f8mmnz5g1r9kl1in2y";
+      url = mirror://xorg/individual/app/viewres-1.0.6.tar.bz2;
+      sha256 = "0d09p3zyzp44lh0v3i1pgvw144bcs62v3ygb7zydbhb642q5vh8i";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];
@@ -2705,11 +2705,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xorgproto = callPackage ({ stdenv, pkgconfig, fetchurl, libXt }: stdenv.mkDerivation {
-    name = "xorgproto-2019.1";
+    name = "xorgproto-2019.2";
     builder = ./builder.sh;
     src = fetchurl {
-      url = mirror://xorg/individual/proto/xorgproto-2019.1.tar.bz2;
-      sha256 = "16yll1kaffnslik5sizlw3qrigj1gpsgfgyq6903g3mwdixamnm6";
+      url = mirror://xorg/individual/proto/xorgproto-2019.2.tar.bz2;
+      sha256 = "13kvir8dz9dvzhvyfndpff1z7k8h14s7kkl7mbl427andhax1v26";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkgconfig ];

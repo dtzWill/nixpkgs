@@ -1,18 +1,18 @@
-{ stdenv, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore
+{ mkDerivation, lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore
 , kservice, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase
 , qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata
 , ckbcomp, xkeyboard_config
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   name = "${pname}-${version}";
   pname = "calamares";
-  version = "3.2.11";
+  version = "3.2.14";
 
   # release including submodule
   src = fetchurl {
     url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${name}.tar.gz";
-    sha256 = "1djrc8p6kll8szycyj86v02jphiw2xwfhn563siykphfqr0jknlw";
+    sha256 = "1d2d67fmrpmnwpxkc7fjyj4r6zmd1rv2bxvm9zivznn96903f9m7";
   };
 
   buildInputs = [
@@ -55,10 +55,10 @@ stdenv.mkDerivation rec {
         -i CMakeLists.txt
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Distribution-independent installer framework";
     license = licenses.gpl3;
-    maintainers = with stdenv.lib.maintainers; [ manveru ];
+    maintainers = with maintainers; [ manveru ];
     platforms = platforms.linux;
   };
 }

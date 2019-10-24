@@ -22,7 +22,7 @@ in
 with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "openssh-${version}";
-  version = if hpnSupport then "7.8p1" else "8.0p1";
+  version = if hpnSupport then "7.8p1" else "8.1p1";
 
   src = if hpnSupport then
       fetchurl {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     else
       fetchurl {
         url = "mirror://openbsd/OpenSSH/portable/${name}.tar.gz";
-        sha256 = "0s7xh4s0qcipnjh9ls5blxcpvhyd116z9dxn3q1yi64lwrwki55x";
+        sha256 = "1zwk3g57gb13br206k6jdhgnp6y1nibwswzraqspbl1m73pxpx82";
       };
 
   patches =

@@ -2,6 +2,7 @@
 , addOpenGLRunpath, docutils, perl, pkgconfig, python3, which
 , ffmpeg_4, freefont_ttf, freetype, libass, libpthreadstubs, mujs
 , nv-codec-headers, lua, libuchardet, libiconv ? null, darwin
+, zimg
 
 , waylandSupport ? stdenv.isLinux
   , wayland           ? null
@@ -23,6 +24,8 @@
   , shaderc ? null
   , vulkan-headers ? null
   , vulkan-loader ? null
+  # TODO: libplacebo may be used to avoid needing shaderc/headers/etc, check
+  , libplacebo ? null
 
 , alsaSupport        ? stdenv.isLinux, alsaLib       ? null
 , bluraySupport      ? true,           libbluray     ? null
@@ -31,7 +34,6 @@
 , cmsSupport         ? true,           lcms2         ? null
 , drmSupport         ? stdenv.isLinux, libdrm        ? null
 , dvdnavSupport      ? stdenv.isLinux, libdvdnav     ? null
-, dvdreadSupport     ? stdenv.isLinux, libdvdread    ? null
 , libpngSupport      ? true,           libpng        ? null
 , pulseSupport       ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
 , rubberbandSupport  ? stdenv.isLinux, rubberband ? null
@@ -64,7 +66,6 @@ assert cddaSupport        -> all available [libcdio libcdio-paranoia];
 assert cmsSupport         -> available lcms2;
 assert drmSupport         -> available libdrm;
 assert dvdnavSupport      -> available libdvdnav;
-assert dvdreadSupport     -> available libdvdread;
 assert jackaudioSupport   -> available libjack2;
 assert libpngSupport      -> available libpng;
 assert openalSupport      -> available openalSoft;
@@ -95,14 +96,16 @@ let
   luaEnv = lua.withPackages(ps: with ps; [ luasocket ]);
 
 in stdenv.mkDerivation rec {
-  name = "mpv-${version}";
-  version = "0.29.1";
+  pname = "mpv";
+  #version = "0.29.1";
+  version = "unstable-2019-10-21";
 
   src = fetchFromGitHub {
     owner = "mpv-player";
-    repo  = "mpv";
-    rev    = "v${version}";
-    sha256 = "138921kx8g6qprim558xin09xximjhsj9ss8b71ifg2m6kclym8m";
+    repo  = pname;
+    #rev    = "v${version}";
+    rev = "f7881ea573ca2dd0ad2f65d70c1398076c7a41e3";
+    sha256 = "0z9gknh934x3k98jdsszplaba0kfanhrnqq3i5k9mqcm4vbi0i58";
   };
 
   postPatch = ''
@@ -115,7 +118,6 @@ in stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-libmpv-shared"
     "--enable-manpage-build"
-    "--enable-zsh-comp"
     "--disable-libmpv-static"
     "--disable-static-build"
     "--disable-build-date" # Purity
@@ -123,7 +125,6 @@ in stdenv.mkDerivation rec {
     (enableFeature archiveSupport  "libarchive")
     (enableFeature cddaSupport     "cdda")
     (enableFeature dvdnavSupport   "dvdnav")
-    (enableFeature dvdreadSupport  "dvdread")
     (enableFeature openalSupport   "openal")
     (enableFeature vaapiSupport    "vaapi")
     (enableFeature waylandSupport  "wayland")
@@ -140,7 +141,7 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [
     ffmpeg_4 freetype libass libpthreadstubs
-    luaEnv libuchardet mujs
+    luaEnv libuchardet mujs zimg
   ] ++ optional alsaSupport        alsaLib
     ++ optional archiveSupport     libarchive
     ++ optional bluraySupport      libbluray
@@ -148,7 +149,6 @@ in stdenv.mkDerivation rec {
     ++ optional cacaSupport        libcaca
     ++ optional cmsSupport         lcms2
     ++ optional drmSupport         libdrm
-    ++ optional dvdreadSupport     libdvdread
     ++ optional jackaudioSupport   libjack2
     ++ optional libpngSupport      libpng
     ++ optional openalSupport      openalSoft
@@ -170,7 +170,7 @@ in stdenv.mkDerivation rec {
     ++ optionals dvdnavSupport     [ libdvdnav libdvdnav.libdvdread ]
     ++ optionals waylandSupport    [ wayland wayland-protocols libxkbcommon ]
     ++ optionals x11Support        [ libX11 libXext libGLU_combined libXxf86vm libXrandr ]
-    ++ optionals vulkanSupport     [ shaderc vulkan-headers vulkan-loader ]
+    ++ optionals vulkanSupport     [ shaderc vulkan-headers vulkan-loader libplacebo ]
     ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       CoreFoundation Cocoa CoreAudio
     ]);

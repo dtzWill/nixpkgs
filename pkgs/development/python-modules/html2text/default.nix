@@ -8,11 +8,11 @@
 
 buildPythonPackage rec {
   pname = "html2text";
-  version = "2019.8.11";
+  version = "2019.9.26";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "f516b9c10284174e2a974d86f91cab02b3cf983a17752075da751af0e895ef5e";
+    sha256 = "0kwvpshz4ara9vpm66zgiy19bl7npncv0z1lbg6bb4r9biy0amkg";
   };
   #src = fetchFromGitHub {
   #  owner = "Alir3z4";

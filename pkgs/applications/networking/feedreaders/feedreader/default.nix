@@ -30,6 +30,11 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs build-aux/meson_post_install.py
+
+    # 3.34
+    substituteInPlace src/Backend/FeedServer.vala \
+      --replace Secret.CollectionCreateFlags.COLLECTION_CREATE_NONE \
+                Secret.CollectionCreateFlags.NONE
   '';
 
   meta = with stdenv.lib; {

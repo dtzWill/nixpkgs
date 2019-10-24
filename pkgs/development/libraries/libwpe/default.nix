@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libwpe";
-  version = "1.4.0";
+  version = "1.4.0.1";
 
   src = fetchurl {
     url = "https://wpewebkit.org/releases/${pname}-${version}.tar.xz";
-    sha256 = "1221vs72zs87anrzhbm6pf8jnii7s6ms7mkzj6nlds9zqd7lklz2";
+    sha256 = "16wfpnvv02m0iq51z7hpn9vyc8ngf64i73ii9zrm8ww76kxrv109";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];

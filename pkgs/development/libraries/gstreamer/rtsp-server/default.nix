@@ -5,8 +5,8 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "gst-rtsp-server-${version}";
-  version = "1.16.0";
+  pname = "gst-rtsp-server";
+  version = "1.16.1";
 
   meta = with stdenv.lib; {
     description = "Gstreamer RTSP server";
@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   };
 
   src = fetchurl {
-    url = "${meta.homepage}/src/gst-rtsp-server/${name}.tar.xz";
-    sha256 = "069zy159izy50blci9fli1i2r8jh91qkmgrz1n0xqciy3bn9x3hr";
+    url = "${meta.homepage}/src/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "0i01f1nr0921z6z4nrh8icz76s2n7i228aqxg1ihvxl65ynsraxh";
   };
 
   outputs = [ "out" "dev" ];

@@ -16,16 +16,22 @@
 , sqlite
 }:
 
+let
+  qtkeychainWithLibsecret = qtkeychain.override {
+    withLibsecret = true;
+  };
+in
+
 mkDerivation rec {
   pname = "nextcloud-client";
-  version = "unstable-2019-09-30";
+  version = "unstable-2019-10-22";
 
   src = fetchFromGitHub {
     owner = "nextcloud";
     repo = "desktop";
     #rev = "v${version}";
-    rev = "47ffcfd561934f0a5057471b5f835a70eb63ccb2"; # 2019-09-20
-    sha256 = "0nkq9v88jzjpvy5fgjhjnh52sw8qny9r588v8qqaa37fmfjps68s";
+    rev = "b293a5b8180fb8c676b3fff346a25e042649af94"; # 2019-09-20
+    sha256 = "11jqjk3ks5iy325i35zr2naxwaljg5vpfmfaps82g57yxvwwvvs1";
   };
 
   patches = [
@@ -45,7 +51,7 @@ mkDerivation rec {
     openssl
     pcre
     qtbase
-    qtkeychain
+    qtkeychainWithLibsecret
     qttools
     qtwebengine qtwebkit
     sqlite

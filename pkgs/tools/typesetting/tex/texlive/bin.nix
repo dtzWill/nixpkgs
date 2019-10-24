@@ -48,17 +48,21 @@ let
       #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/synctex-missing-header.patch?h=packages/texlive-bin&id=da56abf0f8a1e85daca0ec0f031b8fa268519e6b;
       #  sha256 = "1c4aq8lk8g3mlfq3mdjnxvmhss3qs7nni5rmw0k054dmj6q1xj5n";
       #})
+
+      ./support-system-poppler-0.79.patch
+      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
     ];
 
     postPatch = ''
       for i in texk/kpathsea/mktex*; do
         sed -i '/^mydir=/d' "$i"
       done
-      cp -pv texk/web2c/pdftexdir/pdftoepdf{-poppler0.70.0,}.cc
-      cp -pv texk/web2c/pdftexdir/pdftosrc{-newpoppler,}.cc
-      # fix build with poppler 0.71
-      find texk/web2c/{lua,pdf}texdir -type f | xargs sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -e 's|getCString|c_str|g' -e 's|Gulong|unsigned long|g' -e 's|Guint|unsigned int|g' -e 's|Gushort|unsigned short|g' -e 's|Guchar|unsigned char|g' -i
-    '';
+      cp -pv texk/web2c/pdftexdir/pdftoepdf{-poppler0.79.0,}.cc
+      cp -pv texk/web2c/pdftexdir/pdftosrc{-poppler0.79.0,}.cc
+      '';
+#      # fix build with poppler 0.71
+#      find texk/web2c/{lua,pdf}texdir -type f | xargs sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -e 's|getCString|c_str|g' -e 's|Gulong|unsigned long|g' -e 's|Guint|unsigned int|g' -e 's|Gushort|unsigned short|g' -e 's|Guchar|unsigned char|g' -i
+#    '';
 
     # remove when removing synctex-missing-header.patch
     preAutoreconf = "pushd texk/web2c";

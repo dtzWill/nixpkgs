@@ -18,9 +18,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBuildTests=${if doCheck then "ON" else "OFF"}"
+    "-DJSON_MultipleHeaders=ON"
   ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+
+  postInstall = "rm -rf $out/lib64";
 
   meta = with stdenv.lib; {
     description = "Header only C++ library for the JSON file format";

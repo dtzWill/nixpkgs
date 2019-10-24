@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll, python, nose, mercurial }:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, python, nose, mercurial, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "python-hglib";
@@ -13,6 +13,11 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./hgpath.patch;
       hg = "${mercurial}/bin/hg";
+    })
+    # for mercurial 5.1+
+    (fetchpatch {
+      url = "https://www.mercurial-scm.org/repo/python-hglib/raw-rev/12e6aaef0f6e";
+      sha256 = "159pmhy23gqcc6rkh5jrni8fba4xbhxwcc0jf02wqr7f82kv8a7x";
     })
   ];
 

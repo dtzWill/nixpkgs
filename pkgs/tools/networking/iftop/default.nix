@@ -16,12 +16,11 @@ stdenv.mkDerivation rec {
   LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 
   patches = [
-    ./getnameinfo-is-okay-now.patch
+    ./getnameinfo-and-getifaddrs.patch
+    ./MAC-address-format.patch
   ] ++ stdenv.lib.optional enableColors ./ui-colours.patch;
 
   nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
-
-  CFLAGS = [ "-DUSE_GETIFADDRS=1" /* debian prefers this, must be set ourselves apparently */ ];
 
   buildInputs = [ ncurses libpcap ];
 

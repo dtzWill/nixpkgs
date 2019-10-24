@@ -1,24 +1,24 @@
-{ stdenv, fetchFromGitHub, qtbase, qmake }:
+{ mkDerivation, lib, fetchFromGitHub, pkgconfig, qtbase, qmake, libssh }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "qjournalctl";
-  version = "unstable-2018-11-25";
+  version = "0.6";
 
   src = fetchFromGitHub {
     owner = "pentix";
     repo = pname;
-    rev = "80463d38dc52e2fce457ab66114edf1fdf951e73";
-    sha256 = "10b76ywbnyvwik4apn0c1y0vjb6xg53ksxyzrh194z2ppw0c3r0r";
+    rev = "refs/tags/v${version}";
+    sha256 = "0vkknha6sidaqbxkx7nx7xkk0lfry1fmnwv0v9n1g2w8dvlazxwp";
   };
 
   postPatch = ''
     substituteInPlace qjournalctl.pro --replace /usr/ $out/
   '';
 
-  nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase ];
+  nativeBuildInputs = [ qmake pkgconfig ];
+  buildInputs = [ qtbase libssh ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Qt-based Graphical User Interface for systemd's journalctl command";
     homepage = https://github.com/pentix/qjournalctl;
     license = licenses.gpl3;

@@ -1,14 +1,14 @@
 { buildGoPackage, stdenv, fetchFromGitHub }:
 
 buildGoPackage rec {
-  version = "2.0.0";
-  name = "xurls-${version}";
+  version = "2.1.0";
+  pname = "xurls";
 
   src = fetchFromGitHub {
     owner = "mvdan";
-    repo = "xurls";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1jdjwlp19r8cb7vycyrjmpwf8dz2fzrqphq4lkvy9x2v7x0kksx8";
+    sha256 = "1cwl52vcmhxnnx33pqd3cprw6yjv988qhyf42d4sblw7l2gqgilc";
   };
 
   goPackagePath = "mvdan.cc/xurls/v2";

@@ -125,6 +125,7 @@ rec {
       libav
       atk
       at-spi2-atk
+      at-spi2-core
       libudev0-shim
       networkmanager098
 

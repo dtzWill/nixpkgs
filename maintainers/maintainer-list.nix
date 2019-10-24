@@ -536,6 +536,12 @@
     githubId = 56009;
     name = "Arcadio Rubio García";
   };
+  arcnmx = {
+    email = "arcnmx@users.noreply.github.com";
+    github = "arcnmx";
+    githubId = 13426784;
+    name = "arcnmx";
+  };
   ardumont = {
     email = "eniotna.t@gmail.com";
     github = "ardumont";
@@ -1401,6 +1407,16 @@
       }
     ];
   };
+  dadada = {
+    name = "dadada";
+    email = "dadada@dadada.li";
+    github = "dadada";
+    githubId = 7216772;
+    keys = [{
+      longkeyid = "ed25519/0xEEB8D1CE62C4DFEA";
+      fingerprint = "D68C 8469 5C08 7E0F 733A  28D0 EEB8 D1CE 62C4 DFEA";
+    }];
+  };
   dalance = {
     email = "dalance@gmail.com";
     github = "dalance";
@@ -1644,6 +1660,12 @@
     github = "dje4321";
     githubId = 10913120;
     name = "Dje4321";
+  };
+  dkudriavtsev = {
+    email = "dkudriavtsev@gmail.com";
+    github = "dkudriavtsev";
+    githubId = 9790772;
+    name = "Dmitry Kudriavtsev";
   };
   dmalikov = {
     email = "malikov.d.y@gmail.com";
@@ -2029,6 +2051,12 @@
     github = "ertes";
     name = "Ertugrul Söylemez";
   };
+  esclear = {
+    email = "esclear@users.noreply.github.com";
+    github = "esclear";
+    githubId = 7432848;
+    name = "Daniel Albert";
+  };
   Esteth = {
     email = "adam.copp@gmail.com";
     name = "Adam Copp";
@@ -2096,12 +2124,6 @@
     github = "f--t";
     githubId = 2817965;
     name = "f--t";
-  };
-  f-breidenstein = {
-    email = "mail@felixbreidenstein.de";
-    github = "fleaz";
-    githubId = 2489598;
-    name = "Felix Breidenstein";
   };
   fadenb = {
     email = "tristan.helmich+nixos@gmail.com";
@@ -3235,6 +3257,12 @@
     githubId = 1047859;
     name = "Kaz Wesley";
   };
+  kcalvinalvin = {
+    email = "calvin@kcalvinalvin.info";
+    github = "kcalvinalvin";
+    githubId = 37185887;
+    name = "Calvin Kim";
+  };
   kentjames = {
     email = "jameschristopherkent@gmail.com";
     github = "kentjames";
@@ -3466,6 +3494,12 @@
     email = "lassulus@gmail.com";
     github = "Lassulus";
     name = "Lassulus";
+  };
+  lattfein = {
+    email = "lattfein@gmail.com";
+    github = "lattfein";
+    githubId = 53550838;
+    name = "Koki Yasuno";
   };
   layus = {
     email = "layus.on@gmail.com";
@@ -7015,6 +7049,12 @@
     github = "yurrriq";
     githubId = 1866448;
     name = "Eric Bailey";
+  };
+  Yumasi = {
+    email = "gpagnoux@gmail.com";
+    github = "Yumasi";
+    githubId = 24368641;
+    name = "Guillaume Pagnoux";
   };
   z77z = {
     email = "maggesi@math.unifi.it";

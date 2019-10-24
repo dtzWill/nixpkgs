@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./debug-info-from-env.patch
+
     (fetchpatch {
       name = "support-pax-flags.patch";
       url = https://115100.bugs.gentoo.org/attachment.cgi?id=74902;

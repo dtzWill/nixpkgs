@@ -7,13 +7,13 @@ let
   path = stdenv.lib.makeBinPath [ git python3 ruby zsh runtimeShell ];
 in stdenv.mkDerivation rec {
   pname = "git-extra-commands";
-  version = "2019-03-11";
+  version = "unstable-2019-09-28";
 
   src = fetchFromGitHub {
     owner = "unixorn";
     repo = pname;
-    rev = "865e60d5f6a8c6d952c71a465f8d2e991cd3c469";
-    sha256 = "181wip7fnsg57qypndxjvhx5zf3cfalcqjf8k03x5zwvaqmda997";
+    rev = "b642d37ed98d15e348b1f038c3ed627d5faa6e80";
+    sha256 = "144x1p723g1rdkf8rr1xhzkyk1xmfmycr2rdw88dxrg6nk1aq7zb";
   };
 
   patches = [ ./completion.patch ];

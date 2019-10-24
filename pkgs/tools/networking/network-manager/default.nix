@@ -14,14 +14,14 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "unstable-2019-09-30";
+  version = "unstable-2019-10-23";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "e150307ab59dcf98330e817af92659c7a823b1d0";
-    sha256 = "1dgxwcv2634snrnkvfbmllsp2nb41ldq8ndsnikg606cjbgvp4af";
+    rev = "01920d3d523795c6f2917007bbf471ac28603371";
+    sha256 = "1mjxxfkrgki7znwgi63yp795xyg5d4payh4798dgv13c4vrfbwc1";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -76,6 +76,8 @@ in stdenv.mkDerivation rec {
     # Meson does not support using different directories during build and
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
+
+    ./fix-build-with-tests-disabled.patch
   ];
 
   buildInputs = [

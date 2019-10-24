@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "termshark";
-  version = "1.0.0";
+  version = "unstable-2019-09-30";
 
   src = fetchFromGitHub {
     owner = "gcla";

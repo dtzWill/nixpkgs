@@ -3,7 +3,7 @@
 buildGoModule rec {
   # https://github.com/erroneousboat/slack-term
   name = "slack-term-${version}";
-  version = "0.4.1-git";
+  version = "unstable-2019-10-12";
 
   goPackagePath = "github.com/erroneousboat/slack-term";
 
@@ -11,11 +11,11 @@ buildGoModule rec {
     owner = "erroneousboat";
     repo = "slack-term";
     #rev = "v${version}";
-    rev = "d36cd2d125bc2e5037110cfd0a8ca0e3efa72642";
-    sha256 = "19k2rkfqqjz3jhi1bbrah9rwfqhnw13rf5xdy8rbgjv992d84vpv";
+    rev = "aa5d501a0db4cbddb1072dc8030813f91a1bd2eb";
+    sha256 = "1g3fdhxidcjcd3wxwmly4dzdjfa46cmrsv5c39v5f3nlzvz9ssk5";
   };
 
-  modSha256 = "0lw5j1nxbsc1clvwscyvpy8vkww4yk3qiffpnqqrn4sqz0m8cb83";
+  modSha256 = "1jsyxqkmw4ap4c1fh1vj4j31wnbfyrhh2qgp3rnlryp004v6x9qs";
 
   meta = with stdenv.lib; {
     description = "Slack client for your terminal";

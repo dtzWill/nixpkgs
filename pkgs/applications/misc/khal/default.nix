@@ -2,14 +2,14 @@
 
 with python3.pkgs; buildPythonApplication rec {
   pname = "khal";
-  version = "unstable-2019-09-16";
+  version = "unstable-2019-10-09";
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "0.10.1-${version}";
   src = fetchFromGitHub {
     owner = "pimutils";
     repo = pname;
-    rev = "c4f5cd7248abb08a65dbb337bfe5e7e57e2e4a4d";
-    sha256 = "09p0cr7x7gy6lwf3kvc90abzwvlqv9a7j47nbk5j6312n23rdz6w";
+    rev = "19d8dce4f7a9a6950e851422a7099640dddae2d3";
+    sha256 = "0gwsmcyvwmgmhkcjf8j4raz1iyzhwghjrq4qjhqx8qpfmsvjx4px";
   };
 
   propagatedBuildInputs = [
@@ -30,7 +30,18 @@ with python3.pkgs; buildPythonApplication rec {
     freezegun
     pkgs.shadow
   ];
-  nativeBuildInputs = [ setuptools_scm sphinx sphinxcontrib_newsfeed ];
+  nativeBuildInputs = [
+    setuptools_scm
+    #(pkgs.buildEnv {
+    #  name = "sphinx-env";
+    #  paths = [ (python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])) ];
+    #})
+    #("${python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin/sphinx-build")
+    #(sphinx.overrideAttrs(o: {
+    #  propagatedBuildInputs = o.propagatedBuildInputs or [] ++ [ sphinxcontrib_newsfeed ];
+    #}))
+    #sphinx
+  ];
   checkInputs = [ pytest glibcLocales /* :( */ ];
 
   patches = [
@@ -40,11 +51,20 @@ with python3.pkgs; buildPythonApplication rec {
   postInstall = ''
     # zsh completion
     install -D misc/__khal $out/share/zsh/site-functions/__khal
-
+  ''
+  # Punt on man page for now :(...
+  # sphinx isn't able to find sphinxcontrib_newsfeed
+  # and only fix I found so far is to bundle together in python.withPackages.
+  # Unfortunately that build fails later on, due to dup dependencies apparently.
+  # Oh well.
+  # XXX: Maybe it'd work if built entirely separately? (and linked back in)
+  # Oh hey, the following kludgetasmadoodle does the job:
+  + stdenv.lib.optionalString true ''
     # man page
+    PATH="${python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin:$PATH" \
     make -C doc man
     install -Dm755 doc/build/man/khal.1 -t $out/share/man/man1
-
+  '' + ''
     # desktop
     install -Dm755 misc/khal.desktop -t $out/share/applications
   '';

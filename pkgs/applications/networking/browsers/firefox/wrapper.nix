@@ -9,6 +9,9 @@
 , browserpass, chrome-gnome-shell, uget-integrator, plasma-browser-integration, bukubrow
 , tridactyl-native
 , fx_cast_bridge, ff2mpv
+# shame and dishonor, FIXME
+, dtz ? null
+, rofi-tab-switcher ? if (dtz != null) then dtz.pkgs.rofi-tab-switcher.plugin /* manifest */ else null
 , udev
 , kerberos
 }:
@@ -72,6 +75,7 @@ let
           ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
           ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false) plasma-browser-integration
           ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
+          ++ lib.optional (cfg.enableRofiTabSwitcher or false) (assert rofi-tab-switcher != null; rofi-tab-switcher)
           ++ lib.optional (cfg.enableFF2MPV or false) ff2mpv
           ++ extraNativeMessagingHosts
         );

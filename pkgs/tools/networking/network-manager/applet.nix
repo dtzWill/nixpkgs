@@ -4,11 +4,10 @@
 , libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3
 , libappindicator-gtk3, withGnome ? false, gcr }:
 
-let
+stdenv.mkDerivation rec {
   pname = "network-manager-applet";
-  version = "1.8.22";
-in stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
+  #version = "1.8.22";
+  version = "unstable-2019-10-09";
 
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
@@ -18,8 +17,8 @@ in stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "f1f1c280de83a28bbe5a57f2e13d36ef758e9086";
-    sha256 = "07hpg49dkcm2d6krpnzav89996fikqzhl7q7wgznw8322pjz2nb5";
+    rev = "eb8f9ad16fcaf513fdaa7997a1dfe820e57bfddc";
+    sha256 = "0gg9lg888ilf4z2sql1pahr40gyr5wnvzicdgqjq4jl4svirsvrv";
   };
 
   mesonFlags = [
@@ -47,7 +46,7 @@ in stdenv.mkDerivation rec {
     chmod +x meson_post_install.py # patchShebangs requires executable file
     patchShebangs meson_post_install.py
 
-    substituteInPlace src/wireless-security/eap-method.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${name}/glib-2.0/schemas
+    substituteInPlace src/wireless-security/eap-method.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${pname}-${version}/glib-2.0/schemas
   '';
 
   passthru = {

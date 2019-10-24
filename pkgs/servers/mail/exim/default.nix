@@ -7,11 +7,11 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "exim-4.92.1";
+  name = "exim-4.92.3";
 
   src = fetchurl {
     url = "https://ftp.exim.org/pub/exim/exim4/${name}.tar.xz";
-    sha256 = "1d14vs6jdw2bm9m33w2szxpv8rppbk7hvszq9p0n9i3svmqshr1c";
+    sha256 = "1zfj4zblv5881qxpzkrg3f6a96pbcq270s9p6p1w85lfxjsknif4";
   };
 
   nativeBuildInputs = [ pkgconfig ];

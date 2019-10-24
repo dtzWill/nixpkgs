@@ -9,12 +9,13 @@ assert useT1Lib -> t1lib != null;
 
 assert !useT1Lib; # t1lib has multiple unpatched security vulnerabilities
 
-stdenv.mkDerivation {
-  name = "xpdf-4.00";
+stdenv.mkDerivation rec {
+  pname = "xpdf";
+  version = "4.02";
 
    src = fetchurl {
-    url = http://www.xpdfreader.com/dl/xpdf-4.00.tar.gz;
-    sha256 = "1mhn89738vjva14xr5gblc2zrdgzmpqbbjdflqdmpqv647294ggz";
+    url = "https://xpdfreader-dl.s3.amazonaws.com/${pname}-${version}.tar.gz";
+    sha256 = "1929slvalf5lqvm95ixz4pf84g0s0frn51kfls6lnqdr8g4ivmaj";
   };
 
   # Fix "No known features for CXX compiler", see
@@ -34,7 +35,7 @@ stdenv.mkDerivation {
     stdenv.lib.optional enablePDFtoPPM freetype;
 
   # Debian uses '-fpermissive' to bypass some errors on char* constantness.
-  CXXFLAGS = "-O2 -fpermissive";
+  CXXFLAGS = [ "-O2" "-fpermissive" ];
 
   hardeningDisable = [ "format" ];
 

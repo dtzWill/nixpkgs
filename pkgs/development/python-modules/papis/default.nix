@@ -2,32 +2,43 @@
 , requests, filetype, pyparsing, configparser, arxiv2bib
 , pyyaml, chardet, beautifulsoup4, colorama, bibtexparser
 , pylibgen, click, python-slugify, habanero, isbnlib
-, prompt_toolkit, pygments, stevedore, tqdm
+, prompt_toolkit, pygments, stevedore, tqdm, lxml, python-doi
 #, optional, dependencies
-, jinja2, whoosh, pytest
+, whoosh, pytest
 , stdenv
 }:
 
 buildPythonPackage rec {
   pname = "papis";
-  version = "0.8.2";
+  version = "0.9";
 
   # Missing tests on Pypi
   src = fetchFromGitHub {
     owner = "papis";
     repo = pname;
-    #rev = "v${version}";
-    rev = "1bbcfc001dd4449f9f99e89b4a63bd04f0373d4f";
-    sha256 = "05mqhdss6kbkw4kfgi6cg058v9xicnb0y0xnxjjgd0gmhk2z9bcl";
+    rev = "v${version}";
+    #rev = "1bbcfc001dd4449f9f99e89b4a63bd04f0373d4f";
+    sha256 = "15i79q6nr7gcpcafdz5797axmp6r3081sys07k1k2vi5b2g3qc4k";
   };
+
+  # Remove limit on lxml version (ours is newer),
+  # perhaps there is a good reason but the commit adding this limit
+  # introduced comment indicating it was "for python 3.4" which
+  # doesn't seem worth breaking the build or introducing local
+  # variant of lxml with the requested version.
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace '"lxml<=4.3.5"' \
+                '"lxml"'
+  '';
 
   propagatedBuildInputs = [
     requests filetype pyparsing configparser arxiv2bib
     pyyaml chardet beautifulsoup4 colorama bibtexparser
     pylibgen click python-slugify habanero isbnlib
-    prompt_toolkit pygments stevedore tqdm
+    prompt_toolkit pygments stevedore tqdm lxml python-doi
     # optional dependencies
-    jinja2 whoosh
+    whoosh
   ];
 
   doCheck = !stdenv.isDarwin;
@@ -53,6 +64,8 @@ buildPythonPackage rec {
         # fail with 5.x
         "test_export_yaml"
         "test_citations"
+        # expected failure: arxivid validation by querying sefver
+        "test_validate_arxivid"
       ]}"
   '';
 

@@ -11,10 +11,14 @@
 , nixosTests
 }:
 
-# Updating? Keep $out/etc synchronized with passthru.filesInstalledToEtc
-
 let
-  python = python3.withPackages (p: with p; [ pygobject3 pycairo pillow ]);
+  python = python3.withPackages (p: with p; [
+    pygobject3
+    pycairo
+    pillow
+    setuptools
+  ]);
+
   installedTestsPython = python3.withPackages (p: with p; [ pygobject3 requests ]);
 
   fontsConf = makeFontsConf {
@@ -34,14 +38,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "unstable-2019-09-30";
+  version = "unstable-2019-10-15";
 
   #version = "2019-09-06";
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "34c366aab26d05bb968c088938a979eb599e9138";
-    sha256 = "0ymfi3vdn0lyaksk9k9ppm8abr0myr17paags7g75dnp3k3kfy0y";
+    rev = "01475832083b5a7a72221020004c0bba73bad1e5";
+    sha256 = "0asxhha4fvkkhljw0604gqa420b1h0z914jv5fr5hnv1f5g4xzv8";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";

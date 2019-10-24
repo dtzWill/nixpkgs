@@ -5,14 +5,14 @@
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  #version = "0.21";
-  version = "2019-09-30";
+  version = "0.23";
+  #version = "2019-10-23";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    #rev = version;
-    rev = "77770b9566457eb1f1e400a227fb316b542cb1ab";
-    sha256 = "1cwh27wi6537py2mnzf9vsif3rzl20y33n4p3f65my2f3h0hppl3";
+    rev = version;
+    #rev = "1e0058cf734f7811f71262cc7796a79423fb110f";
+    sha256 = "054nkfaj872d9f1j2kyrdwjmn3mgwrlajhm744gcka1fq31cf8aj";
   };
 
   nativeBuildInputs = [
@@ -44,11 +44,21 @@ stdenv.mkDerivation rec {
     "--enable-wired"
     "--enable-external-ell"
     "--enable-ofono"
+
+    "--enable-debug"
+    "--enable-asan"
+    "--enable-ubsan"
   ];
+
+  separateDebugInfo = true;
 
   postUnpack = ''
     patchShebangs .
   '';
+
+  # Fix write past end of buffer in certain circumstances
+  # ... circumstances I encounter often, thanks neighbors ;)
+  patches = [ ./completion-crash-fix-wip.patch ];
 
   doCheck = true;
 

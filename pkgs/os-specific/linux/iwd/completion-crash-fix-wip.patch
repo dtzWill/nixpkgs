@@ -1,0 +1,51 @@
+diff --git a/client/display.c b/client/display.c
+index b22b6e9..fea8131 100644
+--- a/client/display.c
++++ b/client/display.c
+@@ -30,6 +30,7 @@
+ 
+ #include <readline/history.h>
+ #include <readline/readline.h>
++#include <assert.h>
+ #include <ell/ell.h>
+ 
+ #include "agent.h"
+@@ -364,6 +365,7 @@ static void display_completion_matches(char **matches, int num_matches,
+ 	char line[LINE_LEN];
+ 	size_t index;
+ 	size_t line_used;
++	size_t match_len;
+ 	char *input = rl_copy_text(0, rl_end);
+ 
+ 	prompt = l_strdup_printf("%s%s\n", IWD_PROMPT, input);
+@@ -372,8 +374,16 @@ static void display_completion_matches(char **matches, int num_matches,
+ 	display_text(prompt);
+ 	l_free(prompt);
+ 
++	// Fix max_length, account for quoting (apparently??)
++	for (index = 1; matches[index]; index++) {
++		match_len = strlen(matches[index]);
++		max_length = match_len > max_length ? match_len : max_length;
++	}
++
+ 	for (index = 1, line_used = 0; matches[index]; index++) {
+-		if ((line_used + max_length) > LINE_LEN) {
++		assert(index <= num_matches);
++		assert(strlen(matches[index]) <= max_length);
++		if ((line_used + max_length + 1 + 1 /* :( */) >= LINE_LEN) {
+ 			strcpy(&line[line_used], "\n");
+ 
+ 			display_text(line);
+@@ -381,10 +391,11 @@ static void display_completion_matches(char **matches, int num_matches,
+ 			line_used = 0;
+ 		}
+ 
++		// XXX: entry > LINE_LEN, if possible, will overflow 'line'! :(
+ 		entry = l_strdup_printf("%-*s ", max_length, matches[index]);
++		assert(strlen(entry) == max_length + 1);
+ 		strcpy(&line[line_used], entry);
+ 		l_free(entry);
+-
+ 		line_used += max_length + 1;
+ 	}
+ 

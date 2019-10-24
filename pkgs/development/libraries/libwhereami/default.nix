@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
     owner = "puppetlabs";
   };
 
-  # post gcc7, upstream bug: https://tickets.puppetlabs.com/browse/FACT-1828
-  NIX_CFLAGS_COMPILE = "-Wno-error=deprecated";
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=catch-value" ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -25,8 +24,7 @@ stdenv.mkDerivation rec {
     description = "Library to report hypervisor information from inside a VM";
     license = licenses.asl20;
     maintainers = [ maintainers.womfoo ];
-    platforms = platforms.linux;
-    badPlatforms = platforms.arm;
+    platforms = with platforms; [ "i686-linux" "x86_64-linux" ]; # fails on aarch64
   };
 
 }

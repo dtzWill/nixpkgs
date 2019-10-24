@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     name = "${name}.tar.bz2";
     url = http://opensource.spotify.com/cefbuilds/cef_binary_74.1.13%2Bg98f22d3%2Bchromium-74.0.3729.108_linux64.tar.bz2;
     #sha256 = "12iv798p6g17jqxx4fid4jgwkrpvlfkx4250lk8byhync53zbw0d";
-    sha256 = "0p0pwdk0iavc70m1wcs6g99skx4ynlndhpppbsw41ndjynw1id57";
+    sha256 = "1hnmzf8mh7hn0x00c9rf5p919qii3q8i5vcv9mxh564b8ikm03ab";
   };
   nativeBuildInputs = [ cmake ];
   makeFlags = "libcef_dll_wrapper";

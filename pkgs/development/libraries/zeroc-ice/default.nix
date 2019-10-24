@@ -15,8 +15,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./makefile.patch ];
 
-  buildInputs = [ mcpp bzip2 expat openssl db5 ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.cctools libiconv Security ];
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=class-memaccess" ];
+
+  prePatch = lib.optional stdenv.isDarwin ''
+    substituteInPlace Make.rules.Darwin \
+        --replace xcrun ""
+  '';
 
   postUnpack = ''
     sourceRoot=$sourceRoot/cpp

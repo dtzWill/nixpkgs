@@ -18,11 +18,11 @@ buildPythonPackage rec {
   # The websites youtube-dl deals with are a very moving target. That means that
   # downloads break constantly. Because of that, updates should always be backported
   # to the latest stable release.
-  version = "2019.09.28";
+  version = "2019.10.22";
 
   src = fetchurl {
     url = "https://yt-dl.org/downloads/${version}/${pname}-${version}.tar.gz";
-    sha256 = "0nrk0bk6lksnmng8lwhcpkc57iibzjjamlqz8rxjpsw6dnzxz82h";
+    sha256 = "06wg6wpyq0fawjxjrhd7zasfjr9b6w9wsk2amiqdl712zqlq2rwb";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -45,28 +45,28 @@ buildPythonPackage rec {
     "build_lazy_extractors"
   ];
 
-  postPatch = ''
-    patch -p1 <<EOF
-    index 3282f84ee..0fcac8c2b 100644
-    --- a/youtube_dl/extractor/nbc.py
-    +++ b/youtube_dl/extractor/nbc.py
-    @@ -91,7 +91,13 @@ class NBCIE(AdobePassIE):
-                     'fields[shows]': 'shortTitle',
-                     'include': 'show.shortTitle',
-                 })
-    -        video_data = response['data'][0]['attributes']
-    +        try:
-    +            video_data = response['data'][0]['attributes']
-    +        except:
-    +            video_data = dict()
-    +            video_data['guid'] = video_id
-    +            video_data['title'] = 'none'
-    +
-             query = {
-                 'mbr': 'true',
-                 'manifest': 'm3u',
-    EOF
-  '';
+  ## postPatch = ''
+  ##   patch -p1 <<EOF
+  ##   index 3282f84ee..0fcac8c2b 100644
+  ##   --- a/youtube_dl/extractor/nbc.py
+  ##   +++ b/youtube_dl/extractor/nbc.py
+  ##   @@ -91,7 +91,13 @@ class NBCIE(AdobePassIE):
+  ##                    'fields[shows]': 'shortTitle',
+  ##                    'include': 'show.shortTitle',
+  ##                })
+  ##   -        video_data = response['data'][0]['attributes']
+  ##   +        try:
+  ##   +            video_data = response['data'][0]['attributes']
+  ##   +        except:
+  ##   +            video_data = dict()
+  ##   +            video_data['guid'] = video_id
+  ##   +            video_data['title'] = 'none'
+  ##   +
+  ##            query = {
+  ##                'mbr': 'true',
+  ##                'manifest': 'm3u',
+  ##   EOF
+  ## '';
 
   postInstall = ''
     patchShebangs devscripts/zsh-completion.py
