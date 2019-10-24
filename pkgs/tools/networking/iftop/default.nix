@@ -18,8 +18,6 @@ stdenv.mkDerivation rec {
   patches = [
     ./getnameinfo-and-getifaddrs.patch
     ./MAC-address-format.patch
-    ./iftop-cleanup.patch
-    ./support-multi-gigabit-interfaces.patch
   ] ++ stdenv.lib.optional enableColors ./ui-colours.patch;
 
   nativeBuildInputs = [ autoreconfHook updateAutotoolsGnuConfigScriptsHook ];
