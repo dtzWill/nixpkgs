@@ -107,7 +107,7 @@ let
 
   base = rec {
     name = "${packageName}-unwrapped-${version}";
-    inherit (upstream-info) version;
+    inherit (upstream-info) channel version;
     inherit packageName buildType buildPath;
 
     src = upstream-info.main;
@@ -125,18 +125,18 @@ let
       glib gtk3 dbus-glib
       libXScrnSaver libXcursor libXtst libGLU_combined
       pciutils protobuf speechd libXdamage at-spi2-core
+      jdk.jre
     ] ++ optional gnomeKeyringSupport libgnome-keyring3
       ++ optionals gnomeSupport [ gnome.GConf libgcrypt ]
       ++ optionals cupsSupport [ libgcrypt cups ]
       ++ optional useVaapi libva
-      ++ optional pulseSupport libpulseaudio
-      ++ optional (versionAtLeast version "72") jdk.jre;
+      ++ optional pulseSupport libpulseaudio;
 
     patches = [
       ./patches/nix_plugin_paths_68.patch
       ./patches/remove-webp-include-69.patch
-      ./patches/jumbo-sorted.patch
       ./patches/no-build-timestamps.patch
+    ] ++ optionals (channel == "stable" || channel == "beta") [
       ./patches/widevine.patch
     ] ++ optionals (channel == "dev") [
       ./patches/widevine-79.patch
@@ -152,21 +152,11 @@ let
     ] ++ optionals (useVaapi) [
       # source: https://aur.archlinux.org/cgit/aur.git/plain/chromium-vaapi.patch?h=chromium-vaapi
       ./patches/chromium-vaapi.patch
-    ] ++ optionals (!stdenv.cc.isClang && (versionRange "71" "72")) [
-      ( githubPatch "65be571f6ac2f7942b4df9e50b24da517f829eec" "1sqv0aba0mpdi4x4f21zdkxz2cf8ji55ffgbfcr88c5gcg0qn2jh" )
-    ] ++ optional stdenv.isAarch64
-           (if (versionOlder version "71") then
-              fetchpatch {
-                url       = https://raw.githubusercontent.com/OSSystems/meta-browser/e4a667deaaf9a26a3a1aeb355770d1f29da549ad/recipes-browser/chromium/files/aarch64-skia-build-fix.patch;
-                sha256    = "0dkchqair8cy2f5a5p5vi24r9b4d28pgn2bfvm1568lypbjw6iab";
-              }
-            else
-              fetchpatch {
-                url       = https://raw.githubusercontent.com/OSSystems/meta-browser/e4a667deaaf9a26a3a1aeb355770d1f29da549ad/recipes-browser/chromium/files/aarch64-skia-build-fix.patch;
-                postFetch = "substituteInPlace $out --replace __aarch64__ SK_CPU_ARM64";
-                sha256    = "018fbdzyw9rvia8m0qkk5gv8q8gl7x34rrjbn7mi1fgxdsayn22s";
-              }
-            );
+    ] ++ optional stdenv.isAarch64 (fetchpatch {
+      url       = https://raw.githubusercontent.com/OSSystems/meta-browser/e4a667deaaf9a26a3a1aeb355770d1f29da549ad/recipes-browser/chromium/files/aarch64-skia-build-fix.patch;
+      postFetch = "substituteInPlace $out --replace __aarch64__ SK_CPU_ARM64";
+      sha256    = "018fbdzyw9rvia8m0qkk5gv8q8gl7x34rrjbn7mi1fgxdsayn22s";
+    });
 
     postPatch = ''
       # We want to be able to specify where the sandbox is via CHROME_DEVEL_SANDBOX
@@ -239,9 +229,6 @@ let
       use_gold = true;
       gold_path = "${stdenv.cc}/bin";
       is_debug = false;
-      # Use jumbo for a 2x (at least) compilation speedup, except where it is currently broken:
-      # https://gist.github.com/ivan/6fe7014c1b1cc35dec133fa6de0549d9
-      use_jumbo_build = (version != "78.0.3904.17");
 
       proprietary_codecs = false;
       use_sysroot = false;
