@@ -92,6 +92,10 @@ let
       repo = "swift";
       sha256 = "0m4r1gzrnn0s1c7haqq9dlmvpqxbgbkbdfmq6qaph869wcmvdkvy";
     };
+    libcxx = fetch {
+      repo = "swift-libcxx";
+      sha256 = "01q6m13cqa7d74l2sbci90rwk34ysjn81zb9ikfq8qnhh85rd6vv";
+    };
     # These likely can be added, however they require a working toolchain
     # which is what we're primarily creating here.
     # If build turnaround for this all was faster i'd try accomplishing that
@@ -210,6 +214,7 @@ stdenv.mkDerivation rec {
     cp -r ${sources.foundation} swift-corelibs-foundation
     cp -r ${sources.libdispatch} swift-corelibs-libdispatch
     cp -r ${sources.swift} swift
+    cp -r ${sources.libcxx} libcxx
   '' + stdenv.lib.optionalString false /* one day, perhaps */ ''
     cp -r ${sources.sourcekit-lsp} sourcekit-lsp
     cp -r ${sources.indexstore-db} indexstore-db
