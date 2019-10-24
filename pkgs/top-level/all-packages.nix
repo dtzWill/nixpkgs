@@ -13280,11 +13280,10 @@ in
   openvdb = callPackage ../development/libraries/openvdb {};
 
   inherit (callPackages ../development/libraries/libressl { })
-    libressl_2_8
     libressl_2_9
     libressl_3_0;
 
-  libressl = libressl_2_9;
+  libressl = libressl_3_0;
 
   boringssl = callPackage ../development/libraries/boringssl { };
 
