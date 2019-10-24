@@ -255,6 +255,9 @@ stdenv.mkDerivation rec {
     PREFIX=''${out/#\/}
     substituteInPlace swift-corelibs-xctest/build_script.py \
       --replace usr "$PREFIX"
+
+    substituteInPlace indexstore-db/Utilities/build-script-helper.py \
+      --replace "'usr'" "'$PREFIX'"
   '';
 
   buildPhase = builder;
