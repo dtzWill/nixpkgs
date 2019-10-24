@@ -2697,14 +2697,14 @@ let
     };
   };
 
-  vala-vim = buildVimPluginFrom2Nix {
-    pname = "vala-vim";
-    version = "2017-07-02";
+  vader-vim = buildVimPluginFrom2Nix {
+    pname = "vader-vim";
+    version = "2019-05-18";
     src = fetchFromGitHub {
-      owner = "arrufat";
-      repo = "vala.vim";
-      rev = "ad3491464462ea123f8ad2b3b8dfed8dad2e9f0a";
-      sha256 = "0wkqz8cmrjcznz9bq8sirsqjnwi171nv406srgnbr3as1jl14c0j";
+      owner = "junegunn";
+      repo = "vader.vim";
+      rev = "de8a976f1eae2c2b680604205c3e8b5c8882493c";
+      sha256 = "1pibls5s74fkzvj7spdpdn2s6zka0zxg4yr02s6jd0bcniq210b5";
     };
   };
 
