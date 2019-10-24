@@ -105,14 +105,14 @@ let
     # If build turnaround for this all was faster i'd try accomplishing that
     # at the end... instead it may be easier to have these as separate expressions
     # and hope they work just as well as if they were included originally.
-    ##sourcekit-lsp = fetch {
-    ##  repo = "sourcekit-lsp";
-    ##  sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
-    ##};
-    ##indexstore-db = fetch {
-    ##  repo = "indexstore-db";
-    ##  sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
-    ##};
+    sourcekit-lsp = fetch {
+      repo = "sourcekit-lsp";
+      sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
+    };
+    indexstore-db = fetch {
+      repo = "indexstore-db";
+      sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
+    };
   };
 
   devInputs = [
@@ -220,10 +220,9 @@ stdenv.mkDerivation rec {
     cp -r ${sources.libdispatch} swift-corelibs-libdispatch
     cp -r ${sources.swift} swift
     cp -r ${sources.libcxx} libcxx
-  '' + stdenv.lib.optionalString false /* one day, perhaps */ ''
     cp -r ${sources.sourcekit-lsp} sourcekit-lsp
     cp -r ${sources.indexstore-db} indexstore-db
-  '' + ''
+
     chmod -R u+w .
   '';
 
