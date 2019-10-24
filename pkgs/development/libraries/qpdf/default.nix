@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "qpdf";
-  version = "9.0.1";
+  version = "9.0.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/qpdf/qpdf/${version}/${pname}-${version}.tar.gz";
-    sha256 = "0lhgb82s2402ad2yiswkj227vjlw9zypphdfdivfkbril7dg6495";
+    sha256 = "0b6jhhsifgiwrznxxi3h7hqm7bi91wph65jjbvs4g2860vcm296h";
   };
 
   nativeBuildInputs = [ perl ];
