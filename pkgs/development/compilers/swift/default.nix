@@ -236,7 +236,6 @@ stdenv.mkDerivation rec {
     patch -p1 -d swift -i ${./patches/glibc-arch-headers.patch}
     patch -p1 -d swift -i ${./patches/0001-build-presets-linux-don-t-require-using-Ninja.patch}
     patch -p1 -d swift -i ${./patches/0002-build-presets-linux-allow-custom-install-prefix.patch}
-    patch -p1 -d swift -i ${./patches/0003-build-presets-linux-don-t-build-extra-libs.patch}
     patch -p1 -d swift -i ${./patches/0004-build-presets-linux-plumb-extra-cmake-options.patch}
     patch -p1 -d swift -i ${./patches/nothing-too-fancy-yet.patch}
 
