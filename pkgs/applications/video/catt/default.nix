@@ -19,6 +19,8 @@ buildPythonApplication rec {
     youtube-dl PyChromecast click ifaddr requests
   ];
 
+  doCheck = false; # attempts to access various URLs
+
   meta = with lib; {
     description = "Cast All The Things allows you to send videos from many, many online sources to your Chromecast";
     homepage = "https://github.com/skorokithakis/catt";
