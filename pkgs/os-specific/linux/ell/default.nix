@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-debug"
-    "--enable-asan"
-    "--enable-ubsan"
+   # "--enable-asan"
+   # "--enable-ubsan"
   ];
   separateDebugInfo = true;
 

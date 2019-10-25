@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     "--enable-ofono"
 
     "--enable-debug"
-    "--enable-asan"
-    "--enable-ubsan"
+    #"--enable-asan"
+    #"--enable-ubsan"
   ];
 
   separateDebugInfo = true;
