@@ -6886,6 +6886,8 @@ in
   vimpager = callPackage ../tools/misc/vimpager { };
   vimpager-latest = callPackage ../tools/misc/vimpager/latest.nix { };
 
+  vimwiki-markdown = python3Packages.callPackage ../tools/misc/vimwiki-markdown { };
+
   visidata = (newScope python3Packages) ../applications/misc/visidata {
   };
 
