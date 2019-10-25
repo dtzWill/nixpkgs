@@ -42,7 +42,6 @@ python3.pkgs.buildPythonApplication rec  {
   ];
 
   buildInputs = with gst_all_1; [
-    gobject-introspection
     gst-libav
     gst-plugins-bad
     gst-plugins-base
@@ -73,6 +72,8 @@ python3.pkgs.buildPythonApplication rec  {
     buildPythonPath "$out $propagatedBuildInputs"
     patchPythonScript "$out/libexec/lollypop-sp"
   '';
+
+  strictDeps = false;
 
   # Produce only one wrapper using wrap-python passing
   # gappsWrapperArgs to wrap-python additional wrapper
