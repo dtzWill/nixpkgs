@@ -397,6 +397,7 @@ stefandtw/quickfix-reflector.vim
 t9md/vim-choosewin
 t9md/vim-smalls
 takac/vim-hardtime
+tbodt/deoplete-tabnine
 ternjs/tern_for_vim
 terryma/vim-expand-region
 terryma/vim-multiple-cursors
