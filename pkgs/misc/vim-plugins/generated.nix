@@ -1009,6 +1009,17 @@ let
     };
   };
 
+  detorte = buildVimPluginFrom2Nix {
+    pname = "detorte";
+    version = "2019-03-28";
+    src = fetchFromGitHub {
+      owner = "tamlok";
+      repo = "detorte";
+      rev = "a94d9c393baf849ecff5ac592604a62f45a79ca3";
+      sha256 = "0bibzlwraiwvxzrj7xa7padmjzspwrd2j0b54j7x08jszll8q1mf";
+    };
+  };
+
   dhall-vim = buildVimPluginFrom2Nix {
     pname = "dhall-vim";
     version = "2019-05-01";
@@ -2066,6 +2077,17 @@ let
       repo = "nvimdev.nvim";
       rev = "994ff5daf571ad02cc96436002411b4fb235c91f";
       sha256 = "07dx6qkxqpakl1hrqwhfjgdzcnl4j3j9qih0l20qn8p6askj3b2j";
+    };
+  };
+
+  onedark-vim = buildVimPluginFrom2Nix {
+    pname = "onedark-vim";
+    version = "2019-10-16";
+    src = fetchFromGitHub {
+      owner = "joshdick";
+      repo = "onedark.vim";
+      rev = "fe035976117ba5c2481df3b2cad3bb0a8b045b9f";
+      sha256 = "1s9xp3a215ib5xyxpbnrhvbgvgvbhdv4fkyc6jbyl3h7pyvdghjb";
     };
   };
 
