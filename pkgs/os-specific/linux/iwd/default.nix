@@ -5,14 +5,14 @@
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  version = "0.23";
-  #version = "2019-10-23";
+  #version = "0.23";
+  version = "2019-10-24";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    rev = version;
-    #rev = "1e0058cf734f7811f71262cc7796a79423fb110f";
-    sha256 = "054nkfaj872d9f1j2kyrdwjmn3mgwrlajhm744gcka1fq31cf8aj";
+    #rev = version;
+    rev = "aa13f5458ddc0aca1e997c8c780392f3bdd7eeba";
+    sha256 = "06jvz2893q6qlbbjdjj0vdnhjmw08rpscdxm9w71f59ndiywcdsk";
   };
 
   nativeBuildInputs = [
@@ -56,9 +56,14 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  # Fix write past end of buffer in certain circumstances
-  # ... circumstances I encounter often, thanks neighbors ;)
-  patches = [ ./completion-crash-fix-wip.patch ];
+  patches = [
+    # Fix write past end of buffer in certain circumstances
+    # ... circumstances I encounter often, thanks neighbors ;)
+    ./completion-crash-fix-wip.patch
+
+    # Most immediately this is needed to appease the sanitizers :o)
+    ./fix-memcpy-zero-from-null-ub.patch
+  ];
 
   doCheck = true;
 

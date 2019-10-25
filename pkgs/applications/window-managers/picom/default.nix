@@ -12,10 +12,10 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner  = "yshui";
-    repo   = "compton"; # pname;
+    repo   = pname;
     #rev    = COMPTON_VERSION;
-    rev = "43b21731f82d72701f45e64759c4573b332daef0";
-    sha256 = "0vn4svh3gvqa99ph2dzjsck0v6850bw112ar4jrx9z992gav1c6f";
+    rev = "a2f816acb19f2881785e8427317b57a47a2b1e11";
+    sha256 = "1yav4chxqcixv5yidzzcpgz4gmm3piqn38615c44limm9cl122cz";
     fetchSubmodules = true;
   };
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       well-defined and proper place.
     '';
     license = licenses.mit;
-    homepage = "https://github.com/yshui/compton";
+    homepage = "https://github.com/yshui/picom";
     maintainers = with maintainers; [ ertes enzime twey ];
     platforms = platforms.linux;
   };
