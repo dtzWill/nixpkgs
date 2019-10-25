@@ -24,14 +24,14 @@ in
 
 mkDerivation rec {
   pname = "nextcloud-client";
-  version = "unstable-2019-10-22";
+  version = "unstable-2019-10-23";
 
   src = fetchFromGitHub {
     owner = "nextcloud";
     repo = "desktop";
     #rev = "v${version}";
-    rev = "b293a5b8180fb8c676b3fff346a25e042649af94"; # 2019-09-20
-    sha256 = "11jqjk3ks5iy325i35zr2naxwaljg5vpfmfaps82g57yxvwwvvs1";
+    rev = "a8cf6e04439595a4ed2002ec40d7819ea7fcc86f"; # 2019-09-20
+    sha256 = "1zp66s227xfy4hx3qdgsz2260qqx4xr4h4w3y46cdlkc3h6rp38i";
   };
 
   patches = [
