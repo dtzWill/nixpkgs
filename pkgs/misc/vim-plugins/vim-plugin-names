@@ -152,6 +152,7 @@ jonbri/vim-colorstepper
 jonsmithers/vim-html-template-literals
 joonty/vim-xdebug
 josa42/coc-go
+joshdick/onedark.vim
 jpalardy/vim-slime
 JuliaEditorSupport/deoplete-julia
 JuliaEditorSupport/julia-vim
@@ -407,6 +408,7 @@ t9md/vim-choosewin
 t9md/vim-smalls
 takac/vim-hardtime
 tbodt/deoplete-tabnine
+tamlok/detorte
 ternjs/tern_for_vim
 terryma/vim-expand-region
 terryma/vim-multiple-cursors
