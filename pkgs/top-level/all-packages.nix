@@ -3056,6 +3056,8 @@ in
 
   evtest-qt = libsForQt5.callPackage ../applications/misc/evtest-qt { };
 
+  eva = callPackage ../tools/misc/eva { };
+
   exa = callPackage ../tools/misc/exa { };
 
   exempi = callPackage ../development/libraries/exempi {
