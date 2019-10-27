@@ -21354,6 +21354,8 @@ in
 
   tetraproc = callPackage ../applications/audio/tetraproc { };
 
+  tev = callPackage ../applications/graphics/tev { };
+
   thinkingRock = callPackage ../applications/misc/thinking-rock { };
 
   thonny = callPackage ../applications/editors/thonny { };
