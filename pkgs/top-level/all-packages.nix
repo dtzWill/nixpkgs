@@ -2883,6 +2883,8 @@ in
 
   wl-clipboard = callPackage ../tools/misc/wl-clipboard { };
 
+  wob = callPackage ../tools/misc/wob { };
+
   xob = callPackage ../tools/X11/xob { };
 
   z-lua = callPackage ../tools/misc/z-lua { };
