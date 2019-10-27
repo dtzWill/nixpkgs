@@ -5097,6 +5097,8 @@ in {
 
   tadasets = callPackage ../development/python-modules/tadasets { };
 
+  tbm-utils = callPackage ../development/python-modules/tbm-utils { };
+
   tempita = callPackage ../development/python-modules/tempita { };
 
   terminado = callPackage ../development/python-modules/terminado { };
