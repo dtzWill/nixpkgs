@@ -205,7 +205,7 @@ stdenv.mkDerivation {
 
     substituteInPlace clang/lib/Driver/ToolChains/Linux.cpp \
       --replace 'SysRoot + "/usr/lib' '"${glibc}/lib" "'
-    patch -p1 -d clang -i ${./patches/llvm-include-dirs.patch}
+    patch -p1 -d clang -i ${./patches/llvm-toolchain-dir.patch}
     patch -p1 -d clang -i ${./purity.patch}
 
     # Workaround hardcoded dep on "libcurses" (vs "libncurses"):
