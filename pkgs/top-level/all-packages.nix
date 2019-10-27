@@ -20950,6 +20950,8 @@ in
 
   shfmt = callPackage ../tools/text/shfmt { };
 
+  shotgun = callPackage ../tools/graphics/shotgun {};
+
   shutter = callPackage ../applications/graphics/shutter { };
 
   simple-scan = gnome3.simple-scan;
