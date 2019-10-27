@@ -1,7 +1,7 @@
-{ mkDerivation, lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore
+{ lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore
 , kservice, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase
 , qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata
-, ckbcomp, xkeyboard_config
+, ckbcomp, xkeyboard_config, mkDerivation
 }:
 
 mkDerivation rec {
