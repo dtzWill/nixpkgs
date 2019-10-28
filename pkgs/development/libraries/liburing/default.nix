@@ -3,13 +3,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "liburing-${version}";
-  version = "0.1";
+  pname = "liburing";
+  version = "0.2";
 
   src = fetchgit {
-    url    = "http://git.kernel.dk/liburing";
-    rev    = "refs/tags/liburing-${version}";
-    sha256 = "038iqsbm9bdmlwvmb899bc6g1rw5dalr990azynbvgn8qs5adysh";
+    url    = "http://git.kernel.dk/${pname}";
+    rev    = "refs/tags/${pname}-${version}";
+    sha256 = "0dxq7qjrwndgavrrc6y2wg54ia3y5wkmcyhpdk4l5pvh7hw6kpdz";
   };
 
   patches = [
