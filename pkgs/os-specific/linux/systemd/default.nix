@@ -49,6 +49,9 @@ stdenv.mkDerivation rec {
       url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
       sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
     })
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0004-add-fallback-parse_printf_format-implementation.patch
+    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0005-src-basic-missing.h-check-for-missing-strndupa.patch
   ];
 
   outputs = [ "out" "lib" "man" "dev" ];
@@ -130,6 +133,8 @@ stdenv.mkDerivation rec {
     # Upstream defaulted to disable manpages since they optimize for the much
     # more frequent development builds
     "-Dman=true"
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    "-Dgshadow=false" # ?
   ];
 
   preConfigure = ''
