@@ -1,13 +1,13 @@
 { stdenv, pythonPackages, fetchurl, gettext }:
 pythonPackages.buildPythonApplication rec {
   pname = "bleachbit";
-  version = "2.3";
+  version = "3.0";
 
   format = "other";
 
   src = fetchurl {
     url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.bz2";
-    sha256 = "error: cannot download bleachbit-2.3.tar.bz2 from any mirror";
+    sha256 = "18ns9hms671b4l0189m1m2agprkydnpvyky9q2f5hxf35i9cn67d";
   };
 
   nativeBuildInputs = [ gettext ];
