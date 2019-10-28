@@ -25456,4 +25456,6 @@ in
   criterion = callPackage ../development/libraries/criterion { };
 
   hyperspace = callPackage ../applications/misc/hyperspace { };
+
+  go-license-detector = callPackage ../development/tools/misc/go-license-detector { };
 }
