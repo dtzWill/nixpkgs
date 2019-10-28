@@ -1,0 +1,32 @@
+From d5892cf519ec55b744936ccf15e6c1fe290c1532 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 14:10:59 -0500
+Subject: [PATCH] tls: assert non-neg
+
+---
+ ell/tls.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/ell/tls.c b/ell/tls.c
+index a947ae4..83e5dd6 100644
+--- a/ell/tls.c
++++ b/ell/tls.c
+@@ -28,6 +28,7 @@
+ #include <errno.h>
+ #include <stdio.h>
+ #include <strings.h>
++#include <assert.h>
+ 
+ #include "util.h"
+ #include "private.h"
+@@ -110,6 +111,7 @@ bool tls12_prf(enum l_checksum_type type,
+ 		l_checksum_reset(hmac);
+ 		l_checksum_update(hmac, a, a_len);
+ 		a_len = l_checksum_get_digest(hmac, a, 128);
++    assert(a_len >= 0);
+ 
+ 		/* Append seed & generate output */
+ 		memcpy(a + a_len, prfseed, prfseed_len);
+-- 
+2.24.0-rc1
+
