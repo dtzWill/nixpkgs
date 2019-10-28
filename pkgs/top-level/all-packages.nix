@@ -2887,7 +2887,7 @@ in
 
   xob = callPackage ../tools/X11/xob { };
 
-  z-lua = callPackage ../tools/misc/z-lua { };
+  z-lua = callPackage ../tools/misc/z-lua { lua = lua5_3; };
 
   zabbix-cli = callPackage ../tools/misc/zabbix-cli { };
 
