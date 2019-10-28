@@ -65,6 +65,7 @@ stdenv.mkDerivation rec {
     # Fix write past end of buffer in certain circumstances
     # ... circumstances I encounter often, thanks neighbors ;)
     ./completion-crash-fix-wip.patch
+    ./no-new-root-path-yet.patch
   ];
 
   doCheck = true;
