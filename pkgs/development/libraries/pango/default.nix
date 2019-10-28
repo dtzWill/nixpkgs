@@ -10,13 +10,13 @@ with stdenv.lib;
 
 let
   pname = "pango";
-  version = "1.44.6";
+  version = "1.44.7";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "0v7qq3fv1c0dl80d4qxsvd6cmhh4ngih3w0zc40f4dw7hfx427iy";
+    sha256 = "07qvxa2sk90chp1l12han6vxvy098mc37sdqcznyywyv2g6bd9b6";
   };
 
   # FIXME: docs fail on darwin
