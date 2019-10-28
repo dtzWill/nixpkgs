@@ -198,6 +198,7 @@ stdenv.mkDerivation rec {
       --replace /usr/lib/systemd/catalog/ $out/lib/systemd/catalog/
   '' + lib.optionalString stdenv.hostPlatform.isMusl ''
     sed -i src/boot/bless-boot.c -e '18i#include "missing.h"'
+    sed -i src/portable/portabled-operation.h -e '5i#include <sys/wait.h>'
   '';
 
   # These defines are overridden by CFLAGS and would trigger annoying
