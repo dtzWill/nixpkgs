@@ -54,13 +54,13 @@ in
 mkDerivation rec {
   pname = "kdeconnect";
   #version = "1.3.5";
-  version = "unstable-2019-10-02";
+  version = "unstable-2019-10-27";
 
   src = fetchFromGitHub {
     owner = "KDE";
     repo = "kdeconnect-kde";
-    rev = "58dca31212a55cd3977c824bceb63acdef134787";
-    sha256 = "18a85cnfkifg8q3zy33l2c4asvflb41fx0hvj9x9mzvf0vywv4sx";
+    rev = "ac791640a6a96168c6ba48d0b18fc586855f6c75";
+    sha256 = "0jc42vi57dxz2grfj1wlmxr4zc89chxpg0rm14vj2gqb0wbvgp7j";
   };
   #src = fetchurl {
   #  url = "mirror://kde/stable/${pname}/${version}/${pname}-kde-${version}.tar.xz";
