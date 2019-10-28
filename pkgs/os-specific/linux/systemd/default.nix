@@ -155,6 +155,7 @@ stdenv.mkDerivation rec {
     "-Dman=true"
   ] ++ lib.optionals stdenv.hostPlatform.isMusl [
     "-Dgshadow=false" # ?
+    "-Didn=false"
   ];
 
   preConfigure = ''
