@@ -199,6 +199,7 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString stdenv.hostPlatform.isMusl ''
     sed -i src/boot/bless-boot.c -e '18i#include "missing.h"'
     sed -i src/portable/portabled-operation.h -e '5i#include <sys/wait.h>'
+    sed -i src/journal-remote/journal-remote-main.c -e '24i#include "missing.h"'
   '';
 
   # These defines are overridden by CFLAGS and would trigger annoying
