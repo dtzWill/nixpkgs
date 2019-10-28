@@ -2,7 +2,6 @@
 , addOpenGLRunpath, docutils, perl, pkgconfig, python3, which
 , ffmpeg_4, freefont_ttf, freetype, libass, libpthreadstubs, mujs
 , nv-codec-headers, lua, libuchardet, libiconv ? null, darwin
-, zimg
 
 , waylandSupport ? stdenv.isLinux
   , wayland           ? null
