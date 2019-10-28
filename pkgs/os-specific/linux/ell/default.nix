@@ -39,10 +39,11 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-debug"
-   # "--enable-asan"
-   # "--enable-ubsan"
+    "--enable-asan"
+    "--enable-ubsan"
   ];
-  separateDebugInfo = true;
+  #separateDebugInfo = true;
+  dontStrip = true; # leave
 
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;
