@@ -59,6 +59,8 @@ stdenv.mkDerivation rec {
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0008-add-missing-FTW_-macros-for-musl.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0010-fix-missing-of-__register_atfork-for-non-glibc-build.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0011-Use-uintmax_t-for-handling-rlim_t.patch
+    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0014-test-sizeof.c-Disable-tests-for-missing-typedefs-in-.patch
+    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0015-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0016-Define-glibc-compatible-basename-for-non-glibc-syste.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0017-Do-not-disable-buffering-when-writing-to-oom_score_a.patch # rt
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0018-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch
