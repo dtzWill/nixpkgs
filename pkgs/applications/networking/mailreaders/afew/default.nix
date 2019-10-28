@@ -7,8 +7,8 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchgit {
     url = "https://github.com/afewmail/afew";
-    rev = "297e78734c174dd4d2585fb44049fcdb9f75357e";
-    sha256 = "0v9iyx0z58vq9y2fcw65afaz9q7fn30h7vfranzaxadmfz4mbwnz";
+    rev = "6664b457441dbcb752cabebba4631192b5fea8ec";
+    sha256 = "17dminlnyrclxzxw5zji9834rwmzbl8168xxvwccgla3f6w16qcw";
     leaveDotGit = true;
   };
   #src = python3Packages.fetchPypi {
