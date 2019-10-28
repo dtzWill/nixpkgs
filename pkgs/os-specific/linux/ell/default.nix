@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
     ./fix-dbus-tests.patch
     ./dont-index-adj-objs.patch
     ./check.patch
+    ./memmove.patch
   ];
 
   nativeBuildInputs = [
