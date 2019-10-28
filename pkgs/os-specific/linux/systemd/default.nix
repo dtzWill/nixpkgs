@@ -125,6 +125,9 @@ stdenv.mkDerivation rec {
     "-Dsysvinit-path="
     "-Dsysvrcnd-path="
 
+    # Keep to avoid rebuild, may not be needed?
+    # (XXX: or was it added again? don't rem!)
+    "-Dkill-path=${coreutils}/bin/kill"
     "-Dkmod-path=${kmod}/bin/kmod"
     "-Dsulogin-path=${utillinux}/bin/sulogin"
     "-Dmount-path=${utillinux}/bin/mount"
