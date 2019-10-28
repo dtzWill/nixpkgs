@@ -70,7 +70,9 @@ in stdenv.mkDerivation {
   dontUnpack = true;
   buildCommand = ''
     mkdir -p $out
-    dpkg -x $src $out
+    ar x $src
+    tar xvf data.tar.xz -C $out
+
     cp -av $out/usr/* $out
     rm -rf $out/etc $out/usr $out/share/lintian
 
