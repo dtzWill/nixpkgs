@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
     "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/system/"
 
     "--enable-debug"
-   # "--enable-asan"
-   # "--enable-ubsan"
+    "--enable-asan"
+    "--enable-ubsan"
   ];
 
   #separateDebugInfo = true;
