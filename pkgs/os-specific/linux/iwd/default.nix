@@ -6,13 +6,13 @@ stdenv.mkDerivation rec {
   pname = "iwd";
 
   #version = "0.23";
-  version = "2019-10-24";
+  version = "2019-10-26";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
     #rev = version;
-    rev = "aa13f5458ddc0aca1e997c8c780392f3bdd7eeba";
-    sha256 = "06jvz2893q6qlbbjdjj0vdnhjmw08rpscdxm9w71f59ndiywcdsk";
+    rev = "5a473a755cd09d3eb38cbda414bcfadad7e04113";
+    sha256 = "176mn2lmbh7r6dg8i8qhg62020m0x2ckz5f6l9klajf4m8cc1g2g";
   };
 
   nativeBuildInputs = [
@@ -44,6 +44,10 @@ stdenv.mkDerivation rec {
     "--enable-wired"
     "--enable-external-ell"
     "--enable-ofono"
+
+    # XXX: ?!
+    # iwd wants to disable persistent naming, via installed .link?
+    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/system/"
 
     "--enable-debug"
     "--enable-asan"
