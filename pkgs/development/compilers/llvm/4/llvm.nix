@@ -2,7 +2,7 @@
 , fetch
 , fetchpatch
 , cmake
-, python3
+, python
 , libffi
 , libbfd
 , libxml2
@@ -39,8 +39,8 @@ stdenv.mkDerivation (rec {
   outputs = [ "out" ]
     ++ stdenv.lib.optional enableSharedLibraries "lib";
 
-  nativeBuildInputs = [ cmake python3 ]
-    ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx;
+  nativeBuildInputs = [ cmake python ]
+    ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
   buildInputs = [ libxml2 libffi ];
 

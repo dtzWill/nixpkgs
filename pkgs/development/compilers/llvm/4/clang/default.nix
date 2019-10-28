@@ -1,4 +1,4 @@
-{ stdenv, fetch, cmake, libxml2, llvm, version, release_version, clang-tools-extra_src, python3
+{ stdenv, fetch, cmake, libxml2, llvm, version, release_version, clang-tools-extra_src, python
 , fixDarwinDylibNames
 , enableManpages ? false
 }:
@@ -18,8 +18,8 @@ let
       mv clang-tools-extra-* $sourceRoot/tools/extra
     '';
 
-    nativeBuildInputs = [ cmake python3 ]
-      ++ stdenv.lib.optional enableManpages python3.pkgs.sphinx;
+    nativeBuildInputs = [ cmake python ]
+      ++ stdenv.lib.optional enableManpages python.pkgs.sphinx;
 
     buildInputs = [ libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
