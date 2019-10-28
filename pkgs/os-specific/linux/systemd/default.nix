@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0003-missing_type.h-add-__compare_fn_t-and-comparison_fn_.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0004-add-fallback-parse_printf_format-implementation.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0005-src-basic-missing.h-check-for-missing-strndupa.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0006-Include-netinet-if_ether.h.patch
+    #~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0006-Include-netinet-if_ether.h.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0007-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0008-add-missing-FTW_-macros-for-musl.patch
     ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0010-fix-missing-of-__register_atfork-for-non-glibc-build.patch
