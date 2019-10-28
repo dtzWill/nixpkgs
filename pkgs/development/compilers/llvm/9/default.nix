@@ -1,5 +1,5 @@
 { lowPrio, newScope, pkgs, stdenv, cmake, libstdcxxHook
-, libxml2, python, isl, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith
+, libxml2, python3, isl, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
 }:
@@ -18,7 +18,7 @@ let
   clang-tools-extra_src = fetch "clang-tools-extra" "045cldmcfd8s33wyjlviifgpnw52yqicd6v4ysvdg4i96p78c77a";
 
   tools = stdenv.lib.makeExtensible (tools: let
-    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python isl release_version version fetch; });
+    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch; });
     mkExtraBuildCommands = cc: ''
       rsrc="$out/resource-root"
       mkdir "$rsrc"
@@ -47,12 +47,12 @@ let
 
     llvm-manpages = lowPrio (tools.llvm.override {
       enableManpages = true;
-      python = pkgs.python;  # don't use python-boot
+      python3 = pkgs.python3;  # don't use python-boot
     });
 
     clang-manpages = lowPrio (tools.clang-unwrapped.override {
       enableManpages = true;
-      python = pkgs.python;  # don't use python-boot
+      python3 = pkgs.python3;  # don't use python-boot
     });
 
     libclang = tools.clang-unwrapped.lib;
@@ -178,7 +178,7 @@ let
   });
 
   libraries = stdenv.lib.makeExtensible (libraries: let
-    callPackage = newScope (libraries // buildLlvmTools // { inherit stdenv cmake libxml2 python isl release_version version fetch; });
+    callPackage = newScope (libraries // buildLlvmTools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch; });
   in {
 
     compiler-rt = callPackage ./compiler-rt.nix ({} //
