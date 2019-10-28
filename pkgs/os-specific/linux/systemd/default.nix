@@ -49,30 +49,14 @@ stdenv.mkDerivation rec {
       url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
       sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
     })
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0002-don-t-use-glibc-specific-qsort_r.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0003-missing_type.h-add-__compare_fn_t-and-comparison_fn_.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0004-add-fallback-parse_printf_format-implementation.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0005-src-basic-missing.h-check-for-missing-strndupa.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0006-Include-netinet-if_ether.h.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0007-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0008-add-missing-FTW_-macros-for-musl.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0010-fix-missing-of-__register_atfork-for-non-glibc-build.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0011-Use-uintmax_t-for-handling-rlim_t.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0014-test-sizeof.c-Disable-tests-for-missing-typedefs-in-.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0015-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0016-Define-glibc-compatible-basename-for-non-glibc-syste.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0017-Do-not-disable-buffering-when-writing-to-oom_score_a.patch # rt
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0018-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0019-Hide-__start_BUS_ERROR_MAP-and-__stop_BUS_ERROR_MAP.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0020-missing_type.h-add-__compar_d_fn_t-definition.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0021-avoid-redefinition-of-prctl_mm_map-structure.patch
-
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0001-do-not-disable-buffer-in-writing-files.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0002-src-login-brightness.c-include-sys-wait.h.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0003-src-basic-copy.c-include-signal.h.patch
-    ~/src/all/openembedded-core/meta/recipes-core/systemd/systemd/0004-src-shared-cpu-set-util.h-add-__cpu_mask-definition.patch
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl (
+    let systemd_rev = src.rev;
+  in [
+    (fetchpatch {
+      url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...nixos-v243-musl-1.patch";
+      sha256 = "1nffsx1g684yccfs9cc8kjll8186z9rnxhvlnjsrh6q4zz7w55rx";
+    })
+  ]);
 
   outputs = [ "out" "lib" "man" "dev" ];
 
@@ -196,11 +180,6 @@ stdenv.mkDerivation rec {
 
     substituteInPlace src/journal/catalog.c \
       --replace /usr/lib/systemd/catalog/ $out/lib/systemd/catalog/
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    sed -i src/boot/bless-boot.c -e '18i#include "missing.h"'
-    sed -i src/portable/portabled-operation.h -e '5i#include <sys/wait.h>'
-    sed -i src/journal-remote/journal-remote-main.c -e '24i#include "missing.h"'
-    sed -i src/coredump/coredump-vacuum.c -e '19i#include "missing.h"'
   '';
 
   # These defines are overridden by CFLAGS and would trigger annoying
