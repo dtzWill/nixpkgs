@@ -156,6 +156,14 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.hostPlatform.isMusl [
     "-Dgshadow=false" # ?
     "-Didn=false"
+    "-Dutmp=false"
+    "-Dlocaled=false"
+    "-Dmyhostname=false"
+    "-Dnss=false"
+    "-Dnss-mymachines=false"
+    "-Dnss-resolve=false"
+    "-Dsmack=false"
+    "-Dsysusers=false"
   ];
 
   preConfigure = ''
