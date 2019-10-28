@@ -160,7 +160,9 @@ stdenv.mkDerivation rec {
     "-Dlocaled=false"
     "-Dmyhostname=false"
     "-Dnss=false"
+    "-Dnss-systemd=false"
     "-Dnss-mymachines=false"
+    "-Dnss-myhostname=false" # ??
     "-Dnss-resolve=false"
     "-Dsmack=false"
     "-Dsysusers=false"
