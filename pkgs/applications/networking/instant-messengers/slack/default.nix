@@ -1,7 +1,7 @@
 { theme ? null, stdenv, fetchurl, dpkg, makeWrapper , alsaLib, atk, cairo,
 cups, curl, dbus, expat, fontconfig, freetype, glib , gnome2, gtk3, gdk-pixbuf,
 /* libappindicator-gtk3 ,*/ libnotify, libxcb, nspr, nss, pango , systemd, xorg,
-at-spi2-atk, libuuid, nodePackages
+at-spi2-atk, at-spi2-core, libuuid, nodePackages
 }:
 
 let
@@ -11,6 +11,7 @@ let
   rpath = stdenv.lib.makeLibraryPath [
     alsaLib
     at-spi2-atk
+    at-spi2-core
     atk
     cairo
     cups
