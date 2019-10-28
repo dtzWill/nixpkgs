@@ -1,0 +1,47 @@
+From 13333f8ccc0d0326e1d849ccee37229f8a170343 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 15:38:36 -0500
+Subject: [PATCH] nm-iwd-manager: adjust to new root path
+
+---
+ src/devices/wifi/nm-iwd-manager.c | 4 ++--
+ src/devices/wifi/nm-iwd-manager.h | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/devices/wifi/nm-iwd-manager.c b/src/devices/wifi/nm-iwd-manager.c
+index dd1cad480..c8a1b7c54 100644
+--- a/src/devices/wifi/nm-iwd-manager.c
++++ b/src/devices/wifi/nm-iwd-manager.c
+@@ -257,7 +257,7 @@ register_agent (NMIwdManager *self)
+ 	GDBusInterface *agent_manager;
+ 
+ 	agent_manager = g_dbus_object_manager_get_interface (priv->object_manager,
+-	                                                     "/",
++	                                                     NM_IWD_PATH,
+ 	                                                     NM_IWD_AGENT_MANAGER_INTERFACE);
+ 
+ 	/* Register our agent */
+@@ -839,7 +839,7 @@ prepare_object_manager (NMIwdManager *self)
+ 
+ 	g_dbus_object_manager_client_new_for_bus (NM_IWD_BUS_TYPE,
+ 	                                          G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE,
+-	                                          NM_IWD_SERVICE, "/",
++	                                          NM_IWD_SERVICE, NM_IWD_PATH,
+ 	                                          NULL, NULL, NULL,
+ 	                                          priv->cancellable,
+ 	                                          got_object_manager, self);
+diff --git a/src/devices/wifi/nm-iwd-manager.h b/src/devices/wifi/nm-iwd-manager.h
+index c50963fe1..ffc1ee17b 100644
+--- a/src/devices/wifi/nm-iwd-manager.h
++++ b/src/devices/wifi/nm-iwd-manager.h
+@@ -11,6 +11,7 @@
+ 
+ #define NM_IWD_BUS_TYPE                 G_BUS_TYPE_SYSTEM
+ #define NM_IWD_SERVICE                  "net.connman.iwd"
++#define NM_IWD_PATH                     "/net/connman/iwd"
+ 
+ #define NM_IWD_AGENT_MANAGER_INTERFACE  "net.connman.iwd.AgentManager"
+ #define NM_IWD_WIPHY_INTERFACE          "net.connman.iwd.Adapter"
+-- 
+2.23.0
+

@@ -78,6 +78,8 @@ in stdenv.mkDerivation rec {
     ./fix-install-paths.patch
 
     ./fix-build-with-tests-disabled.patch
+
+    ./iwd-new-root-path.patch
   ];
 
   buildInputs = [
