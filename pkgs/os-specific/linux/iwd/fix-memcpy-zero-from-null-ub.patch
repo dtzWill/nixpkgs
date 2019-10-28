@@ -1,4 +1,4 @@
-From b52b0bc1432619fc6b0424ca4f16b0077a42362f Mon Sep 17 00:00:00 2001
+From 69866722082269d768dc6fd80087ad8d5d553c58 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Thu, 24 Oct 2019 13:10:44 -0500
 Subject: [PATCH] Don't pass NULL as src to memcpy, even when zero len.
@@ -10,7 +10,7 @@ to copy X bytes from NULL where X != 0 :).
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/monitor/main.c b/monitor/main.c
-index 8b48cf8..663ef3e 100644
+index 020dba86..41692cd1 100644
 --- a/monitor/main.c
 +++ b/monitor/main.c
 @@ -176,7 +176,8 @@ static size_t rta_add(void *rta_buf, unsigned short type, uint16_t len,
@@ -18,8 +18,8 @@ index 8b48cf8..663ef3e 100644
  	rta->rta_len = rta_len;
  	rta->rta_type = type;
 -	memcpy(RTA_DATA(rta), data, len);
-+  if (len)
-+    memcpy(RTA_DATA(rta), data, len);
++	if (len)
++		memcpy(RTA_DATA(rta), data, len);
  
  	return RTA_SPACE(len);
  }
