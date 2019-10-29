@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, libnfnetlink, libnl, net_snmp, openssl, pkgconfig }:
 
 stdenv.mkDerivation rec {
-  name = "keepalived-${version}";
-  version = "1.4.2";
+  pname = "keepalived";
+  version = "1.4.5";
 
   src = fetchFromGitHub {
     owner = "acassen";
     repo = "keepalived";
     rev = "v${version}";
-    sha256 = "154yxs6kwpi9yc4pa45ba3z3bfwzgmmmja5nk3d9mxq6w6s1swcy";
+    sha256 = "12r80rcfxrys826flaqcdlfhcr7q4ccsd62ra1svy9545vf02qmx";
   };
 
   buildInputs = [
