@@ -108,6 +108,7 @@ google/vim-jsonnet
 google/vim-maktaba
 gregsexton/gitv
 guns/vim-clojure-highlight
+guns/vim-clojure-static
 guns/xterm-color-table.vim
 gyim/vim-boxdraw
 hashivim/vim-terraform
