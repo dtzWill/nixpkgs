@@ -4,16 +4,16 @@
 , runtimeShell, gsettings-desktop-schemas }:
 
 let
-  versionSuffix = "20191022214152.a545016b49";
+  versionSuffix = "20191028173732.6fc2e969b4";
 in
 
 stdenv.mkDerivation rec {
   pname = "keybase-gui";
-  version = "4.7.1"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
+  version = "4.7.2"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
 
   src = fetchurl {
     url = "https://prerelease.keybase.io/deb/pool/main/k/keybase/keybase_${version + "-" + versionSuffix}_amd64.deb";
-    sha256 = "e3a5bcc531ce1304c1f7e48e6786f25e50233ef7c07c15c1007783cc906c66f3"; # <-- hash from same URL as above
+    sha256 = "4da375c6235b5ca84af3aca6e652dd46bc22ec871dcef0f3202568c97a835407"; # <-- hash from same URL as above
   };
 
   nativeBuildInputs = [
