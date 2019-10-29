@@ -4611,6 +4611,8 @@ in
 
   libevdev = callPackage ../development/libraries/libevdev { };
 
+  libevdevplus = callPackage ../development/libraries/libevdevplus { };
+
   libfann = callPackage ../development/libraries/libfann { };
 
   libfsm = callPackage ../development/libraries/libfsm { };
