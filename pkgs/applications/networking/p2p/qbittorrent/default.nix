@@ -9,14 +9,14 @@ assert guiSupport -> (dbus != null);
 with lib;
 
 mkDerivation rec {
-  name = "qbittorrent-${version}";
-  version = "4.1.7";
+  pname = "qbittorrent";
+  version = "4.1.9";
 
   src = fetchFromGitHub {
     owner = "qbittorrent";
     repo = "qbittorrent";
     rev = "release-${version}";
-    sha256 = "1z4k64h3ik1a7ir4v9g3ar1wq8zfh4r2pq43hr2wvlamm2111gdv";
+    sha256 = "044r3y3vvm2rqagmwlqlhvb4kkyqpkmpnlhv68hzkl3w5bvf8zl8";
   };
 
   # NOTE: 2018-05-31: CMake is working but it is not officially supported
