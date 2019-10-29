@@ -125,7 +125,7 @@ in stdenv.mkDerivation rec {
       \
       --replace "subdir('builder')" ""
 
-    substituteInPlace meosn.build --replace \
+    substituteInPlace meson.build --replace \
       "systemd.get_pkgconfig_variable('systemdsystempresetdir')" \
       "${placeholder "out"}/lib/systemd/system-preset'"
 
