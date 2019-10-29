@@ -107,6 +107,7 @@ google/vim-codefmt
 google/vim-jsonnet
 google/vim-maktaba
 gregsexton/gitv
+guns/vim-clojure-highlight
 guns/xterm-color-table.vim
 gyim/vim-boxdraw
 hashivim/vim-terraform
