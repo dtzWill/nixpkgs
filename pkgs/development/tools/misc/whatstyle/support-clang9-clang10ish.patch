@@ -1,0 +1,49 @@
+From 0ba98f16f647adb7a91d9e3b4d7d916d1947bdd1 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 28 Oct 2019 19:14:13 -0500
+Subject: [PATCH] whatstyle.py: clang9/clang10 options
+
+---
+ whatstyle.py | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/whatstyle.py b/whatstyle.py
+index 2a3b141..6f72cee 100755
+--- a/whatstyle.py
++++ b/whatstyle.py
+@@ -2063,6 +2063,32 @@ CLANG_FORMAT_EVOLUTION = """\
+         bool SplitEmptyFunction
+         bool SplitEmptyRecord
+         bool SplitEmptyNamespace
++# Clang 9
+++ TypenameMacros std::vector<std::string>
++# Clang 9
+++ NamespaceMacros std::vector<std::string>
++# Clang 9
+++ AlignConsecutiveMacros bool
++# Clang 10
+++ SpaceInEmptyBlock bool
++# Clang 10
+++ AllowShortBlocksOnASingleLine ShortBlockStyle
++        Never
++        Empty
++        Always
++# Clang 10
+++ IndentGotoLabels bool
++# Clang 10
+++ BreakBeforeBraces BraceBreakingStyle
++        Attach
++        Linux
++        Mozilla
++        Stroustrup
++        Allman
++        Whitesmiths
++        GNU
++        WebKit
++        Custom
+ """
+ 
+ 
+-- 
+2.23.0
+

@@ -10,7 +10,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "08lfd8h5fnvy5gci4f3an411cypad7p2yiahvbmlp51r9xwpaiwr";
   };
 
-  patches = [ ./support-clang8-options.patch ];
+  patches = [
+    ./support-clang8-options.patch
+    ./support-clang9-clang10ish.patch
+  ];
 
   checkInputs = [ clang-unwrapped /* clang-format */ ];
 
