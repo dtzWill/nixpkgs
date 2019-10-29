@@ -1,0 +1,27 @@
+From bb9ddc7e9882c25438f517a283fb660f2eff5370 Mon Sep 17 00:00:00 2001
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Date: Sun, 29 Apr 2018 22:08:58 -0700
+Subject: [PATCH] Remove processing when trip was not activates
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+When trip was not activated, don't poll cooling device status. This
+will save some CPU cycles.
+---
+ src/thd_trip_point.cpp | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+Index: thermald-1.8.0/src/thd_trip_point.cpp
+===================================================================
+--- thermald-1.8.0.orig/src/thd_trip_point.cpp
++++ thermald-1.8.0/src/thd_trip_point.cpp
+@@ -219,8 +219,7 @@ bool cthd_trip_point::thd_trip_point_che
+ 			thd_log_debug("Trip point applicable >  %d:%d \n", index, temp);
+ 			on = 1;
+ 			trip_on = true;
+-		} else if ((trip_on && (read_temp + hyst) < temp)
+-				|| (!trip_on && read_temp < temp)) {
++		} else if (trip_on && (read_temp + hyst) < temp) {
+ 			thd_log_debug("Trip point applicable <  %d:%d \n", index, temp);
+ 			off = 1;
+ 			trip_on = false;
