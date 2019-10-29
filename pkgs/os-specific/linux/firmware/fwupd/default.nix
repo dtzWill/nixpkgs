@@ -125,6 +125,10 @@ in stdenv.mkDerivation rec {
       \
       --replace "subdir('builder')" ""
 
+    substituteInPlace meosn.build --replace \
+      "systemd.get_pkgconfig_variable('systemdsystempresetdir')" \
+      "${placeholder "out"}/lib/systemd/system-preset'"
+
     echo '#!/bin/sh' > meson_post_install.sh
     chmod +x meson_post_install.sh
   '';
