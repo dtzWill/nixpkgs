@@ -9,6 +9,7 @@
 , plymouth /* offline */
 , diffutils
 , nixosTests
+, which
 }:
 
 let
@@ -56,7 +57,7 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     meson ninja pkgconfig gobject-introspection intltool shared-mime-info
-    valgrind gcab help2man python wrapGAppsHook vala
+    valgrind gcab help2man python wrapGAppsHook vala which
   ];
 
   buildInputs = [
