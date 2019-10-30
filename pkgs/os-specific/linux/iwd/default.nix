@@ -5,14 +5,13 @@
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  #version = "0.23";
-  version = "2019-10-28";
+  version = "1.0";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    #rev = version;
-    rev = "480d678a85cbcd1f10ee1b3a2d81d350b7993af7";
-    sha256 = "1jxp7z9rvc7vbg9jkajwj67m2fkvlizissnrhzq9q6279zdcgbh1";
+    rev = version;
+    #rev = "480d678a85cbcd1f10ee1b3a2d81d350b7993af7";
+    sha256 = "0z3cpy2847grl659d1w4whnasnpdmb5rjkwgx1ciqb18l5figgdf";
   };
 
   nativeBuildInputs = [
@@ -65,7 +64,6 @@ stdenv.mkDerivation rec {
     # Fix write past end of buffer in certain circumstances
     # ... circumstances I encounter often, thanks neighbors ;)
     ./completion-crash-fix-wip.patch
-    ./no-new-root-path-yet.patch
   ];
 
   doCheck = true;
