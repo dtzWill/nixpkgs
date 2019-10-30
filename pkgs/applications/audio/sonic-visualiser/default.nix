@@ -43,7 +43,8 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   preCheck = ''
-    export HOME=$TMPDIR
+    export HOME=$TMPDIR/test
+    mkdir -p $HOME
   '';
 
   meta = with lib; {
