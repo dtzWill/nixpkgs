@@ -1,22 +1,22 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
 
 { stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
-, libmad, libogg, librdf, librdf_raptor, librdf_rasqal, libsamplerate
-, libsndfile, pkgconfig, libpulseaudio, qtbase, redland
-, qmake, rubberband, serd, sord, vampSDK, fftwFloat
+, libmad, liboggz, librdf, librdf_raptor, librdf_rasqal, libsamplerate
+, libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
+, qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto
 }:
 
 stdenv.mkDerivation rec {
-  name = "sonic-visualiser-${version}";
-  version = "2.4.1";
+  pname = "sonic-visualiser";
+  version = "4.0";
 
   src = fetchurl {
-    url = "https://code.soundsoftware.ac.uk/attachments/download/1185/${name}.tar.gz";
-    sha256 = "06nlha70kgrby16nyhngrv5q846xagnxdinv608v7ga7vpywwmyb";
+    url = "https://code.soundsoftware.ac.uk/attachments/download/2580/sonic-visualiser-${version}.tar.gz";
+    sha256 = "0r9rnkqcv2x8cr93g0a94gw1y9xh4mpcjll302yzsdxqwwjy2pim";
   };
 
   buildInputs =
-    [ libsndfile qtbase fftw fftwFloat bzip2 librdf rubberband
+    [ libsndfile qtbase qtsvg fftw fftwFloat bzip2 librdf rubberband
       libsamplerate vampSDK alsaLib librdf_raptor librdf_rasqal redland
       serd
       sord
@@ -25,25 +25,18 @@ stdenv.mkDerivation rec {
       # portaudio
       libpulseaudio
       libmad
-      libogg # ?
+      liboggz
       # fishsound
       liblo
       libX11
+      capnproto
     ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
 
-  configurePhase = ''
-    for i in sonic-visualiser svapp svcore svgui;
-      do cd $i && qmake PREFIX=$out && cd ..;
-    done
-  '';
+  dontUseQmakeConfigure = true;
 
-  installPhase = ''
-    mkdir -p $out/{bin,share/sonic-visualiser}
-    cp sonic-visualiser $out/bin/
-    cp -r samples $out/share/sonic-visualiser/
-  '';
+  configureFlags = [ "--disable-fishsound" /* TODO: package */ ];
 
   meta = with stdenv.lib; {
     description = "View and analyse contents of music audio files";
@@ -51,6 +44,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.goibhniu maintainers.marcweber ];
     platforms = platforms.linux;
-    broken = true;
   };
 }
