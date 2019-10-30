@@ -4,6 +4,7 @@
 , libmad, liboggz, libfishsound, librdf, librdf_raptor, librdf_rasqal
 , libsamplerate , libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
 , qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto, libid3tag
+, libopus, opusfile
 }:
 
 stdenv.mkDerivation rec {
@@ -31,11 +32,15 @@ stdenv.mkDerivation rec {
       libX11
       capnproto
       libid3tag
+      libopus
+      opusfile
     ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
 
   dontUseQmakeConfigure = true;
+
+  enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "View and analyse contents of music audio files";
