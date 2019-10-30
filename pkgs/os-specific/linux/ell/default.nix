@@ -7,23 +7,20 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-  #version = "0.25";
-  version = "2019-10-28";
+  version = "0.26";
+  #version = "2019-10-28";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
-     #rev = version;
-     rev = "4fe7283fef9d288cdddb534f0aaf9f294a7cd5a9";
-     sha256 = "1bj2s2izgkx5qv67lk09w75iw5dc41djjzc21h3kdgfydfr2bmhm";
+     rev = version;
+     #rev = "4fe7283fef9d288cdddb534f0aaf9f294a7cd5a9";
+     sha256 = "1gnqd7dghwkcn48f6fr9qvkkm976b3x4bn3l7l2k9pamzpng084i";
   };
 
   patches = [
     ./fix-dbus-tests.patch
-    ./dont-index-adj-objs.patch
-    ./check.patch
-    ./memmove.patch
   ];
 
   nativeBuildInputs = [
