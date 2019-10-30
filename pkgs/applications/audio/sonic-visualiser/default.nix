@@ -1,13 +1,13 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
 
-{ stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
+{ mkDerivation, lib, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
 , libmad, liboggz, libfishsound, librdf, librdf_raptor, librdf_rasqal
 , libsamplerate , libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
 , qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto, libid3tag
 , libopus, opusfile
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "sonic-visualiser";
   version = "4.0";
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "View and analyse contents of music audio files";
     homepage = http://www.sonicvisualiser.org/;
     license = licenses.gpl2Plus;
