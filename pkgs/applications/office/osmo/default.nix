@@ -3,7 +3,7 @@
 
 stdenv.mkDerivation rec {
   name = "osmo";
-  version = "0.4.2";
+  version = "0.4.2-git";
 
   src = fetchgit {
     #url = "mirror://sourceforge/osmo-pim/${name}.tar.gz";
