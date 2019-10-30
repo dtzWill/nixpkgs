@@ -1,25 +1,16 @@
-From aca7712bc12e2b1cd55b830eb8eb239480562e8a Mon Sep 17 00:00:00 2001
+From 62b4995bd8fcc97dd7f34cb0499059905e870653 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Wed, 30 Oct 2019 10:02:10 -0500
 Subject: [PATCH] root
 
 ---
- src/devices/wifi/nm-iwd-manager.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ src/devices/wifi/nm-iwd-manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/devices/wifi/nm-iwd-manager.c b/src/devices/wifi/nm-iwd-manager.c
-index 659724bd8..906f94e5d 100644
+index 659724bd8..0e045f45b 100644
 --- a/src/devices/wifi/nm-iwd-manager.c
 +++ b/src/devices/wifi/nm-iwd-manager.c
-@@ -257,7 +257,7 @@ register_agent (NMIwdManager *self)
- 	GDBusInterface *agent_manager;
- 
- 	agent_manager = g_dbus_object_manager_get_interface (priv->object_manager,
--	                                                     NM_IWD_PATH,
-+	                                                     "/",
- 	                                                     NM_IWD_AGENT_MANAGER_INTERFACE);
- 
- 	/* Register our agent */
 @@ -839,7 +839,7 @@ prepare_object_manager (NMIwdManager *self)
  
  	g_dbus_object_manager_client_new_for_bus (NM_IWD_BUS_TYPE,
