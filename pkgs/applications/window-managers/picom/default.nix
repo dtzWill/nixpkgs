@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   # upstream PR 247, WIP!
-  #patches = [
-  #  ./0001-Update-shaders-which-allow-to-dim-bright-windows.patch
-  #  ./0002-Parameterize-bright-windows-dimming-sensitivity-and-.patch
-  #];
+  patches = [
+    ./0001-Update-shaders-which-allow-to-dim-bright-windows.patch
+    ./0002-Parameterize-bright-windows-dimming-sensitivity-and-.patch
+  ];
 
   nativeBuildInputs = [
     meson ninja
