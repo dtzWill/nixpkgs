@@ -39,14 +39,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "unstable-2019-10-28";
+  version = "unstable-2019-10-30";
 
   #version = "2019-09-06";
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "e62db1bc575c204168e878b35afc7a83e98a82e3";
-    sha256 = "06il22cxi4q2qhydx1ss4sxxszcg2zqr16vf8dhj9n27wk04p51r";
+    rev = "98b951688ac88bbc03cab109bd7843e9076cf94d";
+    sha256 = "1i7y2cc7wy5zzbm41a88984pmllz6krdhg9n00md55256zzz5g7f";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
