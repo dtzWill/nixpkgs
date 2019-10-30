@@ -48,7 +48,7 @@ mkDerivation rec {
   '';
 
   postInstall = ''
-    chmod +x $out/{piper-vamp-simple-server,vamp-plugin-load-checker}
+    chmod +x $out/bin/{piper-vamp-simple-server,vamp-plugin-load-checker}
   '';
 
   meta = with lib; {
