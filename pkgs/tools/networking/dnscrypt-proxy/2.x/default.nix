@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "dnscrypt-proxy2";
-  version = "2.0.27";
+  version = "2.0.29";
 
   goPackagePath = "github.com/jedisct1/dnscrypt-proxy";
 
@@ -10,7 +10,7 @@ buildGoPackage rec {
     owner = "jedisct1";
     repo = "dnscrypt-proxy";
     rev = version;
-    sha256 = "1yh5vq4nwjsdjg4fyrxfagqyv25cw21vxc5anqyl21s4gwfdhgh2";
+    sha256 = "196yc34xw6h9qpns4n1fw8bjh8lv4xcsbx89i391qw92h2a3qkmc";
   };
 
   meta = with stdenv.lib; {
