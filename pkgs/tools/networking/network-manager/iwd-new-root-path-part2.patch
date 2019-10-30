@@ -1,0 +1,34 @@
+From 232c947c8288f09312c257c658dfa55c75677fea Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 30 Oct 2019 08:35:00 -0500
+Subject: [PATCH] iwd: prefix interface paths with new root
+
+---
+ src/devices/wifi/nm-iwd-manager.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/devices/wifi/nm-iwd-manager.c b/src/devices/wifi/nm-iwd-manager.c
+index c8a1b7c54..659724bd8 100644
+--- a/src/devices/wifi/nm-iwd-manager.c
++++ b/src/devices/wifi/nm-iwd-manager.c
+@@ -861,11 +861,16 @@ nm_iwd_manager_get_dbus_interface (NMIwdManager *self, const char *path,
+ {
+ 	NMIwdManagerPrivate *priv = NM_IWD_MANAGER_GET_PRIVATE (self);
+ 	GDBusInterface *interface;
++	char *prefixed_path;
+ 
+ 	if (!priv->object_manager)
+ 		return NULL;
+ 
+-	interface = g_dbus_object_manager_get_interface (priv->object_manager, path, name);
++	prefixed_path = path ? g_strdup_printf("%s/%s", NM_IWD_PATH, path) : g_strdup(NM_IWD_PATH);
++
++	interface = g_dbus_object_manager_get_interface (priv->object_manager, prefixed_path, name);
++
++	g_free(prefixed_path);
+ 
+ 	return interface ? G_DBUS_PROXY (interface) : NULL;
+ }
+-- 
+2.24.0-rc1
+
