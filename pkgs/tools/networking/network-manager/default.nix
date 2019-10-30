@@ -80,7 +80,7 @@ in stdenv.mkDerivation rec {
     ./fix-build-with-tests-disabled.patch
 
     ./iwd-new-root-path.patch
-    ./iwd-new-root-path-part2.patch
+    #./iwd-new-root-path-part2.patch
     ./iwd-new-root-path-part3.patch
     # ./iwd-sae.patch
   ];
