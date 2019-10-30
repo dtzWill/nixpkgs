@@ -1,11 +1,12 @@
 { stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages }:
 
 stdenv.mkDerivation rec {
-  name = "man-db-2.8.6.1";
+  pname = "man-db";
+  version = "2.9.0";
 
   src = fetchurl {
-    url = "mirror://savannah/man-db/${name}.tar.xz";
-    sha256 = "0a1sh5gxa16k6irzf3q2lli8m204w9ik1xm62wjgf1mzknxs4xrc";
+    url = "mirror://savannah/man-db/${pname}-${version}.tar.xz";
+    sha256 = "0qg2sdn8mayya0ril484iz1r7hi46l68d2d80cr6lvc7x3csqjjx";
   };
 
   outputs = [ "out" "doc" ];
