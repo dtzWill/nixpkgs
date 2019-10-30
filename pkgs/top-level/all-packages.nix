@@ -21825,6 +21825,8 @@ in
 
   wmii_hg = callPackage ../applications/window-managers/wmii-hg { };
 
+  wofi = callPackage ../applications/misc/wofi { };
+
   wordnet = callPackage ../applications/misc/wordnet { };
 
   wordgrinder = callPackage ../applications/office/wordgrinder { };
