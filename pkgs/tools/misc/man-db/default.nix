@@ -1,49 +1,33 @@
 { stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages }:
 
 stdenv.mkDerivation rec {
-  pname = "man-db";
-  version = "2.9.0";
+  name = "man-db-2.7.5";
 
   src = fetchurl {
-    url = "mirror://savannah/man-db/${pname}-${version}.tar.xz";
-    sha256 = "0qg2sdn8mayya0ril484iz1r7hi46l68d2d80cr6lvc7x3csqjjx";
+    url = "mirror://savannah/man-db/${name}.tar.xz";
+    sha256 = "056a3il7agfazac12yggcg4gf412yq34k065im0cpfxbcw6xskaw";
   };
 
   outputs = [ "out" "doc" ];
   outputMan = "out"; # users will want `man man` to work
 
-  nativeBuildInputs = [ pkgconfig makeWrapper groff ];
+  nativeBuildInputs = [ pkgconfig makeWrapper groff ]
+    ++ stdenv.lib.optionals doCheck checkInputs;
   buildInputs = [ libpipeline db groff ]; # (Yes, 'groff' is both native and build input)
   checkInputs = [ libiconv /* for 'iconv' binary */ ];
 
   postPatch = ''
-    # Remove all mandatory manpaths. Nixpkgs makes no requirements on
-    # these directories existing.
-    sed -i 's/^MANDATORY_MANPATH/# &/' src/man_db.conf.in
-
-    # Add Nixpkgs and NixOS-related manpaths
-    echo "MANPATH_MAP	/run/current-system/sw/bin		/run/current-system/sw/share/man" >> src/man_db.conf.in
-    echo "MANPATH_MAP	/run/wrappers/bin			/run/current-system/sw/share/man" >> src/man_db.conf.in
-    echo "MANPATH_MAP	/nix/var/nix/profiles/default/bin	/nix/var/nix/profiles/default/share/man" >> src/man_db.conf.in
-
-    # Add mandb locations for the above
-    echo "MANDB_MAP	/run/current-system/sw/share/man	/var/cache/man/nixos" >> src/man_db.conf.in
-    echo "MANDB_MAP	/nix/var/nix/profiles/default/share/man	/var/cache/man/nixpkgs" >> src/man_db.conf.in
+    substituteInPlace src/man_db.conf.in \
+      --replace "/usr/local/share" "/run/current-system/sw/share" \
+      --replace "/usr/share" "/run/current-system/sw/share"
   '';
 
   configureFlags = [
     "--disable-setuid"
-    "--disable-cache-owner"
     "--localstatedir=/var"
     # Don't try /etc/man_db.conf by default, so we avoid error messages.
-    "--with-config-file=${placeholder "out"}/etc/man_db.conf"
-    "--with-systemdtmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-pager=less"
-  ] ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin [
-    "ac_cv_func__set_invalid_parameter_handler=no"
-    "ac_cv_func_posix_fadvise=no"
-    "ac_cv_func_mempcpy=no"
+    "--with-config-file=\${out}/etc/man_db.conf"
+    "--with-systemdtmpfilesdir=\${out}/lib/tmpfiles.d"
   ];
 
   preConfigure = ''
@@ -73,7 +57,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  doCheck = !stdenv.hostPlatform.isMusl /* iconv binary */ && !stdenv.hostPlatform.isDarwin;
+  doCheck = !stdenv.hostPlatform.isMusl; /* iconv binary */
 
   meta = with stdenv.lib; {
     homepage = http://man-db.nongnu.org;
