@@ -42,6 +42,10 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
+  preCheck = ''
+    export HOME=$TMPDIR
+  '';
+
   meta = with lib; {
     description = "View and analyse contents of music audio files";
     homepage = http://www.sonicvisualiser.org/;
