@@ -42,11 +42,11 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # dunno, but may be easy
-  #preCheck = ''
-  #  export HOME=$TMPDIR
-  #'';
-  doCheck = false;
+  preBuild = ''
+    # not separate check, idk
+    export HOME=$TMPDIR
+  '';
+  #doCheck = false;
 
   meta = with lib; {
     description = "View and analyse contents of music audio files";
