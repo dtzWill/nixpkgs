@@ -46,7 +46,10 @@ mkDerivation rec {
     # not separate check, idk
     export HOME=$TMPDIR
   '';
-  #doCheck = false;
+
+  postInstall = ''
+    chmod +x $out/{piper-vamp-simple-server,vamp-plugin-load-checker}
+  '';
 
   meta = with lib; {
     description = "View and analyse contents of music audio files";
