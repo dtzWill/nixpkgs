@@ -12477,8 +12477,8 @@ in
   libogg = callPackage ../development/libraries/libogg { };
 
   liboggz = callPackage ../development/libraries/liboggz { };
-  # TODO: 1)fishsound vs libfishsound 2)put the top-level attr somewhere sane
-  libfishsound = callPackage ../development/libraries/fishsound { };
+  # TODO: put the top-level attr somewhere sane
+  libfishsound = callPackage ../development/libraries/libfishsound { };
 
   liboil = callPackage ../development/libraries/liboil { };
 
