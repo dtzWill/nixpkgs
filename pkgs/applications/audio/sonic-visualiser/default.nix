@@ -1,9 +1,9 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
 
 { stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
-, libmad, liboggz, librdf, librdf_raptor, librdf_rasqal, libsamplerate
-, libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
-, qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto
+, libmad, liboggz, libfishsound, librdf, librdf_raptor, librdf_rasqal
+, libsamplerate , libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
+, qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto, libid3tag
 }:
 
 stdenv.mkDerivation rec {
@@ -26,17 +26,16 @@ stdenv.mkDerivation rec {
       libpulseaudio
       libmad
       liboggz
-      # fishsound
+      libfishsound
       liblo
       libX11
       capnproto
+      libid3tag
     ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
 
   dontUseQmakeConfigure = true;
-
-  configureFlags = [ "--disable-fishsound" /* TODO: package */ ];
 
   meta = with stdenv.lib; {
     description = "View and analyse contents of music audio files";
