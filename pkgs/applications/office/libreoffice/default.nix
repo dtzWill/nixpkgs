@@ -1,10 +1,10 @@
 { stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip, gettext
 , IOCompress, zlib, libjpeg, expat, freetype, libwpd
 , libxml2, db, sablotron, curl, fontconfig, libsndfile, neon
-, bison, flex, zip, unzip, gtk3, gtk2, libmspack, getopt, file, cairo, which
+, bison, flex, zip, unzip, gtk3, libmspack, getopt, file, cairo, which
 , icu, boost, jdk, ant, cups, xorg, libcmis, fontforge
-, openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
-, librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, libmysqlclient
+, openssl, gperf, cppunit, poppler, utillinux
+, librsvg, gvfs, libGLU_combined, bsh, CoinMP, libwps, libabw, libmysqlclient
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
 , libwpg, dbus-glib, clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
@@ -114,9 +114,9 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  #QT5DIR = qtbase;
+  QT5DIR = qtbase;
   QT_SELECT = "5";
-  # MOC5 = "${qtbase.dev}/bin/moc";
+  MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
 
   preConfigure = ''
@@ -382,14 +382,14 @@ in stdenv.mkDerivation rec {
   buildInputs = with xorg;
     [ ant ArchiveZip boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
-      freetype GConf getopt gnome_vfs gperf gtk3 gtk2
+      freetype getopt gvfs gperf gtk3 gnome3.dconf
       qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
       libXdmcp libpthreadstubs libGLU_combined mythes gst_all_1.gstreamer
       gst_all_1.gst-plugins-base glib gobject-introspection libmysqlclient
-      neon nspr nss openldap openssl ORBit2 pam perl pkgconfig poppler
+      neon nspr nss openldap openssl pam perl pkgconfig poppler
       python3 sablotron sane-backends unzip vigra which zip zlib
       mdds bluez5 libcmis libwps libabw libzmf libtool
       libxshmfence libatomic_ops graphite2 harfbuzz gpgme gnupg utillinux
