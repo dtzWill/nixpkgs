@@ -17,8 +17,9 @@
 #  https://dev.gentoo.org/~asturm/distfiles/libreoffice-6.2.3.2-patchset-01.tar.xz 
 , langs ? [ "ca" "cs" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "ru" "sl" "zh-CN" ]
 , withHelp ? true
-, kdeIntegration ? false
+, kdeIntegration ? true
 # kde5! Add deps, maybe these: https://github.com/KDAB/libreoffice-core/blob/master/configure.ac#L10913 or so
+, kcoreaddons, ki18n, kconfig, kwindowsystem, kio
 }:
 
 let
@@ -394,7 +395,9 @@ in stdenv.mkDerivation rec {
       librevenge libe-book libmwaw glm glew ncurses epoxy liblangtag
       libodfgen CoinMP librdf_rasqal gnome3.adwaita-icon-theme gettext
     ]
-    ++ lib.optional kdeIntegration kdelibs4;
+    ++ lib.optional kdeIntegration [
+      kcoreaddons ki18n kconfig kwindowsystem kio
+    ];
 
   passthru = {
     inherit srcs jdk;
