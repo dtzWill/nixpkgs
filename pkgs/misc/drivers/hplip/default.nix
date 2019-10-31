@@ -12,16 +12,17 @@
 let
 
   name = "hplip-${version}";
-  version = "3.19.6";
+  version = "3.19.10";
 
   src = fetchurl {
     url = "mirror://sourceforge/hplip/${name}.tar.gz";
-    sha256 = "0vfnc6pg7wzs68qn5mlk3cyl969d8n55bydgydq2wzfikvpfvnpw";
+    sha256 = "13c54vrh7wv5cn35dq6ycj0w3asyisg53wmprz9pg4x8n498g6d0";
   };
 
   plugin = fetchurl {
-    url = "https://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/${name}-plugin.run";
-    sha256 = "1b5gys04kh41gg7r7rzlpdbc2f4jirl2ik22cd935mm85k7abfwq";
+    # url = "https://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/${name}-plugin.run";
+    url = "https://developers.hp.com/sites/default/files/${name}-plugin.run";
+    sha256 = "0h8zm259xk5l9fqcspilpg2wds1g2mlpw1hd17qwz99kjqr9jwb1";
   };
 
   hplipState = substituteAll {
@@ -69,7 +70,7 @@ pythonPackages.buildPythonApplication {
   ];
 
   pythonPath = with pythonPackages; [
-    dbus
+    dbus-python
     pillow
     pygobject2
     reportlab
