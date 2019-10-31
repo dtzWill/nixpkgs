@@ -13,11 +13,12 @@
 , librevenge, libe-book, libmwaw, glm, glew, gst_all_1
 , gdb, commonsLogging, librdf_rasqal, wrapGAppsHook
 , gnome3, glib, gobject-introspection, ncurses, epoxy, gpgme, gnupg, liblangtag
+, mkDerivation
 , qtbase, qmake, qtx11extras
 #  https://dev.gentoo.org/~asturm/distfiles/libreoffice-6.2.3.2-patchset-01.tar.xz 
 , langs ? [ "ca" "cs" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "ru" "sl" "zh-CN" ]
 , withHelp ? true
-, kdeIntegration ? true
+, kdeIntegration ? false
 # kde5! Add deps, maybe these: https://github.com/KDAB/libreoffice-core/blob/master/configure.ac#L10913 or so
 , kcoreaddons, ki18n, kconfig, kwindowsystem, kio
 }:
@@ -70,7 +71,7 @@ let
     };
 
   };
-in stdenv.mkDerivation rec {
+in mkDerivation rec {
   pname = "libreoffice";
   inherit version;
 
@@ -305,7 +306,7 @@ in stdenv.mkDerivation rec {
     "--disable-report-builder"
     "--disable-online-update"
     "--enable-python=system"
-    "--enable-qt5"
+    # "--enable-qt5" # TODO: configure claims can't find qt5 headers...
     "--disable-gtk" # gtk2
     "--enable-gtk3"
     "--enable-dconf"
