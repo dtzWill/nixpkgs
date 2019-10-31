@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, isPy3k
 , setuptools_scm
 , cheroot, portend, more-itertools, zc_lockfile, routes
 , objgraph, pytest, pytestcov, pathpy, requests_toolbelt, pytest-services
