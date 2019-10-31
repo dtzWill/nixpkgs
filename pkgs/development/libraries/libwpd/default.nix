@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, zlib, pkgconfig, glib, libgsf, libxml2, librevenge }:
+{ stdenv, fetchurl, zlib, pkgconfig, glib, libgsf, libxml2, librevenge, boost }:
 
 stdenv.mkDerivation rec {
   pname = "libwpd";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "02fx8bngslcj7i5g1gx2kiign4vp09wrmp5wpvix9igxcavb0r94";
   };
   
-  buildInputs = [ glib libgsf libxml2 zlib librevenge ];
+  buildInputs = [ glib libgsf libxml2 zlib librevenge boost ];
 
   nativeBuildInputs = [ pkgconfig ];
 
