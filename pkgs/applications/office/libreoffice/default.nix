@@ -305,7 +305,11 @@ in stdenv.mkDerivation rec {
     "--disable-report-builder"
     "--disable-online-update"
     "--enable-python=system"
-    #"--enable-qt4"
+    "--enable-qt5"
+    "--disable-gtk" # gtk2
+    "--enable-gtk3"
+    "--enable-dconf"
+    "--enable-gio"
     "--enable-dbus"
     "--enable-cairo-canvas"
     "--with-tls=nss"
