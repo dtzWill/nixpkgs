@@ -19698,7 +19698,6 @@ in
     harfbuzz = harfbuzz.override {
       withIcu = true; withGraphite2 = true;
     };
-    boost = boost166;
   };
 
   libreoffice-fresh = lowPrio (callPackage ../applications/office/libreoffice/wrapper.nix {
@@ -19711,6 +19710,7 @@ in
   libreoffice-still = lowPrio (callPackage ../applications/office/libreoffice/wrapper.nix {
     libreoffice = callPackage ../applications/office/libreoffice/still.nix
       (libreoffice-args // {
+        boost = boost166; # XXX: remove when possible
       });
   });
   libreoffice-still-unwrapped = libreoffice-still.libreoffice;
