@@ -113,7 +113,7 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  QT5DIR = qtbase;
+  #QT5DIR = qtbase;
   QT_SELECT = "5";
   # MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
