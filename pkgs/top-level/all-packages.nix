@@ -23491,6 +23491,8 @@ in
 
   dcm2niix = callPackage ../applications/science/biology/dcm2niix { };
 
+  deeptools = callPackage ../applications/science/biology/deeptools { python = python3; };
+
   diamond = callPackage ../applications/science/biology/diamond { };
 
   ecopcr = callPackage ../applications/science/biology/ecopcr { };
