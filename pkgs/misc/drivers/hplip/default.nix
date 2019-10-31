@@ -5,6 +5,7 @@
 , net_snmp, openssl, perl, nettools
 , bash, coreutils, utillinux
 , withQt5 ? true
+, wrapQtAppsHook 
 , withPlugin ? false
 , withStaticPPDInstall ? false
 }:
@@ -67,6 +68,8 @@ pythonPackages.buildPythonApplication {
 
   nativeBuildInputs = [
     pkgconfig
+    # TODO: only if withQt5
+    wrapQtAppsHook
   ];
 
   pythonPath = with pythonPackages; [
@@ -82,6 +85,8 @@ pythonPackages.buildPythonApplication {
   ];
 
   makeWrapperArgs = [ "--prefix" "PATH" ":" "${nettools}/bin" ];
+
+  dontWrapQtApps = true;
 
   patches = [
     # remove ImageProcessor usage, it causes segfaults, see
@@ -203,7 +208,8 @@ pythonPackages.buildPythonApplication {
       makeWrapper "$py" "$bin" \
           --prefix PATH ':' "$program_PATH" \
           --set PYTHONNOUSERSITE "true" \
-          $makeWrapperArgs
+          $makeWrapperArgs \
+          ''${qtWrapperArgs[@]}
     done
   '';
 

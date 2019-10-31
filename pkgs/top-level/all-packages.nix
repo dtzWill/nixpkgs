@@ -24444,7 +24444,7 @@ in
 
   heptio-ark = callPackage ../applications/networking/cluster/heptio-ark { };
 
-  hplip = callPackage ../misc/drivers/hplip { };
+  hplip = libsForQt5.callPackage ../misc/drivers/hplip { };
 
   hplipWithPlugin = hplip.override { withPlugin = true; };
 
