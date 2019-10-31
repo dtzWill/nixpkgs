@@ -13,8 +13,8 @@ in {
       enable = mkEnableOption "OrangeFS client daemon";
 
       extraOptions = mkOption {
-        type = types.str;
-        default = "";
+        type = with types; listOf str;
+        default = [];
         description = "Extra command line options for pvfs2-client.";
       };
 
@@ -22,7 +22,7 @@ in {
         description = ''
           The orangefs file systems to be mounted.
           This option is prefered over using <option>fileSystems</option> directly since
-          the pvfs client service needs to be running for the mounting.
+          the pvfs client service needs to be running for it to be mounted.
         '';
 
         example = [{
@@ -70,20 +70,14 @@ in {
       requires = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
-      # Let service settle after network is online
-      # and before mounts are done.
-      # Otherwise client daemon may hang.
-      preStart = "sleep 1";
-      postStart = "sleep 1";
-
       serviceConfig = {
-        Type = "forking";
+        Type = "simple";
 
-        ExecStart = ''
-          ${pkgs.orangefs}/bin/pvfs2-client ${cfg.extraOptions} \
-             --logtype=syslog \
-             -p ${pkgs.orangefs}/bin/pvfs2-client-core
+         ExecStart = ''
+           ${pkgs.orangefs}/bin/pvfs2-client-core \
+              --logtype=syslog ${concatStringsSep " " cfg.extraOptions}
         '';
+
         TimeoutStopSec = "120";
       };
     };
