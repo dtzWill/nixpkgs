@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     assimp libGLU_combined glew
   ];
 
-  preConfigure = ''
-    export PIONEER_DATA_DIR="$out/share/pioneer/data";
-  '';
+  PIONEER_DATA_DIR = "${placeholder "out"}/share/pioneer/data";
 
   meta = with stdenv.lib; {
     description = "A space adventure game set in the Milky Way galaxy at the turn of the 31st century";
