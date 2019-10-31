@@ -115,9 +115,9 @@ in mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  QT5DIR = qtbase;
-  QT_SELECT = "5";
-  MOC5 = "${qtbase.dev}/bin/moc";
+  # QT5DIR = qtbase;
+  # QT_SELECT = "5";
+  # MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
 
   preConfigure = ''
