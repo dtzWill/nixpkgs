@@ -6,7 +6,7 @@
 
 mkDerivation rec {
   pname = "chiaki";
-  version = "1.0.4";
+  version = "unstable-2019-10-31";
 
   src = fetchFromGitHub {
     rev = "v${version}";
