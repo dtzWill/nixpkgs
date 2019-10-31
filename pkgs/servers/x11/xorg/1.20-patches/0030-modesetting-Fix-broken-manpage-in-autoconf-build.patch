@@ -1,0 +1,47 @@
+From 3491f1dc5c701656e2f69f74b459dfcaef9451d6 Mon Sep 17 00:00:00 2001
+From: Sven Joachim <svenjoac@gmx.de>
+Date: Wed, 2 Oct 2019 18:26:07 +0200
+Subject: [PATCH 30/30] modesetting: Fix broken manpage in autoconf build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The autoconf build for the modesetting driver still relied on
+xorg-macros.m4 for string replacements and did not include the
+top-level manpages.am.  As a result, no substitutions took place after
+commit 2e497bf887aca832dc0dd30d071c5288ab5c1e15.
+
+This should be a candidate for the 1.20 branch.
+
+Reviewed-by: Michel Dänzer <mdaenzer@redhat.com>
+(cherry picked from commit de0d39f825cce7422986011ee9d5db91f15e2987)
+---
+ hw/xfree86/drivers/modesetting/Makefile.am | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/hw/xfree86/drivers/modesetting/Makefile.am b/hw/xfree86/drivers/modesetting/Makefile.am
+index e0411ef51..961c57408 100644
+--- a/hw/xfree86/drivers/modesetting/Makefile.am
++++ b/hw/xfree86/drivers/modesetting/Makefile.am
+@@ -24,6 +24,8 @@
+ # _ladir passes a dummy rpath to libtool so the thing will actually link
+ # TODO: -nostdlib/-Bstatic/-lgcc platform magic, not installing the .a, etc.
+ 
++include $(top_srcdir)/manpages.am
++
+ AM_CFLAGS = $(DIX_CFLAGS) $(XORG_CFLAGS) $(LIBDRM_CFLAGS) $(UDEV_CFLAGS) $(CWARNFLAGS)
+ 
+ AM_CPPFLAGS = \
+@@ -62,9 +64,3 @@ driverman_DATA = $(driverman_PRE:man=@DRIVER_MAN_SUFFIX@)
+ EXTRA_DIST = modesetting.man
+ 
+ CLEANFILES = $(driverman_DATA)
+-
+-# String replacements in MAN_SUBSTS now come from xorg-macros.m4 via configure
+-SUFFIXES = .$(DRIVER_MAN_SUFFIX) .man
+-
+-.man.$(DRIVER_MAN_SUFFIX):
+-	$(AM_V_GEN)$(SED) $(MAN_SUBSTS) < $< > $@
+-- 
+2.24.0-rc2
+

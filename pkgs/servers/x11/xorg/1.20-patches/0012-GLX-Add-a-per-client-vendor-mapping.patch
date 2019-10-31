@@ -1,7 +1,7 @@
 From 1fdb7cbce538f0b37304a3cfc9fae4ff2fe9ece9 Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Thu, 19 Oct 2017 15:14:51 -0600
-Subject: [PATCH 12/20] GLX: Add a per-client vendor mapping.
+Subject: [PATCH 12/30] GLX: Add a per-client vendor mapping.
 
 Each client now has its own (screen, vendor) mapping.
 
@@ -88,5 +88,5 @@ index fd3be92d9..778656bb6 100644
      }
  }
 -- 
-2.23.GIT
+2.24.0-rc2
 
