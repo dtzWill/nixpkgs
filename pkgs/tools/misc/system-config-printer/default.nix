@@ -8,11 +8,11 @@
 
 stdenv.mkDerivation rec {
   pname = "system-config-printer";
-  version = "1.5.11";
+  version = "1.5.12";
 
   src = fetchurl {
-    url = "https://github.com/zdohnal/system-config-printer/releases/download/${version}/${pname}-${version}.tar.xz";
-    sha256 = "1lq0q51bhanirpjjvvh4xiafi8hgpk8r32h0dj6dn3f32z8pib9q";
+    url = "https://github.com/OpenPrinting/system-config-printer/releases/download/${version}/${pname}-${version}.tar.xz";
+    sha256 = "050yrx1vfh9f001qsn06y1jcidxq0ymxr64kxykasr0zzryp25kb";
   };
 
   patches = [ ./detect_serverbindir.patch ];
