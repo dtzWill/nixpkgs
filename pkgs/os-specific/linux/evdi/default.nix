@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ kernel libdrm ];
 
-  makeFlags = [ "KVER=${kernel.modDirVersion}" "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = [
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "KVER=${kernel.modDirVersion}"
+  ];
 
   hardeningDisable = [ "format" "pic" "fortify" ];
 
@@ -26,9 +29,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Extensible Virtual Display Interface";
-    platforms = platforms.linux;
+    homepage = "https://www.displaylink.com/";
     license = with licenses; [ lgpl21 gpl2 ];
-    homepage = https://www.displaylink.com/;
-    broken = versionOlder kernel.version "4.9" || versionAtLeast kernel.version "5.3" || stdenv.isAarch64;
+    platforms = platforms.linux;
+    broken = versionOlder kernel.version "4.9" || stdenv.isAarch64;
   };
 }
