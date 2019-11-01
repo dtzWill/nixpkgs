@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, pkgconfig, intltool, autoreconfHook, wrapGAppsHook
-, gtk3, hicolor-icon-theme, netpbm }:
+, gtk3, hicolor-icon-theme, netpbm, gspell, gtksourceview3 }:
 
 stdenv.mkDerivation rec {
   pname = "yad";
@@ -14,11 +14,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-icon-browser"
-    "--with-gtk=gtk3"
     "--with-rgb=${placeholder "out"}/share/yad/rgb.txt"
   ];
 
-  buildInputs = [ gtk3 hicolor-icon-theme ];
+  buildInputs = [ gtk3 hicolor-icon-theme gspell gtksourceview3 ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig intltool wrapGAppsHook ];
 
