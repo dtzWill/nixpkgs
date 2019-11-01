@@ -15,6 +15,8 @@ buildPythonPackage rec {
     sha256 = "1v7vz045pami4nx5hfvk8drarcswjclb0pfmg932x95fddbdx2zy";
   };
 
+  patches = [ ./setup.py-Fix-the-setuptools-version-check.patch ];
+
   # NameError: name 'mibBuilder' is not defined
   doCheck = false;
 
