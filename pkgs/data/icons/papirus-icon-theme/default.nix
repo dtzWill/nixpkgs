@@ -2,20 +2,18 @@
 
 stdenv.mkDerivation rec {
   pname = "papirus-icon-theme";
-  version = "881dba74bc19ffd63f94a960e140e5f28c770aa5";
+  version = "20191101";
 
   src = fetchFromGitHub {
     owner = "PapirusDevelopmentTeam";
     repo = pname;
     rev = version;
-    sha256 = "0l92q3jpfz9lak0lp3dicyb7gw1s3andj2rlyf4qjpdpgagjgc8p";
+    sha256 = "17as9i5b9wqzvj08hwxqk9dlv6hrvkylns85s8gzhv6b5x2q5ma3";
   };
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
