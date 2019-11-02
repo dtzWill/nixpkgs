@@ -2,7 +2,7 @@
 , libkrb5 ? null, systemd ? null, jemalloc ? null, libmysqlclient ? null, postgresql ? null
 , libdbi ? null, net-snmp ? null, libuuid ? null, curl ? null, gnutls ? null
 , libgcrypt ? null, liblognorm ? null, openssl ? null, librelp ? null, libksi ? null
-, libgt ? null, liblogging ? null, libnet ? null, hadoop ? null, rdkafka ? null
+, liblogging ? null, libnet ? null, hadoop ? null, rdkafka ? null
 , libmongo-client ? null, czmq ? null, rabbitmq-c ? null, hiredis ? null, mongoc ? null
 }:
 
@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     (mkFlag true                      "mmpstrucdata")
     (mkFlag (openssl != null)         "mmrfc5424addhmac")
     (mkFlag (librelp != null)         "relp")
-    (mkFlag (libgt != null)           "guardtime")
-    (mkFlag (libksi != null)          "gt-ksi")
+    (mkFlag (libksi != null)          "ksi-ls12")
     (mkFlag (liblogging != null)      "liblogging-stdlog")
     (mkFlag (liblogging != null)      "rfc3195")
     (mkFlag true                      "imfile")
