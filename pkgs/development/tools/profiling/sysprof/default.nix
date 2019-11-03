@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sysprof";
-  version = "3.32.0";
+  version = "3.34.1";
 
   outputs = [ "out" "lib" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "0kamsnnig56lzs4ziwcxm3b1xyis4z361s9nj3nca0c78sgac8pw";
+    sha256 = "1l4kr1av7933vb4zql9c5lgzivlw64hyky4nr8xin1v5if6vnjw4";
   };
 
   nativeBuildInputs = [
