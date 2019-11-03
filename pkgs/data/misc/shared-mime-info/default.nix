@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   pname = "shared-mime-info";
-  version = "1.15";
+  version = "1.14";
 
   src = fetchurl {
-    url = "https://gitlab.freedesktop.org/xdg/${pname}/uploads/b27eb88e4155d8fccb8bb3cd12025d5b/${pname}-${version}.tar.xz";
-    sha256 = "146vynj78wcwdq0ms52jzm1r4m6dzi1rhyh3h4xyb6bw8ckv10pl";
+    url = "https://gitlab.freedesktop.org/xdg/${pname}/uploads/aee9ae9646cbef724bbb1bd2ba146556/${pname}-${version}.tar.xz";
+    sha256 = "09jayi3i2xgx4mmb70pl86c129691dwy9rchp5w9hri3wk5fjwy5";
   };
 
   nativeBuildInputs = [ pkgconfig gettext itstool ] ++ (with perlPackages; [ perl XMLParser ]);
