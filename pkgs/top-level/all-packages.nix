@@ -19429,6 +19429,7 @@ in
 
   inkscape = callPackage ../applications/graphics/inkscape {
     lcms = lcms2;
+    poppler = poppler_0_61;
   };
 
   inspectrum = libsForQt5.callPackage ../applications/radio/inspectrum { };
