@@ -5,6 +5,7 @@
 , glib
 , gtk3
 , itstool
+, libdazzle
 , libxml2
 , meson, ninja
 , pango
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     gnome3.adwaita-icon-theme
   ];
-  buildInputs = [ glib gtk3 pango polkit systemd.dev systemd.lib ];
+  buildInputs = [ glib gtk3 pango polkit systemd.dev systemd.lib libdazzle ];
 
   mesonFlags = [
     "-Dsystemdunitdir=lib/systemd/system"
