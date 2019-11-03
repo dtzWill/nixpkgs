@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest }:
+{ stdenv, buildPythonPackage, fetchPypi, contextlib2, pytest, mock }:
 
 buildPythonPackage rec {
 
@@ -10,7 +10,14 @@ buildPythonPackage rec {
     sha256 = "fa1a53fe5f3b6929725a4e81688c250f46838e25d8c1885a10a590c8c01a7b74";
   };
 
-  checkInputs = [ pytest ];
+  preConfigure = ''
+    substituteInPlace requirements.txt --replace '==' '>='
+  '';
+
+  propagatedBuildInputs = [ contextlib2 ];
+
+  checkInputs = [ pytest mock ];
+  checkPhase = "pytest ./test_schema.py";
 
   meta = with stdenv.lib; {
     description = "Library for validating Python data structures";
