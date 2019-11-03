@@ -26,13 +26,13 @@ assert i3GapsSupport -> ! i3Support     && jsoncpp != null && i3-gaps != null;
 
 stdenv.mkDerivation rec {
     pname = "polybar";
-    version = "3.4.0";
+    version = "3.4.1";
 
     src = fetchFromGitHub {
       owner = "jaagr";
       repo = pname;
       rev = version;
-      sha256 = "1g3zj0788cdlm8inpl19279bw8zjcy7dzj7q4f1l2d8c8g1jhv0m";
+      sha256 = "1z1m6dxh2i5vsnkzaccb9j02ab05wgmcgig5d0l9w856g5jp3zmy";
       fetchSubmodules = true;
     };
 
