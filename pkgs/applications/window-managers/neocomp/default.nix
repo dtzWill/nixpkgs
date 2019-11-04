@@ -22,13 +22,13 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "NeoComp";
-  version = "unstable-2019-05-25";
+  version = "unstable-2019-11-01";
 
   src = fetchFromGitHub {
     owner  = "DelusionalLogic";
     repo   = name;
-    rev = "v0.6-22-g2970336";
-    sha256 = "0ilprs56mqw4y5xdpi0c4xnimmjd2xgv4zi55qw6z52yv6k3m15n";
+    rev = "ba1a02fa095aefacd4e35f8f91fc3c4bdd7ebd14";
+    sha256 = "183bnrly62rqnjwdb0x15gp7g2fykcnwimhgzlzfyvpv8adbzwby";
   };
 
   buildInputs = xdeps ++ [
