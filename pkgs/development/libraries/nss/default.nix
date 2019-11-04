@@ -34,7 +34,6 @@ in stdenv.mkDerivation rec {
     [
       # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
       ./85_security_load.patch
-      ./ckpem.patch
     ];
 
   patchFlags = "-p0";
