@@ -11,7 +11,8 @@ gcc7Stdenv.mkDerivation rec {
     sha256 = "sha256:1djsyn7i3xp969rnmsdaf5vwjiik9wylxxrc5nm7by00i76c1vsg";
   };
 
-  buildInputs = [ cmake libpcap ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [ libpcap ];
 
   meta = with stdenv.lib; {
     homepage = "http://epam.github.io/nfstrace/";
