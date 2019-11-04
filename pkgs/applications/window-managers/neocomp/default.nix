@@ -16,20 +16,18 @@
 , xorg
 }:
 let
-  date  = "2019-05-25";
-  rev   = "v0.6-22-g2970336";
   xdeps = with xorg; [
     libXcomposite libXdamage libXrender libXext libXrandr libXinerama
   ];
 in
 stdenv.mkDerivation rec {
   name    = "NeoComp";
-  version = "git-${rev}-${date}";
+  version = "unstable-2019-05-25";
 
   src = fetchFromGitHub {
-    inherit rev;
     owner  = "DelusionalLogic";
     repo   = name;
+    rev = "v0.6-22-g2970336";
     sha256 = "0ilprs56mqw4y5xdpi0c4xnimmjd2xgv4zi55qw6z52yv6k3m15n";
   };
 
