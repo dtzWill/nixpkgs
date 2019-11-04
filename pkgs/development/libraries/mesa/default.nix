@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "0g62ik6wp9waf6zbw2635h5918znphlnclr91m9gcfygi0h277yh";
+    sha256 = "1523j2ici3l8gi3lwq58liw3751p9x8qn1rkyna3pkxzg0k0wkvy";
   };
 
   prePatch = "patchShebangs .";
