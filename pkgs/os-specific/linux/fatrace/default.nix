@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "fatrace";
-  version = "0.14";
+  version = "0.15";
 
   src = fetchurl {
     url = "https://launchpad.net/${pname}/trunk/${version}/+download/${pname}-${version}.tar.xz";
-    sha256 = "135vaxsv5phh03k32nzhapy4j8mrb4i9pl54w60yk60kh2d9jxnq";
+    sha256 = "1b8rni4m4acw8vf0kz39dpn3l6jb3jf5af2ly2mqh2wc88ap2i7r";
   };
 
   buildInputs = [ python3 which ];
