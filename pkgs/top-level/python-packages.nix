@@ -3800,6 +3800,8 @@ in {
     setupHook = null;
   })));
 
+  mesonpep517 = callPackage ../development/python-modules/mesonpep517 { };
+
   metaphone = callPackage ../development/python-modules/metaphone { };
 
   mezzanine = callPackage ../development/python-modules/mezzanine { };
