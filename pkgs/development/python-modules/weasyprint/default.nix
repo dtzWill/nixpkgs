@@ -27,9 +27,10 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   # ignore failing test cases
+  # exclude test_font_strech, needs Ahem font?
   checkPhase = ''
     runHook preCheck
-    pytest -k 'not test_table_vertical_align and not test_text_overflow_ellipsis and not test_text_overflow_clip'
+    pytest -k 'not test_table_vertical_align and not test_text_overflow_ellipsis and not test_text_overflow_clip and not test_font_stretch'
     runHook postCheck
   '';
 
