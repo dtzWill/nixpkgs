@@ -12917,6 +12917,7 @@ in
   # libGL.so/libEGL.so/... to link agains them. Android NDK provides
   # an OpenGL implementation, we can just use that.
   libGL = if stdenv.hostPlatform.useAndroidPrebuilt then stdenv
+          else if (!stdenv.hostPlatform.isDarwin) then libglvnd
           else callPackage ../development/libraries/mesa/stubs.nix {
             inherit (darwin.apple_sdk.frameworks) OpenGL;
           };
