@@ -52,8 +52,7 @@ stdenv.mkDerivation {
 
     mkdir -p $dev/{,lib/pkgconfig,nix-support}
     echo "$out" > $dev/nix-support/propagated-build-inputs
-    # XXX: GL headers come from libglvnd, mesa headers should be reached directly
-    ln -s ${libglvnd.dev}/include $dev/include
+    ln -s ${mesa.dev}/include $dev/include
 
     genPkgConfig() {
       local name="$1"
@@ -64,7 +63,7 @@ stdenv.mkDerivation {
     Description: $lib library
     Version: ${mesa.version}
     Libs: -L${libglvnd.out}/lib -l$lib
-    Cflags: -I${mesa.dev}/include -I${libglvnd.dev}/include
+    Cflags: -I${mesa.dev}/include
     EOF
     }
 
