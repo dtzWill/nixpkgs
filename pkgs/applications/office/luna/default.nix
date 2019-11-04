@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub
 , meson, ninja, pkgconfig
-, pantheon, gtk3, glib
+, pantheon, libgee, gtk3, glib
 , wrapGAppsHook
 }:
 
@@ -16,5 +16,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig pantheon.vala wrapGAppsHook ];
-  buildInputs = [ gtk3 glib pantheon.granite ];
+  buildInputs = [ libgee gtk3 glib pantheon.granite ];
+
+  meta = with stdenv.lib; {
+    description = "Calendar Widget for elementary OS";
+    homepage = "https://github.com/calo001/luna";
+    license = licenses.agpl3;
+  };
 }
