@@ -17,8 +17,6 @@ stdenv.mkDerivation rec {
     ./fixes.patch
   ];
 
-  preConfigure = "autoreconf -i -f";
-
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
   buildInputs = [ SDL pango ];
 
