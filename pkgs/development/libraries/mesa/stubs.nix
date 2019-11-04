@@ -52,9 +52,7 @@ stdenv.mkDerivation {
 
     mkdir -p $dev/{,lib/pkgconfig,nix-support}
     echo "$out" > $dev/nix-support/propagated-build-inputs
-    # ln -s ${mesa.dev}/include $dev/include
-    ln -s ${libglvnd.dev}/include $dev/include
-    echo "${mesa.dev}" >> $dev/nix-support/propagated-build-inputs
+    ln -s ${mesa.dev}/include $dev/include
 
     genPkgConfig() {
       local name="$1"
@@ -65,7 +63,7 @@ stdenv.mkDerivation {
     Description: $lib library
     Version: ${mesa.version}
     Libs: -L${libglvnd.out}/lib -l$lib
-    Cflags: -I${mesa.dev}/include -I${libglvnd.dev}/include
+    Cflags: -I${mesa.dev}/include
     EOF
     }
 
