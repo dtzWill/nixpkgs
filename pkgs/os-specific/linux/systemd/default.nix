@@ -49,11 +49,6 @@ stdenv.mkDerivation rec {
       url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
       sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
     })
-    (fetchpatch {
-      name = "udev-fix-multi-match.patch";
-      url = "https://github.com/systemd/systemd-stable/commit/1536348cc863f12312d8f7e7ea1826e54561c18f.patch";
-      sha256 = "0p0402r352i4braa1hfalr81l4q7i5zf091m2biljg6b3yvmq5kd";
-    })
   ] ++ lib.optionals stdenv.hostPlatform.isMusl (
     let systemd_rev = src.rev;
   in [
