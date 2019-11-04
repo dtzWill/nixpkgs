@@ -1,11 +1,24 @@
+{
+  stdenv
+, fetchFromGitHub
+, asciidoc
+, docbook_xml_dtd_45
+, docbook_xsl
+, freetype
+, judy
+, libGL
+, libconfig
+, libdrm
+, libxml2
+, libxslt
 , pcre
 , pkgconfig
-, xlibs
+, xorg
 }:
 let
   date  = "2019-05-25";
   rev   = "v0.6-22-g2970336";
-  xdeps = with xlibs; [
+  xdeps = with xorg; [
     libXcomposite libXdamage libXrender libXext libXrandr libXinerama
   ];
 in
