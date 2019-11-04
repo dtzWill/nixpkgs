@@ -13,14 +13,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "palemoon";
-  version = "28.6.0.1";
+  version = "28.7.2";
 
   src = fetchFromGitHub {
     name   = "${pname}-${version}";
     owner  = "MoonchildProductions";
     repo   = "UXP";
     rev    = "PM${version}_Release";
-    sha256 = "1adgajy5vsghvjlv2nqyrbp6mnv3k6slqxxi8r949xlb5h6d210b";
+    sha256 = "08w90269mwcqsdhx4vvp18c5iccvzqhaaw6aw7w0nppf2f2k8lri";
   };
 
   desktopItem = makeDesktopItem {

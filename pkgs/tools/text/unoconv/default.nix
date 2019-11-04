@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3, libreoffice-unwrapped, asciidoc, makeWrapper
+{ stdenv, fetchFromGitHub, python3, libreoffice-fresh-unwrapped, asciidoc, makeWrapper
 # whether to install odt2pdf/odt2doc/... symlinks to unoconv
 , installSymlinks ? true
 }:
@@ -7,15 +7,14 @@
 # will not be able to load the pyuno module from libreoffice).
 
 stdenv.mkDerivation rec {
-  name = "unoconv-${version}";
-  version = "0.8.2";
+  pname = "unoconv";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "dagwieers";
-    repo = "unoconv";
-    #rev = version;
-    rev = "63f6b13b6b027b9d552b445dacc8316d7a276043";
-    sha256 = "16fmw6n2n6hqfvfhz6y9nprld1gnxw8kqzfcy91ypxyzg1xi1y5b";
+    repo = pname;
+    rev = version;
+    sha256 = "1akx64686in8j8arl6vsgp2n3bv770q48pfv283c6fz6wf9p8fvr";
   };
 
   buildInputs = [ asciidoc makeWrapper ];
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     sed -i "s|/usr/bin/env python.*|${python3}/bin/${python3.executable}|" "$out/bin/unoconv"
-    wrapProgram "$out/bin/unoconv" --set UNO_PATH "${libreoffice-unwrapped}/lib/libreoffice/program/"
+    wrapProgram "$out/bin/unoconv" --set UNO_PATH "${libreoffice-fresh-unwrapped}/lib/libreoffice/program/"
   '' + (if installSymlinks then ''
     make install-links prefix="$out"
   '' else "");

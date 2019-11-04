@@ -19,7 +19,7 @@
 
 python3.pkgs.buildPythonApplication rec  {
   pname = "lollypop";
-  version = "1.2.1";
+  version = "1.2.2";
 
   format = "other";
   doCheck = false;
@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec  {
     url = "https://gitlab.gnome.org/World/lollypop";
     rev = "refs/tags/${version}";
     fetchSubmodules = true;
-    sha256 = "0wmgs28ph9959lr6zhd2j7z2c3kpl64rng6s1xgzyhsgrcyvv4cd";
+    sha256 = "02dgp3b10yaw0yqzdzd15msjgxayvjkg9m652is0d7rwgjq1pk6v";
   };
 
   nativeBuildInputs = [
@@ -42,7 +42,6 @@ python3.pkgs.buildPythonApplication rec  {
   ];
 
   buildInputs = with gst_all_1; [
-    gobject-introspection
     gst-libav
     gst-plugins-bad
     gst-plugins-base
@@ -73,6 +72,8 @@ python3.pkgs.buildPythonApplication rec  {
     buildPythonPath "$out $propagatedBuildInputs"
     patchPythonScript "$out/libexec/lollypop-sp"
   '';
+
+  strictDeps = false;
 
   # Produce only one wrapper using wrap-python passing
   # gappsWrapperArgs to wrap-python additional wrapper

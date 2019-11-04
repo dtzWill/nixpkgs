@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pioneer";
-  version = "20190203";
+  version = "20191009";
 
   src = fetchFromGitHub{
     owner = "pioneerspacesim";
     repo = "pioneer";
     rev = version;
-    sha256 = "1g34wvgyvz793dhm1k64kl82ib0cavkbg0f2p3fp05b457ycljff";
+    sha256 = "1ll6pv1931z29kz1zvhnc6mgvjxz30q25lvb00qrsvh236nvll7n";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     assimp libGLU_combined glew
   ];
 
-  preConfigure = ''
-    export PIONEER_DATA_DIR="$out/share/pioneer/data";
-  '';
+  PIONEER_DATA_DIR = "${placeholder "out"}/share/pioneer/data";
 
   meta = with stdenv.lib; {
     description = "A space adventure game set in the Milky Way galaxy at the turn of the 31st century";

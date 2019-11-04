@@ -14,6 +14,11 @@ buildPythonPackage rec {
     sha256 = "1fcp3g62pc9hpa0r6vdjhaln4h0azywjqfzi8bd4414ja0mxmj3p";
   };
 
+  # https://github.com/Azure/azure-cosmos-python/issues/183
+  preBuild = ''
+    touch changelog.md
+  '';
+
   propagatedBuildInputs = [ six requests ];
 
   # requires an active Azure Cosmos service

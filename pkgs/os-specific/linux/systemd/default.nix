@@ -49,7 +49,14 @@ stdenv.mkDerivation rec {
       url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
       sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
     })
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl (
+    let systemd_rev = src.rev;
+  in [
+    (fetchpatch {
+      url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...nixos-v243-musl-1.patch";
+      sha256 = "1nffsx1g684yccfs9cc8kjll8186z9rnxhvlnjsrh6q4zz7w55rx";
+    })
+  ]);
 
   outputs = [ "out" "lib" "man" "dev" ];
 
@@ -130,6 +137,21 @@ stdenv.mkDerivation rec {
     # Upstream defaulted to disable manpages since they optimize for the much
     # more frequent development builds
     "-Dman=true"
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    "-Dgshadow=false" # ?
+    "-Didn=false"
+    "-Dutmp=false"
+    "-Dlocaled=false"
+    "-Dmyhostname=false"
+    "-Dnss=false"
+    "-Dnss-systemd=false"
+    "-Dnss-mymachines=false"
+    "-Dnss-myhostname=false" # ??
+    "-Dnss-resolve=false"
+    "-Dsmack=false"
+    "-Dsysusers=false"
+    # TODO: revisit, may at least be buildable?
+    "-Dresolve=false"
   ];
 
   preConfigure = ''

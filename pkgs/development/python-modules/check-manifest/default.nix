@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi }:
+{ stdenv, buildPythonPackage, fetchPypi, toml }:
 
 buildPythonPackage rec {
   pname = "check-manifest";
@@ -8,6 +8,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "44e3cf4b0833a55460046bf7a3600eaadbcae5e9d13baf0c9d9789dd5c2c6452";
   };
+
+  propagatedBuildInputs = [ toml ];
 
   doCheck = false;
 

@@ -1,7 +1,7 @@
 From d3034ef2f5121d85ae766a73fda4e523399043a9 Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Thu, 2 May 2019 07:17:21 -0600
-Subject: [PATCH 14/20] GLX: Add a function to change a clients vendor list.
+Subject: [PATCH 14/30] GLX: Add a function to change a clients vendor list.
 
 Add a new function, GlxServerExports::setClientScreenVendor, which will change
 the vendor that handles GLX requests for a screen, but only for requests from
@@ -109,5 +109,5 @@ index b78306d23..71f36e722 100644
  
  extern _X_EXPORT const GlxServerExports glxServer;
 -- 
-2.23.GIT
+2.24.0-rc2
 

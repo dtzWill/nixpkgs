@@ -10,8 +10,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "spwhitt";
     repo = "nix-zsh-completions";
-    rev = "${version}";
-    sha256 = "0fq1zlnsj1bb7byli7mwlz7nm2yszwmyx43ccczcv51mjjfivyp3";
+    #rev = "${version}";
+    rev = "26a9a0f8cf5cfe5ca84dd682675c853192a2cfc5";
+    sha256 = "06cv59112b5wbz05ndpcih7n32q1vdvfb5zxrsp62lx06jd3wh9j";
   };
 
   installPhase = ''

@@ -1,4 +1,4 @@
-From bb1e12dd5f4c16a6d3e0a04c88fd63142eb297f5 Mon Sep 17 00:00:00 2001
+From 2f57fb15ab010e48c879391423044d3e0af0851a Mon Sep 17 00:00:00 2001
 From: Rytis Karpuska <rytis.karpuska@gmail.com>
 Date: Mon, 30 Sep 2019 02:56:50 +0300
 Subject: [PATCH 2/2] Parameterize bright windows dimming sensitivity and
@@ -15,7 +15,7 @@ Subject: [PATCH 2/2] Parameterize bright windows dimming sensitivity and
  7 files changed, 41 insertions(+), 2 deletions(-)
 
 diff --git a/src/backend/gl/gl_common.c b/src/backend/gl/gl_common.c
-index ea44f62..d66d503 100644
+index f65b7be..039f7dd 100644
 --- a/src/backend/gl/gl_common.c
 +++ b/src/backend/gl/gl_common.c
 @@ -213,10 +213,10 @@ static void _gl_compose(backend_t *base, struct gl_image *img, GLuint target,
@@ -46,7 +46,7 @@ index 2fc03f5..08b2171 100644
  	/// the decoupled user_data
  	void *(*decouple_texture_user_data)(backend_t *base, void *user_data);
 diff --git a/src/backend/gl/glx.c b/src/backend/gl/glx.c
-index d02d4a5..c582bc4 100644
+index c2e3023..d9a63dc 100644
 --- a/src/backend/gl/glx.c
 +++ b/src/backend/gl/glx.c
 @@ -351,6 +351,13 @@ static backend_t *glx_init(session_t *ps) {
@@ -64,10 +64,10 @@ index d02d4a5..c582bc4 100644
  
  end:
 diff --git a/src/config.c b/src/config.c
-index 7906423..6258bcf 100644
+index c43ff0f..07f8720 100644
 --- a/src/config.c
 +++ b/src/config.c
-@@ -549,6 +549,9 @@ char *parse_config(options_t *opt, const char *config_file, bool *shadow_enable,
+@@ -548,6 +548,9 @@ char *parse_config(options_t *opt, const char *config_file, bool *shadow_enable,
  	    .inactive_dim = 0.0,
  	    .inactive_dim_fixed = false,
  	    .invert_color_list = NULL,
@@ -78,10 +78,10 @@ index 7906423..6258bcf 100644
  
  	    .use_ewmh_active_win = false,
 diff --git a/src/config.h b/src/config.h
-index c1ab8af..dc97009 100644
+index a6a9f61..3fad5c2 100644
 --- a/src/config.h
 +++ b/src/config.h
-@@ -208,6 +208,10 @@ typedef struct options {
+@@ -206,6 +206,10 @@ typedef struct options {
  	/// Whether to use fixed inactive dim opacity, instead of deciding
  	/// based on window opacity.
  	bool inactive_dim_fixed;
@@ -93,10 +93,10 @@ index c1ab8af..dc97009 100644
  	c2_lptr_t *invert_color_list;
  	/// Rules to change window opacity.
 diff --git a/src/config_libconfig.c b/src/config_libconfig.c
-index 0083ab5..d171e15 100644
+index 902ed91..f4642b1 100644
 --- a/src/config_libconfig.c
 +++ b/src/config_libconfig.c
-@@ -282,6 +282,10 @@ char *parse_config_libconfig(options_t *opt, const char *config_file, bool *shad
+@@ -289,6 +289,10 @@ char *parse_config_libconfig(options_t *opt, const char *config_file, bool *shad
  	lcfg_lookup_bool(&cfg, "inactive-opacity-override", &opt->inactive_opacity_override);
  	// --inactive-dim
  	config_lookup_float(&cfg, "inactive-dim", &opt->inactive_dim);
@@ -108,10 +108,10 @@ index 0083ab5..d171e15 100644
  	lcfg_lookup_bool(&cfg, "mark-wmwin-focused", &opt->mark_wmwin_focused);
  	// --mark-ovredir-focused
 diff --git a/src/options.c b/src/options.c
-index 8061fcd..5db1c47 100644
+index c66fbfc..d5be0da 100644
 --- a/src/options.c
 +++ b/src/options.c
-@@ -111,6 +111,12 @@ static void usage(int ret) {
+@@ -110,6 +110,12 @@ static void usage(const char *argv0, int ret) {
  	    "--inactive-dim value\n"
  	    "  Dim inactive windows. (0.0 - 1.0, defaults to 0)\n"
  	    "\n"
@@ -124,31 +124,31 @@ index 8061fcd..5db1c47 100644
  	    "--active-opacity opacity\n"
  	    "  Default opacity for active windows. (0.0 - 1.0)\n"
  	    "\n"
-@@ -415,6 +421,8 @@ static const struct option longopts[] = {
-     {"log-file", required_argument, NULL, 322},
+@@ -410,6 +416,8 @@ static const struct option longopts[] = {
      {"use-damage", no_argument, NULL, 323},
      {"no-use-damage", no_argument, NULL, 324},
-+    {"bright-dim", required_argument, NULL, 325},
-+    {"bright-dim-sample-count", required_argument, NULL, 326},
+     {"no-vsync", no_argument, NULL, 325},
++    {"bright-dim", required_argument, NULL, 326},
++    {"bright-dim-sample-count", required_argument, NULL, 327},
      {"experimental-backends", no_argument, NULL, 733},
      {"monitor-repaint", no_argument, NULL, 800},
      {"diagnostics", no_argument, NULL, 801},
-@@ -596,6 +604,14 @@ void get_cfg(options_t *opt, int argc, char *const *argv, bool shadow_enable,
- 			// --inactive-dim
- 			opt->inactive_dim = atof(optarg);
+@@ -791,6 +799,14 @@ void get_cfg(options_t *opt, int argc, char *const *argv, bool shadow_enable,
+ 		case 325:
+ 			opt->vsync = false;
  			break;
-+		case 325:
++		case 326:
 +			// --bright-dim
 +			opt->bright_dim = atof(optarg);
 +			break;
-+		case 326:
++		case 327:
 +			// --bright-dim-sample_count
 +			opt->bright_dim_sample_count = atoi(optarg);
 +			break;
- 		P_CASEBOOL(262, mark_wmwin_focused);
- 		case 263:
- 			// --shadow-exclude
-@@ -815,6 +831,8 @@ void get_cfg(options_t *opt, int argc, char *const *argv, bool shadow_enable,
+ 		P_CASEBOOL(733, experimental_backends);
+ 		P_CASEBOOL(800, monitor_repaint);
+ 		case 801: opt->print_diagnostics = true; break;
+@@ -818,6 +834,8 @@ void get_cfg(options_t *opt, int argc, char *const *argv, bool shadow_enable,
  	opt->shadow_green = normalize_d(opt->shadow_green);
  	opt->shadow_blue = normalize_d(opt->shadow_blue);
  	opt->inactive_dim = normalize_d(opt->inactive_dim);
@@ -158,5 +158,5 @@ index 8061fcd..5db1c47 100644
  	opt->shadow_opacity = normalize_d(opt->shadow_opacity);
  	opt->refresh_rate = normalize_i_range(opt->refresh_rate, 0, 300);
 -- 
-2.23.GIT
+2.24.0-rc2
 

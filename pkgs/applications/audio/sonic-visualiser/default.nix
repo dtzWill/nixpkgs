@@ -1,22 +1,23 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
 
-{ stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
-, libmad, libogg, librdf, librdf_raptor, librdf_rasqal, libsamplerate
-, libsndfile, pkgconfig, libpulseaudio, qtbase, redland
-, qmake, rubberband, serd, sord, vampSDK, fftwFloat
+{ mkDerivation, lib, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo
+, libmad, liboggz, libfishsound, librdf, librdf_raptor, librdf_rasqal
+, libsamplerate , libsndfile, pkgconfig, libpulseaudio, qtbase, qtsvg, redland
+, qmake, rubberband, serd, sord, vampSDK, fftwFloat, capnproto, libid3tag
+, libopus, opusfile
 }:
 
-stdenv.mkDerivation rec {
-  name = "sonic-visualiser-${version}";
-  version = "2.4.1";
+mkDerivation rec {
+  pname = "sonic-visualiser";
+  version = "4.0";
 
   src = fetchurl {
-    url = "https://code.soundsoftware.ac.uk/attachments/download/1185/${name}.tar.gz";
-    sha256 = "06nlha70kgrby16nyhngrv5q846xagnxdinv608v7ga7vpywwmyb";
+    url = "https://code.soundsoftware.ac.uk/attachments/download/2580/sonic-visualiser-${version}.tar.gz";
+    sha256 = "0r9rnkqcv2x8cr93g0a94gw1y9xh4mpcjll302yzsdxqwwjy2pim";
   };
 
   buildInputs =
-    [ libsndfile qtbase fftw fftwFloat bzip2 librdf rubberband
+    [ libsndfile qtbase qtsvg fftw fftwFloat bzip2 librdf rubberband
       libsamplerate vampSDK alsaLib librdf_raptor librdf_rasqal redland
       serd
       sord
@@ -25,32 +26,36 @@ stdenv.mkDerivation rec {
       # portaudio
       libpulseaudio
       libmad
-      libogg # ?
-      # fishsound
+      liboggz
+      libfishsound
       liblo
       libX11
+      capnproto
+      libid3tag
+      libopus
+      opusfile
     ];
 
   nativeBuildInputs = [ pkgconfig qmake ];
 
-  configurePhase = ''
-    for i in sonic-visualiser svapp svcore svgui;
-      do cd $i && qmake PREFIX=$out && cd ..;
-    done
+  dontUseQmakeConfigure = true;
+
+  enableParallelBuilding = true;
+
+  preBuild = ''
+    # not separate check, idk
+    export HOME=$TMPDIR
   '';
 
-  installPhase = ''
-    mkdir -p $out/{bin,share/sonic-visualiser}
-    cp sonic-visualiser $out/bin/
-    cp -r samples $out/share/sonic-visualiser/
+  postInstall = ''
+    chmod +x $out/bin/{piper-vamp-simple-server,vamp-plugin-load-checker}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "View and analyse contents of music audio files";
     homepage = http://www.sonicvisualiser.org/;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.goibhniu maintainers.marcweber ];
     platforms = platforms.linux;
-    broken = true;
   };
 }

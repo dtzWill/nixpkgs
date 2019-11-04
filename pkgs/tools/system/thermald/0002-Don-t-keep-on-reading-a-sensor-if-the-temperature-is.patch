@@ -1,0 +1,73 @@
+From 24f79f10b3e5188d3ddee09232c164e032f61c92 Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Tue, 17 Apr 2018 15:09:57 +0100
+Subject: [PATCH] Don't keep on reading a sensor if the temperature is unreadable (LP: #1764320)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+BugLink: https://bugs.launchpad.net/ubuntu/+source/thermald/+bug/1764320
+
+Some broken thermal zone drivers may have broken temp interfaces
+that cannot be read. If these occur, don't keep on reading this
+and but instead log that it is unreadable and defaulting to zero
+just one and don't spam the log any further with messages.
+
+Don't disable the sensor as it has may have valuable interfaces
+that can be used to adjust passive cooling.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ src/thd_sensor.cpp | 24 +++++++++++++++++-------
+ src/thd_sensor.h   |  1 +
+ 2 files changed, 18 insertions(+), 7 deletions(-)
+
+===================================================================
+--- thermald-1.8.0.orig/src/thd_sensor.h
++++ thermald-1.8.0/src/thd_sensor.h
+@@ -41,6 +41,7 @@ protected:
+ 	std::string type_str;
+ 	bool async_capable;
+ 	bool virtual_sensor;
++	bool temp_unreadable;
+ 
+ private:
+ 	std::vector<int> thresholds;
+Index: thermald-1.8.0/src/thd_sensor.cpp
+===================================================================
+--- thermald-1.8.0.orig/src/thd_sensor.cpp
++++ thermald-1.8.0/src/thd_sensor.cpp
+@@ -64,17 +64,27 @@ int cthd_sensor::sensor_update() {
+ unsigned int cthd_sensor::read_temperature() {
+ 	csys_fs sysfs;
+ 	std::string buffer;
+-	int temp;
++	int temp, ret;
+ 
+ 	thd_log_debug("read_temperature sensor ID %d\n", index);
++	if (temp_unreadable)
++		return 0;
++
+ 	if (type == SENSOR_TYPE_THERMAL_SYSFS)
+-		sensor_sysfs.read("temp", buffer);
++		ret = sensor_sysfs.read("temp", buffer);
+ 	else
+-		sensor_sysfs.read("", buffer);
+-	std::istringstream(buffer) >> temp;
+-	if (temp < 0)
+-		temp = 0;
+-	thd_log_debug("Sensor %s :temp %u \n", type_str.c_str(), temp);
++		ret = sensor_sysfs.read("", buffer);
++
++	if (ret == 0) {
++		std::istringstream(buffer) >> temp;
++		if (temp < 0)
++			temp = 0;
++	} else {
++		thd_log_info("Sensor %s: cannot read temp, defaulting to 0\n", type_str.c_str());
++		temp_unreadable = true;
++		return 0;
++	}
++	thd_log_debug("Sensor %s: temp %u \n", type_str.c_str(), temp);
+ 	return (unsigned int)temp / scale;
+ }
+ 

@@ -40,19 +40,19 @@ in {
     mainConfig = mkOption {
         type = types.attrsOf types.attrs;
         default = {
-          EAP.mtu = 1400;
-          EAPoL.max_4way_handshake_time = 5;
+          EAP.MTU = 1400;
+          EAPoL.MaxHandshakeTime = 5;
           General = {
             # Enable/Disable iwd internal dhcp client
-            enable_network_config = false; # true;
-            #
-            # DNS helper to use: resolvconf or systemd
-            # Default to systemd-resolved service
-            #dns_resolve_method = "resolvconf";
-            dns_resolve_method = "resolvconf";
+            EnableNetworkConfiguration = false; # true;
+            # UseDefaultInterface = true;
 
-            control_port_over_nl80211 = true;
-            roam_rssi_threshold = -70;
+            AddressRandomization = "once";
+
+            #control_port_over_nl80211 = true;
+            ControlPortOverNL80211 = true;
+            #roam_rssi_threshold = -70;
+            RoamThreshold = -70;
             # Default behavior is only available if this is NOT set
             # (either true or false)-- see docs.
             #use_default_interface = true;
@@ -64,7 +64,8 @@ in {
             # 1 - Set management frame protection capable (default)
             # 2 - Management frame protection required
             #
-            management_frame_protection = 1;
+            #management_frame_protection = 1;
+            ManagementFrameProtection = 1;
 
             #
             # Enable/disable ANQP queries. The way IWD does ANQP queries is dependent on
@@ -75,7 +76,8 @@ in {
             # 2.0 networks ANQP is most likely going to be required (you may be able to
             # pre-provision to avoid ANQP).
             #
-            disable_anqp = true;
+            #disable_anqp = true;
+            DisableANQP = true;
             #
             # Control the behavior of MAC address randomization by setting the
             # mac_randomize option.  iwd supports the following options:
@@ -95,13 +97,17 @@ in {
             #   "full" - Randomize the full 6 octets.  The locally-administered bit will
             #   be set.
             #
-            mac_randomize = "default";
-            mac_randomize_bytes = "full";
+            #mac_randomize = "default";
+            #mac_randomize_bytes = "full";
+          };
+          Network = {
+            # DNS helper to use: resolvconf or systemd
+            # Default to systemd-resolved service
+            NameResolvingService = "resolvconf";
           };
           Scan = {
-            disable_periodic_scan = false;
-            disable_roaming_scan = false;
-            disable_mac_address_randomization = false;
+            DisablePeriodicScan = false;
+            DisableRoamingScan = false;
           };
           # TODO: BSS blacklist settings
 
@@ -114,7 +120,8 @@ in {
             # required. Also, a lower 5G factor could be used to weight 2.4GHz if that is
             # desired. The default is 1.0, which does not affect the calculated ranking.
             #
-            rank_5g_factor = "1.0"; # XXX: why aren't floats/doubles handled automatically?
+            #rank_5g_factor = "1.0"; # XXX: why aren't floats/doubles handled automatically?
+            BandModifier5Ghz = "1.0";
           };
         };
         description = "settings to write to /etc/iwd/main.conf";

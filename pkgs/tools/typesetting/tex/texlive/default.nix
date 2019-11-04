@@ -84,8 +84,8 @@ let
             # the fake derivations are used for filtering of hyphenation patterns
           else { inherit pname version; tlType = "run"; }
         )]
-        ++ lib.optional (attrs.sha512 ? "doc") (mkPkgV "doc")
-        ++ lib.optional (attrs.sha512 ? "source") (mkPkgV "source")
+        ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
+        ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname})
             ( bin.${pname} // { inherit pname; tlType = "bin"; } )
         ++ combinePkgs (attrs.deps or {});
@@ -108,9 +108,12 @@ let
       # Common packages should get served from the binary cache anyway.
       # See discussions, e.g. https://github.com/NixOS/nixpkgs/issues/24683
       urlPrefixes = args.urlPrefixes or [
+        # Mirror hosted by @veprbl
+        http://146.185.144.154/texlive-2019
+
+        # TODO: Upgrade to the final snapshot of the packages before 20.03
         #http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2019/tlnet-final/archive
         #ftp://tug.org/texlive/historic/2019/tlnet-final/archive
-        https://wdtz.org/tlnet/
       ];
 
       src = fetchurl { inherit urls sha512; };
@@ -179,7 +182,7 @@ in
           })
         )
         { inherit (tl)
-            scheme-basic scheme-context scheme-full scheme-gust
+            scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
             scheme-medium scheme-minimal scheme-small scheme-tetex;
         }
     );

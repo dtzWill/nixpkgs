@@ -3365,6 +3365,16 @@
     github = "klntsky";
     githubId = 18447310;
   };
+  kloenk = {
+    email = "kloenk@kloenk.de";
+    name = "Kloenk";
+    github = "Kloenk";
+    githubId = 12898828;
+    keys = [{
+      longkeyid = "ed25519/0xB92445CFC9546F9D";
+      fingerprint = "6881 5A95 D715 D429 659B  48A4 B924 45CF C954 6F9D";
+    }];
+  };
   kmeakin = {
     email = "karlwfmeakin@gmail.com";
     name = "Karl Meakin";
@@ -3781,6 +3791,11 @@
     github = "lukego";
     githubId = 13791;
     name = "Luke Gorrie";
+  };
+  lumi = {
+    email = "lumi@pew.im";
+    github = "lumi-me-not";
+    name = "lumi";
   };
   luz = {
     email = "luz666@daum.net";
@@ -6483,6 +6498,12 @@
     githubId = 178444;
     name = "Thomas Bereknyei";
   };
+  tomfitzhenry = {
+    email = "tom@tom-fitzhenry.me.uk";
+    github = "tomfitzhenry";
+    githubId = 61303;
+    name = "Tom Fitzhenry";
+  };
   tomsmeets = {
     email = "tom.tsmeets@gmail.com";
     github = "tomsmeets";
@@ -7172,5 +7193,17 @@
     github = "wd15";
     githubId = 1986844;
     name = "Daniel Wheeler";
+  };
+  zokrezyl = {
+    email = "zokrezyl@gmail.com";
+    github = "zokrezyl";
+    githubId = 51886259;
+    name = "Zokre Zyl";
+  };
+  rakesh4g = {
+    email = "rakeshgupta4u@gmail.com";
+    github = "rakesh4g";
+    githubId = 50867187;
+    name = "Rakesh Gupta";
   };
 }

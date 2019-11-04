@@ -15,6 +15,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
   buildInputs = [ dbus dbus-glib libxml2 ];
 
+  patches = [
+    ./0002-Don-t-keep-on-reading-a-sensor-if-the-temperature-is.patch
+    ./0003-thermald-fix-uninitialised-member.patch
+    ./0004-Remove-processing-when-trip-was-not-activates.patch
+    ./0005-Use-correct-format-specifier-for-size_t.patch
+  ];
+
   configureFlags = [
     "--sysconfdir=${placeholder "out"}/etc"
     "--localstatedir=/var"

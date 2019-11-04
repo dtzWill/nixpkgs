@@ -207,6 +207,7 @@ let
       echo 'ENV{LD_LIBRARY_PATH}="${extraUtils}/lib"' > $out/00-env.rules
 
       cp -v ${udev}/lib/udev/rules.d/60-cdrom_id.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/60-fido-id.rules $out/
       cp -v ${udev}/lib/udev/rules.d/60-persistent-storage.rules $out/
       cp -v ${udev}/lib/udev/rules.d/80-drivers.rules $out/
       cp -v ${pkgs.lvm2}/lib/udev/rules.d/*.rules $out/
@@ -217,6 +218,7 @@ let
             --replace ata_id ${extraUtils}/bin/ata_id \
             --replace scsi_id ${extraUtils}/bin/scsi_id \
             --replace cdrom_id ${extraUtils}/bin/cdrom_id \
+            --replace fido_id ${extraUtils}/bin/fido_id \
             --replace ${pkgs.coreutils}/bin/basename ${extraUtils}/bin/basename \
             --replace ${pkgs.utillinux}/bin/blkid ${extraUtils}/bin/blkid \
             --replace ${pkgs.lvm2}/sbin ${extraUtils}/bin \

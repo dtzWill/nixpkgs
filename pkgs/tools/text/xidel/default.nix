@@ -1,25 +1,25 @@
 { stdenv, fetchurl, dpkg }:
 
 stdenv.mkDerivation rec {
-  name = "xidel-${version}";
-  version = "0.9.6";
+  pname = "xidel";
+  version = "0.9.8";
 
   ## Source archive lacks file (manageUtils.sh), using pre-built package for now.
   #src = fetchurl {
-  #  url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/${name}.src.tar.gz";
-  #  sha256 = "1h5xn16lgzx0s94iyhxa50lk05yf0af44nzm5w5k57615nd82kz2";
+  #  url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/${pname}-${version}.src.tar.gz";
+  #  sha256 = "177k59bg3smxpx8m2i5m6csqxhm6qrdw8s7264cad824zjib3dbj";
   #};
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
         url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_amd64.deb";
-        sha256 = "0hskc74y7p4j1x33yx0w4fvr610p2yimas8pxhr6bs7mb9b300h7";
+        sha256 = "0sazjbva8m41qi6g3pkhnkpgksmkagb0ni43hgimlzalfydy59pn";
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
         url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_i386.deb";
-        sha256 = "07yk5sk1p4jm0jmgjwdm2wq8d2wybi1wkn1qq5j5y03z1pdc3fi6";
+        sha256 = "0b3bw7sfhzby6dsi6867b2r4d89rcmky4xqgykqhwhys28jw0ac3";
       }
     else throw "xidel is not supported on ${stdenv.hostPlatform.system}";
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out/bin"
     cp -a usr/* "$out/"
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$out/bin/xidel"
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} "$out/bin/xidel"
   '';
 
   meta = with stdenv.lib; {

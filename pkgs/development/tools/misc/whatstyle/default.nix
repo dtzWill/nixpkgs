@@ -10,13 +10,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "08lfd8h5fnvy5gci4f3an411cypad7p2yiahvbmlp51r9xwpaiwr";
   };
 
-  patches = [ ./support-clang8-options.patch ];
-
-  # Fix references to previous version, to avoid confusion:
-  postPatch = ''
-    substituteInPlace setup.py --replace 0.1.6 ${version}
-    substituteInPlace ${pname}.py --replace 0.1.6 ${version}
-  '';
+  patches = [
+    ./support-clang8-options.patch
+    ./support-clang9-clang10ish.patch
+  ];
 
   checkInputs = [ clang-unwrapped /* clang-format */ ];
 

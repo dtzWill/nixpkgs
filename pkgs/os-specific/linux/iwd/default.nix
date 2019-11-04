@@ -5,14 +5,13 @@
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  #version = "0.23";
-  version = "2019-10-24";
+  version = "1.0";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    #rev = version;
-    rev = "aa13f5458ddc0aca1e997c8c780392f3bdd7eeba";
-    sha256 = "06jvz2893q6qlbbjdjj0vdnhjmw08rpscdxm9w71f59ndiywcdsk";
+    rev = version;
+    #rev = "480d678a85cbcd1f10ee1b3a2d81d350b7993af7";
+    sha256 = "0z3cpy2847grl659d1w4whnasnpdmb5rjkwgx1ciqb18l5figgdf";
   };
 
   nativeBuildInputs = [
@@ -45,12 +44,17 @@ stdenv.mkDerivation rec {
     "--enable-external-ell"
     "--enable-ofono"
 
+    # XXX: ?!
+    # iwd wants to disable persistent naming, via installed .link?
+    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/system/"
+
     "--enable-debug"
     "--enable-asan"
     "--enable-ubsan"
   ];
 
-  separateDebugInfo = true;
+  #separateDebugInfo = true;
+  dontStrip = true; # leave
 
   postUnpack = ''
     patchShebangs .
@@ -60,9 +64,6 @@ stdenv.mkDerivation rec {
     # Fix write past end of buffer in certain circumstances
     # ... circumstances I encounter often, thanks neighbors ;)
     ./completion-crash-fix-wip.patch
-
-    # Most immediately this is needed to appease the sanitizers :o)
-    ./fix-memcpy-zero-from-null-ub.patch
   ];
 
   doCheck = true;

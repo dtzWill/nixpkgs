@@ -1,0 +1,25 @@
+From 359f1810cf550d4ef1ec191f6e4b04bf94b54548 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 20 Sep 2019 19:50:48 -0500
+Subject: [PATCH] quickfix for IWD SAE?
+
+---
+ src/devices/wifi/nm-wifi-utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/devices/wifi/nm-wifi-utils.c b/src/devices/wifi/nm-wifi-utils.c
+index b9b7ec42e..4bded3bb9 100644
+--- a/src/devices/wifi/nm-wifi-utils.c
++++ b/src/devices/wifi/nm-wifi-utils.c
+@@ -858,7 +858,7 @@ nm_wifi_connection_get_iwd_security (NMConnection *connection,
+ 	if (NM_IN_STRSET (key_mgmt, "none", "ieee8021x"))
+ 		return NM_IWD_NETWORK_SECURITY_WEP;
+ 
+-	if (nm_streq (key_mgmt, "wpa-psk"))
++	if (NM_IN_STRSET(key_mgmt, "wpa-psk", "sae"))
+ 		return NM_IWD_NETWORK_SECURITY_PSK;
+ 
+ 	if (nm_streq (key_mgmt, "wpa-eap"))
+-- 
+2.23.0
+

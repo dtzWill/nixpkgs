@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "scite";
-  version = "4.1.7";
+  version = "4.2.1";
 
   src = fetchurl {
     url = "https://www.scintilla.org/scite${builtins.replaceStrings ["."][""] version}.tgz";
-    sha256 = "15jchd9hgwnyf536vkp5qp23ascj42d0zc1xapgl0r052p3a9h4g";
+    sha256 = "1wzxw060y3xzgycxdk3fvcpabar42m0s63ggm78vbvdibnshswxa";
   };
 
   nativeBuildInputs = [ pkgconfig wrapGAppsHook ];

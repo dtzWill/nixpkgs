@@ -1,17 +1,8 @@
-From 19b9ffc9ee1ca09b50a6c340ec24958f89056d9c Mon Sep 17 00:00:00 2001
-From: Will Dietz <w@wdtz.org>
-Date: Tue, 28 Mar 2017 15:01:16 -0500
-Subject: [PATCH 1/4] build-presets: (linux) don't require using Ninja
+Don't build Ninja, we use our own.
 
----
- utils/build-presets.ini | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/utils/build-presets.ini b/utils/build-presets.ini
-index 16d0321bd8..a9e15c9e27 100644
 --- a/utils/build-presets.ini
 +++ b/utils/build-presets.ini
-@@ -745,7 +745,7 @@ libcxx
+@@ -745,7 +745,7 @@ swiftpm
  
  dash-dash
  
@@ -20,6 +11,3 @@ index 16d0321bd8..a9e15c9e27 100644
  install-swift
  install-lldb
  install-llbuild
--- 
-2.24.0-rc0
-

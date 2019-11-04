@@ -202,6 +202,7 @@ mapAliases ({
   man_db = man-db; # added 2016-05
   manpages = man-pages; # added 2015-12-06
   mariadb-client = hiPrio mariadb.client; #added 2019.07.28
+  mess = mame; # added 2019-10-30
   mysql-client = hiPrio mariadb.client;
   memtest86 = memtest86plus; # added 2019-05-08
   mesa_noglu = mesa; # added 2019-05-28
@@ -283,6 +284,11 @@ mapAliases ({
   pg_hll = postgresqlPackages.pg_hll;
   pg_cron = postgresqlPackages.pg_cron;
   pg_topn = postgresqlPackages.pg_topn;
+  pinentry_curses = pinentry-curses; # added 2019-10-14
+  pinentry_emacs = pinentry-emacs; # added 2019-10-14
+  pinentry_gtk2 = pinentry-gtk2; # added 2019-10-14
+  pinentry_qt = pinentry-qt; # added 2019-10-14
+  pinentry_gnome = pinentry-gnome; # added 2019-10-14
   postgis = postgresqlPackages.postgis;
   # end
   ppl-address-book = throw "deprecated in 2019-05-02: abandoned by upstream.";
@@ -323,6 +329,7 @@ mapAliases ({
   sapic = throw "deprecated 2019-1-19: sapic is bundled with 'tamarin-prover' now";
   scim = sc-im; # added 2016-01-22
   scollector = bosun; # added 2018-04-25
+  sdlmame = mame; # added 2019-10-30
   shared_mime_info = shared-mime-info; # added 2018-02-25
   skrooge2 = skrooge; # added 2017-02-18
   skype = skypeforlinux; # added 2017-07-27
@@ -379,6 +386,8 @@ mapAliases ({
   vimbWrapper = vimb; # added 2015-01
   vimprobable2Wrapper = vimprobable2; # added 2015-01
   virtviewer = virt-viewer; # added 2015-12-24
+  virtmanager = virt-manager; # added 2019-10-29
+  virtmanager-qt = virt-manager-qt; # added 2019-10-29
   vorbisTools = vorbis-tools; # added 2016-01-26
   webkit = webkitgtk; # added 2019-03-05
   weechat-xmpp = weechatScripts.weechat-xmpp; # added 2018-09-06
@@ -442,4 +451,8 @@ mapAliases ({
   ocaml_4_01_0 = ocamlPackages_4_01_0.ocaml;
   ocaml_4_02   = ocamlPackages_4_02.ocaml;
   ocaml_4_03   = ocamlPackages_4_03.ocaml;
-}))
+}) // {
+
+  # added 2019-10-28
+  gnatsd = nats-server;
+})

@@ -14,14 +14,14 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "unstable-2019-10-23";
+  version = "unstable-2019-11-03";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "01920d3d523795c6f2917007bbf471ac28603371";
-    sha256 = "1mjxxfkrgki7znwgi63yp795xyg5d4payh4798dgv13c4vrfbwc1";
+    rev = "4e34807a8cfd4e6e6314ec75a6e34646b89fad3f";
+    sha256 = "18qnba2vznzpz25z1cyz0a273n713f8jsfr21wb8263v7p3z24w9";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -78,6 +78,8 @@ in stdenv.mkDerivation rec {
     ./fix-install-paths.patch
 
     ./fix-build-with-tests-disabled.patch
+
+    # ./iwd-sae.patch
   ];
 
   buildInputs = [

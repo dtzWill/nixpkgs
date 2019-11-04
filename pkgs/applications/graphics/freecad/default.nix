@@ -8,12 +8,12 @@ assert mpi != null;
 let
   pythonPackages = python3Packages;
 in mkDerivation rec {
-  name = "freecad-${version}";
-  version = "0.18.3";
+  pname = "freecad";
+  version = "0.18.4";
 
   src = fetchurl {
     url = "https://github.com/FreeCAD/FreeCAD/archive/${version}.tar.gz";
-    sha256 = "07j7azgnicmd8cqnyskp15y44ykgj5qqz5y3w1jdynrv3yrvk1kz";
+    sha256 = "1lpzxpfzgn7vfh46wv558raqxkhjw2dc8s6g02d9if1igd2cw32f";
   };
 
   nativeBuildInputs = [ cmake ninja pkgconfig pythonPackages.pyside2-tools ];

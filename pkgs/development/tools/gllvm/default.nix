@@ -1,16 +1,16 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
-  name = "gllvm-${version}";
-  version = "1.2.4";
+  pname = "gllvm";
+  version = "1.2.5";
 
   goPackagePath = "github.com/SRI-CSL/gllvm";
 
   src = fetchFromGitHub {
     owner = "SRI-CSL";
-    repo = "gllvm";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1m3v69mns7rxb1n4rm05hmxlkccj27s7vkrv70fycciwi3ji3wrh";
+    sha256 = "0sq9p4fi3qjaf6irjmm99zif831ccypmrp18qs33pm8y5kjm3x0x";
   };
 
   meta = with stdenv.lib; {

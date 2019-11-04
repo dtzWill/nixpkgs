@@ -1,10 +1,10 @@
 { stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip, gettext
 , IOCompress, zlib, libjpeg, expat, freetype, libwpd
 , libxml2, db, sablotron, curl, fontconfig, libsndfile, neon
-, bison, flex, zip, unzip, gtk3, gtk2, libmspack, getopt, file, cairo, which
+, bison, flex, zip, unzip, gtk3, libmspack, getopt, file, cairo, which
 , icu, boost, jdk, ant, cups, xorg, libcmis, fontforge
-, openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux
-, librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, libmysqlclient
+, openssl, gperf, cppunit, poppler, utillinux
+, librsvg, gvfs, libGLU_combined, bsh, CoinMP, libwps, libabw, libmysqlclient
 , autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr
 , libwpg, dbus-glib, clucene_core, libcdr, lcms, vigra
 , unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio
@@ -13,12 +13,14 @@
 , librevenge, libe-book, libmwaw, glm, glew, gst_all_1
 , gdb, commonsLogging, librdf_rasqal, wrapGAppsHook
 , gnome3, glib, gobject-introspection, ncurses, epoxy, gpgme, gnupg, liblangtag
+, mkDerivation
 , qtbase, qmake, qtx11extras
 #  https://dev.gentoo.org/~asturm/distfiles/libreoffice-6.2.3.2-patchset-01.tar.xz 
 , langs ? [ "ca" "cs" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "ru" "sl" "zh-CN" ]
 , withHelp ? true
 , kdeIntegration ? false
 # kde5! Add deps, maybe these: https://github.com/KDAB/libreoffice-core/blob/master/configure.ac#L10913 or so
+, kcoreaddons, ki18n, kconfig, kwindowsystem, kio
 }:
 
 let
@@ -58,19 +60,20 @@ let
 
     translations = fetchSrc {
       name = "translations";
-      sha256 = "0730fw2kr00b2d56jkdzjdz49c4k4mxiz879c7ikw59c5zvrh009";
+      sha256 = "1yxjhj7hy73lwsg8yyvz0hwr4kla2ji8kawd4xyqxj4xg85pc6vj";
     };
 
     # TODO: dictionaries
 
     help = fetchSrc {
       name = "help";
-      sha256 = "1w9bqwzz75vvxxy9dgln0v6p6isf8mkqnkg1nzlaykvdgsn5sp4z";
+      sha256 = "1zizqrdg12905i2gbzj7fgdac0bsrhf2nicab0pmkgw3cc5ld0xb";
     };
 
   };
-in stdenv.mkDerivation rec {
-  name = "libreoffice-${version}";
+in mkDerivation rec {
+  pname = "libreoffice";
+  inherit version;
 
   inherit (primary-src) src;
 
@@ -112,8 +115,8 @@ in stdenv.mkDerivation rec {
   '';
 
   #QT4DIR = qt4;
-  QT5DIR = qtbase;
-  QT_SELECT = "5";
+  # QT5DIR = qtbase;
+  # QT_SELECT = "5";
   # MOC5 = "${qtbase.dev}/bin/moc";
   # dontUseQmakeConfigure = true;
 
@@ -303,7 +306,11 @@ in stdenv.mkDerivation rec {
     "--disable-report-builder"
     "--disable-online-update"
     "--enable-python=system"
-    #"--enable-qt4"
+    # "--enable-qt5" # TODO: configure claims can't find qt5 headers...
+    "--disable-gtk" # gtk2
+    "--enable-gtk3"
+    "--enable-dconf"
+    "--enable-gio"
     "--enable-dbus"
     "--enable-cairo-canvas"
     "--with-tls=nss"
@@ -380,21 +387,23 @@ in stdenv.mkDerivation rec {
   buildInputs = with xorg;
     [ ant ArchiveZip boost cairo clucene_core
       IOCompress cppunit cups curl db dbus-glib expat file flex fontconfig
-      freetype GConf getopt gnome_vfs gperf gtk3 gtk2
+      freetype getopt gvfs gperf gtk3 gnome3.dconf
       qtbase qtx11extras
       hunspell icu jdk lcms libcdr libexttextcat unixODBC libjpeg
       libmspack librdf_redland librsvg libsndfile libvisio libwpd libwpg libX11
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
       libXdmcp libpthreadstubs libGLU_combined mythes gst_all_1.gstreamer
       gst_all_1.gst-plugins-base glib gobject-introspection libmysqlclient
-      neon nspr nss openldap openssl ORBit2 pam perl pkgconfig poppler
+      neon nspr nss openldap openssl pam perl pkgconfig poppler
       python3 sablotron sane-backends unzip vigra which zip zlib
       mdds bluez5 libcmis libwps libabw libzmf libtool
       libxshmfence libatomic_ops graphite2 harfbuzz gpgme gnupg utillinux
       librevenge libe-book libmwaw glm glew ncurses epoxy liblangtag
       libodfgen CoinMP librdf_rasqal gnome3.adwaita-icon-theme gettext
     ]
-    ++ lib.optional kdeIntegration kdelibs4;
+    ++ lib.optional kdeIntegration [
+      kcoreaddons ki18n kconfig kwindowsystem kio
+    ];
 
   passthru = {
     inherit srcs jdk;

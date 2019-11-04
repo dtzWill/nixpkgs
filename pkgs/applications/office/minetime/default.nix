@@ -1,15 +1,32 @@
-{ appimageTools, fetchurl, lib, gsettings-desktop-schemas, gtk3 }:
+{ appimageTools, fetchurl, lib, runCommandNoCC, stdenv, gsettings-desktop-schemas, gtk3, zlib }:
 
 let
-  pname = "minetime";
-  version = "1.6.3";
-in
-appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
-  src = fetchurl {
+  pname = "minetime";
+  version = "1.6.4";
+  appimage = fetchurl {
     url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}.AppImage";
-    sha256 = "1xnvahjxb4zwnxfmfk92fjh6fabxd18pczpw6195l37nc9cavk0g";
+    sha256 = "1151cpa4z8zahmw8wy0rlm1gy75hg3jjlla2jrxq3mgps07awjm5";
   };
+  extracted = appimageTools.extractType2 {
+    inherit name;
+    src = appimage;
+  };
+  patched = runCommandNoCC "minetime-patchelf" {} ''
+    cp -av ${extracted} $out
+
+    x=$out/resources/app.asar.unpacked/services/scheduling/dist/MinetimeSchedulingService
+    chmod +w $x
+
+    patchelf \
+      --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+      --replace-needed libz.so.1 ${zlib}/lib/libz.so.1 \
+      $x
+  '';
+in
+appimageTools.wrapAppImage rec {
+  inherit name;
+  src = patched;
 
   profile = ''
     export LC_ALL=C.UTF-8

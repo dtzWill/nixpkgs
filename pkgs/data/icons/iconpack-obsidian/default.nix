@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, gtk3, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
-  name = "iconpack-obsidian-${version}";
-  version = "4.8";
+  pname = "iconpack-obsidian";
+  version = "4.9";
 
   src = fetchFromGitHub {
     owner = "madmaxms";
-    repo = "iconpack-obsidian";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "169inxprlwmhzlhknjgpraqdpwv2wi99rakqi5yhhqnqgyf4m4y3";
+    sha256 = "1w0lnr08gd0cnzv3n5094jqb7dpbpwwizfhvifdir0xsls1sf129";
   };
 
   nativeBuildInputs = [ gtk3 ];

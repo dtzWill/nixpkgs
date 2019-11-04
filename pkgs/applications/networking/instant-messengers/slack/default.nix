@@ -1,16 +1,17 @@
 { theme ? null, stdenv, fetchurl, dpkg, makeWrapper , alsaLib, atk, cairo,
 cups, curl, dbus, expat, fontconfig, freetype, glib , gnome2, gtk3, gdk-pixbuf,
 /* libappindicator-gtk3 ,*/ libnotify, libxcb, nspr, nss, pango , systemd, xorg,
-at-spi2-atk, libuuid, nodePackages
+at-spi2-atk, at-spi2-core, libuuid, nodePackages
 }:
 
 let
 
-  version = "4.0.2";
+  version = "4.1.1";
 
   rpath = stdenv.lib.makeLibraryPath [
     alsaLib
     at-spi2-atk
+    at-spi2-core
     atk
     cairo
     cups
@@ -51,7 +52,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
         url = "https://downloads.slack-edge.com/linux_releases/slack-desktop-${version}-amd64.deb";
-        sha256 = "053j5py16ilpwy868rhh5l2g93xj1fq4fwxrsi2bkfsnmq261hkm";
+        sha256 = "1nffs5vswplyj39gqc253pg329br2rinxqv4dhdaz7qpm4laz11f";
       }
     else
       throw "Slack is not supported on ${stdenv.hostPlatform.system}";
@@ -70,7 +71,9 @@ in stdenv.mkDerivation {
   dontUnpack = true;
   buildCommand = ''
     mkdir -p $out
-    dpkg -x $src $out
+    ar x $src
+    tar xvf data.tar.xz -C $out
+
     cp -av $out/usr/* $out
     rm -rf $out/etc $out/usr $out/share/lintian
 

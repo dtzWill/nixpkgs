@@ -1,7 +1,7 @@
 From df7ee10d9812897b297c67fde29f0b134ffba3ec Mon Sep 17 00:00:00 2001
 From: Adam Jackson <ajax@redhat.com>
 Date: Mon, 15 Jul 2019 11:38:44 -0400
-Subject: [PATCH 09/20] xwayland: Expand the RANDR screen size limits
+Subject: [PATCH 09/30] xwayland: Expand the RANDR screen size limits
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -32,5 +32,5 @@ index 9d33ed862..aa6f37864 100644
      rp = rrGetScrPriv(xwl_screen->screen);
      rp->rrGetInfo = xwl_randr_get_info;
 -- 
-2.23.GIT
+2.24.0-rc2
 

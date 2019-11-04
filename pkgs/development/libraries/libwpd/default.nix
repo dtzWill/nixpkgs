@@ -1,14 +1,15 @@
-{ stdenv, fetchurl, zlib, pkgconfig, glib, libgsf, libxml2, librevenge }:
+{ stdenv, fetchurl, zlib, pkgconfig, glib, libgsf, libxml2, librevenge, boost }:
 
 stdenv.mkDerivation rec {
-  name = "libwpd-0.10.0";
+  pname = "libwpd";
+  version = "0.10.3";
   
   src = fetchurl {
-    url = "mirror://sourceforge/libwpd/${name}.tar.xz";
-    sha256 = "0b6krzr6kxzm89g6bapn805kdayq70hn16n5b5wfs2lwrf0ag2wx";
+    url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.xz";
+    sha256 = "02fx8bngslcj7i5g1gx2kiign4vp09wrmp5wpvix9igxcavb0r94";
   };
   
-  buildInputs = [ glib libgsf libxml2 zlib librevenge ];
+  buildInputs = [ glib libgsf libxml2 zlib librevenge boost ];
 
   nativeBuildInputs = [ pkgconfig ];
 

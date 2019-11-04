@@ -1,11 +1,11 @@
 { stdenv, fetchFromGitHub, cmake, boost, curl, leatherman }:
 
 stdenv.mkDerivation rec {
-  name = "libwhereami-${version}";
-  version = "0.2.2";
+  pname = "libwhereami";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
-    sha256 = "084n153jaq8fmhjififk0xlx1d1i3lclnw2j3ly8bixvc392vzly";
+    sha256 = "16xjb6zp60ma76aa3kq3q8i8zn0n61gf39fny12cny8nggwjpbww";
     rev = version;
     repo = "libwhereami";
     owner = "puppetlabs";

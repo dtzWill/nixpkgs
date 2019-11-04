@@ -1,0 +1,45 @@
+From: Ben Caradoc-Davies <ben@transient.nz>
+To: Debian Bug Tracking System <submit@bugs.debian.org>
+Date: Fri, 20 Apr 2018 10:51:10 +1200
+Subject: Bug#896132: thermald uninitialised member causes loss of temperature control
+
+Package: thermald
+Version: 1.7.0-5
+Severity: critical
+Tags: patch
+Justification: breaks the whole system
+
+Dear Maintainer,
+
+0002-Don-t-keep-on-reading-a-sensor-if-the-temperature-is.patch, added in
+1.7.0-5,
+introduces a new cthd_sensor data member temp_unreadable but fails to
+initialise it.
+This causes nondeterministic behaviour. If any bits of the uninitialised
+boolean are
+nonzero, it will be evaluate to true, and the sensor will be silently disabled,
+causing loss of temperature control.
+
+This bug is critical because loss of temperature control risks physical
+hardware damage.
+
+Attached patch initialises temp_unreadable to restore temperature control.
+
+Kind regards,
+Ben.
+
+---
+
+Index: thermald-1.8.0/src/thd_sensor.cpp
+===================================================================
+--- thermald-1.8.0.orig/src/thd_sensor.cpp
++++ thermald-1.8.0/src/thd_sensor.cpp
+@@ -29,7 +29,7 @@ cthd_sensor::cthd_sensor(int _index, std
+ 		std::string _type_str, int _type) :
+ 		index(_index), type(_type), sensor_sysfs(control_path.c_str()), sensor_active(
+ 				false), type_str(_type_str), async_capable(false), virtual_sensor(
+-				false), thresholds(0), scale(1) {
++				false), temp_unreadable(false), thresholds(0), scale(1) {
+ 
+ }
+ 

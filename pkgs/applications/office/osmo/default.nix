@@ -1,16 +1,17 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, libxml2, gettext, libical, libnotify
-, libarchive, gspell, webkitgtk, libgringotts, wrapGAppsHook }:
+{ stdenv, fetchgit, pkgconfig, gtk3, libxml2, gettext, libical, libnotify
+, libarchive, gspell, webkitgtk, libgringotts, wrapGAppsHook, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  name = "osmo-${version}";
-  version = "0.4.2";
+  name = "osmo";
+  version = "0.4.2-git";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/osmo-pim/${name}.tar.gz";
-    sha256 = "1gjd4w9jckfpqr9n0bw0w25h3qhfyzw1xvilh3hqdadfinwyal2v";
+  src = fetchgit {
+    #url = "mirror://sourceforge/osmo-pim/${name}.tar.gz";
+    url = "https://git.code.sf.net/p/osmo-pim/osmo";
+    sha256 = "0gvcscnn441sm309h30simy4s4n83h2f01a7siaizspw4n9ldk1l";
   };
 
-  nativeBuildInputs = [ pkgconfig gettext wrapGAppsHook ];
+  nativeBuildInputs = [ pkgconfig gettext wrapGAppsHook autoreconfHook ];
   buildInputs = [ gtk3 libxml2 libical libnotify libarchive
     gspell webkitgtk libgringotts ];
 

@@ -1,10 +1,10 @@
-{ stdenv, fetchurl
+{ stdenv, fetchurl, fetchpatch
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
 , perl, perlPackages, pkgconfig, autoreconfHook
 , poppler, libpaper, graphite2, zziplib, harfbuzz, potrace, gmp, mpfr
-, cairo, pixman, xorg, clisp, biber
+, cairo, pixman, xorg, clisp, biber, xxHash
 , makeWrapper, shortenPerlShebang
 }:
 
@@ -15,54 +15,40 @@ let
   withSystemLibs = map (libname: "--with-system-${libname}");
 
   year = "2019";
-  snapshot = year + "0410";
   version = year; # keep names simple for now
 
-  common = rec {
+  common = {
     src = fetchurl {
       urls = [
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${snapshot}-source.tar.xz"
-              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${snapshot}-source.tar.xz"
+        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
+              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
       ];
       sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
     };
 
     patches = [
-      #(fetchurl {
-      #  name = "poppler-compat-fixes-up-to-0.70.patch";
-      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/poppler-compat-fixes-up-to-0.70.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-      #  sha256 = "0a8bvyl7v6zlyyg3ycl0dmg2g2qahxlq3qmc1nv33r24anzb8xhs";
-      #})
-      #(fetchurl {
-      #  name = "luatex-poppler-0.70-const-fixes.patch";
-      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/luatex-poppler-0.70-const-fixes.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-      #  sha256 = "0yiw2x97whdi23dc10xnqpxqj3aja15alir1byp1y03j60zv5n7i";
-      #})
-      #(fetchurl {
-      #  name = "texlive-poppler-0.71.patch";
-      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/texlive-poppler-0.71.patch?h=packages/texlive-bin&id=85ee0539525d8012f134b76c18dfb10d0837a7e2;
-      #  sha256 = "164wibyf786gdcb0ij4svsmyi13wvcx0cpdr4flki0lpy3igvlnq";
-      #})
-      #(fetchurl {
-      #  name = "synctex-missing-header.patch";
-      #  url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/synctex-missing-header.patch?h=packages/texlive-bin&id=da56abf0f8a1e85daca0ec0f031b8fa268519e6b;
-      #  sha256 = "1c4aq8lk8g3mlfq3mdjnxvmhss3qs7nni5rmw0k054dmj6q1xj5n";
-      #})
+    ] ++ stdenv.lib.optionals (stdenv.lib.versionAtLeast (stdenv.lib.getVersion poppler) "0.76") [
+      (fetchpatch {
+        name = "pdftex-poppler0.76.patch";
+        url = "https://git.archlinux.org/svntogit/packages.git/plain/texlive-bin/trunk/pdftex-poppler0.76.patch?id=8cb784073cfd2299a6c301ce7bb0d89126a47f4e";
+        sha256 = "04x7myzysranddzjifxhahl7gjy407zkiyzfs5l9cbwzp6pqh7gh";
 
-      ./support-system-poppler-0.79.patch
-      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
+        includes = [
+          "texk/web2c/pdftexdir/pdftoepdf-poppler0.76.0.cc"
+          "texk/web2c/pdftexdir/pdftosrc-poppler0.76.0.cc"
+        ];
+      })
     ];
 
-    postPatch = ''
+    postPatch = let
+      popplerSuffix = if (stdenv.lib.versionAtLeast (stdenv.lib.getVersion poppler) "0.76") then "-poppler0.76.0" else "-poppler0.72.0";
+    in ''
       for i in texk/kpathsea/mktex*; do
         sed -i '/^mydir=/d' "$i"
       done
-      cp -pv texk/web2c/pdftexdir/pdftoepdf{-poppler0.79.0,}.cc
-      cp -pv texk/web2c/pdftexdir/pdftosrc{-poppler0.79.0,}.cc
-      '';
-#      # fix build with poppler 0.71
-#      find texk/web2c/{lua,pdf}texdir -type f | xargs sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -e 's|getCString|c_str|g' -e 's|Gulong|unsigned long|g' -e 's|Guint|unsigned int|g' -e 's|Gushort|unsigned short|g' -e 's|Guchar|unsigned char|g' -i
-#    '';
+      cp -pv texk/web2c/pdftexdir/pdftoepdf{${popplerSuffix},}.cc
+      cp -pv texk/web2c/pdftexdir/pdftosrc{${popplerSuffix},}.cc
+    '';
 
     # remove when removing synctex-missing-header.patch
     preAutoreconf = "pushd texk/web2c";
@@ -96,7 +82,8 @@ texliveYear = year;
 
 
 core = stdenv.mkDerivation rec {
-  name = "texlive-bin-${version}";
+  pname = "texlive-bin";
+  inherit version;
 
   inherit (common) src patches postPatch preAutoreconf postAutoreconf;
 
@@ -105,7 +92,7 @@ core = stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
   buildInputs = [
     /*teckit*/ zziplib poppler mpfr gmp
-    pixman potrace gd freetype libpng libpaper zlib
+    pixman gd freetype libpng libpaper zlib
     perl
   ];
 
@@ -188,7 +175,8 @@ core = stdenv.mkDerivation rec {
 
 inherit (core-big) metafont metapost luatex xetex;
 core-big = stdenv.mkDerivation { #TODO: upmendex
-  name = "texlive-core-big.bin-${version}";
+  pname = "texlive-core-big.bin";
+  inherit version;
 
   inherit (common) src patches postPatch preAutoreconf postAutoreconf;
 
@@ -202,8 +190,6 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
     ++ map (prog: "--disable-${prog}") # don't build things we already have
       [ "tex" "ptex" "eptex" "uptex" "euptex" "aleph" "pdftex"
         "web-progs" "synctex"
-        # build fails on Darwin with luatex53
-        "luatex53" # TODO probably can be removed when TexLive 2019 is out
         # luajittex is mostly not needed, see:
         # http://tex.stackexchange.com/questions/97999/when-to-use-luajittex-in-favour-of-luatex
         "luajittex" "mfluajit"
@@ -214,7 +200,6 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
   # we use static libtexlua, because it's only used by a single binary
   postConfigure = ''
     mkdir ./WorkDir && cd ./WorkDir
-    # TODO add lua53 here when luatex53 is enabled again
     for path in libs/{teckit,lua53} texk/web2c; do
       (
         if [[ "$path" =~ "libs/lua5" ]]; then
@@ -251,36 +236,44 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
 
 
 dvisvgm = stdenv.mkDerivation {
-  name = "texlive-dvisvgm.bin-${version}";
+  pname = "texlive-dvisvgm.bin";
+  inherit version;
 
   inherit (common) src;
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ core/*kpathsea*/ ghostscript zlib freetype potrace ];
+  # TODO: dvisvgm still uses vendored dependencies
+  buildInputs = [ core/*kpathsea*/ ghostscript zlib freetype potrace xxHash ];
 
   preConfigure = "cd texk/dvisvgm";
 
-  configureFlags = common.configureFlags
-    ++ [ "--with-system-kpathsea" /* "--enable-bundled-libs" "--enable-static=no"*/ /*"--with-gs=yes" "--with-system-libgs" "--disable-debug"*/ ];
+  # configure script has a bug: it refers to $HAVE_LIBGS but sets $have_libgs
+  # TODO: remove for texlive 2020?
+  HAVE_LIBGS = 1;
 
-  NIX_CFLAGS_LINK = [ "-ldl" "-lgs" ];
+  configureFlags = common.configureFlags
+    ++ [ "--with-system-kpathsea" ];
 
   enableParallelBuilding = true;
 };
 
 
 dvipng = stdenv.mkDerivation {
-  name = "texlive-dvipng.bin-${version}";
+  pname = "texlive-dvipng.bin";
+  inherit version;
 
   inherit (common) src;
 
-  nativeBuildInputs = [ pkgconfig perl ];
+  nativeBuildInputs = [ perl pkgconfig ];
   buildInputs = [ core/*kpathsea*/ zlib libpng freetype gd ghostscript makeWrapper ];
 
-  preConfigure = "cd texk/dvipng; patchShebangs .";
+  preConfigure = ''
+    cd texk/dvipng
+    patchShebangs doc/texi2pod.pl
+  '';
 
   configureFlags = common.configureFlags
-    ++ [ "--with-system-kpathsea" "--with-gs=yes" "--with-system-libgs" "--disable-debug" ];
+    ++ [ "--with-system-kpathsea" "--with-gs=yes" "--disable-debug" ];
 
   enableParallelBuilding = true;
 
@@ -325,7 +318,8 @@ latexindent = perlPackages.buildPerlPackage rec {
 inherit biber;
 bibtexu = bibtex8;
 bibtex8 = stdenv.mkDerivation {
-  name = "texlive-bibtex-x.bin-${version}";
+  pname = "texlive-bibtex-x.bin";
+  inherit version;
 
   inherit (common) src;
 
@@ -342,7 +336,8 @@ bibtex8 = stdenv.mkDerivation {
 
 
 xdvi = stdenv.mkDerivation {
-  name = "texlive-xdvi.bin-${version}";
+  pname = "texlive-xdvi.bin";
+  inherit version;
 
   inherit (common) src;
 
@@ -370,7 +365,8 @@ xdvi = stdenv.mkDerivation {
 {
 
 xindy = stdenv.mkDerivation {
-  name = "texlive-xindy.bin-${version}";
+  pname = "texlive-xindy.bin";
+  inherit version;
 
   inherit (common) src;
 

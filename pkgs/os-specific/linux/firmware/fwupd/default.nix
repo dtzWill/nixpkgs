@@ -9,6 +9,7 @@
 , plymouth /* offline */
 , diffutils
 , nixosTests
+, which
 }:
 
 let
@@ -38,25 +39,25 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "unstable-2019-10-15";
+  version = "1.3.3";
 
   #version = "2019-09-06";
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "01475832083b5a7a72221020004c0bba73bad1e5";
-    sha256 = "0asxhha4fvkkhljw0604gqa420b1h0z914jv5fr5hnv1f5g4xzv8";
-  };
-  #src = fetchurl {
-  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-  #  sha256 = "07l9cprnd9zkv2pjwaprihr8fczjk85lsrs9nq6qdc5n81hjp99k";
+  #src = fetchFromGitHub {
+  #  owner = pname;
+  #  repo = pname;
+  #  rev = "refs/tags/${version}";
+  #  sha256 = "01nawbf5hs4571362g7pdljxjs7szz6lqcj08xbj9xbmli772yss";
   #};
+  src = fetchurl {
+    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+    sha256 = "0nqzqvx8nzflhb4kzvkdcv7kixb50vh6h21kpkd7pjxp942ndzql";
+  };
 
   outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
   nativeBuildInputs = [
     meson ninja pkgconfig gobject-introspection intltool shared-mime-info
-    valgrind gcab help2man python wrapGAppsHook vala
+    valgrind gcab help2man python wrapGAppsHook vala which
   ];
 
   buildInputs = [
@@ -123,6 +124,10 @@ in stdenv.mkDerivation rec {
       "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'" \
       \
       --replace "subdir('builder')" ""
+
+    substituteInPlace meson.build --replace \
+      "systemd.get_pkgconfig_variable('systemdsystempresetdir')" \
+      "'${placeholder "out"}/lib/systemd/system-preset'"
 
     echo '#!/bin/sh' > meson_post_install.sh
     chmod +x meson_post_install.sh

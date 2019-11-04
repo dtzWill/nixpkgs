@@ -33,28 +33,17 @@
 }:
 
 let
-  v_base = "5.1.1";
-  version = "${v_base}-RELEASE";
-  version_friendly = "${v_base}";
+  version = "5.1.1";
 
-  tag = "refs/tags/swift-${version}";
   fetch = { repo, sha256, fetchSubmodules ? false }:
     fetchFromGitHub {
       owner = "apple";
       inherit repo sha256 fetchSubmodules;
-      rev = tag;
+      rev = "refs/tags/swift-${version}-RELEASE";
       name = "${repo}-${version}-src";
     };
 
   sources = {
-    clang = fetch {
-      repo = "swift-clang";
-      sha256 = "0n7k6nvzgqp6h6bfqcmna484w90db3zv4sh5rdh89wxyhdz6rk4v";
-    };
-    clang-tools-extra = fetch {
-      repo = "swift-clang-tools-extra";
-      sha256 = "0snp2rpd60z239pr7fxpkj332rkdjhg63adqvqdkjsbrxcqqcgqa";
-    };
     llvm = fetch {
       repo = "swift-llvm";
       sha256 = "00ldd9dby6fl6nk3z17148fvb7g9x4jkn1afx26y51v8rwgm1i7f";
@@ -62,6 +51,22 @@ let
     compilerrt = fetch {
       repo = "swift-compiler-rt";
       sha256 = "1431f74l0n2dxn728qp65nc6hivx88fax1wzfrnrv19y77br05wj";
+    };
+    clang = fetch {
+      repo = "swift-clang";
+      sha256 = "0n7k6nvzgqp6h6bfqcmna484w90db3zv4sh5rdh89wxyhdz6rk4v";
+    };
+    clangtools = fetch {
+      repo = "swift-clang-tools-extra";
+      sha256 = "0snp2rpd60z239pr7fxpkj332rkdjhg63adqvqdkjsbrxcqqcgqa";
+    };
+    indexstore = fetch {
+      repo = "indexstore-db";
+      sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
+    };
+    sourcekit = fetch {
+      repo = "sourcekit-lsp";
+      sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
     };
     cmark = fetch {
       repo = "swift-cmark";
@@ -96,23 +101,6 @@ let
       repo = "swift";
       sha256 = "0m4r1gzrnn0s1c7haqq9dlmvpqxbgbkbdfmq6qaph869wcmvdkvy";
     };
-    libcxx = fetch {
-      repo = "swift-libcxx";
-      sha256 = "01q6m13cqa7d74l2sbci90rwk34ysjn81zb9ikfq8qnhh85rd6vv";
-    };
-    # These likely can be added, however they require a working toolchain
-    # which is what we're primarily creating here.
-    # If build turnaround for this all was faster i'd try accomplishing that
-    # at the end... instead it may be easier to have these as separate expressions
-    # and hope they work just as well as if they were included originally.
-    sourcekit-lsp = fetch {
-      repo = "sourcekit-lsp";
-      sha256 = "0k84ssr1k7grbvpk81rr21ii8csnixn9dp0cga98h6i1gshn8ml4";
-    };
-    indexstore-db = fetch {
-      repo = "indexstore-db";
-      sha256 = "1gwkqkdmpd5hn7555dpdkys0z50yh00hjry2886h6rx7avh5p05n";
-    };
   };
 
   devInputs = [
@@ -135,24 +123,9 @@ let
     "-DGCC_INSTALL_PREFIX=${clang.cc.gcc}"
   ];
 
-  builder = ''
-    # gcc-6.4.0/include/c++/6.4.0/cstdlib:75:15: fatal error: 'stdlib.h' file not found
-    NIX_CFLAGS_COMPILE="$( echo ${clang.default_cxx_stdlib_compile} ) $NIX_CFLAGS_COMPILE"
-    # During the Swift build, a full local LLVM build is performed and the resulting clang is invoked.
-    # This compiler is not using the Nix wrappers, so it needs some help to find things.
-    export NIX_LDFLAGS_BEFORE="-rpath ${clang.cc.gcc.lib}/lib -L${clang.cc.gcc.lib}/lib $NIX_LDFLAGS_BEFORE"
-
-    $SWIFT_SOURCE_ROOT/swift/utils/build-script \
-      --preset=buildbot_linux \
-      installable_package=$INSTALLABLE_PACKAGE \
-      install_prefix=$out \
-      install_destdir=$SWIFT_INSTALL_DIR \
-      extra_cmake_options="${stdenv.lib.concatStringsSep "," cmakeFlags}"'';
-
 in
-stdenv.mkDerivation rec {
-  pname = "swift";
-  version = version_friendly;
+stdenv.mkDerivation {
+  name = "swift-${version}";
 
   nativeBuildInputs = [
     autoconf
@@ -184,33 +157,18 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ]; # for LLDB
 
-  configurePhase = ''
-    cd ..
-
-    export INSTALLABLE_PACKAGE=$PWD/swift.tar.gz
-
-    mkdir build install
-    export SWIFT_BUILD_ROOT=$PWD/build
-    export SWIFT_INSTALL_DIR=$PWD/install
-
-    cd $SWIFT_BUILD_ROOT
-
-    unset CC
-    unset CXX
-
-    export NIX_ENFORCE_PURITY=
-  '';
-
   unpackPhase = ''
     mkdir src
     cd src
     export sourceRoot=$PWD
     export SWIFT_SOURCE_ROOT=$PWD
 
-    cp -r ${sources.clang} clang
-    cp -r ${sources.clang-tools-extra} clang-tools-extra
     cp -r ${sources.llvm} llvm
     cp -r ${sources.compilerrt} compiler-rt
+    cp -r ${sources.clang} clang
+    cp -r ${sources.clangtools} clang-tools-extra
+    cp -r ${sources.indexstore} indexstore-db
+    cp -r ${sources.sourcekit} sourcekit-lsp
     cp -r ${sources.cmark} cmark
     cp -r ${sources.lldb} lldb
     cp -r ${sources.llbuild} llbuild
@@ -219,9 +177,6 @@ stdenv.mkDerivation rec {
     cp -r ${sources.foundation} swift-corelibs-foundation
     cp -r ${sources.libdispatch} swift-corelibs-libdispatch
     cp -r ${sources.swift} swift
-    cp -r ${sources.libcxx} libcxx
-    cp -r ${sources.sourcekit-lsp} sourcekit-lsp
-    cp -r ${sources.indexstore-db} indexstore-db
 
     chmod -R u+w .
   '';
@@ -243,7 +198,6 @@ stdenv.mkDerivation rec {
     substituteInPlace swift/utils/build-script-impl \
       --replace '/usr/include/c++' "${clang.cc.gcc}/include/c++"
     patch -p1 -d swift -i ${./patches/glibc-arch-headers.patch}
-    patch -p1 -d swift -i ${./patches/nothing-too-fancy-yet.patch}
     patch -p1 -d swift -i ${./patches/0001-build-presets-linux-don-t-require-using-Ninja.patch}
     patch -p1 -d swift -i ${./patches/0002-build-presets-linux-allow-custom-install-prefix.patch}
     patch -p1 -d swift -i ${./patches/0003-build-presets-linux-don-t-build-extra-libs.patch}
@@ -260,22 +214,57 @@ stdenv.mkDerivation rec {
       -e 's/^swift-install-components=autolink.*$/\0;editor-integration/'
 
     substituteInPlace clang/lib/Driver/ToolChains/Linux.cpp \
+      --replace 'SysRoot + "/lib' '"${glibc}/lib" "'
+    substituteInPlace clang/lib/Driver/ToolChains/Linux.cpp \
       --replace 'SysRoot + "/usr/lib' '"${glibc}/lib" "'
-    patch -p1 -d clang -i ${./patches/llvm-include-dirs.patch}
+    patch -p1 -d clang -i ${./patches/llvm-toolchain-dir.patch}
     patch -p1 -d clang -i ${./purity.patch}
 
     # Workaround hardcoded dep on "libcurses" (vs "libncurses"):
     sed -i 's,curses,ncurses,' llbuild/*/*/CMakeLists.txt
 
     PREFIX=''${out/#\/}
+    substituteInPlace indexstore-db/Utilities/build-script-helper.py \
+      --replace usr "$PREFIX"
+    substituteInPlace sourcekit-lsp/Utilities/build-script-helper.py \
+      --replace usr "$PREFIX"
     substituteInPlace swift-corelibs-xctest/build_script.py \
       --replace usr "$PREFIX"
-
-    substituteInPlace indexstore-db/Utilities/build-script-helper.py \
-      --replace "'usr'" "'$PREFIX'"
   '';
 
-  buildPhase = builder;
+  configurePhase = ''
+    cd ..
+
+    mkdir build install
+    export SWIFT_BUILD_ROOT=$PWD/build
+    export SWIFT_INSTALL_DIR=$PWD/install
+
+    export INSTALLABLE_PACKAGE=$PWD/swift.tar.gz
+    export NIX_ENFORCE_PURITY=
+
+    cd $SWIFT_BUILD_ROOT
+  '';
+
+  buildPhase = ''
+    # gcc-6.4.0/include/c++/6.4.0/cstdlib:75:15: fatal error: 'stdlib.h' file not found
+    export NIX_CFLAGS_COMPILE="$( echo ${clang.default_cxx_stdlib_compile} ) $NIX_CFLAGS_COMPILE"
+    # During the Swift build, a full local LLVM build is performed and the resulting clang is invoked.
+    # This compiler is not using the Nix wrappers, so it needs some help to find things.
+    export NIX_LDFLAGS_BEFORE="-rpath ${clang.cc.gcc.lib}/lib -L${clang.cc.gcc.lib}/lib $NIX_LDFLAGS_BEFORE"
+    # However, we want to use the wrapped compiler whenever possible.
+    export CC="${clang}/bin/clang"
+
+    # fix for https://bugs.llvm.org/show_bug.cgi?id=39743
+    # see also https://forums.swift.org/t/18138/15
+    export CCC_OVERRIDE_OPTIONS="#x-fmodules s/-fmodules-cache-path.*//"
+
+    $SWIFT_SOURCE_ROOT/swift/utils/build-script \
+      --preset=buildbot_linux \
+      installable_package=$INSTALLABLE_PACKAGE \
+      install_prefix=$out \
+      install_destdir=$SWIFT_INSTALL_DIR \
+      extra_cmake_options="${stdenv.lib.concatStringsSep "," cmakeFlags}"
+  '';
 
   doCheck = false;
 
@@ -293,9 +282,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out
 
     # Extract the generated tarball into the store
-    PREFIX=''${out/#\/}
-    tar xf $INSTALLABLE_PACKAGE -C $out --strip-components=3 $PREFIX
+    tar xf $INSTALLABLE_PACKAGE -C $out --strip-components=3 ''${out/#\/}
     find $out -type d -empty -delete
+
+    # fix installation weirdness, also present in Apple’s official tarballs
+    mv $out/local/include/indexstore $out/include
+    rmdir $out/local/include $out/local
+    rm -r $out/bin/sdk-module-lists $out/bin/swift-api-checker.py
 
     wrapProgram $out/bin/swift \
       --suffix C_INCLUDE_PATH : $out/lib/swift/clang/include \
@@ -303,8 +296,8 @@ stdenv.mkDerivation rec {
       --suffix LIBRARY_PATH : $icu/lib
   '';
 
-  # Hack to avoid TMPDIR in RPATHs.
-  preFixup = ''rm -rf "$(pwd)" '';
+  # Hack to avoid build and install directories in RPATHs.
+  preFixup = ''rm -rf $SWIFT_BUILD_ROOT $SWIFT_INSTALL_DIR'';
 
   meta = with stdenv.lib; {
     description = "The Swift Programming Language";
@@ -316,5 +309,4 @@ stdenv.mkDerivation rec {
     badPlatforms = platforms.i686;
     broken = stdenv.isAarch64; # 2018-09-04, never built on Hydra
   };
-  passthru = { inherit sources; };
 }

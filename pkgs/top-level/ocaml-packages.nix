@@ -1062,8 +1062,6 @@ let
 
     # Apps / from all-packages
 
-    haxe = callPackage ../development/compilers/haxe { };
-
     ocamlnat = callPackage  ../development/ocaml-modules/ocamlnat { };
 
     trv = callPackage ../development/tools/misc/trv { };
@@ -1071,11 +1069,6 @@ let
     omake_rc1 = callPackage ../development/tools/ocaml/omake/0.9.8.6-rc1.nix { };
 
     google-drive-ocamlfuse = callPackage ../applications/networking/google-drive-ocamlfuse { };
-
-
-    monotoneViz = callPackage ../applications/version-management/monotone-viz {
-      inherit (pkgs.gnome2) libgnomecanvas glib;
-    };
 
     unison = callPackage ../applications/networking/sync/unison {
       enableX11 = config.unison.enableX11 or true;

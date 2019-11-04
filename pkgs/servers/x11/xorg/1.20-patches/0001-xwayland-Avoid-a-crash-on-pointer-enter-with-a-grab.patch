@@ -1,7 +1,7 @@
 From 6711b5c6fdf0581c77150306fff909d7bc63b8a4 Mon Sep 17 00:00:00 2001
 From: Olivier Fourdan <ofourdan@redhat.com>
 Date: Thu, 9 May 2019 10:36:19 +0200
-Subject: [PATCH 01/20] xwayland: Avoid a crash on pointer enter with a grab
+Subject: [PATCH 01/30] xwayland: Avoid a crash on pointer enter with a grab
 
 On pointer enter notification, Xwayland checks for an existing pointer
 warp with a `NULL` sprite.
@@ -49,5 +49,5 @@ index fbbcb39cc..fa46ac3e7 100644
          return;
  
 -- 
-2.23.GIT
+2.24.0-rc2
 

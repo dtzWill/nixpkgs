@@ -18,3 +18,13 @@
 0018-xwayland-Separate-DamagePtr-into-separate-window-dat.patch
 0019-xwayland-Refactor-surface-creation-into-a-separate-f.patch
 0020-xwayland-Handle-the-case-of-windows-being-realized-b.patch
+0021-xf86-Disable-unused-crtc-functions-when-a-lease-is-r.patch
+0022-miext-sync-Make-struct-_SyncObject-initialized-fully.patch
+0023-Fix-crash-on-XkbSetMap.patch
+0024-Fix-crash-on-XkbSetMap.patch
+0025-shm-reindent-shm_tmpfile-to-follow-our-standards.patch
+0026-shm-Pick-the-shm-dir-at-run-time-not-build-time.patch
+0027-shm-Use-memfd_create-when-possible.patch
+0028-dix-Assert-noPanoramiXExtension-is-false-in-Panorami.patch
+0029-configure-Set-libdrm-flags-correctly-if-only-XORG-is.patch
+0030-modesetting-Fix-broken-manpage-in-autoconf-build.patch
