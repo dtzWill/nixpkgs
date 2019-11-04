@@ -25528,4 +25528,5 @@ in
 
   verifpal = callPackage ../tools/security/verifpal {};
 
+  luna = callPackage ../applications/office/luna { };
 }
