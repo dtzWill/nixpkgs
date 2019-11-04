@@ -10,12 +10,12 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "libxslt";
-  version = "1.1.33";
+  version = "1.1.34";
   name = pname + "-" + version;
 
   src = fetchurl {
     url = "http://xmlsoft.org/sources/${name}.tar.gz";
-    sha256 = "1j1q1swnsy8jgi9x7mclvkrqhfgn09886gdlr9wzk7a08i8n0dlf";
+    sha256 = "0zrzz6kjdyavspzik6fbkpvfpbd25r2qg6py5nnjaabrsr3bvccq";
   };
 
   patches = [
