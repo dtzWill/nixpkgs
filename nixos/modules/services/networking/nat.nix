@@ -33,7 +33,7 @@ let
     ip46tables -w -t nat -N nixos-nat-out
 
     # We can't match on incoming interface in POSTROUTING, so
-    # mark packets coming from the external interfaces.
+    # mark packets coming from the internal interfaces.
     ${concatMapStrings (iface: ''
       iptables -w -t nat -A nixos-nat-pre \
         -i '${iface}' -j MARK --set-mark 1
