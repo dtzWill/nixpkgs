@@ -54,6 +54,7 @@ stdenv.mkDerivation {
     echo "$out" > $dev/nix-support/propagated-build-inputs
     # ln -s ${mesa.dev}/include $dev/include
     ln -s ${libglvnd.dev}/include $dev/include
+    echo "${mesa.dev}" >> $dev/nix-support/propagated-build-inputs
 
     genPkgConfig() {
       local name="$1"
