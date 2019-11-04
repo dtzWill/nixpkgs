@@ -8,7 +8,7 @@
 , galliumDrivers ? ["auto"]
 , driDrivers ? ["auto"]
 , vulkanDrivers ? ["auto"]
-, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" "drm" ]
+, eglPlatforms ? [ "x11" "surfaceless" ] ++ lib.optionals stdenv.isLinux [ "wayland" "drm" ]
 , OpenGL, Xplugin
 , withValgrind ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32, valgrind-light
 }:
@@ -27,7 +27,7 @@
 with stdenv.lib;
 
 let
-  version = "19.3.0-rc1";
+  version = "19.2.2";
   branch  = head (splitString "." version);
 in
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "0g62ik5wp9waf6zbw2635h5918znphlnclr91m9gcfygi0h277yh";
+    sha256 = "0g62ik6wp9waf6zbw2635h5918znphlnclr91m9gcfygi0h277yh";
   };
 
   prePatch = "patchShebangs .";
@@ -167,7 +167,7 @@ stdenv.mkDerivation rec {
     substituteInPlace "$dev/lib/pkgconfig/dri.pc" --replace "$drivers" "${libglvnd.driverLink}"
 
     # remove pkgconfig files for GL/EGL; they are provided by libGL.
-    rm -f $dev/lib/pkgconfig/gl.pc
+    rm -f $dev/lib/pkgconfig/{gl,egl}.pc
 
     # Update search path used by pkg-config
     for pc in $dev/lib/pkgconfig/{d3d,dri,xatracker}.pc; do
