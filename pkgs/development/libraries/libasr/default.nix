@@ -1,14 +1,15 @@
-{ stdenv, fetchurl, libevent, openssl }:
+{ stdenv, fetchurl, libevent, openssl, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  name = "libasr-${version}";
-  version=  "1.0.2";
+  pname = "libasr";
+  version=  "1.0.3";
 
   src = fetchurl {
-    url = "https://www.opensmtpd.org/archives/${name}.tar.gz";
-    sha256 = "0d4blm0kzdhb75fq8sbcpvkc25lv5dbjaxa2ldniaf39633d3xd6";
+    url = "https://www.opensmtpd.org/archives/${pname}-${version}.tar.gz";
+    sha256 = "13fn4sr4vlcx1xijpl26nmnxawyls4lr5q3mi11jdm76f80qxn4w";
   };
 
+  nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libevent openssl ];
 
   meta = with stdenv.lib; {
