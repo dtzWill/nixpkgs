@@ -8,6 +8,7 @@ let
 
   nagiosState = "/var/lib/nagios";
   nagiosLogDir = "/var/log/nagios";
+  urlPath = "/nagios";
 
   nagiosObjectDefs = cfg.objectDefs;
 
@@ -56,12 +57,12 @@ let
     ''
       main_config_file=${cfg.mainConfigFile}
       use_authentication=0
-      url_html_path=${cfg.urlPath}
+      url_html_path=${urlPath}
     '';
 
   extraHttpdConfig =
     ''
-      ScriptAlias ${cfg.urlPath}/cgi-bin ${pkgs.nagios}/sbin
+      ScriptAlias ${urlPath}/cgi-bin ${pkgs.nagios}/sbin
 
       <Directory "${pkgs.nagios}/sbin">
         Options ExecCGI
@@ -69,7 +70,7 @@ let
         SetEnv NAGIOS_CGI_CONFIG ${cfg.cgiConfigFile}
       </Directory>
 
-      Alias ${cfg.urlPath} ${pkgs.nagios}/share
+      Alias ${urlPath} ${pkgs.nagios}/share
 
       <Directory "${pkgs.nagios}/share">
         Options None
@@ -82,8 +83,6 @@ in
   imports = [
     (mkRemovedOptionModule [ "services" "nagios" "urlPath" ] "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
   ];
-
-  meta.maintainers = with lib.maintainers; [ symphorien ];
 
   options = {
     services.nagios = {
@@ -152,13 +151,20 @@ in
         ";
       };
 
-      urlPath = mkOption {
-        default = "/nagios";
-        description = "
-          The URL path under which the Nagios web interface appears.
-          That is, you can access the Nagios web interface through
-          <literal>http://<replaceable>server</replaceable>/<replaceable>urlPath</replaceable></literal>.
-        ";
+      virtualHost = mkOption {
+        type = types.submodule (import ../web-servers/apache-httpd/per-server-options.nix);
+        example = literalExample ''
+          { hostName = "example.org";
+            adminAddr = "webmaster@example.org";
+            enableSSL = true;
+            sslServerCert = "/var/lib/acme/example.org/full.pem";
+            sslServerKey = "/var/lib/acme/example.org/key.pem";
+          }
+        '';
+        description = ''
+          Apache configuration can be done by adapting <option>services.httpd.virtualHosts</option>.
+          See <xref linkend="opt-services.httpd.virtualHosts"/> for further information.
+        '';
       };
     };
   };
@@ -197,6 +203,8 @@ in
       };
     };
 
-    services.httpd.extraConfig = optionalString cfg.enableWebInterface extraHttpdConfig;
+    services.httpd.virtualHosts = optionalAttrs cfg.enableWebInterface {
+      ${cfg.virtualHost.hostName} = mkMerge [ cfg.virtualHost { extraConfig = extraHttpdConfig; } ];
+    };
   };
 }
