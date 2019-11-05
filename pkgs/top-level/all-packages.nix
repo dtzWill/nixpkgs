@@ -22344,8 +22344,6 @@ in
     buildGoPackage = buildGo110Package;
   };
 
-  jormungandr = callPackage ../applications/blockchains/jormungandr { };
-
   ledger-live-desktop = callPackage ../applications/blockchains/ledger-live-desktop { };
 
   litecoin  = callPackage ../applications/blockchains/litecoin.nix {
