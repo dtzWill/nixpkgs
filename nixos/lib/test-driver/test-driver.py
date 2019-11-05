@@ -17,7 +17,6 @@ import sys
 import tempfile
 import time
 import unicodedata
-import ptpython.repl
 
 CHAR_TO_KEY = {
     "A": "shift-a",
