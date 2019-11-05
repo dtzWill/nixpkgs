@@ -2,7 +2,7 @@
 
 let
   pname = "victor-mono";
-  version = "1.2.7";
+  version = "1.2.8";
 in fetchFromGitHub rec {
   name = "${pname}-${version}";
   owner = "rubjo";
@@ -25,7 +25,7 @@ in fetchFromGitHub rec {
     unzip -j VictorMonoAll.zip \*.otf -d $out/share/fonts/opentype/${pname}
   '';
 
-  sha256 = "0x4ydp11ry94wkkspnmy1xpzqq3m45xg60z1hq4ll9gmlccaknj0";
+  sha256 = "1fsjkcrc6pb67f5lq94nliyz136cnbif821dbvpcrkv1jvfgwr1f";
 
   meta = with lib; {
     description = "Free programming font with cursive italics and ligatures";
