@@ -150,6 +150,7 @@ in
   login = handleTest ./login.nix {};
   loki = handleTest ./loki.nix {};
   #logstash = handleTest ./logstash.nix {};
+  lorri = handleTest ./lorri/default.nix {};
   mailcatcher = handleTest ./mailcatcher.nix {};
   mathics = handleTest ./mathics.nix {};
   matrix-synapse = handleTest ./matrix-synapse.nix {};
