@@ -2,7 +2,7 @@
 , setuptools
 , pip
 , buildPythonPackage
-, fetchFromGitHub
+, fetchPypi
 , pytest
 , pytestcov
 , coverage
@@ -12,15 +12,12 @@
 
 buildPythonPackage rec {
   pname = "wheel";
-  version = "0.33.6";
+  version = "0.33.4";
   format = "other";
 
-  src = fetchFromGitHub {
-    owner = "pypa";
-    repo = pname;
-    rev = version;
-    sha256 = "1bg4bxazsjxp621ymaykd8l75k7rvcvwawlipmjk7nsrl72l4p0s";
-    name = "${pname}-${version}-source";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "62fcfa03d45b5b722539ccbc07b190e4bfff4bb9e3a4d470dd9f6a0981002565";
   };
 
   checkInputs = [ pytest pytestcov coverage ];
