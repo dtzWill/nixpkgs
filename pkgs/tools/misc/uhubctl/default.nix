@@ -5,13 +5,15 @@
 
 stdenv.mkDerivation rec {
   pname = "uhubctl";
-  version = "2.1.0";
+  #version = "2.1.0";
+  version = "unstable-2019-11-04";
 
   src = fetchFromGitHub {
     owner = "mvp";
     repo = "uhubctl";
-    rev = "refs/tags/v${version}";
-    sha256 = "1cgmwsf68g49k6q4jvz073bpjhg5p73kk1a4kbgkxmvx01gmbcmq";
+    #rev = "refs/tags/v${version}";
+    rev = "3e10680f22134f8fab4e8be3564713f8c90c18ab";
+    sha256 = "07pbg8gqrv0160gs3837aq197qr05d2833lmn537i3vqwydj37ng";
   };
 
   buildInputs = [ libusb ];
