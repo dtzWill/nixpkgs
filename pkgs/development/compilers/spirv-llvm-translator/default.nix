@@ -3,23 +3,23 @@
 , cmake
 
 , lit
-, llvm_8
+, llvm_9
 }:
 
 stdenv.mkDerivation rec {
   pname = "SPIRV-LLVM-Translator";
-  version = "8.0.1-2";
+  version = "9.0.0-1"; # XXX: looks like this should match llvm.version
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
     repo = "SPIRV-LLVM-Translator";
     rev = "v${version}";
-    sha256 = "0hxalc3fkliqs61hpr97phbm3qsx4b8vgnlg30aimzr6aas403r5";
+    sha256 = "1a377v7y5nj1yap806fp6blxrra1m22prgyyzgsh40yf42z8r2wd";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ llvm_8 ];
+  buildInputs = [ llvm_9 ];
 
   checkInputs = [ lit ];
 
