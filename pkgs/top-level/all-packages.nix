@@ -25531,4 +25531,6 @@ in
   verifpal = callPackage ../tools/security/verifpal {};
 
   luna = callPackage ../applications/office/luna { };
+
+  scientifica = callPackage ../data/fonts/scientifica { };
 }
