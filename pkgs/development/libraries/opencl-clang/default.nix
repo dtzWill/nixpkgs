@@ -4,14 +4,14 @@
 , cmake
 , git
 
-, llvmPackages_8
+, llvmPackages_9
 , spirv-llvm-translator
 
 , buildWithPatches ? true
 }:
 
 let
-  llvmPkgs = llvmPackages_8 // {
+  llvmPkgs = llvmPackages_9 // {
     inherit spirv-llvm-translator;
   };
 
@@ -56,15 +56,15 @@ let
   in
     stdenv.mkDerivation rec {
       pname = "opencl-clang";
-      version = "unstable-2019-08-16";
+      version = "9.0.0"; # match LLVM version, spirv-llvm-translator version too?
 
       inherit passthru;
 
       src = fetchFromGitHub {
         owner = "intel";
         repo = "opencl-clang";
-        rev = "94af090661d7c953c516c97a25ed053c744a0737";
-        sha256 = "05cg89m62nqjqm705h7gpdz4jd4hiczg8944dcjsvaybrqv3hcm5";
+        rev = "v${version}";
+        sha256 = "1n5lz40cym3hmrldnia2a2acxp67c2nqsd4flxsdc7k4nwshq6xx";
       };
 
       patches = [
