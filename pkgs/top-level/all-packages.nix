@@ -5115,8 +5115,6 @@ in
   networkmanager098 = callPackage ../tools/networking/network-manager/0.9.8 { };
 
   networkmanager = callPackage ../tools/networking/network-manager {
-    stdenv = gcc8Stdenv;
-    meson = meson_gcc8;
     readline = readline80;
   };
 
