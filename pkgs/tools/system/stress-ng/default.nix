@@ -1,5 +1,5 @@
 { stdenv, fetchurl
-, attr, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
+, attr, judy, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   # All platforms inputs then Linux-only ones
-  buildInputs = [ libbsd libgcrypt zlib ]
+  buildInputs = [ judy libbsd libgcrypt zlib ]
     ++ stdenv.lib.optionals stdenv.hostPlatform.isLinux [
       attr keyutils libaio libapparmor libcap lksctp-tools
     ];
