@@ -25533,4 +25533,5 @@ in
   luna = callPackage ../applications/office/luna { };
 
   scientifica = callPackage ../data/fonts/scientifica { };
+  curie = callPackage ../data/fonts/curie { };
 }
