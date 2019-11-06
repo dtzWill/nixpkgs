@@ -5,7 +5,7 @@
 
 , bison
 , flex
-, llvmPackages_8
+, llvmPackages_9
 , opencl-clang
 , python
 , spirv-llvm-translator
@@ -14,7 +14,7 @@
 }:
 
 let
-  llvmPkgs = llvmPackages_8 // {
+  llvmPkgs = llvmPackages_9 // {
     inherit spirv-llvm-translator;
   };
   inherit (llvmPkgs) llvm;
@@ -24,13 +24,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "intel-graphics-compiler";
-  version = "1.0.11";
+  version = "1.0.2714.1";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "intel-graphics-compiler";
     rev = "igc-${version}";
-    sha256 = "0zlv7gankrjwlw8vx638ngr4hkaych7lm3719ywhq98ald1qbxib";
+    sha256 = "0ys03sv08fg8q06lb6k5088xirnwms4nzazxp3kbdjm973n7imxc";
   };
 
   nativeBuildInputs = [ clang cmake bison flex llvm python ];
