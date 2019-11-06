@@ -3,15 +3,15 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "libva-utils-${version}";
+  pname = "libva-utils";
   #inherit (libva) version;
-  version = "2.5.0";
+  version = "2.6.0.pre1";
 
   src = fetchFromGitHub {
     owner  = "01org";
-    repo   = "libva-utils";
+    repo   = pname;
     rev    = version;
-    sha256 = "1cd4xpm0c5ryl2qx2vm6vhyl1w0s7y3i9ih2xifdhd94mp8m81n3";
+    sha256 = "0nqdpdwij773mvq7z6hra9pbsyqbkpk2chcskb8q5rgdh52cgjx1";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
