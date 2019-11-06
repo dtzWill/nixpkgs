@@ -3,7 +3,7 @@
 , enable_dmeventd ? false }:
 
 let
-  version = "2.03.06";
+  version = "2.03.01";
 in
 
 stdenv.mkDerivation {
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "git://sourceware.org/git/lvm2.git";
     rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "1mj70jhkk9jn7d3bjxbiv7qp0nvaags9psm15szq256y18fjw874";
+    sha256 = "0jlaswf1srdxiqpgpp97j950ddjds8z0kr4pbwmal2za2blrgvbl";
   };
 
   configureFlags = [
