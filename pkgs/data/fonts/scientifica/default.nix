@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ mkfontdir ];
 
   installPhase = ''
-    install -Dt $out/share/fonts/misc {,doubled/}{regular,bold,italic}/*.otb
-    install -Dt $out/share/fonts/bdf {,doubled/}{regular,bold,italic}*/*.bdf
+    # XXX: (intentionally ignore 'doubled' variant, appears borked)
+    install -Dt $out/share/fonts/misc {regular,bold,italic}/*.otb
+    install -Dt $out/share/fonts/bdf {regular,bold,italic}/*.bdf
 
     # create fonts.dir so NixOS xorg module adds to fp
     mkfontdir $out/share/fonts/*
