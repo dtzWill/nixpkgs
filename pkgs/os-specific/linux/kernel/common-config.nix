@@ -41,6 +41,8 @@ let
       CRASH_DUMP                = option no;
       # Easier debugging of NFS issues.
       SUNRPC_DEBUG              = yes;
+      # Provide access to tunables like sched_migration_cost_ns
+      SCHED_DEBUG               = yes;
     };
 
     power-management = {
@@ -123,6 +125,7 @@ let
       IPV6_FOU_TUNNEL             = whenAtLeast "4.7" module;
       NET_CLS_BPF                 = whenAtLeast "4.4" module;
       NET_ACT_BPF                 = whenAtLeast "4.4" module;
+      NET_SCHED                   = yes;
       L2TP_V3                     = yes;
       L2TP_IP                     = module;
       L2TP_ETH                    = module;
@@ -177,6 +180,9 @@ let
       ATH9K_AHB             = option yes; # Ditto, AHB bus
       B43_PHY_HT            = option yes;
       BCMA_HOST_PCI         = option yes;
+      RTW88                 = whenAtLeast "5.2" module;
+      RTW88_8822BE          = whenAtLeast "5.2" yes;
+      RTW88_8822CE          = whenAtLeast "5.2" yes;
     };
 
     fb = {
@@ -580,6 +586,7 @@ let
     });
 
     misc = {
+      HID_BATTERY_STRENGTH = yes;
       MODULE_COMPRESS    = yes;
       MODULE_COMPRESS_XZ = yes;
       KERNEL_XZ          = yes;
@@ -647,6 +654,8 @@ let
       JOYSTICK_XPAD_FF    = option yes; # X-Box gamepad rumble support
       JOYSTICK_XPAD_LEDS  = option yes; # LED Support for Xbox360 controller 'BigX' LED
 
+      KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
+
       KEXEC_FILE      = option yes;
       KEXEC_JUMP      = option yes;
 
@@ -658,8 +667,7 @@ let
       MEGARAID_NEWGEN       = yes;
 
       MLX4_EN_VXLAN = whenOlder "4.8" yes;
-      # restore this?
-      #MLX5_CORE_EN       = option yes;
+      MLX5_CORE_EN       = option yes;
 
       PSI = whenAtLeast "4.20" yes;
 
@@ -707,8 +715,7 @@ let
       HOTPLUG_PCI_PCIE = yes; # PCI-Expresscard hotplug support
 
       # Enable AMD's ROCm GPU compute stack
-      # XXX: dtz
-      # HSA_AMD = whenAtLeast "4.20" yes;
+      HSA_AMD = whenAtLeast "4.20" yes;
 
       PREEMPT = no;
       PREEMPT_VOLUNTARY = yes;
