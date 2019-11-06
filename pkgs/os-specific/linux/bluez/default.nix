@@ -4,11 +4,11 @@
 
 stdenv.mkDerivation rec {
   pname = "bluez";
-  version = "5.51";
+  version = "5.52";
 
   src = fetchurl {
     url = "mirror://kernel/linux/bluetooth/${pname}-${version}.tar.xz";
-    sha256 = "1fpbsl9kkfq6mn6n0dg4h0il4c7fzhwhn79gh907k5b2kwszpvgb";
+    sha256 = "02jng21lp6fb3c2bh6vf9y7cj4gaxwk29dfc32ncy0lj0gi4q57p";
   };
 
   pythonPath = with python3.pkgs; [
