@@ -17728,6 +17728,8 @@ in
 
   uni-vga = callPackage ../data/fonts/uni-vga { };
 
+  unicode-character-database = callPackage ../data/misc/unicode-character-database { };
+
   unifont = callPackage ../data/fonts/unifont { };
 
   unifont_upper = callPackage ../data/fonts/unifont_upper { };
