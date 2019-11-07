@@ -3,7 +3,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libical";
-  version = "unstable-2019-10-27";
+  version = "3.0.6";
 
   outputs = [ "out" "dev" ]; #"devdoc" ];
 
