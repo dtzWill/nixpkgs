@@ -2386,6 +2386,12 @@ in {
 
   future-fstrings = callPackage ../development/python-modules/future-fstrings { };
 
+  # gaia isn't supported with python3 and it's not available from pypi
+  gaia = disabledIf (isPyPy || isPy3k) (toPythonModule (pkgs.gaia.override {
+    pythonPackages = self;
+    pythonSupport = true;
+  }));
+
   gateone = callPackage ../development/python-modules/gateone { };
 
   # TODO: Remove after 19.03 is branched off:
