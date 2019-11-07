@@ -6431,6 +6431,8 @@ in
 
   squashfsTools = callPackage ../tools/filesystems/squashfs { };
 
+  squashfs-tools-ng = callPackage ../tools/filesystems/squashfs-tools-ng { };
+
   squashfuse = callPackage ../tools/filesystems/squashfuse { };
 
   srcml = callPackage ../applications/version-management/srcml { };
