@@ -3,9 +3,9 @@
 
 buildPythonPackage rec {
   pname = "pygame_sdl2";
-  version = "2.1.0";
+  base_version = "2.1.0";
   renpy_version = "7.2.0";
-  name = "${pname}-${version}-${renpy_version}";
+  version = "${base_version}-${renpy_version}";
 
   src = fetchurl {
     url = "https://www.renpy.org/dl/${renpy_version}/pygame_sdl2-${version}-for-renpy-${renpy_version}.tar.gz";
