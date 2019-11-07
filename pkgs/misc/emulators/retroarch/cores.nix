@@ -276,7 +276,7 @@ in with stdenv.lib.licenses;
     };
     description = "libretro wrapper for desmume NDS emulator";
     license = gpl2;
-    extraBuildInputs = [ libpcap libGLU_combined xorg.libX11 ];
+    extraBuildInputs = [ libpcap libGLU libGL xorg.libX11 ];
   }).override {
     makefile = "desmume/src/frontend/libretro/Makefile.libretro";
     configurePhase = "cd desmume/src/frontend/libretro";
@@ -292,7 +292,7 @@ in with stdenv.lib.licenses;
     };
     description = "libretro wrapper for desmume NDS emulator from 2015";
     license = gpl2;
-    extraBuildInputs = [ libpcap libGLU_combined xorg.libX11 ];
+    extraBuildInputs = [ libpcap libGLU libGL xorg.libX11 ];
   }).override {
     makefile = "desmume/Makefile.libretro";
     configurePhase = "cd desmume";
@@ -310,7 +310,7 @@ in with stdenv.lib.licenses;
     license = gpl2Plus;
 
     extraBuildInputs = [
-      cmake curl libGLU_combined pcre pkgconfig sfml
+      cmake curl libGLU libGL pcre pkgconfig sfml
       gettext hidapi
       libevdev udev
     ] ++ (with xorg; [ libSM libX11 libXi libpthreadstubs libxcb xcbutil libXext libXrandr libXinerama libXxf86vm ]);
@@ -613,7 +613,7 @@ in with stdenv.lib.licenses;
     description = "Libretro port of Mupen64 Plus, GL only";
     license = gpl2;
 
-    extraBuildInputs = [ libGLU_combined libpng nasm xorg.libX11 ];
+    extraBuildInputs = [ libGLU libGL libpng nasm xorg.libX11 ];
   }).override {
     makefile = "Makefile";
     buildPhase = "make";
@@ -717,7 +717,7 @@ in with stdenv.lib.licenses;
     };
     description = "ppsspp libretro port";
     license = gpl2;
-    extraBuildInputs = [ cmake libGLU_combined ffmpeg python37 xorg.libX11 ];
+    extraBuildInputs = [ cmake libGLU libGL ffmpeg python37 xorg.libX11 ];
   }).override {
     cmakeFlags = "-DLIBRETRO=ON";
     makefile = "Makefile";
