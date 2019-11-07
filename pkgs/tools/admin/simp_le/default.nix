@@ -12,6 +12,8 @@ python3Packages.buildPythonApplication rec {
   postPatch = ''
     # drop upper bound of idna requirement
     sed -ri "s/'(idna)<[^']+'/'\1'/" setup.py
+    # allow acme 0.40 experimentally
+    substituteInPlace setup.py --replace "'acme>=0.39,<0.40'" "'acme>=0.39,<0.41'"
     substituteInPlace simp_le.py \
       --replace "/bin/sh" "${bash}/bin/sh"
   '';

@@ -1895,6 +1895,8 @@ in
 
   nfdump = callPackage ../tools/networking/nfdump { };
 
+  nfstrace = callPackage ../tools/networking/nfstrace { };
+
   nixpkgs-pytools = with python3.pkgs; toPythonApplication nixpkgs-pytools;
 
   noteshrink = callPackage ../tools/misc/noteshrink { };
@@ -2543,9 +2545,10 @@ in
     cudatoolkit_9_1
     cudatoolkit_9_2
     cudatoolkit_10
-    cudatoolkit_10_0;
+    cudatoolkit_10_0
+    cudatoolkit_10_1;
 
-  cudatoolkit = cudatoolkit_9;
+  cudatoolkit = cudatoolkit_10;
 
   inherit (callPackages ../development/libraries/science/math/cudnn { })
     cudnn_cudatoolkit_7
@@ -2557,9 +2560,10 @@ in
     cudnn_cudatoolkit_9_1
     cudnn_cudatoolkit_9_2
     cudnn_cudatoolkit_10
-    cudnn_cudatoolkit_10_0;
+    cudnn_cudatoolkit_10_0
+    cudnn_cudatoolkit_10_1;
 
-  cudnn = cudnn_cudatoolkit_9;
+  cudnn = cudnn_cudatoolkit_10;
 
   curlFull = curl.override {
     idnSupport = true;
@@ -3548,6 +3552,8 @@ in
     pinentry = if stdenv.isDarwin then pinentry_mac else pinentry_gtk2;
   };
   gnupg = gnupg22;
+
+  gnupg-pkcs11-scd = callPackage ../tools/security/gnupg-pkcs11-scd { };
 
   gnuplot = libsForQt5.callPackage ../tools/graphics/gnuplot { };
 
@@ -5111,8 +5117,6 @@ in
   networkmanager098 = callPackage ../tools/networking/network-manager/0.9.8 { };
 
   networkmanager = callPackage ../tools/networking/network-manager {
-    stdenv = gcc8Stdenv;
-    meson = meson_gcc8;
     readline = readline80;
   };
 
@@ -5622,7 +5626,7 @@ in
   pinentry-emacs = (stdenv.lib.getOutput "emacs" pinentry);
   pinentry-gtk2 = (stdenv.lib.getOutput "gtk2" pinentry);
   pinentry-qt = (stdenv.lib.getOutput "qt" pinentry);
-  pinentry-gnome = (stdenv.lib.getOutput "gnome" pinentry);
+  pinentry-gnome = (stdenv.lib.getOutput "gnome3" pinentry);
 
   pinentry_mac = callPackage ../tools/security/pinentry/mac.nix {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
@@ -8545,7 +8549,12 @@ in
   cargo-bloat = callPackage ../development/tools/rust/cargo-bloat { };
   cargo-expand = callPackage ../development/tools/rust/cargo-expand { };
   cargo-fuzz = callPackage ../development/tools/rust/cargo-fuzz { };
-  cargo-inspect = callPackage ../development/tools/rust/cargo-inspect { };
+  cargo-geiger = callPackage ../development/tools/rust/cargo-geiger {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+  cargo-inspect = callPackage ../development/tools/rust/cargo-inspect {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
   cargo-make = callPackage ../development/tools/rust/cargo-make {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -11021,8 +11030,6 @@ in
 
   fontconfig-penultimate = callPackage ../data/fonts/fontconfig-penultimate {};
 
-  fontconfig-ultimate = callPackage ../development/libraries/fontconfig-ultimate {};
-
   folly = callPackage ../development/libraries/folly { };
 
   folks = callPackage ../development/libraries/folks { };
@@ -12998,7 +13005,9 @@ in
 
   mumlib = callPackage ../development/libraries/mumlib { };
 
-  muparser = callPackage ../development/libraries/muparser { };
+  muparser = callPackage ../development/libraries/muparser {
+    inherit (darwin.stubs) setfile;
+  };
 
   mutest = callPackage ../development/libraries/mutest { };
 
@@ -13746,6 +13755,8 @@ in
   SDL_mixer = callPackage ../development/libraries/SDL_mixer { };
 
   SDL_net = callPackage ../development/libraries/SDL_net { };
+
+  SDL_Pango = callPackage ../development/libraries/SDL_Pango {};
 
   SDL_sound = callPackage ../development/libraries/SDL_sound { };
 
@@ -14774,6 +14785,8 @@ in
 
     mod_python = callPackage ../servers/http/apache-modules/mod_python { };
 
+    mod_tile = callPackage ../servers/http/apache-modules/mod_tile { };
+
     mod_wsgi  = self.mod_wsgi2;
     mod_wsgi2 = callPackage ../servers/http/apache-modules/mod_wsgi { python = python2; ncurses = null; };
     mod_wsgi3 = callPackage ../servers/http/apache-modules/mod_wsgi { python = python3; };
@@ -15012,6 +15025,8 @@ in
   memcached = callPackage ../servers/memcached {};
 
   meteor = callPackage ../servers/meteor { };
+
+  micronaut = callPackage ../development/tools/micronaut {};
 
   minio = callPackage ../servers/minio { };
 
@@ -17208,6 +17223,8 @@ in
   # lohit-fonts.tamil-classical lohit-fonts.tamil lohit-fonts.telugu
   # lohit-fonts.kashmiri lohit-fonts.konkani lohit-fonts.maithili lohit-fonts.sindhi
   lohit-fonts = recurseIntoAttrs ( callPackages ../data/fonts/lohit-fonts { } );
+
+  lounge-gtk-theme = callPackage ../data/themes/lounge { };
 
   luculent = callPackage ../data/fonts/luculent { };
 
@@ -21499,6 +21516,8 @@ in
 
   tdrop = callPackage ../applications/misc/tdrop { };
 
+  tre-command = callPackage ../tools/system/tre-command {};
+
   tree = callPackage ../tools/system/tree {};
 
   treesheets = callPackage ../applications/office/treesheets { wxGTK = wxGTK31; };
@@ -22329,8 +22348,6 @@ in
     buildGoPackage = buildGo110Package;
   };
 
-  jormungandr = callPackage ../applications/blockchains/jormungandr { };
-
   ledger-live-desktop = callPackage ../applications/blockchains/ledger-live-desktop { };
 
   litecoin  = callPackage ../applications/blockchains/litecoin.nix {
@@ -22640,6 +22657,8 @@ in
   frotz = callPackage ../games/frotz { };
 
   frogatto = callPackage ../games/frogatto { };
+
+  frozen-bubble = callPackage ../games/frozen-bubble { };
 
   fsg = callPackage ../games/fsg {
     wxGTK = wxGTK28.override { unicode = false; };
@@ -23045,6 +23064,8 @@ in
     ffmpeg = ffmpeg_2;
   };
 
+  streamlit = python3Packages.callPackage ../applications/science/machine-learning/streamlit { };
+
   stuntrally = callPackage ../games/stuntrally {
     ogre = ogre1_9;
     mygui = mygui.override {
@@ -23056,7 +23077,7 @@ in
 
   superTuxKart = callPackage ../games/super-tux-kart { };
 
-  synthv1 = callPackage ../applications/audio/synthv1 { };
+  synthv1 = libsForQt5.callPackage ../applications/audio/synthv1 { };
 
   system-syzygy = callPackage ../games/system-syzygy { };
 
@@ -23475,6 +23496,8 @@ in
   conglomerate = callPackage ../applications/science/biology/conglomerate { };
 
   dcm2niix = callPackage ../applications/science/biology/dcm2niix { };
+
+  deeptools = callPackage ../applications/science/biology/deeptools { python = python3; };
 
   diamond = callPackage ../applications/science/biology/diamond { };
 
@@ -24718,7 +24741,8 @@ in
 
   nix-prefetch = callPackage ../tools/package-management/nix-prefetch { };
 
-  nix-prefetch-github = callPackage ../build-support/nix-prefetch-github {};
+  nix-prefetch-github = with python3Packages;
+    toPythonApplication nix-prefetch-github;
 
   inherit (callPackages ../tools/package-management/nix-prefetch-scripts { })
     nix-prefetch-bzr
@@ -25510,4 +25534,8 @@ in
 
   verifpal = callPackage ../tools/security/verifpal {};
 
+  luna = callPackage ../applications/office/luna { };
+
+  scientifica = callPackage ../data/fonts/scientifica { };
+  curie = callPackage ../data/fonts/curie { };
 }

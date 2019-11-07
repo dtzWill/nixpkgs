@@ -1,12 +1,15 @@
 { stdenv, fetchzip }:
 
 let
-  version = "17.0.0";
+  version = "17.0.1";
 in fetchzip {
   name = "nextcloud-${version}";
 
-  url = "https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2";
-  sha256 = "14k8j52fh51p4i9i1y8miikww0mdmrpcd1mla6arks80rfm6lfc9";
+  #url = "https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2";
+
+  # eep, quick kludge that can be replaced when 17.0.1 is actually tagged
+  url = "https://github.com/nextcloud/server/archive/version/${version}/final.tar.gz";
+  sha256 = "0fjnivmsxq08qv5ch73vnj7vpjdwshlr91rrsx2q7lwr8pdrsd9b";
 
   meta = {
     description = "Sharing solution for files, calendars, contacts and more";

@@ -1,18 +1,18 @@
 { stdenv, fetchurl
-, attr, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
+, attr, judy, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
 }:
 
 stdenv.mkDerivation rec {
   pname = "stress-ng";
-  version = "0.10.08";
+  version = "0.10.09";
 
   src = fetchurl {
     url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "1kkmznn0y5wxi7x9nlhzyfy933bv66113in4rf0raw6brymympaa";
+    sha256 = "0906w3dxx1064sscxgy51pfbf23hf8zmbcy68cpxrmw42n3k7ih6";
   };
 
   # All platforms inputs then Linux-only ones
-  buildInputs = [ libbsd libgcrypt zlib ]
+  buildInputs = [ judy libbsd libgcrypt zlib ]
     ++ stdenv.lib.optionals stdenv.hostPlatform.isLinux [
       attr keyutils libaio libapparmor libcap lksctp-tools
     ];

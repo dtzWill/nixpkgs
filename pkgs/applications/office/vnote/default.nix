@@ -11,8 +11,8 @@ in mkDerivation rec {
     repo = "vnote";
     fetchSubmodules = true;
     #rev = "v${version}";
-    rev = "f61e2b95965aa9382a1514350cbd54405e777dad";
-    sha256 = "085hy0y1sfkphcgmbbak4agqikzfrli1zkj118icxvyrksc9apvr";
+    rev = "c828ef00c437fd7722f7bc8b4e8191016a930f18";
+    sha256 = "1rmzjmp9qz8g3ci1dsmsqdk1rlrsjwp34fgs61b4m6r4ha6dqdp4";
   };
 
   nativeBuildInputs = [ qmake ];

@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, requests
 }:
 
 buildPythonPackage rec {
@@ -11,6 +12,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "13ca794416707b8cefcb7584bbfff65a4640fcc2510ad73e818fef94d424fca6";
   };
+
+  propagatedBuildInputs = [ requests ];
 
   # Upstream provides no unit tests.
   doCheck = false;

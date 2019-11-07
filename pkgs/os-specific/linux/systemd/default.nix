@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "NixOS";
     repo = "systemd";
-    rev = "ccec67cab6c0fda85a1762eee7aeea422a0dc15e";
-    sha256 = "12nq2ah33amhyfma464a4ssf90wh2ai8c7w55j381cks8jliny40";
+    rev = "d25cf413c6bff1b5a9d216a8830e3a90c9cad1de";
+    sha256 = "0ilvrnh3m7g0yflxl16fk52gkb1z0fwwk9ba5gs4005nzpl0c7i0";
   };
 
   patches = [
@@ -113,8 +113,18 @@ stdenv.mkDerivation rec {
     "-Dldconfig=false"
     "-Dsmack=true"
     "-Db_pie=true"
-    "-Dsystem-uid-max=499" #TODO: debug why awking around in /etc/login.defs doesn't work
-    "-Dsystem-gid-max=499"
+    /*
+    As of now, systemd doesn't allow runtime configuration of these values. So
+    the settings in /etc/login.defs have no effect on it. Many people think this
+    should be supported however, see
+    - https://github.com/systemd/systemd/issues/3855
+    - https://github.com/systemd/systemd/issues/4850
+    - https://github.com/systemd/systemd/issues/9769
+    - https://github.com/systemd/systemd/issues/9843
+    - https://github.com/systemd/systemd/issues/10184
+    */
+    "-Dsystem-uid-max=999"
+    "-Dsystem-gid-max=999"
     # "-Dtime-epoch=1"
 
     (if !stdenv.hostPlatform.isEfi then "-Dgnu-efi=false" else "-Dgnu-efi=true")

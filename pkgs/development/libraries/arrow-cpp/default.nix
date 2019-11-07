@@ -9,13 +9,14 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
-  name = "arrow-cpp-${version}";
-  version = "0.14.1";
+in stdenv.mkDerivation rec {
+  pname = "arrow-cpp";
+  version = "0.15.1";
 
   src = fetchurl {
-    url = "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
-    sha256 = "0a0xrsbr7dd1yp34yw82jw7psfkfvm935jhd5mam32vrsjvdsj4r";
+    url =
+      "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
+    sha256 = "1jbghpppabsix2rkxbnh41inj9lcxfz4q94p96xzxshh4g3mhb4s";
   };
 
   sourceRoot = "apache-arrow-${version}/cpp";

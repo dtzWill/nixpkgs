@@ -4,12 +4,12 @@
 with stdenv.lib;
 
 buildPythonPackage rec {
-  version = "3.5.2";
+  version = "3.6.1";
   pname = "tables";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1hikrki0hx94ass31pn0jyz9iy0zhnkjacfk86m21cxsc8if685j";
+    sha256 = "0j8vnxh2m5n0cyk9z3ndcj5n1zj5rdxgc1gb78bqlyn2lyw75aa9";
   };
 
   buildInputs = [ hdf5 cython bzip2 lzo c-blosc ];

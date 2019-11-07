@@ -6,15 +6,15 @@
 
 stdenv.mkDerivation rec {
   pname = "bolt";
-  version = "0.8-git";
+  version = "0.8-git-2019-11-04";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "bolt";
     repo = "bolt";
     #rev = "${version}";
-    rev = "7259ecdc4b93b27a0cb319b3c8bdbd7615b44616";
-    sha256 = "0bklgjhlcdgyf7kjiq0m2i99lhmgarhih5ab71idbz0i10d1ck44";
+    rev = "e1c0ee4bfee21e7226fb6bb992b69bb32a4a90f4";
+    sha256 = "175xql8q5djb91j2ii00z7ljh80dwfm05kclsr47b1nq84i9ai8a";
   };
 
   nativeBuildInputs = [

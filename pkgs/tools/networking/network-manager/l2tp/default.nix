@@ -6,7 +6,7 @@
 let pname = "NetworkManager-l2tp"; in
 stdenv.mkDerivation rec {
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";
-  version = "1.2.14";
+  version = "1.2.16";
   #version = "1.7.0-git";
 
   src = fetchFromGitHub {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     repo = "network-manager-l2tp";
     rev = version;
     #rev = "56d829713132c229f5226e9b6ec4ad48aed513fd";
-    sha256 = "0h0v8gpi2r7ldjg1n64qgv44bxz8jphdcb5l3pbq966bdpapivzh";
+    sha256 = "0pbhy5qy46gkwbkwsmliak8vqhr5bczb4df42zixakc3c654bsj5";
   };
 
   patches = [

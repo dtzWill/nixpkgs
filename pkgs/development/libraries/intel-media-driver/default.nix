@@ -4,8 +4,8 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "intel-media-driver-${version}";
-  version = "19.3.0";
+  pname = "intel-media-driver";
+  version = "19.3.1";
   #version = "git-20190919";
 
   src = fetchFromGitHub {
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo   = "media-driver";
     rev    = "intel-media-${version}";
     #rev = "cf80fa0e3c81361696ada1285ea17a417114be47";
-    sha256 = "1vzh11qr7dwmi3d10nq46k754h3q1yya71nk2jgicaj2mm0ylzx6";
+    sha256 = "0nk6si0xz6s11rci8savzspnha9zwca6z29q06hmfmkp3lvzgdaz";
   };
 
   cmakeFlags = [

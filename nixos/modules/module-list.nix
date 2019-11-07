@@ -1,9 +1,7 @@
 [
   ./config/debug-info.nix
-  ./config/fonts/corefonts.nix
   ./config/fonts/fontconfig.nix
   ./config/fonts/fontconfig-penultimate.nix
-  ./config/fonts/fontconfig-ultimate.nix
   ./config/fonts/fontdir.nix
   ./config/fonts/fonts.nix
   ./config/fonts/ghostscript.nix
@@ -617,7 +615,6 @@
   ./services/networking/iodine.nix
   ./services/networking/iperf3.nix
   ./services/networking/ircd-hybrid/default.nix
-  ./services/networking/jormungandr.nix
   ./services/networking/iwd.nix
   ./services/networking/keepalived/default.nix
   ./services/networking/keybase.nix

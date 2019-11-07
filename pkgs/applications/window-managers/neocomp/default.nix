@@ -1,23 +1,34 @@
+{
+  stdenv
+, fetchFromGitHub
+, asciidoc
+, docbook_xml_dtd_45
+, docbook_xsl
+, freetype
+, judy
+, libGL
+, libconfig
+, libdrm
+, libxml2
+, libxslt
 , pcre
 , pkgconfig
-, xlibs
+, xorg
 }:
 let
-  date  = "2019-05-25";
-  rev   = "v0.6-22-g2970336";
-  xdeps = with xlibs; [
+  xdeps = with xorg; [
     libXcomposite libXdamage libXrender libXext libXrandr libXinerama
   ];
 in
 stdenv.mkDerivation rec {
   name    = "NeoComp";
-  version = "git-${rev}-${date}";
+  version = "unstable-2019-11-01";
 
   src = fetchFromGitHub {
-    inherit rev;
     owner  = "DelusionalLogic";
     repo   = name;
-    sha256 = "0ilprs56mqw4y5xdpi0c4xnimmjd2xgv4zi55qw6z52yv6k3m15n";
+    rev = "ba1a02fa095aefacd4e35f8f91fc3c4bdd7ebd14";
+    sha256 = "183bnrly62rqnjwdb0x15gp7g2fykcnwimhgzlzfyvpv8adbzwby";
   };
 
   buildInputs = xdeps ++ [

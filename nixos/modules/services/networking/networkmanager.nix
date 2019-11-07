@@ -5,8 +5,24 @@ with lib;
 let
   cfg = config.networking.networkmanager;
 
+  basePackages = with pkgs; [
+    crda
+    modemmanager
+    networkmanager
+    networkmanager-fortisslvpn
+    networkmanager-iodine
+    networkmanager-l2tp
+    networkmanager-openconnect
+    networkmanager-openvpn
+    networkmanager-vpnc
+   ] ++ optional (!delegateWireless && !enableIwd) wpa_supplicant;
+
   dynamicHostsEnabled =
     cfg.dynamicHosts.enable && cfg.dynamicHosts.hostsDirs != {};
+
+  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [];
+
+  enableIwd = cfg.wifi.backend == "iwd";
 
   # /var/lib/misc is for dnsmasq.leases.
   stateDirs = "/var/lib/NetworkManager /var/lib/dhclient /var/lib/misc";
@@ -35,8 +51,7 @@ let
 
     [device]
     wifi.scan-rand-mac-address=${if cfg.wifi.scanRandMacAddress then "yes" else "no"}
-    ${optionalString (cfg.wifi.backend != null)
-      ''wifi.backend=${cfg.wifi.backend}''}
+    wifi.backend=${cfg.wifi.backend}
 
     ${cfg.extraConfig}
   '';
@@ -175,25 +190,13 @@ in {
         '';
       };
 
-      # Ugly hack for using the correct gnome3 packageSet
-      basePackages = mkOption {
-        type = types.attrsOf types.package;
-        default = { inherit (pkgs)
-                            networkmanager modemmanager crda # wpa_supplicant crda
-                            networkmanager-openvpn networkmanager-vpnc
-                            networkmanager-sstp
-                            networkmanager-openconnect networkmanager-fortisslvpn
-                            networkmanager-l2tp networkmanager-iodine; };
-        internal = true;
-      };
-
       packages = mkOption {
-        type = types.listOf types.path;
+        type = types.listOf types.package;
         default = [ ];
         description = ''
           Extra packages that provide NetworkManager plugins.
         '';
-        apply = list: (attrValues cfg.basePackages) ++ list;
+        apply = list: basePackages ++ list;
       };
 
       dhcp = mkOption {
@@ -236,9 +239,12 @@ in {
         macAddress = macAddressOpt;
 
         backend = mkOption {
-          type = types.enum ["wpa_supplicant" "iwd"];
+          type = types.enum [ "wpa_supplicant" "iwd" ];
           default = "wpa_supplicant";
-          description = "WiFi Backend to be used by NetworkManager";
+          description = ''
+            Specify the Wi-Fi backend used for the device.
+            Currently supported are <option>wpa_supplicant</option> or <option>iwd</option> (experimental).
+          '';
         };
 
         powersave = mkOption {
@@ -386,13 +392,16 @@ in {
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = config.networking.wireless.enable == false;
-        message = "You can not use networking.networkmanager with networking.wireless";
+      { assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [];
+        message = ''
+          You can not use networking.networkmanager with networking.wireless.
+          Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
+        '';
       }
       { assertion = !dynamicHostsEnabled || (dynamicHostsEnabled && cfg.dns == "dnsmasq");
         message = ''
           To use networking.networkmanager.dynamicHosts you also need to set
-          networking.networkmanager.dns = "dnsmasq"
+          `networking.networkmanager.dns = "dnsmasq"`
         '';
       }
       { assertion = config.networking.wireless.iwd.enable;
@@ -404,7 +413,7 @@ in {
       }
     ];
 
-    environment.etc = with cfg.basePackages; [
+    environment.etc = with pkgs; [
       { source = configFile;
         target = "NetworkManager/NetworkManager.conf";
       }
@@ -516,19 +525,22 @@ in {
       aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
-    # Turn off NixOS' network management
-    networking = {
-      useDHCP = false;
-      # use mkDefault to trigger the assertion about the conflict above
-      wireless.enable = mkDefault false;
-    };
+    # Turn off NixOS' network management when networking is managed entirely by NetworkManager
+    networking = mkMerge [
+      (mkIf (!delegateWireless) {
+        useDHCP = false;
+      })
+
+      (mkIf cfg.enableStrongSwan {
+        networkmanager.packages = [ pkgs.networkmanager_strongswan ];
+      })
+
+      (mkIf enableIwd {
+        wireless.iwd.enable = true;
+      })
+    ];
 
     security.polkit.extraConfig = polkitConf;
-
-    networking.networkmanager.packages =
-      optional (cfg.wifi.backend == "iwd") pkgs.iwd
-      ++ optional (cfg.wifi.backend == "wpa_supplicant") pkgs.wpa_supplicant
-      ++ optional cfg.enableStrongSwan pkgs.networkmanager_strongswan;
 
     services.dbus.packages =
       optional cfg.enableStrongSwan pkgs.strongswanNM ++ cfg.packages;
