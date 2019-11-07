@@ -44,6 +44,11 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
+  # required by libgcab-1.0.pc
+  propagatedBuildInputs = [
+    glib
+  ];
+
   mesonFlags = [
     "-Dtests=false"
   ];
