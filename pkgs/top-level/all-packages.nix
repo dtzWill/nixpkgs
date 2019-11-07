@@ -17730,6 +17730,8 @@ in
 
   unicode-character-database = callPackage ../data/misc/unicode-character-database { };
 
+  unihan-database = callPackage ../data/misc/unihan-database { };
+
   unifont = callPackage ../data/fonts/unifont { };
 
   unifont_upper = callPackage ../data/fonts/unifont_upper { };
