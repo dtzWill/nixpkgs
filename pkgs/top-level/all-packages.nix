@@ -6082,6 +6082,10 @@ in
 
   runzip = callPackage ../tools/archivers/runzip { };
 
+  ruplacer = callPackage ../tools/text/ruplacer {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
   rw = callPackage ../tools/misc/rw { };
 
   rxp = callPackage ../tools/text/xml/rxp { };
