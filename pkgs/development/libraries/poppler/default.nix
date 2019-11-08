@@ -7,16 +7,16 @@
 , minimal ? false, suffix ? "glib"
 }:
 
-let # beware: updates often break cups-filters build
-  version = "0.79.0";
+let
   mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";
 in
 stdenv.mkDerivation rec {
   name = "poppler-${suffix}-${version}";
+  version = "0.81.0"; # beware: updates often break cups-filters build
 
   src = fetchurl {
     url = "${meta.homepage}/poppler-${version}.tar.xz";
-    sha256 = "1j18jlv1q6h21azb939gqjsgcbsh5qcd8dwxdmad54p5ixha91gr";
+    sha256 = "00pykc7nym3xg0wc60awv0i35zwdfyn0igb6jrnb6rsv0c5h4b91";
   };
 
   outputs = [ "out" "dev" ];
