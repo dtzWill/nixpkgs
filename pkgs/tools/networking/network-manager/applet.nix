@@ -1,7 +1,8 @@
-{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager, libnma, gnome3
-, libnotify, libsecret, polkit, isocodes, modemmanager, libxml2, docbook_xsl, docbook_xml_dtd_43
-, mobile-broadband-provider-info, glib-networking, gsettings-desktop-schemas
-, libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3
+{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, pkgconfig
+, networkmanager, libnma, gnome3
+, libnotify, libsecret, polkit, modemmanager, libxml2 
+, glib-networking, gsettings-desktop-schemas
+, libgudev, jansson, wrapGAppsHook, python3, gtk3
 , libappindicator-gtk3 }:
 
 stdenv.mkDerivation rec {
@@ -30,13 +31,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk3 networkmanager libnotify libsecret gsettings-desktop-schemas
-    polkit isocodes mobile-broadband-provider-info libgudev
+    polkit libgudev
     modemmanager jansson glib-networking
     libappindicator-gtk3 gnome3.adwaita-icon-theme
     libnma
   ];
 
-  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook gobject-introspection python3 libxml2 ];
+  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook python3 libxml2 ];
 
   # Needed for wingpanel-indicator-network and switchboard-plug-network
   patches = [ ./hardcode-gsettings.patch ];
