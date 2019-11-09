@@ -3,7 +3,10 @@
 , libnotify, libsecret, polkit, modemmanager, libxml2 
 , glib-networking, gsettings-desktop-schemas
 , libgudev, jansson, wrapGAppsHook, python3, gtk3
-, libappindicator-gtk3 }:
+, libappindicator-gtk3
+# TODO: revamp
+, withGnome ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
@@ -34,7 +37,7 @@ stdenv.mkDerivation rec {
     polkit libgudev
     modemmanager jansson glib-networking
     libappindicator-gtk3 gnome3.adwaita-icon-theme
-    libnma
+    (libnma.override { inherit withGnome; })
   ];
 
   nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook python3 libxml2 ];
