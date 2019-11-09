@@ -5137,6 +5137,7 @@ in
   networkmanager_strongswan = callPackage ../tools/networking/network-manager/strongswan.nix { };
 
   networkmanagerapplet = callPackage ../tools/networking/network-manager/applet.nix { };
+  libnma = callPackage ../tools/networking/network-manager/libnma.nix { };
 
   networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu.nix  { };
 
