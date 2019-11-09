@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager, gnome3
+{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager, libnma, gnome3
 , libnotify, libsecret, polkit, isocodes, modemmanager, libxml2, docbook_xsl, docbook_xml_dtd_43
 , mobile-broadband-provider-info, glib-networking, gsettings-desktop-schemas
 , libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3
-, libappindicator-gtk3, withGnome ? false, gcr }:
+, libappindicator-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
@@ -22,22 +22,21 @@ stdenv.mkDerivation rec {
   };
 
   mesonFlags = [
-    "-Dlibnm_gtk=false" # It is deprecated
     "-Dselinux=false"
     "-Dappindicator=yes"
-    "-Dgcr=${if withGnome then "true" else "false"}"
   ];
 
-  outputs = [ "out" "lib" "dev" "devdoc" "man" ];
+  outputs = [ "out" "lib" "dev" "man" ];
 
   buildInputs = [
     gtk3 networkmanager libnotify libsecret gsettings-desktop-schemas
     polkit isocodes mobile-broadband-provider-info libgudev
     modemmanager jansson glib-networking
     libappindicator-gtk3 gnome3.adwaita-icon-theme
-  ] ++ stdenv.lib.optionals withGnome [ gcr ]; # advanced certificate chooser
+    libnma
+  ];
 
-  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook gobject-introspection python3 gtk-doc docbook_xsl docbook_xml_dtd_43 libxml2 ];
+  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook gobject-introspection python3 libxml2 ];
 
   # Needed for wingpanel-indicator-network and switchboard-plug-network
   patches = [ ./hardcode-gsettings.patch ];
