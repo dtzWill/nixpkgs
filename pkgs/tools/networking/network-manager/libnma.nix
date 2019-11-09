@@ -24,6 +24,8 @@ stdenv.mkDerivation rec {
     docbook_xsl docbook_xml_dtd_43 libxml2
   ];
 
+  outputs = [ "out" "lib" "dev" "devdoc" ];
+
   buildInputs = [
     gtk3 isocodes mobile-broadband-provider-info
   ] ++ stdenv.lib.optional withGnome gcr;
