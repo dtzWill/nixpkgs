@@ -3,7 +3,7 @@
 , networkmanager, gtk3, gobject-introspection, gtk-doc
 , docbook_xsl, docbook_xml_dtd_43, libxml2
 , isocodes, mobile-broadband-provider-info
-, withGnome ? false, gcr ? null
+, withGnome ? true, gcr ? null
 }:
 
 stdenv.mkDerivation rec {
