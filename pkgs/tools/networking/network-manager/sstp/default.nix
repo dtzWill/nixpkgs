@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, substituteAll, autoreconfHook, intltool, pkgconfig, python
 , networkmanager, ppp, sstp
-, gtk3, libsecret, networkmanagerapplet }:
+, gtk3, libsecret, libnma }:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-sstp";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs= [ autoreconfHook intltool pkgconfig python ];
   buildInputs = [
     networkmanager ppp sstp
-    gtk3 libsecret networkmanagerapplet
+    gtk3 libsecret libnma
   ];
 
   preAutoreconf = ''
