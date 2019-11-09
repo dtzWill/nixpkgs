@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "fortify" ];
 
   postUnpack = ''
-      patchShebangs .
+    patchShebangs .
   ''
 
   + stdenv.lib.optionalString (!bootstrapVersion) ''
@@ -75,47 +75,31 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ninja makeWrapper unzip ]
-
-  ++ stdenv.lib.optional (!bootstrapVersion) [
-    bootstrapLdc python lit
-  ]
-
-  ++ stdenv.lib.optional (!bootstrapVersion && stdenv.hostPlatform.isDarwin) [
-    # https://github.com/NixOS/nixpkgs/issues/57120
-    # https://github.com/NixOS/nixpkgs/pull/59197#issuecomment-481972515
-    llvm_5
-  ]
-
-  ++ stdenv.lib.optional (!bootstrapVersion && !stdenv.hostPlatform.isDarwin) [
-    llvm_8
-  ]
-
-  ++ stdenv.lib.optional (!bootstrapVersion && !stdenv.hostPlatform.isDarwin) [
-    # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
-    gdb
-  ]
-
-  ++ stdenv.lib.optional (bootstrapVersion) [
-    libconfig llvm_5
-  ]
-
-  ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin (with darwin.apple_sdk.frameworks; [
-    Foundation
-  ]);
+    ++ stdenv.lib.optionals (!bootstrapVersion) [
+      bootstrapLdc python lit
+    ]
+    ++ stdenv.lib.optional (!bootstrapVersion && stdenv.hostPlatform.isDarwin)
+      # https://github.com/NixOS/nixpkgs/issues/57120
+      # https://github.com/NixOS/nixpkgs/pull/59197#issuecomment-481972515
+      llvm_5
+    ++ stdenv.lib.optional (!bootstrapVersion && !stdenv.hostPlatform.isDarwin)
+      llvm_8
+    ++ stdenv.lib.optional (!bootstrapVersion && !stdenv.hostPlatform.isDarwin)
+      # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
+      gdb
+    ++ stdenv.lib.optionals (bootstrapVersion) [
+      libconfig llvm_5
+    ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin
+      darwin.apple_sdk.frameworks.Foundation;
 
 
   buildInputs = [ curl tzdata ];
 
-  cmakeFlagsString = stdenv.lib.optionalString (!bootstrapVersion) ''
+  cmakeFlags = stdenv.lib.optionals (!bootstrapVersion) [
     "-DD_FLAGS=-d-version=TZDatabaseDir;-d-version=LibcurlPath;-J$PWD"
     "-DCMAKE_BUILD_TYPE=Release"
-  '';
-
-  preConfigure = stdenv.lib.optionalString (!bootstrapVersion) ''
-    cmakeFlagsArray=(
-      ${cmakeFlagsString}
-    )
-  '';
+  ];
 
   postConfigure = ''
     export DMD=$PWD/bin/ldmd2
@@ -123,7 +107,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DMD=$DMD" ];
 
-  fixNames = if stdenv.hostPlatform.isDarwin then ''
+  fixNames = stdenv.lib.optionalString stdenv.hostPlatform.isDarwin  ''
     fixDarwinDylibNames() {
       local flags=()
 
@@ -140,15 +124,11 @@ stdenv.mkDerivation rec {
 
     fixDarwinDylibNames $(find "$(pwd)/lib" -name "*.dylib")
     export DYLD_LIBRARY_PATH=$(pwd)/lib
-  ''
-  else
-    "";
+  '';
 
   # https://github.com/ldc-developers/ldc/issues/2497#issuecomment-459633746
-  additionalExceptions = if stdenv.hostPlatform.isDarwin then
-    "|druntime-test-shared"
-  else
-    "";
+  additionalExceptions = stdenv.lib.optionalString stdenv.hostPlatform.isDarwin
+    "|druntime-test-shared";
 
   doCheck = !bootstrapVersion;
 
