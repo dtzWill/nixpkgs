@@ -1,5 +1,5 @@
 { stdenv, fetchurl, intltool, pkgconfig, networkmanager, strongswanNM
-, gtk3, gnome3, libsecret }:
+, gtk3, gnome3, libsecret, libnma }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "015xcj42pd84apa0j0n9r3fhldp42mj72dqvl2xf4r9gwg5nhfrl";
   };
 
-  buildInputs = [ networkmanager strongswanNM libsecret gtk3 gnome3.networkmanagerapplet ];
+  buildInputs = [ networkmanager strongswanNM libsecret gtk3 libnma ];
 
   nativeBuildInputs = [ intltool pkgconfig ];
 
