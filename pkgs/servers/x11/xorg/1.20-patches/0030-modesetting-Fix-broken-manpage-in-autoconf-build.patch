@@ -1,7 +1,7 @@
 From 3491f1dc5c701656e2f69f74b459dfcaef9451d6 Mon Sep 17 00:00:00 2001
 From: Sven Joachim <svenjoac@gmx.de>
 Date: Wed, 2 Oct 2019 18:26:07 +0200
-Subject: [PATCH 30/30] modesetting: Fix broken manpage in autoconf build
+Subject: [PATCH 30/34] modesetting: Fix broken manpage in autoconf build
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -43,5 +43,5 @@ index e0411ef51..961c57408 100644
 -.man.$(DRIVER_MAN_SUFFIX):
 -	$(AM_V_GEN)$(SED) $(MAN_SUBSTS) < $< > $@
 -- 
-2.24.0-rc2
+2.24.0
 

@@ -1,0 +1,28 @@
+From 2f55e8dc270fb65e8ff013c5e846a1a510c761e0 Mon Sep 17 00:00:00 2001
+From: Adam Jackson <ajax@redhat.com>
+Date: Wed, 9 Oct 2019 16:03:17 -0400
+Subject: [PATCH 33/34] meson: Apparently 1.2 is < 1.2.0
+
+Siiiigh.
+
+(cherry picked from commit 3340ddf37743fdf197dfc16a97107435ff53c6e4)
+---
+ glx/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/glx/meson.build b/glx/meson.build
+index e25e108cd..559b1feda 100644
+--- a/glx/meson.build
++++ b/glx/meson.build
+@@ -74,7 +74,7 @@ if build_glx
+             common_dep,
+             dl_dep,
+             dependency('glproto', version: '>= 1.4.17'),
+-            dependency('gl', version: '>= 1.2.0'),
++            dependency('gl', version: '>= 1.2'),
+         ],
+     )
+ 
+-- 
+2.24.0
+

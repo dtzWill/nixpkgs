@@ -1,7 +1,7 @@
 From 616b3e1dd19d51688e4cba380394bd93c62b50d4 Mon Sep 17 00:00:00 2001
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Date: Mon, 1 Jul 2019 02:33:26 +0200
-Subject: [PATCH 23/30] Fix crash on XkbSetMap
+Subject: [PATCH 23/34] Fix crash on XkbSetMap
 
 Since group_info and width are used for the key actions allocations,
 when modifying them we need to take care of reallocation key actions if
@@ -27,5 +27,5 @@ index 764079506..f09143050 100644
          oldMap->kt_index[1] = wire->ktIndex[1];
          oldMap->kt_index[2] = wire->ktIndex[2];
 -- 
-2.24.0-rc2
+2.24.0
 

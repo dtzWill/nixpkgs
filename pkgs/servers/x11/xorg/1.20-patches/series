@@ -28,3 +28,7 @@
 0028-dix-Assert-noPanoramiXExtension-is-false-in-Panorami.patch
 0029-configure-Set-libdrm-flags-correctly-if-only-XORG-is.patch
 0030-modesetting-Fix-broken-manpage-in-autoconf-build.patch
+0031-build-glx-Lower-gl-version-to-work-with-libglvnd.patch
+0032-meson-Fix-another-reference-to-gl-9.2.0.patch
+0033-meson-Apparently-1.2-is-1.2.0.patch
+0034-glamor-xwayland-Define-EGL_NO_X11.patch

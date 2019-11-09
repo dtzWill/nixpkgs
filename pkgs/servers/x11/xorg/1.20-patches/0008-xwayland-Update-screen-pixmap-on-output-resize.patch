@@ -1,7 +1,7 @@
 From 44c693f45d6abd6f7f3bd2f756d35811db143af7 Mon Sep 17 00:00:00 2001
 From: Olivier Fourdan <ofourdan@redhat.com>
 Date: Fri, 28 Jun 2019 16:55:11 +0200
-Subject: [PATCH 08/30] xwayland: Update screen pixmap on output resize
+Subject: [PATCH 08/34] xwayland: Update screen pixmap on output resize
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -76,5 +76,5 @@ index cc68f0340..9d33ed862 100644
      xwl_screen->height = height;
      xwl_screen->screen->width = width;
 -- 
-2.24.0-rc2
+2.24.0
 

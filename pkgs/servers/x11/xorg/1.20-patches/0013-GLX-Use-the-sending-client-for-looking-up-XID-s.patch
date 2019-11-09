@@ -1,7 +1,7 @@
 From abeae4a6d356653d50026707ecc2afceac83631e Mon Sep 17 00:00:00 2001
 From: Kyle Brenneman <kbrenneman@nvidia.com>
 Date: Wed, 8 May 2019 08:44:54 -0600
-Subject: [PATCH 13/30] GLX: Use the sending client for looking up XID's
+Subject: [PATCH 13/34] GLX: Use the sending client for looking up XID's
 
 When GlxGetXIDMap looks up an unknown XID, it will now look up a vendor based
 on the screen number for the XID and the client that sent the current request.
@@ -109,5 +109,5 @@ index 778656bb6..4efab8b81 100644
      }
      return vendor;
 -- 
-2.24.0-rc2
+2.24.0
 

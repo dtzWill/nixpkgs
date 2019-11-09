@@ -1,7 +1,7 @@
 From 63346c74393e1df4555f84367529802a67578ef6 Mon Sep 17 00:00:00 2001
 From: Carlos Garnacho <carlosg@gnome.org>
 Date: Mon, 7 Jan 2019 15:33:35 +0100
-Subject: [PATCH 20/30] xwayland: Handle the case of windows being realized
+Subject: [PATCH 20/34] xwayland: Handle the case of windows being realized
  before redirection
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -87,5 +87,5 @@ index dfa3b37c3..0854df456 100644
      struct xorg_list output_list;
      struct xorg_list seat_list;
 -- 
-2.24.0-rc2
+2.24.0
 

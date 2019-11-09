@@ -1,0 +1,28 @@
+From e16eb696f2238796827794d2d3b23f268cf4daf0 Mon Sep 17 00:00:00 2001
+From: Adam Jackson <ajax@redhat.com>
+Date: Wed, 9 Oct 2019 15:17:47 -0400
+Subject: [PATCH 32/34] meson: Fix another reference to "gl" 9.2.0
+
+Previous commit e6ef2b12 missed a spot.
+
+(cherry picked from commit c7486613b0dc586f93f6ba293d9b55c69995b05c)
+---
+ glx/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/glx/meson.build b/glx/meson.build
+index bd5c62fea..e25e108cd 100644
+--- a/glx/meson.build
++++ b/glx/meson.build
+@@ -74,7 +74,7 @@ if build_glx
+             common_dep,
+             dl_dep,
+             dependency('glproto', version: '>= 1.4.17'),
+-            dependency('gl', version: '>= 9.2.0'),
++            dependency('gl', version: '>= 1.2.0'),
+         ],
+     )
+ 
+-- 
+2.24.0
+

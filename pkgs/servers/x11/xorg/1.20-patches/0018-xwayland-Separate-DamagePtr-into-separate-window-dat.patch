@@ -1,7 +1,7 @@
 From e0af09061f9e8397ca564ec3bbedea51974455d4 Mon Sep 17 00:00:00 2001
 From: Carlos Garnacho <carlosg@gnome.org>
 Date: Mon, 7 Jan 2019 15:20:05 +0100
-Subject: [PATCH 18/30] xwayland: Separate DamagePtr into separate window data
+Subject: [PATCH 18/34] xwayland: Separate DamagePtr into separate window data
 
 This will be dissociated in future commits to handle the cases
 where windows are being realized before there is a compositor
@@ -168,5 +168,5 @@ index 463622669..dfa3b37c3 100644
      struct wl_callback *frame_callback;
      Bool allow_commits;
 -- 
-2.24.0-rc2
+2.24.0
 

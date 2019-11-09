@@ -1,7 +1,7 @@
 From 6e199e4613e149cd5d5ce69cdd6a259744b6cb44 Mon Sep 17 00:00:00 2001
 From: Olivier Fourdan <ofourdan@redhat.com>
 Date: Fri, 26 Apr 2019 13:37:09 +0200
-Subject: [PATCH 03/30] glamor: Make pixmap exportable from
+Subject: [PATCH 03/34] glamor: Make pixmap exportable from
  `gbm_bo_from_pixmap()`
 
 If a pixmap is not exportable, `glamor_gbm_bo_from_pixmap()` would fail
@@ -85,5 +85,5 @@ index d3c678d6b..9a619a133 100644
          goto failure;
  
 -- 
-2.24.0-rc2
+2.24.0
 
