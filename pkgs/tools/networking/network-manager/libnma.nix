@@ -25,8 +25,10 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    networkmanager gtk3 isocodes mobile-broadband-provider-info
+    gtk3 isocodes mobile-broadband-provider-info
   ] ++ stdenv.lib.optional withGnome gcr;
+
+  propagatedBuildInputs = [ networkmanager ];
 
   mesonFlags = [
     "-Dgcr=${if withGnome then "true" else "false"}"
