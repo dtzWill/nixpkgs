@@ -33,4 +33,11 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dgcr=${if withGnome then "true" else "false"}"
   ];
+
+  # Needed for wingpanel-indicator-network and switchboard-plug-network
+  patches = [ ./hardcode-gsettings.patch ];
+
+  postPatch = ''
+    substituteInPlace src/wireless-security/eap-method.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${pname}-${version}/glib-2.0/schemas
+  '';
 }
