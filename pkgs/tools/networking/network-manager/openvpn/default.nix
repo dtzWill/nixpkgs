@@ -19,8 +19,8 @@ in stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ openvpn libnma ]
-    ++ stdenv.lib.optionals withGnome [ gtk3 libsecret ];
+  buildInputs = [ openvpn networkmanager ]
+    ++ stdenv.lib.optionals withGnome [ gtk3 libsecret libnma ];
 
   nativeBuildInputs = [ intltool pkgconfig file libxml2 ];
 
