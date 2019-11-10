@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = pname;
     #rev    = COMPTON_VERSION;
-    rev = "c98e7fa39fa7a02986249dce92769960bc663f7d";
-    sha256 = "0b05zl24h9bmi0i9x53y11vxq4adspfianzm86ybbqpk692c7ilj";
+    rev = "2c1fdefe3b95d10a690564b6ea42f460fa160088";
+    sha256 = "0s6p73dkhvbmi477kyrfr6k5cfg8ja6gis6rqm6rh2jgdm6qrisq";
     fetchSubmodules = true;
   };
 
