@@ -8,7 +8,7 @@
 , cairo, pango, graphite2, harfbuzz
 , libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
 , freetype, fontconfig, file, nspr, nss, libnotify
-, yasm, libGLU_combined, sqlite, unzip, makeWrapper
+, yasm, libGLU, libGL, sqlite, unzip, makeWrapper
 , hunspell, libXdamage, libevent, libstartup_notification, libwebp
 , icu, libpng, jemalloc, glib
 , autoconf213, which, gnused, cargo, rustc, llvmPackages
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
     freetype fontconfig graphite2 harfbuzz
     xorg.libXi xorg.libXcursor
     xorg.libX11 xorg.libXrender xorg.libXft xorg.libXt file
-    libnotify xorg.pixman yasm libGLU_combined
+    libnotify xorg.pixman yasm libGLU libGL
     xorg.libXScrnSaver xorg.xorgproto
     xorg.libXext sqlite
     libevent libstartup_notification libwebp
