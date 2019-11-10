@@ -764,6 +764,8 @@ in
 
   bunny = callPackage ../tools/package-management/bunny { };
 
+  calls = callPackage ../applications/networking/calls { };
+
   certigo = callPackage ../tools/admin/certigo { };
 
   chezmoi = callPackage ../tools/misc/chezmoi { };
