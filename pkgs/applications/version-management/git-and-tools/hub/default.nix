@@ -33,7 +33,8 @@ buildGoModule rec {
     cp -vr --parents share/man/man[1-9]/*.[1-9] $out/
   '';
 
-  modSha256 = "05pkcm68i6ig4jhz70sj3gq1vk7xp27cvl0sixys3dsg9krrm0y3";
+  # XXX: depends on go version?! D:
+  modSha256 = "1512kiiwb3bli7vj5cmrfa10h29g9xphsd336krwqg3gmq0gpaxj";
 
   meta = with stdenv.lib; {
     description = "Command-line wrapper for git that makes you better at GitHub";
