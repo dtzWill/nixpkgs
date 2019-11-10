@@ -21,11 +21,16 @@ stdenv.mkDerivation rec {
     # optional:
     libjpeg
     zlib
-    ntfs3g
-    e2fsprogs
-    #libewf # makes it fail to build
-    #qt4 # for qphotorec, which does not build in 7.0
-  ];
+    libewf
+  ]
+  ++ stdenv.lib.optional enableNtfs ntfs3g
+  ++ stdenv.lib.optional enableExtFs e2fsprogs
+  ++ stdenv.lib.optionals enableQt [ qtbase qttools qwt ];
+
+  nativeBuildInputs = [ pkgconfig ];
+
+  NIX_CFLAGS_COMPILE="-Wno-unused";
+
   meta = with stdenv.lib; {
     homepage = https://www.cgsecurity.org/wiki/Main_Page;
     downloadPage = https://www.cgsecurity.org/wiki/TestDisk_Download;
