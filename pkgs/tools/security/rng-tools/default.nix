@@ -15,15 +15,15 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "rng-tools";
-  #version = "6.7";
-  version = "2019-06-06";
+  version = "6.8";
+  #version = "2019-06-06";
 
   src = fetchFromGitHub {
     owner = "nhorman";
     repo = "rng-tools";
-    #rev = "v${version}";
-    rev = "9fc873c5af0e392632e6b736938b811f7ca97251";
-    sha256 = "0x3raqy0l27ssw6vyq1gyqj8m6wqdn0gkn2l848b0wkammh4kfyi";
+    rev = "v${version}";
+    #rev = "9fc873c5af0e392632e6b736938b811f7ca97251";
+    sha256 = "1clm9i9xg3j79q0d6vinn6dx0nwh1fvzcmkqpcbay7mwsgkknvw2";
   };
 
   postPatch = ''
