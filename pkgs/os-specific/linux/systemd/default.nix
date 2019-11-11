@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, pkgconfig, intltool, gperf, libcap
-, curl, kmod, gnupg, gnutar, xz, pam, acl, libuuid, m4, utillinux, libffi
+{ stdenv, lib, fetchFromGitHub, fetchpatch, pkgconfig, intltool, gperf, libcap, kmod
+, xz, pam, acl, libuuid, m4, utillinux, libffi
 , glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor
 , audit, lz4, bzip2, libmicrohttpd, pcre2
 , linuxHeaders ? stdenv.cc.libc.linuxHeaders
@@ -15,21 +15,7 @@
 , withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
 }:
 
-let gnupg-minimal = gnupg.override {
-  enableMinimal = true;
-  guiSupport = false;
-  pcsclite = null;
-  sqlite = null;
-  pinentry = null;
-  adns = null;
-  gnutls = null;
-  libusb = null;
-  openldap = null;
-  readline = null;
-  zlib = null;
-  bzip2 = null;
-};
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   version = "243";
   pname = "systemd";
 
@@ -85,7 +71,7 @@ in stdenv.mkDerivation rec {
       (buildPackages.python3Packages.python.withPackages ( ps: with ps; [ python3Packages.lxml ]))
     ];
   buildInputs =
-    [ linuxHeaders libcap curl.dev kmod xz pam acl
+    [ linuxHeaders libcap kmod xz pam acl
       /* cryptsetup */ libuuid glib libgcrypt libgpgerror libidn2
       libmicrohttpd pcre2 ] ++
       stdenv.lib.optional withKexectools kexectools ++
@@ -110,7 +96,6 @@ in stdenv.mkDerivation rec {
     "-Dtty-gid=3" # tty in NixOS has gid 3
     # while we do not run tests we should also not build them. Removes about 600 targets
     "-Dtests=false"
-    "-Dimportd=true"
     "-Dlz4=true"
     "-Dhostnamed=true"
     "-Dnetworkd=true"
@@ -121,7 +106,7 @@ in stdenv.mkDerivation rec {
     "-Dlocaled=true"
     "-Dresolve=true"
     "-Dsplit-usr=false"
-    "-Dlibcurl=true"
+    "-Dlibcurl=false"
     "-Dlibidn=false"
     "-Dlibidn2=true"
     "-Dquotacheck=false"
@@ -201,14 +186,6 @@ in stdenv.mkDerivation rec {
 
     for dir in tools src/resolve test src/test; do
       patchShebangs $dir
-    done
-
-    # absolute paths to gpg & tar
-    substituteInPlace src/import/pull-common.c \
-      --replace '"gpg"' '"${gnupg-minimal}/bin/gpg"'
-    for file in src/import/{{export,import,pull}-tar,import-common}.c; do
-      substituteInPlace $file \
-        --replace '"tar"' '"${gnutar}/bin/tar"'
     done
 
     substituteInPlace src/journal/catalog.c \
