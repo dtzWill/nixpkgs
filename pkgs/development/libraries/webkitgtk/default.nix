@@ -6,7 +6,7 @@
 , enableGeoLocation ? true, geoclue2, sqlite
 , enableGtk2Plugins ? false, gtk2 ? null
 , gst-plugins-base, gst-plugins-bad, woff2
-, libwpe, wpebackend-fdo
+#, libwpe, wpebackend-fdo
 , bubblewrap, libseccomp, xdg-dbus-proxy
 , substituteAll
 }:
@@ -60,6 +60,8 @@ stdenv.mkDerivation rec {
   "-DPORT=GTK"
   "-DUSE_LIBHYPHEN=OFF"
   "-DENABLE_INTROSPECTION=ON"
+  # XXX: until wpebackend-fdo is un-broken
+  "-DUSE_WPE_RENDERER=OFF"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
   ++ optional stdenv.isLinux "-DENABLE_GLES2=ON"
@@ -98,7 +100,7 @@ stdenv.mkDerivation rec {
     libintl libwebp enchant2 libnotify gnutls pcre nettle libidn libgcrypt woff2
     libxml2 libsecret libxslt harfbuzz libpthreadstubs libtasn1 p11-kit openjpeg
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
-    libwpe wpebackend-fdo
+    #libwpe wpebackend-fdo
     libGL libGLU
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
