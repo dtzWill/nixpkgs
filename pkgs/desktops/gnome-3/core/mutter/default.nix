@@ -9,6 +9,7 @@
 , wrapGAppsHook
 , sysprof
 , desktop-file-utils
+, fetchpatch
 }:
 
 stdenv.mkDerivation rec {
