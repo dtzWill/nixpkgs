@@ -7,20 +7,20 @@
 , xorgserver
 , python3
 , wrapGAppsHook
-, sysprof
+#, sysprof
 , desktop-file-utils
 , fetchpatch
 }:
 
 stdenv.mkDerivation rec {
   pname = "mutter";
-  version = "3.34.1";
+  version = "3.32.2";
 
   outputs = [ "out" "dev" "man" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/mutter/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "13kmmgg2zizr0522clwc2zn3bkwbir503b1wjiiixf5xi37jc65s";
+    sha256 = "1h577i2ap7dpfy1jg101jvc6nzccc0csgvd55ahydlr8f94frcva";
   };
 
   mesonFlags = [
@@ -51,12 +51,12 @@ stdenv.mkDerivation rec {
     geocode-glib libinput libgudev libwacom
     libcanberra-gtk3 zenity xkeyboard_config libxkbfile
     libxkbcommon pipewire xwayland
-    gnome-settings-daemon sysprof
+    gnome-settings-daemon #sysprof
   ];
 
   patches = [
    # TODO: submit upstream
-   ./0001-build-use-get_pkgconfig_variable-for-sysprof-dbusdir.patch
+   # ./0001-build-use-get_pkgconfig_variable-for-sysprof-dbusdir.patch
     (substituteAll {
       src = ./fix-paths.patch;
       inherit zenity;
