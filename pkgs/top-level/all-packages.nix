@@ -5254,7 +5254,7 @@ in
 
   niff = callPackage ../tools/package-management/niff { };
 
-  nifskope = libsForQt59.callPackage ../tools/graphics/nifskope { };
+  nifskope = libsForQt5.callPackage ../tools/graphics/nifskope { };
 
   nilfs-utils = callPackage ../tools/filesystems/nilfs-utils {};
 
@@ -13563,10 +13563,7 @@ in
 
   python-qt = callPackage ../development/libraries/python-qt {
     python = python27;
-    qmake = qt59.qmake;
-    qttools = qt59.qttools;
-    qtwebengine = qt59.qtwebengine;
-    qtxmlpatterns = qt59.qtxmlpatterns;
+    inherit (qt5) qmake qttools qtwebengine qtxmlpatterns;
   };
 
   pyotherside = libsForQt5.callPackage ../development/libraries/pyotherside {};
@@ -18350,7 +18347,7 @@ in
     pygments = python27Packages.pygments;
   };
 
-  csound-qt = libsForQt59.callPackage ../applications/audio/csound/csound-qt {
+  csound-qt = libsForQt5.callPackage ../applications/audio/csound/csound-qt {
     python = python27;
   };
 
@@ -20936,7 +20933,7 @@ in
     gtksharp = gtk-sharp-2_0;
   };
 
-  plex-media-player = libsForQt59.callPackage ../applications/video/plex-media-player { };
+  plex-media-player = libsForQt5.callPackage ../applications/video/plex-media-player { };
 
   plover = recurseIntoAttrs (callPackage ../applications/misc/plover { });
 
