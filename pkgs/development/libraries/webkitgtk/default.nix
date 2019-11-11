@@ -8,6 +8,7 @@
 , gst-plugins-base, gst-plugins-bad, woff2
 , libwpe, wpebackend-fdo
 , bubblewrap, libseccomp, xdg-dbus-proxy
+, substituteAll
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
