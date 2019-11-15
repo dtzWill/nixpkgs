@@ -34,6 +34,12 @@ in
       type = listOf str;
     };
 
+    hostname = mkOption {
+      description = "Kubernetes proxy hostname override.";
+      default = config.networking.hostName;
+      type = str;
+    };
+
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes proxy";
 
     verbosity = mkOption {
@@ -62,6 +68,7 @@ in
             "--cluster-cidr=${top.clusterCidr}"} \
           ${optionalString (cfg.featureGates != [])
             "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
+          --hostname-override=${cfg.hostname} \
           --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \
           ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
           ${cfg.extraOpts}
@@ -71,6 +78,8 @@ in
         RestartSec = 5;
       };
     };
+
+    services.kubernetes.proxy.hostname = with config.networking; mkDefault hostName;
 
     services.kubernetes.pki.certs = {
       kubeProxyClient = top.lib.mkCert {

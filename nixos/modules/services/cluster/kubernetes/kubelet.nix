@@ -98,7 +98,7 @@ in
         default = [];
         example = literalExample ''
           [{
-            "cniVersion": "0.2.0",
+            "cniVersion": "0.3.1",
             "name": "mynet",
             "type": "bridge",
             "bridge": "cni0",
@@ -112,7 +112,7 @@ in
                 ]
             }
           } {
-            "cniVersion": "0.2.0",
+            "cniVersion": "0.3.1",
             "type": "loopback"
           }]
         '';
