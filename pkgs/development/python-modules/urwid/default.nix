@@ -1,21 +1,12 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, glibcLocales }:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "urwid";
-  # version = "2.0.1";
+  version = "2.1.0";
 
-  # src = fetchPypi {
-  #   inherit pname version;
-  #   sha256 = "1g6cpicybvbananpjikmjk8npmjk4xvak1wjzji62wc600wkwkb4";
-  # };
-
-  version = "2019-08-09";
-
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "bb5498690bb59d1ce995a843f8de7349541e883d";
-    sha256 = "0mdfrqbbwrw1pn8gi8dwa42bbsycy9lwyyw8f55xfzqgwhhjz96a";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "11ndnhxd41m13darf5s0c6bafdpkzq1l6mfb04wbzdmyc1hg75h8";
   };
 
   #propagatedBuildInputs = [ glibcLocales ];
