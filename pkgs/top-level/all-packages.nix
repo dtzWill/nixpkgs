@@ -17951,6 +17951,8 @@ in
                         libXi libXext libXfixes libXcomposite;
   };
 
+  blugon = callPackage ../applications/misc/blugon { };
+
   bombono = callPackage ../applications/video/bombono {};
 
   bomi = libsForQt5.callPackage ../applications/video/bomi {
