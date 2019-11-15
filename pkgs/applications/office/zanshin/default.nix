@@ -11,7 +11,7 @@ mkDerivation rec {
   pname = "zanshin";
   #version = "0.5.0-unstable";
   #version = "0.5.71";
-  version = "unstable-2019-09-29";
+  version = "unstable-2019-10-26";
 
   #src = fetchurl {
   #  url = "https://download.kde.org/stable/${pname}/${pname}-${version}.tar.xz";
@@ -21,8 +21,8 @@ mkDerivation rec {
     owner = "KDE";
     repo = pname;
     #rev = "refs/tags/${version}";
-    rev = "203e6516054b1a0e2550fd3ee5d407668168992f";
-    sha256 = "0h19rz9qmqva4gfpc28ps2j87vb7my3j44vi97qvcgjjp82r9m19";
+    rev = "13f9a9aaa33e13f885ee073a61e2d53d861db90c";
+    sha256 = "1cjfdsxqivk20dm1v3pcmk3c8xkjis729qyhm2qdp4w1xzm9pk6i";
   };
 
   patches = [ ./banner-bottom.patch ];
