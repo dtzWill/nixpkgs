@@ -1,7 +1,7 @@
 From 045add84927051a33569ed701097e1fd514bf0ca Mon Sep 17 00:00:00 2001
 From: Adam Jackson <ajax@redhat.com>
 Date: Fri, 16 Aug 2019 14:56:19 -0400
-Subject: [PATCH 17/34] glx: Fix previous context validation in
+Subject: [PATCH 17/39] glx: Fix previous context validation in
  xorgGlxMakeCurrent
 
 vnd has already verified that the context tag is valid before this gets

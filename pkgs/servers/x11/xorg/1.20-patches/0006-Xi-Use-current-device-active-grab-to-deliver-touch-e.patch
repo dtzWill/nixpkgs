@@ -1,7 +1,7 @@
 From 98e3db2ac43d4a3f13475cb160c8ce0155ac7d61 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Marco=20Trevisan=20=28Trevi=C3=B1o=29?= <mail@3v1n0.net>
 Date: Fri, 26 Oct 2018 19:52:49 +0200
-Subject: [PATCH 06/34] Xi: Use current device active grab to deliver touch
+Subject: [PATCH 06/39] Xi: Use current device active grab to deliver touch
  events if any
 
 When Retrieving touch delivery data we need to check if we have an active

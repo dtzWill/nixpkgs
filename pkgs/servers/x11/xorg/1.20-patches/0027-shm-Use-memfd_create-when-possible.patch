@@ -1,7 +1,7 @@
 From e815db543450c38d1d4ec03184b8e82fa0a37498 Mon Sep 17 00:00:00 2001
 From: Alexander Volkov <a.volkov@rusbitech.ru>
 Date: Mon, 11 Feb 2019 18:54:10 +0300
-Subject: [PATCH 27/34] shm: Use memfd_create when possible
+Subject: [PATCH 27/39] shm: Use memfd_create when possible
 
 It doesn't require shared memory dir and thus allows
 to avoid cases when this dir is detected incorrectly,

@@ -1,7 +1,7 @@
 From e16eb696f2238796827794d2d3b23f268cf4daf0 Mon Sep 17 00:00:00 2001
 From: Adam Jackson <ajax@redhat.com>
 Date: Wed, 9 Oct 2019 15:17:47 -0400
-Subject: [PATCH 32/34] meson: Fix another reference to "gl" 9.2.0
+Subject: [PATCH 32/39] meson: Fix another reference to "gl" 9.2.0
 
 Previous commit e6ef2b12 missed a spot.
 

@@ -1,7 +1,7 @@
 From fada61e89dd1f20fe8e2e0fb9e4baefb45b4b848 Mon Sep 17 00:00:00 2001
 From: Matt Turner <mattst88@gmail.com>
 Date: Fri, 9 Aug 2019 20:22:29 -0700
-Subject: [PATCH 28/34] dix: Assert noPanoramiXExtension is false in PanoramiX
+Subject: [PATCH 28/39] dix: Assert noPanoramiXExtension is false in PanoramiX
  code
 
 When compiling with link time optimization, GCC thinks it's discovered

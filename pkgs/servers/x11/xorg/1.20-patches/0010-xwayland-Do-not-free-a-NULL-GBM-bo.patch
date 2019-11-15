@@ -1,7 +1,7 @@
 From dfd51be3ca2a244bbca27a95310b60e0c14940df Mon Sep 17 00:00:00 2001
 From: Olivier Fourdan <ofourdan@redhat.com>
 Date: Tue, 23 Jul 2019 11:01:47 +0200
-Subject: [PATCH 10/34] xwayland: Do not free a NULL GBM bo
+Subject: [PATCH 10/39] xwayland: Do not free a NULL GBM bo
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

@@ -1,7 +1,7 @@
 From 5aadaac9499c71ebf88c0e5fc658d9d56c8a7e16 Mon Sep 17 00:00:00 2001
 From: Andres Rodriguez <andresx7@gmail.com>
 Date: Fri, 6 Sep 2019 18:32:44 -0400
-Subject: [PATCH 21/34] xf86: Disable unused crtc functions when a lease is
+Subject: [PATCH 21/39] xf86: Disable unused crtc functions when a lease is
  revoked
 
 This fixes 'non-desktop' displays staying powered on after their lease

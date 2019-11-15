@@ -1,7 +1,7 @@
 From 2f55e8dc270fb65e8ff013c5e846a1a510c761e0 Mon Sep 17 00:00:00 2001
 From: Adam Jackson <ajax@redhat.com>
 Date: Wed, 9 Oct 2019 16:03:17 -0400
-Subject: [PATCH 33/34] meson: Apparently 1.2 is < 1.2.0
+Subject: [PATCH 33/39] meson: Apparently 1.2 is < 1.2.0
 
 Siiiigh.
 

@@ -1,7 +1,7 @@
 From 642c1f83b9ed2452ceb20457a4423a8f52a7a8c4 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Mon, 4 Nov 2019 20:03:17 +0100
-Subject: [PATCH 34/34] glamor/xwayland: Define EGL_NO_X11
+Subject: [PATCH 34/39] glamor/xwayland: Define EGL_NO_X11
 
 Define EGL_NO_X11 everywhere were we also define MESA_EGL_NO_X11_HEADERS,
 EGL_NO_X11 is the MESA_EGL_NO_X11_HEADERS equivalent for the egl headers

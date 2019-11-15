@@ -1,7 +1,7 @@
 From df1f8f691d7550a18d2076a44c109b1cb6da05ae Mon Sep 17 00:00:00 2001
 From: Alexander Tsoy <alexander@tsoy.me>
 Date: Mon, 23 Sep 2019 18:23:40 +0300
-Subject: [PATCH 29/34] configure: Set libdrm flags correctly if only XORG is
+Subject: [PATCH 29/39] configure: Set libdrm flags correctly if only XORG is
  enabled
 
 This fixes modesetting driver build failure which can be triggered with

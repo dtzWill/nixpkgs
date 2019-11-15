@@ -1,7 +1,7 @@
 From 26b6ba5347953ed5f60b7fb9454b45754b145c6f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>
 Date: Wed, 3 Jul 2019 11:53:56 +0200
-Subject: [PATCH 05/34] Revert "present/scmd: Check that the flip and screen
+Subject: [PATCH 05/39] Revert "present/scmd: Check that the flip and screen
  pixmap pitches match"
 
 This reverts commit ef91da2757050652c724f6e674e8b1acf5d0cb31.

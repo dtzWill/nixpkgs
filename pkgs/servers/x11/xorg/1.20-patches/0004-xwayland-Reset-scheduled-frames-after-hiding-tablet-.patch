@@ -1,7 +1,7 @@
 From c86222d4bd94892f3bf3c5947c19793ca18bd9e2 Mon Sep 17 00:00:00 2001
 From: Carlos Garnacho <carlosg@gnome.org>
 Date: Wed, 22 May 2019 17:51:04 +0200
-Subject: [PATCH 04/34] xwayland: Reset scheduled frames after hiding tablet
+Subject: [PATCH 04/39] xwayland: Reset scheduled frames after hiding tablet
  cursor
 
 Hiding the tablet tool cursor results in it being hidden forever after.

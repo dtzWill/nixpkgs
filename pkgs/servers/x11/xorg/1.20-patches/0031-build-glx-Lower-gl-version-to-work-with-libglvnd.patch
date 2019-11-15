@@ -1,7 +1,7 @@
 From a57729d3180ee4bc3ae012cfd03fe5188d858a83 Mon Sep 17 00:00:00 2001
 From: Marvin Schmidt <marv@exherbo.org>
 Date: Tue, 24 Sep 2019 09:58:43 +0200
-Subject: [PATCH 31/34] build: glx: Lower gl version to work with libglvnd
+Subject: [PATCH 31/39] build: glx: Lower gl version to work with libglvnd
 
 When using mesa with libglvnd support, mesa will no longer install the
 gl, glx, egl pkg-config files but instead let libglvnd provide them.

@@ -1,7 +1,7 @@
 From c747dbb250c11c6a02641b253e7322145dc9b913 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>
 Date: Mon, 23 Sep 2019 18:35:41 +0200
-Subject: [PATCH 22/34] miext/sync: Make struct _SyncObject::initialized fully
+Subject: [PATCH 22/39] miext/sync: Make struct _SyncObject::initialized fully
  ABI compatible
 
 With a 32-bit build, putting the initialized field at the end of the

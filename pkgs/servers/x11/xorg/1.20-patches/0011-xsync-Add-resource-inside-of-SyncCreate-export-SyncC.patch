@@ -1,7 +1,7 @@
 From 82f01ad7869e3f2be51e41a8246dab5982bbc36a Mon Sep 17 00:00:00 2001
 From: Alex Goins <agoins@nvidia.com>
 Date: Wed, 10 Apr 2019 13:48:02 -0500
-Subject: [PATCH 11/34] xsync: Add resource inside of SyncCreate, export
+Subject: [PATCH 11/39] xsync: Add resource inside of SyncCreate, export
  SyncCreate
 
 As shown by DRI3 adding the SyncCreateFenceFromFD() function, extensions may

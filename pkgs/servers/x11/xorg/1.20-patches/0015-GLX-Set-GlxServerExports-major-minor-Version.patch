@@ -1,7 +1,7 @@
 From 39b3005c329bc63676df72c43529d641bf305bcd Mon Sep 17 00:00:00 2001
 From: Aaron Plattner <aplattner@nvidia.com>
 Date: Tue, 21 May 2019 10:50:42 -0700
-Subject: [PATCH 15/34] GLX: Set GlxServerExports::{major,minor}Version
+Subject: [PATCH 15/39] GLX: Set GlxServerExports::{major,minor}Version
 
 Commit 56c0a71fdd94a008e5d746261f70a713c4767f93 incremented the
 GLXSERVER_VENDOR_ABI_MINOR_VERSION define, but this define was not actually
