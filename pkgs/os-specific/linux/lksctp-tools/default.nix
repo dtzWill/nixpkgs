@@ -1,15 +1,17 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "lksctp-tools";
-  version = "1.0.17";
+  version = "1.0.18";
 
   src = fetchFromGitHub {
     owner = "sctp";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0ymbywpz1dym21fiadyiavmd71ynws8ghddj7mvw8lmdsfn09iff";
+    sha256 = "1x4fwzrlzvfa3vcpja97m8w5g9ir2zrh4zs7zksminrnmdrs0dsr";
   };
+
+  nativeBuildInputs = [ autoreconfHook ];
 
   meta = with stdenv.lib; {
     description = "Linux Kernel Stream Control Transmission Protocol Tools.";
