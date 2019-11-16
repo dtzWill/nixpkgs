@@ -143,7 +143,7 @@ in {
 
     hardware.firmware = [ pkgs.wireless-regdb ];
 
-    #systemd.packages = [ pkgs.iwd ];
+    systemd.packages = [ pkgs.iwd ];
 
     # hopefully merges with existing service nicely?
     systemd.services.iwd = {
