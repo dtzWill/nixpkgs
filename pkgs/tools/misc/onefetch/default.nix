@@ -13,16 +13,16 @@ let
   };
 in
   rustPlatform.buildRustPackage rec {
-    name = "onefetch-${version}";
-    version = "1.7.0";
+    pname = "onefetch";
+    version = "2.1.0";
     
     src = fetchFromGitHub {
       owner = "o2sh";
-      repo = "onefetch";
-      rev = version;
-      sha256 = "1p16mg4ak9ppx3y11l3r4y6356drwhnmrlxsaqx01n53ii5ij9kg";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "02mdzpzfcxp9na86b4jcqqjd3id5jslgmnq1jc0vykg58xha51jg";
     };
-    cargoSha256 = "0cpfjxn6nqsrnmgvjzr17n6xbbyfl9c91d5kbrmxb6jyig98k6aq";
+    cargoSha256 = "1phv06zf47bv5cmhypivljfiynrblha0kj13c5al9l0hd1xx749h";
     buildInputs = [ ];
     CARGO_HOME = "$(mktemp -d cargo-home.XXX)";
 
