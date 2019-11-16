@@ -1,4 +1,7 @@
-#!/bin/sh -e
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl libxslt
+
+mkdir -p xml
 
 # Convert base packages
 curl https://dl.google.com/android/repository/repository2-1.xml -o xml/repository2-1.xml
