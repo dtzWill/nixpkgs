@@ -16,6 +16,9 @@
 
 let
   pname = "mindustry";
+  # Note: when raising the version, ensure that all SNAPSHOT versions in
+  # build.gradle are replaced by a fixed version
+  # (the current one at the time of release) (see postPatch).
   version = "99";
   buildVersion = makeBuildVersion version;
 
@@ -36,9 +39,12 @@ let
 
   postPatch = ''
     # Remove unbuildable iOS stuff
-    sed -Ei 's/.*robovm.*//' build.gradle
     sed -i '159,193d' build.gradle
+    sed -i '/robo(vm|VM)/d' build.gradle
     rm ios/build.gradle
+
+    # Pin 'SNAPSHOT' versions
+    sed -i 's/com.github.anuken:packr:-SNAPSHOT/com.github.anuken:packr:034efe51781d2d8faa90370492133241bfb0283c/' build.gradle
   '';
 
   # fake build to pre-download deps into fixed-output derivation
@@ -59,7 +65,7 @@ let
     '';
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "1s9rxvc4hx2b9nr9kkay4163rl5fmw80diwj8dkybxxqd1axvdpg";
+    outputHash = "0drx1y35za07bm7xwsl9va9kbz87qa4i5w462lywzmc08aissv04";
   };
 
 in stdenv.mkDerivation rec {
