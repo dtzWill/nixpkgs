@@ -14772,8 +14772,8 @@ in
   perl530Packages = recurseIntoAttrs perl530.pkgs;
   perldevelPackages = perldevel.pkgs;
 
-  perl = perl530;
-  perlPackages = perl530Packages;
+  perl = perl528;
+  perlPackages = perl528Packages;
 
   ack = perlPackages.ack;
 
