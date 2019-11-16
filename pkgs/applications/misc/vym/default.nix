@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, qmake, qtdeclarative, qtscript, qtsvg, dbus }:
+{ lib, mkDerivation, fetchurl, pkgconfig, qmake, qtdeclarative, qtscript, qtsvg, dbus }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "vym";
   version = "2.7.1";
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   dontGzipMan = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A mind-mapping software";
     longDescription = ''
       VYM (View Your Mind) is a tool to generate and manipulate maps which show your thoughts.
