@@ -19,6 +19,16 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  NIX_CFLAGS_COMPILE = if stdenv.isx86_32 then
+    # Fix tests and ensure consistent results across archs
+    # https://bugs.freedesktop.org/show_bug.cgi?id=101033
+    # (found in debian's packaging 'rules')
+    [ "-ffloat-store" ]
+    else
+    # (avoid rebuild)
+    null;
+
+
   meta = with stdenv.lib; {
     description = "Mozilla's Universal Charset Detector C/C++ API";
     homepage = https://www.freedesktop.org/wiki/Software/uchardet/;
