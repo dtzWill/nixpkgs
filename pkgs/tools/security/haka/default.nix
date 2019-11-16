@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = http://www.haka-security.org/;
     license = stdenv.lib.licenses.mpl20;
     maintainers = [ stdenv.lib.maintainers.tvestelind ];
-    platforms = stdenv.lib.platforms.linux;
+    platforms = [ "x86_64-linux" "i686-linux" ]; # fails on aarch64
   };
 }
