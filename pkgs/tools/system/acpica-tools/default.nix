@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ bison flex ];
 
+  NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
+
   PROGS = [
     "acpibin"
     "acpidump"

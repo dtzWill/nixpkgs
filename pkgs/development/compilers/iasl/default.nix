@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ bison flex ];
 
+  NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
+
   PROGS = [ "iasl" ];
   makeFlags = PROGS ++ [
     "PREFIX=${placeholder "out"}"
