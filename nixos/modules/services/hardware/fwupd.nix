@@ -99,14 +99,42 @@ in {
           [fwupd]
           BlacklistDevices=${lib.concatStringsSep ";" cfg.blacklistDevices}
           BlacklistPlugins=${lib.concatStringsSep ";" cfg.blacklistPlugins}
+
+          # Maximum archive size that can be loaded in Mb, with 0 for the default
+          ArchiveSizeMax=0
+
+          # Idle time in seconds to shut down the daemon -- note some plugins might
+          # inhibit the auto-shutdown, for instance thunderbolt.
+          #
+          # A value of 0 specifies 'never'
+          IdleTimeout=7200
+
+          # Comma separated list of domains to log in verbose mode
+          # If unset, no domains
+          # If set to FuValue, FuValue domain (same as --domain-verbose=FuValue)
+          # If set to *, all domains (same as --verbose)
+          VerboseDomains=
         '';
       };
       "fwupd/uefi.conf" = {
         source = pkgs.writeText "uefi.conf" ''
           [uefi]
           OverrideESPMountPoint=${config.boot.loader.efi.efiSysMountPoint}
-        '';
+        ''; # TODO: RequireShimForSecureBoot=true ?
       };
+
+      # Check kernel version for safety before attempting thunderbolt update
+      # Since NixOS uses nearly-vanilla kernels, use suggested value.
+      # Note that if not specified it appears this check is disabled.
+      # XXX: Ensure this matches what fwupd says is needed, if it changes!
+      "fwupd/thunderbolt.conf".source = pkgs.writeText "thunderbolt.conf" ''
+        [thunderbolt]
+
+        # Minimum kernel version to allow use of this plugin
+        # It's important that all backports from this kernel have been
+        # made if using an older kernel
+        MinimumKernelVersion=4.13.0
+      '';
 
     } // originalEtc // extraTrustedKeys // testRemote;
 
