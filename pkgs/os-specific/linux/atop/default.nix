@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       -e "/touch.*LOGPATH/s@touch@echo should have created @" \
       -e 's/chown/true/g' \
       -e '/chkconfig/d' \
-      -e 's/chmod 04711/chmod 0711/g'
+      -e 's/chmod 04711/chmod 0711/g' \
+      -e '/DEFPATH/d'
   '';
 
   preInstall = ''
