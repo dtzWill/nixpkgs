@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
     "acpinames"
     "acpisrc"
     "acpixtract"
+
+    # debug/test
+    # "acpiexamples"
   ];
   makeFlags =  PROGS ++ [
     "PREFIX=${placeholder "out"}"
