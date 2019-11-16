@@ -84,6 +84,7 @@ in stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs \
+      contrib/get-version.py \
       libfwupd/generate-version-script.py \
       meson_post_install.sh \
       po/make-images \
