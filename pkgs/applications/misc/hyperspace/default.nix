@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.0.3";
   src = fetchurl {
     url = "https://github.com/hyperspacedev/${pname}/releases/download/v${version}/${pname}_${version}_amd64.deb";
-    sha256 = "1m2dqbq52i8xnkawy188pw23i6q685gda5yr7f17n31ny89ls73m";
+    sha256 = "1vain39hhw6zb854l4f62ac262i2vy1pjw557ggmd8yhh2l94vas";
   };
 
   nativeBuildInputs = [
@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
     # /usr/share
     mv ./usr/* $out/
 
-    # /opt/Hyperspace
-    mv ./opt/Hyperspace $out/share/hyperspace
+    # /opt/Hyperspace\ Desktop
+    mv ./opt/Hyperspace\ Desktop $out/share/hyperspace
 
     mkdir -p $out/bin
     ln -s $out/share/hyperspace/hyperspace $out/bin/hyperspace
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     rm -vrf $out/share/hyperspace/{libGLESv2.so,libEGL.so,swiftshader}
 
     substituteInPlace $out/share/applications/hyperspace.desktop \
-     --replace "Exec=/opt/Hyperspace/hyperspace" \
-               "Exec=$out/bin/hyperspace"
+     --replace 'Exec="/opt/Hyperspace Desktop/hyperspace"' \
+               'Exec="$out/bin/hyperspace"'
   '';
 
   buildInputs = [
