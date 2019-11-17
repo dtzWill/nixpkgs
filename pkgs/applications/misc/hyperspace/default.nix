@@ -66,8 +66,9 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   meta = with lib; {
+    description = "A beautiful, fluffy client for the fediverse";
     homepage = "https://hyperspace.marquiskurt.net";
-    # license = # XXX: "non-violent" ?!
+    license = licenses.npl1;
     maintainers = with maintainers; [ dtzWill ];
   };
 }
