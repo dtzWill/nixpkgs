@@ -5948,7 +5948,7 @@ in
 
   reredirect = callPackage ../tools/misc/reredirect { };
 
-  retext = callPackage ../applications/editors/retext { };
+  retext = libsForQt5.callPackage ../applications/editors/retext { };
 
   richgo = callPackage ../development/tools/richgo {  };
 
