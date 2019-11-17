@@ -657,6 +657,8 @@ in
     gsl = gsl_1;
   };
 
+  async = callPackage ../development/tools/async {};
+
   atomicparsley = callPackage ../tools/video/atomicparsley {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
