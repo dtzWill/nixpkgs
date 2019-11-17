@@ -1,18 +1,22 @@
-{ stdenv, fetchzip }:
+{ stdenv, fetchFromGitHub }:
 
 let
   version = "2.0.2";
-in fetchzip {
+in fetchFromGitHub {
   name = "stix-two-${version}";
 
-  url = "https://github.com/stipub/stixfonts/raw/master/zipfiles/STIXv${version}.zip";
+  owner = "stipub";
+  repo = "stixfonts";
+  rev = "v${version}";
 
   postFetch = ''
-    mkdir -p $out/share/fonts
-    unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+    tar xf $downloadedFile --strip=1
+    install -m444 -Dt $out/share/fonts/opentype/ OTF/*.otf
+    install -m444 -Dt $out/share/fonts/woff/     WOFF/*.woff
+    install -m444 -Dt $out/share/fonts/woff2/    WOFF2/*.woff2
   '';
 
-  sha256 = "0zm0jav22rna8qy09v8zx71xbmxrm7yc1slds6cwh6gcdbig8lv7";
+  sha256 = "1ah8s0cb67yv4ll8zfs01mdh9m5i2lbkrfbmkhi1xdid6pxsk32x";
 
   meta = with stdenv.lib; {
     homepage = http://www.stixfonts.org/;
