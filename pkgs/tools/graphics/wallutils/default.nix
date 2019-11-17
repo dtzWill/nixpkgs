@@ -22,7 +22,7 @@ buildGoPackage rec {
     sed -iE 's/VersionString = "[0-9].[0-9].[0-9]"/VersionString = "${version}"/' wallutils.go
   '';
 
-  buildInputs = [ wayland libX11 xbitmaps libXcursor libXmu ];
+  buildInputs = [ wayland libX11 xbitmaps libXcursor libXmu libXpm ];
 
   meta = with lib; {
     description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";
