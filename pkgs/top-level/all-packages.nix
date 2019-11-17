@@ -19710,6 +19710,8 @@ in
 
   kubernetes = callPackage ../applications/networking/cluster/kubernetes { };
 
+  kubeseal = callPackage ../applications/networking/cluster/kubeseal { };
+
   kubectl = callPackage ../applications/networking/cluster/kubectl { };
 
   kubeless = callPackage ../applications/networking/cluster/kubeless { };
