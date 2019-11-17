@@ -13,10 +13,10 @@
 
 stdenv.mkDerivation rec {
   pname = "hyperspace";
-  version = "1.0.2";
+  version = "1.0.3";
   src = fetchurl {
     url = "https://github.com/hyperspacedev/${pname}/releases/download/v${version}/${pname}_${version}_amd64.deb";
-    sha256 = "1m2dqbq51i8xnkawy188pw23i6q685gda5yr7f17n31ny89ls73m";
+    sha256 = "1m2dqbq52i8xnkawy188pw23i6q685gda5yr7f17n31ny89ls73m";
   };
 
   nativeBuildInputs = [
