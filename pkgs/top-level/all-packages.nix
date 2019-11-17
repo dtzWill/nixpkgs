@@ -25557,4 +25557,5 @@ in
 
   gortr = callPackage ../servers/gortr {};
 
+  hyperspace = callPackage ../applications/misc/hyperspace { };
 }
