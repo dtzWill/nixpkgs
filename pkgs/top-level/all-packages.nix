@@ -1244,6 +1244,8 @@ in
 
   btrbk = callPackage ../tools/backup/btrbk { };
 
+  buildpack = callPackage ../development/tools/buildpack { };
+
   buildtorrent = callPackage ../tools/misc/buildtorrent { };
 
   bustle = haskellPackages.bustle;
