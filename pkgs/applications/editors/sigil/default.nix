@@ -1,15 +1,15 @@
 { stdenv, mkDerivation, fetchFromGitHub, cmake, pkgconfig, makeWrapper
 , boost, xercesc
-, qtbase, qttools, qtwebkit, qtxmlpatterns
+, qtbase, qttools, qtwebengine, qtxmlpatterns
 , python3, python3Packages
 }:
 
 mkDerivation rec {
   name = "sigil-${version}";
-  version = "0.9.14";
+  version = "0.9.18";
 
   src = fetchFromGitHub {
-    sha256 = "0fmfbfpnmhclbbv9cbr1xnv97si6ls7331kk3ix114iqkngqwgl1";
+    sha256 = "0940g8nw2vid9i136r1d26641hvwvsy8sxpzki2fnc6ph4rfdqf8";
     rev = version;
     repo = "Sigil";
     owner = "Sigil-Ebook";
@@ -20,7 +20,7 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig makeWrapper ];
 
   buildInputs = [
-    boost xercesc qtbase qttools qtwebkit qtxmlpatterns
+    boost xercesc qtbase qttools qtwebengine qtxmlpatterns
     python3Packages.lxml ];
 
   dontWrapQtApps = true;
