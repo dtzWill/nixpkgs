@@ -6561,7 +6561,7 @@ in
 
   stricat = callPackage ../tools/security/stricat { };
 
-  staruml = callPackage ../tools/misc/staruml { inherit (gnome2) GConf; libgcrypt = libgcrypt_1_5; };
+  staruml = callPackage ../tools/misc/staruml { };
 
   systrayhelper = callPackage ../tools/misc/systrayhelper {};
 
