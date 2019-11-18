@@ -18909,7 +18909,7 @@ in
   wireshark-cli = wireshark-cli_3_0;
 
   # The GTK UI is deprecated by upstream. You probably want the QT version.
-  wireshark-gtk = throw "Not supported anymore. Use wireshark-qt or wireshark-cli instead.";
+  wireshark-gtk = throw "wireshark-gtk is not supported anymore. Use wireshark-qt or wireshark-cli instead.";
 
   sngrep = callPackage ../applications/networking/sniffers/sngrep {};
 
@@ -23409,6 +23409,10 @@ in
     timepp = callPackage ../desktops/gnome-3/extensions/timepp { };
     topicons-plus = callPackage ../desktops/gnome-3/extensions/topicons-plus { };
     window-corner-preview = callPackage ../desktops/gnome-3/extensions/window-corner-preview { };
+
+    # DTZ: restore these, don't have these commits yet
+    # nohotcorner = throw "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks.";
+    # mediaplayer = throw "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md";
   };
 
   hsetroot = callPackage ../tools/X11/hsetroot { };
