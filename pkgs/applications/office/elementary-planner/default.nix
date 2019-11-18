@@ -59,6 +59,8 @@ stdenv.mkDerivation rec {
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
+
+    substituteInPlace src/Views/Project.vala --replace 'Gtk.Align.HORIZONTAL' 'Gtk.Orientation.HORIZONTAL'
   '';
 
   meta = with stdenv.lib; {
