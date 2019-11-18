@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "hub";
-  version = "2.12.8";
+  version = "2.13.0";
 
   goPackagePath = "github.com/github/hub";
 
@@ -13,7 +13,7 @@ buildGoModule rec {
     owner = "github";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0a2dpg0w29nblk1dba9a35bpwwyf0zbqcgrwn4a8diyx27b77x3x";
+    sha256 = "18b0r16fk5wahvysqvg6vzjr7smyc2sdxp9sf55viby3kkwjfbkh";
   };
 
   nativeBuildInputs = [ groff utillinux ];
@@ -33,7 +33,8 @@ buildGoModule rec {
     cp -vr --parents share/man/man[1-9]/*.[1-9] $out/
   '';
 
-  modSha256 = "05pkcm68i6ig4jhz70sj3gq1vk7xp27cvl0sixys3dsg9krrm0y3";
+  # XXX: depends on go version?! D:
+  modSha256 = "1512kiiwb3bli7vj5cmrfa10h29g9xphsd336krwqg3gmq0gpaxj";
 
   meta = with stdenv.lib; {
     description = "Command-line wrapper for git that makes you better at GitHub";

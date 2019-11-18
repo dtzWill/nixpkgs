@@ -1,7 +1,7 @@
 From 34ad57e570f96dfe4bc493f14726b7a0ae6d45f9 Mon Sep 17 00:00:00 2001
 From: Olivier Fourdan <ofourdan@redhat.com>
 Date: Tue, 12 Mar 2019 15:38:03 +0100
-Subject: [PATCH 02/30] xwayland: Check status in GBM pixmap creation
+Subject: [PATCH 02/39] xwayland: Check status in GBM pixmap creation
 
 The current code in `xwl_glamor_gbm_create_pixmap_for_bo()` may fail in
 several cases that are not checked for:
@@ -133,5 +133,5 @@ index a211e0915..80146ab6e 100644
  
  static Bool
 -- 
-2.24.0-rc2
+2.24.0
 

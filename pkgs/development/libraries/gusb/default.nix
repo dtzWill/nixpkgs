@@ -3,14 +3,14 @@
 , glib, systemd, libusb1, vala, hwdata
 }:
 stdenv.mkDerivation rec {
-  name = "gusb-${version}";
-  version = "0.3.0";
+  pname = "gusb";
+  version = "0.3.1";
 
   outputs = [ "bin" "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/libgusb-${version}.tar.xz";
-    sha256 = "1p4f6jdjw6zl986f93gzdjg2hdcn5dlz6rcckcz4rbmnk47rbryq";
+    sha256 = "1v8zhlf70nbiggkn0nbc6zj53l52dl3sqgdvn5q8jx4p5qvplrsb";
   };
 
   nativeBuildInputs = [

@@ -1,12 +1,12 @@
 {stdenv, fetchurl, zlib, ncurses}:
 
 stdenv.mkDerivation rec {
-  version = "2.4.0";
-  name = "atop-${version}";
+  version = "2.5.0";
+  pname = "atop";
 
   src = fetchurl {
-    url = "https://www.atoptool.nl/download/atop-${version}.tar.gz";
-    sha256 = "0s9xlxlzz688a80zxld840zkrmzw998rdkkg6yc7ssq8fw50275y";
+    url = "https://www.atoptool.nl/download/${pname}-${version}.tar.gz";
+    sha256 = "0crzz4i2nabyh7d6xg7fvl65qls87nbca5ihidp3nijhrrbi14ab";
   };
 
   buildInputs = [zlib ncurses];
@@ -21,11 +21,13 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     sed -e "s@/usr/@$out/@g" -i $(find . -type f )
-    sed -e "/mkdir.*LOGPATH/s@mkdir@echo missing dir @" -i Makefile
-    sed -e "/touch.*LOGPATH/s@touch@echo should have created @" -i Makefile
-    sed -e 's/chown/true/g' -i Makefile
-    sed -e '/chkconfig/d' -i Makefile
-    sed -e 's/chmod 04711/chmod 0711/g' -i Makefile
+    sed -i Makefile \
+      -e "/mkdir.*LOGPATH/s@mkdir@echo missing dir @" \
+      -e "/touch.*LOGPATH/s@touch@echo should have created @" \
+      -e 's/chown/true/g' \
+      -e '/chkconfig/d' \
+      -e 's/chmod 04711/chmod 0711/g' \
+      -e '/DEFPATH/d'
   '';
 
   preInstall = ''

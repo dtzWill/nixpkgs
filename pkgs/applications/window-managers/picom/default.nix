@@ -6,7 +6,7 @@
 stdenv.mkDerivation rec {
   pname = "picom";
   #version = "7.3";
-  version = "unstable-2019-10-23";
+  version = "unstable-2019-11-13";
 
   COMPTON_VERSION = "v${version}";
 
@@ -14,16 +14,10 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = pname;
     #rev    = COMPTON_VERSION;
-    rev = "a2f816acb19f2881785e8427317b57a47a2b1e11";
-    sha256 = "1yav4chxqcixv5yidzzcpgz4gmm3piqn38615c44limm9cl122cz";
+    rev = "9a88d971d59ed8c33f9d8734cd0039d9fd6030a5";
+    sha256 = "15aff5splyk5df31iwf181iqg31x69361b201acjp41sa7sbsp3x";
     fetchSubmodules = true;
   };
-
-  # upstream PR 247, WIP!
-  #patches = [
-  #  ./0001-Update-shaders-which-allow-to-dim-bright-windows.patch
-  #  ./0002-Parameterize-bright-windows-dimming-sensitivity-and-.patch
-  #];
 
   nativeBuildInputs = [
     meson ninja

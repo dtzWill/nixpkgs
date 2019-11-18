@@ -1,0 +1,105 @@
+From 03b91e17ce72649b2d6946213f5a7d152bfe7098 Mon Sep 17 00:00:00 2001
+From: Aaron Plattner <aplattner@nvidia.com>
+Date: Wed, 6 Nov 2019 10:45:43 -0800
+Subject: [PATCH 39/39] xfree86: Call ScreenInit for protocol screens before
+ GPU screens
+
+During startup, the xfree86 DDX's InitOutput() calls PreInit for
+protocol screens first, and then GPU screens. On teardown, dix_main()
+calls CloseScreen in the reverse order: GPU screens first starting with
+the last one and then working backwards, and then protocol screens also
+in reverse order.
+
+InitOutput() calls ScreenInit in the wrong order: for GPU screens first and then
+for protocol screens. This causes a problem for drivers that have global state
+that is tied to the first screen that calls ScreenInit.
+
+Fix this by simply re-ordering the for loops to call PreInit for
+protocol screens first and then for GPU screens second.
+
+(cherry picked from commit e5e9a8ca91d1c087edd8788a110251ad940dbc94)
+---
+ hw/xfree86/common/xf86Init.c | 60 ++++++++++++++++++------------------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/hw/xfree86/common/xf86Init.c b/hw/xfree86/common/xf86Init.c
+index cabf8716b..fc60f68d3 100644
+--- a/hw/xfree86/common/xf86Init.c
++++ b/hw/xfree86/common/xf86Init.c
+@@ -682,36 +682,6 @@ InitOutput(ScreenInfo * pScreenInfo, int argc, char **argv)
+     if (!dixRegisterPrivateKey(&xf86ScreenKeyRec, PRIVATE_SCREEN, 0))
+         FatalError("Cannot register DDX private keys");
+ 
+-    for (i = 0; i < xf86NumGPUScreens; i++) {
+-        ScrnInfoPtr pScrn = xf86GPUScreens[i];
+-        xf86VGAarbiterLock(pScrn);
+-
+-        /*
+-         * Almost everything uses these defaults, and many of those that
+-         * don't, will wrap them.
+-         */
+-        pScrn->EnableDisableFBAccess = xf86EnableDisableFBAccess;
+-#ifdef XFreeXDGA
+-        pScrn->SetDGAMode = xf86SetDGAMode;
+-#endif
+-        pScrn->DPMSSet = NULL;
+-        pScrn->LoadPalette = NULL;
+-        pScrn->SetOverscan = NULL;
+-        pScrn->DriverFunc = NULL;
+-        pScrn->pScreen = NULL;
+-        scr_index = AddGPUScreen(xf86ScreenInit, argc, argv);
+-        xf86VGAarbiterUnlock(pScrn);
+-        if (scr_index == i) {
+-            dixSetPrivate(&screenInfo.gpuscreens[scr_index]->devPrivates,
+-                          xf86ScreenKey, xf86GPUScreens[i]);
+-            pScrn->pScreen = screenInfo.gpuscreens[scr_index];
+-            /* The driver should set this, but make sure it is set anyway */
+-            pScrn->vtSema = TRUE;
+-        } else {
+-            FatalError("AddScreen/ScreenInit failed for gpu driver %d %d\n", i, scr_index);
+-        }
+-    }
+-
+     for (i = 0; i < xf86NumScreens; i++) {
+         xf86VGAarbiterLock(xf86Screens[i]);
+         /*
+@@ -767,6 +737,36 @@ InitOutput(ScreenInfo * pScreenInfo, int argc, char **argv)
+         xf86EnsureRANDR(xf86Screens[i]->pScreen);
+     }
+ 
++    for (i = 0; i < xf86NumGPUScreens; i++) {
++        ScrnInfoPtr pScrn = xf86GPUScreens[i];
++        xf86VGAarbiterLock(pScrn);
++
++        /*
++         * Almost everything uses these defaults, and many of those that
++         * don't, will wrap them.
++         */
++        pScrn->EnableDisableFBAccess = xf86EnableDisableFBAccess;
++#ifdef XFreeXDGA
++        pScrn->SetDGAMode = xf86SetDGAMode;
++#endif
++        pScrn->DPMSSet = NULL;
++        pScrn->LoadPalette = NULL;
++        pScrn->SetOverscan = NULL;
++        pScrn->DriverFunc = NULL;
++        pScrn->pScreen = NULL;
++        scr_index = AddGPUScreen(xf86ScreenInit, argc, argv);
++        xf86VGAarbiterUnlock(pScrn);
++        if (scr_index == i) {
++            dixSetPrivate(&screenInfo.gpuscreens[scr_index]->devPrivates,
++                          xf86ScreenKey, xf86GPUScreens[i]);
++            pScrn->pScreen = screenInfo.gpuscreens[scr_index];
++            /* The driver should set this, but make sure it is set anyway */
++            pScrn->vtSema = TRUE;
++        } else {
++            FatalError("AddScreen/ScreenInit failed for gpu driver %d %d\n", i, scr_index);
++        }
++    }
++
+     for (i = 0; i < xf86NumGPUScreens; i++)
+         AttachUnboundGPU(xf86Screens[0]->pScreen, xf86GPUScreens[i]->pScreen);
+ 
+-- 
+2.24.0
+

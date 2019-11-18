@@ -2,7 +2,7 @@
 
 let
   pname = "vazir-fonts";
-  version = "19.2.0";
+  version = "21.1.1";
 in fetchFromGitHub rec {
   name = "${pname}-${version}";
 
@@ -14,7 +14,7 @@ in fetchFromGitHub rec {
     tar xf $downloadedFile --strip=1
     find . -name '*.ttf' -exec install -m444 -Dt $out/share/fonts/vazir-fonts {} \;
   '';
-  sha256 = "008h095rjrcjhz9h02v6cf3gv64khj21lii4zffgpdlmvfs29f8l";
+  sha256 = "00lxn91h439x3q05sprl29k4bc966cy2ds8dy9i4kxmcs3xzq167";
 
   meta = with lib; {
     homepage = https://github.com/rastikerdar/vazir-font;

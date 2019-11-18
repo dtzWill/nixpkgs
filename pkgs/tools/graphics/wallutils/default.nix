@@ -4,13 +4,13 @@
 
 buildGoPackage rec {
   pname = "wallutils";
-  version = "5.8.2";
+  version = "5.8.3";
 
   src = fetchFromGitHub {
     owner = "xyproto";
     repo = "wallutils";
     rev = version;
-    sha256 = "095pgvk4yp2l6xgl63qp61rr2dij51awndwrs5ha9vpdd1jqgvfi";
+    sha256 = "1cc0bb6bdh3pm9mf6rcgk9myr62xhqc6l84xgw44lhm6hkkp16gb";
   };
 
   goPackagePath = "github.com/xyproto/wallutils";
@@ -22,7 +22,7 @@ buildGoPackage rec {
     sed -iE 's/VersionString = "[0-9].[0-9].[0-9]"/VersionString = "${version}"/' wallutils.go
   '';
 
-  buildInputs = [ wayland libX11 xbitmaps libXcursor libXmu ];
+  buildInputs = [ wayland libX11 xbitmaps libXcursor libXmu libXpm ];
 
   meta = with lib; {
     description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";

@@ -1,7 +1,7 @@
 From 82f01ad7869e3f2be51e41a8246dab5982bbc36a Mon Sep 17 00:00:00 2001
 From: Alex Goins <agoins@nvidia.com>
 Date: Wed, 10 Apr 2019 13:48:02 -0500
-Subject: [PATCH 11/30] xsync: Add resource inside of SyncCreate, export
+Subject: [PATCH 11/39] xsync: Add resource inside of SyncCreate, export
  SyncCreate
 
 As shown by DRI3 adding the SyncCreateFenceFromFD() function, extensions may
@@ -240,5 +240,5 @@ index 2eab2aa57..2a6e84a96 100644
  typedef struct _SyncCounter {
      SyncObject sync;            /* Common sync object data */
 -- 
-2.24.0-rc2
+2.24.0
 

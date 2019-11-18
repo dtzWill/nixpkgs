@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "nvme-cli";
-  version = "1.9";
+  version = "unstable-2019-11-11";
 
   src = fetchFromGitHub {
     owner = "linux-nvme";

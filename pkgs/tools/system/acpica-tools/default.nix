@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ bison flex ];
 
+  NIX_CFLAGS_COMPILE = [ "-O3" "-Wno-error" ];
+
   PROGS = [
     "acpibin"
     "acpidump"
@@ -21,6 +23,9 @@ stdenv.mkDerivation rec {
     "acpinames"
     "acpisrc"
     "acpixtract"
+
+    # debug/test
+    # "acpiexamples"
   ];
   makeFlags =  PROGS ++ [
     "PREFIX=${placeholder "out"}"

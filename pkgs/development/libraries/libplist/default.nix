@@ -5,15 +5,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "libplist";
-  version = "2019-04-04";
-
-  name = "${pname}-${version}";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
     repo = pname;
-    rev = "42bb64ba966082b440cb68cbdadf317f44710017";
-    sha256 = "19yw80yblq29i2jx9yb7bx0lfychy9dncri3fk4as35kq5bf26i8";
+    rev = version;
+    sha256 = "02vraf4j46bp746s0gz7vga2gv2dy3zd1v1bsy9x8algg9fpcb7n";
   };
 
   outputs = ["bin" "dev" "out" "py"];

@@ -1,7 +1,7 @@
 From 05c5b970136f0a11fffa16692744bdf5a23963e8 Mon Sep 17 00:00:00 2001
 From: Eric Anholt <eric@anholt.net>
 Date: Wed, 19 Sep 2018 13:28:06 -0700
-Subject: [PATCH 26/30] shm: Pick the shm dir at run time, not build time.
+Subject: [PATCH 26/39] shm: Pick the shm dir at run time, not build time.
 
 Prodding the builder's filesystem for tmp dirs doesn't necessarily
 tell you anything about what the actual host's filesystem is going to
@@ -171,5 +171,5 @@ index dfca3c340..1e2c7d9ef 100644
  conf_data.set('WITH_LIBDRM', libdrm_dep.found())
  conf_data.set('GLAMOR_HAS_EGL_QUERY_DMABUF',
 -- 
-2.24.0-rc2
+2.24.0
 

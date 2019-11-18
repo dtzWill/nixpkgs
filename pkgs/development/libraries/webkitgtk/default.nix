@@ -2,12 +2,13 @@
 , pkgconfig, gettext, gobject-introspection, libnotify, gnutls, libgcrypt
 , gtk3, wayland, libwebp, enchant2, xorg, libxkbcommon, epoxy, dbus, at-spi2-core
 , libxml2, libsoup, libsecret, libxslt, harfbuzz, libpthreadstubs, pcre, nettle, libtasn1, p11-kit
-, libidn, libedit, readline, libGLU_combined, libintl, openjpeg
+, libidn, libedit, readline, libGL, libGLU, libintl, openjpeg
 , enableGeoLocation ? true, geoclue2, sqlite
 , enableGtk2Plugins ? false, gtk2 ? null
 , gst-plugins-base, gst-plugins-bad, woff2
-, libwpe, wpebackend-fdo
+#, libwpe, wpebackend-fdo
 , bubblewrap, libseccomp, xdg-dbus-proxy
+, substituteAll
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
@@ -33,8 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "04k5h0sid9azsqz9pyq436v1rx4lnfrhvmcgmicqb0c0g9iz103b";
   };
 
-  patches = optionals stdenv.isDarwin [
-    ## TODO add necessary patches for Darwin
+  patches = optionals stdenv.isLinux [
+    (substituteAll {
+      src = ./fix-bubblewrap-paths.patch;
+      inherit (builtins) storeDir;
+    })
+    ./libglvnd-headers.patch
   ];
 
   postPatch = ''
@@ -55,6 +60,8 @@ stdenv.mkDerivation rec {
   "-DPORT=GTK"
   "-DUSE_LIBHYPHEN=OFF"
   "-DENABLE_INTROSPECTION=ON"
+  # XXX: until wpebackend-fdo is un-broken
+  "-DUSE_WPE_RENDERER=OFF"
   ]
   ++ optional (!enableGtk2Plugins) "-DENABLE_PLUGIN_PROCESS_GTK2=OFF"
   ++ optional stdenv.isLinux "-DENABLE_GLES2=ON"
@@ -93,13 +100,15 @@ stdenv.mkDerivation rec {
     libintl libwebp enchant2 libnotify gnutls pcre nettle libidn libgcrypt woff2
     libxml2 libsecret libxslt harfbuzz libpthreadstubs libtasn1 p11-kit openjpeg
     sqlite gst-plugins-base gst-plugins-bad libxkbcommon epoxy dbus at-spi2-core
-    libwpe wpebackend-fdo
-    bubblewrap libseccomp xdg-dbus-proxy
+    #libwpe wpebackend-fdo
+    libGL libGLU
   ] ++ optional enableGeoLocation geoclue2
     ++ optional enableGtk2Plugins gtk2
     ++ (with xorg; [ libXdmcp libXt libXtst libXdamage libXcomposite libXrender  ])
     ++ optionals stdenv.isDarwin [ libedit readline libGLU_combined ]
-    ++ optional stdenv.isLinux wayland;
+    ++ optionals stdenv.isLinux [
+      wayland bubblewrap libseccomp xdg-dbus-proxy
+  ];
 
   propagatedBuildInputs = [
     libsoup gtk3

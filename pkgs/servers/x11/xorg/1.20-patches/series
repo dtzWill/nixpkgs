@@ -28,3 +28,12 @@
 0028-dix-Assert-noPanoramiXExtension-is-false-in-Panorami.patch
 0029-configure-Set-libdrm-flags-correctly-if-only-XORG-is.patch
 0030-modesetting-Fix-broken-manpage-in-autoconf-build.patch
+0031-build-glx-Lower-gl-version-to-work-with-libglvnd.patch
+0032-meson-Fix-another-reference-to-gl-9.2.0.patch
+0033-meson-Apparently-1.2-is-1.2.0.patch
+0034-glamor-xwayland-Define-EGL_NO_X11.patch
+0035-randr-Fix-RRCrtcDetachScanoutPixmap-segfault-during-.patch
+0036-modesetting-Fix-ms_covering_crtc-segfault-with-non-m.patch
+0037-modesetting-Fix-ms_covering_crtc-segfault-with-non-x.patch
+0038-modesetting-Implement-ms_covering_randr_crtc-for-ms_.patch
+0039-xfree86-Call-ScreenInit-for-protocol-screens-before-.patch

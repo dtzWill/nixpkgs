@@ -1,7 +1,7 @@
 From 8449c8623d6208b77e76596e8b10250817d3e8ab Mon Sep 17 00:00:00 2001
 From: Adam Jackson <ajax@redhat.com>
 Date: Mon, 19 Aug 2019 14:27:54 -0400
-Subject: [PATCH 16/30] miext/sync: Fix needless ABI change
+Subject: [PATCH 16/39] miext/sync: Fix needless ABI change
 
 The initialized field was added in:
 
@@ -35,5 +35,5 @@ index 2a6e84a96..ea48a4519 100644
  
  typedef struct _SyncCounter {
 -- 
-2.24.0-rc2
+2.24.0
 

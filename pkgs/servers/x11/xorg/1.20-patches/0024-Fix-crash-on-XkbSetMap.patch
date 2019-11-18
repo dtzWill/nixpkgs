@@ -1,7 +1,7 @@
 From b6ee04e774af1fc2e2560583c95dfac688494c2a Mon Sep 17 00:00:00 2001
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Date: Mon, 1 Jul 2019 02:31:02 +0200
-Subject: [PATCH 24/30] Fix crash on XkbSetMap
+Subject: [PATCH 24/39] Fix crash on XkbSetMap
 
 Some devices may not have keyboard information.
 
@@ -37,5 +37,5 @@ index f09143050..3162574a4 100644
      xkb = xkbi->desc;
  
 -- 
-2.24.0-rc2
+2.24.0
 

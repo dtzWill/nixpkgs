@@ -12,5 +12,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [ libGL libwpe wayland glib ];
+
+  meta.broken = true; # XXX: mesa header update, EGL symbol snafu
 }
 

@@ -1,4 +1,4 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, isPy3k
+{ stdenv, lib, buildPythonPackage, python, fetchFromGitHub, isPy3k
 , notmuch, urwid, urwidtrees, twisted, python_magic, configobj, mock, file, gpgme
 , service-identity, glibcLocales
 , gnupg ? null, sphinx, awk ? null, procps ? null, future ? null
@@ -41,7 +41,9 @@ buildPythonPackage rec {
 
   checkInputs =  [ awk future mock gnupg procps glibcLocales ];
 
-  postInstall = lib.optionalString withManpage ''
+  postInstall = let
+    completionPython = python.withPackages (ps: [ ps.configobj ]);
+  in lib.optionalString withManpage ''
     mkdir -p $out/man
     cp -r docs/build/man $out/man
   ''
@@ -49,6 +51,8 @@ buildPythonPackage rec {
     mkdir -p $out/share/{applications,alot}
     cp -r extra/themes $out/share/alot
 
+    substituteInPlace extra/completion/alot-completion.zsh \
+      --replace "python3" "${completionPython.interpreter}"
     install -D extra/completion/alot-completion.zsh $out/share/zsh/site-functions/_alot
 
     sed "s,/usr/bin,$out/bin,g" extra/alot.desktop > $out/share/applications/alot.desktop

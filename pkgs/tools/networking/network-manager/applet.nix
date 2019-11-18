@@ -1,13 +1,17 @@
-{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager, gnome3
-, libnotify, libsecret, polkit, isocodes, modemmanager, libxml2, docbook_xsl, docbook_xml_dtd_43
-, mobile-broadband-provider-info, glib-networking, gsettings-desktop-schemas
-, libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3
-, libappindicator-gtk3, withGnome ? false, gcr }:
+{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, pkgconfig
+, networkmanager, libnma, gnome3
+, libnotify, libsecret, polkit, modemmanager, libxml2 
+, glib-networking, gsettings-desktop-schemas
+, libgudev, jansson, wrapGAppsHook, python3, gtk3
+, libappindicator-gtk3
+# TODO: revamp
+, withGnome ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
   #version = "1.8.22";
-  version = "unstable-2019-10-09";
+  version = "unstable-2019-11-04";
 
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
@@ -17,27 +21,26 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "eb8f9ad16fcaf513fdaa7997a1dfe820e57bfddc";
-    sha256 = "0gg9lg888ilf4z2sql1pahr40gyr5wnvzicdgqjq4jl4svirsvrv";
+    rev = "4f621c72925928a90672814eacb11f6183078d3d";
+    sha256 = "11h443jjhndff57lxhp9lhg3nm8i2gl7nlplxqn1s8gxrh26f3sa";
   };
 
   mesonFlags = [
-    "-Dlibnm_gtk=false" # It is deprecated
     "-Dselinux=false"
     "-Dappindicator=yes"
-    "-Dgcr=${if withGnome then "true" else "false"}"
   ];
 
-  outputs = [ "out" "lib" "dev" "devdoc" "man" ];
+  outputs = [ "out" "lib" "dev" "man" ];
 
   buildInputs = [
     gtk3 networkmanager libnotify libsecret gsettings-desktop-schemas
-    polkit isocodes mobile-broadband-provider-info libgudev
+    polkit libgudev
     modemmanager jansson glib-networking
     libappindicator-gtk3 gnome3.adwaita-icon-theme
-  ] ++ stdenv.lib.optionals withGnome [ gcr ]; # advanced certificate chooser
+    (libnma.override { inherit withGnome; })
+  ];
 
-  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook gobject-introspection python3 gtk-doc docbook_xsl docbook_xml_dtd_43 libxml2 ];
+  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook python3 libxml2 ];
 
   # Needed for wingpanel-indicator-network and switchboard-plug-network
   patches = [ ./hardcode-gsettings.patch ];
