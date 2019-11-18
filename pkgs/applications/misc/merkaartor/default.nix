@@ -1,15 +1,15 @@
-{ stdenv, fetchFromGitHub, makeWrapper, qmake, pkgconfig, boost, gdal, proj
+{ mkDerivation, lib, fetchFromGitHub, makeWrapper, qmake, pkgconfig, boost, gdal, proj
 , qtbase, qtsvg, qtwebkit }:
 
-stdenv.mkDerivation rec {
-  name = "merkaartor-${version}";
-  version = "0.18.3";
+mkDerivation rec {
+  pname = "merkaartor";
+  version = "0.18.4";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
-    repo = "merkaartor";
+    repo = pname;
     rev = version;
-    sha256 = "0ls3q8m1hxiwyrypy6qca8wczhl4969ncl0sszfdwfv70rzxjk88";
+    sha256 = "0h3d3srzl06p2ajq911j05zr4vkl88qij18plydx45yqmvyvh0xz";
   };
 
   nativeBuildInputs = [ makeWrapper qmake pkgconfig ];
@@ -20,12 +20,7 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H" ];
 
-  postInstall = ''
-    wrapProgram $out/bin/merkaartor \
-      --set QT_QPA_PLATFORM_PLUGIN_PATH ${qtbase.bin}/lib/qt-*/plugins/platforms
-  '';
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "OpenStreetMap editor";
     homepage = http://merkaartor.be/;
     license = licenses.gpl2Plus;
