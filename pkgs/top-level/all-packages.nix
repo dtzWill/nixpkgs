@@ -13188,6 +13188,8 @@ in
 
   luabind_luajit = luabind.override { lua = luajit; };
 
+  lyra = callPackage ../development/libraries/lyra { };
+
   lzo = callPackage ../development/libraries/lzo { };
 
   opencl-clang = callPackage ../development/libraries/opencl-clang { };
