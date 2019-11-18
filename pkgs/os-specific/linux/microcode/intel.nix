@@ -16,9 +16,8 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out kernel/x86/microcode
-    iucode_tool -w kernel/x86/microcode/GenuineIntel.bin intel-ucode/
-    echo kernel/x86/microcode/GenuineIntel.bin | bsdcpio -o -H newc -R 0:0 > $out/intel-ucode.img
+    mkdir -p $out
+    iucode_tool intel-ucode/ --write-earlyfw=$out/intel-ucode.img --mini-earlyfw
 
     runHook postInstall
   '';
