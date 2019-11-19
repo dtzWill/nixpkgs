@@ -10,6 +10,7 @@
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
 , srt, chromaprint
+, mpg123, libshout, libmodplug
 #, libnotify, gtk3
 , onlyLibVLC ? false
 , withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ? null, wrapQtAppsHook ? null
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
     fluidsynth wayland wayland-protocols
     libaom dav1d libvpx x264 x265 sndio
     srt chromaprint
+    mpg123 libshout libmodplug
     libplacebo
     #libnotify gtk3
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
