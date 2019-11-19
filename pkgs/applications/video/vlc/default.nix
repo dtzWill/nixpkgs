@@ -6,7 +6,7 @@
 , libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg
 , mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image
 , libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz
-, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus
+, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libplacebo
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
 , srt, chromaprint
@@ -49,6 +49,7 @@ stdenv.mkDerivation rec {
     fluidsynth wayland wayland-protocols
     libaom dav1d libvpx x264 x265 sndio
     srt chromaprint
+    libplacebo
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
     ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
     ++ optional jackSupport libjack2
