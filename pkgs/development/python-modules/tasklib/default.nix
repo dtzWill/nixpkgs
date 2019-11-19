@@ -1,12 +1,12 @@
 { buildPythonPackage, fetchFromGitHub, fetchPypi, six, pytz, tzlocal, taskwarrior }:
 
 buildPythonPackage rec {
-  version = "1.2.1";
+  version = "1.3.0";
   pname = "tasklib";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0gr7b4h0qyp3waxbd48rk4s2b4yhd5zbdpcaf3icavgqhxzgnr1r";
+    sha256 = "19yra86g3wz2xgk22dnrjjh3gla969vb8jrps5rf0cdmsm9qqisv";
   };
 
   propagatedBuildInputs = [ six pytz tzlocal ];
