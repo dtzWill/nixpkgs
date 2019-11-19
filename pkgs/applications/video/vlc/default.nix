@@ -88,7 +88,8 @@ stdenv.mkDerivation rec {
     remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
   '';
 
-  patches = [ ./placebo.patch ];
+  # https://mailman.videolan.org/pipermail/vlc-devel/2019-May/124289.html
+  patches = [ ./placebo-1.patch ./placebo-2.patch ./placebo-3.patch ];
 
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here
