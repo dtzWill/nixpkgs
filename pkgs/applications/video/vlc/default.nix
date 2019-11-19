@@ -88,6 +88,8 @@ stdenv.mkDerivation rec {
     remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
   '';
 
+  patches = [ ./placebo.patch ];
+
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here
   configureFlags = [
