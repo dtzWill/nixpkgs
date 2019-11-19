@@ -10,6 +10,7 @@
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
 , srt, chromaprint
+, libnotify
 , onlyLibVLC ? false
 , withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ? null, wrapQtAppsHook ? null
 , jackSupport ? false
@@ -26,11 +27,11 @@ with stdenv.lib;
 assert (withQt5 -> qtbase != null && qtsvg != null && qtx11extras != null && wrapQtAppsHook != null);
 
 stdenv.mkDerivation rec {
-  name = "vlc-${version}";
+  pname = "vlc";
   version = "3.0.8";
 
   src = fetchurl {
-    url = "http://get.videolan.org/vlc/${version}/${name}.tar.xz";
+    url = "http://get.videolan.org/vlc/${version}/${pname}-${version}.tar.xz";
     sha256 = "e0149ef4a20a19b9ecd87309c2d27787ee3f47dfd47c6639644bc1f6fd95bdf6";
   };
 
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
     libaom dav1d libvpx x264 x265 sndio
     srt chromaprint
     libplacebo
+    libnotify
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
     ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
     ++ optional jackSupport libjack2
