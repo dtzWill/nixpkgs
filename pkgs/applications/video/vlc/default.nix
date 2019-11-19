@@ -6,7 +6,7 @@
 , libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg
 , mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image
 , libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, libssh2, liboggz
-, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus #, libplacebo
+, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libplacebo
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
 , srt, chromaprint, soxr
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     libaom dav1d libvpx x264 x265 sndio
     srt chromaprint soxr
     mpg123 libshout libmodplug
-    #libplacebo
+    libplacebo
     #libnotify gtk3
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
     ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
@@ -87,6 +87,8 @@ stdenv.mkDerivation rec {
   '' + optionalString withQt5 ''
     remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
   '';
+
+  patches = [ ./libplacebo.patch ];
 
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here
