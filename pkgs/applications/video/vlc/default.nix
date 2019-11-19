@@ -10,7 +10,7 @@
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
 , srt, chromaprint
-, libnotify
+, libnotify, gtk3
 , onlyLibVLC ? false
 , withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ? null, wrapQtAppsHook ? null
 , jackSupport ? false
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     libaom dav1d libvpx x264 x265 sndio
     srt chromaprint
     libplacebo
-    libnotify
+    libnotify gtk3
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
     ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
     ++ optional jackSupport libjack2
