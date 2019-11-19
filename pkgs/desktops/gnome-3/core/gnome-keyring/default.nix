@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     "--with-pkcs11-modules=${placeholder "out"}/lib/pkcs11/"
   ];
 
-  patches = [
-    ./0001-dbus-Implement-secret-portal-backend.patch
-  ];
+  #patches = [
+  #  ./0001-dbus-Implement-secret-portal-backend.patch
+  #];
 
   postPatch = ''
     patchShebangs build
