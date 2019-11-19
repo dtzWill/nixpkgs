@@ -6725,6 +6725,8 @@ in
 
   toml2nix = (callPackage ../tools/toml2nix { }).toml2nix { };
 
+  topgrade = callPackage ../tools/misc/topgrade {  };
+
   tor = callPackage ../tools/security/tor {
     openssl = openssl_1_1;
     libevent = libevent.override { openssl = openssl_1_1; };
