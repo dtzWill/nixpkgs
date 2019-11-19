@@ -9,7 +9,7 @@
 , libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libplacebo
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
 , libaom, dav1d, libvpx, x264, x265, sndio
-, srt, chromaprint
+, srt, chromaprint, soxr
 , mpg123, libshout, libmodplug
 #, libnotify, gtk3
 , onlyLibVLC ? false
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libdc1394 libraw1394 libopus libebml libmatroska libvdpau libsamplerate
     fluidsynth wayland wayland-protocols
     libaom dav1d libvpx x264 x265 sndio
-    srt chromaprint
+    srt chromaprint soxr
     mpg123 libshout libmodplug
     libplacebo
     #libnotify gtk3
