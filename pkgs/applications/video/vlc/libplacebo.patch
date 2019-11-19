@@ -1,5 +1,5 @@
---- modules/video_output/opengl/vout_helper.c.orig	2019-10-26 20:43:34.539073815 -0400
-+++ modules/video_output/opengl/vout_helper.c	2019-10-26 20:44:35.160773193 -0400
+--- a/modules/video_output/opengl/vout_helper.c.orig	2019-10-26 20:43:34.539073815 -0400
++++ b/modules/video_output/opengl/vout_helper.c	2019-10-26 20:44:35.160773193 -0400
 @@ -628,8 +628,8 @@
              .log_level = PL_LOG_INFO,
          });
@@ -11,8 +11,8 @@
  #   else
              tc->pl_sh = pl_shader_alloc(tc->pl_ctx, NULL, 0);
  #   endif
---- modules/video_output/opengl/fragment_shaders.c.orig	2019-10-26 20:46:43.382252481 -0400
-+++ modules/video_output/opengl/fragment_shaders.c	2019-10-26 20:51:40.295679834 -0400
+--- a/modules/video_output/opengl/fragment_shaders.c.orig	2019-10-26 20:46:43.382252481 -0400
++++ b/modules/video_output/opengl/fragment_shaders.c	2019-10-26 20:51:40.295679834 -0400
 @@ -616,7 +616,13 @@
          color_params.intent = var_InheritInteger(tc->gl, "rendering-intent");
          color_params.tone_mapping_algo = var_InheritInteger(tc->gl, "tone-mapping");
@@ -27,8 +27,8 @@
          color_params.gamut_warning = var_InheritBool(tc->gl, "tone-mapping-warn");
  
          struct pl_color_space dst_space = pl_color_space_unknown;
---- modules/video_output/opengl/vout_helper.h.orig	2019-10-26 21:13:30.126142457 -0400
-+++ modules/video_output/opengl/vout_helper.h	2019-10-26 21:11:44.991922998 -0400
+--- a/modules/video_output/opengl/vout_helper.h.orig	2019-10-26 21:13:30.126142457 -0400
++++ b/modules/video_output/opengl/vout_helper.h	2019-10-26 21:11:44.991922998 -0400
 @@ -171,6 +171,30 @@
  #define DEPTH_TEXT "Dither depth override (0 = framebuffer depth)"
  #define DEPTH_LONGTEXT "Overrides the detected framebuffer depth. Useful to dither to lower bit depths than otherwise required."
