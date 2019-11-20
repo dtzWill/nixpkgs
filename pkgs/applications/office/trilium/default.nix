@@ -13,11 +13,11 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "trilium";
-  version = "0.37.2";
+  version = "0.37.3";
 
   src = fetchurl {
     url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
-    sha256 = "030cx52js1ynhji8m4jsyhbacyprjh5k3krjnsq6bysbh1zk9h4i";
+    sha256 = "1r9jdj8i12fynycjpj9mbcc72h1x7ixcclccffx9kp8zkmvrq6zj";
   };
 
   # Fetch from source repo, no longer included in release.
