@@ -1,5 +1,15 @@
-{ stdenv, substituteAll, fetchurl
-, pkgconfig, freetype, expat, libxslt, gperf, dejavu_fonts
+{ stdenv
+, fetchpatch
+, substituteAll
+, fetchurl
+, pkgconfig
+, freetype
+, expat
+, libxslt
+, gperf
+, dejavu_fonts
+, automake
+, autoconf
 }:
 
 /** Font configuration scheme
@@ -17,12 +27,12 @@ let
   configVersion = "2.11"; # bump whenever fontconfig breaks compatibility with older configurations
 in
 stdenv.mkDerivation rec {
-  name = "fontconfig-${version}";
-  version = "2.12.6";
+  pname = "fontconfig";
+  version = "2.13.92";
 
   src = fetchurl {
-    url = "http://fontconfig.org/release/${name}.tar.bz2";
-    sha256 = "05zh65zni11kgnhg726gjbrd55swspdvhqbcnj5a5xh8gn03036g";
+    url = "http://fontconfig.org/release/${pname}-${version}.tar.xz";
+    sha256 = "0kkfsvxcvcphm9zcgsh646gix3qn4spz555wa1jp5hbq70l62vjh";
   };
 
   patches = [
@@ -30,13 +40,41 @@ stdenv.mkDerivation rec {
       src = ./config-compat.patch;
       inherit configVersion;
     })
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1744377
+    (fetchpatch {
+      url = "https://gitlab.freedesktop.org/fontconfig/fontconfig/commit/fcada522913e5e07efa6367eff87ace9f06d24c8.patch";
+      sha256 = "1jbm3vw45b3qjnqrh2545v1k8vmb29c09v2wj07jnrq3lnchbvmn";
+    })
+    # https://gitlab.freedesktop.org/fontconfig/fontconfig/merge_requests/67
+    (fetchpatch {
+      url = "https://gitlab.freedesktop.org/fontconfig/fontconfig/commit/65087ac7ce4cc5f2109967c1380b474955dcb590.patch";
+      sha256 = "1dkrbqx1c1d8yfnx0igvv516wanw2ksrpm3fbpm2h9nw0hccwqvm";
+    })
+    # Fix invalid DTD in reset-dirs
+    (fetchpatch {
+      url = "https://gitlab.freedesktop.org/fontconfig/fontconfig/commit/a4aa66a858f1ecd375c5efe5916398281f73f794.patch";
+      sha256 = "1j4ky8jhpllfm1lh2if34xglh2hl79nsa0xxgzxpj9sx6h4v99j5";
+    })
   ];
 
   outputs = [ "bin" "dev" "lib" "out" ]; # $out contains all the config
 
-  propagatedBuildInputs = [ freetype ];
-  nativeBuildInputs = [ pkgconfig gperf libxslt ];
-  buildInputs = [ expat ];
+  nativeBuildInputs = [
+    gperf
+    libxslt
+    pkgconfig
+    # drop with fcada522913e5e07efa6367eff87ace9f06d24c8 patch
+    automake
+    autoconf
+  ];
+
+  buildInputs = [
+    expat
+  ];
+
+  propagatedBuildInputs = [
+    freetype
+  ];
 
   configureFlags = [
     "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
@@ -53,7 +91,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   # Don't try to write to /var/cache/fontconfig at install time.
-  installFlags = "fc_cachedir=$(TMPDIR)/dummy RUN_FC_CACHE_TEST=false";
+  installFlags = [
+    "fc_cachedir=$(TMPDIR)/dummy RUN_FC_CACHE_TEST=false"
+  ];
 
   postInstall = ''
     cd "$out/etc/fonts"
