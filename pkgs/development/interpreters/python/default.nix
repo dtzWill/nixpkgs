@@ -45,7 +45,7 @@ with pkgs;
         inherit hasDistutilsCxxPatch pythonForBuild;
   };
 
-in {
+in rec {
 
   python27 = callPackage ./cpython/2.7 {
     self = python27;
@@ -113,18 +113,8 @@ in {
   };
 
   # Minimal versions of Python (built without optional dependencies)
-  python3Minimal = (callPackage ./cpython {
+  python3Minimal = (python37.override {
     self = python3Minimal;
-    sourceVersion = {
-      major = "3";
-      minor = "7";
-      patch = "4";
-      suffix = "";
-    };
-    sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
-    inherit (darwin) CF configd;
-    inherit passthruFun;
-
     # strip down that python version as much as possible
     openssl = null;
     readline = null;
