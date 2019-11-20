@@ -23478,18 +23478,7 @@ in
 
   solarc-gtk-theme = callPackage ../misc/themes/solarc { };
 
-  # xfce = xfce4-12;
-  # xfce4-12 isn't more stable than xfce4-14,
-  # 14 supersedes 12:
-  # "Today, after 4 years and 5 months of work, we are pleased to announce the release of the Xfce desktop 4.14, a new stable version that supersedes Xfce 4.12."
-  # https://www.xfce.org/about/news/?post=1565568000
-  xfceOld = xfce4-12;
-  xfceStable = xfce4-14;
-  xfce = xfceStable;
-  xfceUnstable = throw "No unstable xfce packaged currently";
-
-  xfce4-12 = recurseIntoAttrs (callPackage ../desktops/xfce { });
-  xfce4-14 = recurseIntoAttrs (callPackage ../desktops/xfce4-14 { });
+  xfce = recurseIntoAttrs (callPackage ../desktops/xfce { });
 
   xrandr-invert-colors = callPackage ../applications/misc/xrandr-invert-colors { };
 
