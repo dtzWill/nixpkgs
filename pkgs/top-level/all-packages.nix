@@ -17084,6 +17084,8 @@ in
 
   zd1211fw = callPackage ../os-specific/linux/firmware/zd1211 { };
 
+  zenmonitor = callPackage ../os-specific/linux/zenmonitor { };
+
   inherit (callPackage ../os-specific/linux/zfs {
     configFile = "user";
   }) zfsStable zfsUnstable;
