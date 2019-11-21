@@ -17784,8 +17784,6 @@ in
 
   ario = callPackage ../applications/audio/ario { };
 
-  arion = callPackage ../applications/virtualization/arion { };
-
   arora = callPackage ../applications/networking/browsers/arora { };
 
   artha = callPackage ../applications/misc/artha { };
