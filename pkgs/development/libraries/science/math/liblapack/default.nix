@@ -8,14 +8,14 @@
 }:
 let
   inherit (stdenv.lib) optional;
-  version = "3.8.0";
+  version = "3.9.0";
 in
 
 stdenv.mkDerivation rec {
   name = "liblapack-${version}";
   src = fetchurl {
-    url = "http://www.netlib.org/lapack/lapack-${version}.tar.gz";
-    sha256 = "1xmwi2mqmipvg950gb0rhgprcps8gy8sjm8ic9rgy2qjlv22rcny";
+    url = "https://github.com/Reference-LAPACK/lapack/archive/v${version}.tar.gz";
+    sha256 = "0wym3az9vs50clvp696d0ydcpni3pq69smkzpbgsyijzpgqqfq0h";
   };
 
   buildInputs = [ gfortran cmake ];
