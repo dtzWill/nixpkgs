@@ -2587,8 +2587,6 @@ package-maintainers:
     - shakespeare
   abbradar:
     - Agda
-  roberth:
-    - arion-compose
 
 unsupported-platforms:
   alsa-mixer:                                   [ x86_64-darwin ]
