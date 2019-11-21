@@ -3,7 +3,6 @@
 , glib
 , gtk3
 , vala
-, hicolor-icon-theme
 , json-glib
 , libgee
 , meson
