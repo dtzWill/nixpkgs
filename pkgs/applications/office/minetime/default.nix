@@ -22,6 +22,9 @@ let
       --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
       --replace-needed libz.so.1 ${zlib}/lib/libz.so.1 \
       $x
+
+    chmod u+rw -R $out
+    rm -vrf $out/{libGLESv2.so,libEGL.so,swiftshader}
   '';
 in
 appimageTools.wrapAppImage rec {
