@@ -77,8 +77,6 @@ in stdenv.mkDerivation rec {
     # for installation like Autotools did with flags passed to make install.
     ./fix-install-paths.patch
 
-    ./fix-build-with-tests-disabled.patch
-
     # ./iwd-sae.patch
   ];
 
