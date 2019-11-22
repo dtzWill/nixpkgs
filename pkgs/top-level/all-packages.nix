@@ -22805,7 +22805,7 @@ in
   });
 
   construo = construoBase.override {
-    inherit libGL libGLU freeglut;
+    inherit  freeglut libGL libGLU;
   };
 
   crack_attack = callPackage ../games/crack-attack { };
