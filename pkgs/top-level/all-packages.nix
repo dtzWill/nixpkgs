@@ -19061,15 +19061,16 @@ in
   inherit (callPackages ../applications/networking/sniffers/wireshark {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices SystemConfiguration;
   })
-    wireshark-qt_2_4
-    wireshark-cli_2_4
     wireshark-qt_2_6
     wireshark-cli_2_6
     wireshark-qt_3_0
-    wireshark-cli_3_0;
+    wireshark-cli_3_0
+    wireshark-qt_3_2
+    wireshark-cli_3_2;
 
-  wireshark = wireshark-qt_3_0;
-  wireshark-cli = wireshark-cli_3_0;
+  wireshark = wireshark-qt;
+  wireshark-qt = wireshark-qt_3_2;
+  wireshark-cli = wireshark-cli_3_2;
 
   # The GTK UI is deprecated by upstream. You probably want the QT version.
   wireshark-gtk = throw "wireshark-gtk is not supported anymore. Use wireshark-qt or wireshark-cli instead.";
