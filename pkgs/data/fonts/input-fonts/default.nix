@@ -1,21 +1,13 @@
 { stdenv, requireFile, unzip }:
 
-stdenv.mkDerivation rec {
-  name = "input-fonts-${version}";
-  version = "2017-08-10"; # date of the download and checksum
+stdenv.mkDerivation {
+  pname = "input-fonts";
+  version = "2019-11-25"; # date of the download and checksum
 
   src = requireFile {
-    ### name = "Input-Font.zip";
-    ### url = "https://input.fontbureau.com/download/";
-    ### sha256 = "07fkyvbb12agkb2kpnq2j45nycgbjvb4n1s5hjyqsipdh2z9zihq";
-    # round 'a'
-    # round 'g'
-    # slash zero
-    # builtin line-spacing 1x (let terminal add as desired)
-    # http://input.fontbureau.com/download/?customize&fontSelection=whole&a=ss&g=ss&i=0&l=0&zero=slash&asterisk=0&braces=0&preset=default&line-height=1.0&accept=I+do&email=
-    name = "Input-Font-dtz.zip";
-    url = "http://input.fontbureau.com/download/";
-    sha256 = "0xphgl0037psjjixb3rk22gyfwczn8znyhnkh641wqsjqbc99icz";
+    name = "Input-Font.zip";
+    url = "https://input.fontbureau.com/download/";
+    sha256 = "10rax2a7vzidcs7kyfg5lv5bwp9i7kvjpdcsd10p0517syijkp3b";
   };
 
   nativeBuildInputs = [ unzip ];
@@ -33,7 +25,7 @@ stdenv.mkDerivation rec {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = "1kx12brrh32kzv2hdpphgs96c6794wiybx5r154d9ia083hz0hp8";
+  outputHash = "15sdhqqqd4jgk80fw7ncx49avi9cxbdgyrvnrfya0066x4q4r6lv";
 
   meta = with stdenv.lib; {
     description = "Fonts for Code, from Font Bureau";
