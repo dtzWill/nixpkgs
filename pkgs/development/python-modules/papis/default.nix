@@ -2,7 +2,8 @@
 , requests, filetype, pyparsing, configparser, arxiv2bib
 , pyyaml, chardet, beautifulsoup4, colorama, bibtexparser
 , pylibgen, click, python-slugify, habanero, isbnlib
-, prompt_toolkit, pygments, stevedore, tqdm, lxml, python-doi
+, prompt_toolkit, pygments, stevedore, tqdm, lxml
+, python-doi, isPy3k, pythonOlder
 #, optional, dependencies
 , whoosh, pytest
 , stdenv
@@ -11,6 +12,7 @@
 buildPythonPackage rec {
   pname = "papis";
   version = "0.9";
+  disabled = !isPy3k;
 
   # Missing tests on Pypi
   src = fetchFromGitHub {
@@ -41,7 +43,14 @@ buildPythonPackage rec {
     whoosh
   ];
 
-  doCheck = !stdenv.isDarwin;
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "lxml<=4.3.5" "lxml~=4.3" \
+      --replace "python-slugify>=1.2.6,<4" "python-slugify"
+  '';
+
+  # pytest seems to hang with python3.8
+  doCheck = !stdenv.isDarwin && pythonOlder "3.8";
 
   checkInputs = ([
     pytest
