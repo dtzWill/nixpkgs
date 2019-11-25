@@ -5377,6 +5377,8 @@ in
 
   nnn = callPackage ../applications/misc/nnn { };
 
+  noise-repellent = callPackage ../applications/audio/noise-repellent { };
+
   noisetorch = callPackage ../applications/audio/noisetorch { };
 
   notary = callPackage ../tools/security/notary { };
