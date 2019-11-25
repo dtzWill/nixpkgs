@@ -6435,6 +6435,8 @@ in {
     python3Packages = self;
   }));
 
+  pony = callPackage ../development/python-modules/pony { };
+
 });
 
 in fix' (extends overrides packages)
