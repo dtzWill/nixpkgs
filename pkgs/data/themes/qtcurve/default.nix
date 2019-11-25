@@ -10,7 +10,7 @@ let
 in mkDerivation {
   name = "qtcurve-${version}";
   src = fetchurl {
-    url = "http://download.kde.org/stable/qtcurve/qtcurve-${version}.tar.xz";
+    url = "https://download.kde.org/stable/qtcurve/qtcurve-${version}.tar.xz";
     sha256 = "169gdny1cdld0qnx3nqvx568zjzdba4pwp3gxapc1hdh2cymw7r8";
   };
 
