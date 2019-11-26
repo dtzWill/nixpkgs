@@ -17669,6 +17669,8 @@ in
 
   recursive = callPackage ../data/fonts/recursive { };
 
+  rhodium-libre = callPackage ../data/fonts/rhodium-libre { };
+
   rictydiminished-with-firacode = callPackage ../data/fonts/rictydiminished-with-firacode { };
 
   roboto = callPackage ../data/fonts/roboto { };
