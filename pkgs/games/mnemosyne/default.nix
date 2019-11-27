@@ -1,5 +1,6 @@
 { fetchurl
 , python
+, anki
 }:
 
 python.pkgs.buildPythonApplication rec {
@@ -11,22 +12,31 @@ python.pkgs.buildPythonApplication rec {
     sha256 = "0lx70vl3pa3c42lr59s459b2bqi7fm0c80lsm06l34ggfwdadq24";
   };
 
+  nativeBuildInputs = with python.pkgs; [ wrapPython pyqtwebengine.wrapQtAppsHook ];
+
+  buildInputs = [ anki ];
+
   propagatedBuildInputs = with python.pkgs; [
+    pyqtwebengine
     pyqt5
     matplotlib
     cherrypy
     cheroot
     webob
-    pillow
   ];
-
-  # No tests/ directrory in tarball
-  doCheck = false;
 
   prePatch = ''
     substituteInPlace setup.py --replace /usr $out
     find . -type f -exec grep -H sys.exec_prefix {} ';' | cut -d: -f1 | xargs sed -i s,sys.exec_prefix,\"$out\",
   '';
+
+  # No tests/ directrory in tarball
+  doCheck = false;
+
+  dontWrapQtApps = true;
+  makeWrapperArgs = [
+    "\${qtWrapperArgs[@]}"
+  ];
 
   postInstall = ''
     mkdir -p $out/share
