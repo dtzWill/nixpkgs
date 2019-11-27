@@ -17779,6 +17779,8 @@ in
 
   airwave = callPackage ../applications/audio/airwave { };
 
+  akira-unstable = callPackage ../applications/graphics/akira { };
+
   alembic = callPackage ../development/libraries/alembic {};
 
   alchemy = callPackage ../applications/graphics/alchemy { };
