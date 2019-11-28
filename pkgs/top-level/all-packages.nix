@@ -20355,8 +20355,6 @@ in
 
   ptex = callPackage ../development/libraries/ptex {};
 
-  qtcurve = libsForQt5.callPackage ../misc/themes/qtcurve {};
-
   qcad = libsForQt5.callPackage ../applications/graphics/qcad { };
 
   rssguard = libsForQt5.callPackage ../applications/networking/feedreaders/rssguard { };
