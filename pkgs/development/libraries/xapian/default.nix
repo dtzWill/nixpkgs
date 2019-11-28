@@ -38,5 +38,5 @@ let
 in {
   # xapian-ruby needs 1.2.22 as of 2017-05-06
   xapian_1_2_22 = generic "1.2.22" "0zsji22n0s7cdnbgj0kpil05a6bgm5cfv0mvx12d8ydg7z58g6r6";
-  xapian_1_4 = generic "1.4.13" "0z0k8902bz2ckdggikj5yz11ik2n8krmdwzvpqv60phcm3zzzy4k";
+  xapian_1_4 = generic "1.4.14" "0ja95vn0lkf6qkjhg2blkx306i10hg4fr8wlrhalmly93307lnlp";
 }
