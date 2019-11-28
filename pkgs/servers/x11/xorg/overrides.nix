@@ -537,7 +537,7 @@ self: super:
               sed -i -e "s|#include <drm_fourcc.h>|#include <libdrm/drm_fourcc.h>|" $i
             done
           '';
-          patches = copyPathsToStore (lib.readPathsFromFile ./1.20-patches ./1.20-patches/series);
+          #patches = copyPathsToStore (lib.readPathsFromFile ./1.20-patches ./1.20-patches/series);
           #patches = [
           #  ./131.patch
           #];
