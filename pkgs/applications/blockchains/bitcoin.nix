@@ -1,10 +1,10 @@
 { stdenv, fetchurl, pkgconfig, autoreconfHook, openssl, db48, boost, zeromq, rapidcheck
-, zlib, miniupnpc, qtbase ? null, qttools ? null, wrapQtAppsHook ? null, utillinux, protobuf, python3, qrencode, libevent
-, withGui, fetchFromGitHub /* temp until release fully pushed? */ }:
+, zlib, miniupnpc, qtbase ? null, qttools ? null, wrapQtAppsHook ? null, utillinux, python3, qrencode, libevent
+, withGui }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec{
-  name = "bitcoin" + (toString (optional (!withGui) "d")) + "-" + version;
+  pname = if withGui then "bitcoin" else "bitcoind";
   version = "0.19.0.1";
 
   src = fetchurl {
@@ -12,14 +12,14 @@ stdenv.mkDerivation rec{
              "https://bitcoin.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
              #"https://github.com/bitcoin/bitcoin/archive/v${version}.tar.gz"
            ];
-    sha256 = "1172dl4b8h2a80ilk9sfgbl8yi55k6hs4b1m07nic2ls4irgkjbs";
+    sha256 = "7ac9f972249a0a16ed01352ca2a199a5448fe87a4ea74923404a40b4086de284";
   };
 
   nativeBuildInputs =
     [ pkgconfig autoreconfHook ]
     ++ optional withGui wrapQtAppsHook;
   buildInputs = [ openssl db48 boost zlib zeromq
-                  miniupnpc protobuf libevent]
+                  miniupnpc libevent]
                   ++ optionals stdenv.isLinux [ utillinux ]
                   ++ optionals withGui [ qtbase qttools qrencode ];
 
