@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchzip, libtool, pkgconfig, ncurses }:
+{ stdenv, lib, fetchzip, libtool, pkgconfig, ncurses, unibilium }:
 
 stdenv.mkDerivation rec {
   name = "libtermkey-${version}";
@@ -13,11 +13,12 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ]
     ++ stdenv.lib.optional stdenv.isDarwin "LIBTOOL=${libtool}/bin/libtool";
 
-  nativeBuildInputs = [ pkgconfig libtool ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [ libtool pkgconfig ];
+  buildInputs = [ ncurses unibilium ];
 
   meta = with lib; {
     description = "Terminal keypress reading library";
+    homepage = http://www.leonerd.org.uk/code/libtermkey;
     license = licenses.mit;
     platforms = platforms.unix;
   };
