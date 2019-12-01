@@ -53,7 +53,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1x2bkhwx0lisbv9ssh4af5x3jp095xgl84966wbzqcjzshw62dg3";
   };
 
-  outputs = [ "out" "lib" "dev" "man" "installedTests" ];
+  outputs = [ "out" /* "lib" */ "dev" "man" "installedTests" ];
 
   nativeBuildInputs = [
     meson ninja pkgconfig gobject-introspection intltool shared-mime-info
