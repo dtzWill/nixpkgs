@@ -16,10 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ];
 
-  installPhase = ''
-    install -D -t $out/bin zopfli*
-    install -d $out/lib
-    cp -d libzopfli* $out/lib
+  postInstall = ''
     install -Dm444 -t $out/share/doc/zopfli ../README*
   '';
 
