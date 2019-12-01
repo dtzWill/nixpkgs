@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
-  buildInputs = [ libcbor libressl udev ];
+  buildInputs = [ libcbor udev ];
+  propagatedBuildInputs = [ libressl /* libcrypto, pam_u2f breaks if not propagated */ ];
 
   cmakeFlags = [ "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d" ];
 
