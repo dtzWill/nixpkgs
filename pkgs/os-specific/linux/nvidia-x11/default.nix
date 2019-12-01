@@ -20,17 +20,17 @@ if ((!lib.versionOlder args.version "391")
 in
 rec {
   # Policy: use the highest stable version as the default (on our master).
-  stable = if stdenv.hostPlatform.system == "x86_64-linux" then stable_440 else legacy_390;
+  stable = if stdenv.hostPlatform.system == "x86_64-linux"
+    then generic {
+      version = "440.36";
+      sha256_64bit = "0nbdldwizb802w4x0rqnyb1p7iqz5nqiahqr534n5ihz21a6422h";
+      settingsSha256 = "07hnl3bq76vsl655ipfx9v4zxjq0nc5hp43dk49nny4pi6ly06p1";
+      persistencedSha256 = "08zm1i5sax16xfhkivkmady0yy5argmxv846x21q98ry1ic6cp6w";
+    }
+    else legacy_390;
 
   # No active beta right now
   beta = stable;
-
-  stable_440 = generic {
-    version = "440.31";
-    sha256_64bit = "03w5v3079c35sz3nkdk28yc76jb5hv8dy99jjy7pkywvbhw2ynfd";
-    settingsSha256 = "016zhi0ijlcgl2lb9bhadvigsy8accfsi0azcjvaf8vw8p80vg0n";
-    persistencedSha256 = "00q2bzlhvckhf06wp0bvlj8l4l07lwpyviqh07h241bir3k2165p";
-  };
 
   # Last one supporting x86
   legacy_390 = generic {
