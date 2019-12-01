@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-wordview" ];
 
+  preInstall = ''
+    mkdir -p $out/share/man/man1
+  '';
+
   meta = with stdenv.lib; {
     description = "MS-Word/Excel/PowerPoint to text converter";
     platforms = platforms.all;
