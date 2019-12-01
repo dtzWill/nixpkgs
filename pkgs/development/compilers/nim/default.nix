@@ -1,7 +1,7 @@
 # based on https://github.com/nim-lang/Nim/blob/v0.18.0/.travis.yml
 
 { stdenv, lib, fetchurl, makeWrapper, nodejs-slim, openssl, pcre, readline,
-  boehmgc, sfml, tzdata, coreutils, sqlite }:
+  boehmgc, sfml, tzdata, coreutils, sqlite, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "nim";
@@ -69,9 +69,6 @@ stdenv.mkDerivation rec {
 
       # requires network access (not available in the build container)
       ${disableTest} ./tests/stdlib/thttpclient.nim
-
-      # nodejs 12+ broke this test, see upstream nim issue 12182
-      ${disableTest} ./tests/js/tconsole.nim
     '' + lib.optionalString stdenv.isAarch64 ''
       # supposedly broken on aarch64
       ${disableStdLibTest} ./lib/pure/stats.nim
@@ -87,6 +84,13 @@ stdenv.mkDerivation rec {
       # requires "immintrin.h" which is available only on x86
       ${disableTest} ./tests/misc/tsizeof3.nim
     '';
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/nim-lang/Nim/pull/12709.patch";
+      sha256 = "0vr99l6q0my9qaxcanikg77pr5s31a1lxnk0c02ijlkki382nib6";
+    })
+  ];
 
   checkPhase = ''
     runHook preCheck
