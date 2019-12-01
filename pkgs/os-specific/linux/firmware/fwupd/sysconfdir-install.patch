@@ -76,22 +76,23 @@ index 826a3c1d..b78db663 100644
 +  install_dir: join_paths(sysconfdir_install, 'fwupd', 'remotes.d'),
  )
 diff --git a/meson.build b/meson.build
-index 0de0d5eb..2373d0ee 100644
+index 959fc0d4..45f4c4f6 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -158,6 +158,12 @@ localstatedir = join_paths(prefix, get_option('localstatedir'))
- mandir = join_paths(prefix, get_option('mandir'))
+@@ -163,6 +163,12 @@ mandir = join_paths(prefix, get_option('mandir'))
  localedir = join_paths(prefix, get_option('localedir'))
  
+ diffcmd = find_program('diff')
++
 +if get_option('sysconfdir_install') != ''
 +  sysconfdir_install = join_paths(prefix, get_option('sysconfdir_install'))
 +else
 +  sysconfdir_install = sysconfdir
 +endif
-+
  gio = dependency('gio-2.0', version : '>= 2.45.8')
- giounix = dependency('gio-unix-2.0', version : '>= 2.45.8')
- if gio.version().version_compare ('>= 2.55.0')
+ giounix = dependency('gio-unix-2.0', version : '>= 2.45.8', required: false)
+ if giounix.found()
+
 diff --git a/plugins/dell-esrt/meson.build b/plugins/dell-esrt/meson.build
 index cb9f4555..b972d7fb 100644
 --- a/plugins/dell-esrt/meson.build

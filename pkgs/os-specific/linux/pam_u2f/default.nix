@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, libfido2, pam, asciidoc-full, libxslt, gengetopt }:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkgconfig, libfido2, libressl, pam, asciidoc-full, libxslt, gengetopt }:
 
 stdenv.mkDerivation rec {
   pname = "pam_u2f";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook pkgconfig asciidoc-full libxslt gengetopt ];
-  buildInputs = [ libfido2 pam ];
+  buildInputs = [ libfido2 libressl pam ];
 
   configureFlags = [
     "--with-pam-dir=${placeholder "out"}/lib/security"

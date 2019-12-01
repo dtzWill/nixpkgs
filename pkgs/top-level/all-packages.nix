@@ -837,6 +837,8 @@ in
 
   enpass = callPackage ../tools/security/enpass { };
 
+  essentia-extractor = callPackage ../tools/audio/essentia-extractor { };
+
   esh = callPackage ../tools/text/esh { };
 
   ezstream = callPackage ../tools/audio/ezstream { };
@@ -976,14 +978,6 @@ in
     novacom = callPackage ../development/mobile/webos/novacom.nix { };
     novacomd = callPackage ../development/mobile/webos/novacomd.nix { };
   };
-
-  arc-theme = callPackage ../misc/themes/arc { };
-
-  arc-kde-theme = callPackage ../misc/themes/arc-kde { };
-
-  adapta-gtk-theme = callPackage ../misc/themes/adapta { };
-
-  adapta-kde-theme = callPackage ../misc/themes/adapta-kde { };
 
   aria2 = callPackage ../tools/networking/aria2 {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -1241,6 +1235,8 @@ in
   btrfs-dedupe = callPackage ../tools/filesystems/btrfs-dedupe {};
 
   btrbk = callPackage ../tools/backup/btrbk { };
+
+  buildpack = callPackage ../development/tools/buildpack { };
 
   buildtorrent = callPackage ../tools/misc/buildtorrent { };
 
@@ -3302,9 +3298,6 @@ in
   fprot = callPackage ../tools/security/fprot { };
 
   fprintd = callPackage ../tools/security/fprintd { };
-  fprintd-thinkpad = fprintd.override {
-    thinkpad = true;
-  };
 
   franz = callPackage ../applications/networking/instant-messengers/franz { };
 
@@ -3993,6 +3986,8 @@ in
 
   hylafaxplus = callPackage ../servers/hylafaxplus { };
 
+  hyphen = callPackage ../development/libraries/hyphen { };
+
   i2c-tools = callPackage ../os-specific/linux/i2c-tools { };
 
   i2p = callPackage ../tools/networking/i2p {};
@@ -4278,8 +4273,6 @@ in
   kbdd = callPackage ../applications/window-managers/kbdd { };
 
   kdbplus = pkgsi686Linux.callPackage ../applications/misc/kdbplus { };
-
-  kde2-decoration = libsForQt5.callPackage ../misc/themes/kde2 { };
 
   keepalived = callPackage ../tools/networking/keepalived { };
 
@@ -5500,8 +5493,6 @@ in
 
   pamtester = callPackage ../tools/security/pamtester { };
 
-  paper-gtk-theme = callPackage ../misc/themes/paper { };
-
   paperless = callPackage ../applications/office/paperless { };
 
   paperwork = callPackage ../applications/office/paperwork { };
@@ -6552,14 +6543,11 @@ in
 
   sysbench = callPackage ../development/tools/misc/sysbench {};
 
-  system-config-printer = callPackage ../tools/misc/system-config-printer {
-    libxml2 = libxml2Python;
-    pythonPackages = python3Packages;
-   };
+  system-config-printer = callPackage ../tools/misc/system-config-printer { };
 
   stricat = callPackage ../tools/security/stricat { };
 
-  staruml = callPackage ../tools/misc/staruml { inherit (gnome2) GConf; libgcrypt = libgcrypt_1_5; };
+  staruml = callPackage ../tools/misc/staruml { };
 
   systrayhelper = callPackage ../tools/misc/systrayhelper {};
 
@@ -6681,6 +6669,8 @@ in
 
   tinyemu = callPackage ../applications/virtualization/tinyemu { };
 
+  tinyfecvpn = callPackage ../tools/networking/tinyfecvpn {};
+
   tinyprog = callPackage ../development/tools/misc/tinyprog { };
 
   tinyproxy = callPackage ../tools/networking/tinyproxy {};
@@ -6718,6 +6708,8 @@ in
   tokei = callPackage ../development/tools/misc/tokei { };
 
   toml2nix = (callPackage ../tools/toml2nix { }).toml2nix { };
+
+  topgrade = callPackage ../tools/misc/topgrade {  };
 
   tor = callPackage ../tools/security/tor {
     openssl = openssl_1_1;
@@ -10465,9 +10457,7 @@ in
 
   vultr = callPackage ../development/tools/vultr { };
 
-  vulnix = callPackage ../tools/security/vulnix {
-    pythonPackages = python3Packages;
-  };
+  vulnix = callPackage ../tools/security/vulnix { };
 
   vtable-dumper = callPackage ../development/tools/misc/vtable-dumper { };
 
@@ -11522,6 +11512,12 @@ in
   gtkmm2 = callPackage ../development/libraries/gtkmm/2.x.nix { };
   gtkmm3 = callPackage ../development/libraries/gtkmm/3.x.nix { };
 
+  gtk_engines = callPackage ../development/libraries/gtk-engines { };
+
+  gtk-engine-bluecurve = callPackage ../development/libraries/gtk-engine-bluecurve { };
+
+  gtk-engine-murrine = callPackage ../development/libraries/gtk-engine-murrine { };
+
   gtk-sharp-2_0 = callPackage ../development/libraries/gtk-sharp/2.0.nix {
     inherit (gnome2) libglade libgtkhtml gtkhtml
               libgnomecanvas libgnomeui libgnomeprint
@@ -12130,9 +12126,6 @@ in
   };
 
   libfprint = callPackage ../development/libraries/libfprint { };
-  libfprint-thinkpad = libfprint.override {
-    thinkpad = true;
-  };
 
   libfpx = callPackage ../development/libraries/libfpx { };
 
@@ -13281,11 +13274,10 @@ in
   openvdb = callPackage ../development/libraries/openvdb {};
 
   inherit (callPackages ../development/libraries/libressl { })
-    libressl_2_8
     libressl_2_9
     libressl_3_0;
 
-  libressl = libressl_2_9;
+  libressl = libressl_3_0;
 
   boringssl = callPackage ../development/libraries/boringssl { };
 
@@ -15373,8 +15365,6 @@ in
 
   pgbouncer = callPackage ../servers/sql/pgbouncer { };
 
-  pgpool94 = pgpool.override { postgresql = postgresql_9_4; };
-
   pgpool = callPackage ../servers/sql/pgpool {
     pam = if stdenv.isLinux then pam else null;
     libmemcached = null; # Detection is broken upstream
@@ -15385,11 +15375,11 @@ in
   timescaledb-tune = callPackage ../development/tools/database/timescaledb-tune { };
 
   inherit (import ../servers/sql/postgresql pkgs)
-    postgresql_9_4
     postgresql_9_5
     postgresql_9_6
     postgresql_10
     postgresql_11
+    postgresql_12
   ;
   postgresql = postgresql_11.override { this = postgresql; };
   postgresqlPackages = recurseIntoAttrs postgresql.pkgs;
@@ -16167,6 +16157,12 @@ in
     ];
   };
 
+  linux_5_4 = callPackage ../os-specific/linux/kernel/linux-5.4.nix {
+    kernelPatches = [
+      kernelPatches.bridge_stp_helper
+    ];
+  };
+
   linux_testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
     kernelPatches = [
       kernelPatches.bridge_stp_helper
@@ -16363,7 +16359,7 @@ in
   linux = linuxPackages.kernel;
 
   # Update this when adding the newest kernel major version!
-  linuxPackages_latest = linuxPackages_5_3;
+  linuxPackages_latest = linuxPackages_5_4;
   linux_latest = linuxPackages_latest.kernel;
 
   # Build the kernel modules for the some of the kernels.
@@ -16376,6 +16372,7 @@ in
   linuxPackages_5_1 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_1);
   linuxPackages_5_2 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_2);
   linuxPackages_5_3 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_3);
+  linuxPackages_5_4 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_4);
 
   # When adding to this list:
   # - Update linuxPackages_latest to the latest version
@@ -16976,11 +16973,21 @@ in
 
   adapta-backgrounds = callPackage ../data/misc/adapta-backgrounds { };
 
+  adapta-gtk-theme = callPackage ../data/themes/adapta { };
+
+  adapta-kde-theme = callPackage ../data/themes/adapta-kde { };
+
   adementary-theme = callPackage ../data/themes/adementary { };
+
+  adwaita-qt = libsForQt5.callPackage ../data/themes/adwaita-qt { };
 
   agave = callPackage ../data/fonts/agave { };
 
   aileron = callPackage ../data/fonts/aileron { };
+
+  albatross = callPackage ../data/themes/albatross { };
+
+  amber-theme = callPackage ../data/themes/amber { };
 
   amiri = callPackage ../data/fonts/amiri { };
 
@@ -17003,7 +17010,9 @@ in
 
   ant-nebula-theme = callPackage ../data/themes/ant-theme/ant-nebula.nix { };
 
-  arc-icon-theme = callPackage ../data/icons/arc-icon-theme { };
+  arc-kde-theme = callPackage ../data/themes/arc-kde { };
+
+  arc-theme = callPackage ../data/themes/arc { };
 
   arkpandora_ttf = callPackage ../data/fonts/arkpandora { };
 
@@ -17024,6 +17033,8 @@ in
   bibata-cursors = callPackage ../data/icons/bibata-cursors { };
   bibata-extra-cursors = callPackage ../data/icons/bibata-cursors/extra.nix { };
   bibata-cursors-translucent = callPackage ../data/icons/bibata-cursors/translucent.nix { };
+
+  blackbird = callPackage ../data/themes/blackbird { };
 
   blobmoji = callPackage ../data/fonts/blobmoji { };
 
@@ -17047,6 +17058,8 @@ in
   charis-sil = callPackage ../data/fonts/charis-sil { };
 
   cherry = callPackage ../data/fonts/cherry { inherit (xorg) fonttosfnt mkfontdir; };
+
+  clearlooks-phenix = callPackage ../data/themes/clearlooks-phenix { };
 
   cnstrokeorder = callPackage ../data/fonts/cnstrokeorder {};
 
@@ -17134,9 +17147,13 @@ in
 
   dosemu_fonts = callPackage ../data/fonts/dosemu-fonts { };
 
+  e17gtk = callPackage ../data/themes/e17gtk { };
+
   eb-garamond = callPackage ../data/fonts/eb-garamond { };
 
   elliptic_curves = callPackage ../data/misc/elliptic_curves { };
+
+  equilux-theme = callPackage ../data/themes/equilux-theme { };
 
   eunomia = callPackage ../data/fonts/eunomia { };
 
@@ -17193,6 +17210,8 @@ in
 
   gsettings-desktop-schemas = callPackage ../development/libraries/gsettings-desktop-schemas { };
 
+  gnome-breeze = callPackage ../data/themes/gnome-breeze { };
+
   go-font = callPackage ../data/fonts/go-font { };
 
   greybird = callPackage ../data/themes/greybird { };
@@ -17246,6 +17265,8 @@ in
   kanji-stroke-order-font = callPackage ../data/fonts/kanji-stroke-order-font {};
 
   kawkab-mono-font = callPackage ../data/fonts/kawkab-mono {};
+
+  kde2-decoration = libsForQt5.callPackage ../data/themes/kde2 { };
 
   kochi-substitute = callPackage ../data/fonts/kochi-substitute {};
 
@@ -17388,11 +17409,19 @@ in
 
   numix-cursor-theme = callPackage ../data/icons/numix-cursor-theme { };
 
+  numix-gtk-theme = callPackage ../data/themes/numix { };
+
+  numix-solarized-gtk-theme = callPackage ../data/themes/numix-solarized { };
+
+  numix-sx-gtk-theme = callPackage ../data/themes/numix-sx { };
+
   office-code-pro = callPackage ../data/fonts/office-code-pro { };
 
   oldstandard = callPackage ../data/fonts/oldstandard { };
 
   oldsindhi = callPackage ../data/fonts/oldsindhi { };
+
+  onestepback = callPackage ../data/themes/onestepback { };
 
   open-dyslexic = callPackage ../data/fonts/open-dyslexic { };
 
@@ -17405,11 +17434,15 @@ in
 
   orbitron = callPackage ../data/fonts/orbitron { };
 
+  orion = callPackage ../data/themes/orion {};
+
   overpass = callPackage ../data/fonts/overpass { };
 
   oxygenfonts = callPackage ../data/fonts/oxygenfonts { };
 
   inherit (kdeFrameworks) oxygen-icons5;
+
+  paper-gtk-theme = callPackage ../data/themes/paper-gtk { };
 
   paper-icon-theme = callPackage ../data/icons/paper-icon-theme { };
 
@@ -17465,6 +17498,8 @@ in
 
   qogir-theme = callPackage ../data/themes/qogir { };
 
+  qtcurve = libsForQt5.callPackage ../data/themes/qtcurve {};
+
   redhat-official-fonts = callPackage ../data/fonts/redhat-official { };
 
   route159 = callPackage ../data/fonts/route159 { };
@@ -17492,6 +17527,8 @@ in
   signwriting = callPackage ../data/fonts/signwriting { };
 
   sierra-gtk-theme = callPackage ../data/themes/sierra { };
+
+  solarc-gtk-theme = callPackage ../data/themes/solarc { };
 
   soundfont-fluid = callPackage ../data/soundfonts/fluid { };
 
@@ -17607,6 +17644,8 @@ in
   tex-gyre = callPackages ../data/fonts/tex-gyre { };
 
   tex-gyre-math = callPackages ../data/fonts/tex-gyre-math { };
+
+  theme-vertex = callPackage ../data/themes/vertex { };
 
   tipa = callPackage ../data/fonts/tipa { };
 
@@ -17782,8 +17821,6 @@ in
   argo = callPackage ../applications/networking/cluster/argo { };
 
   ario = callPackage ../applications/audio/ario { };
-
-  arion = callPackage ../applications/virtualization/arion { };
 
   arora = callPackage ../applications/networking/browsers/arora { };
 
@@ -18091,6 +18128,8 @@ in
   };
 
   cinelerra = callPackage ../applications/video/cinelerra { };
+
+  cipher = callPackage ../applications/misc/cipher { };
 
   claws-mail = callPackage ../applications/networking/mailreaders/claws-mail {
     inherit (xorg) libSM;
@@ -18777,6 +18816,8 @@ in
   geany = callPackage ../applications/editors/geany { };
   geany-with-vte = callPackage ../applications/editors/geany/with-vte.nix { };
 
+  geoipupdate = callPackage ../applications/misc/geoipupdate/default.nix { };
+
   ghostwriter = libsForQt5.callPackage ../applications/editors/ghostwriter { };
 
   gitweb = callPackage ../applications/version-management/git-and-tools/gitweb { };
@@ -18907,7 +18948,7 @@ in
   wireshark-cli = wireshark-cli_3_0;
 
   # The GTK UI is deprecated by upstream. You probably want the QT version.
-  wireshark-gtk = throw "Not supported anymore. Use wireshark-qt or wireshark-cli instead.";
+  wireshark-gtk = throw "wireshark-gtk is not supported anymore. Use wireshark-qt or wireshark-cli instead.";
 
   sngrep = callPackage ../applications/networking/sniffers/sngrep {};
 
@@ -19019,6 +19060,8 @@ in
   };
 
   fomp = callPackage ../applications/audio/fomp { };
+
+  formatter = callPackage ../applications/misc/formatter { };
 
   fractal = callPackage ../applications/networking/instant-messengers/fractal { };
 
@@ -19976,6 +20019,12 @@ in
   magnetico = callPackage ../applications/networking/p2p/magnetico { };
 
   matchbox = callPackage ../applications/window-managers/matchbox { };
+  
+  matrixcli = callPackage ../applications/networking/instant-messengers/matrixcli {
+    inherit (python3Packages) buildPythonApplication buildPythonPackage
+      pygobject3 pytestrunner requests responses pytest python-olm
+      canonicaljson;
+  };
 
   mblaze = callPackage ../applications/networking/mailreaders/mblaze { };
 
@@ -20011,9 +20060,7 @@ in
 
   mercurialFull = appendToName "full" (pkgs.mercurial.override { guiSupport = true; });
 
-  merkaartor = libsForQt59.callPackage ../applications/misc/merkaartor {
-    gdal = gdal_2; # https://github.com/openstreetmap/merkaartor/issues/179
-  };
+  merkaartor = libsForQt5.callPackage ../applications/misc/merkaartor { };
 
   meshlab = libsForQt5.callPackage ../applications/graphics/meshlab { };
 
@@ -20306,8 +20353,6 @@ in
   };
 
   ptex = callPackage ../development/libraries/ptex {};
-
-  qtcurve = libsForQt5.callPackage ../misc/themes/qtcurve {};
 
   qcad = libsForQt5.callPackage ../applications/graphics/qcad { };
 
@@ -23370,8 +23415,6 @@ in
 
   ### DESKTOP ENVIRONMENTS
 
-  clearlooks-phenix = callPackage ../misc/themes/clearlooks-phenix { };
-
   deepin = recurseIntoAttrs (import ../desktops/deepin {
     inherit pkgs libsForQt5;
     inherit (lib) makeScope;
@@ -23407,6 +23450,10 @@ in
     timepp = callPackage ../desktops/gnome-3/extensions/timepp { };
     topicons-plus = callPackage ../desktops/gnome-3/extensions/topicons-plus { };
     window-corner-preview = callPackage ../desktops/gnome-3/extensions/window-corner-preview { };
+
+    # DTZ: restore these, don't have these commits yet
+    # nohotcorner = throw "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks.";
+    # mediaplayer = throw "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md";
   };
 
   hsetroot = callPackage ../tools/X11/hsetroot { };
@@ -23440,48 +23487,13 @@ in
 
   latte-dock = libsForQt5.callPackage ../applications/misc/latte-dock { };
 
-  adwaita-qt = libsForQt5.callPackage ../misc/themes/adwaita-qt { };
-
-  orion = callPackage ../misc/themes/orion {};
-
-  albatross = callPackage ../misc/themes/albatross { };
-
-  gtk_engines = callPackage ../misc/themes/gtk2/gtk-engines { };
-
-  gtk-engine-bluecurve = callPackage ../misc/themes/gtk2/gtk-engine-bluecurve { };
-
-  gtk-engine-murrine = callPackage ../misc/themes/gtk2/gtk-engine-murrine { };
-
   gnome-themes-extra = gnome3.gnome-themes-extra;
-
-  numix-gtk-theme = callPackage ../misc/themes/numix { };
-
-  numix-solarized-gtk-theme = callPackage ../misc/themes/numix-solarized { };
-
-  numix-sx-gtk-theme = callPackage ../misc/themes/numix-sx { };
-
-  onestepback = callPackage ../misc/themes/onestepback { };
-
-  theme-vertex = callPackage ../misc/themes/vertex { };
 
   rox-filer = callPackage ../desktops/rox/rox-filer {
     gtk = gtk2;
   };
 
-  solarc-gtk-theme = callPackage ../misc/themes/solarc { };
-
-  # xfce = xfce4-12;
-  # xfce4-12 isn't more stable than xfce4-14,
-  # 14 supersedes 12:
-  # "Today, after 4 years and 5 months of work, we are pleased to announce the release of the Xfce desktop 4.14, a new stable version that supersedes Xfce 4.12."
-  # https://www.xfce.org/about/news/?post=1565568000
-  xfceOld = xfce4-12;
-  xfceStable = xfce4-14;
-  xfce = xfceStable;
-  xfceUnstable = throw "No unstable xfce packaged currently";
-
-  xfce4-12 = recurseIntoAttrs (callPackage ../desktops/xfce { });
-  xfce4-14 = recurseIntoAttrs (callPackage ../desktops/xfce4-14 { });
+  xfce = recurseIntoAttrs (callPackage ../desktops/xfce { });
 
   xrandr-invert-colors = callPackage ../applications/misc/xrandr-invert-colors { };
 
@@ -24370,8 +24382,6 @@ in
 
   bees = callPackage ../tools/filesystems/bees { };
 
-  blackbird = callPackage ../misc/themes/blackbird { };
-
   bootil = callPackage ../development/libraries/bootil { };
 
   brgenml1lpr = pkgsi686Linux.callPackage ../misc/cups/drivers/brgenml1lpr {};
@@ -24412,8 +24422,6 @@ in
   colort = callPackage ../applications/misc/colort { };
 
   terminal-parrot = callPackage ../applications/misc/terminal-parrot { };
-
-  e17gtk = callPackage ../misc/themes/e17gtk { };
 
   epson-alc1100 = callPackage ../misc/drivers/epson-alc1100 { };
 
@@ -24483,8 +24491,6 @@ in
 
   electricsheep = callPackage ../misc/screensavers/electricsheep { };
 
-  equilux-theme = callPackage ../misc/themes/equilux-theme { };
-
   flam3 = callPackage ../tools/graphics/flam3 { };
 
   glee = callPackage ../tools/graphics/glee { };
@@ -24543,8 +24549,6 @@ in
   });
 
   glava = callPackage ../applications/misc/glava {};
-
-  gnome-breeze = callPackage ../misc/themes/gnome-breeze { };
 
   gnuk = callPackage ../misc/gnuk {
     gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;

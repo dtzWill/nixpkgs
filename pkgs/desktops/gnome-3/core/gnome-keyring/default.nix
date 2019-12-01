@@ -1,6 +1,6 @@
 { stdenv, fetchurl, pkgconfig, dbus, libgcrypt, pam, python2, glib, libxslt
 , gettext, gcr, libcap_ng, libselinux, p11-kit, openssh, wrapGAppsHook
-, docbook_xsl, docbook_xml_dtd_43, gnome3 }:
+, docbook_xsl, docbook_xml_dtd_43, gnome3, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-keyring";
@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
+    autoreconfHook
     pkgconfig gettext libxslt docbook_xsl docbook_xml_dtd_43 wrapGAppsHook
   ];
 
@@ -26,6 +27,10 @@ stdenv.mkDerivation rec {
     "--with-pkcs11-config=${placeholder "out"}/etc/pkcs11/" # installation directories
     "--with-pkcs11-modules=${placeholder "out"}/lib/pkcs11/"
   ];
+
+  #patches = [
+  #  ./0001-dbus-Implement-secret-portal-backend.patch
+  #];
 
   postPatch = ''
     patchShebangs build

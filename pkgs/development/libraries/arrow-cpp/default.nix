@@ -7,7 +7,6 @@ let
     rev = "a277dc4e55ded3e3ea27dab1e4faf98c112442df";
     sha256 = "1yh5a8l4ship36hwmgmp2kl72s5ac9r8ly1qcs650xv2g9q7yhnq";
   };
-in
 
 in stdenv.mkDerivation rec {
   pname = "arrow-cpp";

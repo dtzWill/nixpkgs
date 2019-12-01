@@ -1113,6 +1113,8 @@ in {
     igraph = pkgs.igraph;
   };
 
+  python-olm = callPackage ../development/python-modules/python-olm { };
+
   python3-openid = callPackage ../development/python-modules/python3-openid { };
 
   python-packer = callPackage ../development/python-modules/python-packer { };
@@ -2413,6 +2415,8 @@ in {
   gnutls = callPackage ../development/python-modules/gnutls { };
 
   gpy = callPackage ../development/python-modules/gpy { };
+
+  gpyopt = callPackage ../development/python-modules/gpyopt { };
 
   gitdb = callPackage ../development/python-modules/gitdb { };
 
@@ -3784,6 +3788,8 @@ in {
   };
 
   matrix-client = callPackage ../development/python-modules/matrix-client { };
+
+  matrix-nio = callPackage ../development/python-modules/matrix-nio { };
 
   mautrix-appservice = callPackage ../development/python-modules/mautrix-appservice { };
 

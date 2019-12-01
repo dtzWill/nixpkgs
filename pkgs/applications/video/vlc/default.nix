@@ -5,9 +5,13 @@
 , libvorbis, libtheora, speex, lua5, libgcrypt, libgpgerror, libupnp
 , libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg
 , mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image
-, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz
-, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus
+, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, libssh2, liboggz
+, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libplacebo
 , libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
+, libaom, dav1d, libvpx, x264, x265, sndio
+, srt, chromaprint, soxr
+, mpg123, libshout, libmodplug
+#, libnotify, gtk3
 , onlyLibVLC ? false
 , withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ? null, wrapQtAppsHook ? null
 , jackSupport ? false
@@ -24,11 +28,11 @@ with stdenv.lib;
 assert (withQt5 -> qtbase != null && qtsvg != null && qtx11extras != null && wrapQtAppsHook != null);
 
 stdenv.mkDerivation rec {
-  name = "vlc-${version}";
+  pname = "vlc";
   version = "3.0.8";
 
   src = fetchurl {
-    url = "http://get.videolan.org/vlc/${version}/${name}.tar.xz";
+    url = "http://get.videolan.org/vlc/${version}/${pname}-${version}.tar.xz";
     sha256 = "e0149ef4a20a19b9ecd87309c2d27787ee3f47dfd47c6639644bc1f6fd95bdf6";
   };
 
@@ -40,10 +44,16 @@ stdenv.mkDerivation rec {
     libbluray dbus fribidi libvorbis libtheora speex lua5 libgcrypt libgpgerror
     libupnp libcaca libpulseaudio flac schroedinger libxml2 librsvg mpeg2dec
     systemd gnutls avahi libcddb SDL SDL_image libmtp unzip taglib libarchive
-    libkate libtiger libv4l samba liboggz libass libdvbpsi libva
+    libkate libtiger libv4l samba libssh2 liboggz libass libdvbpsi libva
     xorg.xlibsWrapper xorg.libXv xorg.libXvMC xorg.libXpm xorg.xcbutilkeysyms
+    xorg.libXinerama xorg.libXext xorg.libXpm # XXX: more!
     libdc1394 libraw1394 libopus libebml libmatroska libvdpau libsamplerate
     fluidsynth wayland wayland-protocols
+    libaom dav1d libvpx x264 x265 sndio
+    srt chromaprint soxr
+    mpg123 libshout libmodplug
+    libplacebo
+    #libnotify gtk3
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
     ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
     ++ optional jackSupport libjack2
@@ -77,6 +87,8 @@ stdenv.mkDerivation rec {
   '' + optionalString withQt5 ''
     remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
   '';
+
+  patches = [ ./libplacebo.patch ];
 
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here

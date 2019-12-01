@@ -6,11 +6,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "duplicity";
-  version = "0.8.05";
+  version = "0.8.07";
 
   src = fetchurl {
     url = "https://launchpad.net/duplicity/${stdenv.lib.versions.majorMinor version}-series/${version}/+download/${pname}-${version}.tar.gz";
-    sha256 = "078ilcnlpmwdmivhvim1dbh6vy1as69q9jnpy82zy0r0977p4ih6";
+    sha256 = "109pq7qb0s4l3hvs08lry1l8nldfdp6xj4wdkjgmm91zfq4a2qg9";
   };
   patches = stdenv.lib.optional stdenv.isLinux ./linux-disable-timezone-test.patch;
 

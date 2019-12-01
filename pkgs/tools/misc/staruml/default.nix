@@ -1,52 +1,25 @@
-{ stdenv, fetchurl, makeWrapper
-, dpkg, patchelf
-, gtk2, glib, gdk-pixbuf, alsaLib, nss, nspr, GConf, cups, libgcrypt, dbus, systemd
-, libXdamage, expat }:
+{ appimageTools, fetchurl, lib, gsettings-desktop-schemas, gtk3 }:
 
 let
-  inherit (stdenv) lib;
-  LD_LIBRARY_PATH = lib.makeLibraryPath
-    [ glib gtk2 gdk-pixbuf alsaLib nss nspr GConf cups libgcrypt dbus libXdamage expat ];
-in
-stdenv.mkDerivation rec {
-  version = "2.8.1";
-  name = "staruml-${version}";
+  pname = "staruml";
+  version = "3.1.1";
+in appimageTools.wrapType2 rec {
+  name = "${pname}-${version}";
+  src = fetchurl {
+    url = "http://staruml.io/download/releases/StarUML-${version}.AppImage";
+    sha256 = "0p2h9qi0asqgjn3fxkyhn8d3bhd7np5pz5yi5dxb7kp6isv1gwgz";
+  };
 
-  src =
-    if stdenv.hostPlatform.system == "i686-linux" then fetchurl {
-      url = "https://s3.amazonaws.com/staruml-bucket/releases-v2/StarUML-v${version}-32-bit.deb";
-      sha256 = "0vb3k9m3l6pmsid4shlk0xdjsriq3gxzm8q7l04didsppg0vvq1n";
-    } else fetchurl {
-      url = "https://s3.amazonaws.com/staruml-bucket/releases-v2/StarUML-v${version}-64-bit.deb";
-      sha256 = "05gzrnlssjkhyh0wv019d4r7p40lxnsa1sghazll6f233yrqmxb0";
-    };
-
-  nativeBuildInputs = [ makeWrapper dpkg ];
-
-  unpackPhase = ''
-    mkdir pkg
-    dpkg-deb -x $src pkg
-    sourceRoot=pkg
+  profile = ''
+    export LC_ALL=C.UTF-8
+    export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
   '';
 
-  installPhase = ''
-    mkdir $out
-    mv opt/staruml $out/bin
+  multiPkgs = null; # no 32bit needed
+  extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
+  extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
-    mkdir -p $out/lib
-    ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
-    ln -s ${systemd.lib}/lib/libudev.so.1 $out/lib/libudev.so.0
-
-    for binary in StarUML Brackets-node; do
-      ${patchelf}/bin/patchelf \
-        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/bin/$binary
-      wrapProgram $out/bin/$binary \
-        --prefix LD_LIBRARY_PATH : $out/lib:${LD_LIBRARY_PATH}
-    done
-  '';
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A sophisticated software modeler";
     homepage = http://staruml.io/;
     license = licenses.unfree;

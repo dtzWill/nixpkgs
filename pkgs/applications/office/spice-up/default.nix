@@ -4,6 +4,7 @@
 , cmake
 , gdk-pixbuf
 , gtk3
+, vala
 , gettext
 , ninja
 , pantheon
@@ -13,7 +14,8 @@
 , libevdev
 , libgee
 , libsoup
-, wrapGAppsHook }:
+, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "spice-up";
@@ -33,7 +35,7 @@ stdenv.mkDerivation rec {
     gettext
     ninja
     pkgconfig
-    pantheon.vala
+    vala
     wrapGAppsHook
   ];
 

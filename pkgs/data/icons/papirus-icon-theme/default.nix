@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [ hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

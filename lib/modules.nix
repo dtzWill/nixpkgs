@@ -595,6 +595,7 @@ rec {
         visible = false;
         apply = x: throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
       });
+      # TODO: master has this assertions, not warnings?
       config.warnings =
         let opt = getAttrFromPath optionName options; in
         optional opt.isDefined ''

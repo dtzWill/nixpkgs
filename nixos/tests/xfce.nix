@@ -1,8 +1,5 @@
 import ./make-test.nix ({ pkgs, ...} : {
   name = "xfce";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eelco shlevy ];
-  };
 
   machine =
     { pkgs, ... }:
@@ -16,7 +13,9 @@ import ./make-test.nix ({ pkgs, ...} : {
 
       services.xserver.desktopManager.xfce.enable = true;
 
-      environment.systemPackages = [ pkgs.xorg.xmessage ];
+      hardware.pulseaudio.enable = true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+
+      virtualisation.memorySize = 1024;
     };
 
   testScript =
@@ -28,15 +27,11 @@ import ./make-test.nix ({ pkgs, ...} : {
       $machine->sleep(10);
 
       # Check that logging in has given the user ownership of devices.
-      $machine->succeed("getfacl /dev/snd/timer | grep -q alice");
+      $machine->succeed("getfacl -p /dev/snd/timer | grep -q alice");
 
       $machine->succeed("su - alice -c 'DISPLAY=:0.0 xfce4-terminal &'");
       $machine->waitForWindow(qr/Terminal/);
       $machine->sleep(10);
       $machine->screenshot("screen");
-
-      # Ensure that the X server does proper access control.
-      $machine->mustFail("su - bob -c 'DISPLAY=:0.0 xmessage Foo'");
-      $machine->mustFail("su - bob -c 'DISPLAY=:0 xmessage Foo'");
     '';
 })

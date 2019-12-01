@@ -109,6 +109,7 @@ mapAliases ({
   '';
   font-droid = throw "font-droid has been deprecated by noto-fonts"; # 2019-04-12
   foomatic_filters = foomatic-filters;  # 2016-08
+  fprintd-thinkpad = throw "removed from repository 2019-12-01: Install it manually with an override.";
   fuse_exfat = exfat;                   # 2015-09-11
   fuseki = apache-jena-fuseki; # added 2018-04-25
   gccApple = throw "gccApple is no longer supported"; # added 2018-04-25
@@ -185,6 +186,7 @@ mapAliases ({
   liberation_ttf_v1_from_source = liberation_ttf_v1; # added 2018-12-12
   liberation_ttf_v2_from_source = liberation_ttf_v2; # added 2018-12-12
   liberationsansnarrow = liberation-sans-narrow; # added 2018-12-12
+  libfprint-thinkpad = throw "removed from repository 2019-12-01: Install it manually with an override.";
   libgnome_keyring = libgnome-keyring; # added 2018-02-25
   libgnome_keyring3 = libgnome-keyring3; # added 2018-02-25
   libgumbo = gumbo; # added 2018-01-21
@@ -272,7 +274,6 @@ mapAliases ({
   plexpy = tautulli; # plexpy got renamed to tautulli, added 2019-02-22
   pmtools = acpica-tools; # added 2018-11-01
   poppler_qt5 = libsForQt5.poppler;  # added 2015-12-19
-  postgresql94 = postgresql_9_4;
   postgresql95 = postgresql_9_5;
   postgresql96 = postgresql_9_6;
   postgresql100 = throw "deprecated 2018-10-21: use postgresql_10 instead";
@@ -403,6 +404,9 @@ mapAliases ({
   winusb = woeusb; # added 2017-12-22
   wireguard = wireguard-tools; # added 2018-05-19
   morituri = whipper; # added 2018-09-13
+  xfceUnstable = xfce4-14; # added 2019-09-17
+  xfce4-14 = xfce;
+  xfce4-12 = xfce;
   x11 = xlibsWrapper; # added 2015-09
   xbmc = kodi; # added 2018-04-25
   xbmcPlain = kodiPlain; # added 2018-04-25
