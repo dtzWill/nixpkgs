@@ -25,6 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "036v3dx8yasp19j88lflibqnpfi5d0nk7qkcnr80zn1lvawf4wgn";
   };
 
+  patches = [
+    # fix build against qalculate 3.6.0
+    # which seems to have cleaned up `using`'s in its headers
+    # breaking unscoped uses of string and such in nasc
+    ./add-missing-std-s.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     vala

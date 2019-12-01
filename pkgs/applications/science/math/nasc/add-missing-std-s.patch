@@ -1,0 +1,122 @@
+From 250bb0d9c10ebdac33e90c64e93c0b84f22cd3c4 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Sun, 1 Dec 2019 04:19:13 -0600
+Subject: [PATCH] fix build against qalculate 3.6.0, add missing 'std::'s
+
+---
+ libqalculatenasc/QalculateNasc.cc | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/libqalculatenasc/QalculateNasc.cc b/libqalculatenasc/QalculateNasc.cc
+index db0c09a..be0ee54 100644
+--- a/libqalculatenasc/QalculateNasc.cc
++++ b/libqalculatenasc/QalculateNasc.cc
+@@ -35,7 +35,7 @@ extern "C" {
+         if (calc->functions[index]->isActive() ) {
+             const ExpressionName *ename_r;
+             ename_r = &calc->functions[index]->preferredInputName (false, true, false, false);
+-            string str = ename_r->name;
++            std::string str = ename_r->name;
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -44,7 +44,7 @@ extern "C" {
+ 
+     char* get_function_description (int index) {
+         if (calc->functions[index]->isActive() ) {
+-            string str = calc->functions[index]->description ();
++            std::string str = calc->functions[index]->description ();
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -54,7 +54,7 @@ extern "C" {
+ 
+     char* get_function_category (int index) {
+         if (calc->functions[index]->isActive() ) {
+-            string str = calc->functions[index]->category ();
++            std::string str = calc->functions[index]->category ();
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -64,7 +64,7 @@ extern "C" {
+ 
+     char* get_function_title (int index) {
+         if (calc->functions[index]->isActive() ) {
+-            string str = calc->functions[index]->title ();
++            std::string str = calc->functions[index]->title ();
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -74,7 +74,7 @@ extern "C" {
+ 
+     char* get_function_arguments (int index) {
+         if (calc->functions[index]->isActive() ) {
+-            string str = "";
++            std::string str = "";
+             Argument *arg;
+             int args = calc->functions[index]->maxargs();
+             if (args < 0) {
+@@ -95,7 +95,7 @@ extern "C" {
+ 
+     char* get_function_arguments_list (int index) {
+         if (calc->functions[index]->isActive() ) {
+-            string str = "";
++            std::string str = "";
+             Argument *arg;
+             int args = calc->functions[index]->maxargs();
+             if (args < 0) {
+@@ -105,7 +105,7 @@ extern "C" {
+                 arg = calc->functions[index]->getArgumentDefinition (i);
+                 if (arg) {
+                     arg = arg->copy();
+-                    string str_arg = arg->printlong();
++                    std::string str_arg = arg->printlong();
+                     str += arg->name();
+                     str += ": ";
+                     str += str_arg;
+@@ -123,7 +123,7 @@ extern "C" {
+         if (calc->variables[index]->isActive() ) {
+             const ExpressionName *ename_r;
+             ename_r = &calc->variables[index]->preferredInputName (false, true, false, false);
+-            string str = ename_r->name;
++            std::string str = ename_r->name;
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -132,7 +132,7 @@ extern "C" {
+ 
+     char* get_variable_category (int index) {
+         if (calc->variables[index]->isActive() ) {
+-            string str = calc->variables[index]->category ();
++            std::string str = calc->variables[index]->category ();
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -141,7 +141,7 @@ extern "C" {
+ 
+     char* get_variable_title (int index) {
+         if (calc->variables[index]->isActive() ) {
+-            string str = calc->variables[index]->title ();
++            std::string str = calc->variables[index]->title ();
+             return convert_string (str);
+         } else {
+             return convert_string ("");
+@@ -237,7 +237,7 @@ std::string intern_calc_wait (std::string input) {
+ 
+ std::string intern_calc_terminate (std::string input) {
+     if (calc->busy() ) {
+-        cout << "qalc abort" << endl;
++        std::cout << "qalc abort" << std::endl;
+         calc->abort();
+     }
+     return intern_calc (input);
+@@ -275,4 +275,4 @@ std::string intern_calc (std::string input) {
+     std::string result_str = mstruct->print (printops);
+ 
+     return result_str;//calc->localizeExpression (result_str);
+-}
+\ No newline at end of file
++}
+-- 
+2.24.0.1
+
