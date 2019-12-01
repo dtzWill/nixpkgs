@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, libcbor, openssl, udev }:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, libcbor, libressl, udev }:
 
 stdenv.mkDerivation rec {
   pname = "libfido2";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ libcbor udev ];
-  propagatedBuildInputs = [ openssl /* libcrypto */ ];
+  propagatedBuildInputs = [ libressl /* libcrypto */ ];
 
   cmakeFlags = [ "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d" ];
 
