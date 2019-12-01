@@ -85,7 +85,7 @@ in stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs \
       contrib/get-version.py \
-      libfwupd/generate-version-script.py \
+      contrib/generate-version-script.py \
       meson_post_install.sh \
       po/make-images \
       po/make-images.sh \
@@ -100,25 +100,21 @@ in stdenv.mkDerivation rec {
       --replace "plugin_dir = join_paths(libdir, 'fwupd-plugins-3')" \
                 "plugin_dir = join_paths('${placeholder "out"}', 'fwupd_plugins-3')"
 
-    substituteInPlace plugins/flashrom/fu-plugin-flashrom.c --replace \
-      'find_program_in_path ("flashrom"' \
-      'find_program_in_path ("${flashrom}/bin/flashrom"'
-
     substituteInPlace src/fu-offline.c --replace '"plymouth"' '"${plymouth}/bin/plymouth"'
 
-    substituteInPlace plugins/uefi/fu-plugin-uefi.c \
-      --replace 'fu_common_find_program_in_path ("efibootmgr"' \
-                'fu_common_find_program_in_path ("${efibootmgr}/bin/efibootmgr"' \
-      --replace 'g_spawn_command_line_sync ("efibootmgr -v"' \
-                'g_spawn_command_line_sync ("${efibootmgr}/bin/efibootmgr -v"'
-
-    substituteInPlace src/fu-common.c --replace \
+    substituteInPlace libfwupdplugin/fu-common.c --replace \
       'fu_common_find_program_in_path ("bwrap"' \
       'fu_common_find_program_in_path ("${bubblewrap}/bin/bwrap"'
 
-    substituteInPlace src/fu-test.c \
-      --replace '("diff -urNp' \
-                '("${diffutils}/bin/diff -urNp'
+    for x in \
+      libfwupd/fwupd-self-test.c \
+      src/fu-self-test.c \
+      plugins/dfu/dfu-self-test.c \
+    ; do
+      substituteInPlace $x \
+        --replace '("diff -urNp' \
+                  '("${diffutils}/bin/diff -urNp'
+    done
 
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \
