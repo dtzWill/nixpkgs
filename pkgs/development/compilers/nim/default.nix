@@ -69,6 +69,9 @@ stdenv.mkDerivation rec {
 
       # requires network access (not available in the build container)
       ${disableTest} ./tests/stdlib/thttpclient.nim
+
+      # nodejs 12+ broke this test, see upstream nim issue 12182
+      ${disableTest} ./tests/js/tconsole.nim
     '' + lib.optionalString stdenv.isAarch64 ''
       # supposedly broken on aarch64
       ${disableStdLibTest} ./lib/pure/stats.nim
