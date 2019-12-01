@@ -10,14 +10,14 @@
 
 stdenv.mkDerivation rec {
   pname = "deja-dup";
-  version = "40.4";
+  version = "40.5";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = pname;
     rev = version;
-    sha256 = "0x9z8z1mh1sxi28ilml3pvbc0g6ghcbyiy002rziwwlarxnbwkky";
+    sha256 = "1njqf1l57xwlbbfr546hphi9cqin4l0vsb20pxsz49y4hzm3py32";
   };
 
   patches = [
