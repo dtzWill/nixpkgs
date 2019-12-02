@@ -1,28 +1,22 @@
-{ stdenv, fetchurl, dpkg, autoPatchelfHook
-, libX11, glib, xorg, fontconfig, freetype, alsaLib
-, pango, cairo, atk, dbus, gtk2, gdk_pixbuf
-, gnutls, nettle, librsvg
-, fribidi
-, libcef
-, libunistring, avahi
-, zlib, libpng12, libICE, libXrender, cups, nss, nspr }:
+{ stdenv, fetchurl
+, libX11, glib, xorg, fontconfig, freetype
+, zlib, libpng12, libICE, libXrender, cups
+, alsaLib, atk, cairo, dbus, expat
+, gdk-pixbuf, gtk2-x11, lzma, pango, zotero
+, sqlite, libuuid, qt5, dpkg }:
 
-let
-  bits = if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64"
-         else "x86";
-
-  version = "11.1.0.8392";
-in stdenv.mkDerivation rec{
-  name = "wpsoffice-${version}";
+stdenv.mkDerivation rec{
+  pname = "wpsoffice";
+  version = "11.1.0.8865";
 
   src = fetchurl {
-    name = "${name}.deb";
-    url = "http://kdl.cc.ksosoft.com/wps-community/download/8392/wps-office_${version}_amd64.deb";
-    #url = "http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_${version}~a21_${bits}.tar.xz";
-    sha256 = if bits == "x86_64" then
-      "0bvwnx85ph4m236s85iwqid5dvym21qcikr32r7c9kqr714njxgg" else
-      "1111111111111111111111111111111111111111111111111111";
+    url = "https://wdl1.cache.wps.cn/wps/download/ep/Linux2019/8865/wps-office_11.1.0.8865_amd64.deb";
+    sha256 = "0pxx3j02cm8d08iakg30azjvl3a50y4avyrf08ddgaavqnvkypfj";
   };
+  unpackCmd = "dpkg -x $src .";
+  sourceRoot = ".";
+
+  nativeBuildInputs = [ qt5.wrapQtAppsHook dpkg ];
 
   meta = {
     description = "Office program originally named Kingsoft Office";
@@ -30,15 +24,10 @@ in stdenv.mkDerivation rec{
     platforms = [ "i686-linux" "x86_64-linux" ];
     hydraPlatforms = [];
     license = stdenv.lib.licenses.unfreeRedistributable;
+    maintainers = [ stdenv.lib.maintainers.mlatus ];
   };
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
-
-  unpackPhase = "dpkg-deb -x $src .";
-
-  runtimeDependencies = buildInputs;
-  buildInputs = [
-    alsaLib
+  libPath = with xorg; stdenv.lib.makeLibraryPath [
     libX11
     xorg.libxcb
     xorg.libXau
@@ -56,20 +45,37 @@ in stdenv.mkDerivation rec{
     xorg.libSM
     libpng12
     glib
+    libSM
+    libXext
     fontconfig
     zlib
     freetype
     libICE
-    cups.lib
-    nss nspr
-    pango cairo atk dbus gtk2 gdk_pixbuf
-    librsvg
-    fribidi
-    libcef
-    avahi
-    libunistring
-    gnutls nettle
-    stdenv.cc.cc # libstdc++
+    cups
+    libXrender
+    libxcb
+
+    alsaLib
+    atk
+    cairo
+    dbus.daemon.lib
+    expat
+    fontconfig.lib
+    gdk-pixbuf
+    gtk2-x11
+    lzma
+    pango
+    zotero
+    sqlite
+    libuuid
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXfixes
+    libXi
+    libXrandr
+    libXScrnSaver
+    libXtst
   ];
 
   dontPatchELF = true;
@@ -83,33 +89,27 @@ in stdenv.mkDerivation rec{
     mv usr/{share,bin} $out/
     mv opt $out/opt
     prefix=$out/opt/kingsoft/wps-office
+    mkdir -p $out
+    cp -r opt $out
+    cp -r usr/* $out
 
-    ## for i in wps wpp et wpsoffice; do
-    ##   patchelf \
-    ##     --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" \
-    ##     --force-rpath --set-rpath "$prefix/office6:$libPath" \
-    ##     $prefix/office6/$i
-    ## done
+    # Avoid forbidden reference error due use of patchelf
+    rm -r *
 
-    for i in wps wpp et; do
+    for i in wps wpp et wpspdf; do
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --force-rpath --set-rpath "$(patchelf --print-rpath $prefix/office6/$i):${stdenv.cc.cc.lib}/lib64:${libPath}" \
+        $prefix/office6/$i
+
       substituteInPlace $out/bin/$i \
         --replace /opt/kingsoft/wps-office $prefix
-
-      substituteInPlace $out/share/applications/wps-office-$i.desktop \
-        --replace /usr/bin $out/bin
     done
 
-    # :(
-    rm $prefix/office6/libjs*
-
-    # use ours
-    rm $prefix/office6/libcef*
-
-    ## # China fonts
-    ## mkdir -p $prefix/resource/fonts/wps-office $out/etc/fonts/conf.d
-    ## ln -s $prefix/fonts/* $prefix/resource/fonts/wps-office
-    ## ln -s $prefix/fontconfig/*.conf $out/etc/fonts/conf.d
-
-    ## ln -s $prefix/resource $out/share
+    for i in $out/share/applications/*;do
+      substituteInPlace $i \
+        --replace /usr/bin $out/bin \
+        --replace /opt/kingsoft/wps-office $prefix
+    done
   '';
 }
