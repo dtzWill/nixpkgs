@@ -45,7 +45,7 @@ with pkgs;
         inherit hasDistutilsCxxPatch pythonForBuild;
   };
 
-in rec {
+in {
 
   python27 = callPackage ./cpython/2.7 {
     self = python27;
