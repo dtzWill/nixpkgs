@@ -6,7 +6,7 @@ sourcePerArch:
 }:
 
 let cpuName = stdenv.hostPlatform.parsed.cpu.name;
-    result = stdenv.mkDerivation rec {
+    result = stdenv.mkDerivation {
   name = if sourcePerArch.packageType == "jdk"
     then "adoptopenjdk-${sourcePerArch.vmType}-bin-${sourcePerArch.${cpuName}.version}"
     else "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin-${sourcePerArch.${cpuName}.version}";
@@ -34,7 +34,7 @@ let cpuName = stdenv.hostPlatform.parsed.cpu.name;
 
     # Set JAVA_HOME automatically.
     cat <<EOF >> $out/nix-support/setup-hook
-    if [ -z "\$JAVA_HOME" ]; then export JAVA_HOME=$out; fi
+    if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
     EOF
   '';
 
