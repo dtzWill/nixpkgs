@@ -25,6 +25,20 @@ stdenv.mkDerivation rec {
       url = "https://gitlab.com/inkscape/inkscape/commit/e831b034746f8dc3c3c1b88372751f6dcb974831.diff";
       sha256 = "096rdyi6ppjq1h9jwwsm9hb99nggfrfinik8rm23jkn4h2zl01zf";
     })
+    (fetchpatch {
+      name = "inkscape-poppler_0_82_compat.patch";
+      url = "https://gitlab.com/inkscape/inkscape/commit/835b6bb62be565efab986d5a3f30a672ad56c7eb.patch";
+      sha256 = "02c6sxi2w52b885vr3pgani6kvxp9gdqqk2jgiykkdzv70hhrnm7";
+    })
+    (fetchpatch {
+      name = "inkscape-poppler_0_83_compat.patch";
+      url = "https://gitlab.com/inkscape/inkscape/commit/785fdf3329ced9f50b093662ce70208999c1cb96.patch";
+      sha256 = "0fiqm94dyzinkrrk1ax8y8xviv9klh0f4ak92s6svlfic5h3ifb6";
+      postFetch = ''
+        # revert refactoring not in 0.92
+        sed -i 's/saved != nullptr/saved != NULL/' $out
+      '';
+    })
   ];
 
   # Inkscape hits the ARGMAX when linking on macOS. It appears to be
