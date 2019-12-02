@@ -6,14 +6,14 @@
 stdenv.mkDerivation rec {
   pname = "font-manager";
 #  version = "0.7.5";
-  version = "unstable-2019-11-17";
+  version = "unstable-2019-11-24";
 
   src = fetchFromGitHub {
     owner = "FontManager";
     repo = pname;
     #rev = version;
-    rev = "ee1f01951a10f26bb8f73a28036306c8116e001e";
-    sha256 = "1ps4asvrr55wmwlykgsfcjz8plnadqr0wyakv859vl14s6krfnia";
+    rev = "9fabf3ce6f9160e71702aa5de31886d9bd0f3f63";
+    sha256 = "08pqsihy86fjqmp2p2ca1q8f39k2zr1fif01aaa4wffzhfkinpww";
   };
 
   nativeBuildInputs = [
