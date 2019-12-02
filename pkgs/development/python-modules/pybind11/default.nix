@@ -13,11 +13,13 @@
 
 buildPythonPackage rec {
   pname = "pybind11";
-  version = "2.2.4";
+  version = "2.4.3";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "1kz1z2cg3q901q9spkdhksmcfiskaghzmbb9ivr5mva856yvnak4";
+  src = fetchFromGitHub {
+    owner = "pybind";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "0k89w4bsfbpzw963ykg1cyszi3h3nk393qd31m6y46pcfxkqh4rd";
   };
 
   nativeBuildInputs = [ cmake ];
