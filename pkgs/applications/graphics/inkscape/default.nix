@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchpatch, pkgconfig, perlPackages, libXft
 , libpng, zlib, popt, boehmgc, libxml2, libxslt, glib, gtkmm2
 , glibmm, libsigcxx, lcms, boost, gettext, makeWrapper
-, gsl, python2, poppler, imagemagick, libwpg, librevenge
+, gsl, gtkspell2, cairo, python2, poppler, imagemagick, libwpg, librevenge
 , libvisio, libcdr, libexif, potrace, cmake
 , librsvg, wrapGAppsHook
 }:
@@ -32,12 +32,8 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       name = "inkscape-poppler_0_83_compat.patch";
-      url = "https://gitlab.com/inkscape/inkscape/commit/785fdf3329ced9f50b093662ce70208999c1cb96.patch";
-      sha256 = "0fiqm94dyzinkrrk1ax8y8xviv9klh0f4ak92s6svlfic5h3ifb6";
-      postFetch = ''
-        # revert refactoring not in 0.92
-        sed -i 's/saved != nullptr/saved != NULL/' $out
-      '';
+      url = "https://gitlab.com/inkscape/inkscape/commit/b5360a807b12d4e8318475ffd0464b84882788b5.patch";
+      sha256 = "1p44rr2q2i3zkd1y1j7xgdcbgx8yvlq6hq92im8s0bkjby6p5cpz";
     })
   ];
 
@@ -74,7 +70,8 @@ stdenv.mkDerivation rec {
     librsvg # for loading icons
 
     python2Env perlPackages.perl
-  ];
+  ] ++ stdenv.lib.optional (!stdenv.isDarwin) gtkspell2
+    ++ stdenv.lib.optional stdenv.isDarwin cairo;
 
   enableParallelBuilding = true;
 
@@ -83,9 +80,6 @@ stdenv.mkDerivation rec {
     install_name_tool -change $out/lib/libinkscape_base.dylib $out/lib/inkscape/libinkscape_base.dylib $out/bin/inkscape
     install_name_tool -change $out/lib/libinkscape_base.dylib $out/lib/inkscape/libinkscape_base.dylib $out/bin/inkview
   '';
-
-  # 0.92.3 complains about an invalid conversion from const char * to char *
-  NIX_CFLAGS_COMPILE = " -fpermissive ";
 
   meta = with stdenv.lib; {
     license = "GPL";

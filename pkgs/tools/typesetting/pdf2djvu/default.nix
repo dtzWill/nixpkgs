@@ -9,12 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "05z2bbg54pfsi668fwcjrcr5iz9llf9gprzdsrn6fw5wjv4876zi";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-
-  buildInputs = [ djvulibre poppler fontconfig libjpeg ];
-
   patches = [
-    # Fixes for poppler >= 0.83
+    # fix build with Poppler 0.83
     (fetchpatch {
       url = "https://github.com/jwilk/pdf2djvu/commit/0aa17bb79dbcdfc249e4841f5b5398e27cfdfd41.patch";
       sha256 = "0mr14nz5w7z4ri2556bxkf3cnn2f7dhwsld7csrh6z5qqb7d5805";
@@ -24,6 +20,10 @@ stdenv.mkDerivation rec {
       sha256 = "03apsg1487jl800q8j70hicvg6xsndd593bg7babm4vgivkxb0da";
     })
   ];
+
+  nativeBuildInputs = [ pkgconfig ];
+
+  buildInputs = [ djvulibre poppler fontconfig libjpeg ];
 
   preConfigure = ''
     sed -i 's#\$djvulibre_bin_path#${djvulibre.bin}/bin#g' configure
