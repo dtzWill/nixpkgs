@@ -13,6 +13,7 @@
 , pciutils
 , systemd
 , enableProprietaryCodecs ? true
+, enableJumbo ? true
 , gn
 , cups, darwin, openbsm, runCommand, xcbuild
 , ffmpeg ? null
@@ -40,8 +41,7 @@ qtModule {
   hardeningDisable = [ "format" ];
 
   postPatch =
-    # no jumbo
-    ''
+    optionalString (!enableJumbo) ''
     sed -i -e 's|use_jumbo_build=true|use_jumbo_build=false|' \
       src/core/config/common.pri
     ''
