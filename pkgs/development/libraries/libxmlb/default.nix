@@ -6,7 +6,6 @@
 , glib
 , gobject-introspection
 , gtk-doc
-, libuuid
 , meson
 , ninja
 , pkgconfig
@@ -46,7 +45,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     glib
-    libuuid
   ];
 
   mesonFlags = [
