@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, cmake, enableShared ? true }:
 
 stdenv.mkDerivation rec {
-  version = "5.3.0";
-  name = "fmt-${version}";
+  version = "6.1.0";
+  pname = "fmt";
 
   src = fetchFromGitHub {
     owner = "fmtlib";
-    repo = "fmt";
-    rev = "${version}";
-    sha256 = "1hl9s69a5ql5nckc0ifh2fzlgsgv1wsn6yhqkpnrhasqkhj0hgv4";
+    repo = pname;
+    rev = version;
+    sha256 = "08v28k1iypjand8ys75lxz6ya2qm33yd6552024z79r2vcq27hh3";
   };
 
   outputs = [ "out" "dev" ];
