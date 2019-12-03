@@ -1,10 +1,10 @@
 { stdenv, fetchFromGitHub, makeWrapper
 # runtime deps, adhoc
-, git, python3, ruby, zsh, runtimeShell }:
+, git, python3, ruby, zsh, coreutils, runtimeShell }:
 
 
 let
-  path = stdenv.lib.makeBinPath [ git python3 ruby zsh runtimeShell ];
+  path = stdenv.lib.makeBinPath [ git python3 ruby zsh coreutils runtimeShell ];
 in stdenv.mkDerivation rec {
   pname = "git-extra-commands";
   version = "unstable-2019-09-28";
@@ -21,6 +21,10 @@ in stdenv.mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [ makeWrapper ];
+
+  postPatch = ''
+    substituteInPlace bin/git-flush --replace /bin/rm ${coreutils}/bin/rm
+  '';
 
   installPhase = ''
     install -Dm644 ${pname}.plugin.zsh $out/share/zsh/plugins/${pname}/${pname}.plugin.zsh
