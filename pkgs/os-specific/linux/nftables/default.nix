@@ -7,12 +7,12 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "0.9.2";
+  version = "0.9.3";
   name = "nftables-${version}";
 
   src = fetchurl {
     url = "https://netfilter.org/projects/nftables/files/${name}.tar.bz2";
-    sha256 = "1x8kalbggjq44j4916i6vyv1rb20dlh1dcsf9xvzqsry2j063djw";
+    sha256 = "0y6vbqp6x8w165q65h4n9sba1406gaz0d4744gqszbm7w9f92swm";
   };
 
   configureFlags = [
