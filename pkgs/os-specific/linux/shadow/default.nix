@@ -39,12 +39,6 @@ stdenv.mkDerivation rec {
       # Obtain XML resources from XML catalog (patch adapted from gtk-doc)
       ./respect-xml-catalog-files-var.patch
       dots_in_usernames
-      # Allow building with itstool
-      # https://github.com/shadow-maint/shadow/pull/184
-      (fetchpatch {
-        url = https://github.com/shadow-maint/shadow/commit/6c6c8d3a33bba32277e1ed46f55df1e6dbc914b7.patch;
-        sha256 = "0xfr1mrfv5xsmri6l7ycbpz3qhs4vf3fyci4kwpffi3icsfjn557";
-      })
     ];
 
   # The nix daemon often forbids even creating set[ug]id files.
