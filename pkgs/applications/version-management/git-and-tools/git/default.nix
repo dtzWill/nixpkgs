@@ -28,8 +28,7 @@ let
 in
 
 stdenv.mkDerivation {
-  pname = "git";
-  inherit version;
+  name = "git-${version}";
 
   src = fetchurl {
     url = "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz";
@@ -141,9 +140,8 @@ stdenv.mkDerivation {
       cp -a contrib $out/share/git/
       mkdir -p $out/share/emacs/site-lisp
       ln -s "$out/share/git/contrib/emacs/"*.el $out/share/emacs/site-lisp/
-      mkdir -p $out/share/bash-completion/completions
-      ln -s $out/share/git/contrib/completion/git-completion.bash $out/share/bash-completion/completions/git
       mkdir -p $out/etc/bash_completion.d
+      ln -s $out/share/git/contrib/completion/git-completion.bash $out/etc/bash_completion.d/
       ln -s $out/share/git/contrib/completion/git-prompt.sh $out/etc/bash_completion.d/
 
       # grep is a runtime dependency, need to patch so that it's found
@@ -298,10 +296,6 @@ stdenv.mkDerivation {
 
     # As of 2.19.0, t5562 refers to #!/usr/bin/perl
     patchShebangs t/t5562/invoke-with-content-length.pl
-  '' + stdenv.lib.optionalString stdenv.isDarwin ''
-    # XXX: Some tests added in 2.24.0 fail.
-    # Please try to re-enable on the next release.
-    disable_test t7816-grep-binary-pattern
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     # Test fails (as of 2.17.0, musl 1.1.19)
     disable_test t3900-i18n-commit
