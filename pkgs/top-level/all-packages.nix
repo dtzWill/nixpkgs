@@ -1981,6 +1981,8 @@ in
 
   socklog = callPackage ../tools/system/socklog { };
 
+  qtspim = qt5.callPackage ../applications/virtualization/spim { };
+
   staccato = callPackage ../tools/text/staccato { };
 
   stagit = callPackage ../development/tools/stagit { };
