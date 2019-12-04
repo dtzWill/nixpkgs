@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, getopt, makeWrapper, utillinux }:
+{ stdenv, fetchurl, fetchpatch, getopt, makeWrapper, utillinux }:
 
 stdenv.mkDerivation rec {
   pname = "libseccomp";
@@ -13,7 +13,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ getopt makeWrapper ];
 
-  patchPhase = ''
+  patches = [
+    # Fix accidentally removed __SNR_ppoll
+    (fetchpatch {
+      url = "https://github.com/seccomp/libseccomp/commit/e3647f5b6b52996bf30d0c2c1d1248e4182e1c1c.patch";
+      sha256 = "1l4h2qb49l9fpvsk9rfi6lsqq4fc786sbk83ib2pmglay9sdj4h5";
+    })
+  ];
+
+  postPatch = ''
     patchShebangs .
   '';
 
