@@ -210,4 +210,6 @@ in {
      "To change extra Recursor settings use services.pdns-recursor.settings instead.")
   ];
 
+  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }
