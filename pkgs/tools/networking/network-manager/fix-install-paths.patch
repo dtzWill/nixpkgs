@@ -1,6 +1,6 @@
 --- a/meson.build
 +++ b/meson.build
-@@ -925,11 +925,11 @@
+@@ -909,11 +909,11 @@ meson.add_install_script(
    join_paths('tools', 'meson-post-install.sh'),
    nm_datadir,
    nm_bindir,
@@ -9,9 +9,9 @@
    nm_pkglibdir,
 -  nm_pkgstatedir,
 +  nm_prefix + nm_pkgstatedir,
-   enable_docs ? 'install_docs' : '',
    nm_mandir,
-   enable_ifcfg_rh ? 'create_network_scripts' : '',
 -  nm_sysconfdir,
 +  nm_prefix + nm_sysconfdir,
- )
+   enable_docs ? '1' : '0',
+   enable_ifcfg_rh ? '1' : '0',
+   enable_nm_cloud_setup ? '1' : '0',

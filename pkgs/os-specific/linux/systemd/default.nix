@@ -1,9 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, pkgconfig, intltool, gperf, libcap, kmod
-, xz, pam, acl, libuuid, m4, utillinux, libffi
+{ stdenv, lib, fetchFromGitHub, fetchpatch, pkgconfig, intltool, gperf, libcap
+, curl, kmod, gnupg, gnutar, xz, pam, acl, libuuid, m4, utillinux, libffi
 , glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor
 , audit, lz4, bzip2, libmicrohttpd, pcre2
 , linuxHeaders ? stdenv.cc.libc.linuxHeaders
-, iptables, gnu-efi
+, iptables, gnu-efi, bashInteractive
 , gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45
 , ninja, meson, python3Packages, glibcLocales
 , patchelf
@@ -15,8 +15,22 @@
 , withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
 }:
 
-stdenv.mkDerivation rec {
-  version = "243";
+let gnupg-minimal = gnupg.override {
+  enableMinimal = true;
+  guiSupport = false;
+  pcsclite = null;
+  sqlite = null;
+  pinentry = null;
+  adns = null;
+  gnutls = null;
+  libusb = null;
+  openldap = null;
+  readline = null;
+  zlib = null;
+  bzip2 = null;
+};
+in stdenv.mkDerivation rec {
+  version = "243.3";
   pname = "systemd";
 
   # When updating, use https://github.com/systemd/systemd-stable tree, not the development one!
@@ -24,34 +38,16 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "NixOS";
     repo = "systemd";
-    rev = "d25cf413c6bff1b5a9d216a8830e3a90c9cad1de";
-    sha256 = "0ilvrnh3m7g0yflxl16fk52gkb1z0fwwk9ba5gs4005nzpl0c7i0";
+    rev = "491a247eff9b7ce1e5877f5f3431517c95f3222f";
+    sha256 = "1xqiahapg480m165glrwqbfmc1fxw5sacdlm933cwyi1q8x4537g";
   };
 
   patches = [
-    (fetchpatch {
-      url = "https://github.com/systemd/systemd/commit/d45ee2f31a8358db0accde2e7c81777cedadc3c2.patch";
-      sha256 = "1kg4ba9s610qhfv3canda94im3b63xdbmrfn28b04081g79dan4g";
-    })
-    (fetchpatch {
-      name = "only-disable-opts-for-debug-builds.patch";
-      url = "https://github.com/systemd/systemd/commit/d4f4179e908dfd3efd2dda322b936cda0d4be23c.patch";
-      sha256 = "0z7rcw4s28nmda4f2ydrjr1dya1zbsspqrxcd65l0d5sgi9vzr8y";
-    })
-    (fetchpatch {
-      name = "dont-loudly-complain-if-rng-protocol-isnt-available.patch";
-      url = "https://github.com/systemd/systemd/commit/a2834a86bafae652e4ea6eb3a8f90aafb9a0d346.patch";
-      sha256 = "0ri9l9qpl36h44qds1jy8y4clrca2cwp3w2rjmxa21hkkqcf1g39";
-    })
-    # Updates to stable-v243 not in our fork yet
-    (fetchpatch {
-      name = "engage_stabilizers.patch";
-      url = "https://github.com/systemd/systemd-stable/compare/ca8ba8f8c066a47f5c9d033b291f0d6720c658cd~1..fab6f010ac.patch";
-      sha256 = "0pc3gvj7rwz28nf0c4qkn43wldp8jzmggnd8nzwv004im3fmckmy";
-    })
+    # ...
   ] ++ lib.optionals stdenv.hostPlatform.isMusl (
     let systemd_rev = src.rev;
   in [
+    # XXX: FIXME (update!)
     (fetchpatch {
       url = "https://github.com/dtzWill/systemd/compare/${systemd_rev}...nixos-v243-musl-1.patch";
       sha256 = "1nffsx1g684yccfs9cc8kjll8186z9rnxhvlnjsrh6q4zz7w55rx";
@@ -71,7 +67,7 @@ stdenv.mkDerivation rec {
       (buildPackages.python3Packages.python.withPackages ( ps: with ps; [ python3Packages.lxml ]))
     ];
   buildInputs =
-    [ linuxHeaders libcap kmod xz pam acl
+    [ linuxHeaders libcap curl.dev kmod xz pam acl
       /* cryptsetup */ libuuid glib libgcrypt libgpgerror libidn2
       libmicrohttpd pcre2 ] ++
       stdenv.lib.optional withKexectools kexectools ++
@@ -83,7 +79,7 @@ stdenv.mkDerivation rec {
   #dontAddPrefix = true;
 
   mesonFlags = [
-    "-Ddbuspolicydir=${placeholder "out"}/etc/dbus-1/system.d"
+    "-Ddbuspolicydir=${placeholder "out"}/share/dbus-1/system.d"
     "-Ddbussessionservicedir=${placeholder "out"}/share/dbus-1/services"
     "-Ddbussystemservicedir=${placeholder "out"}/share/dbus-1/system-services"
     "-Dpamconfdir=${placeholder "out"}/etc/pam.d"
@@ -94,8 +90,10 @@ stdenv.mkDerivation rec {
     "-Dloadkeys-path=${kbd}/bin/loadkeys"
     "-Dsetfont-path=${kbd}/bin/setfont"
     "-Dtty-gid=3" # tty in NixOS has gid 3
+    "-Ddebug-shell=${bashInteractive}/bin/bash"
     # while we do not run tests we should also not build them. Removes about 600 targets
     "-Dtests=false"
+    "-Dimportd=true"
     "-Dlz4=true"
     "-Dhostnamed=true"
     "-Dnetworkd=true"
@@ -106,7 +104,7 @@ stdenv.mkDerivation rec {
     "-Dlocaled=true"
     "-Dresolve=true"
     "-Dsplit-usr=false"
-    "-Dlibcurl=false"
+    "-Dlibcurl=true"
     "-Dlibidn=false"
     "-Dlibidn2=true"
     "-Dquotacheck=false"
@@ -186,6 +184,14 @@ stdenv.mkDerivation rec {
 
     for dir in tools src/resolve test src/test; do
       patchShebangs $dir
+    done
+
+    # absolute paths to gpg & tar
+    substituteInPlace src/import/pull-common.c \
+      --replace '"gpg"' '"${gnupg-minimal}/bin/gpg"'
+    for file in src/import/{{export,import,pull}-tar,import-common}.c; do
+      substituteInPlace $file \
+        --replace '"tar"' '"${gnutar}/bin/tar"'
     done
 
     substituteInPlace src/journal/catalog.c \

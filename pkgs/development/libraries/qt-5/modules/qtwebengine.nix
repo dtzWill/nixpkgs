@@ -13,6 +13,7 @@
 , pciutils
 , systemd
 , enableProprietaryCodecs ? true
+, enableJumbo ? true
 , gn
 , cups, darwin, openbsm, runCommand, xcbuild
 , ffmpeg ? null
@@ -40,8 +41,7 @@ qtModule {
   hardeningDisable = [ "format" ];
 
   postPatch =
-    # no jumbo
-    ''
+    optionalString (!enableJumbo) ''
     sed -i -e 's|use_jumbo_build=true|use_jumbo_build=false|' \
       src/core/config/common.pri
     ''
@@ -109,10 +109,13 @@ EOF
       --replace 'libs = [ "sandbox" ]' 'libs = [ "/usr/lib/libsandbox.1.dylib" ]'
     '');
 
-  NIX_CFLAGS_COMPILE = [
+
+  NIX_CXXSTDLIB_COMPILE = lib.optionals stdenv.cc.isGNU [
     # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
     "-Wno-class-memaccess"
-  ] ++ lib.optionals (stdenv.hostPlatform.platform.gcc.arch or "" == "sandybridge") [
+  ];
+
+  NIX_CFLAGS_COMPILE = lib.optionals (stdenv.hostPlatform.platform.gcc.arch or "" == "sandybridge") [
     # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
     # TODO: investigate and fix properly
     "-march=westmere"

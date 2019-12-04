@@ -1,17 +1,8 @@
-From e1d463ea6243d59476b97fe9c459b92926640860 Mon Sep 17 00:00:00 2001
-From: Will Dietz <w@wdtz.org>
-Date: Tue, 15 Oct 2019 11:19:37 -0500
-Subject: [PATCH] nix plugin path
-
----
- src/pluginwrapper.cpp | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
-
-diff --git a/src/pluginwrapper.cpp b/src/pluginwrapper.cpp
-index ea295c8..1ae6cf3 100644
---- a/src/pluginwrapper.cpp
-+++ b/src/pluginwrapper.cpp
-@@ -37,16 +37,10 @@ Q_GLOBAL_STATIC(KWindowSystemPluginWrapper, s_pluginWrapper)
+Index: kwindowsystem-5.64.0/src/pluginwrapper.cpp
+===================================================================
+--- kwindowsystem-5.64.0.orig/src/pluginwrapper.cpp
++++ kwindowsystem-5.64.0/src/pluginwrapper.cpp
+@@ -37,16 +37,10 @@ Q_GLOBAL_STATIC(KWindowSystemPluginWrapp
  static QStringList pluginCandidates()
  {
      QStringList ret;

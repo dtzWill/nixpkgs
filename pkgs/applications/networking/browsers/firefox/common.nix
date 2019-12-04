@@ -98,7 +98,7 @@ let
     ./env_var_for_system_dir.patch
     ./firefox-68.0.2-system_graphite2_harfbuzz-1.patch
   ]
-  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69") [
+  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "68.3.0")
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
       name = "write_error-parallel_make.diff";
       url = "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";

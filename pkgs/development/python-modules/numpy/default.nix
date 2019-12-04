@@ -5,7 +5,7 @@ let
   cfg = writeTextFile {
     name = "site.cfg";
     text = (lib.generators.toINI {} {
-      "${blasImplementation}" = {
+      ${blasImplementation} = {
         include_dirs = "${blas}/include";
         library_dirs = "${blas}/lib";
       } // lib.optionalAttrs (blasImplementation == "mkl") {
@@ -16,12 +16,12 @@ let
   };
 in buildPythonPackage rec {
   pname = "numpy";
-  version = "1.17.3";
+  version = "1.17.4";
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    sha256 = "0zpaj09n489vqqnr6fyg77v010ds0clg76dxhkbs81b2169qfrx0";
+    sha256 = "f58913e9227400f1395c7b800503ebfdb0772f1c33ff8cb4d6451c06cabdf316";
   };
 
   nativeBuildInputs = [ gfortran pytest ];

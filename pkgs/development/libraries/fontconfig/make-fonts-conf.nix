@@ -6,6 +6,8 @@ runCommand "fonts.conf"
     buildInputs = [ fontconfig ];
     # Add a default font for non-nixos systems, <1MB and in nixos defaults.
     fontDirectories = fontDirectories ++ [ dejavu_fonts.minimal ];
+    preferLocalBuild = true;
+    allowSubstitutes = false;
   }
   ''
     xsltproc --stringparam fontDirectories "$fontDirectories" \
