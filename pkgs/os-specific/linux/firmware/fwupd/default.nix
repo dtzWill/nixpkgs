@@ -39,21 +39,21 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.5";
-  #version = "unstable-2019-11-15";
+  #version = "1.3.5";
+  version = "unstable-2019-12-04";
 
-  #src = fetchFromGitHub {
-  #  owner = pname;
-  #  repo = pname;
-  #  rev = "3d45e693cc4c8c302f2965b7468cacfbe8a385f5";
-  #  sha256 = "02wq7893753pn4f6yh6dlbl2q1gik982n34ww5q9zh7s63r8ig1h";
-  #};
-  src = fetchurl {
-    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "1x2bkhwx0lisbv9ssh4af5x3jp095xgl84966wbzqcjzshw62dg3";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "f1a71222505a92686f9a8ecdd6ea895868a3df90";
+    sha256 = "0a5wvxrscs5b41x60maxqz07wi3ci6pkafynx67l44iykzq3cgm8";
   };
+  #src = fetchurl {
+  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+  #  sha256 = "1x2bkhwx0lisbv9ssh4af5x3jp095xgl84966wbzqcjzshw62dg3";
+  #};
 
-  outputs = [ "out" /* "lib" */ "dev" "man" "installedTests" ];
+  outputs = [ "out" "lib" "dev" "man" "installedTests" ];
 
   nativeBuildInputs = [
     meson ninja pkgconfig gobject-introspection intltool shared-mime-info
