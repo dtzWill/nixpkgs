@@ -1,32 +1,22 @@
-{ stdenv, fetchFromGitHub, rustPlatform, fetchpatch }:
+{ stdenv, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   name = "${pname}-${version}";
   pname = "vivid";
-  #version = "0.4.0";
-  version = "2019-01-04";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "sharkdp";
     repo = pname;
-    #rev = "v${version}";
-    rev = "a4269db334b4dc4207f876afa26f5e5650fdff53";
-    sha256 = "0v1v1m1ryblib38fs8vyihgb4xsf0k7fr2m2lf6myl73cg5pp2j8";
+    rev = "v${version}";
+    sha256 = "00xxk1ipr3hndd717q52j7s2wfxis1p4glaa9lvp72gwwzmv5k9w";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "solarized-theme.patch";
-      url = "https://github.com/sharkdp/vivid/pull/30/commits/6a179499b41d426fcc248afd31732e280e80b712.patch";
-      sha256 = "1pi9mlayg8m41lzpygf1baavm302kr2kds3l6128a219anlq23zy";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace src/main.rs --replace /usr/share $out/share
   '';
 
-  cargoSha256 = "125392a7x0h9jgcqc4wcaky0494xmr82iacxwl883kf0g227rv2y";
+  cargoSha256 = "04xx26ngz7hx7bv5g01q9h6dqa96xkx0xm3jb0qk6c3hp6500zpn";
 
   postInstall = ''
     mkdir -p $out/share/${pname}
