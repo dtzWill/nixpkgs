@@ -1981,6 +1981,8 @@ in
 
   socklog = callPackage ../tools/system/socklog { };
 
+  qtspim = qt5.callPackage ../applications/virtualization/spim { };
+
   staccato = callPackage ../tools/text/staccato { };
 
   stagit = callPackage ../development/tools/stagit { };
@@ -6931,6 +6933,11 @@ in
   };
 
   vifm = callPackage ../applications/misc/vifm { };
+
+  vifm-full = callPackage ../applications/misc/vifm { 
+    mediaSupport = true;
+    inherit lib udisks2 python3;
+  };
 
   viking = callPackage ../applications/misc/viking {
     inherit (gnome2) scrollkeeper;
@@ -15179,12 +15186,14 @@ in
   nginx = nginxStable;
 
   nginxStable = callPackage ../servers/http/nginx/stable.nix {
+    perl = null;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474/files#r42369334
     modules = [ nginxModules.rtmp nginxModules.dav nginxModules.moreheaders ];
   };
 
   nginxMainline = callPackage ../servers/http/nginx/mainline.nix {
+    perl = null;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474/files#r42369334
     modules = [ nginxModules.dav nginxModules.moreheaders ];

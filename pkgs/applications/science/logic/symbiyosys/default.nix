@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, yosys, bash, python3 }:
+{ stdenv, fetchFromGitHub, yosys, bash, python3, yices }:
 
 stdenv.mkDerivation rec {
   pname = "symbiyosys";
@@ -12,6 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ python3 yosys ];
+
+  propagatedBuildInputs = [ yices ];
 
   buildPhase = "true";
   installPhase = ''

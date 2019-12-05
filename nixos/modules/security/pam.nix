@@ -686,7 +686,7 @@ in
       };
       id = mkOption {
         example = "42";
-        type = types.string;
+        type = types.str;
         description = "client id";
       };
 
