@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     '';
     license = with licenses; [ lgpl21Plus gpl3Plus ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fuuzetsu primeos ];
+    maintainers = with maintainers; [ primeos ];
   };
 }

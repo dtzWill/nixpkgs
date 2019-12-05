@@ -67,6 +67,6 @@ in stdenv.mkDerivation (rec {
 
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.fuuzetsu maintainers.vrthra ];
+    maintainers = [ maintainers.vrthra ];
   };
 } // genPosixLockObjOnlyAttrs)
