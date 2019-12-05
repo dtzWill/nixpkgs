@@ -100,7 +100,7 @@ in mkDerivation {
 
   qtWrapperArgs = [
     ''--prefix PATH : ${makeBinPath [ coreutils glib.dev pciutils procps qttools.dev utillinux ]}''
-    ''--prefix LD_PRELOAD : ${libv4l}/lib/libv4l/v4l2convert.so''
+    #''--prefix LD_PRELOAD : ${libv4l}/lib/libv4l/v4l2convert.so''
   ];
 
   passthru.updateScript = ./update.sh;
