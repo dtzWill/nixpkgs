@@ -4,13 +4,13 @@
 
 buildGoModule rec {
   pname = "buildah";
-  version = "1.11.5";
+  version = "1.11.6";
 
   src = fetchFromGitHub {
     owner  = "containers";
     repo   = "buildah";
     rev    = "v${version}";
-    sha256 = "09bfv2pypd66dnqvrhgcg35fsahi2k0kn5dnnbfqc39g0vfz29r7";
+    sha256 = "0slhq11nmqsp2rjfwldvcwlpj823ckfpipggkaxhcb66dv8ymm7n";
   };
 
   modSha256 = "0xmwp3id5h2b749gyy3y2ihq9b5gxz8zj7l2ybdvjl3w4x4imxkl";
@@ -20,8 +20,14 @@ buildGoModule rec {
   goPackagePath = "github.com/containers/buildah";
   excludedPackages = [ "tests" ];
 
+  # Disable module-mode, because Go 1.13 automatically enables it if there is
+  # go.mod file. Remove after https://github.com/NixOS/nixpkgs/pull/73380
+  GO111MODULE = "off";
+
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ gpgme libgpgerror lvm2 btrfs-progs ostree libselinux libseccomp ];
+
+  patches = [ ./disable-go-module-mode.patch ];
 
   buildPhase = ''
     pushd go/src/${goPackagePath}
