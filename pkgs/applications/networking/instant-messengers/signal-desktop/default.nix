@@ -56,12 +56,18 @@ let
   ];
 
 in stdenv.mkDerivation rec {
-  name = "signal-desktop-${version}";
-  version = "1.26.2";
+  pname = "signal-desktop";
+  version = "1.29.0"; # Please backport all updates to the stable channel.
+  # All releases have a limited lifetime and "expire" 90 days after the release.
+  # When releases "expire" the application becomes unusable until an update is
+  # applied. The expiration date for the current release can be extracted with:
+  # $ grep -a "^{\"buildExpiration" "${signal-desktop}/libexec/resources/app.asar"
+  # (Alternatively we could try to patch the asar archive, but that requires a
+  # few additional steps and might not be the best idea.)
 
   src = fetchurl {
     url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
-    sha256 = "08qx7k82x6ybqi3lln6ixzmdz4sr8yz8vfx0y408b85wjfc7ncjk";
+    sha256 = "1zbj0z4bhmg6zf975bn67wpr1kdi0h05d90aniijnh5wqgnwhfqn";
   };
 
   phases = [ "unpackPhase" "installPhase" ];
