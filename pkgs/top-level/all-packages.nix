@@ -21510,6 +21510,8 @@ in
 
   tailor = callPackage ../applications/version-management/tailor {};
 
+  taizen = callPackage ../applications/misc/taizen { };
+
   tangogps = callPackage ../applications/misc/tangogps {
     gconf = gnome2.GConf;
   };
