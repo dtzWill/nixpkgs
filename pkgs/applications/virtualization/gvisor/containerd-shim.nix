@@ -11,7 +11,8 @@ buildGoModule rec {
     sha256 = "077bhrmjrpcxv1z020yxhx2c4asn66j21gxlpa6hz0av3lfck9lm";
   };
 
-  modSha256 = "1jdhgbrn59ahnabwnig99i21f6kimmqx9f3dg10ffwfs3dx0gzlg";
+  # XXX: nixpkgs has different hash as they have different default buildGoModule
+  modSha256 = "1c8q60kc9y3y2i84j7b9bzj9nl6ai55fdv7vjfmd6s4pnv6aq9b3";
 
   buildPhase = ''
     make
