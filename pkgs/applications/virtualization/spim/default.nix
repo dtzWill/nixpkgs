@@ -1,4 +1,4 @@
-{ mkDerivation, lib, fetchsvn, qmake, qtbase, qttools, bison, flex }:
+{ mkDerivation, lib, fetchsvn, qmake, qtbase, qttools, bison, flex, qtdeclarative }:
 
 mkDerivation rec {
   pname = "QtSpim";
@@ -12,9 +12,9 @@ mkDerivation rec {
 
   sourceRoot = "code-r${version}/QtSpim";
 
-  nativeBuildInputs = [ bison flex qmake ];
+  nativeBuildInputs = [ bison flex qmake qttools ];
 
-  buildInputs = [ qtbase qttools ];
+  buildInputs = [ qtbase ];
 
   # Remove build artefacts from the repo
   preConfigure = ''
@@ -26,19 +26,26 @@ mkDerivation rec {
   '';
 
   # Disable documentation building, because qtspim can't find compiled docs
-  patches = [ ./qtspim-disable-docs.patch ];
+#   patches = [ ./qtspim-disable-docs.patch ];
 
   # Commented out to save some build time (uncomment after fixing doc finding)
-  # # Fix bug in a generated Makefile
-  # postConfigure = ''
-  #   substituteInPlace Makefile --replace '$(MOVE) help/qtspim.qhc help/qtspim.qhc;' ""
-  # '';
+  # Fix bug in a generated Makefile
+  postConfigure = ''
+    substituteInPlace Makefile --replace '$(MOVE) help/qtspim.qhc help/qtspim.qhc;' ""
+  '';
 
-  # buildPhase = ''
-  #   export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
-  #   export QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}/platforms"
-  #   make
-  # '';
+  QT_PLUGIN_PATH = "${qtbase.bin}/${qtbase.qtPluginPrefix}";
+  QT_QPA_PLATFORM_PLUGIN_PATH = "${qtbase.bin}/${qtbase.qtPluginPrefix}/platforms";
+  #QML2_IMPORT_PATH = "${qtdeclarative.bin}/${qtbase.qtQmlPrefix}";
+
+  #preBuild = ''
+  #  ls -la
+  #  chmod -R u+rw .
+  #'';
+
+  #buildPhase = ''
+  #  make
+  #'';
 
   installPhase = ''
     install -sDm0755 QtSpim $out/bin/qtspim
@@ -49,8 +56,8 @@ mkDerivation rec {
     install -d $out/usr/share/qtspim
 
     # Don't copy compiled Qt docs till qtspim can find them
-    # install -Dm0644 help/qtspim.qch $out/usr/share/qtspim/help/qtspim.qch
-    # install -Dm0644 help/qtspim.qhc $out/usr/share/qtspim/help/qtspim.qhc
+    install -Dm0644 help/qtspim.qch $out/usr/share/qtspim/help/qtspim.qch
+    install -Dm0644 help/qtspim.qhc $out/usr/share/qtspim/help/qtspim.qhc
 
     # qtspim can't find Qt-format docs, so copy html docs
     mkdir -p $out/usr/share/qtspim/help
@@ -62,6 +69,8 @@ mkDerivation rec {
 
     install -Dm0644 ../helloworld.s $out/usr/share/qtspim/helloworld.s
   '';
+
+  enableParallelBuilding = false;
 
   meta = with lib; {
     description = "SPIM MIPS simulator";
