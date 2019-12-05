@@ -3,13 +3,13 @@
 
 python37Packages.buildPythonApplication rec {
   pname = "certbot";
-  version = "0.40.1";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "0kg0rr2iirmp5ggpidg7h6lmrcy9c4g7qwadzx3789csmw54yd66";
+    sha256 = "180x7gcpfbrzw8k654s7b5nxdy2yg61lq513dykyn3wz4gssw465";
   };
 
   patches = [
@@ -42,9 +42,12 @@ python37Packages.buildPythonApplication rec {
   ];
 
   postPatch = ''
-    substituteInPlace certbot/notify.py --replace "/usr/sbin/sendmail" "/run/wrappers/bin/sendmail"
-    substituteInPlace certbot/util.py --replace "sw_vers" "/usr/bin/sw_vers"
+    substituteInPlace certbot/certbot/_internal/notify.py --replace "/usr/sbin/sendmail" "/run/wrappers/bin/sendmail"
+    substituteInPlace certbot/certbot/util.py --replace "sw_vers" "/usr/bin/sw_vers"
     substituteInPlace certbot-ci/certbot_integration_tests/utils/pebble_artifacts.py --replace "@pebble@" "${pebble}/bin/pebble"
+
+    # :(
+    cd certbot
   '';
 
   postInstall = ''

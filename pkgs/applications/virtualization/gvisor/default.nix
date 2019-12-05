@@ -1,164 +1,95 @@
-{
-  stdenv
-, pkgs
+{ stdenv
+, buildBazelPackage
 , fetchFromGitHub
 , cacert
-, symlinks
-, writeScript
-
-, coreutils
-, bash
-, bazel
 , git
+, glibcLocales
 , go
-, python
+, iproute
+, iptables
+, makeWrapper
+, procps
+, python3
 }:
 
 let
+  preBuild = ''
+    patchShebangs .
 
-  # gvisor doesn't have any releases yet
-  version = "2018-11-10";
+    # Tell rules_go to use the Go binary found in the PATH
+    sed -E -i \
+      -e 's|go_version\s*=\s*"[^"]+",|go_version = "host",|g' \
+      WORKSPACE
 
-  # From the Bazel docs:
-  #   Beneath the outputUserRoot directory, we also create an outputBase
-  #   directory whose name is the MD5 hash of the path name of the workspace
-  #   directory.
-  #
-  # The default `fetchzip` arguments will unpack our file as the name `source`,
-  # and the Nix sandbox builds things in the `/build` directory. Thus, we can
-  # predict this hash and calculate it here:
-  outputBaseHash = builtins.hashString "md5" "/build/source";
+    # The gazelle Go tooling needs CA certs
+    export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
 
-  # Source from GitHub with additional patches.
-  patchedSource = fetchFromGitHub {
+    # If we don't reset our GOPATH, the rules_go stdlib builder tries to
+    # install something into it. Ideally that wouldn't happen, but for now we
+    # can also get around it by unsetting GOPATH entirely, since rules_go
+    # doesn't need it.
+    export GOPATH=
+  '';
+
+in buildBazelPackage rec {
+  name = "gvisor-${version}";
+  version = "2019-11-14";
+
+  src = fetchFromGitHub {
     owner = "google";
     repo  = "gvisor";
-    rev   = "d97ccfa346d23d99dcbe634a10fa5d81b089100d";
-
-    # NOTE: this is the output of the whole fixed-output derivation, so
-    # `nix-prefetch-git` won't work to obtain this. The easiest way is to just
-    # change it and see what breaks :)
-    sha256 = "0mcdjx2zx5v9qqj75bsmj6pmd63prhaahi7c87j1k77vggs8hxyz";
-
-    # Patch the source to:
-    #   - Use our host Go toolchain
-    #   - Fix hard-coded paths to Bash, coreutils, etc.
-    #   - Fetch a specific version of abseil instead of the `master` branch
-    extraPostFetch =
-      let
-        # master as of 2018-11-10
-        abseilRev  = "070f6e47b33a2909d039e620c873204f78809492";
-        abseilHash = "a4298dca4149157b379588bec19493bcab56f8b3fb119ea81303b04d70af1b48";
-
-      in ''
-        substituteInPlace "$out/WORKSPACE" \
-          --replace 'go_register_toolchains(go_version="1.11.2")' 'go_register_toolchains(go_version="host")' \
-          --replace \
-            'urls = ["https://github.com/abseil/abseil-cpp/archive/master.zip"],' \
-            'urls = ["https://github.com/abseil/abseil-cpp/archive/${abseilRev}.zip"], sha256 = "${abseilHash}",'
-
-        find "$out" -name '*.sh' -exec \
-          sed -i 's|#!/bin/bash|#!/bin/sh|g' {} \;
-      '';
+    rev   = "release-20191114.0";
+    sha256 = "0kyixjjlws9iz2r2srgpdd4rrq94vpxkmh2rmmzxd9mcqy2i9bg1";
   };
 
-  # Bazel command we run.
-  bazelCmd = "USER=nix bazel";
+  nativeBuildInputs = [ git glibcLocales go makeWrapper python3 ];
 
-  # Use Bazel to fetch dependencies as a fixed-output derivation, so that we
-  # have network access.
-  bazelDependencies = stdenv.mkDerivation rec {
-    inherit version;
-    name = "gvisor-build-dependencies-${version}";
+  bazelTarget = "//runsc:runsc";
 
-    # The actual source
-    src = patchedSource;
+  # gvisor uses the Starlark implementation of rules_cc, not the built-in one,
+  # so we shouldn't delete it from our dependencies.
+  removeRulesCC = false;
 
-    outputHashMode = "recursive";
-    outputHashAlgo = "sha256";
-    outputHash = "0430pn3q71r6pyxq32k2n1zhnp9hvs5mizvw3zy6zwrsv3fchdb6";
+  fetchAttrs = {
+    inherit preBuild;
 
-    nativeBuildInputs = [ bazel git go symlinks ];
-    GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+    preInstall = ''
+      # Remove the go_sdk (it's just a copy of the go derivation) and all
+      # references to it from the marker files. Bazel does not need to download
+      # this sdk because we have patched the WORKSPACE file to point to the one
+      # currently present in PATH. Without removing the go_sdk from the marker
+      # file, the hash of it will change anytime the Go derivation changes and
+      # that would lead to impurities in the marker files which would result in
+      # a different sha256 for the fetch phase.
+      rm -rf $bazelOut/external/{go_sdk,\@go_sdk.marker}
 
-    builder = writeScript "builder.sh" ''
-      source ${stdenv}/setup
+      # Remove the gazelle tools, they contain go binaries that are built
+      # non-deterministically. As long as the gazelle version matches the tools
+      # should be equivalent.
+      rm -rf $bazelOut/external/{bazel_gazelle_go_repository_tools,\@bazel_gazelle_go_repository_tools.marker}
 
-      # Copy sources into our build directory
-      cp -pr --reflink=auto -- "$src" ./source
-      chmod -R u+w -- ./source
-      cd source
+      # Remove the gazelle repository cache
+      chmod -R +w $bazelOut/external/bazel_gazelle_go_repository_cache
+      rm -rf $bazelOut/external/{bazel_gazelle_go_repository_cache,\@bazel_gazelle_go_repository_cache.marker}
 
-      # Prefetch dependencies with Bazel
-      export TEST_TMPDIR=$PWD/bazel_root_dir
-      ${bazelCmd} sync
+      # Remove log file(s)
+      rm -f "$bazelOut"/java.log "$bazelOut"/java.log.*
+    '';
 
-      outputUserRoot="$TEST_TMPDIR/_bazel_nix"
-      outputBase="$outputUserRoot/${outputBaseHash}"
-      if [[ ! -d "$outputBase" ]]; then
-        echo "did not find outputBase directory: $outputBase"
-        exit 1
-      fi
+    sha256 = "122qk6iv8hd7g2a84y9aqqhij4r0m47vpxzbqhhh6k5livc73qd6";
+  };
 
-      # Find git repositories and remove the `.git` directory entirely; Bazel
-      # appears to work just fine, and this is a major source of
-      # nondeterminism.
-      find "$outputBase/external" -name '.git' -type d -exec rm -rf {} '+'
+  buildAttrs = {
+    inherit preBuild;
 
-      # Convert symbolic links to relative ones
-      ( cd "$outputBase/external" && symlinks -cr . )
+    installPhase = ''
+      install -Dm755 bazel-bin/runsc/*_pure_stripped/runsc $out/bin/runsc
 
-      # Copy the now-prefetched dependencies to our output directory
-      mkdir -p "$out"
-      cp -aR "$outputBase/external"/* $out/
-
-      # This is a link outside the `external` directory, and Bazel appears to
-      # re-create it just fine, so remove it.
-      rm "$out/bazel_tools"
+      # Needed for the 'runsc do' subcomand
+      wrapProgram $out/bin/runsc \
+        --prefix PATH : ${stdenv.lib.makeBinPath [ iproute iptables procps ]}
     '';
   };
-
-in
-
-stdenv.mkDerivation rec {
-  inherit version;
-  name = "gvisor-${version}";
-
-  src = patchedSource;
-
-  nativeBuildInputs = [ bazel go python ];
-
-  buildPhase = ''
-    export TEST_TMPDIR=$PWD/bazel_root_dir
-    mkdir -p "$TEST_TMPDIR"
-
-    # Run bazel once to initialize the temporary directory
-    ${bazelCmd} help >/dev/null 2>&1 || true
-
-    # Copy inputs into the `external` directory
-    outputUserRoot="$TEST_TMPDIR/_bazel_nix"
-    outputBase="$outputUserRoot/${outputBaseHash}"
-    if [[ ! -d "$outputBase" ]]; then
-      echo "did not find outputBase directory: $outputBase"
-      exit 1
-    fi
-
-    cp -pr --reflink=auto -- "${bazelDependencies}" "$outputBase/external"
-    chmod -R u+w -- "$outputBase/external"
-
-    # Convert symlinks in the external directory back to absolute, since that's
-    # how Bazel expects things.
-    find "$outputBase/external" -type l -execdir bash -c 'ln -sfn "$(readlink -f "$0")" "$0"' {} \;
-
-    # Actually run the build
-    ${bazelCmd} build //runsc:runsc
-  '';
-
-  # TODO: use build event protocol(?) in order to find the right output file,
-  # if we expand the set of supported platforms
-  installPhase = ''
-    install -Dm755 ./bazel-bin/runsc/linux_amd64_pure_stripped/runsc $out/bin/runsc
-  '';
 
   meta = with stdenv.lib; {
     description = "Container Runtime Sandbox";
