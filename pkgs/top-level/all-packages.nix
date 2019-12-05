@@ -15804,6 +15804,7 @@ in
 
   inherit (callPackage ../misc/arm-trusted-firmware {})
     buildArmTrustedFirmware
+    armTrustedFirmwareTools
     armTrustedFirmwareAllwinner
     armTrustedFirmwareQemu
     armTrustedFirmwareRK3328
