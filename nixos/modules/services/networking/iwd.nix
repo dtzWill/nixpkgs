@@ -28,7 +28,7 @@ in {
 
     # XXX: This is bad and I should feel bad.  But fixes issue for now.
     interface = mkOption {
-      type = types.string;
+      type = types.str;
       description = ''
         Name of interface name to bind to the .device of.
         Not actually passed to iwd, but used to ensure
