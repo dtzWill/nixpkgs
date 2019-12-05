@@ -42,8 +42,8 @@ python37Packages.buildPythonApplication rec {
   ];
 
   postPatch = ''
-    substituteInPlace certbot/notify.py --replace "/usr/sbin/sendmail" "/run/wrappers/bin/sendmail"
-    substituteInPlace certbot/util.py --replace "sw_vers" "/usr/bin/sw_vers"
+    substituteInPlace certbot/certbot/_internal/notify.py --replace "/usr/sbin/sendmail" "/run/wrappers/bin/sendmail"
+    substituteInPlace certbot/certbot/util.py --replace "sw_vers" "/usr/bin/sw_vers"
     substituteInPlace certbot-ci/certbot_integration_tests/utils/pebble_artifacts.py --replace "@pebble@" "${pebble}/bin/pebble"
   '';
 
