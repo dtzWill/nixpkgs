@@ -4447,7 +4447,7 @@ in
 
   makebootfat = callPackage ../tools/misc/makebootfat { };
 
-  matrix-synapse = callPackage ../servers/matrix-synapse { };
+  matrix-synapse = callPackage ../servers/matrix-synapse { python3 = python38; };
 
   mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
 
