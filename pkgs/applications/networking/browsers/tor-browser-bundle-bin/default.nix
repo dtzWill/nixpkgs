@@ -90,14 +90,14 @@ let
   fteLibPath = makeLibraryPath [ stdenv.cc.cc gmp ];
 
   # Upstream source
-  version = "9.0.1";
+  version = "9.0.2";
 
   lang = "en-US";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux64-${version}_${lang}.tar.xz";
-      sha256 = "09iasj13wn3d1dygpxn4www4rx8wnxxlm9h6df9lzf4wll15px55";
+      sha256 = "1xdnqphsj7wzwyv927jwd3fi36srx0minydwl5jg5yyd3m3if9hb";
     };
 
     i686-linux = fetchurl {
