@@ -106,11 +106,13 @@ let
       # should be switching to the tlnet-final versions
       # (https://tug.org/historic/).
       urlPrefixes = args.urlPrefixes or [
-        # Snapshots hosted by one of the texlive release managers
-        https://texlive.info/tlnet-archive/2019/10/19/tlnet/archive
+        https://texlive.info/tlnet-archive/2019/12/06/tlnet/archive
 
-        # Mirror hosted by @veprbl
-        http://146.185.144.154/texlive-2019
+        ## # Snapshots hosted by one of the texlive release managers
+        ## https://texlive.info/tlnet-archive/2019/10/19/tlnet/archive
+
+        ## # Mirror hosted by @veprbl
+        ## http://146.185.144.154/texlive-2019
 
         # TODO: Upgrade to the final snapshot of the packages before 20.03
         #http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2019/tlnet-final/archive
