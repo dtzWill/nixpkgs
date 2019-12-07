@@ -11,14 +11,14 @@
 , fontconfig ? null
 , gnused ? null
 , coreutils ? null
-, withQt ? false, qttools, qtbase, qtsvg
+, withQt ? false, mkDerivation, qttools, qtbase, qtsvg
 }:
 
 assert libX11 != null -> (fontconfig != null && gnused != null && coreutils != null);
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
-stdenv.mkDerivation rec {
+(if withQt then mkDerivation else stdenv.mkDerivation) rec {
   pname = "gnuplot";
   version = "5.2.8";
 
