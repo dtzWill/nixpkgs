@@ -241,9 +241,9 @@ let
 
   mongodb = buildPecl {
     pname = "mongodb";
-    version = "1.5.5";
+    version = "1.6.1";
 
-    sha256 = "0gpywk3wkimjrva1p95a7abvl3s8yccalf6yimn3nbkpvn2kknm6";
+    sha256 = "1j1w4n33347j9kwvxwsrix3gvjbiqcn1s5v59pp64s536cci8q0m";
 
     nativeBuildInputs = [ pkgs.pkgconfig ];
     buildInputs = with pkgs; [
