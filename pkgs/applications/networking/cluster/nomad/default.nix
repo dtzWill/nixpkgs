@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "nomad";
-  version = "0.10.0";
+  version = "0.10.2";
   rev = "v${version}";
 
   goPackagePath = "github.com/hashicorp/nomad";
@@ -12,7 +12,7 @@ buildGoPackage rec {
     owner = "hashicorp";
     repo = "nomad";
     inherit rev;
-    sha256 = "1hvnrbna4hsyp5byx5si2gn4h3m6shwmd8nk0vpbrs3ck3dl1p6l";
+    sha256 = "1kv67rkqnxiz2dkmc1v1df6qx9j5j4h7cis00v2i15sl824g22jw";
   };
 
   # We disable Nvidia GPU scheduling on Linux, as it doesn't work there:
