@@ -254,6 +254,11 @@ users.users.me =
      </citerefentry>-script now uses the python test-driver.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     The fourStore and fourStoreEndpoint modules have been removed.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
