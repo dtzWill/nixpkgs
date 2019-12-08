@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Exploit Development and Reverse Engineering with GDB Made Easy";
-    homepage = http://pwndbg.com;
+    homepage = "https://github.com/pwndbg/pwndbg";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ mic92 ];
