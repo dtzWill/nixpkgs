@@ -2,8 +2,8 @@
 
 let
   pname = "spleen";
-  version = "1.5.0";
-in fetchurl rec {
+  version = "1.6.0";
+in fetchurl {
   name = "${pname}-${version}";
   url = "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
 
@@ -21,7 +21,7 @@ in fetchurl rec {
     # psfu -> consolefonts
     install -Dm644 *.psfu -t $out/share/consolefonts
   '';
-  sha256 = "0rjlnpklx58sma3b9pvw90s31ya5dk7cynk4ihgs7fh458ijjrcx";
+  sha256 = "0h9gj7syn87hl5rhwckih92r228zac6b1dvh3034caml8ad3fyla";
 
   meta = with lib; {
     description = "Monospaced bitmap fonts";
