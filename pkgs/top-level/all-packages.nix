@@ -23023,9 +23023,7 @@ in
 
   ideogram = callPackage ../applications/graphics/ideogram { };
 
-  instead = callPackage ../games/instead {
-    lua = lua5;
-  };
+  instead = callPackage ../games/instead { };
 
   instead-launcher = callPackage ../games/instead-launcher { };
 
