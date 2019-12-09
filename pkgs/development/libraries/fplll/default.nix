@@ -1,8 +1,5 @@
 { stdenv
 , fetchFromGitHub
-, autoconf
-, automake
-, libtool
 , gettext
 , autoreconfHook
 , gmp
@@ -22,9 +19,6 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
     gettext
     autoreconfHook
   ];
