@@ -22991,6 +22991,8 @@ in
 
   gshogi = python3Packages.callPackage ../games/gshogi {};
 
+  qtads = qt5.callPackage ../games/qtads { };
+
   gtetrinet = callPackage ../games/gtetrinet {
     inherit (gnome2) GConf libgnome libgnomeui;
   };
