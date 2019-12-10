@@ -9,6 +9,10 @@ let
 in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
+  imports = [
+    (mkRemovedOptionModule [ "services" "pykms" "verbose" ] "Use services.pykms.logLevel instead")
+  ];
+
   options = {
     services.pykms = rec {
       enable = mkOption {

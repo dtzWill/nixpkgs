@@ -514,8 +514,13 @@ let
   };
 
 in {
-  options = {
-    services.prometheus = {
+
+  ## XXX: DTZ: needed for when pulling in prometheus2 update/replacement
+  ##imports = [
+  ##  (mkRenamedOptionModule [ "services" "prometheus2" ] [ "services" "prometheus" ])
+  ##];
+
+  options.services.prometheus = {
 
       enable = mkOption {
         type = types.bool;

@@ -82,6 +82,10 @@ let
 in
 
 {
+  imports = [
+    (mkRenamedOptionModule [ "nix" "useChroot" ] [ "nix" "useSandbox" ])
+    (mkRenamedOptionModule [ "nix" "chrootDirs" ] [ "nix" "sandboxPaths" ])
+  ];
 
   ###### interface
 
