@@ -1,17 +1,16 @@
 { stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, Hypervisor, vmnet }:
 
 buildGoPackage rec {
-  name = "docker-machine-xhyve-${version}";
-  version = "0.3.3";
+  pname = "docker-machine-xhyve";
+  version = "0.4.0";
 
   goPackagePath = "github.com/zchee/docker-machine-driver-xhyve";
-  goDeps = ./xhyve-deps.nix;
 
   src = fetchFromGitHub {
     rev    = "v${version}";
     owner  = "zchee";
     repo   = "docker-machine-driver-xhyve";
-    sha256 = "0rj6pyqp4yv4j28bglqjs95rip5i77vv8mrkmqv1rxrsl3i8aqqy";
+    sha256 = "0000v97fr8xc5b39v44hsa87wrbk4bcwyaaivxv4hxlf4vlgg863";
   };
 
   nativeBuildInputs = [ pkgconfig ];
