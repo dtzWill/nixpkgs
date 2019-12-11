@@ -25879,4 +25879,6 @@ in
   nix-store-gcs-proxy = callPackage ../tools/nix/nix-store-gcs-proxy {};
 
   dat = callPackage ../applications/networking/dat { };
+
+  quartus-prime-lite = callPackage ../applications/editors/quartus-prime {};
 }
