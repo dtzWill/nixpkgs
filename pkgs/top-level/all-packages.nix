@@ -23009,8 +23009,6 @@ in
     inherit (haskellPackages) ghcWithPackages;
   };
 
-  hexen = callPackage ../games/hexen { };
-
   holdingnuts = callPackage ../games/holdingnuts { };
 
   hyperrogue = callPackage ../games/hyperrogue { };
