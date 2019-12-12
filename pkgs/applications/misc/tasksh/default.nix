@@ -10,9 +10,9 @@ stdenv.mkDerivation rec {
     owner = "GothenburgBitFactory";
     repo = "taskshell";
     rev = "6c80122d18993310e2939eeef1c34e1714d34635"; # 1.3.0, moving
-    sha256 = "1czkck1731j8b321kjl697d7nz889ph63j4as7ihzwkzz6y1m4m0";
+    sha256 = "1az8r23lm1355rsgib2b84qd5a93vlgjfxx9ji53jwyk14zy18gf";
     fetchSubmodules = true;
-    leaveDotGit = true;
+    leaveDotGit = true; # depends on git version? :(
   };
 
   buildInputs = [ readline ];
