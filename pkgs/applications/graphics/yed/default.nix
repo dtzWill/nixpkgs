@@ -14,11 +14,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "yEd";
-  version = "3.19.1";
+  version = "3.19.1.1";
 
   src = fetchzip {
     url = "https://www.yworks.com/resources/yed/demo/${pname}-${version}.zip";
-    sha256 = "19bnzpwszfrlpi5ssgfsv29gdmfj7pvxad9z8fdjf9k61187dgqj";
+    sha256 = "0px88rc1slf7n1n8lpk56hf29ppbnnd4lrqfyggihcr0pxmw157c";
   };
 
   nativeBuildInputs = [ wrapGAppsHook zip unzip ];
