@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  cargoSha256 = "056ffa8wmf4k4gk2xngpkxh1g75swap6hnzkzcvalidfcxvl9v7q";
+  cargoSha256 = "1m733gf9iyfcp3ssfsxcik6z5r1dyv6hk8mn564apfj60cbjv5vv";
 
   meta = with stdenv.lib; {
     description = "A distributed version control system";
