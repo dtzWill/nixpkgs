@@ -6889,6 +6889,10 @@ in
 
   ubase = callPackage ../tools/misc/ubase { };
 
+  uberwriter = callPackage ../applications/editors/uberwriter {
+    pythonPackages = python3Packages;
+  };
+
   ubridge = callPackage ../tools/networking/ubridge { };
 
   ucl = callPackage ../development/libraries/ucl { };
