@@ -25808,4 +25808,6 @@ in
   curie = callPackage ../data/fonts/curie { };
 
   nota = haskellPackages.callPackage ../applications/science/math/nota { };
+
+  unstick = callPackage ../os-specific/linux/unstick {};
 }
