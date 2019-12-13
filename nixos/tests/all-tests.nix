@@ -293,5 +293,6 @@ in
   xrdp = handleTest ./xrdp.nix {};
   xss-lock = handleTest ./xss-lock.nix {};
   yabar = handleTest ./yabar.nix {};
+  zsh-history = handleTest ./zsh-history.nix {};
   zookeeper = handleTest ./zookeeper.nix {};
 }
