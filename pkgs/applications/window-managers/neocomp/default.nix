@@ -22,19 +22,23 @@ let
 in
 stdenv.mkDerivation rec {
   name    = "NeoComp";
-  version = "unstable-2019-11-01";
+  version = "unstable-2020-01-01";
 
   src = fetchFromGitHub {
     owner  = "DelusionalLogic";
     repo   = name;
-    rev = "ba1a02fa095aefacd4e35f8f91fc3c4bdd7ebd14";
-    sha256 = "183bnrly62rqnjwdb0x15gp7g2fykcnwimhgzlzfyvpv8adbzwby";
+    rev = "3ba648076dbc78cf6927bf797d1e9e389e27bd92";
+    sha256 = "04bgw1z95xz4nnry91hzsgil9mg9ydcwi41bkfhk5c4xrjmlx689";
   };
 
-  buildInputs = xdeps ++ [
+  nativeBuildInputs = [
+    pkgconfig
     asciidoc
     docbook_xml_dtd_45
     docbook_xsl
+  ];
+
+  buildInputs = xdeps ++ [
     freetype
     judy
     libGL
@@ -43,7 +47,6 @@ stdenv.mkDerivation rec {
     libxml2
     libxslt
     pcre
-    pkgconfig
   ];
 
   makeFlags = [
