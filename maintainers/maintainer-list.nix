@@ -3583,6 +3583,12 @@
     githubId = 449813;
     name = "Roman Kuznetsov";
   };
+  kwohlfahrt = {
+    email = "kai.wohlfahrt@gmail.com";
+    github = "kwohlfahrt";
+    githubId = 2422454;
+    name = "Kai Wohlfahrt";
+  };
   kylesferrazza = {
     name = "Kyle Sferrazza";
     email = "kyle.sferrazza@gmail.com";
