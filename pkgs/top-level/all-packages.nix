@@ -9809,6 +9809,8 @@ in
 
   doit = callPackage ../development/tools/build-managers/doit { };
 
+  dolt = callPackage ../servers/sql/dolt { };
+
   dot2tex = pythonPackages.dot2tex;
 
   doxygen = callPackage ../development/tools/documentation/doxygen {
