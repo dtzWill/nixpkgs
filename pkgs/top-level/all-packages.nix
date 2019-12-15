@@ -23200,6 +23200,8 @@ in
 
   pacvim = callPackage ../games/pacvim { };
 
+  pentobi = libsForQt5.callPackage ../games/pentobi { };
+
   performous = callPackage ../games/performous {
     boost = boost166;
   };
