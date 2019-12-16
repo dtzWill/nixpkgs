@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub }:
+{ stdenv, rustPlatform, fetchFromGitHub, coreutils }:
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
@@ -12,6 +12,14 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "17nazm4cgw4dm0vjlxgc93v28p960gls1203r61xbx6l7aibxrn3";
+
+  # Fix invocations expecting /bin/* to exist
+  postPatch = ''
+    substituteInPlace src/verb_store.rs \
+      --replace /bin/cp ${coreutils}/bin/cp \
+      --replace /bin/mkdir ${coreutils}/bin/mkdir \
+      --replace /bin/mv ${coreutils}/bin/mv
+  '';
 
   meta = with stdenv.lib; {
     description = "An interactive tree view, a fuzzy search, a balanced BFS descent and customizable commands";
