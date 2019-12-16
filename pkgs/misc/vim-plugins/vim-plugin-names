@@ -161,6 +161,7 @@ joonty/vim-xdebug
 josa42/coc-go
 joshdick/onedark.vim
 jpalardy/vim-slime
+jsfaint/gen_tags.vim
 JuliaEditorSupport/deoplete-julia
 JuliaEditorSupport/julia-vim
 Julian/vim-textobj-variable-segment
