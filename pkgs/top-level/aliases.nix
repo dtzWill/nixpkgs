@@ -300,7 +300,6 @@ mapAliases ({
   ppl-address-book = throw "deprecated in 2019-05-02: abandoned by upstream.";
   processing3 = processing; # added 2019-08-16
   procps-ng = procps; # added 2018-06-08
-  pygmentex = texlive.bin.pygmentex; # added 2019-12-15
   pulseaudioLight = pulseaudio; # added 2018-04-25
   qca-qt5 = libsForQt5.qca-qt5;  # added 2015-12-19
   qt_gstreamer = qt-gstreamer;  # added 2017-02
