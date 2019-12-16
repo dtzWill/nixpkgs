@@ -125,6 +125,10 @@ in {
     enableStatic = true;
     enableShared = false;
   };
+  thrift = super.thrift.override {
+    static = true;
+    twisted = null;
+  };
   gmp = super.gmp.override {
     withStatic = true;
   };
