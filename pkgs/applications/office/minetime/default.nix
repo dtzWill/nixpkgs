@@ -3,10 +3,10 @@
 let
   name = "${pname}-${version}";
   pname = "minetime";
-  version = "1.7.3";
+  version = "1.7.4";
   appimage = fetchurl {
     url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}.AppImage";
-    sha256 = "0zz6p3mwxg9gm1sqzs582pq2nkb10lv0c3r542b9llqyzk9qv5aa";
+    sha256 = "1q2afz8yc5csl0g49qmcpj08fw7m62xwk878h6ncp3bqn80daryd";
   };
   extracted = appimageTools.extractType2 {
     inherit name;
