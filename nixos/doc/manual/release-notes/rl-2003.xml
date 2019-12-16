@@ -119,6 +119,14 @@
       This has led to drastically reduced closed sizes for some rust crates since development dependencies are now in the <literal>lib</literal> output.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     The <literal>kresd</literal> services deprecates the <literal>interfaces</literal> option
+     in favor of the <literal>listenPlain</literal> option which requires full
+     <link xlink:href="https://www.freedesktop.org/software/systemd/man/systemd.socket.html#ListenStream=">systemd.socket compatible</link>
+     declaration which always include a port.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
