@@ -31,7 +31,7 @@
    <title>buildGoModule</title>
 <programlisting>
 pet = buildGoModule rec {
-  pname = "pet";
+  name = "pet-${version}";
   version = "0.3.4";
 
   src = fetchFromGitHub {
@@ -90,7 +90,7 @@ pet = buildGoModule rec {
    <title>buildGoPackage</title>
 <programlisting>
 deis = buildGoPackage rec {
-  pname = "deis";
+  name = "deis-${version}";
   version = "1.13.0";
 
   goPackagePath = "github.com/deis/deis"; <co xml:id='ex-buildGoPackage-1' />
