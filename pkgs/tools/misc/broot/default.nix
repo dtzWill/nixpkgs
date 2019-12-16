@@ -14,11 +14,13 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "17nazm4cgw4dm0vjlxgc93v28p960gls1203r61xbx6l7aibxrn3";
 
   # Fix invocations expecting /bin/* to exist
+  # not very pretty when expanded but at least they work :)
   postPatch = ''
     substituteInPlace src/verb_store.rs \
       --replace /bin/cp ${coreutils}/bin/cp \
       --replace /bin/mkdir ${coreutils}/bin/mkdir \
-      --replace /bin/mv ${coreutils}/bin/mv
+      --replace /bin/mv ${coreutils}/bin/mv \
+      --replace /bin/rm ${coreutils}/bin/rm
   '';
 
   meta = with stdenv.lib; {
