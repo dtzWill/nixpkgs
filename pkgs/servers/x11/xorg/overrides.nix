@@ -1,6 +1,6 @@
 { abiCompat ? null,
   copyPathsToStore,
-  stdenv, makeWrapper, fetchurl, fetchpatch, buildPackages,
+  stdenv, makeWrapper, fetchurl, fetchpatch, fetchFromGitLab, buildPackages,
   automake, autoconf, gettext, libiconv, libtool, intltool,
   freetype, tradcpp, fontconfig, meson, ninja, ed,
   libGL, spice-protocol, zlib, libGLU, dbus, libunwind, libdrm,
@@ -731,13 +731,19 @@ self: super:
 
   xf86videointel = super.xf86videointel.overrideAttrs (attrs: {
     # the update script only works with released tarballs :-/
-    name = "xf86-video-intel-2019-10-07";
-    src = fetchurl {
-      url = "http://cgit.freedesktop.org/xorg/driver/xf86-video-intel/snapshot/"
-      + "bff5eca49b27cb47673123222a714d2a6f56287f"
-      + ".tar.gz";
-      sha256 = "1blspl8gy18rh55apa8gi1gl3623rgvh8r07n7glngy62vfc71yh";
+    name = "xf86-video-intel-2019-12-09";
+    # fetchFromGitLab would be good if it can be used here? (see below)
+    src = let rev = "f66d39544bb8339130c96d282a80f87ca1606caf"; in fetchurl {
+      url = "https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/archive/${rev}/xf86-video-intel-${rev}.tar.bz2";
+      sha256 = "064bhg3hsqpmg6darxhxc2gr3cfxxxy11g7hv1jqhs19iqz2bg28";
     };
+    #src = fetchFromGitLab {
+    #  domain = "gitlab.freedesktop.org";
+    #  owner = "xorg/driver"; # XXX: ?!
+    #  repo = "xf86-video-intel";
+    #  rev = "f66d39544bb8339130c96d282a80f87ca1606caf";
+    #  sha256 = "1111111111111111111111111111111111111111111111111111";
+    #};
     buildInputs = attrs.buildInputs ++ [self.libXfixes self.libXScrnSaver self.pixman self.libXinerama self.libXxf86vm self.utilmacros ];
     #nativeBuildInputs = attrs.nativeBuildInputs ++ [autoreconfHook self.utilmacros];
     nativeBuildInputs = [ meson ninja pkgconfig ];
