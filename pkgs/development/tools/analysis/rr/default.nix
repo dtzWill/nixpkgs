@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python2Packages, which, procps, gdb, capnproto }:
+{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python3Packages, which, procps, gdb, capnproto }:
 
 stdenv.mkDerivation rec {
   version = "5.3.0";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    cmake libpfm zlib python2Packages.python python2Packages.pexpect which procps gdb capnproto
+    cmake libpfm zlib python3Packages.python python3Packages.pexpect which procps gdb capnproto
   ];
   propagatedBuildInputs = [ gdb ]; # needs GDB to replay programs at runtime
   cmakeFlags = [
