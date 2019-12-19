@@ -2907,6 +2907,8 @@ in
     inherit (pythonPackages) sphinx;
   };
 
+  volctl = callPackage ../tools/audio/volctl { };
+
   wallutils = callPackage ../tools/graphics/wallutils { };
 
   wev = callPackage ../tools/misc/wev { };
