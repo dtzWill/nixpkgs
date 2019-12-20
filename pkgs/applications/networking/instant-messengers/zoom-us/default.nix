@@ -14,11 +14,11 @@ assert pulseaudioSupport -> libpulseaudio != null;
 let
   inherit (stdenv.lib) concatStringsSep makeBinPath optional;
 
-  version = "3.0.317369.1110";
+  version = "3.5.336627.1216";
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://zoom.us/client/${version}/zoom_x86_64.tar.xz";
-      sha256 = "0r4wp9qb1739xwr24kglc4sj8qaxwr4nh5p1igi3x6f1f8gczia7";
+      sha256 = "04r45z2rjjn9gr7bxhfwg49xkyhmpcn5y6pdbkdnrfwzaqzisavz";
     };
   };
 
@@ -100,7 +100,7 @@ in mkDerivation {
 
   qtWrapperArgs = [
     ''--prefix PATH : ${makeBinPath [ coreutils glib.dev pciutils procps qttools.dev utillinux ]}''
-    ''--prefix LD_PRELOAD : ${libv4l}/lib/libv4l/v4l2convert.so''
+    #''--prefix LD_PRELOAD : ${libv4l}/lib/libv4l/v4l2convert.so''
   ];
 
   passthru.updateScript = ./update.sh;

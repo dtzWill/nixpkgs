@@ -354,6 +354,8 @@ in
 
   fetchFromGitLab = callPackage ../build-support/fetchgitlab {};
 
+  fetchFromGitiles = callPackage ../build-support/fetchgitiles {};
+
   fetchFromRepoOrCz = callPackage ../build-support/fetchrepoorcz {};
 
   fetchNuGet = callPackage ../build-support/fetchnuget { };
@@ -1019,6 +1021,8 @@ in
 
   awstats = callPackage ../tools/system/awstats { };
 
+  awsweeper = callPackage ../tools/admin/awsweeper { };
+
   axel = callPackage ../tools/networking/axel {
     libssl = openssl;
   };
@@ -1265,6 +1269,8 @@ in
   bukubrow = callPackage ../tools/networking/bukubrow { };
 
   burpsuite = callPackage ../tools/networking/burpsuite {};
+
+  bs-platform = (callPackage ../development/compilers/bs-platform {}).bs-platform-621;
 
   c3d = callPackage ../applications/graphics/c3d {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
@@ -1803,6 +1809,8 @@ in
   hyx = callPackage ../tools/text/hyx { };
 
   icdiff = callPackage ../tools/text/icdiff {};
+
+  ifm = callPackage ../tools/graphics/ifm {};
 
   interlock = callPackage ../servers/interlock {};
 
@@ -2899,6 +2907,8 @@ in
     inherit (pythonPackages) sphinx;
   };
 
+  volctl = callPackage ../tools/audio/volctl { };
+
   wallutils = callPackage ../tools/graphics/wallutils { };
 
   wev = callPackage ../tools/misc/wev { };
@@ -3055,6 +3065,8 @@ in
   evtest = callPackage ../applications/misc/evtest { };
 
   evtest-qt = libsForQt5.callPackage ../applications/misc/evtest-qt { };
+
+  eva = callPackage ../tools/misc/eva { };
 
   exa = callPackage ../tools/misc/exa { };
 
@@ -4447,7 +4459,7 @@ in
 
   makebootfat = callPackage ../tools/misc/makebootfat { };
 
-  matrix-synapse = callPackage ../servers/matrix-synapse { };
+  matrix-synapse = callPackage ../servers/matrix-synapse { python3 = python38; };
 
   mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
 
@@ -6789,7 +6801,11 @@ in
 
   triggerhappy = callPackage ../tools/inputmethods/triggerhappy {};
 
-  trilium = callPackage ../applications/office/trilium { };
+  inherit (callPackage ../applications/office/trilium {})
+    trilium-desktop
+    trilium-server
+    ;
+  trilium = trilium-desktop;
 
   trousers = callPackage ../tools/security/trousers { };
 
@@ -10719,7 +10735,8 @@ in
   boost16x = boost169;
   boost170 = callPackage ../development/libraries/boost/1.70.nix { };
   boost171 = callPackage ../development/libraries/boost/1.71.nix { };
-  boost17x = boost171;
+  boost172 = callPackage ../development/libraries/boost/1.72.nix { };
+  boost17x = boost172;
   boost = boost17x;
 
   boost_process = callPackage ../development/libraries/boost-process { };
@@ -13600,7 +13617,7 @@ in
 
     inherit (kdeFrameworks.override { libsForQt5 = self; })
       attica baloo bluez-qt kactivities kactivities-stats
-      karchive kauth kbookmarks kcmutils kcodecs kcompletion kconfig
+      karchive kauth kbookmarks kcmutils kcalendarcore kcodecs kcompletion kconfig
       kconfigwidgets kcoreaddons kcrash kdbusaddons kdeclarative kdelibs4support
       kdesignerplugin kdnssd kemoticons kfilemetadata kglobalaccel kguiaddons
       khtml ki18n kiconthemes kidletime kimageformats kio kitemmodels kitemviews
@@ -17104,6 +17121,8 @@ in
 
   cherry = callPackage ../data/fonts/cherry { inherit (xorg) fonttosfnt mkfontdir; };
 
+  cldr-emoji-annotation = callPackage ../data/misc/cldr-emoji-annotation { };
+
   clearlooks-phenix = callPackage ../data/themes/clearlooks-phenix { };
 
   cnstrokeorder = callPackage ../data/fonts/cnstrokeorder {};
@@ -17521,6 +17540,8 @@ in
 
   polytopes_db = callPackage ../data/misc/polytopes_db { };
 
+  pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
+
   posix_man_pages = callPackage ../data/documentation/man-pages-posix { };
 
   powerline-fonts = callPackage ../data/fonts/powerline-fonts { };
@@ -17716,11 +17737,19 @@ in
 
   uni-vga = callPackage ../data/fonts/uni-vga { };
 
+  unicode-character-database = callPackage ../data/misc/unicode-character-database { };
+
+  unicode-emoji = callPackage ../data/misc/unicode-emoji { };
+
+  unihan-database = callPackage ../data/misc/unihan-database { };
+
   unifont = callPackage ../data/fonts/unifont { };
 
   unifont_upper = callPackage ../data/fonts/unifont_upper { };
 
   unscii = callPackage ../data/fonts/unscii { };
+
+  uw-ttyp0 = callPackage ../data/fonts/uw-ttyp0 { inherit (xorg) fonttosfnt mkfontdir; };
 
   vanilla-dmz = callPackage ../data/icons/vanilla-dmz { };
 
@@ -20056,6 +20085,8 @@ in
 
   mako = callPackage ../applications/misc/mako { };
 
+  mandelbulber = libsForQt5.callPackage ../applications/graphics/mandelbulber { };
+
   mapmap = libsForQt5.callPackage ../applications/video/mapmap { };
 
   marathon = callPackage ../applications/networking/cluster/marathon { };
@@ -21508,11 +21539,15 @@ in
 
   tailor = callPackage ../applications/version-management/tailor {};
 
+  taizen = callPackage ../applications/misc/taizen { };
+
   tangogps = callPackage ../applications/misc/tangogps {
     gconf = gnome2.GConf;
   };
 
   tambura = callPackage ../applications/audio/tambura { };
+
+  teams = callPackage ../applications/networking/instant-messengers/teams { };
 
   teamspeak_client = libsForQt512.callPackage ../applications/networking/instant-messengers/teamspeak/client.nix { };
   teamspeak_server = callPackage ../applications/networking/instant-messengers/teamspeak/server.nix { };
@@ -21593,7 +21628,7 @@ in
     inherit (gnome2) libIDL;
     inherit (rustPackages_1_38_0) cargo rustc;
     libpng = libpng_apng;
-    enableGTK3 = true;
+    gtk3Support = true;
   };
 
   thunderbolt = callPackage ../os-specific/linux/thunderbolt {};
@@ -22482,8 +22517,8 @@ in
 
   aeon = callPackage ../applications/blockchains/aeon { };
 
-  bitcoin  = libsForQt5.callPackage ../applications/blockchains/bitcoin.nix { miniupnpc = miniupnpc_2; withGui = true; };
-  bitcoind = callPackage ../applications/blockchains/bitcoin.nix { miniupnpc = miniupnpc_2; withGui = false; };
+  bitcoin  = libsForQt5.callPackage ../applications/blockchains/bitcoin.nix { miniupnpc = miniupnpc_2; withGui = true; boost = boost171; };
+  bitcoind = callPackage ../applications/blockchains/bitcoin.nix { miniupnpc = miniupnpc_2; withGui = false; boost = boost171; };
   clightning = callPackage ../applications/blockchains/clightning.nix { };
 
   bitcoin-abc  = libsForQt5.callPackage ../applications/blockchains/bitcoin-abc.nix { boost = boost165; withGui = true; };
@@ -22733,7 +22768,8 @@ in
 
   digikam = libsForQt5.callPackage ../applications/graphics/digikam {
     inherit (plasma5) oxygen;
-    inherit (kdeApplications) akonadi-contacts kcalcore;
+    inherit (kdeApplications) akonadi-contacts;
+    inherit (kdeFrameworks) kcalendarcore;
     ffmpeg = ffmpeg_4;
     opencv3 = opencv3WithoutCuda;
   };
@@ -24635,6 +24671,10 @@ in
   };
 
   websocat = callPackage ../tools/misc/websocat {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
+  vector = callPackage ../tools/misc/vector {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 

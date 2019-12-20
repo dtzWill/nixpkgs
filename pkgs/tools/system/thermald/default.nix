@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "thermald";
-  version = "1.9";
+  version = "1.9.1";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "thermal_daemon";
     rev = "v${version}";
-    sha256 = "1ajhivl9jifcf12nbk281yayk7666v65m249aclyli0bz1kh8cfs";
+    sha256 = "0iagc3jqpnh6q2fa1gx4wx6r8qg0556j60xr159zqg95djr4dv99";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
@@ -19,7 +19,6 @@ stdenv.mkDerivation rec {
     ./0002-Don-t-keep-on-reading-a-sensor-if-the-temperature-is.patch
     ./0003-thermald-fix-uninitialised-member.patch
     ./0004-Remove-processing-when-trip-was-not-activates.patch
-    ./0005-Use-correct-format-specifier-for-size_t.patch
   ];
 
   configureFlags = [

@@ -1,14 +1,14 @@
 { stdenv, fetchzip }:
 
 let
-  version = "17.0.1";
+  version = "17.0.2";
 in fetchzip {
   name = "nextcloud-${version}";
 
   url = "https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2";
   #url = "https://download.nextcloud.com/server/prereleases/nextcloud-${version}.tar.bz2";
 
-  sha256 = "1yc40rjcjfdws1kdb4zfbpx71n7618w2q8pxz5j71qizcv7bgqmj";
+  sha256 = "1qsa4x4m0qs4rw9hisg9lq8jrbyr21vbxkfi43rvhkrhz0avc92l";
 
   # Maybe fix resourcelocator webroot issue, courtesy of comment on upstream issue 13556
   # XXX: Unsure if also useful/needed (?): https://gist.github.com/kesselb/d035c4a7334b155143686466370bc1eb

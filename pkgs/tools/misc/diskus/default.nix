@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = stdenv.lib.optionals stdenv.isDarwin [ Security ];
 
-  cargoSha256 = "0x2mvlsm2pyhw6v3138g1ag1jq1rk02ks34d3fbbh0dhkdr7z7yh";
+  cargoSha256 = "07wsl1vw2aimgmrlri03pfcxv13klqxyvmmsbzgnq9sc9qzzy8gp";
 
   meta = with stdenv.lib; {
     description = "A minimal, fast alternative to 'du -sh'";
@@ -21,5 +21,9 @@ rustPlatform.buildRustPackage rec {
     license = with licenses; [ asl20 /* or */ mit ];
     maintainers = [ maintainers.fuerbringer ];
     platforms = platforms.unix;
+    longDescription = ''
+      diskus is a very simple program that computes the total size of the
+      current directory. It is a parallelized version of du -sh.
+    '';
   };
 }

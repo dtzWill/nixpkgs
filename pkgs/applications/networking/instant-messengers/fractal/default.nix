@@ -25,16 +25,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fractal";
-  version = "4.2.2";
-  #version = "unstable-2019-11-04";
+  #version = "4.2.2";
+  version = "unstable-2019-12-10";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
-    rev = version;
+    #rev = version;
     #rev = "f0e6e408d3e74d2e27ae0d32d968c7fed7f94ee3";
-    sha256 = "0r98km3c8naj3mdr1wppzj823ir7jnsia7r3cbg3vsq8q52i480r";
+    rev = "a5bdd29211859596c9de2741166a8d5904a7805f";
+    sha256 = "0fhbvnh6s8b3c8mmgq5hja35xd79d0flwd6jrynlrv0nrcdz0snx";
   };
 
   cargoSha256 = "1n9n4d057cz44sh1iy2hb2adplhnrhvr8drnp0v2h8yw73a5shvv";

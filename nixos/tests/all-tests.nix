@@ -269,6 +269,7 @@ in
   tinydns = handleTest ./tinydns.nix {};
   tor = handleTest ./tor.nix {};
   transmission = handleTest ./transmission.nix {};
+  trilium = handleTest ./trilium.nix {};
   trezord = handleTest ./trezord.nix {};
   udisks2 = handleTest ./udisks2.nix {};
   upnp = handleTest ./upnp.nix {};

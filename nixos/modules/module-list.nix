@@ -444,6 +444,7 @@
   ./services/misc/logkeys.nix
   ./services/misc/leaps.nix
   ./services/misc/lidarr.nix
+  ./services/misc/mame.nix
   ./services/misc/mathics.nix
   ./services/misc/matrix-synapse.nix
   ./services/misc/mbpfan.nix
@@ -807,6 +808,7 @@
   ./services/web-apps/moinmoin.nix
   ./services/web-apps/restya-board.nix
   ./services/web-apps/tt-rss.nix
+  ./services/web-apps/trilium.nix
   ./services/web-apps/selfoss.nix
   ./services/web-apps/virtlyst.nix
   ./services/web-apps/wordpress.nix

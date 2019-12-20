@@ -40,12 +40,12 @@ let
     # Community port of the now unmaintained upstream qtwebkit.
     qtwebkit = rec {
       ver = "5.212";
-      snap = "1561566461";
+      snap = "1567633290";
       version = "${ver}-${snap}";
       src = fetchurl {
         name = "qtwebkit-${version}.tar.xz";
         url = "https://download.qt.io/snapshots/ci/qtwebkit/${ver}/${snap}/src/submodules/qtwebkit-everywhere-src-${ver}.tar.xz";
-        sha256 = "17xbkxsjf5g0yh9m1fcsiqp12s2x0spkk86p0j07n1qjg9gfisk8";
+        sha256 = "14p5y1qs0x194071ni47lzhs1chcnjqhls0py2k9irvbfd81szbl";
       };
     };
   };
