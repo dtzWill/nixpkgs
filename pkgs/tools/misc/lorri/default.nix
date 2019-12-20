@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   BUILD_REV_COUNT = src.revCount or 1;
   RUN_TIME_CLOSURE = pkgs.callPackage ./runtime.nix {};
 
-  nativeBuildInputs = with pkgs; [ nix direnv which ];
+  nativeBuildInputs = with pkgs; [ nix direnv which rustfmt ];
   buildInputs =
     stdenv.lib.optionals stdenv.isDarwin [ CoreServices Security cf-private ];
 
