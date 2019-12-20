@@ -61,6 +61,7 @@ buildPythonPackage rec {
                and not connector \
                and not client_disconnect \
                and not handle_keepalive_on_closed_connection \
+               and not proxy_https_bad_response \
                and not partially_applied_handler \
                and not middleware" \
       --ignore=test_connector.py
