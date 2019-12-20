@@ -15,7 +15,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lorri";
-  version = "unstable-2019-12-02";
+  version = "unstable-2019-12-20";
 
   meta = with stdenv.lib; {
     description = "Your project's nix-env";
@@ -28,8 +28,8 @@ rustPlatform.buildRustPackage rec {
     owner = "target";
     repo = pname;
     # Run `eval $(nix-build -A lorri.updater)` after updating the revision!
-    rev = "25b9a1bddd571cd81ca934e1f6afd200c8e0833f";
-    sha256 = "0n7fm2x6i6mk6r6vi00ps5gd952ijss21p1a92vrynnbjjx37n8a";
+    rev = "7ff97e14e8ecbd84a8c35ed8cb2885691a827d7a";
+    sha256 = "1hv2pll7f0lm7ndygb01019ivhvzjr3nycs4p7x1ndbks6dz5j5n";
   };
 
   cargoSha256 = "1f4bbdg2b5g5rhq0c8r1dk5wqpi6x00hjzrwb8cnhgys4qqa2g95";
