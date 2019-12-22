@@ -1,17 +1,15 @@
 { stdenv, fetchurl, file, which, intltool, gobject-introspection,
-  findutils, xdg_utils, gnome3, gtk3, python3Packages,
+  findutils, xdg_utils, dconf, gtk3, python3Packages,
   wrapGAppsHook
 }:
 
 python3Packages.buildPythonApplication rec {
-  majorver = "1.4";
-  minorver = "10";
-  version = "${majorver}.${minorver}";
   pname = "catfish";
+  version = "1.4.11";
 
   src = fetchurl {
-    url = "https://archive.xfce.org/src/apps/${pname}/${majorver}/${pname}-${version}.tar.bz2";
-    sha256 = "0g9l5sv5d7wmyb23cvpz5mpvjnxiqjh25v9gr5qzhcah202a0wr5";
+    url = "https://archive.xfce.org/src/apps/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    sha256 = "11fdzz3l5mydscs4a398siphxwr6xf3cfyimr0hgpkg3169syyv1";
   };
 
   nativeBuildInputs = [
@@ -25,20 +23,17 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [
     gtk3
-    gnome3.dconf
+    dconf
     python3Packages.pyxdg
     python3Packages.ptyprocess
     python3Packages.pycairo
+    gobject-introspection # Temporary fix, see https://github.com/NixOS/nixpkgs/issues/56943
   ];
 
   propagatedBuildInputs = [
-    # TODO: DTZ: prune, compare to master
-    python3Packages.pygobject3
-    python3Packages.pyxdg
-    python3Packages.ptyprocess
-    python3Packages.pycairo
-    python3Packages.pexpect
     python3Packages.dbus-python
+    python3Packages.pygobject3
+    python3Packages.pexpect
     xdg_utils
     findutils
   ];
