@@ -6219,6 +6219,8 @@ in
 
   s3backer = callPackage ../tools/filesystems/s3backer { };
 
+  s3bro = callPackage ../tools/admin/s3bro { };
+
   s3fs = callPackage ../tools/filesystems/s3fs { };
 
   s3cmd = callPackage ../tools/networking/s3cmd { };
