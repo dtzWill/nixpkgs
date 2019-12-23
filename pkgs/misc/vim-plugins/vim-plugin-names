@@ -49,6 +49,7 @@ chrisgeo/sparkup
 chriskempson/base16-vim
 christoomey/vim-sort-motion
 christoomey/vim-tmux-navigator
+ckipp01/coc-metals
 cloudhead/neovim-fuzzy
 CoatiSoftware/vim-sourcetrail
 cocopon/iceberg.vim
