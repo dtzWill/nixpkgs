@@ -128,6 +128,18 @@
     <para />
    </listitem>
    <listitem>
+    <para>
+     The nginx web server previously started its master process as root
+     privileged, then ran worker processes as a less privileged identity user.
+     This was changed to start all of nginx as a less privileged user (defined by
+     <literal>services.nginx.user</literal> and
+     <literal>services.nginx.group</literal>). As a consequence, all files that
+     are needed for nginx to run (included configuration fragments, SSL
+     certificates and keys, etc.) must now be readable by this less privileged
+     user/group.
+    </para>
+   </listitem>
+   <listitem>
      <para>
        <literal>PRETTY_NAME</literal> in <literal>/etc/os-release</literal>
        uses the release now instead of full version

@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
     owner = "spwhitt";
     repo = "nix-zsh-completions";
     #rev = "${version}";
-    rev = "26a9a0f8cf5cfe5ca84dd682675c853192a2cfc5";
-    sha256 = "06cv59112b5wbz05ndpcih7n32q1vdvfb5zxrsp62lx06jd3wh9j";
+    rev = "adbf7bf6dd01f2410700fa51cdb31346c8108318";
+    sha256 = "0xz8m12hgf8vrjdswwjs3gqyyw53f0vq9z9i0ssfc3zmgcwnsa3r";
   };
 
   installPhase = ''

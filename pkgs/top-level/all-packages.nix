@@ -14525,6 +14525,8 @@ in
 
   x265 = callPackage ../development/libraries/x265 { };
 
+  xandikos = callPackage ../servers/xandikos { };
+
   inherit (callPackages ../development/libraries/xapian { })
     xapian_1_2_22 xapian_1_4;
   xapian = xapian_1_4;
@@ -20219,6 +20221,8 @@ in
     ocamlPackages = ocaml-ng.ocamlPackages_4_01_0;
   };
 
+  monitor = callPackage ../applications/system/monitor { };
+
   moolticute = libsForQt5.callPackage ../applications/misc/moolticute { };
 
   moonlight-embedded = callPackage ../applications/misc/moonlight-embedded { };
@@ -25685,6 +25689,8 @@ in
   omnisharp-roslyn = callPackage ../development/tools/omnisharp-roslyn { };
 
   wasmtime = callPackage ../development/interpreters/wasmtime {};
+
+  wfuzz = with python3Packages; toPythonApplication wfuzz;
 
   bemenu = callPackage ../applications/misc/bemenu { };
 

@@ -56,7 +56,7 @@ let
   };
 
   configFile = pkgs.writers.writeNginxConfig "nginx.conf" ''
-    user ${cfg.user} ${cfg.group};
+    pid /run/nginx/nginx.pid;
     error_log ${cfg.logError};
     daemon off;
 
@@ -385,12 +385,7 @@ in
 
       preStart =  mkOption {
         type = types.lines;
-        default = ''
-          test -d ${cfg.stateDir}/logs || mkdir -m 750 -p ${cfg.stateDir}/logs
-          test `stat -c %a ${cfg.stateDir}` = "750" || chmod 750 ${cfg.stateDir}
-          test `stat -c %a ${cfg.stateDir}/logs` = "750" || chmod 750 ${cfg.stateDir}/logs
-          chown -R ${cfg.user}:${cfg.group} ${cfg.stateDir}
-        '';
+        default = "";
         description = "
           Shell commands executed before the service's nginx is started.
         ";
@@ -685,23 +680,35 @@ in
       }
     ];
 
+    systemd.tmpfiles.rules = [
+      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+      "d '${cfg.stateDir}/logs' 0750 ${cfg.user} ${cfg.group} - -"
+    ];
+
     systemd.services.nginx = {
       description = "Nginx Web Server";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (map (vhostConfig: ["acme-${vhostConfig.serverName}.service" "acme-selfsigned-${vhostConfig.serverName}.service"]) acmeEnabledVhosts);
       after = [ "network.target" ] ++ map (vhostConfig: "acme-selfsigned-${vhostConfig.serverName}.service") acmeEnabledVhosts;
       stopIfChanged = false;
-      preStart =
-        ''
+      preStart = ''
         ${cfg.preStart}
-        ${package}/bin/nginx -c ${configPath} -p ${cfg.stateDir} -t
-        '';
+        ${package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}' -t
+      '';
       serviceConfig = {
-        ExecStart = "${package}/bin/nginx -c ${configPath} -p ${cfg.stateDir}";
+        ExecStart = "${package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
         RestartSec = "10s";
         StartLimitInterval = "1min";
+        # User and group
+        User = cfg.user;
+        Group = cfg.group;
+        # Runtime directory and mode
+        RuntimeDirectory = "nginx";
+        RuntimeDirectoryMode = "0750";
+        # Capabilities
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
       };
     };
 
