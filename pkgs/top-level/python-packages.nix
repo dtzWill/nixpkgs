@@ -2505,6 +2505,8 @@ in {
 
   httpauth = callPackage ../development/python-modules/httpauth { };
 
+  httpx = callPackage ../development/python-modules/httpx { };
+
   idna-ssl = callPackage ../development/python-modules/idna-ssl { };
 
   identify = callPackage ../development/python-modules/identify { };
