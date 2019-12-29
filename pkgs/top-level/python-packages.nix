@@ -6349,6 +6349,8 @@ in {
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
 
+  compiledb = callPackage ../development/python-modules/compiledb { };
+
   bashlex = callPackage ../development/python-modules/bashlex { };
 
   shutilwhich = callPackage ../development/python-modules/shutilwhich { };
