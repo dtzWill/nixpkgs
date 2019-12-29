@@ -10629,6 +10629,8 @@ in
 
   alure = callPackage ../development/libraries/alure { };
 
+  alure2 = callPackage ../development/libraries/alure2 { };
+
   agg = callPackage ../development/libraries/agg { };
 
   allegro = allegro4;
