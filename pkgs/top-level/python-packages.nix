@@ -6349,6 +6349,8 @@ in {
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
 
+  bashlex = callPackage ../development/python-modules/bashlex { };
+
   fastapi = callPackage ../development/python-modules/fastapi { };
 
   stringcase = callPackage ../development/python-modules/stringcase { };
