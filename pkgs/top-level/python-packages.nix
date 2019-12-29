@@ -6351,6 +6351,8 @@ in {
 
   bashlex = callPackage ../development/python-modules/bashlex { };
 
+  shutilwhich = callPackage ../development/python-modules/shutilwhich { };
+
   fastapi = callPackage ../development/python-modules/fastapi { };
 
   stringcase = callPackage ../development/python-modules/stringcase { };
