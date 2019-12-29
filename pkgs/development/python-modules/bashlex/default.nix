@@ -1,8 +1,9 @@
-{ lib
+{ enum-compat
+, lib
 , buildPythonPackage
 , fetchFromGitHub
-, enum-compat
 , nose
+, python
 }:
 
 buildPythonPackage rec {
@@ -19,8 +20,13 @@ buildPythonPackage rec {
   checkInputs = [ nose ];
   propagatedBuildInputs = [ enum-compat ];
 
+  # workaround https://github.com/idank/bashlex/issues/51
+  preBuild = ''
+    ${python.interpreter} -c 'import bashlex'
+  '';
+
   checkPhase = ''
-    python -m nose --with-doctest
+    ${python.interpreter} -m nose --with-doctest
   '';
 
   meta = with lib; {
