@@ -2372,6 +2372,8 @@ in {
 
   fluent-logger = callPackage ../development/python-modules/fluent-logger {};
 
+  flux-led = callPackage ../development/python-modules/flux-led { };
+
   python-forecastio = callPackage ../development/python-modules/python-forecastio { };
 
   fpdf = callPackage ../development/python-modules/fpdf { };
