@@ -10,26 +10,28 @@
  ] ++ [ "pstore" /* rld */ ]
 }:
 
+## XXX: TODO: This is 8.0.0-based not 9
+
 let
 src = fetchFromGitHub {
   owner = "SNSystems";
   repo = "llvm-project-prepo";
   #rev = "llvmorg-8.0.0";
-  rev = "6a40667bc05ce4386961688a910e0737a941bff3";
-  sha256 = "17n1bdm6j96y93dkcxhppwlxk2dzl5ciqcrkli1qzxhv622k530y";
+  rev = "64ba06dc32ea56b183da7dae9feb727552af531e"; # 2019-12-20
+  sha256 = "0qs2lfhydd9xmwdpqi60b14kvp8wwyazd415p1ic18jha62bcxsa";
 };
 pstore_src = fetchFromGitHub {
   owner = "SNSystems";
   name = "pstore";
   repo = "pstore";
   #rev = "llvmorg-8.0.0";
-  rev = "04eae6ec47902d97ab5b4db00518d5b53a1606e3"; # 2019-09-11
-  sha256 = "18mw7svn19i08ik8zml0d6knv0vzvbsds9cn43s2g5fd60nczg2v";
+  rev = "609a33722f2b8e9e06c661746ab734f3f5eaa311"; # 2019-12-30";
+  sha256 = "11z0cqg86gx76s4ppq3ly5n5d0jhnnl47s23js9d5sb3mylpyrfp";
 };
 self = stdenv.mkDerivation rec {
   pname = "llvm-project-prepo";
   #version = "8.0.0";
-  version = "2019-09-11";
+  version = "2019-12-30";
 
   srcs = [ src pstore_src ];
 
