@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   preCheck = "rm -rf tests/017";
 
   postInstall = ''
-    d=$out/share/vim-plugins/txr
+    d=${placeholder "out"}/share/vim-plugins/txr
     mkdir -p $d/{syntax,ftdetect}
 
     cp {tl,txr}.vim $d/syntax/
