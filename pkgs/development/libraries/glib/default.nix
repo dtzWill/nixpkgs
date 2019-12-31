@@ -140,9 +140,6 @@ stdenv.mkDerivation rec {
     patchShebangs docs/reference/gio/concat-files-helper.py
   '';
 
-  LIBELF_CFLAGS = optional stdenv.isFreeBSD "-I${libelf}";
-  LIBELF_LIBS = optional stdenv.isFreeBSD "-L${libelf} -lelf";
-
   DETERMINISTIC_BUILD = 1;
 
   postInstall = ''
