@@ -4,6 +4,7 @@
 , libxml2, libffi, libbfd
 , libedit
 , ncurses, zlib
+, z3
 , enableProjects ? [
   "clang" "libcxx" "libcxxabi" "libunwind" "lldb"
   "compiler-rt" "lld" "polly" "debuginfo-tests"
@@ -39,7 +40,7 @@ self = stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ninja python3 which swig ];
 
-  buildInputs = [ libxml2 libffi libbfd libedit ];
+  buildInputs = [ libxml2 libffi libbfd libedit z3 ];
   propagatedBuildInputs = [ ncurses zlib ];
 
   preConfigure = "ln -rs ../pstore; cd llvm";
