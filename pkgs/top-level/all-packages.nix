@@ -21786,7 +21786,7 @@ in
   udocker = pythonPackages.callPackage ../tools/virtualization/udocker { };
 
   uefitoolPackages = recurseIntoAttrs (callPackage ../tools/system/uefitool/variants.nix {});
-  uefitool = uefitoolPackages.unstable; # new-engine;
+  uefitool = uefitoolPackages.new-engine; # unstable; # new-engine;
 
   unigine-valley = callPackage ../applications/graphics/unigine-valley { };
 
