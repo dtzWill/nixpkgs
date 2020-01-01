@@ -88,4 +88,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cryptography pyasn1 idna six ];
 
   checkInputs = [ pytest pretend flaky glibcLocales ];
+
+  # Fix tests in 2020, see upstream PR 828
+  patches = [ ./828.patch ];
 }
