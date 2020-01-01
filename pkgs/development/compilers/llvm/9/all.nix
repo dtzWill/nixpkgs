@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, fetchurl
 , cmake, ninja
 , python3, perl, which, swig
 , libxml2, libffi, libbfd
@@ -8,13 +8,11 @@
 
 stdenv.mkDerivation rec {
   pname = "llvm-project";
-  version = "9.0.0";
+  version = "9.0.1";
 
-  src = fetchFromGitHub {
-    owner = "llvm";
-    repo = "llvm-project";
-    rev = "llvmorg-9.0.0";
-    sha256 = "0zyl3if39pb96041wk3jg6fcqcx7hfiqdmr7w795vr68d529c22r";
+  src = fetchurl {
+    url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}/llvm-project-${version}.tar.xz";
+    sha256 = "16s8g2s2571g8vmnspwan82a9amw40g2g9ciarhj974lgs01q97a";
   };
 
   nativeBuildInputs = [ cmake ninja python3 perl which swig ];

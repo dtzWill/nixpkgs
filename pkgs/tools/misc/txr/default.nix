@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "txr";
-  version = "228";
+  version = "230";
 
   src = fetchurl {
     url = "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
-    sha256 = "18rcfrjl6slmqbxcf6kc7kss1q7654hddkzqvshipawyvfy0ay3m";
+    sha256 = "03ab9drdqvkfq240pkrx6197jjvvjizjwfx9psjmm6lixksw0kjx";
   };
 
   nativeBuildInputs = [ bison flex ];
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   preCheck = "rm -rf tests/017";
 
   postInstall = ''
-    d=$out/share/vim-plugins/txr
+    d=${placeholder "out"}/share/vim-plugins/txr
     mkdir -p $d/{syntax,ftdetect}
 
     cp {tl,txr}.vim $d/syntax/

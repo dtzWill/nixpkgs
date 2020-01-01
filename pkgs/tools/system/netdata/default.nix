@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
 , CoreFoundation, IOKit, libossp_uuid
 , curl, libcap,  libuuid, lm_sensors, zlib
 , withCups ? false, cups
@@ -12,12 +12,14 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "1.17.1";
+  version = "1.19.0";
   pname = "netdata";
 
-  src = fetchurl {
-    url = "https://github.com/netdata/netdata/releases/download/v${version}/netdata-v${version}.tar.gz";
-    sha256 = "0k49ms295b9icccvknyqyqlsy911h06c7h7aql5havcx5m5jxq7w";
+  src = fetchFromGitHub {
+    owner = "netdata";
+    repo = "netdata";
+    rev = "v${version}";
+    sha256 = "1s6kzx4xh8b6v7ki8h2mfzprj5rxvlgx2md20cr8c0v81qpz3q3q";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];

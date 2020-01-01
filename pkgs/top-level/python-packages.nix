@@ -3926,7 +3926,7 @@ in {
 
   mypy = callPackage ../development/python-modules/mypy { };
 
-  mypy_extensions = callPackage ../development/python-modules/mypy/extensions.nix { };
+  mypy-extensions = callPackage ../development/python-modules/mypy/extensions.nix { };
 
   mypy-protobuf = callPackage ../development/python-modules/mypy-protobuf { };
 
@@ -6348,6 +6348,12 @@ in {
   starlette = callPackage ../development/python-modules/starlette { };
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
+
+  compiledb = callPackage ../development/python-modules/compiledb { };
+
+  bashlex = callPackage ../development/python-modules/bashlex { };
+
+  shutilwhich = callPackage ../development/python-modules/shutilwhich { };
 
   fastapi = callPackage ../development/python-modules/fastapi { };
 

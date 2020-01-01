@@ -49,13 +49,13 @@ index 0aa2646a9bb..bd784d38e21 100644
     DRV_KEY_CPY(drv_key_blob, &ptr_size, ptr_size_size)
     DRV_KEY_CPY(drv_key_blob, &driver_flags, driver_flags_size)
 diff --git a/src/util/meson.build b/src/util/meson.build
-index 397c2228129..77013563e5d 100644
+index f69ebe9cab3..e2bd8e28706 100644
 --- a/src/util/meson.build
 +++ b/src/util/meson.build
-@@ -120,7 +120,12 @@ libmesa_util = static_library(
+@@ -158,7 +158,12 @@ _libmesa_util = static_library(
    [files_mesa_util, format_srgb],
    include_directories : inc_common,
-   dependencies : [dep_zlib, dep_clock, dep_thread, dep_atomic, dep_m],
+   dependencies : deps_for_libmesa_util,
 -  c_args : [c_msvc_compat_args, c_vis_args],
 +  c_args : [
 +    c_msvc_compat_args, c_vis_args,
@@ -68,4 +68,3 @@ index 397c2228129..77013563e5d 100644
  
 -- 
 2.19.2
-

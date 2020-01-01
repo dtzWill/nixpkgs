@@ -1,24 +1,23 @@
 { lowPrio, newScope, pkgs, stdenv, cmake, libstdcxxHook
 , libxml2, python3, isl, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith
+, z3
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
 }:
 
 let
-  release_version = "9.0.0";
+  release_version = "9.0.1";
   version = release_version; # differentiating these is important for rc's
 
   fetch = name: sha256: fetchurl {
-    # (not uploaded to github yet)
-    # url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-${release_version}/${name}-${version}.src.tar.xz";
-    url = "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
+    url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-${release_version}/${name}-${version}.src.tar.xz";
     inherit sha256;
   };
 
-  clang-tools-extra_src = fetch "clang-tools-extra" "045cldmcfd8s33wyjlviifgpnw52yqicd6v4ysvdg4i96p78c77a";
+  clang-tools-extra_src = fetch "clang-tools-extra" "01vgzd4k1q93nfs8gyl83mjlc4x0qsgfqw32lacbjzdxg0mdfvxj";
 
   tools = stdenv.lib.makeExtensible (tools: let
-    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch; });
+    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch z3; });
     mkExtraBuildCommands = cc: ''
       rsrc="$out/resource-root"
       mkdir "$rsrc"
