@@ -31,7 +31,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig meson ninja python3 wrapGAppsHook vala shared-mime-info ];
-  buildInputs = [ cairo pantheon.granite glib gtk3 libxml2 libgee libarchive hicolor-icon-theme discount gtksourceview3 ];
+  buildInputs = [
+    cairo
+    pantheon.granite
+    glib
+    gtk3
+    libxml2
+    libgee
+    libarchive
+    hicolor-icon-theme
+    discount
+    gtksourceview3
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py
