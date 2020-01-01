@@ -46,6 +46,7 @@ in (haskellPackages.mkDerivation {
     # text
     time
     vty
+    tz
   ];
 
   executableHaskellDepends = [];
