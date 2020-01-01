@@ -16212,6 +16212,7 @@ in
   linux_5_1 = callPackage ../os-specific/linux/kernel/linux-5.1.nix {
     kernelPatches =
       [ kernelPatches.bridge_stp_helper
+        kernelPatches.request_key_helper
         kernelPatches.modinst_arg_list_too_long
         kernelPatches.export_kernel_fpu_functions."5.3"
       ];
@@ -16220,6 +16221,7 @@ in
   linux_5_2 = callPackage ../os-specific/linux/kernel/linux-5.2.nix {
     kernelPatches =
       [ kernelPatches.bridge_stp_helper
+        kernelPatches.request_key_helper
         kernelPatches.modinst_arg_list_too_long
         kernelPatches.export_kernel_fpu_functions."5.3"
       ];
