@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     extraPostFetch = "rm -r $out/testdir";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ stdenv.lib.optional stdenv.isLinux "ENABLE_BTRFS=1";
+  makeFlags = [ "PREFIX=${placeholder "out"}" "STATIC_DEDUPE_H=1" ] ++ stdenv.lib.optional stdenv.isLinux "ENABLE_BTRFS=1";
 
   enableParallelBuilding = true;
 
