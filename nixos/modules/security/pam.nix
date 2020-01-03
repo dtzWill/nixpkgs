@@ -782,7 +782,6 @@ in
         ftp = {};
         i3lock = {};
         i3lock-color = {};
-        screen = {};
         vlock = {};
         xlock = {};
         xscreensaver = {};
