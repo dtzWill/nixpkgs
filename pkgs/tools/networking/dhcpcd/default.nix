@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, udev, runtimeShellPackage,
-runtimeShell }:
+{ stdenv, fetchurl, pkgconfig, udev, runtimeShellPackage, runtimeShell }:
 
 stdenv.mkDerivation rec {
   # when updating this to >=7, check, see previous reverts:
@@ -21,13 +20,6 @@ stdenv.mkDerivation rec {
   prePatch = ''
     substituteInPlace hooks/dhcpcd-run-hooks.in --replace /bin/sh ${runtimeShell}
   '';
-
-  patches = [
-    (fetchpatch {
-      url = "https://roy.marples.name/cgit/dhcpcd.git/patch/?id=114870290a8d3d696bc4049c32eef3eed03d6070";
-      sha256 = "0kzpwjh2gzvl5lvlnw6lis610p67nassk3apns68ga2pyxlky8qb";
-    })
-  ];
 
   preConfigure = "patchShebangs ./configure";
 
