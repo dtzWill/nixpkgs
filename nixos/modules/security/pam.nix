@@ -778,7 +778,6 @@ in
           '';
 
         # Most of these should be moved to specific modules.
-        cups = {};
         ftp = {};
         i3lock = {};
         i3lock-color = {};
