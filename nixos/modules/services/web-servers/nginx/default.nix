@@ -684,10 +684,10 @@ in
       stopIfChanged = false;
       preStart = ''
         ${cfg.preStart}
-        ${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}' -t
+        ${execCommand} -t
       '';
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
+        ExecStart = execCommand;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
         RestartSec = "10s";
