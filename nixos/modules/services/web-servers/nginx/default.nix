@@ -170,6 +170,8 @@ let
     then "/etc/nginx/nginx.conf"
     else configFile;
 
+  execCommand = "${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
+
   vhosts = concatStringsSep "\n" (mapAttrsToList (vhostName: vhost:
     let
         onlySSL = vhost.onlySSL || vhost.enableSSL;
@@ -657,10 +659,10 @@ in
       stopIfChanged = false;
       preStart = ''
         ${cfg.preStart}
-        ${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}' -t
+        ${execCommand} -t
       '';
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
+        ExecStart = execCommand;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
         RestartSec = "10s";
@@ -681,11 +683,18 @@ in
     };
 
     systemd.services.nginx-config-reload = mkIf cfg.enableReload {
-      wantedBy = [ "nginx.service" ];
+      wants = [ "nginx.service" ];
+      wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
+      # commented, because can cause extra delays during activate for this config:
+      #      services.nginx.virtualHosts."_".locations."/".proxyPass = "http://blabla:3000";
+      # stopIfChanged = false;
+      serviceConfig.Type = "oneshot";
+      serviceConfig.TimeoutSec = 60;
       script = ''
         if ${pkgs.systemd}/bin/systemctl -q is-active nginx.service ; then
-          ${pkgs.systemd}/bin/systemctl reload nginx.service
+          ${execCommand} -t && \
+            ${pkgs.systemd}/bin/systemctl reload nginx.service
         fi
       '';
       serviceConfig.RemainAfterExit = true;
