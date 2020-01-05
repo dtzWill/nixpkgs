@@ -1,35 +1,34 @@
-{
-    cargo
-  , makeRustPlatform
-  , fetchFromGitHub
-  , lib
-  , ...
-}:
+{ fetchFromGitHub, rustPlatform, stdenv, fetchpatch
+, CoreFoundation, libiconv, libresolv, Security }:
 
-let
-  rustPlatform = makeRustPlatform {
-    rustc = cargo;
-    cargo = cargo;
+rustPlatform.buildRustPackage rec {
+  pname = "onefetch";
+  version = "2.2.0";
+
+  src = fetchFromGitHub {
+    owner = "o2sh";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "1sgpai3gx3w7w3ilmbnmzgdxdim6klkfiqaqxmffpyap6qgksfqs";
   };
-in
-  rustPlatform.buildRustPackage rec {
-    pname = "onefetch";
-    version = "2.1.0";
-    
-    src = fetchFromGitHub {
-      owner = "o2sh";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "02mdzpzfcxp9na86b4jcqqjd3id5jslgmnq1jc0vykg58xha51jg";
-    };
-    cargoSha256 = "1phv06zf47bv5cmhypivljfiynrblha0kj13c5al9l0hd1xx749h";
-    buildInputs = [ ];
-    CARGO_HOME = "$(mktemp -d cargo-home.XXX)";
 
-    meta = with lib; {
-      homepage = https://github.com/o2sh/onefetch;
-      description = ''Displays information about your Git project directly on your terminal'';
-      license = licenses.mit;
-      maintainers = with maintainers; [ kloenk ];
-    };
-  }
+  cargoSha256 = "1phv06zf47bv5cmhypivljfiynrblha0kj13c5al9l0hd1xx749h";
+
+  buildInputs = with stdenv;
+    lib.optionals isDarwin [ CoreFoundation libiconv libresolv Security ];
+
+  cargoPatches = [
+    # fix wrong version in Cargo.lock
+    (fetchpatch {
+      url = "https://github.com/o2sh/onefetch/commit/b69fe660d72b65d7efac99ac5db3b03a82d8667f.patch";
+      sha256 = "14przkdyd4yd11xpdgyscs70w9gpnh02j3xdzxf6h895w3mn84lx";
+    })
+  ];
+
+  meta = with stdenv.lib; {
+    description = "Git repository summary on your terminal";
+    homepage = "https://github.com/o2sh/onefetch";
+    license = licenses.mit;
+    maintainers = with maintainers; [ filalex77 ];
+  };
+}
