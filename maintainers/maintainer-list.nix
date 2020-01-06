@@ -2287,6 +2287,12 @@
     githubId = 844574;
     name = "Daniel Austin";
   };
+  flyfloh = {
+    email = "nix@halbmastwurf.de";
+    github = "flyfloh";
+    githubId = 74379;
+    name = "Florian Pester";
+  };
   fmthoma = {
     email = "f.m.thoma@googlemail.com";
     github = "fmthoma";
