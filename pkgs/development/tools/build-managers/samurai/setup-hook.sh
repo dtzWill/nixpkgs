@@ -46,6 +46,7 @@ ninjaCheckPhase() {
     runHook preCheck
 
     if [ -z "${checkTarget:-}" ]; then
+        echo "No checkTarget specified, samu doesn't support query tool yet, skipping..."
         # XXX: no 'query' tool
         #if samu -t query test >/dev/null 2>&1; then
         #    checkTarget=test
