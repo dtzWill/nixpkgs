@@ -256,10 +256,10 @@ self: super:
   });
 
   libXpm = super.libXpm.overrideAttrs (attrs: {
-    name = "libXpm-3.5.12";
+    name = "libXpm-3.5.13";
     src = fetchurl {
-      url = mirror://xorg/individual/lib/libXpm-3.5.12.tar.bz2;
-      sha256 = "1v5xaiw4zlhxspvx76y3hq4wpxv7mpj6parqnwdqvpj8vbinsspx";
+      url = mirror://xorg/individual/lib/libXpm-3.5.13.tar.bz2;
+      sha256 = "09dc6nwlb2122h02vl64k9x56mxnyqz2gwpga0abfv4bb1bxmlcw";
     };
     outputs = [ "bin" "dev" "out" ]; # tiny man in $bin
     patchPhase = "sed -i '/USE_GETTEXT_TRUE/d' sxpm/Makefile.in cxpm/Makefile.in";
