@@ -10575,6 +10575,8 @@ in
 
   rr = callPackage ../development/tools/analysis/rr { };
 
+  samurai = callPackage ../development/tools/build-managers/samurai { };
+
   saleae-logic = callPackage ../development/tools/misc/saleae-logic { };
 
   sauce-connect = callPackage ../development/tools/sauce-connect { };
