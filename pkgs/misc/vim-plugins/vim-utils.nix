@@ -338,9 +338,6 @@ let
         filetype indent plugin on | syn on
       '');
 
-      # somebody else could provide these implementations
-      vundleImpl = "";
-
       neobundleImpl = "";
 
 
@@ -353,7 +350,6 @@ let
   ${vamImpl}
   ${pathogenImpl}
   ${plugImpl}
-  ${vundleImpl}
   ${neobundleImpl}
   ${nativeImpl}
 
