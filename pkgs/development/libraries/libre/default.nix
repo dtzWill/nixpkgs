@@ -1,7 +1,7 @@
 {stdenv, fetchurl, zlib, openssl}:
 stdenv.mkDerivation rec {
   version = "0.6.1";
-  name = "libre-${version}";
+  pname = "libre";
   src = fetchurl {
     url = "http://www.creytiv.com/pub/re-${version}.tar.gz";
     sha256 = "0hzyc0hdlw795nyx6ik7h2ihs8wapbj32x8c40xq0484ciwzqnyd";
