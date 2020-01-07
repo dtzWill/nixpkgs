@@ -1,4 +1,5 @@
 { stdenv, fetchFromGitHub, autoconf, automake, libtool, pcre
+, flex, bison
 , withCrypto ? true, openssl
 , enableMagic ? true, file
 , enableCuckoo ? true, jansson
@@ -15,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0mx3xm2a70fx8vlynkavq8gfd9w5yjcix5rx85444i2s1h6kcd0j";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool ];
+  nativeBuildInputs = [ autoconf automake libtool flex bison ];
   buildInputs = [ pcre ]
     ++ stdenv.lib.optionals withCrypto [ openssl ]
     ++ stdenv.lib.optionals enableMagic [ file ]
