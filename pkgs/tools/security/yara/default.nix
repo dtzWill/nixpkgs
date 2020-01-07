@@ -6,14 +6,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  version = "3.11.0";
+  version = "3.10.0";
   pname = "yara";
 
   src = fetchFromGitHub {
     owner = "VirusTotal";
     repo = "yara";
     rev = "v${version}";
-    sha256 = "0mx3xm2a70fx8vlynkavq8gfd9w5yjcix5rx85444i2s1h6kcd0j";
+    sha256 = "1qxqk324cyvi4n09s79786ciig1gdyhs9dnsm07hf95a3kh6w5z2";
   };
 
   nativeBuildInputs = [ autoconf automake libtool flex bison ];
