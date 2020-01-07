@@ -14,7 +14,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./no-dropdir-literals.patch
-    ./0001-Exit-with-EXIT_SUCCESS-on-shutdown-to-please-systemd.patch
   ];
 
   configureFlags = [
