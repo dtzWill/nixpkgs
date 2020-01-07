@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "davatorium";
     repo = "rofi";
-    rev = "5f57519940b033740f607bb52dfddc7457ca5c20";
-    sha256 = "0ccfpwh0ppn0f3569pzy508z3lisyr3cba8f3429b1i89snjyi1d";
+    rev = "7a6fcb20f45c2b4751c30cb46be5e8f28e56e3d3";
+    sha256 = "0ccfpwh0ppn0f3569pzy508z3lisyr3cba8f3430b1i89snjyi1d";
     fetchSubmodules = true;
   };
 
