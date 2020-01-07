@@ -12,7 +12,7 @@
   };
   stable = {
     sha256 = "1j9zfbyil16yhf6hzrd0ssy9k49jx468dbmgzhc20l1548fif62g";
-    sha256bin64 = "1k44fnn41n73j1lff4h8s8f79pw8w180n467lwff4g9izh6c2blz";
-    version = "79.0.3945.88";
+    sha256bin64 = "1dl43a94xd7vkx8mnp3ccgq18y624fffcfnfjhxgfc02c0c6an9l";
+    version = "79.0.3945.117";
   };
 }
