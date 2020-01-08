@@ -1,5 +1,5 @@
 { stdenv, buildPythonPackage, fetchFromGitHub
-, glibcLocales, git
+, glibcLocales, git, pandoc
 , mock, nose, markdown, lxml, typogrify
 , jinja2, pygments, docutils, pytz, unidecode, six, dateutil, feedgenerator
 , blinker, pillow, beautifulsoup4, markupsafe }:
@@ -29,10 +29,7 @@ buildPythonPackage rec {
 
   buildInputs = [
     glibcLocales
-    # Note: Pelican has to adapt to a changed CLI of pandoc before enabling this
-    # again. Compare https://github.com/getpelican/pelican/pull/2252.
-    # Version 4.1.0 is incompatible with our current pandoc version.
-    # pandoc
+    pandoc
     git
     mock
     markdown
