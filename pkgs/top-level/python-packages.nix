@@ -6387,6 +6387,9 @@ in {
 
   python-doi = callPackage ../development/python-modules/python-doi { };
 
+  xandikos = disabledIf (!isPy3k) (toPythonModule (pkgs.xandikos.override {
+    python3Packages = self;
+  }));
 });
 
 in fix' (extends overrides packages)
