@@ -10,8 +10,8 @@ buildPythonApplication rec {
     owner = "scottkosty";
     repo = pname;
   #  rev = "v${version}";
-    rev = "a6a48912a3e19d4bbadc5de5668f03652a187d0f";
-    sha256 = "1qlbzwhyrgnv70hhllq4s3drs8aqns11n6fqp1f0jcffkv2clghc";
+    rev = "811c480ce9fa491cf419e04310bf49cbe7093e2d";
+    sha256 = "12j5xazk0xhh7fnybvh7fx1aw915pmxd0c6az5k9r8x4iirrjagm";
   };
 
   propagatedBuildInputs = [
