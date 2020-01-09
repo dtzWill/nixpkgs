@@ -25401,6 +25401,8 @@ in
 
   vttest = callPackage ../tools/misc/vttest { };
 
+  wasmer = callPackage ../development/interpreters/wasmer { };
+
   wasm-pack = callPackage ../development/tools/wasm-pack {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
