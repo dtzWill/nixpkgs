@@ -1,15 +1,15 @@
 { stdenv, fetchurl, file, zlib, libgnurx }:
 
 stdenv.mkDerivation rec {
-  name = "file-${version}";
-  version = "5.37";
+  pname = "file";
+  version = "5.38";
 
   src = fetchurl {
     urls = [
-      "ftp://ftp.astron.com/pub/file/${name}.tar.gz"
-      "https://distfiles.macports.org/file/${name}.tar.gz"
+      "ftp://ftp.astron.com/pub/${pname}/${pname}-${version}.tar.gz"
+      "https://distfiles.macports.org/${pname}/${pname}-${version}.tar.gz"
     ];
-    sha256 = "0zz0p9bqnswfx0c16j8k62ivjq1m16x10xqv4hy9lcyxyxkkkhg9";
+    sha256 = "0d7s376b4xqymnrsjxi3nsv3f5v89pzfspzml2pcajdk5by2yg2r";
   };
 
   nativeBuildInputs = stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) file;

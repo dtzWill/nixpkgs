@@ -21,5 +21,6 @@ mkDerivation {
     kbookmarks kcompletion kconfig kcoreaddons kitemviews kjobwidgets kservice
     kxmlgui qtbase qttools solid
   ];
+  outputs = [ "out" "dev" ];
   patches = (copyPathsToStore (lib.readPathsFromFile ./. ./series));
 }

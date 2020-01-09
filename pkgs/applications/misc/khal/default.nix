@@ -1,6 +1,19 @@
-{ stdenv, fetchFromGitHub, pkgs, python3, glibcLocales, fetchpatch }:
+{ stdenv, fetchFromGitHub, python3, glibcLocales, fetchpatch, vdirsyncer, shadow }:
 
-with python3.pkgs; buildPythonApplication rec {
+let
+  python = python3.override {
+    packageOverrides = self: super: {
+      urwid  = super.urwid.overridePythonAttrs (oldAttrs: rec {
+        version = "2.0.1";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "1g6cpicybvbananpjikmjk8npmjk4xvak1wjzji62wc600wkwkb4";
+        };
+      });
+    };
+  };
+ 
+in with python.pkgs; buildPythonApplication rec {
   pname = "khal";
   version = "unstable-2019-11-09";
 
@@ -20,7 +33,7 @@ with python3.pkgs; buildPythonApplication rec {
     dateutil
     icalendar
     lxml
-    pkgs.vdirsyncer
+    vdirsyncer
     pytz
     pyxdg
     requests_toolbelt
@@ -28,7 +41,7 @@ with python3.pkgs; buildPythonApplication rec {
     urwid
     pkginfo
     freezegun
-    pkgs.shadow
+    shadow
   ];
   nativeBuildInputs = [
     setuptools_scm
@@ -61,7 +74,7 @@ with python3.pkgs; buildPythonApplication rec {
   # Oh hey, the following kludgetasmadoodle does the job:
   + stdenv.lib.optionalString true ''
     # man page
-    PATH="${python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin:$PATH" \
+    PATH="${python.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])}/bin:$PATH" \
     make -C doc man
     install -Dm755 doc/build/man/khal.1 -t $out/share/man/man1
   '' + ''

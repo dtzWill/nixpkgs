@@ -1886,6 +1886,12 @@
     githubId = 50854;
     name = "edef";
   };
+  emantor = {
+    email = "rouven+nixos@czerwinskis.de";
+    github = "emantor";
+    githubId = 934284;
+    name = "Rouven Czerwinski";
+  };
   embr = {
     email = "hi@liclac.eu";
     github = "liclac";
@@ -4136,6 +4142,12 @@
     github = "mdevlamynck";
     githubId = 4378377;
     name = "Matthias Devlamynck";
+  };
+  mdlayher = {
+    email = "mdlayher@gmail.com";
+    github = "mdlayher";
+    githubId = 1926905;
+    name = "Matt Layher";
   };
   meditans = {
     email = "meditans@gmail.com";
@@ -6824,6 +6836,11 @@
     github = "vbmithr";
     githubId = 797581;
     name = "Vincent Bernardoff";
+  };
+  vcanadi = {
+    email = "vito.canadi@gmail.com";
+    github = "vcanadi";
+    name = "Vitomir Čanadi";
   };
   vcunat = {
     name = "Vladimír Čunát";

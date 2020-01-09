@@ -3,11 +3,11 @@
 stdenv.mkDerivation rec {
 
   pname = "libjpeg-turbo";
-  version = "2.0.2";
+  version = "2.0.4";
 
   src = fetchurl {
     url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "1v9gx1gdzgxf51nd55ncq7rghmj4x9x91rby50ag36irwngmkf5c";
+    sha256 = "01ill8bgjyk582wipx7sh7gj2nidylpbzvwhx0wkcm6mxx3qbp9k";
   };
 
   patches =

@@ -648,6 +648,8 @@ in {
 
   gumath = callPackage ../development/python-modules/gumath { };
 
+  h3 = callPackage ../development/python-modules/h3 { inherit (pkgs) h3; };
+
   h5py = callPackage ../development/python-modules/h5py {
     hdf5 = pkgs.hdf5;
   };
@@ -2027,15 +2029,17 @@ in {
 
   pyhepmc = callPackage ../development/python-modules/pyhepmc { };
 
-  pytest = if isPy3k then
-    callPackage ../development/python-modules/pytest {
-      # hypothesis tests require pytest that causes dependency cycle
-      hypothesis = self.hypothesis.override { doCheck = false; };
-    }
-  else callPackage ../development/python-modules/pytest/2.nix {
-      # hypothesis tests require pytest that causes dependency cycle
-      hypothesis = self.hypothesis.override { doCheck = false; };
-    };
+  pytest = if isPy3k then self.pytest_5 else self.pytest_4;
+
+  pytest_5 = callPackage ../development/python-modules/pytest {
+    # hypothesis tests require pytest that causes dependency cycle
+    hypothesis = self.hypothesis.override { doCheck = false; };
+  };
+
+  pytest_4 = callPackage ../development/python-modules/pytest/4.nix {
+    # hypothesis tests require pytest that causes dependency cycle
+    hypothesis = self.hypothesis.override { doCheck = false; };
+  };
 
   pytest-helpers-namespace = callPackage ../development/python-modules/pytest-helpers-namespace { };
 
@@ -4042,6 +4046,8 @@ in {
 
   notebook = callPackage ../development/python-modules/notebook { };
 
+  notedown = callPackage ../development/python-modules/notedown { };
+
   notify = callPackage ../development/python-modules/notify { };
 
   notify2 = callPackage ../development/python-modules/notify2 {};
@@ -5888,6 +5894,8 @@ in {
 
   xlsx2csv = callPackage ../development/python-modules/xlsx2csv { };
 
+  xmodem = callPackage ../development/python-modules/xmodem {};
+
   xmpppy = callPackage ../development/python-modules/xmpppy {};
 
   xstatic = callPackage ../development/python-modules/xstatic {};
@@ -5948,6 +5956,8 @@ in {
   scrapy = callPackage ../development/python-modules/scrapy { };
 
   pandocfilters = callPackage ../development/python-modules/pandocfilters { };
+
+  pandoc-attributes = callPackage ../development/python-modules/pandoc-attributes { };
 
   htmltreediff = callPackage ../development/python-modules/htmltreediff { };
 
@@ -6377,6 +6387,9 @@ in {
 
   python-doi = callPackage ../development/python-modules/python-doi { };
 
+  xandikos = disabledIf (!isPy3k) (toPythonModule (pkgs.xandikos.override {
+    python3Packages = self;
+  }));
 });
 
 in fix' (extends overrides packages)

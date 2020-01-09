@@ -1,15 +1,14 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, udev, runtimeShellPackage,
-runtimeShell }:
+{ stdenv, fetchurl, pkgconfig, udev, runtimeShellPackage, runtimeShell }:
 
 stdenv.mkDerivation rec {
   # when updating this to >=7, check, see previous reverts:
   # nix-build -A nixos.tests.networking.scripted.macvlan.x86_64-linux nixos/release-combined.nix
   pname = "dhcpcd";
-  version = "8.1.4";
+  version = "8.1.5";
 
   src = fetchurl {
     url = "mirror://roy/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "0gf1qif25wy5lffzw39pi4sshmpxz1f4a1m9sglj7am1gaix3817";
+    sha256 = "1gcf1ajqi5d0b5c71il4q7h1wmsm0ads3xqb5pklgwyfd58f3jy5";
   };
 
   nativeBuildInputs = [ pkgconfig ];
@@ -21,13 +20,6 @@ stdenv.mkDerivation rec {
   prePatch = ''
     substituteInPlace hooks/dhcpcd-run-hooks.in --replace /bin/sh ${runtimeShell}
   '';
-
-  patches = [
-    (fetchpatch {
-      url = "https://roy.marples.name/cgit/dhcpcd.git/patch/?id=114870290a8d3d696bc4049c32eef3eed03d6070";
-      sha256 = "0kzpwjh2gzvl5lvlnw6lis610p67nassk3apns68ga2pyxlky8qb";
-    })
-  ];
 
   preConfigure = "patchShebangs ./configure";
 

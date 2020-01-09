@@ -1,5 +1,5 @@
 { stdenv, buildPythonPackage, fetchFromGitHub
-, glibcLocales, git
+, glibcLocales, git, pandoc
 , mock, nose, markdown, lxml, typogrify
 , jinja2, pygments, docutils, pytz, unidecode, six, dateutil, feedgenerator
 , blinker, pillow, beautifulsoup4, markupsafe }:
@@ -29,10 +29,7 @@ buildPythonPackage rec {
 
   buildInputs = [
     glibcLocales
-    # Note: Pelican has to adapt to a changed CLI of pandoc before enabling this
-    # again. Compare https://github.com/getpelican/pelican/pull/2252.
-    # Version 4.1.0 is incompatible with our current pandoc version.
-    # pandoc
+    pandoc
     git
     mock
     markdown
@@ -51,11 +48,6 @@ buildPythonPackage rec {
   postPatch= ''
     substituteInPlace pelican/tests/test_pelican.py \
       --replace "'git'" "'${git}/bin/git'"
-
-    # Markdown-3.1 changed footnote separator to colon
-    # https://github.com/getpelican/pelican/issues/2493#issuecomment-491723744
-    sed -i '/test_article_with_footnote/i\
-        @unittest.skip("")' pelican/tests/test_readers.py
   '';
 
   LC_ALL="en_US.UTF-8";

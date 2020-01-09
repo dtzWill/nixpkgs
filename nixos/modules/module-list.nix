@@ -93,6 +93,7 @@
   ./programs/adb.nix
   ./programs/atop.nix
   ./programs/autojump.nix
+  ./programs/bandwhich.nix
   ./programs/bash/bash.nix
   ./programs/bcc.nix
   ./programs/blcr.nix

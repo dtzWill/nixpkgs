@@ -1041,6 +1041,10 @@ in
 
   backblaze-b2 = python.pkgs.callPackage ../development/tools/backblaze-b2 { };
 
+  bandwhich = callPackage ../tools/networking/bandwhich {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
   bar = callPackage ../tools/system/bar {};
 
   base16-shell-preview = callPackage ../misc/base16-shell-preview { };
@@ -2207,6 +2211,8 @@ in
 
   atool = callPackage ../tools/archivers/atool { };
 
+  bash_unit = callPackage ../tools/misc/bash_unit { };
+
   bsc = callPackage ../tools/compression/bsc {
     inherit (llvmPackages) openmp;
   };
@@ -3277,6 +3283,7 @@ in
 
   fontforge = lowPrio (callPackage ../tools/misc/fontforge {
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa;
+    python = python3;
   });
   fontforge-gtk = fontforge.override {
     withSpiro = true;
@@ -3815,6 +3822,8 @@ in
   pigz = callPackage ../tools/compression/pigz { };
 
   pixz = callPackage ../tools/compression/pixz { };
+
+  plplot = callPackage ../development/libraries/plplot { };
 
   pxattr = callPackage ../tools/archivers/pxattr { };
 
@@ -5088,8 +5097,6 @@ in
 
   neofetch = callPackage ../tools/misc/neofetch { };
 
-  onefetch = callPackage ../tools/misc/onefetch { };
-
   nerdfonts = callPackage ../data/fonts/nerdfonts { };
 
   nestopia = callPackage ../misc/emulators/nestopia { };
@@ -5346,6 +5353,11 @@ in
   };
 
   omping = callPackage ../applications/networking/omping { };
+
+  onefetch = callPackage ../tools/misc/onefetch {
+    inherit (darwin) libresolv;
+    inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
+  };
 
   onioncircuits = callPackage ../tools/security/onioncircuits { };
 
@@ -8588,19 +8600,19 @@ in
     inherit (darwin) apple_sdk;
   };
 
-  rust_1_39_0 = callPackage ../development/compilers/rust/1_39_0.nix {
+  rust_1_40_0 = callPackage ../development/compilers/rust/1_40_0.nix {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
   rust_1_38_0 = callPackage ../development/compilers/rust/1_38_0.nix {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
-  rust = rust_1_39_0;
+  rust = rust_1_40_0;
 
-  rustPackages_1_39_0 = rust_1_39_0.packages.stable;
+  rustPackages_1_40_0 = rust_1_40_0.packages.stable;
   rustPackages_1_38_0 = rust_1_38_0.packages.stable;
-  rustPackages = rustPackages_1_39_0;
+  rustPackages = rustPackages_1_40_0;
 
-  inherit (rustPackages) cargo rustc rustPlatform;
+  inherit (rustPackages) cargo clippy rustc rustPlatform;
   inherit (rust) makeRustPlatform;
 
   buildRustCrate = callPackage ../build-support/rust/build-rust-crate { };
@@ -9333,6 +9345,8 @@ in
   amdappsdkFull = amdappsdk.override {
     samples = true;
   };
+
+  h3 = callPackage ../development/misc/h3 { };
 
   amtk = callPackage ../development/libraries/amtk { };
 
@@ -15052,8 +15066,6 @@ in
 
   exim = callPackage ../servers/mail/exim { };
 
-  facette = callPackage ../servers/monitoring/facette { };
-
   fcgiwrap = callPackage ../servers/fcgiwrap { };
 
   felix = callPackage ../servers/felix { };
@@ -15896,6 +15908,8 @@ in
 
   coredns = callPackage ../servers/dns/coredns { };
 
+  corerad = callPackage ../tools/networking/corerad { };
+
   cpufrequtils = callPackage ../os-specific/linux/cpufrequtils { };
 
   cpuset = callPackage ../os-specific/linux/cpuset { };
@@ -16239,6 +16253,7 @@ in
     kernelPatches = [
       kernelPatches.bridge_stp_helper
       kernelPatches.request_key_helper
+      kernelPatches.export_kernel_fpu_functions."5.3"
     ];
   };
 
@@ -17300,6 +17315,8 @@ in
 
   greybird = callPackage ../data/themes/greybird { };
 
+  gubbi-font = callPackage ../data/fonts/gubbi { };
+
   gyre-fonts = callPackage ../data/fonts/gyre {};
 
   hack-font = callPackage ../data/fonts/hack { };
@@ -17511,10 +17528,9 @@ in
 
   open-sans = callPackage ../data/fonts/open-sans { };
 
-  ## Disable until fixed
-  ## openmoji-color = callPackage ../data/fonts/openmoji { variant = "color"; };
+  openmoji-color = callPackage ../data/fonts/openmoji { variant = "color"; };
 
-  ## openmoji-black = callPackage ../data/fonts/openmoji { variant = "black"; };
+  openmoji-black = callPackage ../data/fonts/openmoji { variant = "black"; };
 
   orbitron = callPackage ../data/fonts/orbitron { };
 
@@ -17652,6 +17668,8 @@ in
   raleway = callPackage ../data/fonts/raleway { };
 
   recursive = callPackage ../data/fonts/recursive { };
+
+  rhodium-libre = callPackage ../data/fonts/rhodium-libre { };
 
   rictydiminished-with-firacode = callPackage ../data/fonts/rictydiminished-with-firacode { };
 
@@ -19068,7 +19086,6 @@ in
                                             Kerberos AVFoundation MediaToolbox
                                             CoreLocation Foundation AddressBook;
       inherit (darwin) libobjc;
-      inherit (rustPackages_1_38_0) cargo rustc;
       stdenv = gcc9Stdenv;
     };
   });
@@ -20154,6 +20171,9 @@ in
 
   menumaker = callPackage ../applications/misc/menumaker { };
 
+  mercurial_4 = callPackage ../applications/version-management/mercurial/4.9.nix {
+    inherit (darwin.apple_sdk.frameworks) ApplicationServices;
+  };
   mercurial = callPackage ../applications/version-management/mercurial {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
   };
@@ -23694,6 +23714,10 @@ in
 
   bftools = callPackage ../applications/science/biology/bftools { };
 
+  blast = callPackage ../applications/science/biology/blast { 
+    inherit (darwin.apple_sdk.frameworks) ApplicationServices; 
+  };
+
   cd-hit = callPackage ../applications/science/biology/cd-hit { };
 
   cmtk = callPackage ../applications/science/biology/cmtk { };
@@ -25059,6 +25083,8 @@ in
 
   pjsip = callPackage ../applications/networking/pjsip { };
 
+  pounce = callPackage ../servers/pounce { };
+
   ppsspp = libsForQt5.callPackage ../misc/emulators/ppsspp { };
 
   pt = callPackage ../applications/misc/pt { };
@@ -25275,6 +25301,8 @@ in
   dell-bios-fan-control = callPackage ../tools/system/dell-bios-fan-control { };
 
   tup = callPackage ../development/tools/build-managers/tup { };
+
+  tusk = callPackage ../applications/office/tusk { };
 
   trufflehog = callPackage ../tools/security/trufflehog { };
 

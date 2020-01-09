@@ -19,7 +19,7 @@ let
     maintainers = with maintainers; [ emmanuelrosa dtzWill kampka ];
   };
 
-  version = "0.38.3";
+  version = "0.39.5";
 in {
   
   trilium-desktop = stdenv.mkDerivation rec {
@@ -29,7 +29,7 @@ in {
 
     src = fetchurl {
       url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
-      sha256 = "00sh25jx4zmybjv0cjg1agsl7yvc7dbfy1djrdzm637f92dc783k";
+      sha256 = "0nz0gka0gnia1aa9f9f1av02af4s51jllj27za1m0ay8r9w852ma";
     };
   
     # Fetch from source repo, no longer included in release.
@@ -77,7 +77,7 @@ in {
 
     src = fetchurl {
       url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-server-${version}.tar.xz";
-      sha256 = "0jycn4v329v4z222k88lyyhcdhlqb6jm95m6f8avvaqmzxia8b9w";
+      sha256 = "0lr1drbb3rdz45vyghf3ab4ify12hp13pg6427lkja4q2v8f5vdn";
     };
 
     nativeBuildInputs = [

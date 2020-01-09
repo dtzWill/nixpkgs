@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ff2mpv";
-  version = "3.2";
+  version = "3.3";
 
   src = fetchFromGitHub {
     owner = "woodruffw";
     repo = pname;
-    rev = "0471ff1787199a07d54ad287915084cc881128ff";
-    sha256 = "1xzq21l7vljbazrcsz7n5n1v566bfxnms7zmvlid0w9m6sk65hmb";
+    rev = "dfd25c4a2dab23fae299894e342a58b35d6116ba";
+    sha256 = "0mj7rm2ai3lwd0m7nhvvjzn6b5si9phca6lja35awpg81s9xc60s";
   };
 
   dontBuild = true;

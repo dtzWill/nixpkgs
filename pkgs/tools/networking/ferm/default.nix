@@ -1,12 +1,12 @@
 { stdenv, fetchurl, makeWrapper, perl, ebtables, ipset, iptables }:
 
 stdenv.mkDerivation rec {
-  version = "2.4.1";
-  name = "ferm-${version}";
+  version = "2.5";
+  pname = "ferm";
 
   src = fetchurl {
-    url = "http://ferm.foo-projects.org/download/2.4/ferm-${version}.tar.xz";
-    sha256 = "1fv8wk513yysp4q0i65rl2m0hg2lxwwgk9ppprsca1xcxrdpsvwa";
+    url = "http://ferm.foo-projects.org/download/2.5/ferm-${version}.tar.xz";
+    sha256 = "0lxqcpirphihpvdqrh5kq0621aqq0h2vdy9q2v85gqdhd52js20p";
   };
 
   buildInputs = [ perl ipset ebtables iptables makeWrapper ];
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       command. The firewall configuration resembles structured programming-like
       language, which can contain levels and lists.
     '';
-    license = stdenv.lib.licenses.gpl2;
+    license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [mic92];
     platforms = stdenv.lib.platforms.linux;
   };

@@ -24,12 +24,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  name = "gnucash-${version}";
-  version = "3.7";
+  pname = "gnucash";
+  version = "3.8b";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gnucash/${name}.tar.bz2";
-    sha256 = "1d2qi3ny0bxa16ifh3465z1jgn1l0fmqk9dkph4ialw076gv13kb";
+    url = "mirror://sourceforge/gnucash/${pname}-${version}.tar.bz2";
+    sha256 = "0dvzm3bib7jcj685sklpzyy9mrak9mxyvih2k9fk4sl3v21wlphg";
   };
 
   nativeBuildInputs = [ pkgconfig makeWrapper cmake gtest ];
@@ -43,7 +43,10 @@ stdenv.mkDerivation rec {
 
   propagatedUserEnvPkgs = [ dconf ];
 
-  patches = [ ./gnucash-glib-warnings.patch ];
+  # glib-2.62 deprecations
+  NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
+
+  patches = [ ./cmake_check_symbol_exists.patch ];
 
   postPatch = ''
     patchShebangs .
@@ -59,7 +62,7 @@ stdenv.mkDerivation rec {
     rm $out/bin/gnucash-valgrind
 
     wrapProgram "$out/bin/gnucash" \
-      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share/gsettings-schemas/${name}" \
+      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share/gsettings-schemas/${pname}-${version}" \
       --prefix XDG_DATA_DIRS : "${hicolor-icon-theme}/share" \
       --prefix PERL5LIB ":" "$PERL5LIB" \
       --prefix GIO_EXTRA_MODULES : "${stdenv.lib.getLib dconf}/lib/gio/modules"
