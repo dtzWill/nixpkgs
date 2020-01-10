@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
-    repo = "osm2pgsql";
+    repo = pname;
     rev = version;
     sha256 = "1ysan01lpqzjxlq3y2kdminfjs5d9zksicpf9vvzpdk3fzq51fc9";
   };
@@ -19,8 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OpenStreetMap data to PostgreSQL converter";
-    homepage = https://github.com/openstreetmap/osm2pgsql;
+    homepage = "https://github.com/openstreetmap/osm2pgsql";
     license = licenses.gpl2;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ jglukasik ];
   };
 }
