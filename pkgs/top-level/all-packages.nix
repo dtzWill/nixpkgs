@@ -17353,6 +17353,7 @@ in
 
   iosevka = callPackage ../data/fonts/iosevka {
     nodejs = nodejs-10_x;
+    nodePackages = nodePackages_10_x;
   };
   iosevka-bin = callPackage ../data/fonts/iosevka/bin.nix {};
 
