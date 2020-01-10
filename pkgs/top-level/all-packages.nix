@@ -4470,6 +4470,8 @@ in
 
   matrix-synapse = callPackage ../servers/matrix-synapse { python3 = python38; };
 
+  matrix-appservice-slack = callPackage ../servers/matrix-synapse/matrix-appservice-slack {};
+
   mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
 
   mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp { };
@@ -5022,6 +5024,8 @@ in
   mpw = callPackage ../tools/security/mpw { };
 
   mr = callPackage ../applications/version-management/mr { };
+
+  mrsh = callPackage ../shells/mrsh { };
 
   mrtg = callPackage ../tools/misc/mrtg { };
 
@@ -10277,6 +10281,8 @@ in
   premake = premake4;
 
   procodile = callPackage ../tools/system/procodile { };
+
+  pry = callPackage ../development/tools/pry { };
 
   pup = callPackage ../development/tools/pup { };
 
@@ -17349,6 +17355,7 @@ in
 
   iosevka = callPackage ../data/fonts/iosevka {
     nodejs = nodejs-10_x;
+    nodePackages = nodePackages_10_x;
   };
   iosevka-bin = callPackage ../data/fonts/iosevka/bin.nix {};
 
@@ -19309,6 +19316,8 @@ in
     inherit (darwin) IOKit;
   };
 
+  glow = callPackage ../applications/editors/glow { };
+
   glowing-bear = callPackage ../applications/networking/irc/glowing-bear { };
 
   gmtk = callPackage ../development/libraries/gmtk { };
@@ -20997,7 +21006,7 @@ in
 
   qmetro = callPackage ../applications/misc/qmetro { };
 
-  qmidinet = callPackage ../applications/audio/qmidinet { };
+  qmidinet = libsForQt5.callPackage ../applications/audio/qmidinet { };
 
   qmidiroute = callPackage ../applications/audio/qmidiroute { };
 
@@ -23707,6 +23716,8 @@ in
   archimedes = callPackage ../applications/science/electronics/archimedes {
     stdenv = gcc49Stdenv;
   };
+
+  bayescan = callPackage ../applications/science/biology/bayescan { };
 
   bedtools = callPackage ../applications/science/biology/bedtools { };
 

@@ -6411,6 +6411,11 @@
     githubId = 863327;
     name = "Tyler Benster";
   };
+  tckmn = {
+    email = "andy@tck.mn";
+    github = "tckmn";
+    name = "Andy Tockman";
+  };
   teh = {
     email = "tehunger@gmail.com";
     github = "teh";

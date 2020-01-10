@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       client, and relay agent.
    '';
 
-    homepage = http://www.isc.org/products/DHCP/;
+    homepage = "https://www.isc.org/dhcp/";
     license = licenses.isc;
     platforms = platforms.unix;
   };

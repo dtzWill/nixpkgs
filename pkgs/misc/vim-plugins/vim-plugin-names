@@ -191,6 +191,7 @@ KeitaNakamura/neodark.vim
 keith/swift.vim
 kien/rainbow_parentheses.vim
 konfekt/fastfold
+kristijanhusak/defx-icons
 kristijanhusak/vim-hybrid-material
 kshenoy/vim-signature
 lambdalisue/vim-gista
@@ -430,6 +431,7 @@ thinca/vim-visualstar
 thirtythreeforty/lessspace.vim
 thosakwe/vim-flutter
 tikhomirov/vim-glsl
+tmsvg/pear-tree
 tmux-plugins/vim-tmux
 tmux-plugins/vim-tmux-focus-events
 tomasr/molokai
@@ -441,7 +443,9 @@ tomtom/tcomment_vim
 tomtom/tlib_vim
 tpope/vim-abolish
 tpope/vim-commentary
+tpope/vim-dadbod
 tpope/vim-dispatch
+tpope/vim-endwise
 tpope/vim-eunuch
 tpope/vim-fireplace
 tpope/vim-flagship
