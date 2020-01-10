@@ -14,11 +14,17 @@
 # coc-go dependency
 , go
 
-# vim-go denpencies
+# deoplete-khard dependency
+, khard
+
+# vim-go dependencies
 , asmfmt, delve, errcheck, godef, golint
 , gomodifytags, gotags, gotools, go-motion
 , gnused, reftools, gogetdoc, gometalinter
 , impl, iferr, gocode, gocode-gomod, go-tools
+
+# direnv-vim dependencies
+, direnv
 
 # vCoolor dependency
 , gnome3
@@ -97,6 +103,14 @@ self: super: {
     '';
   });
 
+  direnv-vim = super.direnv-vim.overrideAttrs(oa: {
+    preFixup = oa.preFixup or "" + ''
+      substituteInPlace $out/share/vim-plugins/direnv-vim/autoload/direnv.vim \
+        --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
+          "let s:direnv_cmd = get(g:, 'direnv_cmd', '${lib.getBin direnv}/bin/direnv')"
+    '';
+  });
+
   clighter8 = super.clighter8.overrideAttrs(old: {
     preFixup = ''
       sed "/^let g:clighter8_libclang_path/s|')$|${llvmPackages.clang.cc.lib}/lib/libclang.so')|" \
@@ -171,6 +185,17 @@ self: super: {
       popd
       find ./rplugin/ -name "ujson*.so" -exec mv -v {} ./rplugin/python3/ \;
    '';
+  });
+
+  deoplete-khard = super.deoplete-khard.overrideAttrs(old: {
+    dependencies = [ self.deoplete-nvim ];
+    passthru.python3Dependencies = ps: [ (ps.toPythonModule khard) ];
+    meta = {
+      description = "Address-completion for khard via deoplete";
+      homepage = "https://github.com/nicoe/deoplete-khard";
+      license = stdenv.lib.licenses.mit;
+      maintainers = with stdenv.lib.maintainers; [ jorsn ];
+    };
   });
 
   ensime-vim = super.ensime-vim.overrideAttrs(old: {

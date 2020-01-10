@@ -13,6 +13,7 @@ amiorin/ctrlp-z
 andreshazard/vim-logreview
 andsild/peskcolor.vim
 andviro/flake8-vim
+andys8/vim-elm-syntax
 ap/vim-css-color
 arcticicestudio/nord-vim
 arrufat/vala.vim
@@ -48,6 +49,7 @@ chrisgeo/sparkup
 chriskempson/base16-vim
 christoomey/vim-sort-motion
 christoomey/vim-tmux-navigator
+ckipp01/coc-metals
 cloudhead/neovim-fuzzy
 CoatiSoftware/vim-sourcetrail
 cocopon/iceberg.vim
@@ -69,7 +71,7 @@ dhruvasagar/vim-table-mode
 digitaltoad/vim-jade
 direnv/direnv.vim
 dleonard0/pony-vim-syntax
-dracula/vim
+dracula/vim as dracula
 drmingdrmer/xptemplate
 dylanaraps/wal.vim
 eagletmt/ghcmod-vim
@@ -106,6 +108,7 @@ godlygeek/tabular
 google/vim-codefmt
 google/vim-jsonnet
 google/vim-maktaba
+gorkunov/smartpairs.vim
 gotcha/vimelette
 gregsexton/gitv
 guns/vim-clojure-highlight
@@ -160,6 +163,8 @@ joonty/vim-xdebug
 josa42/coc-go
 joshdick/onedark.vim
 jpalardy/vim-slime
+jreybert/vimagit
+jsfaint/gen_tags.vim
 JuliaEditorSupport/deoplete-julia
 JuliaEditorSupport/julia-vim
 Julian/vim-textobj-variable-segment
@@ -173,6 +178,7 @@ junegunn/vim-easy-align
 junegunn/vim-github-dashboard
 junegunn/vim-peekaboo
 junegunn/vim-plug
+junegunn/vim-slash
 justincampbell/vim-eighties
 justinmk/vim-dirvish
 justinmk/vim-sneak
@@ -192,6 +198,7 @@ keith/swift.vim
 kien/rainbow_parentheses.vim
 konfekt/fastfold
 kristijanhusak/defx-icons
+kristijanhusak/defx-git
 kristijanhusak/vim-hybrid-material
 kshenoy/vim-signature
 lambdalisue/vim-gista
@@ -318,8 +325,11 @@ neomake/neomake
 neovimhaskell/haskell-vim
 neovimhaskell/nvim-hs.vim
 neovim/nvimdev.nvim
+neovim/nvim-lsp
 neutaaaaan/iosvkem
 nfnty/vim-nftables
+nicoe/deoplete-khard
+nishigori/increment-activator
 nixprime/cpsm
 NLKNguyen/papercolor-theme
 noc7c9/vim-iced-coffee-script
@@ -356,6 +366,7 @@ Quramy/tsuquyomi
 racer-rust/vim-racer
 rafaqz/ranger.vim
 rafi/awesome-vim-colorschemes
+raghur/fruzzy
 raghur/vim-ghost
 raichoo/purescript-vim
 Raimondi/delimitMate
@@ -367,6 +378,7 @@ rhysd/vim-grammarous
 rhysd/vim-operator-surround
 Rip-Rip/clang_complete
 rodjek/vim-puppet
+romainl/vim-cool
 roxma/nvim-cm-racer
 roxma/nvim-completion-manager
 roxma/nvim-yarp
@@ -483,6 +495,7 @@ valloric/youcompleteme
 vhda/verilog_systemverilog.vim
 vim-airline/vim-airline
 vim-airline/vim-airline-themes
+vimlab/split-term.vim
 vimoutliner/vimoutliner
 vim-pandoc/vim-pandoc
 vim-pandoc/vim-pandoc-after
