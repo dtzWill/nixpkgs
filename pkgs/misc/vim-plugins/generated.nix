@@ -1086,6 +1086,17 @@ let
     };
   };
 
+  dracula = buildVimPluginFrom2Nix {
+    pname = "dracula";
+    version = "2020-01-02";
+    src = fetchFromGitHub {
+      owner = "dracula";
+      repo = "vim";
+      rev = "5a633625615c79f87786d74ea925790ccdd82aba";
+      sha256 = "0ng2qnwccpbqkhqilm7nj61217rvczxfcgkhdsxj3h2v4fj5ryy5";
+    };
+  };
+
   echodoc-vim = buildVimPluginFrom2Nix {
     pname = "echodoc-vim";
     version = "2019-12-08";
@@ -3013,17 +3024,6 @@ let
       repo = "verilog_systemverilog.vim";
       rev = "22b3d81f9b7146ddf1bd05c1b2f9407af14d3ed7";
       sha256 = "12z5a4zkrajzdyf31a5l7hlyif5ywj8pab25x98hwqjs38x8lklf";
-    };
-  };
-
-  vim = buildVimPluginFrom2Nix {
-    pname = "vim";
-    version = "2020-01-02";
-    src = fetchFromGitHub {
-      owner = "dracula";
-      repo = "vim";
-      rev = "5a633625615c79f87786d74ea925790ccdd82aba";
-      sha256 = "0ng2qnwccpbqkhqilm7nj61217rvczxfcgkhdsxj3h2v4fj5ryy5";
     };
   };
 

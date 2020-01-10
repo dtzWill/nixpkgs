@@ -71,7 +71,7 @@ dhruvasagar/vim-table-mode
 digitaltoad/vim-jade
 direnv/direnv.vim
 dleonard0/pony-vim-syntax
-dracula/vim
+dracula/vim as dracula
 drmingdrmer/xptemplate
 dylanaraps/wal.vim
 eagletmt/ghcmod-vim
