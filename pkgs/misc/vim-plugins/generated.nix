@@ -830,17 +830,6 @@ let
     };
   };
 
-  defx-icons = buildVimPluginFrom2Nix {
-    pname = "defx-icons";
-    version = "2019-11-03";
-    src = fetchFromGitHub {
-      owner = "kristijanhusak";
-      repo = "defx-icons";
-      rev = "1412fd083eb54ffedb4f3ae32ddc7ce28613a144";
-      sha256 = "1x0xpixbmxm15g5nmsslccdngm14sg86ymy6mywg9xfbnrh1vn0p";
-    };
-  };
-
   defx-git = buildVimPluginFrom2Nix {
     pname = "defx-git";
     version = "2019-12-25";
@@ -849,6 +838,17 @@ let
       repo = "defx-git";
       rev = "6f064b7aa45491aa728f976f49012c6abe244f15";
       sha256 = "1909f4q4b5yc2g8x8spxs7q9iq94ls2id2xa9k9cf9h93x2jla5y";
+    };
+  };
+
+  defx-icons = buildVimPluginFrom2Nix {
+    pname = "defx-icons";
+    version = "2019-11-03";
+    src = fetchFromGitHub {
+      owner = "kristijanhusak";
+      repo = "defx-icons";
+      rev = "1412fd083eb54ffedb4f3ae32ddc7ce28613a144";
+      sha256 = "1x0xpixbmxm15g5nmsslccdngm14sg86ymy6mywg9xfbnrh1vn0p";
     };
   };
 
@@ -1273,6 +1273,17 @@ let
       repo = "forms";
       rev = "b601e03fe0a3b8a43766231f4a6217e4492b4f75";
       sha256 = "19kp1i5c6jmnpbsap9giayqbzlv7vh02mp4mjvicqj9n0nfyay74";
+    };
+  };
+
+  fruzzy = buildVimPluginFrom2Nix {
+    pname = "fruzzy";
+    version = "2019-10-28";
+    src = fetchFromGitHub {
+      owner = "raghur";
+      repo = "fruzzy";
+      rev = "b312ae79db98cf6939c8319f2511efa06889e8e3";
+      sha256 = "01iisbawq2w7yw866qvv109amnvyaymzyz9nqal3cjrrcwk6mmdk";
     };
   };
 
@@ -5604,12 +5615,12 @@ let
 
   vim-visual-multi = buildVimPluginFrom2Nix {
     pname = "vim-visual-multi";
-    version = "2019-12-18";
+    version = "2020-01-10";
     src = fetchFromGitHub {
       owner = "mg979";
       repo = "vim-visual-multi";
-      rev = "d332d08365bc735f60904a4207d650f191598378";
-      sha256 = "0g5lawg641ma216v53ivhbkzpmdqhcmgybb5kh1rz6s991j51ziy";
+      rev = "e0e6eeb5fb28c57c194035d6e68160dc17846e24";
+      sha256 = "1mkds5hws24cks0vq1m12bkxdav68psflz0c2qxvw147qhbdgl51";
     };
   };
 
