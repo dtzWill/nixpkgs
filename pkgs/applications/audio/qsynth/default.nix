@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, alsaLib, fluidsynth, libjack2, qt5, autoconf, pkgconfig }:
+{ stdenv, mkDerivation, fetchurl, alsaLib, fluidsynth, libjack2, qt5, autoconf, pkgconfig }:
 
 mkDerivation  rec {
   pname = "qsynth";
