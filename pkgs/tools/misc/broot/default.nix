@@ -16,16 +16,6 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # Fix invocations expecting /bin/* to exist
-  # not very pretty when expanded but at least they work :)
-  postPatch = ''
-    substituteInPlace src/verb_store.rs \
-      --replace /bin/cp ${coreutils}/bin/cp \
-      --replace /bin/mkdir ${coreutils}/bin/mkdir \
-      --replace /bin/mv ${coreutils}/bin/mv \
-      --replace /bin/rm ${coreutils}/bin/rm
-  '';
-
   postInstall = ''
     # install shell completion files
     OUT_DIR=target/release/build/broot-*/out
@@ -33,6 +23,10 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --bash $OUT_DIR/{br,broot}.bash
     installShellCompletion --fish $OUT_DIR/{br,broot}.fish
     installShellCompletion --zsh $OUT_DIR/{_br,_broot}
+  '';
+
+  postPatch = ''
+    substituteInPlace src/verb_store.rs --replace '"/bin/' '"${coreutils}/bin/'
   '';
 
   meta = with stdenv.lib; {
