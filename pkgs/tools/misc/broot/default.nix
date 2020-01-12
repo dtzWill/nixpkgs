@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub, coreutils }:
+{ stdenv, rustPlatform, fetchFromGitHub, coreutils, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
@@ -14,6 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1fzjr4hkpakvn69znylkfnl3ghgnnn0jpybbr9x013hz0xm07qi9";
   verifyCargoDeps = true;
 
+  nativeBuildInputs = [ installShellFiles ];
+
   # Fix invocations expecting /bin/* to exist
   # not very pretty when expanded but at least they work :)
   postPatch = ''
@@ -22,6 +24,15 @@ rustPlatform.buildRustPackage rec {
       --replace /bin/mkdir ${coreutils}/bin/mkdir \
       --replace /bin/mv ${coreutils}/bin/mv \
       --replace /bin/rm ${coreutils}/bin/rm
+  '';
+
+  postInstall = ''
+    # install shell completion files
+    OUT_DIR=target/release/build/broot-*/out
+
+    installShellCompletion --bash $OUT_DIR/{br,broot}.bash
+    installShellCompletion --fish $OUT_DIR/{br,broot}.fish
+    installShellCompletion --zsh $OUT_DIR/{_br,_broot}
   '';
 
   meta = with stdenv.lib; {
