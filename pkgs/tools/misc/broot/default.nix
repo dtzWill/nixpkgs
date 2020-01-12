@@ -2,16 +2,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
-  version = "0.11.5";
+  version = "0.11.8";
 
   src = fetchFromGitHub {
     owner = "Canop";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1b64cl5080rzfbxx54y60klcdv0hvrmwklskl95pkcspgfffk2nm";
+    sha256 = "1pbjlfwv4s50s731ryrcc54200g2i04acdxrxk4kpcvi6b19kbky";
   };
 
-  cargoSha256 = "0w62sxdl2w1wc0fjxszpifw9jxl35nz5nsmfr6pd0lvbgm3c7vba";
+  cargoSha256 = "1fzjr4hkpakvn69znylkfnl3ghgnnn0jpybbr9x013hz0xm07qi9";
+  verifyCargoDeps = true;
 
   # Fix invocations expecting /bin/* to exist
   # not very pretty when expanded but at least they work :)
