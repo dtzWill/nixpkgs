@@ -14,14 +14,14 @@ let qtkeychain-qt5 = qtkeychain.override {
   inherit qtbase qttools;
   withQt5 = true;
 };
-in stdenv.mkDerivation {
+in stdenv.mkDerivation rec {
   pname = "spectral";
-  version = "unstable-2020-01-06";
+  version = "817";
 
   src = fetchgit {
     url = "https://gitlab.com/b0/spectral.git";
-    rev = "23237d0cb27a0b15c8e81c0e2311cc897302e6ba";
-    sha256 = "11jfq97fa90r8wrahb6aasvmi7k7hr61lqgnbknsr9akn4wgvrh8";
+    rev = "refs/tags/${version}";
+    sha256 = "0lg0bkz621cmqb67kz1zmn4xwbspcqalz68byll5iszqz9y4gnp1";
     fetchSubmodules = true;
   };
 
