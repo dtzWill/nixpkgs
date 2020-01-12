@@ -38,16 +38,11 @@ in
       # TODO: integrate with PolicyKit if the nix backend matures to the point
       # where it will require elevated permissions
       backend = mkOption {
-        type = types.enum [ "test_nop" ];
-        default = "test_nop";
+        type = types.enum [ "auto" "test_nop" ];
+        default = "auto";
         description = ''
           PackageKit supports multiple different backends and <literal>auto</literal> which
           should do the right thing.
-          </para>
-          <para>
-          On NixOS however, we do not have a backend compatible with nix 2.0
-          (refer to <link xlink:href="https://github.com/NixOS/nix/issues/233">this issue</link> so we have to force
-          it to <literal>test_nop</literal> for now.
         '';
       };
     };
