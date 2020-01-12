@@ -1,8 +1,7 @@
 { stdenv, fetchFromGitHub, lib
 , intltool, glib, pkgconfig, polkit, python, sqlite
 , gobject-introspection, vala, gtk-doc, autoreconfHook, autoconf-archive
-# TODO: set enableNixBackend to true, as soon as it builds
-, nix, enableNixBackend ? false, boost
+, nix, enableNixBackend ? true, boost
 , enableCommandNotFound ? false
 , enableBashCompletion ? false, bash-completion ? null
 , enableSystemd ? stdenv.isLinux, systemd }:
