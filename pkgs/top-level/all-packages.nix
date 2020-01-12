@@ -3205,6 +3205,8 @@ in
 
   flux = callPackage ../development/compilers/flux { };
 
+  fido2luks = callPackage ../tools/security/fido2luks {};
+
   fierce = callPackage ../tools/security/fierce { };
 
   figlet = callPackage ../tools/misc/figlet { };
