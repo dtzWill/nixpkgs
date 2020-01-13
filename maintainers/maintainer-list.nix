@@ -6572,6 +6572,11 @@
     github = "timbertson";
     name = "Tim Cuthbertson";
   };
+  timma = {
+    email = "kunduru.it.iitb@gmail.com";
+    github = "ktrsoft";
+    name = "Timma";
+  };
   timokau = {
     email = "timokau@zoho.com";
     github = "timokau";
