@@ -19,9 +19,9 @@ stdenv.mkDerivation {
     sha256 = "0rfcy7vj4bi08pfswmgidxzb5j0xwjhjzmffd448hdwlqp6ys8cb";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig help2man xvfb_run ];
+  nativeBuildInputs = [ meson ninja pkgconfig gobject-introspection help2man xvfb_run ];
   buildInputs = [
-    glib gobject-introspection
+    glib
     gtk3 gspell
     gumbo
     cmark
