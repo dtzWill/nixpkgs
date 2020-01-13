@@ -41,8 +41,6 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  nativeBuildInputs = [ cython ];
-
   checkInputs = [
     pytestrunner pytest gunicorn pytest-timeout async_generator pytest_xdist
     pytest-mock pytestcov trustme brotlipy freezegun
