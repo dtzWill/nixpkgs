@@ -17,7 +17,8 @@ nettle,
 talkatu,
 gplugin,
 libgnt,
-ncurses # should this be propagated by libgnt or does pidgin use itself?
+ncurses, # should this be propagated by libgnt or does pidgin use itself?
+python3
 }:
 
 stdenv.mkDerivation {
@@ -31,8 +32,11 @@ stdenv.mkDerivation {
     sha256 = "0jwfrazdhva0v7pgfjfhry2rk4h2s81nbnkm3fh3202sq0vvjd02";
   };
 
+  postPatch = ''
+    patchShebangs mkmesonconf.py
+  '';
 
-  nativeBuildInputs = [ meson ninja pkgconfig gobject-introspection ];
+  nativeBuildInputs = [ meson ninja pkgconfig gobject-introspection python3 ];
   buildInputs = [
     glib
     gtk3 libX11
