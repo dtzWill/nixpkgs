@@ -1,11 +1,12 @@
 { fetchurl, stdenv, libidn, kerberos }:
 
 stdenv.mkDerivation rec {
-  name = "gsasl-1.8.0";
+  pname = "gsasl";
+  version = "1.8.1";
 
   src = fetchurl {
-    url = "mirror://gnu/gsasl/${name}.tar.gz";
-    sha256 = "1rci64cxvcfr8xcjpqc4inpfq7aw4snnsbf5xz7d30nhvv8n40ii";
+    url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
+    sha256 = "1lnqfbaajkj1r2fx1db1qgcxy69pfgbyq7xd2kpvyxhra4m1dnjd";
   };
 
   buildInputs = [ libidn kerberos ];
