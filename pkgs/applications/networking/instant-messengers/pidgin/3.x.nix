@@ -13,7 +13,8 @@ farstream,
 avahi,
 libsecret,
 cyrus_sasl,
-talkatu
+talkatu,
+gplugin
 }:
 
 stdenv.mkDerivation {
@@ -40,6 +41,7 @@ stdenv.mkDerivation {
     cyrus_sasl
 
     talkatu
+    gplugin
 
     # kwallet
   ];
