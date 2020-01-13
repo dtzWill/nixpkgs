@@ -41,10 +41,6 @@ stdenv.mkDerivation {
 
     talkatu
 
-    # libgadu
-    # meanwhile
-    # silc
-
     # kwallet
   ];
 
@@ -57,6 +53,13 @@ stdenv.mkDerivation {
     "-Davahi=enabled"
     "-Didn=enabled"
     "-Dcyrus-sasl=enabled"
+
+    "-Dmeanwhile=disabled"
+    "-Dsilc=disabled"
+    "-Dlibgadu=disabled"
+    "-Dunity-integration=disabled"
+
+    "-Dkwallet=disabled"
   ];
   #meta = {
   #  description = "Pidgin 3.x (hg)";
