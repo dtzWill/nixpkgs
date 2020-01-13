@@ -20834,6 +20834,7 @@ in
   talkatu = callPackage ../applications/networking/instant-messengers/pidgin/talkatu.nix { };
   # TODO: relocate to pkgs/development/libraries/gplugin
   gplugin = callPackage ../applications/networking/instant-messengers/pidgin/gplugin.nix { };
+  libgnt = callPackage ../applications/networking/instant-messengers/pidgin/libgnt.nix { };
 
   pidgin-latex = callPackage ../applications/networking/instant-messengers/pidgin-plugins/pidgin-latex {
     texLive = texlive.combined.scheme-basic;
