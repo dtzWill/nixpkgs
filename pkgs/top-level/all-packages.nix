@@ -20829,6 +20829,9 @@ in
     startupnotification = libstartup_notification;
     plugins = [];
   };
+  pidgin-3 = callPackage ../applications/networking/instant-messengers/pidgin/3.x.nix { };
+  # TODO: relocate to pkgs/development/libraries/talkatu
+  talkatu = callPackage ../applications/networking/instant-messengers/pidgin/talkatu.nix { };
 
   pidgin-latex = callPackage ../applications/networking/instant-messengers/pidgin-plugins/pidgin-latex {
     texLive = texlive.combined.scheme-basic;
