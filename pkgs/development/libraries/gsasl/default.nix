@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, libidn, kerberos }:
+{ fetchurl, stdenv, libidn, kerberos, libgcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "gsasl";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1lnqfbaajkj1r2fx1db1qgcxy69pfgbyq7xd2kpvyxhra4m1dnjd";
   };
 
-  buildInputs = [ libidn kerberos ];
+  buildInputs = [ libidn kerberos libgcrypt ];
 
   configureFlags = [ "--with-gssapi-impl=mit" ];
 
