@@ -58,11 +58,14 @@ stdenv.mkDerivation {
     "-Didn=enabled"
     "-Dcyrus-sasl=enabled"
 
+    # Disabled protocols
     "-Dmeanwhile=disabled"
     "-Dsilc=disabled"
     "-Dlibgadu=disabled"
-    "-Dunity-integration=disabled"
+    "-Dzephyr=disabled"
 
+    # Disabled integrations
+    "-Dunity-integration=disabled"
     "-Dkwallet=disabled"
   ];
   #meta = {
