@@ -1,11 +1,12 @@
 { stdenv, fetchhg,
-meson, ninja, pkgconfig,
+meson, ninja, pkgconfig, help2man,
 glib,
 gobject-introspection,
 gtk3,
-gtkspell3,
+gspell,
 gumbo,
-cmark
+cmark,
+xvfb_run
 }:
 
 stdenv.mkDerivation {
@@ -18,10 +19,10 @@ stdenv.mkDerivation {
     sha256 = "0rfcy7vj4bi08pfswmgidxzb5j0xwjhjzmffd448hdwlqp6ys8cb";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkgconfig help2man xvfb_run ];
   buildInputs = [
     glib gobject-introspection
-    gtk3 gtkspell3
+    gtk3 gspell
     gumbo
     cmark
   ];
