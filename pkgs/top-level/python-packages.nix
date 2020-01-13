@@ -6394,9 +6394,12 @@ in {
 
   python-doi = callPackage ../development/python-modules/python-doi { };
 
+  rxv     = callPackage ../development/python-modules/rxv     { };
+
   xandikos = disabledIf (!isPy3k) (toPythonModule (pkgs.xandikos.override {
     python3Packages = self;
   }));
+
 });
 
 in fix' (extends overrides packages)
