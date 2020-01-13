@@ -14,12 +14,6 @@ buildPythonPackage rec {
     sha256 = "1gzcx4n6q71plq4zvb1z0fy3brrln0qqrd6jc89iiqn7r1ix8h87";
   };
 
-  checkInputs = [ pytest pytestcov ];
-
-  checkPhase = ''
-    py.test -v test
-  '';
-
   # python setup.py test is broken, use pytest
   checkInputs = [ pytest ];
   checkPhase = ''
