@@ -15,7 +15,8 @@ libsecret,
 cyrus_sasl,
 nettle,
 talkatu,
-gplugin
+gplugin,
+libgnt
 }:
 
 stdenv.mkDerivation {
@@ -44,6 +45,7 @@ stdenv.mkDerivation {
 
     talkatu
     gplugin
+    libgnt
 
     # kwallet
   ];
