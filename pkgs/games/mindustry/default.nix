@@ -19,14 +19,14 @@ let
   # Note: when raising the version, ensure that all SNAPSHOT versions in
   # build.gradle are replaced by a fixed version
   # (the current one at the time of release) (see postPatch).
-  version = "99";
+  version = "102";
   buildVersion = makeBuildVersion version;
 
   src = fetchFromGitHub {
     owner = "Anuken";
     repo = "Mindustry";
     rev = "v${version}";
-    sha256 = "14zxmqfzn1va0im7846cfilhglzcbxd46nn9ilahkqi6lyl4c1fm";
+    sha256 = "0g4zy2zlynv6f427pq1ngnl0zpr6nnih10wd2l8vl9bxwzjygwdr";
   };
 
   desktopItem = makeDesktopItem {
@@ -39,7 +39,7 @@ let
 
   postPatch = ''
     # Remove unbuildable iOS stuff
-    sed -i '159,193d' build.gradle
+    sed -i '/^project(":ios"){/,/^}/d' build.gradle
     sed -i '/robo(vm|VM)/d' build.gradle
     rm ios/build.gradle
 
@@ -65,7 +65,7 @@ let
     '';
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "0drx1y35za07bm7xwsl9va9kbz87qa4i5w462lywzmc08aissv04";
+    outputHash = "1sscxrr32f2agwz34pm491xqkz7m4bwdc1p3g64kcnl3p6rg7r7k";
   };
 
 in stdenv.mkDerivation rec {
