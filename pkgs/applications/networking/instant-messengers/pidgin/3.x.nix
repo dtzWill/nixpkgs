@@ -28,9 +28,9 @@ stdenv.mkDerivation {
   };
 
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkgconfig gobject-introspection ];
   buildInputs = [
-    glib gobject-introspection
+    glib
     gtk3 libX11
     libxml2 json-glib libsoup
     libidn
