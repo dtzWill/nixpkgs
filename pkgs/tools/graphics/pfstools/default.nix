@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, cmake, pkgconfig, darwin
-, openexr, zlib, imagemagick, libGLU, libGL, freeglut, fftwFloat
-, fftw, gsl, libexif, perl, opencv, qt5, netpbm
+{ stdenv, fetchurl, cmake, pkgconfig
+, openexr, zlib, imagemagick, libGLU_combined, freeglut, fftwFloat
+, fftw, gsl, libexif, perl, opencv, qt5
 }:
 
 stdenv.mkDerivation rec {
@@ -21,13 +21,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [
-    openexr zlib imagemagick fftwFloat
-    fftw gsl libexif perl opencv qt5.qtbase netpbm
-  ] ++ (if stdenv.isDarwin then (with darwin.apple_sdk.frameworks; [
-    OpenGL GLUT
-  ]) else [
-    libGLU libGL freeglut
-  ]);
+    openexr zlib imagemagick libGLU_combined freeglut fftwFloat
+    fftw gsl libexif perl opencv qt5.qtbase
+  ];
 
   patches = [ ./threads.patch ./pfstools.patch ];
 

@@ -30,7 +30,7 @@
 , libXpm
 
 # For enableQT, enableXM, enableOpenGLX11, enableRaytracerX11.
-, libGLU, libGL
+, libGLU_combined
 , xlibsWrapper
 , libXmu
 }:
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
   nativeBuildInputs =  [ cmake ];
-  buildInputs = [ clhep expat zlib libGLU libGL xlibsWrapper libXmu ]
+  buildInputs = [ clhep expat zlib libGLU_combined xlibsWrapper libXmu ]
     ++ stdenv.lib.optionals enableGDML [ xercesc ]
     ++ stdenv.lib.optionals enableXM [ motif ]
     ++ stdenv.lib.optionals enableQT [ qtbase ]

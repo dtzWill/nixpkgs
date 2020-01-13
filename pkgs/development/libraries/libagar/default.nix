@@ -1,5 +1,5 @@
 { stdenv, fetchurl, pkgconfig, libtool, perl, bsdbuild, gettext, mandoc
-, libpng, libjpeg, xlibsWrapper, libXinerama, freetype, SDL, libGLU, libGL
+, libpng, libjpeg, xlibsWrapper, libXinerama, freetype, SDL, libGLU_combined
 , libsndfile, portaudio, libmysqlclient, fontconfig
 }:
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     "--enable-nls=yes"
     "--with-gettext=${gettext}"
     "--with-jpeg=${libjpeg.dev}"
-    "--with-gl=${libGL}"
+    "--with-gl=${libGLU_combined}"
     "--with-mysql=${libmysqlclient}"
     "--with-manpages=yes"
   ];
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig libtool gettext ];
 
   buildInputs = [
-    bsdbuild perl xlibsWrapper libXinerama SDL libGL libmysqlclient mandoc
+    bsdbuild perl xlibsWrapper libXinerama SDL libGLU_combined libmysqlclient mandoc
     freetype.dev libpng libjpeg.dev fontconfig portaudio libsndfile
   ];
 

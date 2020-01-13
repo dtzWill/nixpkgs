@@ -38,21 +38,10 @@
 , srtp
 , zbar
 , wayland-protocols
-, wildmidi
-, fluidsynth
-, libvdpau
-, wayland
-, libwebp
-, xvidcore
-, gnutls
-, mjpegtools
-, libGLU
-, libGL
-, libintl
-, libgme
-, openssl
-, x265
-, libxml2
+, wildmidi, fluidsynth, libvdpau, wayland
+, libwebp, xvidcore, gnutls, mjpegtools
+, libGLU_combined, libintl, libgme
+, openssl, x265, libxml2
 , srt
 }:
 
@@ -138,17 +127,9 @@ stdenv.mkDerivation rec {
     soundtouch
     spandsp
     srtp
-    fluidsynth
-    libvdpau
-    libwebp
-    xvidcore
-    gnutls
-    libGL
-    libGLU
-    libgme
-    openssl
-    x265
-    libxml2
+    fluidsynth libvdpau
+    libwebp xvidcore gnutls libGLU_combined
+    libgme openssl x265 libxml2
     libintl
     srt
   ]

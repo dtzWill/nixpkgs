@@ -1,5 +1,5 @@
 { stdenv, fetchzip, alsaLib, freetype, ftgl, libjack2, libX11, lv2
-, libGLU, libGL, pkgconfig, ttf_bitstream_vera
+, libGLU_combined, pkgconfig, ttf_bitstream_vera
 }:
 
 stdenv.mkDerivation  rec {
@@ -19,7 +19,7 @@ stdenv.mkDerivation  rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    alsaLib freetype ftgl libjack2 libX11 lv2 libGLU libGL
+    alsaLib freetype ftgl libjack2 libX11 lv2 libGLU_combined
     ttf_bitstream_vera
   ];
 

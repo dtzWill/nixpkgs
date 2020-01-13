@@ -1,10 +1,8 @@
 { stdenv, fetchurl, pkgconfig, addOpenGLRunpath, perl, texinfo, yasm
 , alsaLib, bzip2, fontconfig, freetype, gnutls, libiconv, lame, libass, libogg
 , libssh, libtheora, libva, libdrm, libvorbis, libvpx, lzma, libpulseaudio, soxr
-, x264, x265, xvidcore, zlib, libopus, speex, nv-codec-headers, dav1d
-, openglSupport ? false, libGLU ? null, libGL ? null
-, libmfxSupport ? false, intel-media-sdk ? null
-, libaomSupport ? false, libaom ? null
+, x264, x265, xvidcore, zlib, libopus, speex, nv-codec-headers
+, openglSupport ? false, libGLU_combined ? null
 # Build options
 , runtimeCpuDetectBuild ? true # Detect CPU capabilities at runtime
 , multithreadBuild ? true # Multithreading via pthreads/win32 threads
@@ -63,9 +61,7 @@ let
   vpxSupport = reqMin "0.6" && !isAarch32;
 in
 
-assert openglSupport -> libGL != null && libGLU != null;
-assert libmfxSupport -> intel-media-sdk != null;
-assert libaomSupport -> libaom != null;
+assert openglSupport -> libGLU_combined != null;
 
 stdenv.mkDerivation rec {
 
@@ -166,9 +162,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     bzip2 fontconfig freetype gnutls libiconv lame libass libogg libssh libtheora
     libvdpau libvorbis lzma soxr x264 x265 xvidcore zlib libopus speex nv-codec-headers
-  ] ++ optionals openglSupport [ libGL libGLU ]
-    ++ optional libmfxSupport intel-media-sdk
-    ++ optional vpxSupport libaom
+  ] ++ optional openglSupport libGLU_combined
     ++ optional vpxSupport libvpx
     ++ optionals (!isDarwin && !isAarch32) [ libpulseaudio ] # Need to be fixed on Darwin and ARM
     ++ optional ((isLinux || isFreeBSD) && !isAarch32) libva

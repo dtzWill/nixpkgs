@@ -4,7 +4,7 @@
 , fetchFromGitHub
 , ffmpeg
 , gettext
-, libGLU, libGL
+, libGLU_combined
 , openal
 , pkgconfig
 , SDL2
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     cairo
     ffmpeg
     gettext
-    libGLU libGL
+    libGLU_combined
     openal
     SDL2
     sfml

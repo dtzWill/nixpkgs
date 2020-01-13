@@ -1,7 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, libGLU, libGL
+, libGLU_combined
 , xorg
 }:
 
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
-    libGLU libGL
+    libGLU_combined
     xorg.libX11
   ];
 
