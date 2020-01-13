@@ -72,6 +72,7 @@ stdenv.mkDerivation {
     # Disabled integrations
     "-Dunity-integration=disabled"
     "-Dkwallet=disabled"
+    "-Dgevolution=disabled"
   ];
   #meta = {
   #  description = "Pidgin 3.x (hg)";
