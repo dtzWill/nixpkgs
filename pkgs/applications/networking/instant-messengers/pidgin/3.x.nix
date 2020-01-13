@@ -1,4 +1,4 @@
-{ stdenv, fetchhg,
+{ stdenv, fetchFromBitbucket,
 meson, ninja, pkgconfig,
 glib,
 gobject-introspection,
@@ -23,8 +23,9 @@ stdenv.mkDerivation {
   pname = "pidgin";
   version = "unstable-2019-12-30";
 
-  src = fetchhg {
-    url = "https://bitbucket.org/pidgin/main";
+  src = fetchFromBitbucket {
+    owner = "pidgin";
+    repo = "main";
     rev = "8066acc5ed93";
     sha256 = "0jwfrazdhva0v7pgfjfhry2rk4h2s81nbnkm3fh3202sq0vvjd02";
   };
