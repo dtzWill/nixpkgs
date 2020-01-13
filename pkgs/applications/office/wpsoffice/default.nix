@@ -5,13 +5,13 @@
 , gdk-pixbuf, gtk2-x11, lzma, pango, zotero
 , sqlite, libuuid, qt5, dpkg }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "wpsoffice";
-  version = "11.1.0.8865";
+  version = "11.1.0.9080";
 
   src = fetchurl {
-    url = "https://wdl1.cache.wps.cn/wps/download/ep/Linux2019/8865/wps-office_11.1.0.8865_amd64.deb";
-    sha256 = "0pxx3j02cm8d08iakg30azjvl3a50y4avyrf08ddgaavqnvkypfj";
+    url = "http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${builtins.elemAt (stdenv.lib.splitVersion version) 3}/wps-office_${version}.XA_amd64.deb";
+    sha256 = "0pxx3j02cm8d08iakg30azjvl3a51y4avyrf08ddgaavqnvkypfj";
   };
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";
