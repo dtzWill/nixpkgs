@@ -282,6 +282,7 @@ in
   wireguard-generated = handleTest ./wireguard/generated.nix {};
   wireguard-namespaces = handleTest ./wireguard/namespaces.nix {};
   wordpress = handleTest ./wordpress.nix {};
+  xandikos = handleTest ./xandikos.nix {};
   xautolock = handleTest ./xautolock.nix {};
   xdg-desktop-portal = handleTest ./xdg-desktop-portal.nix {};
   xfce = handleTest ./xfce.nix {};
