@@ -85,9 +85,6 @@ stdenv.mkDerivation rec {
   noAuditTmpdir = true;
 
   installPhase = ''
-    mkdir -p $out
-    mv usr/{share,bin} $out/
-    mv opt $out/opt
     prefix=$out/opt/kingsoft/wps-office
     mkdir -p $out
     cp -r opt $out
