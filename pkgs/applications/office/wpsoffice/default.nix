@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${builtins.elemAt (stdenv.lib.splitVersion version) 3}/wps-office_${version}.XA_amd64.deb";
-    sha256 = "0pxx3j02cm8d08iakg30azjvl3a51y4avyrf08ddgaavqnvkypfj";
+    sha256 = "0m1l6chsha5f93a0kkxff3sv8lilhqykgcb6mmcfbx1flapfjc8p";
   };
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";
