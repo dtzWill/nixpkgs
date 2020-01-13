@@ -1,5 +1,11 @@
-{ stdenv, fetchFromBitbucket, meson, ninja, pkgconfig, glib }:
+{ stdenv, fetchFromBitbucket, meson, ninja, pkgconfig, help2man,
+glib, gobject-introspection, gtk3,
+lua
+}:
 
+let
+  luaWrapped = lua.withPackages(p: [ p.lgi ]);
+in
 stdenv.mkDerivation rec {
   pname = "gplugin";
   version = "0.29.0";
@@ -8,9 +14,9 @@ stdenv.mkDerivation rec {
     owner = "gplugin";
     repo = "gplugin";
     rev = "v${version}";
-    sha256 = "1111111111111111111111111111111111111111111111111111";
+    sha256 = "0z1ra80w50nnxk1pninmhh46s0rrzcmbrx0d9l3inr136cn7a9nv";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
-  buildInputs = [ glib ];
+  nativeBuildInputs = [ meson ninja pkgconfig help2man ];
+  buildInputs = [ glib gobject-introspection gtk3 luaWrapped ];
 }
