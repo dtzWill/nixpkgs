@@ -6,7 +6,7 @@ gtk3,
 gspell,
 gumbo,
 cmark,
-xvfb_run
+xvfb_run,
 }:
 
 stdenv.mkDerivation {
@@ -26,4 +26,6 @@ stdenv.mkDerivation {
     gumbo
     cmark
   ];
+
+  mesonFlags = [ "-Ddoc=false" ];
 }
