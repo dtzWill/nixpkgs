@@ -13,6 +13,7 @@ farstream,
 avahi,
 libsecret,
 cyrus_sasl,
+nettle,
 talkatu,
 gplugin
 }:
@@ -39,6 +40,7 @@ stdenv.mkDerivation {
     avahi
     libsecret
     cyrus_sasl
+    nettle
 
     talkatu
     gplugin
