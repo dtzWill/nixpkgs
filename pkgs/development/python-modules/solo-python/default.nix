@@ -3,14 +3,14 @@
 
  buildPythonPackage rec {
   pname = "solo-python";
-  version = "0.0.15";
+  version = "0.0.21";
   format = "flit";
 
   src = fetchFromGitHub {
     owner = "solokeys";
     repo = pname;
     rev = version;
-    sha256 = "14na9s65hxzx141bdv0j7rx1wi3cv85jzpdivsq1rwp6hdhiazr1";
+    sha256 = "07r451dp3ma1mh735b2kjv86a4jkjhmag70cjqf73z7b61dmzl1q";
   };
 
   # TODO: remove ASAP
