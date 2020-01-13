@@ -16,7 +16,8 @@ cyrus_sasl,
 nettle,
 talkatu,
 gplugin,
-libgnt
+libgnt,
+ncurses # should this be propagated by libgnt or does pidgin use itself?
 }:
 
 stdenv.mkDerivation {
@@ -47,6 +48,7 @@ stdenv.mkDerivation {
     talkatu
     gplugin
     libgnt
+    ncurses
 
     # kwallet
   ];
