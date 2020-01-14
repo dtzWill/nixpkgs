@@ -1,4 +1,4 @@
-From 3bcaf9cf4828573432d3acfec49c65f33210829d Mon Sep 17 00:00:00 2001
+From 81fcef70159f58d6f71cba6b1417fc63e66a2474 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Fri, 26 Jul 2019 11:22:20 -0500
 Subject: [PATCH] allow env vars to customize min rank and scaling factor
@@ -8,19 +8,19 @@ Subject: [PATCH] allow env vars to customize min rank and scaling factor
  1 file changed, 18 insertions(+), 2 deletions(-)
 
 diff --git a/z.lua b/z.lua
-index 5512b4a..c75bd2b 100755
+index 106c6f9..c16768b 100755
 --- a/z.lua
 +++ b/z.lua
-@@ -120,6 +120,8 @@ Z_CMD = 'z'
+@@ -122,6 +122,8 @@ Z_CMD = 'z'
  Z_MATCHMODE = 0
  Z_MATCHNAME = false
  Z_SKIPPWD = false
 +Z_SCALE = 0.9
 +Z_MIN = 0.001 -- don't forget paths so easily
+ Z_HYPHEN = false
  
  os.LOG_NAME = os.getenv('_ZL_LOG_NAME')
- 
-@@ -1150,8 +1152,8 @@ function data_insert(M, filename)
+@@ -1156,8 +1158,8 @@ function data_insert(M, filename)
  		local X = {}
  		for i = 1, #M do
  			local item = M[i]
@@ -31,16 +31,16 @@ index 5512b4a..c75bd2b 100755
  				table.insert(X, item)
  			end
  		end
-@@ -1872,6 +1874,8 @@ function z_init()
+@@ -1873,6 +1875,8 @@ function z_init()
  	local _zl_matchname = os.getenv('_ZL_MATCH_NAME')
  	local _zl_skippwd = os.getenv('_ZL_SKIP_PWD')
  	local _zl_matchmode = os.getenv('_ZL_MATCH_MODE')
 +	local _zl_min = os.getenv('_ZL_MIN')
 +	local _zl_scale = os.getenv('_ZL_SCALE')
+ 	local _zl_hyphen = os.getenv('_ZL_HYPHEN')
  	if _zl_data ~= nil and _zl_data ~= "" then
  		if windows then
- 			DATA_FILE = _zl_data
-@@ -1888,6 +1892,18 @@ function z_init()
+@@ -1890,6 +1894,18 @@ function z_init()
  			MAX_AGE = _zl_maxage
  		end
  	end
@@ -60,5 +60,5 @@ index 5512b4a..c75bd2b 100755
  		local part = _zl_exclude:split(',')
  		local insensitive = path_case_insensitive()
 -- 
-2.22.0
+2.25.0
 
