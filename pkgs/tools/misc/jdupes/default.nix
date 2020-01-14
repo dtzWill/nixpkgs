@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "jdupes-${version}";
+  pname = "jdupes";
   version = "1.14.0";
 
   src = fetchFromGitHub {
@@ -15,7 +15,12 @@ stdenv.mkDerivation rec {
     extraPostFetch = "rm -r $out/testdir";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "STATIC_DEDUPE_H=1" ] ++ stdenv.lib.optional stdenv.isLinux "ENABLE_BTRFS=1";
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+  ] ++ stdenv.lib.optionals stdenv.isLinux [
+    "ENABLE_DEDUPE=1"
+    "STATIC_DEDUPE_H=1"
+  ];
 
   enableParallelBuilding = true;
 
@@ -32,7 +37,7 @@ stdenv.mkDerivation rec {
       duplicate files. This fork known as 'jdupes' is heavily modified
       from and improved over the original.
     '';
-    homepage = https://github.com/jbruchon/jdupes;
+    homepage = "https://github.com/jbruchon/jdupes";
     license = licenses.mit;
     maintainers = with maintainers; [ romildo ];
     platforms = platforms.all;
