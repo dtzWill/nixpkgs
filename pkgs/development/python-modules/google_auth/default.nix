@@ -1,22 +1,17 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchpatch, fetchPypi
 , pytest, mock, oauth2client, flask, requests, setuptools, urllib3, pytest-localserver, six, pyasn1-modules, cachetools, rsa, freezegun }:
 
 buildPythonPackage rec {
   pname = "google-auth";
-  version = "1.10.2";
+  version = "1.10.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1zf0cvby63w7qrdmpy4390a46vj05ayp215figl59bsqdz2q1whh";
+    sha256 = "1xs8ch6bz57vs6j0p8061c7wj9ahkvrfpf1y9v7r009979507ckv";
   };
 
   checkInputs = [ pytest mock oauth2client flask requests urllib3 pytest-localserver freezegun ];
   propagatedBuildInputs = [ six pyasn1-modules cachetools rsa setuptools ];
-
-  # The removed test tests the working together of google_auth and google's https://pypi.python.org/pypi/oauth2client
-  # but the latter is deprecated. Since it is not currently part of the nixpkgs collection and deprecated it will
-  # probably never be. We just remove the test to make the tests work again.
-  postPatch = ''rm tests/test__oauth2client.py'';
 
   checkPhase = ''
     py.test
