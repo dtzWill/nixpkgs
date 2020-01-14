@@ -25793,5 +25793,5 @@ in
   scientifica = callPackage ../data/fonts/scientifica { };
   curie = callPackage ../data/fonts/curie { };
 
-  nota = haskellPackages.callPackage ../applications/misc/nota { };
+  nota = haskellPackages.callPackage ../applications/science/math/nota { };
 }
