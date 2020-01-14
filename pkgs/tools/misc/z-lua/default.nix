@@ -4,19 +4,17 @@ let
   lualfs = lua.withPackages (p: with p; [ luafilesystem ]);
 in stdenv.mkDerivation rec {
   pname = "z-lua";
-  version = "1.7.3";
+  version = "1.7.4";
 
   src = fetchFromGitHub {
     owner = "skywind3000";
     repo = "z.lua";
     rev = "v${version}";
-    sha256 = "13cfdghkprkaxgrbwsjndbza2mjxm2x774lnq7q4gfyc48mzwi70";
+    sha256 = "0cn38sadcn65pgw6dgr59bnx9hf97011hydmpmfi3kzdqjmarwci";
   };
 
   # May not be desirable for everyone
   patches = [
-    ./0001-escape-patterns-fix-hyphen-behavior-but-lose-lua-reg.patch
-    ./0002-escape-just-hyphens-as-quickfix-compromise.patch
     ./0001-allow-env-vars-to-customize-min-rank-and-scaling-fac.patch
   ];
 

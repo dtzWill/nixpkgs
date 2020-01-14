@@ -25,7 +25,7 @@
 , libXt
 , libnotify
 , gnome3
-, libGLU_combined
+, libGLU, libGL
 , nspr
 , nss
 , pango
@@ -33,12 +33,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name    = "zotero-${version}";
-  version = "5.0.73";
+  pname = "zotero";
+  version = "5.0.80";
 
   src = fetchurl {
     url = "https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2";
-    sha256 = "0m2i3l0gy22h6c7rk39cd17vyksyz5l5py2fn9pza8lcbypkwf3l";
+    sha256 = "0a5xjliml6rwxvi450l42iw6m9mk3aahnp90sr22jyijz9qii2al";
   };
 
   buildInputs= [ wrapGAppsHook gsettings-desktop-schemas gtk3 gnome3.adwaita-icon-theme gnome3.dconf ];
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       libXrender
       libXt
       libnotify
-      libGLU_combined
+      libGLU libGL
       nspr
       nss
       pango

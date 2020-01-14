@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, openssl, zlib, asciidoc, libxml2, libxslt
+{ stdenv, fetchurl, openssl, zlib, asciidoc, libxml2, libxslt
 , docbook_xsl, pkgconfig, luajit
 , coreutils, gnused, groff, docutils
 , gzip, bzip2, xz
@@ -6,29 +6,21 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "cgit-${version}";
-  version = "1.2.1";
+  pname = "cgit";
+  version = "1.2.2";
 
   src = fetchurl {
-    url = "https://git.zx2c4.com/cgit/snapshot/${name}.tar.xz";
-    sha256 = "1gw2j5xc5qdx2hwiwkr8h6kgya7v9d9ff9j32ga1dys0cca7qm1w";
+    url = "https://git.zx2c4.com/cgit/snapshot/${pname}-${version}.tar.xz";
+    sha256 = "0dmjsisigjz5k4gw7gm55qhm3wazzbm4cg7a5dwf0gqg9nacx5rz";
   };
 
   # cgit is tightly coupled with git and needs a git source tree to build.
   # IMPORTANT: Remember to check which git version cgit needs on every version
   # bump (look for "GIT_VER" in the top-level Makefile).
   gitSrc = fetchurl {
-    url    = "mirror://kernel/software/scm/git/git-2.18.0.tar.xz";
-    sha256 = "14hfwfkrci829a9316hnvkglnqqw1p03cw9k56p4fcb078wbwh4b";
+    url    = "mirror://kernel/software/scm/git/git-2.25.0.tar.xz";
+    sha256 = "1l58v42aazj0x9276gk8r9mwyl9pgp9w99aakz4xfhzv7wd2jq60";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "prevent-dos-limit-path-length.patch";
-      url = "https://git.zx2c4.com/cgit/patch/?id=54c407a74a35d4ee9ffae94cc5bc9096c9f7f54a";
-      sha256 = "1qlbpqsc293lmc9hzwf1j4jr5qlv8cm1r249v3yij5s4wki1595j";
-    })
-  ];
 
   nativeBuildInputs = [ pkgconfig ] ++ [ python wrapPython ];
   buildInputs = [

@@ -1,26 +1,32 @@
-{ stdenv, rustPlatform, fetchFromGitHub, coreutils }:
+{ stdenv, rustPlatform, fetchFromGitHub, coreutils, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
-  version = "0.11.2";
+  version = "0.11.8";
 
   src = fetchFromGitHub {
     owner = "Canop";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0ms9wdh3ryy8q1rpm8r2hqikanbwx7h9vqjkc70b11j6p8iicmmr";
+    sha256 = "1pbjlfwv4s50s731ryrcc54200g2i04acdxrxk4kpcvi6b19kbky";
   };
 
-  cargoSha256 = "0w62sxdl2w1wc0fjxszpifw9jxl35nz5nsmfr6pd0lvbgm3c7vba";
+  cargoSha256 = "1fzjr4hkpakvn69znylkfnl3ghgnnn0jpybbr9x013hz0xm07qi9";
+  verifyCargoDeps = true;
 
-  # Fix invocations expecting /bin/* to exist
-  # not very pretty when expanded but at least they work :)
+  nativeBuildInputs = [ installShellFiles ];
+
+  postInstall = ''
+    # install shell completion files
+    OUT_DIR=target/release/build/broot-*/out
+
+    installShellCompletion --bash $OUT_DIR/{br,broot}.bash
+    installShellCompletion --fish $OUT_DIR/{br,broot}.fish
+    installShellCompletion --zsh $OUT_DIR/{_br,_broot}
+  '';
+
   postPatch = ''
-    substituteInPlace src/verb_store.rs \
-      --replace /bin/cp ${coreutils}/bin/cp \
-      --replace /bin/mkdir ${coreutils}/bin/mkdir \
-      --replace /bin/mv ${coreutils}/bin/mv \
-      --replace /bin/rm ${coreutils}/bin/rm
+    substituteInPlace src/verb_store.rs --replace '"/bin/' '"${coreutils}/bin/'
   '';
 
   meta = with stdenv.lib; {

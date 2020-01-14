@@ -1,15 +1,14 @@
 { stdenv, fetchFromGitHub, lib
 , intltool, glib, pkgconfig, polkit, python, sqlite
 , gobject-introspection, vala, gtk-doc, autoreconfHook, autoconf-archive
-# TODO: set enableNixBackend to true, as soon as it builds
-, nix, enableNixBackend ? false, boost
+, nix, enableNixBackend ? true, boost
 , enableCommandNotFound ? false
 , enableBashCompletion ? false, bash-completion ? null
 , enableSystemd ? stdenv.isLinux, systemd }:
 
 stdenv.mkDerivation rec {
-  name = "packagekit-${version}";
-  version = "1.1.12";
+  pname = "packagekit";
+  version = "1.1.13";
 
   outputs = [ "out" "dev" ];
 
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "hughsie";
     repo = "PackageKit";
     rev = "PACKAGEKIT_${lib.replaceStrings ["."] ["_"] version}";
-    sha256 = "02wq3jw3mkdld90irh5vdfd5bri2g1p89mhrmj56kvif1fqak46x";
+    sha256 = "0xmgac27p5z8wr56yw3cqhywnlvaf8kvyv1g0nzxnq167xj5vxam";
   };
 
   buildInputs = [ glib polkit python gobject-introspection ]
@@ -39,8 +38,9 @@ stdenv.mkDerivation rec {
     "--disable-offline-update"
     "--localstatedir=/var"
     "--sysconfdir=/etc"
-    "--with-dbus-sys=$(out)/etc/dbus-1/system.d"
-    "--with-systemdsystemunitdir=$(out)/lib/systemd/system/"
+    "--with-dbus-sys=${placeholder "out"}/etc/dbus-1/system.d"
+    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
   ]
   ++ lib.optional enableNixBackend "--enable-nix"
   ++ lib.optional (!enableBashCompletion) "--disable-bash-completion"
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   installFlags = [
-    "sysconfdir=\${out}/etc"
+    "sysconfdir=${placeholder "out"}/etc"
     "localstatedir=\${TMPDIR}"
   ];
 
