@@ -15,8 +15,6 @@ in stdenv.mkDerivation rec {
 
   # May not be desirable for everyone
   patches = [
-    ./0001-escape-patterns-fix-hyphen-behavior-but-lose-lua-reg.patch
-    ./0002-escape-just-hyphens-as-quickfix-compromise.patch
     ./0001-allow-env-vars-to-customize-min-rank-and-scaling-fac.patch
   ];
 
