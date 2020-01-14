@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, openssl, zlib, asciidoc, libxml2, libxslt
+{ stdenv, fetchurl, openssl, zlib, asciidoc, libxml2, libxslt
 , docbook_xsl, pkgconfig, luajit
 , coreutils, gnused, groff, docutils
 , gzip, bzip2, xz
@@ -21,14 +21,6 @@ stdenv.mkDerivation rec {
     url    = "mirror://kernel/software/scm/git/git-2.25.0.tar.xz";
     sha256 = "1l58v42aazj0x9276gk8r9mwyl9pgp9w99aakz4xfhzv7wd2jq60";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "prevent-dos-limit-path-length.patch";
-      url = "https://git.zx2c4.com/cgit/patch/?id=54c407a74a35d4ee9ffae94cc5bc9096c9f7f54a";
-      sha256 = "1qlbpqsc293lmc9hzwf1j4jr5qlv8cm1r249v3yij5s4wki1595j";
-    })
-  ];
 
   nativeBuildInputs = [ pkgconfig ] ++ [ python wrapPython ];
   buildInputs = [
