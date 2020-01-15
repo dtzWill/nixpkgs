@@ -25,13 +25,7 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
-
-  #postPatch = ''
-  #  find . -name "*.qml" -exec sed -i 's@darker([^)]*, 1.1@\0 + 0.9@' '{}' +
-  #'';
-    #grep -r darker
-    #exit 1
+  patches = [ ./hsluv.patch /* TODO: fetch, this includes hsluv source entirely O:) */ ];
 
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
   buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]

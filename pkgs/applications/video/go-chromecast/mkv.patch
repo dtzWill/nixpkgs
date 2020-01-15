@@ -1,4 +1,4 @@
-From bb4d37b92777002d8aa9c198a47ae448f2a0d836 Mon Sep 17 00:00:00 2001
+From 032a06f6c86b73bc5d25234e4b9748eae84ecb09 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Tue, 22 Oct 2019 02:59:32 -0500
 Subject: [PATCH] mkv
@@ -8,18 +8,18 @@ Subject: [PATCH] mkv
  1 file changed, 2 insertions(+)
 
 diff --git a/application/application.go b/application/application.go
-index 87649c4..c9a91a5 100644
+index 1dcf0d7..f3b53f0 100644
 --- a/application/application.go
 +++ b/application/application.go
-@@ -477,6 +477,8 @@ func (a *Application) possibleContentType(filename string) (string, error) {
+@@ -500,6 +500,8 @@ func (a *Application) possibleContentType(filename string) (string, error) {
  		return "audio/mp3", nil
  	case ".flac":
  		return "audio/flac", nil
 +	case ".mkv":
 +		return "video/x-matroska", nil
- 	default:
- 		return "", fmt.Errorf("unknown file extension %q", ext)
- 	}
+ 	case ".wav":
+ 		return "audio/wav", nil
+ 	case ".m3u8":
 -- 
-2.24.0-rc0
+2.25.0
 

@@ -4,7 +4,7 @@
 , pcre, libdbusmenu-gtk3, libappindicator-gtk3
 , libvncserver, libpthreadstubs, libXdmcp, libxkbcommon
 , libsecret, libsoup, spice-protocol, spice-gtk, epoxy, at-spi2-core
-, openssl, gsettings-desktop-schemas, json-glib
+, openssl, gsettings-desktop-schemas, json-glib, libsodium, webkitgtk, harfbuzz
 # The themes here are soft dependencies; only icons are missing without them.
 , gnome3
 }:
@@ -13,13 +13,13 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "remmina";
-  version = "1.3.6";
+  version = "1.3.10";
 
   src = fetchFromGitLab {
     owner  = "Remmina";
     repo   = "Remmina";
     rev    = "v${version}";
-    sha256 = "1fihvaqvmr3m7bbarzkqsd5nql64gqm15j0n5ny5cvy4c01v6777";
+    sha256 = "0gc7b88129avl9sbax3ncvm7zf2qvq35ixvvpr2zj74g3qnphl08";
   };
 
   nativeBuildInputs = [ cmake ninja pkgconfig wrapGAppsHook ];
@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     pcre libdbusmenu-gtk3 libappindicator-gtk3
     libvncserver libpthreadstubs libXdmcp libxkbcommon
     libsecret libsoup spice-protocol spice-gtk epoxy at-spi2-core
-    openssl gnome3.adwaita-icon-theme json-glib
+    openssl gnome3.adwaita-icon-theme json-glib libsodium webkitgtk
+    harfbuzz
   ];
 
   cmakeFlags = [

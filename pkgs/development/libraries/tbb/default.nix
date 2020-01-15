@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, compiler ? if stdenv.cc.isClang then "clang" else null, stdver ? null }:
 
 with stdenv.lib; stdenv.mkDerivation rec {
-  name = "tbb-${version}";
-  version = "2019_U8";
+  pname = "tbb";
+  version = "2020.0";
 
   src = fetchFromGitHub {
     owner = "01org";
     repo = "tbb";
-    rev = version;
-    sha256 = "0z0kh1a5g28gckcxlv3x7qqskh5fsl8knf2ypbbvk7z9ln9k3wfq";
+    rev = "v${version}";
+    sha256 = "11prl038dh8gprvn5f5p16af2rgh4lr3bfyyvavgfl3jdvsj2mqh";
   };
 
   makeFlags = concatStringsSep " " (
