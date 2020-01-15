@@ -11,7 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "1rxmc9chk90szypwg3cz1n5a1bqazc0vwip2sk20y71w049ckiqs";
   };
 
-  patches = [ ./udev-dir.patch ] ;
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace 'UDEVRULES_INSTALL_DIR "/lib/udev/rules.d"' \
+                 'UDEVRULES_INSTALL_DIR "''${CMAKE_INSTALL_PREFIX}/lib/udev/rules.d"'
+  '';
 
   buildInputs = [ curl cmake cfitsio libusb zlib boost
                             libnova libjpeg gsl ];
