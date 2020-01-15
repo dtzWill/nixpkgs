@@ -15,6 +15,7 @@ in stdenvNoCC.mkDerivation rec {
 
   postPatch = ''
     patchShebangs .
+    substituteInPlace build.sh --replace "sudo" ""
   '';
 
   nativeBuildInputs  = [
