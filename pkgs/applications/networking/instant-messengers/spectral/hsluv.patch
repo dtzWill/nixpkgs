@@ -567,10 +567,10 @@ index 0000000..4126c35
 +
 +#endif  /* HSLUV_H */
 diff --git a/src/spectraluser.cpp b/src/spectraluser.cpp
-index 613aebf..640322b 100644
+index 613aebf..9a109ea 100644
 --- a/src/spectraluser.cpp
 +++ b/src/spectraluser.cpp
-@@ -1,5 +1,13 @@
+@@ -1,5 +1,12 @@
  #include "spectraluser.h"
 +#include "hsluv.h"
 +
@@ -581,7 +581,6 @@ index 613aebf..640322b 100644
 +  double pr, pg, pb;
 +  hsluv::hsluv2rgb(hueF() * 360.0, 100.0, 30.0, &pr, &pg, &pb);
 +
-+  printf("%g %g %g\n", pr, pg, pb);
-+  printf("%g\n", hueF());
-+  return QColor::fromRgbF(pr, pg, pb);
++  printf("r: %g g: %g b: %g, hueF: %g, hueF * 360.0: %g\n", pr, pg, pb, hueF(), hueF() * 360.0);
++  return QColor::fromRgbF(qreal(pr), qreal(pg), qreal(pb));
  }

@@ -27,6 +27,8 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./hsluv.patch /* TODO: fetch, this includes hsluv source entirely O:) */ ];
 
+  CXXFLAGS = [ "-O2" "-fsanitize=undefined" "-Wall" "-Wextra" ];
+
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
   buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
