@@ -85,13 +85,13 @@ let
         sha1 = "b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8";
       };
     };
-    "aws4-1.9.0" = {
+    "aws4-1.9.1" = {
       name = "aws4";
       packageName = "aws4";
-      version = "1.9.0";
+      version = "1.9.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws4/-/aws4-1.9.0.tgz";
-        sha512 = "Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==";
+        url = "https://registry.npmjs.org/aws4/-/aws4-1.9.1.tgz";
+        sha512 = "wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -1276,7 +1276,7 @@ in
       sources."assert-plus-1.0.0"
       sources."asynckit-0.4.0"
       sources."aws-sign2-0.7.0"
-      sources."aws4-1.9.0"
+      sources."aws4-1.9.1"
       sources."balanced-match-1.0.0"
       sources."base64-js-1.3.1"
       sources."bcrypt-pbkdf-1.0.2"
