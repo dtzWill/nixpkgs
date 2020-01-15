@@ -19545,7 +19545,7 @@ in
 
   spectrwm = callPackage ../applications/window-managers/spectrwm { };
 
-  spectral = qt5.callPackage ../applications/networking/instant-messengers/spectral { stdenv = clangStdenv; };
+  spectral = qt5.callPackage ../applications/networking/instant-messengers/spectral { };
 
   spotifyd = callPackage ../applications/audio/spotifyd {
     withALSA = stdenv.isLinux;
