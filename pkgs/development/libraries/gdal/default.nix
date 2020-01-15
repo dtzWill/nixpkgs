@@ -9,13 +9,13 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   name = "gdal-${version}";
-  version = "3.0.1";
+  version = "3.0.3";
 
   src = fetchFromGitHub {
     owner = "OSGeo";
     repo = "gdal";
     rev = "v${version}";
-    sha256 = "04rraqhygv8b8fy87qvdhkgx87whby9n98p3gxqr7kdrfymwnh8l";
+    sha256 = "1rbyxmgmp27a5wvm4g70jr79bazhdl8q9rcch2b78m73njdv73xa";
   };
 
   sourceRoot = "source/gdal";
