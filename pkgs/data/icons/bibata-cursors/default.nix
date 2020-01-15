@@ -1,6 +1,8 @@
-{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen }:
+{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen, python3 }:
 
-stdenvNoCC.mkDerivation rec {
+let
+  py = python3.withPackages(ps: [ ps.pillow ]);
+in stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors";
   version = "0.4.2";
 
@@ -13,13 +15,13 @@ stdenvNoCC.mkDerivation rec {
 
   postPatch = ''
     patchShebangs .
-    substituteInPlace build.sh --replace "gksu " ""
   '';
 
   nativeBuildInputs  = [
     gnome-themes-extra
     inkscape
     xcursorgen
+    py
   ];
 
   buildPhase = ''
