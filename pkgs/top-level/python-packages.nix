@@ -3119,7 +3119,7 @@ in {
 
   filelock = callPackage ../development/python-modules/filelock {};
 
-  fiona = callPackage ../development/python-modules/fiona { gdal_2 = pkgs.gdal_2; };
+  fiona = callPackage ../development/python-modules/fiona { inherit (pkgs) gdal; };
 
   fitbit = callPackage ../development/python-modules/fitbit { };
 
