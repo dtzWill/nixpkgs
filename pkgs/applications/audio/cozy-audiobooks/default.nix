@@ -64,8 +64,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   postPatch = ''
-    chmod +x data/meson_post_install.py
-    patchShebangs data/meson_post_install.py
+    chmod +x meson/post_install.py
+    patchShebangs meson/post_install.py
     substituteInPlace cozy/magic/magic.py --replace "ctypes.util.find_library('magic')" "'${file}/lib/libmagic${stdenv.hostPlatform.extensions.sharedLibrary}'"
   '';
 
