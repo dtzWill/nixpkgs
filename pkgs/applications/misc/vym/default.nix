@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchurl, fetchgit, pkgconfig, qmake, qtdeclarative, qtscript, qtsvg, dbus }:
+{ lib, mkDerivation, fetchurl, fetchgit,
+pkgconfig, qmake,
+qtdeclarative, qtscript, qtsvg,
+dbus,
+# runtime dep
+zip, unzip
+# (on windows vym expects 7z instead)
+}:
 
 mkDerivation rec {
   pname = "vym";
@@ -31,6 +38,13 @@ mkDerivation rec {
         --replace /usr/local/share/vym $out/share/vym \
         --replace /usr/share/doc $out/share/doc/vym
     done
+
+    # bake in paths to zip/unzip to ensure they're avail
+    substituteInPlace file.cpp \
+      --replace '->start ("zip"' \
+                '->start ("${zip}/bin/zip"' \
+      --replace '->start ("unzip"' \
+                '->start ("${unzip}/bin/unzip"'
   '';
 
   hardeningDisable = [ "format" ];
