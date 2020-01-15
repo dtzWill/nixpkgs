@@ -41,11 +41,10 @@ stdenv.mkDerivation rec {
 
   doCheck = stdenv.targetPlatform == stdenv.hostPlatform
   && ! stdenv.isAarch64 # random seg. faults
-  && ! stdenv.isDarwin; # dy lib not found
+  && ! stdenv.isDarwin # dy lib not found
+  && false; /* TODO: fix attempt to fetch font files via curl */
 
   enableParallelBuilding = true;
-
-  checkTarget = "documentation examples";
 
   postInstall = ''
     install -D -t $out/share/doc/sile documentation/sile.pdf
