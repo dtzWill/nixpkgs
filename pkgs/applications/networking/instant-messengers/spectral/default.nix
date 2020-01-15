@@ -27,6 +27,12 @@ in stdenv.mkDerivation rec {
 
   #qmakeFlags = [ "CONFIG+=qtquickcompiler" "BUNDLE_FONT=true" ];
 
+  postPatch = ''
+    substituteInPlace src/spectraluser.cpp \
+      --replace ', 0.7, 0.5, 1)' \
+                ', 1, 0.25, 0.8)'
+  '';
+
   #postPatch = ''
   #  find . -name "*.qml" -exec sed -i 's@darker([^)]*, 1.1@\0 + 0.9@' '{}' +
   #'';
