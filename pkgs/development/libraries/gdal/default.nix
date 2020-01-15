@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, unzip, libjpeg, libtiff, zlib
+{ stdenv, fetchFromGitHub, unzip, libjpeg, libtiff, zlib
 , postgresql, libmysqlclient, libgeotiff, pythonPackages, proj, geos, openssl
 , libpng, sqlite, libspatialite, poppler, hdf4, qhull, giflib, expat
 , libiconv, libxml2, autoreconfHook
@@ -8,7 +8,7 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "gdal-${version}";
+  pname = "gdal";
   version = "3.0.3";
 
   src = fetchFromGitHub {
@@ -19,15 +19,6 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot = "source/gdal";
-
-  patches = [
-    (fetchpatch {
-      name = "CVE-2019-17545.patch";
-      url = "https://github.com/OSGeo/gdal/commit/148115fcc40f1651a5d15fa34c9a8c528e7147bb.patch";
-      stripLen = 1;
-      sha256 = "0hai59hhvrci9xwjw4lp3wc1brn00imngmqrbbs8v9yr3b0fzbgs";
-    })
-  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
