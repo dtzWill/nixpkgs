@@ -577,16 +577,20 @@ index 0000000..f54eb1f
 +
 +#endif  /* HSLUV_H */
 diff --git a/src/spectraluser.cpp b/src/spectraluser.cpp
-index 613aebf..ebf872d 100644
+index 613aebf..a5c0eec 100644
 --- a/src/spectraluser.cpp
 +++ b/src/spectraluser.cpp
-@@ -1,5 +1,8 @@
+@@ -1,5 +1,12 @@
  #include "spectraluser.h"
 +#include "hsluv.h"
++
++#include <stdio.h>
  
  QColor SpectralUser::color() {
 -  return QColor::fromHslF(hueF(), 0.7, 0.5, 1);
 +  double pr, pg, pb;
 +  hsluv2rgb(hueF() * 360.0, 100.0, 30.0, &pr, &pg, &pb);
++
++  printf("%g %g %g\n", pr, pg, pb);
 +  return QColor::fromRgbF(pr, pg, pb);
  }
