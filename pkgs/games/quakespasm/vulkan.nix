@@ -23,16 +23,11 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "DO_USERDIRS=1" ];
 
-  postBuild = ''
-    mkdir -p $out/share/vkquake
-    make -C ../Misc/vq_pak OUTPUT=$out/share/vkquake/vkquake.pak
-  '';
-
   preInstall = ''
     mkdir -p "$out/bin"
   '';
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "bindir=/bin" "prefix=" ];
+  makeFlags = [ "prefix=$(out) bindir=$(out)/bin" ];
 
   postFixup = ''
     wrapProgram $out/bin/vkquake --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib
