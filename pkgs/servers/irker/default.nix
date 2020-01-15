@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   name = "irker-${version}";
-  version = "2017-02-12";
+  version = "2019-06-17";
 
   src = fetchFromGitLab {
     owner = "esr";
     repo = "irker";
-    rev = "dc0f65a7846a3922338e72d8c6140053fe914b54";
-    sha256 = "1hslwqa0gqsnl3l6hd5hxpn0wlachxd51infifhlwhyhd6iwgx8p";
+    rev = "ba5e80384b20d5718edd4e521dda319fab59d90f";
+    sha256 = "13xkbma3iijsxr67m11v3zzczbvlmi3bsvzbwcz3kcm03jvqpxnb";
   };
 
   nativeBuildInputs = [ pkgconfig xmlto docbook2x docbook_xsl docbook_xml_dtd_412 ];
@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   installFlags = [
-    "prefix=/"
-    "DESTDIR=$$out"
+    "prefix=${placeholder "out"}"
+    "DESTDIR="
   ];
 
   meta = with stdenv.lib; {
