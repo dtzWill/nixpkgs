@@ -1,11 +1,19 @@
-{ stdenv, fetchurl, cmake, pkgconfig, libcbor, libressl, udev }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libcbor, libressl, udev }:
 
 stdenv.mkDerivation rec {
   pname = "libfido2";
-  version = "1.3.0";
-  src = fetchurl {
-    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
-    sha256 = "1izyl3as9rn7zcxpsvgngjwr55gli5gy822ac3ajzm65qiqkcbhb";
+  version = "unstable-2020-01-15";
+  #version = "1.3.0";
+  #src = fetchurl {
+  #  url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
+  #  sha256 = "1izyl3as9rn7zcxpsvgngjwr55gli5gy822ac3ajzm65qiqkcbhb";
+  #};
+
+  src = fetchFromGitHub {
+    owner = "Yubico";
+    repo = pname;
+    rev = "393c18ccc24b71b30340deeebb92f32e4c6b4a42";
+    sha256 = "0skyimw0r35b1krfghkyb1mhjvbwq5qaczsxms5lhfrw6hckh4hx";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
