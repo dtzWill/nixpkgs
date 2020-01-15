@@ -87,7 +87,7 @@ function convert_pkg() {
 
     if [ "${nix_pkg_name:0:1}" == "#" ]; then
         echo "Skipping comment ${*}" >&2
-        return
+        return 0
     fi
     if [ -z "$lua_pkg_name" ]; then
         echo "Using nix_name as lua_pkg_name for '$nix_pkg_name'" >&2
@@ -117,6 +117,7 @@ function convert_pkg() {
         echo "Failed to convert $nix_pkg_name" >&2
         return 1
     fi
+    return 0
 }
 
 # params needed when called via callPackage
