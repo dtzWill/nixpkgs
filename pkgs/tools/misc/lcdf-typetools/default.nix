@@ -14,4 +14,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   configureFlags = [ "--without-kpathsea" ];
+
+  meta = with stdenv.lib; {
+    description = "Utilities for manipulating OpenType, PostScript Type 1, and Multiple Master fonts";
+    homepage = "https://www.lcdf.org/type";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ dtzWill ];
+  };
 }
