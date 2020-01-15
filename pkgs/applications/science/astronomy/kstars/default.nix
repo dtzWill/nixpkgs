@@ -7,7 +7,7 @@
 # TODO: qtdatavisualizations ?
 
 # optionals:
-, cfitsio, indilib, libraw, wcslib
+, cfitsio, /* indilib, */ libraw, wcslib
 
 # TODO: runtime: xplanet astronometrynet
 }:
@@ -27,7 +27,7 @@ mkDerivation rec {
 
   buildInputs = [
     eigen
-    cfitsio indilib libraw wcslib
+    cfitsio libraw wcslib
     kauth kconfig kcrash kdoctools kwidgetsaddons knewstuff ki18n kio
     kxmlgui kplotting knotifications knotifyconfig
     qtbase qtdeclarative qtsvg qtwebsockets
