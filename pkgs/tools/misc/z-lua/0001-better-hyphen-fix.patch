@@ -1,0 +1,25 @@
+From 558fa48da66a394e1f7f0548bd70998a5f722317 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 15 Jan 2020 02:10:52 -0600
+Subject: [PATCH] better hyphen fix
+
+---
+ z.lua | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/z.lua b/z.lua
+index c16768b..9feedaf 100755
+--- a/z.lua
++++ b/z.lua
+@@ -1272,7 +1272,7 @@ function data_select(M, patterns, matchlast)
+ 	for i = 1, #patterns do
+ 		local p = patterns[i]
+ 		if Z_HYPHEN then
+-			p = p:gsub('-', '%%-')
++			p = p:gsub('%-', '%%-')
+ 		end
+ 		table.insert(pats, case_insensitive_pattern(p))
+ 	end
+-- 
+2.25.0
+

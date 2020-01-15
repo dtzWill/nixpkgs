@@ -16,6 +16,7 @@ in stdenv.mkDerivation rec {
   # May not be desirable for everyone
   patches = [
     ./0001-allow-env-vars-to-customize-min-rank-and-scaling-fac.patch
+    ./0001-better-hyphen-fix.patch
   ];
 
   dontBuild = true;
