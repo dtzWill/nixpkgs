@@ -30,7 +30,7 @@ in stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace src/spectraluser.cpp \
       --replace ', 0.7, 0.5, 1)' \
-                ', 1, 0.25, 0.8)'
+                ', 1, 0.3, 1)'
   '';
 
   #postPatch = ''
