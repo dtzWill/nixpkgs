@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "pam_u2f";
-  version = "unstable-2019-10-10";
+  version = "unstable-2019-12-28";
 
   #src     = fetchurl {
   #  url = "https://developers.yubico.com/pam-u2f/Releases/${name}.tar.gz";
@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = "pam-u2f";
-    rev = "6059e4ee113bda2f42ed2177a1f1cec09d446a7c";
-    sha256 = "1pkiyj1lfbrpyyrvk81inmcyz2y7d7lh2292mswk5a6nss1bypfm";
+    rev = "7a96961021c8a1596df9b3d0fe34529ffccc0ac2";
+    sha256 = "0wgysqy44khmcbzx95p25ypw41xnl956r4rq9r5gdkfbgkz9914p";
   };
 
   postPatch = ''
