@@ -24420,6 +24420,8 @@ in
   golly = callPackage ../applications/science/misc/golly { wxGTK = wxGTK30; };
   golly-beta = callPackage ../applications/science/misc/golly/beta.nix { wxGTK = wxGTK30; };
 
+  kstars = libsForQt5.callPackage ../applications/science/astronomy/kstars { };
+
   megam = callPackage ../applications/science/misc/megam { };
 
   netlogo = callPackage ../applications/science/misc/netlogo { };
