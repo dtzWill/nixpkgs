@@ -2,12 +2,12 @@
 
 mkDerivation rec {
   pname = "vym";
-  version = "unstable-2019-09-18";
+  version = "unstable-2020-01-15";
 
   src = fetchgit {
     url = "git://git.code.sf.net/p/vym/code";
-    rev = "e1b695b9180baca7443ee5e1df6d7600cd3406bc";
-    sha256 = "1pkyvva0k1g316whj44pa2i6lfb5b69074w2dmq4chvqikzjbj83";
+    rev = "e30abaad788aa8788aa4da05682777609c5d0054";
+    sha256 = "1qp401jv6z02fgg0a37hwax1nyng7mqmyr59q500qkr39s2z2s0d";
   };
   #src = fetchurl {
   #  url = "mirror://sourceforge/project/${pname}/${version}/${pname}-${version}.tar.bz2";
