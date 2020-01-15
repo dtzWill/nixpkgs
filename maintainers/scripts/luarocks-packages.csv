@@ -39,15 +39,18 @@ lua-zlib,,,,,koral
 lua_cliargs,,,,,
 luabitop,,,,,
 luacheck,,,,,
+luacov,,,,,
 luadbi,,,,,
 luadbi-mysql,,,,,
 luadbi-postgresql,,,,,
 luadbi-sqlite3,,,,,
+luadoc,,,,,
 luaevent,,,,,
 luaepnf,,,,,
 luaexpat,,,1.3.0-1,,arobyn flosse
 luaffi,,http://luarocks.org/dev,,,
 luafilesystem,,,1.7.0-2,,flosse vcunat
+lualogging,,,,,
 luaossl,,,,lua5_1,vcunat
 luaposix,,,,,vyp lblasc
 luasec,,,,,flosse
@@ -56,7 +59,9 @@ luasql-sqlite3,,,,,vyp
 luassert,,,,,
 luarepl,,,,,
 luasystem,,,,,
+luautf8,,,,,pstn
 luazip,,,,,
+lua-yajl,,,,,pstn
 luuid,,,,,
 luv,,,,,
 markdown,,,,,
@@ -71,3 +76,4 @@ std__debug,std._debug,,,,
 std_normalize,std.normalize,,,,
 stdlib,,,,,vyp
 vstruct,,,,,
+pulseaudio,,,,,doronbehar
