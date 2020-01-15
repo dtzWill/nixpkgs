@@ -61,6 +61,7 @@ python3Packages.buildPythonApplication rec {
     mutagen
     peewee
     magic
+    distro
   ];
 
   postPatch = ''
