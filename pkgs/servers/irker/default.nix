@@ -15,10 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig xmlto docbook2x docbook_xsl docbook_xml_dtd_412 ];
 
   buildInputs = [
-    python
-    # Needed for proxy support I believe, which I haven't tested.
-    # Probably needs to be propagated and some wrapPython magic
-    # python.pkgs.pysocks
+    (python.withPackages (p: [ p.pysocks ]))
   ];
 
   postPatch = ''

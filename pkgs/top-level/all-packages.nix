@@ -4173,7 +4173,7 @@ in
 
   ipxe = callPackage ../tools/misc/ipxe { };
 
-  irker = callPackage ../servers/irker { };
+  irker = callPackage ../servers/irker { python = python3; };
 
   ised = callPackage ../tools/misc/ised {};
 
