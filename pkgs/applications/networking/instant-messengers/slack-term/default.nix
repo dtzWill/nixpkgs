@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "19p0ijyqmmrilzmr3b4sm3ssdq2762cn34v62zjsvshhssw186lf";
   };
 
-  modSha256 = "1jsyxqkmw4ap4c1fh1vj4j31wnbfyrhh2qgp3rnlryp004v6x9qs";
+  modSha256 = "1spzwqbiiy76yps482r4dyb5radliiwacz5zjgv24d0yfs6hqw4x";
 
   meta = with stdenv.lib; {
     description = "Slack client for your terminal";
