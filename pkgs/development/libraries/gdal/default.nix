@@ -21,7 +21,6 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/gdal";
 
   patches = [
-    ./001.3_0_1.darwin.patch
     (fetchpatch {
       name = "CVE-2019-17545.patch";
       url = "https://github.com/OSGeo/gdal/commit/148115fcc40f1651a5d15fa34c9a8c528e7147bb.patch";
