@@ -14,8 +14,8 @@ set -eu -o pipefail
 CSV_FILE="maintainers/scripts/luarocks-packages.csv"
 TMP_FILE="$(mktemp)"
 # Set in the update-luarocks-shell.nix
-NIXPKGS_PATH="$LUAROCKS_NIXPKGS_PATH"
-export LUAROCKS_CONFIG="$NIXPKGS_PATH/maintainers/scripts/luarocks-config.lua"
+NIXPKGS_PATH="nixpkgs=$LUAROCKS_NIXPKGS_PATH"
+export LUAROCKS_CONFIG="$LUAROCKS_NIXPKGS_PATH/maintainers/scripts/luarocks-config.lua"
 
 # 10 is a pretty arbitrary number of simultaneous jobs, but it is generally
 # impolite to hit a webserver with *too* many simultaneous connections :)
@@ -103,7 +103,7 @@ function convert_pkg() {
         luarocks_args+=("--maintainers=$maintainers")
     fi
     if [[ -n $lua_version ]]; then
-        lua_drv_path=$(nix-build --no-out-link "$NIXPKGS_PATH" -A "$lua_version")
+        lua_drv_path=$(nix-build --no-out-link "$LUAROCKS_NIXPKGS_PATH" -A "$lua_version")
         luarocks_args+=("--lua-dir=$lua_drv_path/bin")
     fi
     luarocks_args+=("$lua_pkg_name")
