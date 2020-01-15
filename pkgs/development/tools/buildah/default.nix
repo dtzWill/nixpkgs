@@ -1,8 +1,8 @@
-{ stdenv, buildGoModule, fetchFromGitHub
+{ stdenv, buildGoPackage, fetchFromGitHub
 , gpgme, libgpgerror, lvm2, btrfs-progs, pkgconfig, ostree, libselinux, libseccomp
 }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "buildah";
   version = "1.13.1";
 
@@ -12,10 +12,6 @@ buildGoModule rec {
     rev    = "v${version}";
     sha256 = "0swhpdr970ik6fhvmj45r84lsp1n6rxm0bgv9i1lvrxy1mdv7r9x";
   };
-
-  # (this is for different version of 'go', FWIW)
-  # modSha256 = "0xmwp3id5h2b749gyy3y2ihq9b5gxz8zj7l2ybdvjl3w4x4imxkl";
-  modSha256 = "1xyjhygd192w43si3pw6ky3jpab7q81122xjv3kyj9ymsvb006rx";
 
   outputs = [ "bin" "man" "out" ];
 
