@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "libykclient";
-  version = "unstable-2019-03-18";
+  version = "unstable-2020-01-10";
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = "yubico-c-client";
-    rev = "ad9eda6aac4c3f81784607c30b971f4a050b5c2e";
-    sha256 = "01b19jgv2lypih6lhw9yjjsfl8q1ahl955vhr2ai8ccshh0050yj";
+    rev = "508a8b8df8b4d60bc54744817f44e8504703a29c";
+    sha256 = "0plvvpck0li0cbn0wwjiikx4ixvwqmlzw88mr0373jkgzlzkqybb";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig help2man ];
