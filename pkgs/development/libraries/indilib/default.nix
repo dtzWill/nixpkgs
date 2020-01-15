@@ -1,21 +1,15 @@
-{ stdenv, fetchFromGitHub, cmake, cfitsio, libusb, zlib, boost, libnova
+{ stdenv, fetchurl, cmake, cfitsio, libusb, zlib, boost, libnova
 , curl, libjpeg, gsl }:
 
-stdenv.mkDerivation rec {
-  pname = "indilib";
-  version = "1.8.3";
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = "indi";
-    rev = "v${version}";
-    sha256 = "1rxmc9chk90szypwg3cz1n5a1bqazc0vwip2sk20y71w049ckiqs";
+stdenv.mkDerivation {
+  name = "indilib-1.1.0";
+
+  src = fetchurl {
+    url = mirror://sourceforge/indi/libindi_1.1.0.tar.gz;
+    sha256 = "1bs6lkwqd4aashg93mqqkc7nrg7fbx9mdw85qs5263jqa6sr780w";
   };
 
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace 'UDEVRULES_INSTALL_DIR "/lib/udev/rules.d"' \
-                 'UDEVRULES_INSTALL_DIR "''${CMAKE_INSTALL_PREFIX}/lib/udev/rules.d"'
-  '';
+  patches = [ ./udev-dir.patch ] ;
 
   buildInputs = [ curl cmake cfitsio libusb zlib boost
                             libnova libjpeg gsl ];
