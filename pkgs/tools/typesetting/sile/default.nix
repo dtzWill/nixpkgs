@@ -7,7 +7,7 @@
 with stdenv.lib;
 
 let
-  luaEnv = lua.withPackages(ps: with ps;[cassowary linenoise lpeg lua-zlib lua_cliargs luaepnf luaexpat luafilesystem luarepl luasec luasocket stdlib vstruct]);
+  luaEnv = lua.withPackages(ps: with ps;[cassowary compat53 linenoise lpeg lua-zlib lua_cliargs luaepnf luaexpat luafilesystem luarepl luasec luasocket stdlib vstruct]);
 
 in
 
