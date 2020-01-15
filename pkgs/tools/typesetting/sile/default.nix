@@ -48,7 +48,6 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     install -D -t $out/share/doc/sile documentation/sile.pdf
-    install -D -t $out/share/doc/sile examples
   '';
 
   # Hack to avoid TMPDIR in RPATHs.
