@@ -5,12 +5,12 @@
 
 stdenv.mkDerivation rec {
   pname = "tau";
-  version = "0.9.3";
+  version = "0.10.1";
 
   src = fetchurl {
-    # XXX: yes, this URL needs replacing withe every version :(
-    url = "https://gitlab.gnome.org/World/Tau/uploads/375ce054c0bc98e0c1a3e95fdcd4e46c/tau-0.9.3.tar.xz";
-    sha256 = "02xfvav3hm7v33ai4dxhygl5a0rnd8m769q4c6kd2zgvhq7412z5";
+    # XXX: yes, this URL needs replacing with every version :(
+    url = "https://gitlab.gnome.org/World/Tau/uploads/25d33d736285ad451bc7b409aa01e957/tau-0.10.1.tar.xz";
+    sha256 = "14fwc308lhd0gwkbavy2rk9a8n9dgh0qww6mp7v5z8z5h6288zp9";
   };
 
   nativeBuildInputs = [
