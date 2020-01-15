@@ -1,32 +1,23 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 06bf3a9..a28e8ee 100644
+index 06bf3a9..f775f17 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
- set(IDENTIFIER "org.eu.encom.spectral")
- set(COPYRIGHT "Copyright © 2018-2019 bhat@encom.eu.org")
- 
--project(spectral VERSION 0.0.0 LANGUAGES CXX)
-+project(spectral VERSION 0.0.0 LANGUAGES C CXX)
- 
- if(UNIX AND NOT APPLE)
-     set(LINUX 1)
 @@ -161,6 +161,9 @@ set(spectral_SRCS
      src/userdirectorylistmodel.cpp
      src/utils.cpp
      src/main.cpp
 +
 +    src/hsluv.h
-+    src/hsluv.c
++    src/hsluv.cpp
  )
  
  if (APPLE)
-diff --git a/src/hsluv.c b/src/hsluv.c
+diff --git a/src/hsluv.cpp b/src/hsluv.cpp
 new file mode 100644
-index 0000000..7c09b38
+index 0000000..f307a19
 --- /dev/null
-+++ b/src/hsluv.c
-@@ -0,0 +1,453 @@
++++ b/src/hsluv.cpp
+@@ -0,0 +1,456 @@
 +/*
 + * HSLuv-C: Human-friendly HSL
 + * <http://github.com/hsluv/hsluv-c>
@@ -420,6 +411,7 @@ index 0000000..7c09b38
 +}
 +
 +
++namespace hsluv {
 +
 +void
 +hsluv2rgb(double h, double s, double l, double* pr, double* pg, double* pb)
@@ -480,12 +472,14 @@ index 0000000..7c09b38
 +    *ps = tmp.b;
 +    *pl = tmp.c;
 +}
++
++} // end namespace hsluv
 diff --git a/src/hsluv.h b/src/hsluv.h
 new file mode 100644
-index 0000000..f54eb1f
+index 0000000..4126c35
 --- /dev/null
 +++ b/src/hsluv.h
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,86 @@
 +/*
 + * HSLuv-C: Human-friendly HSL
 + * <http://github.com/hsluv/hsluv-c>
@@ -517,9 +511,7 @@ index 0000000..f54eb1f
 +#ifndef HSLUV_H
 +#define HSLUV_H
 +
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
++namespace hsluv {
 +
 +
 +/**
@@ -571,16 +563,14 @@ index 0000000..f54eb1f
 +void rgb2hpluv(double r, double g, double b, double* ph, double* ps, double* pl);
 +
 +
-+#ifdef __cplusplus
-+}
-+#endif
++} // end namespace hsluv
 +
 +#endif  /* HSLUV_H */
 diff --git a/src/spectraluser.cpp b/src/spectraluser.cpp
-index 613aebf..a5c0eec 100644
+index 613aebf..640322b 100644
 --- a/src/spectraluser.cpp
 +++ b/src/spectraluser.cpp
-@@ -1,5 +1,12 @@
+@@ -1,5 +1,13 @@
  #include "spectraluser.h"
 +#include "hsluv.h"
 +
@@ -589,8 +579,9 @@ index 613aebf..a5c0eec 100644
  QColor SpectralUser::color() {
 -  return QColor::fromHslF(hueF(), 0.7, 0.5, 1);
 +  double pr, pg, pb;
-+  hsluv2rgb(hueF() * 360.0, 100.0, 30.0, &pr, &pg, &pb);
++  hsluv::hsluv2rgb(hueF() * 360.0, 100.0, 30.0, &pr, &pg, &pb);
 +
 +  printf("%g %g %g\n", pr, pg, pb);
++  printf("%g\n", hueF());
 +  return QColor::fromRgbF(pr, pg, pb);
  }
