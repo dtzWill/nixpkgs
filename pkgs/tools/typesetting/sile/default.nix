@@ -29,6 +29,8 @@ stdenv.mkDerivation rec {
     sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
   '';
 
+  configureFlags = [ "--with-system-luarocks" ];
+
   NIX_LDFLAGS = optionalString stdenv.isDarwin "-framework AppKit";
 
   FONTCONFIG_FILE = makeFontsConf {
@@ -43,9 +45,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  checkPhase = ''
-    make documentation examples
-  '';
+  checkTarget = "documentation examples";
 
   postInstall = ''
     install -D -t $out/share/doc/sile documentation/sile.pdf
