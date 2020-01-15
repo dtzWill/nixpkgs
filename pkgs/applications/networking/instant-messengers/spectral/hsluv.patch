@@ -1,12 +1,22 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 06bf3a9..b42be48 100644
+index 06bf3a9..a28e8ee 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -161,6 +161,8 @@ set(spectral_SRCS
+@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+ set(IDENTIFIER "org.eu.encom.spectral")
+ set(COPYRIGHT "Copyright © 2018-2019 bhat@encom.eu.org")
+ 
+-project(spectral VERSION 0.0.0 LANGUAGES CXX)
++project(spectral VERSION 0.0.0 LANGUAGES C CXX)
+ 
+ if(UNIX AND NOT APPLE)
+     set(LINUX 1)
+@@ -161,6 +161,9 @@ set(spectral_SRCS
      src/userdirectorylistmodel.cpp
      src/utils.cpp
      src/main.cpp
 +
++    src/hsluv.h
 +    src/hsluv.c
  )
  
