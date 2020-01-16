@@ -15,7 +15,7 @@ let
   };
 
 in yarn2nix-moretea.mkYarnPackage rec {
-  name = "riot-desktop-${version}";
+  pname = "riot-desktop";
   inherit version;
 
   src = "${riot-web-src}/electron_app";
