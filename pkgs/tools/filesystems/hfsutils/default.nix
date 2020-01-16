@@ -35,6 +35,12 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     touch .stamp/*
+
+    substituteInPlace Makefile.in \
+      --replace '"$(BINDEST)/."' \
+                '-Dt "$(BINDEST)"' \
+      --replace '"$(MANDEST)' \
+                '-DT "$(MANDEST)'
   '';
 
   meta = with stdenv.lib; {
