@@ -1,8 +1,9 @@
 { systemd, cryptsetup }:
 
-systemd.overrideAttrs (p: {
-  version = p.version;
-  name = "systemd-cryptsetup-generator-${p.version}";
+systemd.overrideAttrs (p: rec {
+  inherit (p) version;
+  pname = "systemd-cryptsetup-generator";
+  name = "${pname}-${version}";
 
   buildInputs = p.buildInputs ++ [ cryptsetup ];
   outputs = [ "out" ];
