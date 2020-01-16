@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "hfsutils";
@@ -33,12 +33,14 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  postPatch = ''
+    touch .stamp/*
+  '';
 
   meta = with stdenv.lib; {
     description = "HFS utilities";
     maintainers = with maintainers; [ dtzWill ];
-    license = licenses.gpl2;
+    license = licenses.gpl2Plus;
     homepage = "https://www.mars.org/home/rob/proj/hfs";
   };
 }
