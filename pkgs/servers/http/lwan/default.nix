@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   # Workaround bad detection of secure_getenv, a recent musl addition.
   # This breaks the build as they provide their own definition which conflicts.
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.hostPlaform.cc.isMusl "-DHAVE_SECURE_GETENV=1";
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.hostPlatform.isMusl "-DHAVE_SECURE_GETENV=1";
 
   meta = with stdenv.lib; {
     description = "Lightweight high-performance multi-threaded web server";
