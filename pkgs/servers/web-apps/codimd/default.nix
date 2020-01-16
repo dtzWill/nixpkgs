@@ -2,7 +2,7 @@
 , which, nodejs, yarn2nix, python2 }:
 
 yarn2nix.mkYarnPackage rec {
-  name = "codimd";
+  pname = "codimd";
   version = "1.5.0";
 
   src = fetchFromGitHub {
