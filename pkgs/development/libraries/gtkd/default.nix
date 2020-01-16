@@ -7,6 +7,8 @@ in stdenv.mkDerivation rec {
   name = "gtkd-${version}";
   version = "3.8.5";
 
+  outputs = [ "out" "dev" ];
+
   src = fetchzip {
     url = "https://gtkd.org/Downloads/sources/GtkD-${version}.zip";
     sha256 = "12n2njsaplra7x15nqwrj2hrf8a27pfjj2mck4mkzxv03qk6mqky";
@@ -85,6 +87,15 @@ in stdenv.mkDerivation rec {
   '';
 
   installFlags = "prefix=$(out)";
+
+  # The .pc files does not declare an `includedir=`, so the multiple
+  # outputs setup hook misses this.
+  postFixup = ''
+    for pc in $dev/lib/pkgconfig/*; do
+      substituteInPlace $pc \
+        --replace "$out/include" "$dev/include"
+    done
+  '';
 
   meta = with stdenv.lib; {
     description = "D binding and OO wrapper for GTK";
