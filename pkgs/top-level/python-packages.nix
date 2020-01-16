@@ -1698,8 +1698,6 @@ in {
 
   pyepsg = callPackage ../development/python-modules/pyepsg { };
 
-  pyezminc = callPackage ../development/python-modules/pyezminc { };
-
   billiard = callPackage ../development/python-modules/billiard { };
 
   binaryornot = callPackage ../development/python-modules/binaryornot { };
