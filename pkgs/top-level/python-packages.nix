@@ -924,6 +924,8 @@ in {
 
   pydbus = callPackage ../development/python-modules/pydbus { };
 
+  pydicom = callPackage ../development/python-modules/pydicom { };
+
   pydocstyle = callPackage ../development/python-modules/pydocstyle { };
 
   pydocumentdb = callPackage ../development/python-modules/pydocumentdb { };
