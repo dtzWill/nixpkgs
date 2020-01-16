@@ -6798,7 +6798,9 @@ in
 
   toml2nix = (callPackage ../tools/toml2nix { }).toml2nix { };
 
-  topgrade = callPackage ../tools/misc/topgrade {  };
+  topgrade = callPackage ../tools/misc/topgrade {
+    inherit (darwin.apple_sdk.frameworks) Foundation;
+  };
 
   tor = callPackage ../tools/security/tor {
     openssl = openssl_1_1;
