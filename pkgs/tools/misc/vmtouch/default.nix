@@ -3,7 +3,6 @@
 stdenv.mkDerivation rec {
   pname = "vmtouch";
   version = "1.3.0";
-  name = "${pname}-git-${version}";
 
   src = fetchFromGitHub {
     owner = "hoytech";
