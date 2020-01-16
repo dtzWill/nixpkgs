@@ -27,11 +27,6 @@ stdenv.mkDerivation rec {
     python alsaLib libX11 libGLU SDL2 lua5_3 zlib freetype wavpack
   ];
 
-  #postInstall = ''
-  #  mkdir -p $out/share/doc/teeworlds
-  #  cp -v *.txt $out/share/doc/teeworlds/
-  #'';
-
   meta = {
     description = "Retro multiplayer shooter game";
 
