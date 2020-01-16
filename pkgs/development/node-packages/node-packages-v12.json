@@ -1,5 +1,6 @@
 [
   "nijs"
+, "castnow"
 , "coffee-script"
 , "grunt-cli"
 , "joplin"

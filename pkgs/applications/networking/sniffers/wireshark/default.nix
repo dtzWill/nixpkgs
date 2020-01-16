@@ -9,13 +9,10 @@
 with stdenv.lib;
 
 let
-common = { version, sources-sha256, withQt }:
-let
-  variant = if withQt then "qt" else "cli";
-in
+common = { version, sources-sha256 }: { withQt }:
 assert withQt -> qt5 != null;
 stdenv.mkDerivation {
-  pname = "wireshark-${variant}";
+  pname = "wireshark-${if withQt then "qt" else "cli"}";
   inherit version;
   outputs = [ "out" "dev" ];
 
@@ -61,7 +58,7 @@ stdenv.mkDerivation {
     # to remove "cycle detected in the references"
     mkdir -p $dev/lib/wireshark
     mv $out/lib/wireshark/cmake $dev/lib/wireshark
-  '' + (if stdenv.isDarwin && withQt then ''
+  '' + (optionalString withQt (if stdenv.isDarwin then ''
     mkdir -p $out/Applications
     mv $out/bin/Wireshark.app $out/Applications/Wireshark.app
 
@@ -72,15 +69,15 @@ stdenv.mkDerivation {
     done
 
     wrapQtApp $out/Applications/Wireshark.app/Contents/MacOS/Wireshark
-  '' else optionalString withQt ''
+  '' else ''
     install -Dm644 -t $out/share/applications ../wireshark.desktop
 
     substituteInPlace $out/share/applications/*.desktop \
         --replace "Exec=wireshark" "Exec=$out/bin/wireshark"
 
     install -Dm644 ../image/wsicon.svg $out/share/icons/wireshark.svg
+  '')) + ''
     mkdir $dev/include/{epan/{wmem,ftypes,dfilter},wsutil,wiretap} -pv
-
     cp config.h $dev/include/
     cp ../ws_*.h $dev/include
     cp ../epan/*.h $dev/include/epan/
@@ -89,7 +86,7 @@ stdenv.mkDerivation {
     cp ../epan/dfilter/*.h $dev/include/epan/dfilter/
     cp ../wsutil/*.h $dev/include/wsutil/
     cp ../wiretap/*.h $dev/include/wiretap
-  '');
+  '';
 
   enableParallelBuilding = true;
 
@@ -115,35 +112,25 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ bjornfor fpletz ];
   };
 };
+
+wireshark-2_6  = common {
+  version        = "2.6.12";
+  sources-sha256 = "1mjb32iwdc15ixyqa78qqbwy4291i668db5w0v0rscarskgkvbc3";
+};
+wireshark-3_0  = common {
+  version        = "3.0.7";
+  sources-sha256 = "1wljg5z994r8zbjig52zlgp0b8lqbzdl1d6ysnw9hcvm2y82farv";
+};
+wireshark-3_2 = common {
+  version        = "3.2.1";
+  sources-sha256 = "0nz84zyhs4177ljxmv34vgc9kgg7ssxhxa4mssxqwh6nb00697sq";
+};
+
 in {
-  wireshark-qt_2_4  = common {
-    version        = "2.4.16";
-    sources-sha256 = "0f92yz9a2z46zlm1mci45039pi835bbk759yfrar342sk32hga56";
-    withQt         = true;
-  };
-  wireshark-cli_2_4 = common {
-    version        = "2.4.16";
-    sources-sha256 = "0f92yz9a2z46zlm1mci45039pi835bbk759yfrar342sk32hga56";
-    withQt         = false;
-  };
-  wireshark-qt_2_6  = common {
-    version        = "2.6.11";
-    sources-sha256 = "11as7zqxw0mwjn0pdhcidihrk90hjh5qzrj0g6an55alr20iax99";
-    withQt         = true;
-  };
-  wireshark-cli_2_6 = common {
-    version        = "2.6.11";
-    sources-sha256 = "11as7zqxw0mwjn0pdhcidihrk90hjh5qzrj0g6an55alr20iax99";
-    withQt         = false;
-  };
-  wireshark-qt_3_0  = common {
-    version        = "3.0.7";
-    sources-sha256 = "1wljg5z994r8zbjig52zlgp0b8lqbzdl1d6ysnw9hcvm2y82farv";
-    withQt         = true;
-  };
-  wireshark-cli_3_0 = common {
-    version        = "3.0.7";
-    sources-sha256 = "1wljg5z994r8zbjig52zlgp0b8lqbzdl1d6ysnw9hcvm2y82farv";
-    withQt         = false;
-  };
+  wireshark-qt_2_6  = wireshark-2_6 { withQt = true;  };
+  wireshark-cli_2_6 = wireshark-2_6 { withQt = false; };
+  wireshark-qt_3_0  = wireshark-3_0 { withQt = true;  };
+  wireshark-cli_3_0 = wireshark-3_0 { withQt = false; };
+  wireshark-qt_3_2  = wireshark-3_2 { withQt = true;  };
+  wireshark-cli_3_2 = wireshark-3_2 { withQt = false; };
 }

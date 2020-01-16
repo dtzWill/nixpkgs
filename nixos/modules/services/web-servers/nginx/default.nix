@@ -131,6 +131,14 @@ let
         include ${recommendedProxyConfig};
       ''}
 
+      ${optionalString (cfg.mapHashBucketSize != null) ''
+        map_hash_bucket_size ${toString cfg.mapHashBucketSize};
+      ''}
+
+      ${optionalString (cfg.mapHashMaxSize != null) ''
+        map_hash_max_size ${toString cfg.mapHashMaxSize};
+      ''}
+
       # $connection_upgrade is used for websocket proxying
       map $http_upgrade $connection_upgrade {
           default upgrade;
@@ -178,6 +186,8 @@ let
   configPath = if cfg.enableReload
     then "/etc/nginx/nginx.conf"
     else configFile;
+
+  execCommand = "${package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
 
   vhosts = concatStringsSep "\n" (mapAttrsToList (vhostName: vhost:
     let
@@ -532,6 +542,23 @@ in
         '';
       };
 
+      mapHashBucketSize = mkOption {
+        type = types.nullOr (types.enum [ 32 64 128 ]);
+        default = null;
+        description = ''
+            Sets the bucket size for the map variables hash tables. Default
+            value depends on the processor’s cache line size.
+          '';
+      };
+
+      mapHashMaxSize = mkOption {
+        type = types.nullOr types.ints.positive;
+        default = null;
+        description = ''
+            Sets the maximum size of the map variables hash tables.
+          '';
+      };
+
       resolver = mkOption {
         type = types.submodule {
           options = {
@@ -683,6 +710,7 @@ in
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
       "d '${cfg.stateDir}/logs' 0750 ${cfg.user} ${cfg.group} - -"
+      "Z '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
     ];
 
     systemd.services.nginx = {
@@ -693,10 +721,10 @@ in
       stopIfChanged = false;
       preStart = ''
         ${cfg.preStart}
-        ${package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}' -t
+        ${execCommand} -t
       '';
       serviceConfig = {
-        ExecStart = "${package}/bin/nginx -c '${configPath}' -p '${cfg.stateDir}'";
+        ExecStart = execCommand;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
         RestartSec = "10s";
@@ -717,11 +745,18 @@ in
     };
 
     systemd.services.nginx-config-reload = mkIf cfg.enableReload {
-      wantedBy = [ "nginx.service" ];
+      wants = [ "nginx.service" ];
+      wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
+      # commented, because can cause extra delays during activate for this config:
+      #      services.nginx.virtualHosts."_".locations."/".proxyPass = "http://blabla:3000";
+      # stopIfChanged = false;
+      serviceConfig.Type = "oneshot";
+      serviceConfig.TimeoutSec = 60;
       script = ''
         if ${pkgs.systemd}/bin/systemctl -q is-active nginx.service ; then
-          ${pkgs.systemd}/bin/systemctl reload nginx.service
+          ${execCommand} -t && \
+            ${pkgs.systemd}/bin/systemctl reload nginx.service
         fi
       '';
       serviceConfig.RemainAfterExit = true;

@@ -1,26 +1,28 @@
-{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen }:
+{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen, python3 }:
 
-stdenvNoCC.mkDerivation rec {
+let
+  py = python3.withPackages(ps: [ ps.pillow ]);
+in stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "KaizIqbal";
     repo = "Bibata_Cursor";
-    #rev = "v${version}";
-    rev = "765d0e77ece791fdf195a89bca12583d60a7b552";
-    sha256 = "1jxj3vza48rdmvpg7kq7dsd15i7zfmca94p9lkqhfv12nzvxzxxz";
+    rev = "v${version}";
+    sha256 = "1f7i5jkl21fvrr45zpcj40avkc7camjb1ddrrdlaabbplgz5mcgn";
   };
 
   postPatch = ''
     patchShebangs .
-    substituteInPlace build.sh --replace "gksu " ""
+    substituteInPlace build.sh --replace "sudo" ""
   '';
 
   nativeBuildInputs  = [
     gnome-themes-extra
     inkscape
     xcursorgen
+    py
   ];
 
   buildPhase = ''

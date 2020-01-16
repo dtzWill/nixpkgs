@@ -1481,6 +1481,8 @@ in
 
   crudini = callPackage ../tools/misc/crudini { };
 
+  csv2odf = callPackage ../applications/office/csv2odf { };
+
   csvkit = callPackage ../tools/text/csvkit { };
 
   csvs-to-sqlite = with python3Packages; toPythonApplication csvs-to-sqlite;
@@ -1998,6 +2000,8 @@ in
   qtspim = qt5.callPackage ../applications/virtualization/spim { };
 
   staccato = callPackage ../tools/text/staccato { };
+
+  stacer = libsForQt5.callPackage ../tools/admin/stacer { };
 
   stagit = callPackage ../development/tools/stagit { };
 
@@ -3952,6 +3956,8 @@ in
 
   hfsprogs = callPackage ../tools/filesystems/hfsprogs { };
 
+  hfsutils = callPackage ../tools/filesystems/hfsutils { };
+
   highlight = callPackage ../tools/text/highlight ({
     lua = lua5;
   });
@@ -4173,7 +4179,7 @@ in
 
   ipxe = callPackage ../tools/misc/ipxe { };
 
-  irker = callPackage ../servers/irker { };
+  irker = callPackage ../servers/irker { python = python3; };
 
   ised = callPackage ../tools/misc/ised {};
 
@@ -4647,6 +4653,8 @@ in
   latex2html = callPackage ../tools/misc/latex2html { };
 
   latexrun = callPackage ../tools/typesetting/tex/latexrun { };
+
+  lcdf-typetools = callPackage ../tools/misc/lcdf-typetools { };
 
   ldapvi = callPackage ../tools/misc/ldapvi { };
 
@@ -6134,7 +6142,9 @@ in
 
   rubocop = callPackage ../development/tools/rubocop { };
 
-  runelite = callPackage ../games/runelite { };
+  runelite = callPackage ../games/runelite {
+    jre = openjdk11;
+  };
 
   runningx = callPackage ../tools/X11/runningx { };
 
@@ -8321,13 +8331,9 @@ in
 
   oraclejdk8 = pkgs.oraclejdk8distro true false;
 
-  oraclejdk8psu = pkgs.oraclejdk8psu_distro true false;
-
   oraclejre = lowPrio (pkgs.jdkdistro false false);
 
   oraclejre8 = lowPrio (pkgs.oraclejdk8distro false false);
-
-  oraclejre8psu = lowPrio (pkgs.oraclejdk8psu_distro false false);
 
   jrePlugin = jre8Plugin;
 
@@ -8337,13 +8343,7 @@ in
 
   oraclejdk8distro = installjdk: pluginSupport:
     (if pluginSupport then appendToName "with-plugin" else x: x)
-      (callPackage ../development/compilers/oraclejdk/jdk8cpu-linux.nix {
-        inherit installjdk pluginSupport;
-      });
-
-  oraclejdk8psu_distro = installjdk: pluginSupport:
-    (if pluginSupport then appendToName "with-plugin" else x: x)
-      (callPackage ../development/compilers/oraclejdk/jdk8psu-linux.nix {
+      (callPackage ../development/compilers/oraclejdk/jdk8-linux.nix {
         inherit installjdk pluginSupport;
       });
 
@@ -19063,15 +19063,16 @@ in
   inherit (callPackages ../applications/networking/sniffers/wireshark {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices SystemConfiguration;
   })
-    wireshark-qt_2_4
-    wireshark-cli_2_4
     wireshark-qt_2_6
     wireshark-cli_2_6
     wireshark-qt_3_0
-    wireshark-cli_3_0;
+    wireshark-cli_3_0
+    wireshark-qt_3_2
+    wireshark-cli_3_2;
 
-  wireshark = wireshark-qt_3_0;
-  wireshark-cli = wireshark-cli_3_0;
+  wireshark = wireshark-qt;
+  wireshark-qt = wireshark-qt_3_2;
+  wireshark-cli = wireshark-cli_3_2;
 
   # The GTK UI is deprecated by upstream. You probably want the QT version.
   wireshark-gtk = throw "wireshark-gtk is not supported anymore. Use wireshark-qt or wireshark-cli instead.";
@@ -22774,7 +22775,7 @@ in
 
   chessdb = callPackage ../games/chessdb { };
 
-  chessx = libsForQt59.callPackage ../games/chessx { };
+  chessx = libsForQt5.callPackage ../games/chessx { };
 
   chiaki = libsForQt5.callPackage ../games/chiaki { };
 
@@ -22801,7 +22802,7 @@ in
   });
 
   construo = construoBase.override {
-    inherit libGL libGLU freeglut;
+    inherit  freeglut libGL libGLU;
   };
 
   crack_attack = callPackage ../games/crack-attack { };
@@ -22987,6 +22988,8 @@ in
 
   gshogi = python3Packages.callPackage ../games/gshogi {};
 
+  qtads = qt5.callPackage ../games/qtads { };
+
   gtetrinet = callPackage ../games/gtetrinet {
     inherit (gnome2) GConf libgnome libgnomeui;
   };
@@ -23005,8 +23008,6 @@ in
     inherit (haskellPackages) ghcWithPackages;
   };
 
-  hexen = callPackage ../games/hexen { };
-
   holdingnuts = callPackage ../games/holdingnuts { };
 
   hyperrogue = callPackage ../games/hyperrogue { };
@@ -23019,9 +23020,7 @@ in
 
   ideogram = callPackage ../applications/graphics/ideogram { };
 
-  instead = callPackage ../games/instead {
-    lua = lua5;
-  };
+  instead = callPackage ../games/instead { };
 
   instead-launcher = callPackage ../games/instead-launcher { };
 
@@ -23086,7 +23085,7 @@ in
   mrrescue = callPackage ../games/mrrescue { };
 
   mudlet = libsForQt5.callPackage ../games/mudlet {
-    inherit (lua51Packages) luafilesystem lrexlib-pcre luazip luasql-sqlite3;
+    lua = lua5_1;
   };
 
   n2048 = callPackage ../games/n2048 {};
@@ -23186,7 +23185,7 @@ in
 
   privateer = callPackage ../games/privateer { };
 
-  pysolfc = callPackage ../games/pysolfc { };
+  pysolfc = python3Packages.callPackage ../games/pysolfc { };
 
   qweechat = callPackage ../applications/networking/irc/qweechat { };
 
@@ -23208,6 +23207,7 @@ in
   vkquake = callPackage ../games/quakespasm/vulkan.nix { };
 
   ioquake3 = callPackage ../games/quake3/ioquake { };
+  quake3e = callPackage ../games/quake3/quake3e { };
 
   quantumminigolf = callPackage ../games/quantumminigolf {};
 

@@ -15,21 +15,21 @@ src = fetchFromGitHub {
   owner = "SNSystems";
   repo = "llvm-project-prepo";
   #rev = "llvmorg-8.0.0";
-  rev = "64ba06dc32ea56b183da7dae9feb727552af531e"; # 2019-12-20
-  sha256 = "0qs2lfhydd9xmwdpqi60b14kvp8wwyazd415p1ic18jha62bcxsa";
+  rev = "3a582e8b943a75634743c6f9adb9f03cc1fb2357"; # 2020-01-13
+  sha256 = "0cxr64g6x33lanrh2d1wdfvp44prwr1gcidbc6lzk889w5inpl6v";
 };
 pstore_src = fetchFromGitHub {
   owner = "SNSystems";
   name = "pstore";
   repo = "pstore";
   #rev = "llvmorg-8.0.0";
-  rev = "609a33722f2b8e9e06c661746ab734f3f5eaa311"; # 2019-12-30";
-  sha256 = "11z0cqg86gx76s4ppq3ly5n5d0jhnnl47s23js9d5sb3mylpyrfp";
+  rev = "173e10239da1c90b60464597f61acbf89cfb6c47"; # 2020-01-13
+  sha256 = "0rr906z70f5jphb7b0bwqj2m85pdhk5rgk48ny5b6bf8qcw2wrzf";
 };
 self = stdenv.mkDerivation rec {
   pname = "llvm-project-prepo";
   #version = "8.0.0";
-  version = "2019-12-30";
+  version = "2020-01-13";
 
   srcs = [ src pstore_src ];
 
