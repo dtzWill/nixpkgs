@@ -2,7 +2,8 @@
 
 buildGoModule rec {
   pname = "hub";
-  version = "2.13.0";
+  version = "unstable-2019-12-31";
+  lastversion = "2.13.0";
 
   goPackagePath = "github.com/github/hub";
 
@@ -12,8 +13,9 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "github";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "18b0r16fk5wahvysqvg6vzjr7smyc2sdxp9sf55viby3kkwjfbkh";
+    #rev = "v${version}";
+    rev = "b7b4a3df1de5ec4a21de769bdb77d57c32b53523";
+    sha256 = "0q632aid7p0j9galkp226nvp0k38zjcgyn8pc2pjchvk1sm62ba9";
   };
 
   nativeBuildInputs = [ groff utillinux ];
@@ -21,6 +23,11 @@ buildGoModule rec {
 
   postPatch = ''
     patchShebangs .
+
+    # patch in version info
+    substituteInPlace version/version.go \
+      --replace 'Version = "${lastversion}"' \
+                'Version = "${lastversion}-${version}"'
   '';
 
   postInstall = ''
