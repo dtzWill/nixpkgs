@@ -70,6 +70,8 @@ let
 in releaseTools.nixBuild rec {
   pname = "hydra";
   version = "2019-05-06";
+  # Don't use default name of "nix-build"!
+  name = "${pname}-${version}";
 
   inherit stdenv;
 

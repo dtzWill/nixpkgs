@@ -2,19 +2,25 @@
 
 stdenv.mkDerivation rec {
   pname = "lwan";
-  version = "0.1";
-  name = "${pname}-${version}";
+  version = "0.2";
 
   src = fetchFromGitHub {
     owner = "lpereira";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1mckryzb06smky0bx2bkqwqzpnq4pb8vlgmmwsvqmwi4mmw9wmi1";
+    sha256 = "1z1g6bmdsf7zj809sq6jqkpzkdnx1jch84kk67h0v2x6lxhdpv5r";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [ jemalloc zlib ];
+
+  # Note: tcmalloc and mimalloc are also supported (and normal malloc)
+  cmakeFlags = [ "-DUSE_ALTERNATIVE_MALLOC=jemalloc" ];
+
+  # Workaround bad detection of secure_getenv, a recent musl addition.
+  # This breaks the build as they provide their own definition which conflicts.
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.hostPlatform.isMusl "-DHAVE_SECURE_GETENV=1";
 
   meta = with stdenv.lib; {
     description = "Lightweight high-performance multi-threaded web server";

@@ -19,12 +19,14 @@
 
 stdenv.mkDerivation rec {
   pname = "planner";
-  version = "unstable-2019-11-14";
+  #version = "unstable-2019-11-14";
+  version = "2.0.4";
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = pname;
-    rev = "a11808a528cacb453fc945bcc1c382d8f4ecfcce";
-    sha256 = "1r123qgy4dfzl2f3w7qiycfk5gviazvn0f8h8np58x4c62wg75qa";
+    #rev = "a11808a528cacb453fc945bcc1c382d8f4ecfcce";
+    rev = version;
+    sha256 = "15k2zh0fnpi27xim62l1k8c5cl6nspp4cpx8x8zljzzdarjxws5x";
   };
 
   nativeBuildInputs = [
@@ -57,10 +59,8 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    chmod +x meson/post_install.py
-    patchShebangs meson/post_install.py
-
-    substituteInPlace src/Views/Project.vala --replace 'Gtk.Align.HORIZONTAL' 'Gtk.Orientation.HORIZONTAL'
+    chmod +x build-aux/meson/post_install.py
+    patchShebangs build-aux/meson/post_install.py
   '';
 
   meta = with stdenv.lib; {

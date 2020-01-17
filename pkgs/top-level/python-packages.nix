@@ -924,6 +924,8 @@ in {
 
   pydbus = callPackage ../development/python-modules/pydbus { };
 
+  pydicom = callPackage ../development/python-modules/pydicom { };
+
   pydocstyle = callPackage ../development/python-modules/pydocstyle { };
 
   pydocumentdb = callPackage ../development/python-modules/pydocumentdb { };
@@ -1064,6 +1066,8 @@ in {
   pyssim = callPackage ../development/python-modules/pyssim { };
 
   pystache = callPackage ../development/python-modules/pystache { };
+
+  pytelegrambotapi = callPackage ../development/python-modules/pyTelegramBotAPI { };
 
   pytesseract = callPackage ../development/python-modules/pytesseract { };
 
@@ -1695,8 +1699,6 @@ in {
   pyechonest = callPackage ../development/python-modules/pyechonest { };
 
   pyepsg = callPackage ../development/python-modules/pyepsg { };
-
-  pyezminc = callPackage ../development/python-modules/pyezminc { };
 
   billiard = callPackage ../development/python-modules/billiard { };
 
@@ -6394,9 +6396,12 @@ in {
 
   python-doi = callPackage ../development/python-modules/python-doi { };
 
+  rxv     = callPackage ../development/python-modules/rxv     { };
+
   xandikos = disabledIf (!isPy3k) (toPythonModule (pkgs.xandikos.override {
     python3Packages = self;
   }));
+
 });
 
 in fix' (extends overrides packages)

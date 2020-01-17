@@ -3935,6 +3935,12 @@
     email = "wheatdoge@gmail.com";
     name = "Tim Liou";
   };
+  m1cr0man = {
+    email = "lucas+nix@m1cr0man.com";
+    github = "m1cr0man";
+    githubId = 3044438;
+    name = "Lucas Savva";
+  };
   m3tti = {
     email = "mathaeus.peter.sander@gmail.com";
     name = "Mathaeus Sander";
@@ -6560,6 +6566,12 @@
     github = "thpham";
     githubId = 224674;
     name = "Thomas Pham";
+  };
+  Thra11 = {
+    email = "tahall256@protonmail.ch";
+    github = "Thra11";
+    githubId = 1391883;
+    name = "Tom Hall";
   };
   tilpner = {
     email = "till@hoeppner.ws";
