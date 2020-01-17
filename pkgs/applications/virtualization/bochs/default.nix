@@ -18,17 +18,17 @@ assert curlSupport -> (curl != null);
 with stdenv.lib;
 stdenv.mkDerivation rec {
 
-  name = "bochs-${version}";
-  version = "2.6.9";
+  pname = "bochs";
+  version = "2.6.11";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/bochs/bochs/${version}/${name}.tar.gz";
-    sha256 = "1379cq4cnfprhw8mgh60i0q9j8fz8d7n3d5fnn2g9fdiv5znfnzf";
+    url = "mirror://sourceforge/project/bochs/bochs/${version}/${pname}-${version}.tar.gz";
+    sha256 = "0ql8q6y1k356li1g9gbvl21448mlxphxxi6kjb2b3pxvzd0pp2b3";
   };
 
-  patches = [ ./bochs-2.6.9-glibc-2.26.patch ];
+  patches = [ ./bochs-2.6.10-glibc-2.26.patch ./r13778.patch ];
 
-  buildInputs = with stdenv.lib;
+  buildInputs =
   [ pkgconfig libtool gtk2 libGLU libGL readline libX11 libXpm docbook_xml_dtd_45 docbook_xsl ]
   ++ optionals termSupport [ ncurses ]
   ++ optionals sdlSupport [ SDL2 ]
@@ -118,9 +118,9 @@ stdenv.mkDerivation rec {
       in C++, that runs on most popular platforms. It includes emulation of the
       Intel x86 CPU, common I/O devices, and a custom BIOS.
     '';
-    homepage = http://bochs.sourceforge.net/;
+    homepage = "http://bochs.sourceforge.net/";
     license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
   };
 }

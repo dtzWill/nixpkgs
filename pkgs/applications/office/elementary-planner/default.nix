@@ -20,13 +20,13 @@
 stdenv.mkDerivation rec {
   pname = "planner";
   #version = "unstable-2019-11-14";
-  version = "2.0.4";
+  version = "2.0.5";
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = pname;
     #rev = "a11808a528cacb453fc945bcc1c382d8f4ecfcce";
     rev = version;
-    sha256 = "15k2zh0fnpi27xim62l1k8c5cl6nspp4cpx8x8zljzzdarjxws5x";
+    sha256 = "0ddypdwknmdajvcy14q98g83iaqp28a6yy4m6i5gzgdb8px530ln";
   };
 
   nativeBuildInputs = [

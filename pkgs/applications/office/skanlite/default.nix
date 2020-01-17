@@ -1,16 +1,15 @@
-{ stdenv, fetchurl, cmake, extra-cmake-modules, qtbase,
+{ lib, mkDerivation, fetchurl, cmake, extra-cmake-modules, qtbase,
   kcoreaddons, kdoctools, ki18n, kio, kxmlgui, ktextwidgets,
   libksane
 }:
 
-let
-  minorVersion = "2.0";
-in stdenv.mkDerivation rec {
-  name = "skanlite-2.0.1";
+mkDerivation rec {
+  pname = "skanlite";
+  version = "2.1.0.1";
 
   src = fetchurl {
-    url    = "mirror://kde/stable/skanlite/${minorVersion}/${name}.tar.xz";
-    sha256 = "0dh2v8029gkhcf3pndcxz1zk2jgpihgd30lmplgirilxdq9l2i9v";
+    url    = "mirror://kde/stable/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "0hh4wwlbdi708wf4r6gc5xfajrgxgg21xa1aa94zgsh6nxakwwxl";
   };
 
   nativeBuildInputs = [ cmake kdoctools extra-cmake-modules ];
@@ -21,9 +20,7 @@ in stdenv.mkDerivation rec {
     libksane
   ];
 
-  enableParallelBuilding = true;
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "KDE simple image scanning application";
     homepage    = http://www.kde.org/applications/graphics/skanlite/;
     license = licenses.gpl2;
