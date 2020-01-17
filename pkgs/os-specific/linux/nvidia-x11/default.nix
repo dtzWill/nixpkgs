@@ -1,4 +1,4 @@
-{ lib, callPackage, fetchurl, stdenv }:
+{ lib, callPackage, fetchurl, fetchpatch, stdenv }:
 
 let
 
@@ -26,6 +26,14 @@ rec {
       sha256_64bit = "057wq9p2vl87gy61f079b6d7clw2vhw3kq7rj411brhrnvr7shmd";
       settingsSha256 = "1hr1n78c92zksnnryrcz4b8kxvi6kz4yp801ks85hq4a3rryj4vg";
       persistencedSha256 = "050znx2scm7x3r7czsz77ddjh4bs18hdd3k3shwpi3zflkmnhnvj";
+      patches = [
+        # https://bbs.archlinux.org/viewtopic.php?pid=1882507#p1882507
+        (fetchpatch {
+          name = "prime.patch";
+          url = " https://gitlab.com/snippets/1929174/raw";
+          sha256 = "14ihxd1pilsbw88502dy1vm3sr6q5fsshp154h7kavb7xraw6x7n";
+        })
+      ];
     }
     else legacy_390;
 
