@@ -1,5 +1,5 @@
---- a/trunk/bochs/bx_debug/dbg_main.cc
-+++ b/trunk/bochs/bx_debug/dbg_main.cc
+--- a/bx_debug/dbg_main.cc
++++ b/bx_debug/dbg_main.cc
 @@ -1,5 +1,5 @@
  /////////////////////////////////////////////////////////////////////////
 -// $Id: dbg_main.cc 13702 2019-12-20 07:57:59Z sshwarts $
