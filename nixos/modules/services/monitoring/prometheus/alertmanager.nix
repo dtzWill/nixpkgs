@@ -30,7 +30,7 @@ in {
   imports = [
     (mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "user" ] "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting.")
     (mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "group" ] "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting.")
-    (mkRemovedOptionModule [ "services" "prometheus" "alertmanagerURL" ] ''
+    (mkRemovedOptionModule [ "services" "prometheus2" "alertmanagerURL" ] ''
       Due to incompatibility, the alertmanagerURL option has been removed,
       please use 'services.prometheus2.alertmanagers' instead.
     '')
