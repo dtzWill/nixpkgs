@@ -26,20 +26,20 @@ stdenv.mkDerivation rec {
     mv $out/lib/*/include $dev/include
 
     # move .a and .o files into place
-    mv $out/lib/mimalloc-1.0/libmimalloc*.a           $out/lib/libmimalloc.a
-    mv $out/lib/mimalloc-1.0/mimalloc*.o              $out/lib/mimalloc.o
+    mv $out/lib/mimalloc-1.3/libmimalloc*.a           $out/lib/libmimalloc.a
+    mv $out/lib/mimalloc-1.3/mimalloc*.o              $out/lib/mimalloc.o
 
   '' + (if secureBuild then ''
-    mv $out/lib/mimalloc-1.0/libmimalloc-secure${soext}.1.0 $out/lib/libmimalloc-secure${soext}.1.0
-    ln -sfv $out/lib/libmimalloc-secure${soext}.1.0 $out/lib/libmimalloc-secure${soext}
-    ln -sfv $out/lib/libmimalloc-secure${soext}.1.0 $out/lib/libmimalloc${soext}
+    mv $out/lib/mimalloc-1.3/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc-secure${soext}.1.3
+    ln -sfv $out/lib/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc-secure${soext}
+    ln -sfv $out/lib/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc${soext}
   '' else ''
-    mv $out/lib/mimalloc-1.0/libmimalloc${soext}.1.0 $out/lib/libmimalloc${soext}.1.0
-    ln -sfv $out/lib/libmimalloc${soext}.1.0 $out/lib/libmimalloc${soext}
+    mv $out/lib/mimalloc-1.3/libmimalloc${soext}.1.3 $out/lib/libmimalloc${soext}.1.3
+    ln -sfv $out/lib/libmimalloc${soext}.1.3 $out/lib/libmimalloc${soext}
   '') + ''
     # remote duplicate dir. FIXME: try to fix the .cmake file distribution
     # so we can re-use it for dependencies...
-    rm -rf $out/lib/mimalloc-1.0
+    rm -rf $out/lib/mimalloc-1.3
   '';
 
   outputs = [ "out" "dev" ];
