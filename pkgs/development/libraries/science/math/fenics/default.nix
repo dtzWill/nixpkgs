@@ -8,7 +8,7 @@
 , numpy
 , pkgconfig
 , pytest
-, pytest_3 # remove once packages all work with pytest 4
+#, pytest_3 # remove once packages all work with pytest 4
 , pythonPackages
 , six
 , sympy
@@ -62,7 +62,7 @@ let
       sha256 = "1sbi0fbr7w9g9ajr565g3njxrc3qydqjy3334vmz5xg0rd3106il";
     };
     buildInputs = [ numpy six sympy ];
-    checkInputs = [ pytest_3 ];
+    checkInputs = [ pytest ]; # pytest_3 ];
     checkPhase = ''
       py.test test/unit/
     '';
