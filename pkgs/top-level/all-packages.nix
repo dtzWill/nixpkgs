@@ -7472,6 +7472,8 @@ in
 
   zbar = libsForQt5.callPackage ../tools/graphics/zbar { };
 
+  zchunk = callPackage ../tools/compression/zchunk { };
+
   zdelta = callPackage ../tools/compression/zdelta { };
 
   zerotierone = callPackage ../tools/networking/zerotierone { };
