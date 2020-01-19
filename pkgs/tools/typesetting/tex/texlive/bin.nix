@@ -27,6 +27,7 @@ let
     };
 
     patches = [
+      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
     ];
 
     postPatch = let
