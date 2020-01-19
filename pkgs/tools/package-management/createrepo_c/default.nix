@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DENABLE_DRPM=OFF" /* need to package drpm */ ];
 
   postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "\''${BASHCOMP_DIR}" "${placeholder "out"}/share/bash-completion/completions"
     substituteInPlace src/python/CMakeLists.txt \
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
   '';
