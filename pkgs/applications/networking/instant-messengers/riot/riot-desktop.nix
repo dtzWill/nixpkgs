@@ -15,7 +15,7 @@ let
   };
 
 in mkYarnPackage rec {
-  name = "riot-desktop-${version}";
+  pname = "riot-desktop";
   inherit version;
 
   src = "${riot-web-src}/electron_app";
