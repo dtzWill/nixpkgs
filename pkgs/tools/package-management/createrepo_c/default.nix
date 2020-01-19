@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, bzip2, expat, glib, curl, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, bzip2, expat, glib, curl, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion, zchunk }:
 
 stdenv.mkDerivation rec {
   pname = "createrepo_c";
@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
     ./fix-python-install-path.patch
   ];
 
+  cmakeFlags = [ "-DENABLE_DRPM=OFF" /* need to package drpm */ ];
+
   postPatch = ''
     substituteInPlace src/python/CMakeLists.txt \
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
@@ -22,7 +24,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [ bzip2 expat glib curl libxml2 python3 rpm openssl sqlite file xz pcre bash-completion ];
+  buildInputs = [ bzip2 expat glib curl libxml2 python3 rpm openssl sqlite file xz pcre bash-completion zchunk ];
 
   meta = with stdenv.lib; {
     description = "C implementation of createrepo";
