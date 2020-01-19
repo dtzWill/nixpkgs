@@ -214,11 +214,6 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
 
-        preStart = ''
-          install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
-          chown -R ${cfg.user} ${cfg.dbpath}
-        '';
-
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/redis-server ${redisConfig}";
           RuntimeDirectory = "redis";
