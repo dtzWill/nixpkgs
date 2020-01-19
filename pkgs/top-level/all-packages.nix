@@ -17141,6 +17141,8 @@ in
 
   ant-nebula-theme = callPackage ../data/themes/ant-theme/ant-nebula.nix { };
 
+  arc-icon-theme = callPackage ../data/icons/arc-icon-theme { };
+
   arc-kde-theme = callPackage ../data/themes/arc-kde { };
 
   arc-theme = callPackage ../data/themes/arc { };
