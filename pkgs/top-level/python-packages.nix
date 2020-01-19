@@ -3601,7 +3601,7 @@ in {
     pkgs-docker = pkgs.docker;
   };
 
-  jupyterhub = callPackage ../development/python-modules/jupyterhub { };
+  jupyterhub = callPackage ../development/python-modules/jupyterhub { nodePackages = nodePackages_10_x; };
 
   jupyterhub-ldapauthenticator = callPackage ../development/python-modules/jupyterhub-ldapauthenticator { };
 
