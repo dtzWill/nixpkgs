@@ -21,6 +21,9 @@ mkDerivation rec {
   postPatch = ''
     substituteInPlace deps/discount/version.c.in --subst-var-by TABSTOP 4
     substituteInPlace app/resources/gnome-shell/mindforger.desktop --replace /usr "$out"
+
+    # delete build directory
+    rm -rf deps/cmark-gfm/build
   '';
 
   preConfigure = ''
