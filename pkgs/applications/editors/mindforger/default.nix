@@ -1,4 +1,4 @@
-{ mkDerivation, fetchurl, cmake, qmake, qtbase, qtwebkit }:
+{ mkDerivation, lib, fetchurl, cmake, qmake, qtbase, qtwebkit }:
 
 mkDerivation rec {
   pname = "mindforger";
