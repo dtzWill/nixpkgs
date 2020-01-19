@@ -520,7 +520,8 @@ in {
   ##  (mkRenamedOptionModule [ "services" "prometheus2" ] [ "services" "prometheus" ])
   ##];
 
-  options.services.prometheus = {
+  options = {
+    services.prometheus = {
 
       enable = mkOption {
         type = types.bool;
