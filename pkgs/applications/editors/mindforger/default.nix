@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, cmake, qmake, qtbase, qtwebkit }:
+{ mkDerivation, fetchurl, cmake, qmake, qtbase, qtwebkit }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "mindforger";
   version = "1.50.0";
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
   qmakeFlags = [ "-r mindforger.pro" "CONFIG+=mfnoccache" ] ;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Thinking Notebook & Markdown IDE";
     longDescription = ''
      MindForger is actually more than an editor or IDE - it's human
