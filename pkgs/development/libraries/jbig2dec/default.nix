@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
   checkInputs = [ python3 ];
   doCheck = true;
 
+  patches = [ ./2001_disable_memento.patch ];
+
   meta = {
     homepage = https://www.jbig2dec.com/;
     description = "Decoder implementation of the JBIG2 image compression format";

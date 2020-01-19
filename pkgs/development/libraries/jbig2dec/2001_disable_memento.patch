@@ -1,0 +1,27 @@
+Description: Don't compile unrelated and unusable Memento memory debugging code
+Author: Yuriy M. Kaminskiy <yumkam@gmail.com>
+Forwarded: no
+Last-Update: 2016-05-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -22,8 +22,7 @@
+ 	jbig2.h jbig2_priv.h jbig2_image.h \
+ 	jbig2_arith.h jbig2_arith_iaid.h jbig2_arith_int.h \
+ 	jbig2_huffman.h jbig2_hufftab.h jbig2_mmr.h \
+-	jbig2_generic.h jbig2_symbol_dict.h jbig2_text.h \
+-	memento.c memento.h
++	jbig2_generic.h jbig2_symbol_dict.h jbig2_text.h
+ 
+ bin_PROGRAMS = jbig2dec
+ noinst_PROGRAMS = test_sha1 test_huffman test_arith
+@@ -40,6 +39,8 @@
+ 
+ EXTRA_DIST = test_jbig2dec.py msvc.mak LICENSE CHANGES
+ 
++EXTRA_SOURCES = memento.c memento.h
++
+ MAINTAINERCLEANFILES = config_types.h.in
+ 
+ TESTS = test_sha1 test_jbig2dec.py test_huffman test_arith
