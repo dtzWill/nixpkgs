@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional stdenv.hostPlatform.isMusl argp-standalone;
   NIX_LDFLAGS = stdenv.lib.optionalString stdenv.hostPlatform.isMusl "-largp";
 
+  doCheck = true;
+
   meta = with stdenv.lib; {
     description = "Easy-to-delta, compressed file format";
     license = licenses.bsd2;
