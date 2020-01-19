@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mindforger";
-  version = "1.49.0";
+  version = "1.50.0";
 
   src = fetchurl {
     url = "https://github.com/dvorka/${pname}/releases/download/${version}/${pname}_${version}.tgz";
-    sha256 = "1s33d6b7hdhhy5ji133ipklw72i205k1m8bjm5b80mrmb0kpsnjd";
+    sha256 = "0nkaawdl0jp0279g8ig8n0h5h6fpz0y8fhsh92rdil9m9m5qndvi";
   };
 
   nativeBuildInputs = [ cmake qmake ] ;
