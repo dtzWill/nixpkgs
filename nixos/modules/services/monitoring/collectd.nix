@@ -16,8 +16,15 @@ let
       NotifyLevel "OKAY"
     </Plugin>
 
+    ${concatStrings (mapAttrsToList (plugin: pluginConfig: ''
+      LoadPlugin ${plugin}
+      <Plugin "${plugin}">
+      ${pluginConfig}
+      </Plugin>
+    '') cfg.plugins)}
+
     ${concatMapStrings (f: ''
-    Include "${f}"
+      Include "${f}"
     '') cfg.include}
 
     ${cfg.extraConfig}
@@ -68,6 +75,15 @@ in {
       type = listOf str;
     };
 
+    plugins = mkOption {
+      default = {};
+      example = { cpu = ""; memory = ""; network = "Server 192.168.1.1 25826"; };
+      description = ''
+        Attribute set of plugin names to plugin config segments
+      '';
+      type = types.attrsOf types.str;
+    };
+
     extraConfig = mkOption {
       default = "";
       description = ''
@@ -96,9 +112,10 @@ in {
       };
     };
 
-    users.users = optional (cfg.user == "collectd") {
-      name = "collectd";
-      isSystemUser = true;
+    users.users = optionalAttrs (cfg.user == "collectd") {
+      collectd = {
+        isSystemUser = true;
+      };
     };
   };
 }

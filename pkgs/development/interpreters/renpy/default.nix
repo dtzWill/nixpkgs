@@ -3,7 +3,7 @@
 , glib
 }:
 
-with pythonPackages;
+with python2Packages;
 
 stdenv.mkDerivation rec {
   pname = "renpy";

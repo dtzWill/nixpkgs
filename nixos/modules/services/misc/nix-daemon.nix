@@ -13,8 +13,9 @@ let
   isNix20 = versionAtLeast nixVersion "2.0pre";
   isNix23 = versionAtLeast nixVersion "2.3pre";
 
-  makeNixBuildUser = nr:
-    { name = "nixbld${toString nr}";
+  makeNixBuildUser = nr: {
+    name  = "nixbld${toString nr}";
+    value = {
       description = "Nix build user ${toString nr}";
 
       /* For consistency with the setgid(2), setuid(2), and setgroups(2)
@@ -24,8 +25,9 @@ let
       group = "nixbld";
       extraGroups = [ "nixbld" ];
     };
+  };
 
-  nixbldUsers = map makeNixBuildUser (range 1 cfg.nrBuildUsers);
+  nixbldUsers = listToAttrs (map makeNixBuildUser (range 1 cfg.nrBuildUsers));
 
   nixConf =
     let
@@ -82,6 +84,10 @@ let
 in
 
 {
+  imports = [
+    (mkRenamedOptionModule [ "nix" "useChroot" ] [ "nix" "useSandbox" ])
+    (mkRenamedOptionModule [ "nix" "chrootDirs" ] [ "nix" "sandboxPaths" ])
+  ];
 
   ###### interface
 
@@ -477,23 +483,16 @@ in
 
     users.users = nixbldUsers;
 
-    services.xserver.displayManager.hiddenUsers = map ({ name, ... }: name) nixbldUsers;
+    services.xserver.displayManager.hiddenUsers = attrNames nixbldUsers;
 
-    # FIXME: use systemd-tmpfiles to create Nix directories.
     system.activationScripts.nix = stringAfter [ "etc" "users" ]
       ''
-        # Nix initialisation.
-        install -m 0755 -d \
-          /nix/var/nix/gcroots \
-          /nix/var/nix/temproots \
-          /nix/var/nix/userpool \
-          /nix/var/nix/profiles \
-          /nix/var/nix/db \
-          /nix/var/log/nix/drvs
-        install -m 1777 -d \
-          /nix/var/nix/gcroots/per-user \
-          /nix/var/nix/profiles/per-user \
-          /nix/var/nix/gcroots/tmp
+        install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
+
+        # Subscribe the root user to the NixOS channel by default.
+        if [ ! -e "/root/.nix-channels" ]; then
+            echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
+        fi
       '';
 
     nix.systemFeatures = mkDefault (

@@ -52,6 +52,12 @@ let
   taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (mapAttrsToList (n: v: v) cfg.taints);
 in
 {
+  imports = [
+    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "applyManifests" ] "")
+    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "cadvisorPort" ] "")
+    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "allowPrivileged" ] "")
+  ];
+
   ###### interface
   options.services.kubernetes.kubelet = with lib.types; {
 
@@ -59,12 +65,6 @@ in
       description = "Kubernetes kubelet info server listening address.";
       default = "0.0.0.0";
       type = str;
-    };
-
-    allowPrivileged = mkOption {
-      description = "Whether to allow Kubernetes containers to request privileged mode.";
-      default = false;
-      type = bool;
     };
 
     clusterDns = mkOption {
@@ -269,7 +269,6 @@ in
           RestartSec = "1000ms";
           ExecStart = ''${top.package}/bin/kubelet \
             --address=${cfg.address} \
-            --allow-privileged=${boolToString cfg.allowPrivileged} \
             --authentication-token-webhook \
             --authentication-token-webhook-cache-ttl="10s" \
             --authorization-mode=Webhook \

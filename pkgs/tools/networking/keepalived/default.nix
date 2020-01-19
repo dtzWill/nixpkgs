@@ -1,14 +1,16 @@
-{ stdenv, fetchFromGitHub, libnfnetlink, libnl, net_snmp, openssl, pkgconfig }:
+{ stdenv, fetchFromGitHub
+, libnfnetlink, libnl, net_snmp, openssl
+, pkgconfig, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  name = "keepalived-${version}";
-  version = "1.4.2";
+  pname = "keepalived";
+  version = "2.0.19";
 
   src = fetchFromGitHub {
     owner = "acassen";
     repo = "keepalived";
     rev = "v${version}";
-    sha256 = "154yxs6kwpi9yc4pa45ba3z3bfwzgmmmja5nk3d9mxq6w6s1swcy";
+    sha256 = "05jgr0f04z69x3zf3b9z04wczl15fnh69bs6j0yw55fij1k9nj4d";
   };
 
   buildInputs = [
@@ -18,7 +20,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig autoreconfHook ];
 
   configureFlags = [
     "--enable-sha1"

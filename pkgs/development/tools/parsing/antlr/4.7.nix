@@ -12,7 +12,8 @@ let
 
   runtime = {
     cpp = stdenv.mkDerivation {
-      name = "antlr-runtime-cpp-${version}";
+      pname = "antlr-runtime-cpp";
+      inherit version;
       src = source;
 
       outputs = [ "out" "dev" "doc" ];

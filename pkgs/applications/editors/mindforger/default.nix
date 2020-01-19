@@ -1,12 +1,12 @@
-{ stdenv, fetchurl, cmake, qmake, qtbase, qtwebkit }:
+{ mkDerivation, lib, fetchurl, cmake, qmake, qtbase, qtwebkit }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "mindforger";
-  version = "1.49.0";
+  version = "1.50.0";
 
   src = fetchurl {
     url = "https://github.com/dvorka/${pname}/releases/download/${version}/${pname}_${version}.tgz";
-    sha256 = "1s33d6b7hdhhy5ji133ipklw72i205k1m8bjm5b80mrmb0kpsnjd";
+    sha256 = "0nkaawdl0jp0279g8ig8n0h5h6fpz0y8fhsh92rdil9m9m5qndvi";
   };
 
   nativeBuildInputs = [ cmake qmake ] ;
@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace deps/discount/version.c.in --subst-var-by TABSTOP 4
     substituteInPlace app/resources/gnome-shell/mindforger.desktop --replace /usr "$out"
+
+    # delete build directory
+    rm -rf deps/cmark-gfm/build
   '';
 
   preConfigure = ''
@@ -39,7 +42,7 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
   qmakeFlags = [ "-r mindforger.pro" "CONFIG+=mfnoccache" ] ;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Thinking Notebook & Markdown IDE";
     longDescription = ''
      MindForger is actually more than an editor or IDE - it's human

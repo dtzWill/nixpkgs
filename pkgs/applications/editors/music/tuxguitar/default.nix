@@ -10,7 +10,7 @@ in stdenv.mkDerivation rec {
   pname = "tuxguitar";
 
   src = fetchurl {
-    url = "mirror://sourceforge/tuxguitar/${name}-linux-${metadata.arch}.tar.gz";
+    url = "mirror://sourceforge/tuxguitar/${pname}-${version}-linux-${metadata.arch}.tar.gz";
     sha256 = metadata.sha256;
   };
 

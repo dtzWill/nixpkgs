@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, fetchgit, fetchpatch, makeWrapper
+{ mkDerivation, lib, fetchurl, fetchgit, fetchpatch
 , qtbase, qtquickcontrols, qtscript, qtdeclarative, qmake, llvmPackages_8
 , withDocumentation ? false, withClangPlugins ? true 
 }:
 
-with stdenv.lib;
+with lib;
 
 let
   # Fetch clang from qt vendor, this contains submodules like this:
@@ -18,14 +18,14 @@ let
   });
 in
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "qtcreator";
-  version = "4.10.0";
+  version = "4.11.0";
   baseVersion = builtins.concatStringsSep "." (lib.take 2 (builtins.splitVersion version));
 
   src = fetchurl {
     url = "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz";
-    sha256 = "12hgxdghz05ms4zl8prz2w8l66vmgw1qw2gsmmwqi2rdaay3lpcg";
+    sha256 = "0ibn7bapw7m26nmxl26dns1hnpawfdqk1i1mgg0gjssja8famszg";
   };
 
   buildInputs = [ qtbase qtscript qtquickcontrols qtdeclarative ] ++ 

@@ -332,14 +332,12 @@ in
       in
         generators.toINI {} totalConfig;
 
-    users.users = singleton {
-      name = "ceph";
+    users.users.ceph = {
       uid = config.ids.uids.ceph;
       description = "Ceph daemon user";
     };
 
-    users.groups = singleton {
-      name = "ceph";
+    users.groups.ceph = {
       gid = config.ids.gids.ceph;
     };
 

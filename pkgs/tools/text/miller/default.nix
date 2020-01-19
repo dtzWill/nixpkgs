@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "johnkerl";
     repo = pname;
     rev = "v${version}";
-    sha256 = "error: cannot download source from any mirror";
+    sha256 = "1xajaab02y9bysanfn4i5c77q1zfmjzdswyvw2mzbidsxnjsgn6l";
   };
 
   nativeBuildInputs = [ autoreconfHook flex libtool ];

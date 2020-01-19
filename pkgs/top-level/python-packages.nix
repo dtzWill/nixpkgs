@@ -2960,8 +2960,6 @@ in {
 
   django-discover-runner = callPackage ../development/python-modules/django-discover-runner { };
 
-  django-dynamic-preferences = callPackage ../development/python-modules/django-dynamic-preferences { };
-
   django_environ = callPackage ../development/python-modules/django_environ { };
 
   django_evolution = callPackage ../development/python-modules/django_evolution { };
@@ -3603,7 +3601,7 @@ in {
     pkgs-docker = pkgs.docker;
   };
 
-  jupyterhub = callPackage ../development/python-modules/jupyterhub { };
+  jupyterhub = callPackage ../development/python-modules/jupyterhub { nodePackages = pkgs.nodePackages_10_x; };
 
   jupyterhub-ldapauthenticator = callPackage ../development/python-modules/jupyterhub-ldapauthenticator { };
 
@@ -3971,8 +3969,6 @@ in {
   monosat = disabledIf (!isPy3k) (pkgs.monosat.python { inherit buildPythonPackage; inherit (self) cython; });
 
   monotonic = callPackage ../development/python-modules/monotonic { };
-
-  MySQL_python = callPackage ../development/python-modules/mysql_python { };
 
   mysql-connector = callPackage ../development/python-modules/mysql-connector { };
 
@@ -5076,6 +5072,8 @@ in {
   systemd = callPackage ../development/python-modules/systemd {
     inherit (pkgs) pkgconfig systemd;
   };
+
+  sysv_ipc = callPackage ../development/python-modules/sysv_ipc { };
 
   tabulate = callPackage ../development/python-modules/tabulate { };
 

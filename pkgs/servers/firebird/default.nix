@@ -38,8 +38,8 @@
 */
 
 stdenv.mkDerivation rec {
-  version = "2.5.9.27139";
-  pname = "firebird";
+  version = "2.5.7.27050-0";
+  name = "firebird-${version}";
 
   # enableParallelBuilding = false; build fails
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/firebird/Firebird-${version}.tar.bz2";
-    sha256 = "error: cannot download Firebird-2.5.9.27139.tar.bz2 from any mirror";
+    sha256 = "06hp6bq5irqvm3h03s79qjgcc3jsjpq150y9aq7anklx9v4nhfqa";
   };
 
   hardeningDisable = [ "format" ];

@@ -26,7 +26,6 @@
 , symlinkJoin
 , keras-applications
 , keras-preprocessing
-, addOpenGLRunpath
 }:
 
 # We keep this binary build for two reasons:
@@ -77,8 +76,6 @@ in buildPythonPackage rec {
   ] ++ lib.optional (!isPy3k) mock
     ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
 
-  nativeBuildInputs = lib.optional cudaSupport addOpenGLRunpath;
-
   # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
   # and the propageted input tensorflow-tensorboard which causes environment collisions.
   # another possibility would be to have tensorboard only in the buildInputs
@@ -97,12 +94,7 @@ in buildPythonPackage rec {
   lib.optionalString stdenv.isLinux ''
     rrPath="$out/${python.sitePackages}/tensorflow/:$out/${python.sitePackages}/tensorflow/contrib/tensor_forest/:${rpath}"
     internalLibPath="$out/${python.sitePackages}/tensorflow/python/_pywrap_tensorflow_internal.so"
-    find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
-      patchelf --set-rpath "$rrPath" "$lib"
-      ${lib.optionalString cudaSupport ''
-        addOpenGLRunpath "$lib"
-      ''}
-    done
+    find $out \( -name '*.so' -or -name '*.so.*' \) -exec patchelf --set-rpath "$rrPath" {} \;
   '';
 
 

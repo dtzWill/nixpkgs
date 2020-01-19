@@ -113,6 +113,7 @@
     </itemizedlist>
    </listitem>
   </itemizedlist>
+
  </section>
 
  <section xmlns="http://docbook.org/ns/docbook"
@@ -389,6 +390,21 @@
         <link xlink:href="https://github.com/NixOS/nixpkgs/issues/60180">NixOS/nixpkgs#60180</link>.
      </para>
    </listitem>
+   <listitem>
+    <para>
+     For NixOS 19.03, both Prometheus 1 and 2 were available to allow for
+     a seamless transition from version 1 to 2 with existing setups.
+     Because Prometheus 1 is no longer developed, it was removed.
+     Prometheus 2 is now configured with <literal>services.prometheus</literal>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The WeeChat plugin <literal>pkgs.weechatScripts.weechat-xmpp</literal> has been removed as it doesn't receive
+     any updates from upstream and depends on outdated Python2-based modules.
+    </para>
+   </listitem>
+
   </itemizedlist>
  </section>
 
@@ -656,6 +672,29 @@
      The defaults from fontconfig are sufficient.
     </para>
    </listitem>
+   <listitem>
+    <para>
+      The <literal>crashplan</literal> package and the
+      <literal>crashplan</literal> service have been removed from nixpkgs due to
+      crashplan shutting down the service, while the <literal>crashplansb</literal>
+      package and <literal>crashplan-small-business</literal> service have been
+      removed from nixpkgs due to lack of maintainer.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      The <link linkend="opt-services.redis.enable">redis module</link> was hardcoded to use the <literal>redis</literal> user,
+      <filename class="directory">/run/redis</filename> as runtime directory and
+      <filename class="directory">/var/lib/redis</filename> as state directory.
+    </para>
+   </listitem>
+    <listitem>
+     <para>
+      <literal>pkgs.weechat</literal> is now compiled against <literal>pkgs.python3</literal>.
+      Weechat also recommends <link xlink:href="https://weechat.org/scripts/python3/">to use Python3
+      in their docs.</link>
+     </para>
+    </listitem>
   </itemizedlist>
  </section>
 </section>

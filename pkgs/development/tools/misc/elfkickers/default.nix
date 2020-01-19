@@ -1,15 +1,22 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "elfkickers-${version}";
-  version = "3.1";
+  pname = "elfkickers";
+  #version = "3.1";
+  version = "unstable-2019-11-22";
 
-  src = fetchurl {
-    url = "http://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
-    sha256 = "0n0sypjrdm3ramv0sby4sdh3i3j9d0ihadr951wa08ypdnq3yrkd";
+  src = fetchFromGitHub {
+    owner = "BR903";
+    repo = pname;
+    rev = "2c90cd821f29af3a6e2a658474789b106923476c";
+    sha256 = "1733czjpivnr15xd58nmdl7vy69v2mv32kqis8ivb0xl96m2q96s";
   };
+  #src = fetchurl {
+  #  url = "http://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
+  #  sha256 = "0n0sypjrdm3ramv0sby4sdh3i3j9d0ihadr951wa08ypdnq3yrkd";
+  #};
 
-  makeFlags = [ "CC=cc prefix=$(out)" ];
+  makeFlags = [ "CC=cc" "prefix=${placeholder "out"}" ];
 
   enableParallelBuilding = true;
 

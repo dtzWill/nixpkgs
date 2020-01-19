@@ -16,7 +16,7 @@
 */
 , qtbase # qtPluginPrefix
 , full # :(
-, libGLU_combined
+, libGLU, libGL
 , sqlite
 }:
 
@@ -33,7 +33,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake qttools ];
   buildInputs = [
-    libGLU_combined
+    libGLU libGL
     /*
     qtbase
     qtmultimedia

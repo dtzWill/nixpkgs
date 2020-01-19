@@ -103,7 +103,13 @@
      The SLIM Display Manager has been removed, as it has been unmaintained since 2013.
      Consider migrating to a different display manager such as LightDM (current default in NixOS),
      SDDM, GDM, or using the startx module which uses Xinitrc.
-     </para>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The Way Cooler wayland compositor has been removed, as the project has been officially canceled.
+     There are no more <literal>way-cooler</literal> attribute and <literal>programs.way-cooler</literal> options.
+    </para>
    </listitem>
    <listitem>
     <para>
@@ -117,6 +123,100 @@
     <para>
       The <literal>buildRustCrate</literal> infrastructure now produces <literal>lib</literal> outputs in addition to the <literal>out</literal> output.
       This has led to drastically reduced closed sizes for some rust crates since development dependencies are now in the <literal>lib</literal> output.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The <literal>kresd</literal> services deprecates the <literal>interfaces</literal> option
+     in favor of the <literal>listenPlain</literal> option which requires full
+     <link xlink:href="https://www.freedesktop.org/software/systemd/man/systemd.socket.html#ListenStream=">systemd.socket compatible</link>
+     declaration which always include a port.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     KDE’s old multimedia framework Phonon no longer supports Qt 4. For that reason, Plasma desktop also does not have <option>enableQt4Support</option> option any more.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The BeeGFS module has been removed.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The osquery module has been removed.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The <literal>dynamicHosts</literal> option has been removed from the
+     <link linkend="opt-networking.networkmanager.enable">networkd</link>
+     module. Allowing (multiple) regular users to override host entries
+     affecting the whole system opens up a huge attack vector.
+     There seem to be very rare cases where this might be useful.
+     Consider setting system-wide host entries using
+     <link linkend="opt-networking.hosts">networking.hosts</link>, provide
+     them via the DNS server in your network, or use
+     <link linkend="opt-environment.etc">environment.etc</link>
+     to add a file into <literal>/etc/NetworkManager/dnsmasq.d</literal>
+     reconfiguring <literal>hostsdir</literal>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     For NixOS configuration options, the <literal>loaOf</literal> type has
+     been deprecated and will be removed in a future release. In nixpkgs,
+     options of this type will be changed to <literal>attrsOf</literal>
+     instead. If you were using one of these in your configuration, you will
+     see a warning suggesting what changes will be required.
+    </para>
+    <para>
+     For example, <link linkend="opt-users.users">users.users</link> is a
+     <literal>loaOf</literal> option that is commonly used as follows:
+     <programlisting>
+users.users =
+  [ { name = "me";
+      description = "My personal user.";
+      isNormalUser = true;
+    }
+  ];
+     </programlisting>
+     This should be rewritten by removing the list and using the
+     value of <literal>name</literal> as the name of the attribute set:
+     <programlisting>
+users.users.me =
+  { description = "My personal user.";
+    isNormalUser = true;
+  };
+     </programlisting>
+    </para>
+    <para>
+     For more information on this change have look at these links:
+     <link xlink:href="https://github.com/NixOS/nixpkgs/issues/1800">issue #1800</link>,
+     <link xlink:href="https://github.com/NixOS/nixpkgs/pull/63103">PR #63103</link>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      The httpd module no longer provides options to support serving web content without defining a virtual host. As a
+      result of this the <link linkend="opt-services.httpd.logPerVirtualHost">services.httpd.logPerVirtualHost</link>
+      option now defaults to <literal>true</literal> instead of <literal>false</literal>. Please update your
+      configuration to make use of <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts</link>.
+    </para>
+    <para>
+      The <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;</link>
+      option has changed type from a list of submodules to an attribute set of submodules, better matching
+      <link linkend="opt-services.nginx.virtualHosts">services.nginx.virtualHosts.&lt;name&gt;</link>.
+    </para>
+    <para>
+      This change comes with the addition of the following options which mimic the functionality of their <literal>nginx</literal> counterparts:
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.addSSL</link>,
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.forceSSL</link>,
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.onlySSL</link>,
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.enableACME</link>,
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.acmeRoot</link>, and
+      <link linkend="opt-services.httpd.virtualHosts">services.httpd.virtualHosts.&lt;name&gt;.useACMEHost</link>.
     </para>
    </listitem>
   </itemizedlist>

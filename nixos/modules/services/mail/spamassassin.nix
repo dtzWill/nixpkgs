@@ -124,19 +124,17 @@ in
     # Allow users to run 'spamc'.
 
     environment = {
-      etc = singleton { source = spamdEnv; target = "spamassassin"; };
+      etc.spamassassin.source = spamdEnv;
       systemPackages = [ pkgs.spamassassin ];
     };
 
-    users.users = singleton {
-      name = "spamd";
+    users.users.spamd = {
       description = "Spam Assassin Daemon";
       uid = config.ids.uids.spamd;
       group = "spamd";
     };
 
-    users.groups = singleton {
-      name = "spamd";
+    users.groups.spamd = {
       gid = config.ids.gids.spamd;
     };
 

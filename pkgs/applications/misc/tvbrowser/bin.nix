@@ -18,7 +18,7 @@ let
 in stdenv.mkDerivation rec {
   pname = "tvbrowser";
   version = "4.0.1";
-  name = "${pname}-bin-${version}";
+  name = "${pname}-${version}";
 
   src = fetchurl {
     url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%208%20and%20higher%29/${version}/${pname}_${version}_bin.tar.gz";

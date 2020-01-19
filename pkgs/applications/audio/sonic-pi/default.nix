@@ -1,4 +1,5 @@
 { stdenv
+, mkDerivation
 , fetchFromGitHub
 , fftwSinglePrec
 , ruby
@@ -6,12 +7,14 @@
 , aubio
 , cmake
 , pkgconfig
-, qt5
+, qtbase
 , libsForQt5
 , boost
 , bash
 , makeWrapper
 , jack2Full
+, qscintilla
+, qwt
 }:
 
 let
@@ -19,7 +22,7 @@ let
     fftw = fftwSinglePrec;
   };
 
-in stdenv.mkDerivation rec {
+in mkDerivation rec {
   version = "3.1.0";
   name = "sonic-pi-${version}";
 
@@ -35,9 +38,9 @@ in stdenv.mkDerivation rec {
     cmake
     makeWrapper
     pkgconfig
-    qt5.qtbase
-    libsForQt5.qscintilla
-    libsForQt5.qwt
+    qtbase
+    qscintilla
+    qwt
     ruby
     libffi
     aubio

@@ -6,7 +6,6 @@
 , withPerl528 ? false, perl528
 , withPerl530 ? true, perl530
 , withPerldevel ? false, perldevel
-, withRuby_2_3 ? false, ruby_2_3
 , withRuby_2_4 ? false, ruby_2_4
 , withRuby_2_5 ? false, ruby_2_5
 , withRuby_2_6 ? true, ruby_2_6
@@ -38,7 +37,6 @@ stdenv.mkDerivation rec {
     ++ optional withPerl528 perl528
     ++ optional withPerl530 perl530
     ++ optional withPerldevel perldevel
-    ++ optional withRuby_2_3 ruby_2_3
     ++ optional withRuby_2_4 ruby_2_4
     ++ optional withRuby_2_5 ruby_2_5
     ++ optional withRuby_2_6 ruby_2_6

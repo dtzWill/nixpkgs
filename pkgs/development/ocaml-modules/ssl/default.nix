@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, which, openssl, ocaml, findlib }:
+{ stdenv, lib, fetchzip, which, openssl, ocaml, findlib }:
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-ssl-${version}";
