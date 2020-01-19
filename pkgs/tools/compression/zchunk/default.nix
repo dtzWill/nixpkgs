@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "13sqjslk634mkklnmzdlzk9l9rc6g6migig5rln3irdnjrxvjf69";
   };
 
+  outputs = [ "out" "dev" ];
+
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs =  [ curl openssl zstd ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isMusl argp-standalone;
