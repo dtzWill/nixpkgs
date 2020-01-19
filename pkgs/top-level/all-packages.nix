@@ -19999,6 +19999,7 @@ in
     libreoffice = callPackage ../applications/office/libreoffice/still.nix
       (libreoffice-args // {
         boost = boost166; # XXX: remove when possible
+        inherit (gnome2) GConf ORBit2 gnome_vfs;
       });
   });
   libreoffice-still-unwrapped = libreoffice-still.libreoffice;
