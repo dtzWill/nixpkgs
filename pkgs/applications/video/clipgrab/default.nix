@@ -10,7 +10,7 @@ mkDerivation rec {
   src = fetchurl {
     sha256 = "1w2j1wk9sf22nnschlraxdbxabqblrxyb8kq0lkyk7dkfa5d0hdq";
     # The .tar.bz2 "Download" link is a binary blob, the source is the .tar.gz!
-    url = "https://download.clipgrab.org/${name}.tar.gz";
+    url = "https://download.clipgrab.org/${pname}-${version}.tar.gz";
   };
 
   buildInputs = [ ffmpeg qtbase qtdeclarative qtlocation qtquickcontrols2 qtwebchannel qtwebengine ];
