@@ -10,6 +10,7 @@ pkgs.stdenv.mkDerivation (
   args // 
   {
 
+  name = "${pname}-${version}";
   pname = "emscripten-${lib.getName args}";
   version = lib.getVersion args;
   buildInputs = [ emscripten python ] ++ buildInputs;
