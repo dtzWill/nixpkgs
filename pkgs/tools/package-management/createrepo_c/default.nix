@@ -12,13 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./fix-bash-completion-path.patch
     ./fix-python-install-path.patch
   ];
 
   postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace '@BASHCOMP_DIR@' "$out/share/bash-completion/completions"
     substituteInPlace src/python/CMakeLists.txt \
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
   '';
