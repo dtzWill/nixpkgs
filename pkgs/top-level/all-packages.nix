@@ -22646,7 +22646,7 @@ in
 
   parity = callPackage ../applications/blockchains/parity { };
   parity-beta = callPackage ../applications/blockchains/parity/beta.nix { };
-  parity-ui = callPackage ../applications/blockchains/parity-ui { };
+  parity-ui = callPackage ../applications/blockchains/parity-ui { nodePackages = nodePackages_10_x; /* asar */ };
 
   polkadot = callPackage ../applications/blockchains/polkadot { };
 
