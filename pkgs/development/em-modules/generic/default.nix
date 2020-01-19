@@ -7,10 +7,9 @@
 , meta ? {}, ... } @ args:
 
 pkgs.stdenv.mkDerivation (
-  args // 
+  (builtins.removeAttrs args [ "name" ]) // 
   {
 
-  name = "${pname}-${version}";
   pname = "emscripten-${lib.getName args}";
   version = lib.getVersion args;
   buildInputs = [ emscripten python ] ++ buildInputs;
