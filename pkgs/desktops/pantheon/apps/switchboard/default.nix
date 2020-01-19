@@ -50,7 +50,6 @@ stdenv.mkDerivation rec {
     gtk3
     libgee
     libunity
-    glib-networking
   ];
 
   patches = [
