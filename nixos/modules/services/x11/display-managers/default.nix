@@ -122,7 +122,7 @@ let
     '';
 
   # file provided by services.xserver.displayManager.session.script
-  xsession = wm: dm: pkgs.writeScript "xsession"
+  xsession = dm: wm: pkgs.writeScript "xsession"
     ''
       #! ${pkgs.bash}/bin/bash
 
