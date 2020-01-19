@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "socat";
-  version = "1.7.3.3";
+  version = "1.7.3.4";
 
   src = fetchurl {
     url = "http://www.dest-unreach.org/socat/download/${pname}-${version}.tar.bz2";
-    sha256 = "0jnhjijyq74g3wa4ph0am83z6vq7qna7ac0xqjma8s4197z3zmhd";
+    sha256 = "1z7xgnwiqpcv1j6aghhj9nqbx7cg3gpc4n9j7vi9hm7nhv5788wp";
   };
 
   patches = stdenv.lib.optional stdenv.isDarwin ./speed-type-fix.patch;
