@@ -34,8 +34,8 @@ let
   targetPrefix = stdenv.lib.optionalString (targetPlatform != hostPlatform)
                                         (targetPlatform.config + "-");
 
-  bintoolsVersion = stdenv.lib.getVersion version;
-  bintoolsName = stdenv.lib.removePrefix targetPrefix (stdenv.lib.getName bintools);
+  bintoolsVersion = (builtins.parseDrvName bintools.name).version;
+  bintoolsName = (builtins.parseDrvName bintools.name).name;
 
   libc_bin = if libc == null then null else getBin libc;
   libc_dev = if libc == null then null else getDev libc;
@@ -74,7 +74,7 @@ in
 
 stdenv.mkDerivation {
   name = targetPrefix
-    + (if name != "" then name else "${bintoolsName}-wrapper")
+    + (if name != "" then name else stdenv.lib.removePrefix targetPrefix "${bintoolsName}-wrapper")
     + (stdenv.lib.optionalString (bintools != null && bintoolsVersion != "") "-${bintoolsVersion}");
 
   preferLocalBuild = true;
