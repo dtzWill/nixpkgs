@@ -1,17 +1,16 @@
 { stdenv, fetchsvn, SDL, autoconf, automake, libtool, gtk2, m4, pkgconfig, libGLU, libGL, makeWrapper }:
 
 stdenv.mkDerivation rec {
-  name = "smpeg-svn${version}";
-  version = "390";
+  pname = "smpeg-svn";
+  version = "413";
 
   src = fetchsvn {
     url = svn://svn.icculus.org/smpeg/trunk;
     rev = version;
-    sha256 = "0ynwn7ih5l2b1kpzpibns9bb9wzfjak7mgrb1ji0dkn2q5pv6lr0";
+    sha256 = "193amdwgxkb1zp7pgr72fvrdhcg3ly72qpixfxxm85rzz8g2kr77";
   };
 
   patches = [
-    ./format.patch
     ./gcc6.patch
     ./libx11.patch
   ];
