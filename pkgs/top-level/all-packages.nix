@@ -4002,16 +4002,7 @@ in
 
   hubicfuse = callPackage ../tools/filesystems/hubicfuse { };
 
-  hunter = callPackage ../tools/misc/hunter {
-    # XXX: obviously this is rather specific to my setup...
-    rustPlatform =
-      let
-        r = nur-combined.repos.mozilla.rustChannels.nightly.rust;
-      in pkgs.makeRustPlatform {
-        rustc = r;
-        cargo = r;
-      };
-  };
+  hunter = callPackage ../tools/misc/hunter { };
 
   humanfriendly = with python3Packages; toPythonApplication humanfriendly;
 
