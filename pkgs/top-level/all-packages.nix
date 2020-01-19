@@ -8960,6 +8960,7 @@ in
 
   lumo = callPackage ../development/interpreters/clojurescript/lumo {
     nodejs = nodejs-10_x;
+    nodePackages = nodePackages_10_x;
   };
 
   lxappearance = callPackage ../desktops/lxde/core/lxappearance {
