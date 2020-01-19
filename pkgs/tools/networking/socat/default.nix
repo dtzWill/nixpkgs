@@ -1,10 +1,11 @@
 { stdenv, fetchurl, openssl, readline, which, nettools }:
 
 stdenv.mkDerivation rec {
-  name = "socat-1.7.3.3";
+  pname = "socat";
+  version = "1.7.3.3";
 
   src = fetchurl {
-    url = "http://www.dest-unreach.org/socat/download/${name}.tar.bz2";
+    url = "http://www.dest-unreach.org/socat/download/${pname}-${version}.tar.bz2";
     sha256 = "0jnhjijyq74g3wa4ph0am83z6vq7qna7ac0xqjma8s4197z3zmhd";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
   hardeningEnable = [ "pie" ];
 
   checkInputs = [ which nettools ];
-  doCheck = false; # fails a bunch, hangs
+  # doCheck = false; # fails a bunch, hangs
 
   meta = {
     description = "A utility for bidirectional data transfer between two independent data channels";
