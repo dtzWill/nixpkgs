@@ -17,11 +17,6 @@ mkDerivation rec {
 
   qmakeFlags = [ "NO_APPDATA=True" ];
 
-  postPatch = ''
-    substituteInPlace src/latexdocument.cpp \
-      --replace '"%include" << "%url' '"%include" << "%import" << "%url'
-  '';
-
   meta = with lib; {
     description = "TeX and LaTeX editor";
     longDescription=''
