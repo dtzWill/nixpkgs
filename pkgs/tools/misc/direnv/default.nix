@@ -3,15 +3,15 @@
 buildGoPackage rec {
   name = "direnv-${version}";
 #  version = "2.20.1";
-  version = "unstable-2019-12-13";
+  version = "unstable-2020-01-20";
   goPackagePath = "github.com/direnv/direnv";
 
   src = fetchFromGitHub {
     owner = "direnv";
     repo = "direnv";
 #    rev = "v${version}";
-    rev = "c980189055f7d5aaae86436119a23fd955ef2295";
-    sha256 = "1827mjzwafxqcfsh8qs72mxsp183kp2q52sgb19njxp4675k5d4w";
+    rev = "d3d322cd353ca7fc0887d6fe1bb00e5bc9524b0f";
+    sha256 = "1zjvb2wjw41v27k35m2ipbfswx280vj1myy4qmp5nkbbby2a5c61";
   };
 
   postConfigure = ''
