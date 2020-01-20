@@ -46,8 +46,6 @@ stdenv.mkDerivation rec {
   patches = [
     ./urw-font-files.patch
     ./doc-no-ref.diff
-    # Reproducible timestamp
-    ./2010_add_build_timestamp_setting.patch
   ];
 
   outputs = [ "out" "man" "doc" ];
