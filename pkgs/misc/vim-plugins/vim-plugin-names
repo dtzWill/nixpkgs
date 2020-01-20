@@ -229,6 +229,7 @@ lyokha/vim-xkbswitch
 m-pilia/vim-ccls
 machakann/vim-highlightedyank
 machakann/vim-swap
+machakann/vim-sandwich
 majutsushi/tagbar
 maksimr/vim-jsbeautify
 MarcWeber/vim-addon-actions
