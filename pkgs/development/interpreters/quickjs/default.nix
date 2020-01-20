@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "quickjs";
-  version = "2019-12-21";
+  version = "2020-01-19";
 
   src = fetchurl {
     url = "https://bellard.org/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "13hlx6qwrrxmlvvqcr3irxba6zmf05cf54l32vj50wc66s1qd41p";
+    sha256 = "119bgw1mjggj7ngpa3d69f8m0j9id23mx3925kbh3hnp9q6c5r2a";
   };
 
   makeFlags = [ "prefix=${placeholder ''out''}" ];
