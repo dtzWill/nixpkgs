@@ -10,7 +10,7 @@ assert !(withQt4 && withQt5);
 stdenv.mkDerivation rec {
   ppname = "suil";
   pname = ppname + "-qt${if withQt4 then "4" else "5"}";
-  version = "0.10.4";
+  version = "0.10.6";
 
   src = fetchurl {
     url = "https://download.drobilla.net/${ppname}-${version}.tar.bz2";
