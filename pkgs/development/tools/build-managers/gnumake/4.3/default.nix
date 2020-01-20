@@ -13,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "10jyqh24yd4r550002nd3bzs11mfpa0cmgrhvchjb5fz9qf486ny";
   };
 
-  patchFlags = "-p0 -d src";
+  patchFlags = "-p0";
   patches = [
     # Purity: don't look for library dependencies (of the form `-lfoo') in /lib
     # and /usr/lib. It's a stupid feature anyway. Likewise, when searching for
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     ./impure-dirs.patch
     # ./pselect.patch
     # Fix support for glibc 2.27's glob, inspired by http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
-    # TODO: adjust!
+    # TODO: fix this or see if not needed
     # ./glibc-2.27-glob.patch
   ];
 

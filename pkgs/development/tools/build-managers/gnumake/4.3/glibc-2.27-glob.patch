@@ -1,6 +1,6 @@
-diff -Naur glob/glob.c glob/glob.c
---- glob/glob.c	2013-10-20 13:14:38.000000000 -0400
-+++ glob/glob.c	2018-03-16 14:32:38.483496170 -0400
+diff -Naur lib/glob.c lib/glob.c
+--- lib/glob.c	2013-10-20 13:14:38.000000000 -0400
++++ lib/glob.c	2018-03-16 14:32:38.483496170 -0400
 @@ -208,28 +208,9 @@
  #endif /* __GNU_LIBRARY__ || __DJGPP__ */
  
