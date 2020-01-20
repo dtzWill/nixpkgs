@@ -7,8 +7,8 @@ in fetchFromGitHub {
   name = "${pname}-${version}";
   owner = "sharanda";
   repo = pname;
-  rev = "0c04706136bf392895697bb7d76a4e659ac4d85d";
-  sha256 = "0jkq15053b0a8pl6320q4nzjh4h6vkyy9hjz7ihq87ipl9m4wzzp";
+  rev = "6db3ce008d2f802db6abbf9ec7bebec169c4d345";
+  sha256 = "0khr161ip18ng3r8vgx0lh1br43la4fq0a3wa0kh5hyx6f1vh536";
   postFetch = ''
     tar xf $downloadedFile --strip=1
     install -Dm644 -t $out/share/fonts/opentype "fonts"/otf/*
