@@ -19916,7 +19916,9 @@ in
 
   kubeval = callPackage ../applications/networking/cluster/kubeval { };
 
-  kubernetes = callPackage ../applications/networking/cluster/kubernetes { };
+  kubernetes = callPackage ../applications/networking/cluster/kubernetes {
+    go = buildPackages.go_1_13;
+  };
 
   kubeseal = callPackage ../applications/networking/cluster/kubeseal { };
 
