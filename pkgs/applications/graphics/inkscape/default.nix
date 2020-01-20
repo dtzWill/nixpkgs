@@ -35,6 +35,7 @@ stdenv.mkDerivation rec {
       url = "https://gitlab.com/inkscape/inkscape/commit/b5360a807b12d4e8318475ffd0464b84882788b5.patch";
       sha256 = "1p44rr2q2i3zkd1y1j7xgdcbgx8yvlq6hq92im8s0bkjby6p5cpz";
     })
+    # https://sources.debian.org/patches/inkscape/0.92.4-4/upstream/0005-Make-the-command-line-PDF-output-reproducible.patch/
   ];
 
   # Inkscape hits the ARGMAX when linking on macOS. It appears to be
