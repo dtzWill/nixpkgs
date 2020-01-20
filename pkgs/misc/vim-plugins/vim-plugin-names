@@ -493,6 +493,7 @@ tyru/open-browser.vim
 uarun/vim-protobuf
 udalov/kotlin-vim
 ujihisa/neco-look
+Valodim/deoplete-notmuch
 valloric/youcompleteme
 vhda/verilog_systemverilog.vim
 vim-airline/vim-airline
