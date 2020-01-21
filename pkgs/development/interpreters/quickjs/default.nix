@@ -19,7 +19,6 @@ stdenv.mkDerivation rec {
     # Programs exit with code 1 when testing help, so grep for a string
     set +o pipefail
     qjs     --help 2>&1 | grep "QuickJS version"
-    qjsbn   --help 2>&1 | grep "QuickJS version"
     qjscalc --help 2>&1 | grep "QuickJS version"
     set -o pipefail
 
@@ -27,9 +26,7 @@ stdenv.mkDerivation rec {
     echo "console.log('Output from compiled program');" > "$temp"
     set -o verbose
     out=$(mktemp) && qjsc         "$temp" -o "$out" && "$out" | grep -q "Output from compiled program"
-    out=$(mktemp) && qjsbnc       "$temp" -o "$out" && "$out" | grep -q "Output from compiled program"
     out=$(mktemp) && qjsc   -flto "$temp" -o "$out" && "$out" | grep -q "Output from compiled program"
-    out=$(mktemp) && qjsbnc -flto "$temp" -o "$out" && "$out" | grep -q "Output from compiled program"
   '';
 
   meta = with stdenv.lib; {
