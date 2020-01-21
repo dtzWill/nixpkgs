@@ -5,14 +5,14 @@
 
 buildPythonPackage rec {
   pname = "google-music-utils";
-  version = "2.1.0";
+  version = "2.2.1";
 
   # Pypi tarball doesn't contain tests
   src = fetchFromGitHub {
     owner = "thebigmunch";
     repo = "google-music-utils";
     rev = version;
-    sha256 = "0fn4zp0gf1wx2x06dbc840qcq21j4p3ajghxp7646w2n6n9gxhh7";
+    sha256 = "1kswlyz7k36plqh6ynwxvlal0p6f8r677zjp0qraqqf0dwk4qvgi";
   };
 
   propagatedBuildInputs = [
