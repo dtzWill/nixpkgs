@@ -20,14 +20,14 @@
 
 buildPythonPackage rec {
   pname = "httpx";
-  version = "0.9.5";
+  version = "0.11.1";
   disabled = isPy27;
 
   src = fetchFromGitHub {
     owner = "encode";
     repo = pname;
     rev = version;
-    sha256 = "140z2j7b5hlcxvfb433hqv5b8irqa88hpq33lzr9m992djbhj2hb";
+    sha256 = "0p6d4a5g4r2vzms9l1zimqxglk7ifzi4jcfk57nfh5n6wcl5v1xj";
   };
 
   propagatedBuildInputs = [
