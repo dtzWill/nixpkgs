@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig gettext ];
   buildInputs = [ ncurses ];
 
-  configureFlags = stdenv.lib.optional stdenv.isMusl "--disable-nls";
+  configureFlags = stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-nls";
 
   meta = with stdenv.lib; {
     description = "An ncurses based sudoku game";
