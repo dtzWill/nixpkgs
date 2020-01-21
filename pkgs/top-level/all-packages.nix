@@ -13845,6 +13845,8 @@ in
     jvm = jre;
   };
 
+  rinutils = callPackage ../development/libraries/rinutils { };
+
   rlog = callPackage ../development/libraries/rlog { };
 
   rocksdb = callPackage ../development/libraries/rocksdb { };
