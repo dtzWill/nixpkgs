@@ -16,6 +16,7 @@
 , uvicorn
 , trio
 , brotli
+, urllib3
 }:
 
 buildPythonPackage rec {
@@ -39,6 +40,7 @@ buildPythonPackage rec {
     idna
     rfc3986
     sniffio
+    urllib3
   ];
 
   checkInputs = [
