@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, gtest, pkgconfig, doxygen, graphviz }:
+{ lib, stdenv, fetchurl, gtest, pkgconfig, doxygen, graphviz, cmake }:
 
 stdenv.mkDerivation rec {
   name = "uriparser-${version}";
@@ -10,9 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "13z234jdaqs9jj7i66gcv4q1rgsypjz6cighnlm1j4g80pdlmbr8";
   };
 
-  nativeBuildInputs = [ pkgconfig doxygen graphviz ];
+  nativeBuildInputs = [ cmake pkgconfig doxygen graphviz ];
   buildInputs = lib.optional doCheck gtest;
-  configureFlags = lib.optional (!doCheck) "--disable-tests";
+  cmakeFlags = lib.optional (!doCheck) "-DURIPARSER_BUILD_TESTS=OFF";
 
   doCheck = stdenv.targetPlatform.system == stdenv.hostPlatform.system;
 
