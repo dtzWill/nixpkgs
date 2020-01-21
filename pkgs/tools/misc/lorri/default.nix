@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "08jrnyx7fcl95l7hbdrp6sz9ri6fzhy3vv86sinqrgqdy85cywwv";
   };
 
-  cargoSha256 = "0k7l0zhk2vzf4nlwv4xr207irqib2dqjxfdjk1fprff84c4kblx8";
+  cargoSha256 = "0jr1zddygdrq80wgwp635nhycdwzp25wd7xshw383yvkzvqxxmz2";
   doCheck = false;
 
   BUILD_REV_COUNT = src.revCount or 1;
