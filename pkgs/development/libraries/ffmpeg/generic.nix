@@ -69,11 +69,11 @@ assert libaomSupport -> libaom != null;
 
 stdenv.mkDerivation rec {
 
-  name = "ffmpeg-${version}";
+  pname = "ffmpeg";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.ffmpeg.org/releases/${name}.tar.xz";
+    url = "https://www.ffmpeg.org/releases/${pname}-${version}.tar.bz2";
     inherit sha256;
   };
 
@@ -93,7 +93,6 @@ stdenv.mkDerivation rec {
       "--enable-version3"
     # Build flags
       "--enable-shared"
-      "--disable-static"
       (ifMinVer "0.6" "--enable-pic")
       (enableFeature runtimeCpuDetectBuild "runtime-cpudetect")
       "--enable-hardcoded-tables"
@@ -140,6 +139,8 @@ stdenv.mkDerivation rec {
       (ifMinVer "0.6" (enableFeature vpxSupport "libvpx"))
       (ifMinVer "2.4" "--enable-lzma")
       (ifMinVer "2.2" (enableFeature openglSupport "opengl"))
+      (ifMinVer "4.2" (enableFeature libmfxSupport "libmfx"))
+      (ifMinVer "4.2" (enableFeature libaomSupport "libaom"))
       (disDarwinOrArmFix (ifMinVer "0.9" "--enable-libpulse") "0.9" "--disable-libpulse")
       (ifMinVer "2.5" (if sdlSupport && reqMin "3.2" then "--enable-sdl2" else if sdlSupport then "--enable-sdl" else null)) # autodetected before 2.5, SDL1 support removed in 3.2 for SDL2
       (ifMinVer "1.2" "--enable-libsoxr")
@@ -149,6 +150,7 @@ stdenv.mkDerivation rec {
       (ifMinVer "2.8" "--enable-libopus")
       "--enable-libspeex"
       (ifMinVer "2.8" "--enable-libx265")
+      (ifMinVer "4.2" (enableFeature (dav1d != null) "libdav1d"))
     # Developer flags
       (enableFeature debugDeveloper "debug")
       (enableFeature optimizationsDeveloper "optimizations")
@@ -176,7 +178,8 @@ stdenv.mkDerivation rec {
     ++ optional isLinux alsaLib
     ++ optionals isDarwin darwinFrameworks
     ++ optional vdpauSupport libvdpau
-    ++ optional sdlSupport (if reqMin "3.2" then SDL2 else SDL);
+    ++ optional sdlSupport (if reqMin "3.2" then SDL2 else SDL)
+    ++ optional (reqMin "4.2") dav1d;
 
   enableParallelBuilding = true;
 
