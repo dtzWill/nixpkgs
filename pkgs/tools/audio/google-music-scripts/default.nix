@@ -9,8 +9,6 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "14cgwl5mhncm2skkjzidak8ki4rxk4zwn7s8i54c746cgyvairg1";
   };
 
-  patches = [ ./loguru.patch ];
-
   propagatedBuildInputs = with python3.pkgs; [
     appdirs
     audio-metadata
