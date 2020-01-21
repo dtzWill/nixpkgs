@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 , audio-metadata, multidict, wrapt
 , pytest
 }:
@@ -7,12 +7,9 @@ buildPythonPackage rec {
   pname = "google-music-utils";
   version = "2.2.1";
 
-  # Pypi tarball doesn't contain tests
-  src = fetchFromGitHub {
-    owner = "thebigmunch";
-    repo = "google-music-utils";
-    rev = version;
-    sha256 = "1kswlyz7k36plqh6ynwxvlal0p6f8r677zjp0qraqqf0dwk4qvgi";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "10x1m0cqnbpacp3r7zff01l8x2a97hgyqgx3ajs67x8462zkkz76";
   };
 
   propagatedBuildInputs = [
@@ -23,6 +20,7 @@ buildPythonPackage rec {
   checkPhase = ''
     pytest
   '';
+  doCheck = false; # none in pypi
 
   disabled = pythonOlder "3.6";
 
