@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "git-extras";
-  version = "unstable-2019-12-23";
+  version = "unstable-2020-01-15";
 
   #src = fetchurl {
   #  url = "https://github.com/tj/git-extras/archive/${version}.tar.gz";
@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "tj";
     repo = pname;
-    rev = "6438dee914172218f35684e0d275be51e5ec2f7d";
-    sha256 = "07lxkbpxmr67wixpqcv1d5xd70f7l1pm4jf2dm5d87cb9y56s6aj";
+    rev = "b708a8a4d39644e1d305c223d5063c07dd4bcc37";
+    sha256 = "04y6pp2ib312zmb5b4xmq7j4cflcxrdrryppsws3nck2y3mvwxrc";
   };
 
   dontBuild = true;
