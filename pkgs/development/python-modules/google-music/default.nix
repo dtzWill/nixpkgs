@@ -5,6 +5,7 @@
 , protobuf
 , requests_oauthlib
 , tenacity
+, httpx
 }:
 
 buildPythonPackage rec {
@@ -25,6 +26,7 @@ buildPythonPackage rec {
     appdirs
     audio-metadata
     google-music-proto
+    httpx
     protobuf
     requests_oauthlib
     tenacity
