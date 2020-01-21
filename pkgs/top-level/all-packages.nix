@@ -19227,6 +19227,8 @@ in
 
   game-music-emu = callPackage ../applications/audio/game-music-emu { };
 
+  gavrasm = callPackage ../development/compilers/gavrasm { };
+
   gcalcli = callPackage ../applications/misc/gcalcli { };
 
   vcal = callPackage ../applications/misc/vcal { };
