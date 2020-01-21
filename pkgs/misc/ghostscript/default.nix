@@ -49,6 +49,11 @@ stdenv.mkDerivation rec {
     ./doc-no-ref.diff
     # Reproducible timestamp
     ./2010_add_build_timestamp_setting.patch
+    (fetchpatch {
+      name = "CVE-2019-14869.patch";
+      url = "https://git.ghostscript.com/?p=ghostpdl.git;a=patch;h=485904772c5f0aa1140032746e5a0abfc40f4cef";
+      sha256 = "0z5gnvgpp0dlzgvpw9a1yan7qyycv3mf88l93fvb1kyay893rshp";
+    })
   ];
 
   outputs = [ "out" "man" "doc" ];
