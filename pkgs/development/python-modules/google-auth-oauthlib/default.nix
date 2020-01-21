@@ -8,7 +8,6 @@
 , futures
 , google_auth
 , requests_oauthlib
-, isPy27
 }:
 
 buildPythonPackage rec {
