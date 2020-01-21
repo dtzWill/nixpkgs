@@ -1916,6 +1916,10 @@ in {
 
   cookies = callPackage ../development/python-modules/cookies { };
 
+  coreapi = callPackage ../development/python-modules/coreapi { };
+
+  coreschema = callPackage ../development/python-modules/coreschema { };
+
   coveralls = callPackage ../development/python-modules/coveralls { };
 
   coverage = callPackage ../development/python-modules/coverage { };
@@ -2291,6 +2295,8 @@ in {
 
   urllib3 = callPackage ../development/python-modules/urllib3 {};
 
+  drf-yasg = callPackage ../development/python-modules/drf-yasg { };
+
   dropbox = callPackage ../development/python-modules/dropbox {};
 
   drms = callPackage ../development/python-modules/drms { };
@@ -2539,6 +2545,8 @@ in {
   islpy = callPackage ../development/python-modules/islpy { };
 
   itsdangerous = callPackage ../development/python-modules/itsdangerous { };
+
+  itypes = callPackage ../development/python-modules/itypes { };
 
   iniparse = callPackage ../development/python-modules/iniparse { };
 
