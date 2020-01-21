@@ -25795,4 +25795,6 @@ in
   nota = haskellPackages.callPackage ../applications/science/math/nota { };
 
   unstick = callPackage ../os-specific/linux/unstick {};
+
+  lowdown = callPackage ../tools/text/lowdown {};
 }
