@@ -23099,6 +23099,8 @@ in
 
   newtonwars = callPackage ../games/newtonwars { };
 
+  nudoku = callPackage ../games/nudoku { };
+
   nxengine-evo = callPackage ../games/nxengine-evo { };
 
   odamex = callPackage ../games/odamex { };
