@@ -1,5 +1,5 @@
 { config, stdenv, lib, fetchurl, pkgconfig, zlib, expat, openssl, autoconf
-, libjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec
+, libjpeg, openjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec
 , libiconv, ijs, lcms2, fetchpatch
 , cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin), cups ? null
 , x11Support ? cupsSupport, xlibsWrapper ? null # with CUPS, X11 only adds very little
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig autoconf ];
   buildInputs =
     [ zlib expat openssl
-      libjpeg libpng libtiff freetype fontconfig libpaper jbig2dec
+      libjpeg openjpeg libpng libtiff freetype fontconfig libpaper jbig2dec
       libiconv ijs lcms2
     ]
     ++ lib.optional x11Support xlibsWrapper
@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
     ;
 
   preConfigure = ''
-    # requires in-tree (heavily patched) openjpeg
-    rm -rf jpeg libpng zlib jasper expat tiff lcms2mt jbig2dec freetype cups/libs ijs
+    rm -rf jpeg openjpeg libpng zlib jasper expat tiff lcms2mt jbig2dec freetype cups/libs ijs
 
     sed "s@if ( test -f \$(INCLUDE)[^ ]* )@if ( true )@; s@INCLUDE=/usr/include@INCLUDE=/no-such-path@" -i base/unix-aux.mak
     sed "s@^ZLIBDIR=.*@ZLIBDIR=${zlib.dev}/include@" -i configure.ac
