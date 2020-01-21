@@ -10,8 +10,8 @@ buildGoPackage rec {
     owner = "direnv";
     repo = "direnv";
 #    rev = "v${version}";
-    rev = "d3d322cd353ca7fc0887d6fe1bb00e5bc9524b0f";
-    sha256 = "1zjvb2wjw41v27k35m2ipbfswx280vj1myy4qmp5nkbbby2a5c61";
+    rev = "a4632773637ee1a6b08fa81043cacd24ea941489";
+    sha256 = "1f9mqpibcl6jcvq66z7wrn96zwr72rpsswy1wngkh3asjyy37ljb";
   };
 
   postConfigure = ''
