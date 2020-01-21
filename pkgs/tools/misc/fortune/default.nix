@@ -1,17 +1,17 @@
-{ stdenv, fetchurl, cmake, recode, perl }:
+{ stdenv, fetchurl, cmake, recode, perl, rinutils }:
 
 stdenv.mkDerivation rec {
   pname = "fortune-mod";
-  version = "2.10.0";
+  version = "2.12.0";
 
   src = fetchurl {
     url = "https://www.shlomifish.org/open-source/projects/fortune-mod/arcs/fortune-mod-${version}.tar.xz";
-    sha256 = "07g50hij87jb7m40pkvgd47qfvv4s805lwiz79jbqcxzd7zdyax7";
+    sha256 = "0vglkg985al4hp1cxvm10r6wmkxjvrncigd5y5874fgdqx4i4hmn";
   };
 
   nativeBuildInputs = [ cmake perl ];
 
-  buildInputs = [ recode ];
+  buildInputs = [ recode rinutils ];
 
   cmakeFlags = [
     "-DLOCALDIR=${placeholder "out"}/share/fortunes"
