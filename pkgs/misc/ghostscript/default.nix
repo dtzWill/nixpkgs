@@ -10,8 +10,8 @@ assert cupsSupport -> cups != null;
 
 let
   version = "9.${ver_min}";
-  ver_min = "27";
-  sha512 = "00m8pfvvg4dzvrzk66myr8kid76x44sgqk84m9562g4viv9zbw759l8q9qg64mgvbajzn78zpqfgdlgz9nwgcdb1vpwc08gm12ssrsy";
+  ver_min = "50";
+  sha512 = "3p46kzn6kh7z4qqnqydmmvdlgzy5730z3yyvyxv6i4yb22mgihzrwqmhmvfn3b7lypwf6fdkkndarzv7ly3zndqpyvg89x436sms7iw";
 
   fonts = stdenv.mkDerivation {
     name = "ghostscript-fonts";
@@ -36,10 +36,11 @@ let
 
 in
 stdenv.mkDerivation rec {
-  name = "ghostscript-${version}";
+  pname = "ghostscript";
+  inherit version;
 
   src = fetchurl {
-    url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9${ver_min}/${name}.tar.xz";
+    url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9${ver_min}/${pname}-${version}.tar.xz";
     inherit sha512;
   };
 
@@ -52,8 +53,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "man" "doc" ];
 
-  # arch.h generation
-  # enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig autoconf ];
   buildInputs =
