@@ -3,6 +3,7 @@
 , fetchPypi
 , six
 , requests
+, setuptools
 , pytest
 , mock
 }:
@@ -17,7 +18,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest mock ];
-  propagatedBuildInputs = [ six requests ];
+  propagatedBuildInputs = [ six setuptools requests ];
 
   checkPhase = ''
     py.test tests/unit
