@@ -1,15 +1,15 @@
 { stdenv, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
-  name = "mcfly-${version}";
-  version = "v0.3.1";
-  rev = "${version}";
+  pname = "mcfly";
+  version = "0.3.6";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "cantino";
     repo = "mcfly";
-    sha256 = "0pmyw21zns4zn7pffji4yvbj63fx3g15cx81pk4bs6lzyz5zbdc2";
+    rev = "v${version}";
+    sha256 = "1g3n7ll0yg7w7hb3jgp25mlnqwsdzv0608f41z7q5gmsskdm3v1j";
   };
 
   preInstall = ''
