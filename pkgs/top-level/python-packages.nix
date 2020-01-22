@@ -704,6 +704,10 @@ in {
 
   jira = callPackage ../development/python-modules/jira { };
 
+  junit-xml = callPackage ../development/python-modules/junit-xml { };
+
+  junitparser = callPackage ../development/python-modules/junitparser { };
+
   jwcrypto = callPackage ../development/python-modules/jwcrypto { };
 
   kconfiglib = callPackage ../development/python-modules/kconfiglib { };
@@ -1278,7 +1282,9 @@ in {
 
   unifi = callPackage ../development/python-modules/unifi { };
 
-  uvloop = callPackage ../development/python-modules/uvloop { };
+  uvloop = callPackage ../development/python-modules/uvloop {
+    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices CoreServices;
+  };
 
   pyunifi = callPackage ../development/python-modules/pyunifi { };
 
@@ -1633,6 +1639,8 @@ in {
 
   colour = callPackage ../development/python-modules/colour {};
 
+  colormath = callPackage ../development/python-modules/colormath {};
+
   configshell = callPackage ../development/python-modules/configshell { };
 
   constantly = callPackage ../development/python-modules/constantly { };
@@ -1907,6 +1915,10 @@ in {
   cookiecutter = callPackage ../development/python-modules/cookiecutter { };
 
   cookies = callPackage ../development/python-modules/cookies { };
+
+  coreapi = callPackage ../development/python-modules/coreapi { };
+
+  coreschema = callPackage ../development/python-modules/coreschema { };
 
   coveralls = callPackage ../development/python-modules/coveralls { };
 
@@ -2283,6 +2295,8 @@ in {
 
   urllib3 = callPackage ../development/python-modules/urllib3 {};
 
+  drf-yasg = callPackage ../development/python-modules/drf-yasg { };
+
   dropbox = callPackage ../development/python-modules/dropbox {};
 
   drms = callPackage ../development/python-modules/drms { };
@@ -2442,9 +2456,6 @@ in {
 
   python-gitlab = callPackage ../development/python-modules/python-gitlab { };
 
-  google-cloud-sdk = callPackage ../tools/admin/google-cloud-sdk { };
-  google-cloud-sdk-gce = callPackage ../tools/admin/google-cloud-sdk { with-gce=true; };
-
   google-compute-engine = callPackage ../tools/virtualization/google-compute-engine { };
 
   google-music = callPackage ../development/python-modules/google-music { };
@@ -2495,9 +2506,13 @@ in {
 
   hsaudiotag3k = callPackage ../development/python-modules/hsaudiotag3k { };
 
+  hstspreload = callPackage ../development/python-modules/hstspreload { };
+
   htmlmin = callPackage ../development/python-modules/htmlmin {};
 
   httpauth = callPackage ../development/python-modules/httpauth { };
+
+  httpx = callPackage ../development/python-modules/httpx { };
 
   idna-ssl = callPackage ../development/python-modules/idna-ssl { };
 
@@ -2530,6 +2545,8 @@ in {
   islpy = callPackage ../development/python-modules/islpy { };
 
   itsdangerous = callPackage ../development/python-modules/itsdangerous { };
+
+  itypes = callPackage ../development/python-modules/itypes { };
 
   iniparse = callPackage ../development/python-modules/iniparse { };
 
@@ -2640,6 +2657,8 @@ in {
   mailchimp = callPackage ../development/python-modules/mailchimp { };
 
   python-mapnik = callPackage ../development/python-modules/python-mapnik { };
+
+  measurement = callPackage ../development/python-modules/measurement {};
 
   midiutil = callPackage ../development/python-modules/midiutil {};
 
@@ -3330,7 +3349,7 @@ in {
   google_api_python_client = let
     google_api_python_client = callPackage ../development/python-modules/google-api-python-client { };
   in if isPy3k then google_api_python_client else
-    # Python 2.7 support was deprecated but is still needed by weboob
+    # Python 2.7 support was deprecated but is still needed by weboob and duplicity
     google_api_python_client.overridePythonAttrs (old: rec {
       version = "1.7.6";
       src = old.src.override {
@@ -3483,6 +3502,8 @@ in {
   httplib2 = callPackage ../development/python-modules/httplib2 { };
 
   hvac = callPackage ../development/python-modules/hvac { };
+
+  hydra = callPackage ../development/python-modules/hydra { };
 
   hypothesis = callPackage ../development/python-modules/hypothesis { };
 
@@ -4129,6 +4150,8 @@ in {
 
   od = callPackage ../development/python-modules/od { };
 
+  omegaconf = callPackage ../development/python-modules/omegaconf { };
+
   orderedset = callPackage ../development/python-modules/orderedset { };
 
   python-otr = callPackage ../development/python-modules/python-otr { };
@@ -4513,6 +4536,8 @@ in {
 
   pylint = if isPy3k then callPackage ../development/python-modules/pylint { }
            else callPackage ../development/python-modules/pylint/1.9.nix { };
+
+  pylint-plugin-utils = callPackage ../development/python-modules/pylint-plugin-utils { };
 
   pyomo = callPackage ../development/python-modules/pyomo { };
 
@@ -5083,6 +5108,8 @@ in {
 
   tadasets = callPackage ../development/python-modules/tadasets { };
 
+  tbm-utils = callPackage ../development/python-modules/tbm-utils { };
+
   tempita = callPackage ../development/python-modules/tempita { };
 
   terminado = callPackage ../development/python-modules/terminado { };
@@ -5645,6 +5672,8 @@ in {
   libarchive = self.python-libarchive; # The latter is the name upstream uses
 
   python-libarchive = callPackage ../development/python-modules/python-libarchive { };
+
+  python-logstash = callPackage ../development/python-modules/python-logstash { };
 
   libarchive-c = callPackage ../development/python-modules/libarchive-c {
     inherit (pkgs) libarchive;

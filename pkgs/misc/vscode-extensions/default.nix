@@ -64,8 +64,8 @@ rec {
     mktplcRef = {
       name = "latex-workshop";
       publisher = "James-Yu";
-      version = "8.2.0";
-      sha256 = "1ai16aam4v5jzhxgms589q0l24kyk1a9in6z4i7g05b3sahyxab2";
+      version = "8.6.0";
+      sha256 = "1zalfb86xlfk1prh2m9550q0g07h0hm4dxhim3qhsn1ncp93wk2q";
     };
     meta = with stdenv.lib; {
       license = licenses.mit;

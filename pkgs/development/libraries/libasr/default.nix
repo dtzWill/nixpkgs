@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libasr";
-  version=  "1.0.3";
+  version=  "1.0.4";
 
   src = fetchurl {
     url = "https://www.opensmtpd.org/archives/${pname}-${version}.tar.gz";
-    sha256 = "13fn4sr4vlcx1xijpl26nmnxawyls4lr5q3mi11jdm76f80qxn4w";
+    sha256 = "1d6s8njqhvayx2gp47409sp1fn8m608ws26hr1srfp6i23nnpyqr";
   };
 
   nativeBuildInputs = [ autoreconfHook ];

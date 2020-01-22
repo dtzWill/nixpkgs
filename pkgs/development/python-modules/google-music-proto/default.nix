@@ -8,12 +8,18 @@
 
 buildPythonPackage rec {
   pname = "google-music-proto";
-  version = "2.4.0";
+  version = "2.5.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "798ac14408593525d1865f608b30f71cce291b1a239f4d63f14bb4dcf79d7528";
+    sha256 = "1dy5fhmfj28ca7kp5f6vfh7d9vp56y6rd1m1p06mc6wk76z706c3";
   };
+
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace 'marshmallow>=2.0,<3.0' \
+                'marshmallow>=2.0'
+  '';
 
   propagatedBuildInputs = [
     attrs
