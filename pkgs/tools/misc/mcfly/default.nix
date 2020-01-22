@@ -5,7 +5,6 @@ rustPlatform.buildRustPackage rec {
   version = "0.3.6";
 
   src = fetchFromGitHub {
-    inherit rev;
     owner = "cantino";
     repo = "mcfly";
     rev = "v${version}";
