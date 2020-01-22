@@ -4,7 +4,7 @@
 
 let
   name    = "maxima";
-  version = "5.42.2";
+  version = "5.43.1";
 
   searchPath =
     stdenv.lib.makeBinPath
@@ -16,7 +16,7 @@ stdenv.mkDerivation ({
 
   src = fetchurl {
     url = "mirror://sourceforge/${name}/${name}-${version}.tar.gz";
-    sha256 = "0kdncy6137sg3rradirxzj10mkcvafxd892zlclwhr9sa7b12zhn";
+    sha256 = "0f07fjbw1awvgyr0aq5lhk0qy86fxhivavqwzpai9jyqv5zibija";
   };
 
   buildInputs = stdenv.lib.filter (x: x != null) [
