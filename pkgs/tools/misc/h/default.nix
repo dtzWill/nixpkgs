@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ruby ];
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp h $out/bin/h
-    cp up $out/bin/up
+    install -Dm755 -t $out/bin h up
   '';
 
   meta = with stdenv.lib; {
