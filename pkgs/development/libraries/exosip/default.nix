@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, libosip, openssl, pkgconfig, fetchpatch }:
+{ stdenv, fetchurl, libosip, openssl, pkgconfig }:
 
 stdenv.mkDerivation rec {
- name = "libexosip2-${version}";
+ pname = "libexosip2";
  version = "4.1.0";
 
  src = fetchurl {
@@ -11,13 +11,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libosip openssl ];
-
-  patches = [
-    (fetchpatch {
-      url = "https://sources.debian.net/data/main/libe/libexosip2/4.1.0-2.1/debian/patches/openssl110.patch";
-      sha256 = "01q2dax7pwh197mn18r22y38mrsky85mvs9vbkn9fpcilrdayal6";
-    })
-  ];
 
   meta = with stdenv.lib; {
     license = licenses.gpl2Plus;
