@@ -81,17 +81,7 @@ stdenv.mkDerivation ({
       share/draw/vtk.lisp
   '';
 
-  # The test suite is disabled since 5.42.2 because of the following issues:
-  #
-  #   Errors found in /build/maxima-5.42.2/share/linearalgebra/rtest_matrixexp.mac, problems:
-  #   (20 21 22)
-  #   Error found in rtest_arag, problem:
-  #   (error break)
-  #   3 tests failed out of 3,881 total tests.
-  #
-  # These failures don't look serious. It would be nice to fix them, but I
-  # don't know how and probably won't have the time to find out.
-  doCheck = false;    # try to re-enable after next version update
+  doCheck = true;
 
   enableParallelBuilding = true;
 
