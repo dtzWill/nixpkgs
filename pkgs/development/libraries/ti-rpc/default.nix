@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, autoreconfHook, libkrb5 }:
+{ fetchurl, stdenv, autoreconfHook, libkrb5, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "libtirpc";
@@ -18,6 +18,14 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     sed -es"|/etc/netconfig|$out/etc/netconfig|g" -i doc/Makefile.in tirpc/netconfig.h
   '';
+
+  patches = [
+    (fetchpatch {
+      name = "dont-use-internal-bits-endian-header-use-endian.patch";
+      url = "https://git.linux-nfs.org/?p=steved/libtirpc.git;a=patch;h=d04f4d6f0e682f16b0ce96839ab4eadade591eb1";
+      sha256 = "1paf1c3bgmc07ci85wv025kfl56v9agxg00pk7z4mzpf59dk526h";
+    })
+  ];
 
   preInstall = "mkdir -p $out/etc";
 
