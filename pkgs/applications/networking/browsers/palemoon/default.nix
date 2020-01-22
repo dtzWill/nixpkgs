@@ -92,8 +92,6 @@ in stdenv.mkDerivation rec {
     "
   '';
 
-  hardeningDisable = [ "format" ];
-
   buildPhase = ''
     $src/mach build
   '';
@@ -130,7 +128,7 @@ in stdenv.mkDerivation rec {
     '';
     homepage    = "https://www.palemoon.org/";
     license     = licenses.mpl20;
-    maintainers = with maintainers; [ rnhmjoj AndersonTorres OPNA2608 ];
+    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
     platforms   = [ "i686-linux" "x86_64-linux" ];
   };
 }
