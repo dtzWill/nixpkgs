@@ -63,6 +63,10 @@ in stdenv.mkDerivation rec {
       --replace 'lxc_path,' '"/run/libvirt/nix-emulators/libvirt_lxc",'
 
     patchShebangs . # fixes /usr/bin/python references
+
+    mkdir -p build
+    cd build
+    configureScript=../configure
   '';
 
   configureFlags = [
