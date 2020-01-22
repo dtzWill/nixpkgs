@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
+{ stdenv, fetchurl, fetchpatch, coreutils, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
 , tk ? null, gnuplot ? null, ecl ? null, ecl-fasl ? false
 }:
 
@@ -73,9 +73,7 @@ stdenv.mkDerivation ({
   ];
 
   postPatch = ''
-    for x in doc/info/*/Makefile.in doc/info/common-lang.mk; do
-      substituteInPlace $x --replace '/usr/bin/env perl' 'perl'
-    done
+    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' doc/info/* doc/info/*/* share/draw/vtk.lisp
   '';
 
   # The test suite is disabled since 5.42.2 because of the following issues:
