@@ -23479,6 +23479,8 @@ in
     libpng = libpng12;
   };
 
+  vvvvvv = callPackage ../games/vvvvvv { };
+
   warmux = callPackage ../games/warmux { };
 
   warsow-engine = callPackage ../games/warsow/engine.nix { };
