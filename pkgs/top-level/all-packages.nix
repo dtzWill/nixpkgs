@@ -1556,6 +1556,8 @@ in
 
   direnv = callPackage ../tools/misc/direnv { };
 
+  h = callPackage ../tools/misc/h { };
+
   discount = callPackage ../tools/text/discount { };
 
   diskscan = callPackage ../tools/misc/diskscan { };
