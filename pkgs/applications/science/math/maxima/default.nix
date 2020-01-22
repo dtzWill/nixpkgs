@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, coreutils, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, coreutils, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
 , tk ? null, gnuplot ? null, ecl ? null, ecl-fasl ? false
 }:
 
@@ -18,6 +18,8 @@ stdenv.mkDerivation ({
     url = "mirror://sourceforge/${name}/${name}-${version}.tar.gz";
     sha256 = "0f07fjbw1awvgyr0aq5lhk0qy86fxhivavqwzpai9jyqv5zibija";
   };
+
+  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = stdenv.lib.filter (x: x != null) [
     sbcl ecl texinfo perl python makeWrapper
@@ -73,7 +75,10 @@ stdenv.mkDerivation ({
   ];
 
   postPatch = ''
-    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' doc/info/*.{in,mk,am,sh} doc/info/*/Makefile.in share/draw/vtk.lisp
+    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' \
+      doc/info/*.{in,mk,am,sh} \
+      doc/info/*/Makefile.in \
+      share/draw/vtk.lisp
   '';
 
   # The test suite is disabled since 5.42.2 because of the following issues:
