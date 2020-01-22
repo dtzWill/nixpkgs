@@ -49,11 +49,11 @@ assert stdenv.isDarwin -> AudioToolbox != null && Foundation != null
 
 stdenv.mkDerivation rec {
   pname = "handbrake";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchurl {
-    url = ''https://download2.handbrake.fr/${version}/HandBrake-${version}-source.tar.bz2'';
-    sha256 = "15hxncswmaj62hb40fxixsa6d519zb712z9xbdq979q4rasjxa59";
+    url = "https://handbrake.fr/rotation.php?file=HandBrake-${version}-source.tar.bz2";
+    sha256 = "0h0z524d11lil4n1van95cx5fcqq408pcb8717hw8pk6fc2fxyk8";
   };
 
   nativeBuildInputs = [
