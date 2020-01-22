@@ -72,6 +72,12 @@ stdenv.mkDerivation ({
     })
   ];
 
+  postPatch = ''
+    for x in doc/info/*/Makefile.in doc/info/common-lang.mk; do
+      substituteInPlace $x --replace '/usr/bin/env perl' 'perl'
+    done
+  '';
+
   # The test suite is disabled since 5.42.2 because of the following issues:
   #
   #   Errors found in /build/maxima-5.42.2/share/linearalgebra/rtest_matrixexp.mac, problems:
