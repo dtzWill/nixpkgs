@@ -54,6 +54,9 @@ in stdenv.mkDerivation rec {
     libiconv gmp
   ];
 
+  # https://www.spinics.net/linux/fedora/libvirt-users/msg11757.html
+  dontAddDisableDepTrack = true;
+
   preConfigure = ''
     ${ optionalString (!buildFromTarball) "./bootstrap --no-git --gnulib-srcdir=$(pwd)/.gnulib" }
 
