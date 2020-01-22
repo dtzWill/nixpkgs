@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
   version = "1.3.1";
 
   src = fetchurl {
-    url = "https://handbrake.fr/rotation.php?file=HandBrake-${version}-source.tar.bz2";
-    sha256 = "0h0z524d11lil4n1van95cx5fcqq408pcb8717hw8pk6fc2fxyk8";
+    url = "https://github.com/HandBrake/HandBrake/releases/download/${version}/HandBrake-${version}-source.tar.bz2";
+    sha256 = "09rcrq0kjs1lc1as7w3glbpbfvzldwpx3xv0pfmkn4pl7acxw1f0";
   };
 
   nativeBuildInputs = [
