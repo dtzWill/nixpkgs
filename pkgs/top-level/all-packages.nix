@@ -20648,7 +20648,7 @@ in
 
   obs-linuxbrowser = callPackage ../applications/video/obs-studio/linuxbrowser.nix { };
 
-  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio { };
+  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio { ffmpeg = ffmpeg_4; };
 
   octoprint = callPackage ../applications/misc/octoprint { };
 
