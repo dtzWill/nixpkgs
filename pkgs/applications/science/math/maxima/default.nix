@@ -73,7 +73,7 @@ stdenv.mkDerivation ({
   ];
 
   postPatch = ''
-    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' doc/info/* doc/info/*/* share/draw/vtk.lisp
+    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' doc/info/*.{in,mk,am,sh} doc/info/*/Makefile.in share/draw/vtk.lisp
   '';
 
   # The test suite is disabled since 5.42.2 because of the following issues:
