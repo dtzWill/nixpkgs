@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "mawk";
-  version = "1.3.4-20190203";
+  version = "1.3.4-20200106";
 
   src = fetchurl {
     urls = [
       "ftp://ftp.invisible-island.net/mawk/${pname}-${version}.tgz"
       "https://invisible-mirror.net/archives/mawk/${pname}-${version}.tgz"
     ];
-    sha256 = "0h5qlslaj5czz4v25hqg8a6kg4c5mlkmdpxhhvpvp1ci08ab7b6s";
+    sha256 = "1dhmn0l1c122a4bb07a1lwzrzpjdhsbdbllb1a9gwvv2lw5j9qgi";
   };
 
   meta = with stdenv.lib; {
