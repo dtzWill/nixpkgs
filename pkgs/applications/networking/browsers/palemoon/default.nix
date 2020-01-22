@@ -89,6 +89,10 @@ in stdenv.mkDerivation rec {
     ac_add_options --prefix=$out
     mk_add_options MOZ_MAKE_FLAGS='-j$NIX_BUILD_CORES'
     mk_add_options AUTOCONF=${autoconf213}/bin/autoconf
+
+    # Not in official listing, but official binaries seem to build this way!
+    # (it's disabled by default, under media.av1.enabled in about:config
+    ac_add_options --enable-av1
     "
   '';
 
