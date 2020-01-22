@@ -1,6 +1,8 @@
 { mkDerivation, lib, fetchurl, cmake, makedepend, perl, pkgconfig, qttools
 , dssi, fftwSinglePrec, ladspaH, ladspaPlugins, libjack2, alsaLib
-, liblo, liblrdf, libsamplerate, libsndfile, lirc ? null, qtbase }:
+, liblo, liblrdf, libsamplerate, libsndfile, lirc ? null, qtbase
+, shared-mime-info
+}:
 
 mkDerivation (rec {
   version = "19.12";
@@ -16,7 +18,7 @@ mkDerivation (rec {
   '';
 
   nativeBuildInputs =
-    [ cmake makedepend perl pkgconfig qttools ];
+    [ cmake makedepend perl pkgconfig qttools shared-mime-info ];
 
   buildInputs = [
     dssi
