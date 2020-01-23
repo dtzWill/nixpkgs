@@ -2,13 +2,13 @@
 
 mkDerivation rec {
   pname = "qjournalctl";
-  version = "0.6";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "pentix";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "0vkknha6sidaqbxkx7nx7xkk0lfry1fmnwv0v9n1g2w8dvlazxwp";
+    sha256 = "08qfcf5yrfzsis9gkawkhshwmmi0jqw8xv23925hqass4a2xz704";
   };
 
   postPatch = ''
