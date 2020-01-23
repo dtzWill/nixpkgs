@@ -1,4 +1,25 @@
-ninjaBuildPhase() {
+# This is a copy of ninja's setup-hook.sh,
+# modified to use samurai ("samu") instead.
+#
+# Variables keep the "ninja" prefix,
+# unless they are specific to samurai
+# (none of these have been added, yet).
+# This makes it /possible/ for the same
+# Nix expression to be used with samurai
+# instead of ninja without any changes.
+#
+
+# Known differences/limitations:
+# * check target auto-detection doesn't work
+#   * (currently uses `query` tool
+#      which samu doesn't support ye.)
+# * parallel builds don't consider load average
+#   (instead of "-j16 -l16", "-j16" is used)
+#   * (samu doesn't support the '-l'  flag/feature)
+
+
+
+samuBuildPhase() {
     runHook preBuild
 
     local buildCores=1
@@ -20,10 +41,10 @@ ninjaBuildPhase() {
 }
 
 if [ -z "${dontUseNinjaBuild-}" -a -z "${buildPhase-}" ]; then
-    buildPhase=ninjaBuildPhase
+    buildPhase=samuBuildPhase
 fi
 
-ninjaInstallPhase() {
+samuInstallPhase() {
     runHook preInstall
 
     # shellcheck disable=SC2086
@@ -39,10 +60,10 @@ ninjaInstallPhase() {
 }
 
 if [ -z "${dontUseNinjaInstall-}" -a -z "${installPhase-}" ]; then
-    installPhase=ninjaInstallPhase
+    installPhase=samuInstallPhase
 fi
 
-ninjaCheckPhase() {
+samuCheckPhase() {
     runHook preCheck
 
     if [ -z "${checkTarget:-}" ]; then
@@ -76,5 +97,5 @@ ninjaCheckPhase() {
 }
 
 if [ -z "${dontUseNinjaCheck-}" -a -z "${checkPhase-}" ]; then
-    checkPhase=ninjaCheckPhase
+    checkPhase=samuCheckPhase
 fi
