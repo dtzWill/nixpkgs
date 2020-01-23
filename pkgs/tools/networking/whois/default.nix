@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, perl, gettext, pkgconfig, libidn2, libiconv }:
 
 stdenv.mkDerivation rec {
-  version = "5.5.4";
+  version = "5.5.5";
   pname = "whois";
 
   src = fetchFromGitHub {
     owner = "rfc1036";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0ky4c7xyvshrgnyk8vs3gc9kwhlbxkh3qf5hcdy7ibvnz4zznsbs";
+    sha256 = "01gni315lnkyrwd173fqw0c12qrisfb38wy066s2j85nq64a3nqv";
   };
 
   nativeBuildInputs = [ perl gettext pkgconfig ];
