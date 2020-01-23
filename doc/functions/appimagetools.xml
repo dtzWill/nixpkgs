@@ -89,7 +89,7 @@ appimageTools.wrapType2 { # or wrapType1
      <varname>src</varname> specifies the AppImage file to extract.
     </para>
    </callout>
-   <callout arearefs='ex-appimageTools-wrapping-2'>
+   <callout arearefs='ex-appimageTools-wrapping-3'>
     <para>
      <varname>extraPkgs</varname> allows you to pass a function to include
      additional packages inside the FHS environment your AppImage is going to
