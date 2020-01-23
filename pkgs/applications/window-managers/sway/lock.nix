@@ -24,6 +24,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dpam=enabled" "-Dgdk-pixbuf=enabled" "-Dman-pages=enabled"
   ];
+  NIX_CFLAGS_COMPILE = [ "-DGLIB_DISABLE_DEPRECATION_WARNINGS" ];
 
   meta = with stdenv.lib; {
     description = "Screen locker for Wayland";
