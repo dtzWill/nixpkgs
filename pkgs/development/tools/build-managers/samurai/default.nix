@@ -21,6 +21,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=" "PREFIX=${placeholder "out"}" ];
 
+  setupHook = ./setup-hook.sh;
+
   meta = with stdenv.lib; {
     description = "ninja-compatible build tool written in C";
     homepage = "https://github.com/michaelforney/samurai";
