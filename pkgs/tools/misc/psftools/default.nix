@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "psftools";
-  version = "1.0.12";
+  version = "1.0.13";
 
   src = fetchurl {
     url = "http://www.seasip.info/Unix/PSF/${pname}-${version}.tar.gz";
-    sha256 = "17inkz328adcnv499mi3qxljf2ljnvag5s1msmm9bsd28sm52z1v";
+    sha256 = "0rgg1lhryqi6sgm4afhw0z6pjivdw4hyhpxanj8rabyabn4fcqcw";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
