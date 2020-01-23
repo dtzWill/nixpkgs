@@ -21,6 +21,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=" "PREFIX=${placeholder "out"}" ];
 
+  setupHook = ./setup-hook.sh;
+
   meta = with stdenv.lib; {
     description = "ninja-compatible build tool written in C";
     license = with licenses; [ mit asl20 ]; # see LICENSE
