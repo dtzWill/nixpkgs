@@ -8,6 +8,11 @@ stdenv.mkDerivation rec {
     sha256 = "051pk5jk8fcfg5mpgzj43z5p4cn7jy5jbyshyn78dwjqr7slsxs7";
   };
 
+  unpackPhase = ''
+    tar xf ${src} -m
+    sourceRoot=${pname}-${version}-src
+  '';
+
   CXXFLAGS = "-Wno-unused-command-line-argument";
 
   buildInputs = [ ucl zlib perl ];
