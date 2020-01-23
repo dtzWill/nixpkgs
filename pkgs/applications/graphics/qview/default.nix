@@ -1,5 +1,5 @@
-{stdenv, fetchFromGitHub, qmake}:
-stdenv.mkDerivation rec {
+{mkDerivation, lib, fetchFromGitHub, qmake}:
+mkDerivation rec {
   pname = "qview";
   version = "3.0";
   src = fetchFromGitHub {
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   patchPhase = ''
     sed "s|/usr/|$out/|g" -i qView.pro
   '';
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Practical and minimal image viewer";
     homepage = "https://interversehq.com/qview/";
     license = licenses.gpl3;
