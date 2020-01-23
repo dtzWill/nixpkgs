@@ -3848,7 +3848,7 @@ in
 
   gt5 = callPackage ../tools/system/gt5 { };
 
-  gtest = callPackage ../development/libraries/gtest { };
+  gtest = callPackage ../development/libraries/gtest { ninja = samurai; };
   gmock = gtest; # TODO: move to aliases.nix
 
   gbenchmark = callPackage ../development/libraries/gbenchmark {};
@@ -12641,7 +12641,7 @@ in
 
   libibumad = callPackage ../development/libraries/libibumad { };
 
-  libical = callPackage ../development/libraries/libical { };
+  libical = callPackage ../development/libraries/libical { ninja = samurai; };
 
   libicns = callPackage ../development/libraries/libicns { };
 
@@ -13364,7 +13364,7 @@ in
 
   micropython = callPackage ../development/interpreters/micropython { };
 
-  mimalloc = callPackage ../development/libraries/mimalloc { };
+  mimalloc = callPackage ../development/libraries/mimalloc { ninja = samurai; };
 
   minizip = callPackage ../development/libraries/minizip { };
 
