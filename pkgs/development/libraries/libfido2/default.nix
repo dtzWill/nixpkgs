@@ -21,14 +21,6 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d" ];
 
-  # Fix undersized buffer, at least GCC believes so (and it's not obvious to me it's wrong?)
-  # Only a few bytes more and it was adusted just one or two commits ago anyway.
-  postPatch = ''
-		substituteInPlace src/log.c \
-      --replace '#define XXDLEN	16' \
-                '#define XXDLEN	32'
-  '';
-
   meta = with stdenv.lib; {
     description = ''
     Provides library functionality for FIDO 2.0, including communication with a device over USB.
