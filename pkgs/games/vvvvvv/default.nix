@@ -19,13 +19,13 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "vvvvvv";
-  version = "2.3-git-2a514b2";
+  version = "unstable-2020-01-22";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
-    rev = "90cab340f123f1a355f638c47b677c6572a514b2";
-    sha256 = "1bq7kj33pw1dwsgh0s0pqayfyhpnbvpgw2c1w9scpl5l0hkhg44p";
+    rev = "f9525020bbcb4c2f5c44218cadcd475bcc1d2037";
+    sha256 = "1z5lp456s4lvbihdr5mfqrhxj9b84rnacj5cd6zzsyf1pf6wifp6";
   };
 
   nativeBuildInputs = [ cmake ninja ];
