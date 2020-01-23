@@ -101,8 +101,6 @@ cmakeConfigurePhase() {
 
     if [ "$buildPhase" = ninjaBuildPhase ]; then
         cmakeFlags="-GNinja $cmakeFlags"
-    elif [ "$buildPhase" = samuBuildPhase ]; then
-        cmakeFlags="-GNinja -DCMAKE_MAKE_PROGRAM=samu $cmakeFlags"
     fi
 
     echo "cmake flags: $cmakeFlags ${cmakeFlagsArray[@]}"
