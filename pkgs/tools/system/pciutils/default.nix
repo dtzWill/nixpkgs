@@ -1,11 +1,11 @@
 { stdenv, fetchurl, pkgconfig, zlib, kmod, which }:
 
 stdenv.mkDerivation rec {
-  name = "pciutils-3.6.2"; # with release-date database
+  name = "pciutils-3.6.3"; # with release-date database
 
   src = fetchurl {
     url = "mirror://kernel/software/utils/pciutils/${name}.tar.xz";
-    sha256 = "1wwkpglvvr1sdj2gxz9khq507y02c4px48njy25divzdhv4jwifv";
+    sha256 = "1ssjdd91q0w3xlc40y5f2zhfhck3rpajs1902hajas5ir20qvdy5";
   };
 
   nativeBuildInputs = [ pkgconfig ];
