@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Yubico";
     repo = pname;
-    rev = "9d14b7a8575331dd1f7919fc711e088ed148068e";
-    sha256 = "1rlyyvhp2rynf4yyp2bjgq740p7aw2i415pjzl5y9bpgx1mvm7zx";
+    rev = "dcfbedb865a2951a26f01c8b8cba0ca7531350e2";
+    sha256 = "07fzmcg0hnsk0bknqkzslym1hibv65cmc1mz9mz7apam2896xqvk";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
