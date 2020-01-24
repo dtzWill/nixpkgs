@@ -1,0 +1,47 @@
+From 683e89f900ceb0290e629789564ea03a0fac882c Mon Sep 17 00:00:00 2001
+From: Huang-Huang Bao <eh5@sokka.cn>
+Date: Wed, 11 Sep 2019 19:31:31 +0800
+Subject: [PATCH 1/3] Default AAC constant bitrate
+
+---
+ README.md                             | 2 +-
+ src/modules/bluetooth/a2dp/a2dp_aac.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/README.md b/README.md
+index bb245e9..5277da4 100644
+--- a/README.md
++++ b/README.md
+@@ -130,7 +130,7 @@ Encoders configurations
+ |ldac_abr_t1|\<uint>|safety threshold for LDACBT_EQMID_HQ and LDACBT_EQMID_SQ|2|
+ |ldac_abr_t2|\<uint>|threshold for dangerous trend of TxQueueDepth|4|
+ |ldac_abr_t3|\<uint>|threshold for critical TxQueueDepth status|6|
+-|aac_bitrate_mode|\[1, 5\]|Variable Bitrate (VBR)|5|
++|aac_bitrate_mode|\[1, 5\]|Variable Bitrate (VBR)|0|
+ ||0|Constant Bitrate (CBR)|
+ |aac_afterburner (which was "aac_after_buffer" before [359ab0](https://github.com/EHfive/pulseaudio-modules-bt/commit/359ab056e002e53978a1e0b53714d5f2e799c30f)|<on/off>|Enable/Disable AAC encoder afterburner feature|off|
+ |aac_fmt|s16|16-bit signed (little endian)|auto|
+diff --git a/src/modules/bluetooth/a2dp/a2dp_aac.c b/src/modules/bluetooth/a2dp/a2dp_aac.c
+index 394a7a0..627c01f 100644
+--- a/src/modules/bluetooth/a2dp/a2dp_aac.c
++++ b/src/modules/bluetooth/a2dp/a2dp_aac.c
+@@ -90,14 +90,14 @@ pa_aac_encoder_init(pa_a2dp_source_read_cb_t read_cb, pa_a2dp_source_read_buf_fr
+     info->read_pcm = read_cb;
+     info->read_buf_free = free_cb;
+     info->aacenc_handle_opened = false;
+-    info->aac_enc_bitrate_mode = 5;
++    info->aac_enc_bitrate_mode = 0;
+     info->aac_afterburner = false;
+     info->force_pa_fmt = PA_SAMPLE_INVALID;
+     return true;
+ }
+ 
+ /* KEY                 VALUE    DESC                                      DEFAULT
+- * aac_bitrate_mode    [1, 5]   Variable Bitrate (VBR) (encoder)          5
++ * aac_bitrate_mode    [1, 5]   Variable Bitrate (VBR) (encoder)          0
+  *                     0        Constant Bitrate (CBR) (encoder)
+  *
+  * aac_fmt             s16      16-bit signed LE (encoder)                auto
+-- 
+2.25.0
+

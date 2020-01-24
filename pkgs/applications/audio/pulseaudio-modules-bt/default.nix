@@ -35,7 +35,10 @@ in stdenv.mkDerivation rec {
 
   patches = [
     ./fix-install-path.patch
-    ./fix-aac-defaults.patch
+    # (Disabled in favor of upstream's similar commit, similar but not same...)
+    #./fix-aac-defaults.patch
+    ./0001-Default-AAC-constant-bitrate.patch
+    ./0003-SBC-codec-configuration-options-support-90.patch
   ];
 
   nativeBuildInputs = [
