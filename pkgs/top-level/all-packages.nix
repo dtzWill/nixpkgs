@@ -16069,7 +16069,8 @@ in
 
   iproute_mptcp = callPackage ../os-specific/linux/iproute/mptcp.nix { };
 
-  iputils = callPackage ../os-specific/linux/iputils { };
+  iputils = hiPrio (callPackage ../os-specific/linux/iputils { });
+  # hiPrio for collisions with inetutils (ping and tftpd.8.gz)
   iputils-nosystemd = callPackage ../os-specific/linux/iputils { systemd = null; };
 
   iptables = iptables-legacy;
