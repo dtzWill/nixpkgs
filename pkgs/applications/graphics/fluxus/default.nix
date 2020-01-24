@@ -54,6 +54,7 @@ stdenv.mkDerivation rec {
     hash = "sha256:0mwghpgq4n1khwlmgscirhmcdhi6x00c08q4idi2zcqz961bbs28";
   };
 
+  nativeBuildInputs = [ scons ];
   buildInputs = [
     alsaLib
     fftw
@@ -69,18 +70,17 @@ stdenv.mkDerivation rec {
     openal
     openssl.dev
     racket
-    scons
   ];
   patches = [ ./fix-build.patch ];
-  buildPhase = ''
-    scons \
-      Prefix="$out" \
-      RacketPrefix="${racket}" \
-      RacketInclude="${racket}/include/racket" \
-      RacketLib="${racket}/lib/racket" \
-      LIBPATH="${libPath}" \
-      DESTDIR="build"
-  '';
+
+  sconsFlags = stdenv.lib.concatStringsSep " " [
+    "Prefix=${placeholder "out"}"
+    "RacketPrefix=${racket}"
+    "RacketInclude=${racket}/include/racket"
+    "RacketLib=${racket}/lib/racket"
+    "LIBPATH=${libPath}"
+    "DESTDIR=build"
+   ];
   installPhase = ''
     mkdir -p $out
     cp -r build$out/* $out/
