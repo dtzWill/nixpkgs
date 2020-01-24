@@ -15,14 +15,14 @@
 }:
 
 let
-  version = "12.1.2";
+  version = "12.1.4";
 
   twemojiSrc = fetchFromGitHub {
     name = "twemoji";
     owner = "twitter";
     repo = "twemoji";
     rev = "v${version}";
-    sha256 = "0vzmlp83vnk4njcfkn03jcc1vkg2rf12zf5kj3p3a373xr4ds1zn";
+    sha256 = "099zdag5z6dbkj80hwn86knx772f0q452p5j0mpl7bspy8048vy0";
   };
 
 in
