@@ -42,10 +42,10 @@ let
     openssl
     zlib
   ];
-  libPath = stdenv.lib.concatStringsSep " " (map (l: l.out + "/lib") libs);
+  libPath = stdenv.lib.makeLibraryPath libs;
 in
 stdenv.mkDerivation rec {
-  name = "fluxus-${version}";
+  pname = "fluxus";
   version = "0.19";
   src = fetchFromGitLab {
     owner = "nebogeo";
