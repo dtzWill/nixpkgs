@@ -58,33 +58,29 @@ stdenv.mkDerivation rec {
   buildInputs = [
     alsaLib
     fftw
-    freeglut.dev
+    freeglut
     freetype
     glew
     libjack2
-    libjpeg.dev
+    libjpeg
     liblo
-    libsndfile.dev
-    libtiff.dev
+    libsndfile
+    libtiff
     ode
     openal
-    openssl.dev
+    openssl
     racket
   ];
   patches = [ ./fix-build.patch ];
 
-  sconsFlags = stdenv.lib.concatStringsSep " " [
+  sconsFlags = [
     "Prefix=${placeholder "out"}"
     "RacketPrefix=${racket}"
     "RacketInclude=${racket}/include/racket"
     "RacketLib=${racket}/lib/racket"
     "LIBPATH=${libPath}"
-    "DESTDIR=build"
-   ];
-  installPhase = ''
-    mkdir -p $out
-    cp -r build$out/* $out/
-  '';
+    "DESTDIR=/"
+  ];
 
   meta = with stdenv.lib; {
     description = "Livecoding environment for 3D graphics, sound, and games";

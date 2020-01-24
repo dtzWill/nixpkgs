@@ -7,7 +7,7 @@ index 32cb644..0b3a208 100644
                      ["openal", "AL/al.h"]]
 
 +env.Append(ENV={'PATH': ' ' + os.environ['PATH'], })
-+env.Append(LIBPATH=ARGUMENTS.get('LIBPATH', '').split(' '))
++env.Append(LIBPATH=ARGUMENTS.get('LIBPATH', '').split(':'))
 +env.Append(CCFLAGS=' ' + os.environ.get('NIX_CFLAGS_COMPILE',''))
 +env.Append(CCFLAGS=' -DNULL=0')
 +
