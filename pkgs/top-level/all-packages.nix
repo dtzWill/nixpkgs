@@ -21637,10 +21637,6 @@ in
 
   taizen = callPackage ../applications/misc/taizen { };
 
-  tangogps = callPackage ../applications/misc/tangogps {
-    gconf = gnome2.GConf;
-  };
-
   tambura = callPackage ../applications/audio/tambura { };
 
   teams = callPackage ../applications/networking/instant-messengers/teams { };
