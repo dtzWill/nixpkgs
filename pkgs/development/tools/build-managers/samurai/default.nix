@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   # Add support for compdb tool (compilation database)!
   patches = [
     (fetchpatch {
-      url = "https://github.com/michaelforney/${pname}/compare/${src.rev}..9c1f015c21211c5df5822f70d3d5be81bd54fee2.patch";
-      sha256 = "1iczhijrrhdhn7qyadm6v1q3pcz4nd862h5zns9yxr5mvrl5djbb";
+      url = "https://github.com/michaelforney/${pname}/compare/${src.rev}..fe1b3ce210fc333ad0b38a61dc413f8d105013d4.patch";
+      sha256 = "1pbr7p829h8d9nx99s21qpb0qgj0y0hdz4wnx7h93mjfaagb8qlq";
     })
   ];
 
