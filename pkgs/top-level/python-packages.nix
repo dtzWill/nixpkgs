@@ -6443,7 +6443,6 @@ in {
 
   pony = callPackage ../development/python-modules/pony { };
 
-  orjson = callPackage ../development/python-modules/orjson { };
 });
 
 in fix' (extends overrides packages)
