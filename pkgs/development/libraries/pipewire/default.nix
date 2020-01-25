@@ -9,13 +9,13 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "pipewire";
-  version = "0.2.7";
+  version = "0.2.92";
 
   src = fetchFromGitHub {
     owner = "PipeWire";
     repo = "pipewire";
     rev = version;
-    sha256 = "1q5wrqnhhs6r49p8yvkw1pl0cnsd4rndxy4h5lvdydwgf1civcwc";
+    sha256 = "16nhcqnwvhd7zpmq7q9q4yg46pscy5xfs2bm41kfsx3ikggggr1n";
   };
 
   outputs = [ "out" "lib" "dev" "doc" ];
