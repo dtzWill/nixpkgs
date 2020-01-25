@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, meson, ninja, pkgconfig, doxygen, graphviz, valgrind
 , glib, dbus, gst_all_1, alsaLib, ffmpeg, libjack2, udev, libva, xorg
-, sbc, SDL2, makeFontsConf, bluez, vulkan-loader, vulkan-headers, pulseaudio
+, sbc, SDL2, makeFontsConf
 }:
 
 let
@@ -26,12 +26,11 @@ in stdenv.mkDerivation rec {
   buildInputs = [
     glib dbus gst_all_1.gst-plugins-base gst_all_1.gstreamer
     alsaLib ffmpeg libjack2 udev libva xorg.libX11 sbc SDL2
-    bluez vulkan-loader vulkan-headers pulseaudio
   ];
 
   mesonFlags = [
     "-Ddocs=true"
-    "-Dgstreamer=true"
+    "-Dgstreamer=enabled"
   ];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
