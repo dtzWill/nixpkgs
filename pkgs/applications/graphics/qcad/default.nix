@@ -60,6 +60,10 @@ mkDerivation rec {
     substituteInPlace src/run/run.pri \
       --replace '$$[QT_INSTALL_PLUGINS]' '${full}/${qtbase.qtPluginPrefix}' \
       --replace 'system(cp ' 'system(ln -svf '
+
+    # for qt 5.12.x > 5.12.3
+    mkdir -p src/3rdparty/qt-labs-qtscriptgenerator-5.12.6
+    ln -sr src/3rdparty/qt-labs-qtscriptgenerator-5.12.3/qt-labs-qtscriptgenerator-5.12.3.pro src/3rdparty/qt-labs-qtscriptgenerator-5.12.6/qt-labs-qtscriptgenerator-5.12.6.pro
   '';
 
   installPhase = ''
