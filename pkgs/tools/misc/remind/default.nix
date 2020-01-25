@@ -12,10 +12,11 @@ let
   tclLibPaths = stdenv.lib.concatStringsSep " "
     (map (p: "${p}/lib/${p.libPrefix}") tclLibraries);
 in stdenv.mkDerivation {
-  name = "remind-3.1.16";
+  pname = "remind";
+  version = "3.2.0";
   src = fetchurl {
-    url = https://dianne.skoll.ca/projects/remind/download/remind-03.01.16.tar.gz;
-    sha256 = "14yavwqmimba8rdpwx3wlav9sfb0v5rcd1iyzqrs08wx07a9pdzf";
+    url = https://dianne.skoll.ca/projects/remind/download/remind-03.02.00.tar.gz;
+    sha256 = "010jhks3lxkvn5lwyxgm132gkvqirs13dl7hi5b3cyml7h1vnbd5";
   };
 
   nativeBuildInputs = optional tkremind makeWrapper;
