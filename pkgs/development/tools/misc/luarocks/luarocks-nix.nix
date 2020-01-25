@@ -3,10 +3,10 @@ luarocks.overrideAttrs(old: {
   pname = "luarocks-nix";
   version = "2020-01-15";
   src = fetchFromGitHub {
-    owner = "dtzWill";
-    repo = "luarocks";
-    rev = "79f73945d8b9846848da417d970b5dcd4964644a";
-    sha256 = "08fw71qz5cpry9i9akr3pjhzpmz0c06yqf1pal6drdcgylirz8y7";
+    owner = "nix-community";
+    repo = "luarocks-nix";
+    rev = "73b8772e56fd39dfffda9e3b13e9eb31e93d5cde";
+    sha256 = "00jgshygw439pbaxg7yph3ijia6nid9r1br416wdbyl5wqhlhm1y";
   };
   patches = [
     ./darwin-3.1.3.patch
