@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   pname = "tribler";
-  version = "7.4.0-exp1";
+  version = "7.4.0-noodle2.02";
 
   src = fetchurl {
     url = "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.xz";
-    sha256 = "18ziisg0v2gdxnprbhqsryz92yk270waj0la7m2h326k5qql3qkf";
+    sha256 = "01pscdsixks4i96vmzgv8f0wkzliflpzyiw2bicdic4dyl516z3a";
   };
 
   nativeBuildInputs = [
