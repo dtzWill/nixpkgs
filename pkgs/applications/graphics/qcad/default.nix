@@ -22,13 +22,13 @@
 
 mkDerivation rec {
   pname = "qcad";
-  version = "3.23.0.7";
+  version = "3.24.2.1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "1c1s9w0vhs8j87pir1qfgssbz386nl3qkzzmrjbcjy2cqvgyvfiw";
+    sha256 = "1g295gljq051x09f4d8k586bkg3vs8z22dn3rxj6xrm6803z8zw2";
   };
 
   nativeBuildInputs = [ qmake qttools ];
