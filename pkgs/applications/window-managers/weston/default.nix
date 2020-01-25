@@ -9,12 +9,12 @@
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
-  name = "weston-${version}";
-  version = "7.0.0";
+  pname = "weston";
+  version = "8.0.0";
 
   src = fetchurl {
-    url = "https://wayland.freedesktop.org/releases/${name}.tar.xz";
-    sha256 = "0r4sj11hq4brv3ryrgp2wmkkfz1h59vh9ih18igzjibagch6s2m0";
+    url = "https://wayland.freedesktop.org/releases/${pname}-${version}.tar.xz";
+    sha256 = "0j3q0af3595g4wcicldgy749zm2g2b6bswa6ya8k075a5sdv863m";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
@@ -31,7 +31,6 @@ stdenv.mkDerivation rec {
     "-Dxwayland=${boolToString (xwayland != null)}" # Default is true!
     "-Dremoting=false" # TODO
     "-Dimage-webp=${boolToString (libwebp != null)}"
-    "-Dsimple-dmabuf-drm=" # Disables all drivers
     "-Ddemo-clients=false"
     "-Dsimple-clients="
     "-Dtest-junit-xml=false"
@@ -41,6 +40,8 @@ stdenv.mkDerivation rec {
   ] ++ optionals (xwayland != null) [
     "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
   ];
+
+  passthru.providedSessions = [ "weston" ];
 
   meta = {
     description = "Reference implementation of a Wayland compositor";
