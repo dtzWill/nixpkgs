@@ -3,15 +3,16 @@
 
 stdenv.mkDerivation rec {
   pname = "libical";
-  version = "3.0.7";
+  version = "3.0.8";
 
   outputs = [ "out" "dev" ]; #"devdoc" ];
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "v${version}";
-    sha256 = "1ppf8jlpiclq3jprhx889y5lgf6lc2q4d8wy2zavzsxgnsqf67il";
+    #rev = "v${version}";
+    rev = "a498094998f43d19bec2083a2e3c59bed8531c3e";
+    sha256 = "0i53158mk9lw7hkvf4ivs07raz3s5m60d4w4vxjlndqmnd4q2q52";
   };
 
   nativeBuildInputs = [
