@@ -2200,6 +2200,8 @@ in
 
   bgs = callPackage ../tools/X11/bgs { };
 
+  bibclean = callPackage ../tools/typesetting/bibclean { };
+
   biber = callPackage ../tools/typesetting/biber { };
 
   birdfont = callPackage ../tools/misc/birdfont { };
