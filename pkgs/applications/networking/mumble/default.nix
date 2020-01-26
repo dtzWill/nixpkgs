@@ -36,12 +36,12 @@ let
       "CONFIG+=bundled-celt"
       "CONFIG+=no-bundled-opus"
       "CONFIG+=no-bundled-speex"
+      "DEFINES+=PLUGIN_PATH=${placeholder "out"}/lib/mumble"
     ] ++ optional (!speechdSupport) "CONFIG+=no-speechd"
       ++ optional jackSupport "CONFIG+=no-oss CONFIG+=no-alsa CONFIG+=jackaudio"
       ++ (overrides.configureFlags or [ ]);
 
     preConfigure = ''
-       qmakeFlags="$qmakeFlags DEFINES+=PLUGIN_PATH=$out/lib/mumble"
        patchShebangs scripts
     '';
 
@@ -65,7 +65,7 @@ let
       description = "Low-latency, high quality voice chat software";
       homepage = https://mumble.info;
       license = licenses.bsd3;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [ petabyteboy infinisil ];
       platforms = platforms.linux;
     };
   });
