@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
     #rev = "v${version}";
-    rev = "a498094998f43d19bec2083a2e3c59bed8531c3e";
-    sha256 = "0i53158mk9lw7hkvf4ivs07raz3s5m60d4w4vxjlndqmnd4q2q52";
+    rev = "2faf08be22990876303e098795423960191498ac";
+    sha256 = "0kzhhym1206ks92gpz3y4ayxi7bkbbhqnic1lh2yxabdqdjrq0d6";
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    ./etc-zoneinfo-first.patch
+    ./respect-env-tzdir.patch
   ];
 
   # Using install check so we do not have to manually set
