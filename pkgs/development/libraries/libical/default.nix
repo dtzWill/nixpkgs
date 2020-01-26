@@ -30,6 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
+    # https://github.com/libical/libical/issues/350
+    # Upstream merged fix for respecting TZDIR (in 2018),
+    # but only in master branch not the 3.0 branch releases are cut from.
+    # This patch also makes libical check /etc/zoneinfo first,
+    # so keep that but drop the rest once this reaches a release.
     ./respect-env-tzdir.patch
   ];
 
