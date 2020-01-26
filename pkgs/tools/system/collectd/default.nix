@@ -33,7 +33,7 @@
 , udev
 , varnish
 , yajl
-, net_snmp
+, net-snmp
 , hiredis
 , libmnl
 , mosquitto
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   ] ++ stdenv.lib.optionals (libmysqlclient != null) [ libmysqlclient
   ] ++ stdenv.lib.optionals stdenv.isLinux [
     iptables libatasmart libcredis libmodbus libsigrok
-    lm_sensors lvm2 rabbitmq-c udev net_snmp libmnl
+    lm_sensors lvm2 rabbitmq-c udev net-snmp libmnl
     # those might be no longer required when https://github.com/NixOS/nixpkgs/pull/51767
     # is merged
     libapparmor numactl libcap_ng
