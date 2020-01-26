@@ -1,15 +1,17 @@
-{ stdenv, fetchurl, cln, gmp, swig, pkgconfig
+{ stdenv, fetchFromGitHub, cln, gmp, swig, pkgconfig
 , readline, libantlr3c, boost, jdk, autoreconfHook
 , python3, antlr3_4
 }:
 
 stdenv.mkDerivation rec {
-  name = "cvc4-${version}";
+  pname = "cvc4";
   version = "1.7";
 
-  src = fetchurl {
-    url = "https://github.com/CVC4/CVC4/archive/${version}.tar.gz";
-    sha256 = "0blcixwgfkcdb4w66qj985h6hrdykk3dnv54cgzzfvh7l1ja6r4q";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = version;
+    sha256 = "0mi3ym9j3y00h66115q3jsj7a1wcxjc94fcsw2lxq899mviywk2z";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
