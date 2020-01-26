@@ -1,5 +1,5 @@
 { stdenv, buildPythonPackage, fetchPypi
-, pytest, mock, oauth2client, flask, requests, setuptools, urllib3, pytest-localserver, six, pyasn1-modules, cachetools, rsa }:
+, pytest, mock, oauth2client, flask, requests, setuptools, urllib3, pytest-localserver, six, pyasn1-modules, cachetools, rsa, freezegun }:
 
 buildPythonPackage rec {
   pname = "google-auth";
@@ -10,7 +10,7 @@ buildPythonPackage rec {
     sha256 = "01mvn9hs7im2jh6pc1k88xw87rp40sdg7ws7vwgz9b1rmilrwm24";
   };
 
-  checkInputs = [ pytest mock oauth2client flask requests urllib3 pytest-localserver ];
+  checkInputs = [ pytest mock oauth2client flask requests urllib3 pytest-localserver freezegun ];
   propagatedBuildInputs = [ six pyasn1-modules cachetools rsa setuptools ];
 
   # The removed test tests the working together of google_auth and google's https://pypi.python.org/pypi/oauth2client
