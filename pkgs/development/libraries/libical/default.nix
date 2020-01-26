@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    # TODO: upstream this patch
-    # https://github.com/libical/libical/issues/350
-    ./respect-env-tzdir.patch
+    ./etc-zoneinfo-first.patch
   ];
 
   # Using install check so we do not have to manually set
