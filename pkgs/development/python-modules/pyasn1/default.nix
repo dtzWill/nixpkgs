@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "pyasn1";
-  version = "0.4.6";
+  version = "0.4.8";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "11mwdsvrbwvjmny40cxa76h81bbc8jfr1prvw6hw7yvg374xawxp";
+    sha256 = "1fnhbi3rmk47l9851gbik0flfr64vs5j0hbqx24cafjap6gprxxf";
   };
 
   meta = with stdenv.lib; {
