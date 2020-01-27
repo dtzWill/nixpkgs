@@ -8,7 +8,7 @@ buildGoPackage rec {
     rev = "v${version}";
     owner = "git-lfs";
     repo = "git-lfs";
-    sha256 = "1nf40rbdz901vsahg5cm09pznpina6wimmxl0lmh8pn0mi51yzvc";
+    sha256 = "17x9q4g1acf51bxr9lfmd2ym7w740n4ghdi0ncmma77kwabw9d3x";
   };
 
   goPackagePath = "github.com/git-lfs/git-lfs";
@@ -18,11 +18,6 @@ buildGoPackage rec {
   preBuild = ''
     cd go/src/${goPackagePath}
     go generate ./commands
-    popd
-  '';
-
-  postInstall = ''
-    rm -v $bin/bin/{man,script,cmd}
   '';
 
   meta = with stdenv.lib; {
