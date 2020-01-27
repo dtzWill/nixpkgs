@@ -5795,6 +5795,8 @@ in
 
   pre-commit = gitAndTools.pre-commit;
 
+  pretty-simple = callPackage ../development/tools/pretty-simple { };
+
   prettyping = callPackage ../tools/networking/prettyping { };
 
   prey-bash-client = callPackage ../tools/security/prey { };
