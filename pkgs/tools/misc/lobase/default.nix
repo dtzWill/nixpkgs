@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # zcmp -> zdiff
     # zless -> zmore
-    ls -l $out/bin/zmp $out/bin/zless
-    rm -v $out/bin/zcmp $out/bin/zless
+    ls -l $out/bin/{zcmp,zless}
+    rm -v $out/bin/{zcmp,zless}
   '';
 }
