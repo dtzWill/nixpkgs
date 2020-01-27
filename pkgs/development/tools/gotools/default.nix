@@ -21,7 +21,7 @@ buildGoModule rec {
     rm -rf gopls
   '';
 
-  modSha256 = "16nkrpki9fnxsrxxxs9ljz49plcz393z0sqq2knkk30pmncpwd3q";
+  modSha256 = "16cfzmfr9jv8wz0whl433xdm614dk63fzjxv6l1xvkagjmki49iy";
 
   postConfigure = ''
     # Make the builtin tools available here
