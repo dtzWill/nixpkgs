@@ -45,7 +45,8 @@ in stdenv.mkDerivation rec {
   LANG = "en_US.UTF-8";
 
   deps = stdenv.mkDerivation {
-    name = "ejabberd-deps-${version}";
+    pname = "ejabberd-deps";
+    inherit version;
 
     inherit src;
 
@@ -75,7 +76,7 @@ in stdenv.mkDerivation rec {
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "0h1amqp2x6ir29bdh9x8bm0abj67k81nmkqi8gidwccsa5z94s2c";
+    outputHash = "097c84qp00dq8x7ngfqcrv9fa0wm0k94grashmi1fxlasgbvxh18";
   };
 
   configureFlags =
@@ -114,7 +115,7 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = https://www.ejabberd.im;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sander abbradar ];
+    maintainers = with maintainers; [ sander abbradar ajs124 ];
     broken = withElixir;
   };
 }
