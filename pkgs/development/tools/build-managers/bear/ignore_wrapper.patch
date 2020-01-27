@@ -1,5 +1,5 @@
---- a/bear/main.py.in
-+++ b/bear/main.py.in
+--- a/bear/bear.py
++++ b/bear/bear.py
 @@ -49,6 +49,7 @@ import tempfile
  import shutil
  import contextlib
