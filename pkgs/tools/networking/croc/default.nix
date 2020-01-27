@@ -13,7 +13,7 @@ buildGoModule rec {
     sha256 = "0pav0l7akzqgwj7yqkgbpl96kndlb41kg1vmb3g6xp7ykmbdsbbc";
   };
 
-  modSha256 = "1cparwdipsrq82vmx6wfmysfghyn15z7nfciycz49q9nfj60afh7";
+  modSha256 = "02w4p877nvv7dril7l9nmj8xf3fnghxnj8kglxkv541vabvlpq03";
   subPackages = [ "." ];
 
   meta = with stdenv.lib; {
