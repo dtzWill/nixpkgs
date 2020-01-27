@@ -1,6 +1,6 @@
-{ stdenv, buildGoModule, fetchFromGitHub, groff, Security, utillinux }:
+{ stdenv, buildGoPackage, fetchFromGitHub, groff, Security, utillinux }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "hub";
   version = "2.14.1";
 
@@ -24,16 +24,15 @@ buildGoModule rec {
   '';
 
   postInstall = ''
-    install -D etc/hub.zsh_completion "$out/share/zsh/site-functions/_hub"
-    install -D etc/hub.bash_completion.sh "$out/share/bash-completion/completions/hub"
-    install -D etc/hub.fish_completion  "$out/share/fish/vendor_completions.d/hub.fish"
+    cd go/src/${goPackagePath}
+    install -D etc/hub.zsh_completion "$bin/share/zsh/site-functions/_hub"
+    install -D etc/hub.bash_completion.sh "$bin/share/bash-completion/completions/hub"
+    install -D etc/hub.fish_completion  "$bin/share/fish/vendor_completions.d/hub.fish"
 
     LC_ALL=C.UTF8 \
     make man-pages
-    cp -vr --parents share/man/man[1-9]/*.[1-9] $out/
+    cp -vr --parents share/man/man[1-9]/*.[1-9] $bin/
   '';
-
-  modSha256 = "05pkcm68i6ig4jhz70sj3gq1vk7xp27cvl0sixys3dsg9krrm0y3";
 
   meta = with stdenv.lib; {
     description = "Command-line wrapper for git that makes you better at GitHub";
