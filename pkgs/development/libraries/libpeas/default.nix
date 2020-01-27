@@ -6,6 +6,8 @@ stdenv.mkDerivation rec {
   pname = "libpeas";
   version = "1.22.0";
 
+  outputs = [ "out" "dev" ];
+
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0qm908kisyjzjxvygdl18hjqxvvgkq9w0phs2g55pck277sw0bsv";

@@ -1,15 +1,15 @@
 { stdenv, fetchFromGitHub, cmake, qt4 }:
 
 stdenv.mkDerivation rec {
-  name = "fontmatrix-${version}";
-  version = "2017-12-28";
+  pname = "fontmatrix";
+  version = "unstable-2019-04-16";
 
   src = fetchFromGitHub {
     owner = "fontmatrix";
     repo = "fontmatrix";
 #    rev = "v${version}";
-    rev = "8108e6ea8b5944a92d7f27c40509b8e890ddaff1";
-    sha256 = "05c7q7vrsi0ska84dirr650awking59917q08hysn3plpkr0r8ai";
+    rev = "6279b38ef0b1de01b605fa7ca2b0c463369427c1";
+    sha256 = "0i63chpscr2z3102rbgnf9a62xzqlvwx6708dzijym8929lw51ii";
   };
 
   buildInputs = [ qt4 ];

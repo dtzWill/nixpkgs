@@ -11,13 +11,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "uberwriter";
-  version = "unstable-2019-11-29";
+  version = "unstable-2020-01-02";
 
   src = fetchFromGitHub {
     owner  = pname;
     repo   = pname;
-    rev    = "7606a55389f8516d9fed7927fa50ff8822ee9e38";
-    sha256 = "0ky001vs9nfvqf05h4q7fl0n8vsgim59z22i66a8sw6bqipv62sg";
+    rev    = "0d1da19ce8fe013b5abd6b227fbadc00f2d72b8c";
+    sha256 = "186zhjh3l84cd67wmpn1s49fwisj0kxhv7592c06cl7lchmjx73m";
   };
 
   nativeBuildInputs = [ meson ninja cmake pkgconfig desktop-file-utils

@@ -17,13 +17,15 @@
 
 mkDerivation rec {
   pname = "hotspot";
-  version = "1.2.0";
+  #version = "1.2.0";
+  version = "unstable-2020-01-10";
 
   src = fetchFromGitHub {
     owner = "KDAB";
     repo = "hotspot";
-    rev = "v${version}";
-    sha256 = "05rkzrvak93z8mzcpm4mcjxb933l8pjsxr9a595wfn1gn2ihmada";
+    #rev = "v${version}";
+    rev = "a7c2ecb12ba28a6cbcb07c6b44acc06f02a83a14";
+    sha256 = "0744q973871vrsdg6gmsdg96gdvf81apmxiwch50c759fsh5a9vh";
     fetchSubmodules = true;
   };
 

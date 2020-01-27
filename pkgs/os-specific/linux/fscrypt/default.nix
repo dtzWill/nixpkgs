@@ -1,10 +1,12 @@
-{ stdenv, buildGoModule, fetchFromGitHub, pam }:
+{ stdenv, buildGoPackage, fetchFromGitHub, pam }:
 
 # Don't use this for anything important yet!
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "fscrypt";
   version = "0.2.5";
+
+  goPackagePath = "github.com/google/fscrypt";
 
   src = fetchFromGitHub {
     owner = "google";
@@ -12,8 +14,6 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "1jf6363kc9id3ar93znlcglx3llgv01ccp3nlbamm98rm9dps4qk";
   };
-
-  modSha256 = "0x6jq895cc2jvxjzvc4dpx2c1ml6ggm7gmdd1wgab6q0wzqasfcq";
 
   buildInputs = [ pam ];
 

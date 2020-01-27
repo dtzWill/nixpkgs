@@ -1,31 +1,32 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, bzip2, expat, glib, curl, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, bzip2, expat, glib, curl, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion, zchunk, libmodulemd }:
 
 stdenv.mkDerivation rec {
-  name = "createrepo_c-${version}";
-  version = "0.11.1";
+  pname = "createrepo_c";
+  version = "0.15.6";
 
   src = fetchFromGitHub {
     owner  = "rpm-software-management";
     repo   = "createrepo_c";
     rev    = version;
-    sha256 = "0cmysc7gdd2czagl4drfh9gin6aa2847vgi30a3p0cfqvczf9cm6";
+    sha256 = "1hijl7kdb7p4a211sd0dix9n8a071d6y3fv837nnpk4kfmjrzli4";
   };
 
   patches = [
-    ./fix-bash-completion-path.patch
     ./fix-python-install-path.patch
   ];
 
+  cmakeFlags = [ "-DENABLE_DRPM=OFF" /* need to package drpm */ ];
+
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace '@BASHCOMP_DIR@' "$out/share/bash-completion/completions"
+      --replace "\''${BASHCOMP_DIR}" "${placeholder "out"}/share/bash-completion/completions"
     substituteInPlace src/python/CMakeLists.txt \
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
   '';
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [ bzip2 expat glib curl libxml2 python3 rpm openssl sqlite file xz pcre bash-completion ];
+  buildInputs = [ bzip2 expat glib curl libxml2 python3 rpm openssl sqlite file xz pcre bash-completion zchunk libmodulemd ];
 
   meta = with stdenv.lib; {
     description = "C implementation of createrepo";

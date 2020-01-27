@@ -117,9 +117,17 @@ in {
     # --disable-shared flag
     stdenv = super.stdenv;
   };
+  arrow-cpp = super.arrow-cpp.override {
+    enableShared = false;
+    python = { pkgs = { python = null; numpy = null; }; };
+  };
   boost = super.boost.override {
     enableStatic = true;
     enableShared = false;
+  };
+  thrift = super.thrift.override {
+    static = true;
+    twisted = null;
   };
   gmp = super.gmp.override {
     withStatic = true;

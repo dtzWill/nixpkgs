@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, fetchpatch, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, coreutils, sbcl, texinfo, perl, python, makeWrapper, rlwrap ? null
 , tk ? null, gnuplot ? null, ecl ? null, ecl-fasl ? false
 }:
 
 let
   name    = "maxima";
-  version = "5.42.2";
+  version = "5.43.1";
 
   searchPath =
     stdenv.lib.makeBinPath
@@ -16,8 +16,10 @@ stdenv.mkDerivation ({
 
   src = fetchurl {
     url = "mirror://sourceforge/${name}/${name}-${version}.tar.gz";
-    sha256 = "0kdncy6137sg3rradirxzj10mkcvafxd892zlclwhr9sa7b12zhn";
+    sha256 = "0f07fjbw1awvgyr0aq5lhk0qy86fxhivavqwzpai9jyqv5zibija";
   };
+
+  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = stdenv.lib.filter (x: x != null) [
     sbcl ecl texinfo perl python makeWrapper
@@ -46,12 +48,6 @@ stdenv.mkDerivation ({
       sha256 = "09v64n60f7i6frzryrj0zd056lvdpms3ajky4f9p6kankhbiv21x";
     })
 
-    # fix https://sourceforge.net/p/maxima/bugs/2596/
-    (fetchpatch {
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/matrixexp.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
-      sha256 = "06961hn66rhjijfvyym21h39wk98sfxhp051da6gz0n9byhwc6zg";
-    })
-
     # undo https://sourceforge.net/p/maxima/code/ci/f5e9b0f7eb122c4e48ea9df144dd57221e5ea0ca, see see https://trac.sagemath.org/ticket/13364#comment:93
     (fetchpatch {
       url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/undoing_true_false_printing_patch.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
@@ -72,17 +68,14 @@ stdenv.mkDerivation ({
     })
   ];
 
-  # The test suite is disabled since 5.42.2 because of the following issues:
-  #
-  #   Errors found in /build/maxima-5.42.2/share/linearalgebra/rtest_matrixexp.mac, problems:
-  #   (20 21 22)
-  #   Error found in rtest_arag, problem:
-  #   (error break)
-  #   3 tests failed out of 3,881 total tests.
-  #
-  # These failures don't look serious. It would be nice to fix them, but I
-  # don't know how and probably won't have the time to find out.
-  doCheck = false;    # try to re-enable after next version update
+  postPatch = ''
+    sed -i -e 's,/usr/bin/env\>,${coreutils}/bin/env,g' \
+      doc/info/*.{in,mk,am,sh} \
+      doc/info/*/Makefile.in \
+      share/draw/vtk.lisp
+  '';
+
+  doCheck = true;
 
   enableParallelBuilding = true;
 

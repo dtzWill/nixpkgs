@@ -15,7 +15,7 @@ rec {
       , tiniRev, tiniSha256
     } :
   let
-    docker-runc = runc.overrideAttrs (oldAttrs: rec {
+    docker-runc = runc.overrideAttrs (oldAttrs: {
       name = "docker-runc-${version}";
       inherit version;
       src = fetchFromGitHub {
@@ -28,7 +28,7 @@ rec {
       patches = [];
     });
 
-    docker-containerd = containerd.overrideAttrs (oldAttrs: rec {
+    docker-containerd = containerd.overrideAttrs (oldAttrs: {
       name = "docker-containerd-${version}";
       inherit version;
       src = fetchFromGitHub {
@@ -37,11 +37,9 @@ rec {
         rev = containerdRev;
         sha256 = containerdSha256;
       };
-
-      hardeningDisable = [ "fortify" ];
     });
 
-    docker-tini = tini.overrideAttrs  (oldAttrs: rec {
+    docker-tini = tini.overrideAttrs  (oldAttrs: {
       name = "docker-init-${version}";
       inherit version;
       src = fetchFromGitHub {
@@ -55,12 +53,10 @@ rec {
       patchPhase = ''
       '';
 
-      NIX_CFLAGS_COMPILE = [
-        "-DMINIMAL=ON"
-      ];
+      NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
     });
   in
-    stdenv.mkDerivation ((optionalAttrs (stdenv.isLinux) rec {
+    stdenv.mkDerivation ((optionalAttrs (stdenv.isLinux) {
 
     inherit docker-runc docker-containerd docker-proxy docker-tini;
 
@@ -70,7 +66,7 @@ rec {
       ++ optional (lvm2 == null) "exclude_graphdriver_devicemapper"
       ++ optional (libseccomp != null) "seccomp";
 
-   }) // rec {
+   }) // {
     inherit version rev;
 
     name = "docker-${version}";
@@ -81,9 +77,6 @@ rec {
       rev = "v${version}";
       sha256 = sha256;
     };
-
-    # Optimizations break compilation of libseccomp c bindings
-    hardeningDisable = [ "fortify" ];
 
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [
@@ -213,9 +206,9 @@ rec {
   };
 
   docker_19_03 = makeOverridable dockerGen {
-    version = "19.03.4";
-    rev = "9013bf583a215dc1488d941f9b6f7f11e1ea899f";
-    sha256 = "094d6d93jd7g1vw362cqbv9qbyv8h6pb6dj750pgqvnf1bn1mffb";
+    version = "19.03.5";
+    rev = "633a0ea838f10e000b7c6d6eed1623e6e988b5bc";
+    sha256 = "1cs38ffh5xn8c40rln4pvd53iahvi4kys9an6kpclvvciqfc2cxs";
     runcRev = "3e425f80a8c931f88e6d94a8c831b9d5aa481657";
     runcSha256 = "18psc830b2rkwml1x6vxngam5b5wi3pj14mw817rshpzy87prspj";
     containerdRev = "b34a5c8af56e510852c35414db4c1f4fa6172339";

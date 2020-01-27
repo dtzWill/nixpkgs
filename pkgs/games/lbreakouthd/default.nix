@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lbreakouthd";
-  version = "1.0.5";
+  version = "1.0.6";
 
   buildInputs = [ SDL2 SDL2_mixer SDL2_image SDL2_ttf ];
 
   src = fetchurl {
     url = "mirror://sourceforge/lgames/${pname}-${version}.tar.gz";
-    sha256 = "18c47jvwpyyb08lmh6qkga24amvjnmqd6qkj1kihr1lfzv6nwagk";
+    sha256 = "1g8m5qkzxqgylgszvn23mn1qs5lsnjbpdmyzw4sbs86gigc8lpyz";
   };
 
   hardeningDisable = [ "format" ]; # TODO: Investigate, fix!

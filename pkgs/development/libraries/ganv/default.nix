@@ -1,13 +1,14 @@
 { stdenv, fetchgit, graphviz, gtk2, gtkmm2, pkgconfig, python, wafHook }:
 
 stdenv.mkDerivation rec {
-  name = "ganv-unstable-${rev}";
-  rev = "2019-04-13";
+  pname = "ganv";
+  version = "unstable-2019-12-30";
 
   src = fetchgit {
-    url = "http://git.drobilla.net/cgit.cgi/ganv.git";
-    rev = "c4e5940f935b1ac4b152aa7a1311012791f073ae";
-    sha256 = "1736skyy0p1chfycpx96k4w1dyx545wcc15z68gwzvhnbns0hxgw";
+    url = "https://gitlab.com/drobilla/${pname}.git";
+    fetchSubmodules = true;
+    rev = "90bd022f8909f92cc5290fdcfc76c626749e1186";
+    sha256 = "01znnalirbqxpz62fbw2c14c8xn117jc92xv6dhb3hln92k9x37f";
   };
 
   nativeBuildInputs = [ pkgconfig wafHook ];
@@ -20,4 +21,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;
   };
-}
+  }

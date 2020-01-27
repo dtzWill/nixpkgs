@@ -1,4 +1,5 @@
 {
+  buildPackages,
   cacert,
   callPackage,
   closureInfo,
@@ -47,7 +48,7 @@ rec {
     , imageDigest
     , sha256
     , os ? "linux"
-    , arch ? "amd64"
+    , arch ? buildPackages.go.GOARCH
 
       # This is used to set name to the pulled image
     , finalImageName ? imageName
@@ -539,11 +540,9 @@ rec {
     created ? "1970-01-01T00:00:01Z",
     # Optional bash script to run on the files prior to fixturizing the layer.
     extraCommands ? "", uid ? 0, gid ? 0,
-    # Docker's lowest maximum layer limit is 42-layers for an old
-    # version of the AUFS graph driver. We pick 24 to ensure there is
-    # plenty of room for extension. I believe the actual maximum is
-    # 128.
-    maxLayers ? 24
+    # We pick 100 to ensure there is plenty of room for extension. I
+    # believe the actual maximum is 128.
+    maxLayers ? 100
   }:
     let
       baseName = baseNameOf name;
@@ -557,7 +556,7 @@ rec {
       configJson = let
           pure = writeText "${baseName}-config.json" (builtins.toJSON {
             inherit created config;
-            architecture = "amd64";
+            architecture = buildPackages.go.GOARCH;
             os = "linux";
           });
           impure = runCommand "${baseName}-standard-dynamic-date.json"
@@ -626,11 +625,11 @@ rec {
 
         echo "Cooking the image..."
         # tar exits with an exit code of 1 if files changed while it was
-        # reading them. it considers a change in the number of hard links
+        # reading them. It considers a change in the number of hard links
         # to be a "change", which can cause this to fail if images are being
-        # built concurrently and auto-optimise-store is turned on. since
-        # know the contents of these files will not change, we can reasonably
-        # ignore this exit code
+        # built concurrently and the auto-optimise-store nix option is turned on.
+        # Since the contents of these files will not change, we can reasonably
+        # ignore this exit code.
         set +e
         tar -C image --dereference --hard-dereference --sort=name \
           --mtime="@$SOURCE_DATE_EPOCH" --owner=0 --group=0  \
@@ -690,7 +689,7 @@ rec {
       baseJson = let
           pure = writeText "${baseName}-config.json" (builtins.toJSON {
             inherit created config;
-            architecture = "amd64";
+            architecture = buildPackages.go.GOARCH;
             os = "linux";
           });
           impure = runCommand "${baseName}-config.json"

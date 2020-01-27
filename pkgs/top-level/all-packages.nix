@@ -161,7 +161,7 @@ in
 
   cm256cc = callPackage ../development/libraries/cm256cc {  };
 
-  conftest = callPackage ../development/tools/conftest {};
+  conftest = callPackage ../development/tools/conftest { };
 
   corgi = callPackage ../development/tools/corgi { };
 
@@ -178,6 +178,8 @@ in
   demoit = callPackage ../servers/demoit { };
 
   deviceTree = callPackage ../os-specific/linux/device-tree {};
+
+  enum4linux = callPackage ../tools/security/enum4linux {};
 
   device-tree_rpi = callPackage ../os-specific/linux/device-tree/raspberrypi.nix {};
 
@@ -217,7 +219,15 @@ in
 
   dotnetCorePackages = recurseIntoAttrs (callPackage ../development/compilers/dotnet {});
 
-  dotnet-sdk = dotnetCorePackages.sdk_2_2;
+  dotnet-sdk = dotnetCorePackages.sdk_2_1;
+
+  dotnet-sdk_2 = dotnetCorePackages.sdk_2_1;
+
+  dotnet-sdk_3 = dotnetCorePackages.sdk_3_1;
+
+  dotnet-netcore = dotnetCorePackages.netcore_2_1;
+
+  dotnet-aspnetcore = dotnetCorePackages.aspnetcore_2_1;
 
   dumb-init = callPackage ../applications/virtualization/dumb-init {};
 
@@ -270,7 +280,11 @@ in
 
   packer = callPackage ../development/tools/packer { };
 
-  packr = callPackage ../development/libraries/packr { };
+  packr = callPackage ../development/libraries/packr {
+    # Version 2.6.0 fails to build with go 1.13 due to nested modules:
+    #   go: directory v2/packr2 is outside main module
+    buildGoModule = buildGo112Module;
+  };
 
   pet = callPackage ../development/tools/pet { };
 
@@ -663,7 +677,7 @@ in
   asciiquarium = callPackage ../applications/misc/asciiquarium {};
 
   asymptote = callPackage ../tools/graphics/asymptote {
-    texLive = texlive.combine { inherit (texlive) scheme-small epsf cm-super; };
+    texLive = texlive.combine { inherit (texlive) scheme-small epsf cm-super texinfo; };
     gsl = gsl_1;
   };
 
@@ -699,7 +713,7 @@ in
 
   aws_shell = pythonPackages.callPackage ../tools/admin/aws_shell { };
 
-  aws-sam-cli = callPackage ../development/tools/aws-sam-cli { };
+  aws-sam-cli = callPackage ../development/tools/aws-sam-cli { python = python3; };
 
   aws-vault = callPackage ../tools/admin/aws-vault { };
 
@@ -1088,34 +1102,14 @@ in
 
   bchunk = callPackage ../tools/cd-dvd/bchunk { };
 
-  inherit (callPackages ../misc/logging/beats/5.x.nix {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
-  })
-    filebeat5
-    heartbeat5
-    metricbeat5
-    packetbeat5;
-
-  journalbeat5 = callPackage ../tools/system/journalbeat { };
-
-  inherit (callPackages ../misc/logging/beats/6.x.nix {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
-  })
+  inherit (callPackages ../misc/logging/beats/6.x.nix { })
     filebeat6
     heartbeat6
     metricbeat6
     packetbeat6
     journalbeat6;
 
-  inherit (callPackages ../misc/logging/beats/7.x.nix {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
-  })
+  inherit (callPackages ../misc/logging/beats/7.x.nix { })
     filebeat7
     heartbeat7
     metricbeat7
@@ -1309,6 +1303,7 @@ in
   });
 
   caddy = callPackage ../servers/caddy { };
+  caddy2 = callPackage ../servers/caddy/v2.nix { };
   traefik = callPackage ../servers/traefik { };
 
   calamares = libsForQt5.callPackage ../tools/misc/calamares {
@@ -1408,7 +1403,11 @@ in
 
   compactor = callPackage ../applications/networking/compactor { };
 
-  consul = callPackage ../servers/consul { };
+  consul = callPackage ../servers/consul {
+    # Version 1.6.0 fails to build with go 1.13 due to broken dependency:
+    #   go/src/github.com/hashicorp/consul/vendor/github.com/envoyproxy/go-control-plane/envoy/type/http_status.pb.go:11:2: code in directory /build/go/src/github.com/hashicorp/consul/vendor/github.com/envoyproxy/protoc-gen-validate/validate expects import "github.com/lyft/protoc-gen-validate/validate"
+    buildGoPackage = buildGo112Package;
+  };
 
   consul-alerts = callPackage ../servers/monitoring/consul-alerts { };
 
@@ -1499,6 +1498,8 @@ in
 
   dante = callPackage ../servers/dante { };
 
+  dasher = callPackage ../applications/accessibility/dasher { };
+
   datamash = callPackage ../tools/misc/datamash { };
 
   datasette = with python3Packages; toPythonApplication datasette;
@@ -1548,6 +1549,8 @@ in
 
   direnv = callPackage ../tools/misc/direnv { };
 
+  h = callPackage ../tools/misc/h { };
+
   discount = callPackage ../tools/text/discount { };
 
   diskscan = callPackage ../tools/misc/diskscan { };
@@ -1569,6 +1572,8 @@ in
   dlx = callPackage ../misc/emulators/dlx { };
 
   doitlive = callPackage ../tools/misc/doitlive { };
+
+  dokuwiki = callPackage ../servers/web-apps/dokuwiki { };
 
   dosage = callPackage ../applications/graphics/dosage {
     pythonPackages = python3Packages;
@@ -1764,9 +1769,7 @@ in
     variant = "krita";
   };
 
-  goa = callPackage ../development/tools/goa {
-    buildGoPackage = buildGo110Package;
-  };
+  goa = callPackage ../development/tools/goa { };
 
   gohai = callPackage ../tools/system/gohai { };
 
@@ -1875,6 +1878,8 @@ in
   massren = callPackage ../tools/misc/massren { };
 
   megasync = libsForQt5.callPackage ../applications/misc/megasync { };
+
+  megacmd = callPackage ../applications/misc/megacmd { };
 
   meritous = callPackage ../games/meritous { };
 
@@ -2009,6 +2014,8 @@ in
 
   step-cli = callPackage ../tools/security/step-cli { };
 
+  string-machine = callPackage ../applications/audio/string-machine { };
+
   bash-supergenpass = callPackage ../tools/security/bash-supergenpass { };
 
   sweep-visualizer = callPackage ../tools/misc/sweep-visualizer { };
@@ -2043,7 +2050,6 @@ in
 
   rsyslog = callPackage ../tools/system/rsyslog {
     hadoop = null; # Currently Broken
-    czmq = czmq3;
   };
 
   rsyslog-light = rsyslog.override {
@@ -2053,14 +2059,13 @@ in
     libmysqlclient = null;
     postgresql = null;
     libdbi = null;
-    net_snmp = null;
+    net-snmp = null;
     libuuid = null;
     gnutls = null;
     libgcrypt = null;
     liblognorm = null;
     openssl = null;
     librelp = null;
-    libgt = null;
     libksi = null;
     liblogging = null;
     libnet = null;
@@ -2072,17 +2077,15 @@ in
     hiredis = null;
   };
 
+  xmousepasteblock = callPackage ../tools/X11/xmousepasteblock { };
+
   mar1d = callPackage ../games/mar1d { } ;
 
   mcrypt = callPackage ../tools/misc/mcrypt { };
 
   mongodb-compass = callPackage ../tools/misc/mongodb-compass { };
 
-  mongodb-tools = callPackage ../tools/misc/mongodb-tools {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
-  };
+  mongodb-tools = callPackage ../tools/misc/mongodb-tools { };
 
   moosefs = callPackage ../tools/filesystems/moosefs { };
 
@@ -2178,7 +2181,11 @@ in
 
   bgs = callPackage ../tools/X11/bgs { };
 
+  bibclean = callPackage ../tools/typesetting/bibclean { };
+
   biber = callPackage ../tools/typesetting/biber { };
+
+  biblatex-check = callPackage ../tools/typesetting/biblatex-check { };
 
   birdfont = callPackage ../tools/misc/birdfont { };
   xmlbird = callPackage ../tools/misc/birdfont/xmlbird.nix { };
@@ -2309,7 +2316,11 @@ in
 
   ciopfs = callPackage ../tools/filesystems/ciopfs { };
 
-  circleci-cli = callPackage ../development/tools/misc/circleci-cli { };
+  circleci-cli = callPackage ../development/tools/misc/circleci-cli {
+    # Version 0.1.5879 fails to build with go 1.13 due to:
+    #   build github.com/CircleCI-Public/circleci-cli: cannot load github.com/gobuffalo/packr/v2: github.com/gobuffalo/packr@v1.21.0: reading file:///nix/store/hh9hrfdg3gbqz37sa3hx44mkzkxpkkyw-circleci-cli-0.1.5879-go-modules/github.com/gobuffalo/packr/@v/v1.21.0.zip: Not Found
+    buildGoModule = buildGo112Module;
+  };
 
   citrix_receiver_unwrapped = callPackage ../applications/networking/remote/citrix-receiver { };
   citrix_receiver_unwrapped_13_10_0 = citrix_receiver_unwrapped.override { version = "13.10.0"; };
@@ -2606,7 +2617,11 @@ in
 
   curl_unix_socket = callPackage ../tools/networking/curl-unix-socket rec { };
 
-  curlie = callPackage ../tools/networking/curlie { };
+  curlie = callPackage ../tools/networking/curlie {
+    # Version 1.2.0 fails to build with go 1.13 due to:
+    #    verifying golang.org/x/crypto@v0.0.0-20180524125353-159ae71589f3: golang.org/x/crypto@v0.0.0-20180524125353-159ae71589f3: Get https://sum.golang.org/lookup/golang.org/x/crypto@v0.0.0-20180524125353-159ae71589f3: dial tcp: lookup sum.golang.org on [::1]:53: read udp [::1]:49088->[::1]:53: read: connection refused
+    buildGoModule = buildGo112Module;
+  };
 
   cunit = callPackage ../tools/misc/cunit { };
   bcunit = callPackage ../tools/misc/bcunit { };
@@ -2692,9 +2707,7 @@ in
 
   dev86 = callPackage ../development/compilers/dev86 { };
 
-  diskrsync = callPackage ../tools/backup/diskrsync {
-    buildGoPackage = buildGo110Package;
-  };
+  diskrsync = callPackage ../tools/backup/diskrsync { };
 
   djbdns = callPackage ../tools/networking/djbdns { };
 
@@ -2886,11 +2899,17 @@ in
 
   epubcheck = callPackage ../tools/text/epubcheck { };
 
+  luckybackup = libsForQt5.callPackage ../tools/backup/luckybackup {
+    ssh = openssh;
+  };
+
   mcrcon = callPackage ../tools/networking/mcrcon {};
 
   rage = callPackage ../tools/security/rage {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  rar2fs = callPackage ../tools/filesystems/rar2fs { };
 
   s-tar = callPackage ../tools/archivers/s-tar {};
 
@@ -2970,13 +2989,9 @@ in
   evemu = callPackage ../tools/system/evemu { };
 
   # The latest version used by elasticsearch, logstash, kibana and the the beats from elastic.
-  elk5Version = "5.6.16";
-  elk6Version = "6.7.2";
-  elk7Version = "7.0.1";
+  elk6Version = "6.8.3";
+  elk7Version = "7.3.1";
 
-  elasticsearch5 = callPackage ../servers/search/elasticsearch/5.x.nix {
-    utillinux = utillinuxMinimal;
-  };
   elasticsearch6 = callPackage ../servers/search/elasticsearch/6.x.nix {
     utillinux = utillinuxMinimal;
   };
@@ -2999,9 +3014,6 @@ in
       elasticsearch = elasticsearch-oss;
     }
   );
-  elasticsearch5Plugins = elasticsearchPlugins.override {
-    elasticsearch = elasticsearch5;
-  };
   elasticsearch6Plugins = elasticsearchPlugins.override {
     elasticsearch = elasticsearch6-oss;
   };
@@ -3018,13 +3030,7 @@ in
           sha256 = "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b";
         };
       });
-      pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
-        version = "3.12";
-        src = oldAttrs.src.override {
-          inherit version;
-          sha256 = "1aqjl8dk9amd4zr99n8v2qxzgmr2hdvqfma4zh7a41rj6336c9sr";
-        };
-      });
+      pyyaml = super.pyyaml_3;
     };
   }).pkgs; toPythonApplication elasticsearch-curator;
 
@@ -3263,7 +3269,7 @@ in
 
   libbladeRF = callPackage ../development/libraries/libbladeRF { };
 
-  lobase = callPackage ../tools/misc/lobase { };
+  lobase = callPackage ../tools/misc/lobase { ssl = openssl; };
 
   lp_solve = callPackage ../applications/science/math/lp_solve { };
 
@@ -3329,6 +3335,9 @@ in
   fprot = callPackage ../tools/security/fprot { };
 
   fprintd = callPackage ../tools/security/fprintd { };
+  fprintd-thinkpad = fprintd.override {
+    thinkpad = true;
+  };
 
   franz = callPackage ../applications/networking/instant-messengers/franz { };
 
@@ -3485,7 +3494,11 @@ in
 
   git-crecord = callPackage ../applications/version-management/git-crecord { };
 
-  git-lfs = lowPrio (callPackage ../applications/version-management/git-lfs { });
+  git-lfs = lowPrio (callPackage ../applications/version-management/git-lfs {
+    # Version 2.8.0 fails with go1.13
+    #    go: github.com/alexbrainman/sspi@v0.0.0-20180125232955-4729b3d4d858: Get https://proxy.golang.org/github.com/alexbrainman/sspi/@v/v0.0.0-20180125232955-4729b3d4d858.mod: dial tcp: lookup proxy.golang.org on [::1]:53: read udp [::1]:32932->[::1]:53: read: connection refused
+    buildGoPackage = buildGo112Package;
+  });
 
   git-lfs1 = callPackage ../applications/version-management/git-lfs/1.nix { };
 
@@ -3632,8 +3645,8 @@ in
 
   google-authenticator = callPackage ../os-specific/linux/google-authenticator { };
 
-  google-cloud-sdk = python2.pkgs.google-cloud-sdk;
-  google-cloud-sdk-gce = python2.pkgs.google-cloud-sdk-gce;
+  google-cloud-sdk = callPackage ../tools/admin/google-cloud-sdk { };
+  google-cloud-sdk-gce = google-cloud-sdk.override { with-gce = true; };
 
   google-fonts = callPackage ../data/fonts/google-fonts { };
 
@@ -4150,9 +4163,7 @@ in
   ipfs-migrator = callPackage ../applications/networking/ipfs-migrator { };
   ipfs-cluster = callPackage ../applications/networking/ipfs-cluster { };
 
-  ipget = callPackage ../applications/networking/ipget {
-    buildGoPackage = buildGo110Package;
-  };
+  ipget = callPackage ../applications/networking/ipget { };
 
   ipmitool = callPackage ../tools/system/ipmitool {
     openssl = openssl_1_0_2;
@@ -4326,7 +4337,6 @@ in
 
   keyfuzz = callPackage ../tools/inputmethods/keyfuzz { };
 
-  kibana5 = callPackage ../development/tools/misc/kibana/5.x.nix { };
   kibana6 = callPackage ../development/tools/misc/kibana/6.x.nix { };
   kibana6-oss = callPackage ../development/tools/misc/kibana/6.x.nix {
     enableUnfree = false;
@@ -4434,7 +4444,6 @@ in
 
   lockfileProgs = callPackage ../tools/misc/lockfile-progs { };
 
-  logstash5 = callPackage ../tools/misc/logstash/5.x.nix { };
   logstash6 = callPackage ../tools/misc/logstash/6.x.nix { };
   logstash6-oss = callPackage ../tools/misc/logstash/6.x.nix {
     enableUnfree = false;
@@ -4479,7 +4488,9 @@ in
 
   mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp { };
 
-  mcfly = callPackage ../tools/misc/mcfly { };
+  mcfly = callPackage ../tools/misc/mcfly {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   mdbook = callPackage ../tools/text/mdbook {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
@@ -4577,8 +4588,6 @@ in
   netsniff-ng = callPackage ../tools/networking/netsniff-ng { };
 
   next = callPackage ../applications/networking/browsers/next { };
-
-  next-gtk-webkit = callPackage ../applications/networking/browsers/next-gtk-webkit { };
 
   nfpm = callPackage ../tools/package-management/nfpm { };
 
@@ -4956,9 +4965,7 @@ in
 
   minetime = callPackage ../applications/office/minetime { };
 
-  minio-client = callPackage ../tools/networking/minio-client {
-    buildGoPackage = buildGo110Package;
-  };
+  minio-client = callPackage ../tools/networking/minio-client { };
 
   minissdpd = callPackage ../tools/networking/minissdpd { };
 
@@ -4981,11 +4988,7 @@ in
 
   miredo = callPackage ../tools/networking/miredo { };
 
-  mirrorbits = callPackage ../servers/mirrorbits {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
-  };
+  mirrorbits = callPackage ../servers/mirrorbits { };
 
   mitmproxy = callPackage ../tools/networking/mitmproxy { };
 
@@ -5076,6 +5079,8 @@ in
   munge = callPackage ../tools/security/munge { };
 
   munt = libsForQt5.callPackage ../applications/audio/munt { };
+
+  mutagen = callPackage ../tools/misc/mutagen { };
 
   mycli = callPackage ../tools/admin/mycli { };
 
@@ -5215,7 +5220,7 @@ in
 
   noip = callPackage ../tools/networking/noip { };
 
- nomad = callPackage ../applications/networking/cluster/nomad {
+  nomad = callPackage ../applications/networking/cluster/nomad {
     buildGoPackage = buildGo112Package;
   };
 
@@ -5279,9 +5284,7 @@ in
 
   nnn = callPackage ../applications/misc/nnn { };
 
-  notary = callPackage ../tools/security/notary {
-    buildGoPackage = buildGo110Package;
-  };
+  notary = callPackage ../tools/security/notary { };
 
   notify-osd = callPackage ../applications/misc/notify-osd { };
 
@@ -5890,7 +5893,7 @@ in
 
   openmodelica = callPackage ../applications/science/misc/openmodelica { };
 
-  qarte = callPackage ../applications/video/qarte { };
+  qarte = libsForQt5.callPackage ../applications/video/qarte { };
 
   qlcplus = libsForQt5.callPackage ../applications/misc/qlcplus { };
 
@@ -6113,7 +6116,7 @@ in
 
   rpiboot-unstable = callPackage ../development/misc/rpiboot/unstable.nix { };
 
-  rpm = callPackage ../tools/package-management/rpm { };
+  rpm = callPackage ../tools/package-management/rpm { python = python3; };
 
   rpm-ostree = callPackage ../tools/misc/rpm-ostree {
     gperf = gperf_3_0;
@@ -6187,6 +6190,8 @@ in
 
   sahel-fonts = callPackage ../data/fonts/sahel-fonts { };
 
+  saldl = callPackage ../tools/networking/saldl { };
+
   salt = callPackage ../tools/admin/salt {};
 
   salut_a_toi = callPackage ../applications/networking/instant-messengers/salut-a-toi {};
@@ -6233,7 +6238,7 @@ in
     qtbase = qt4;
   };
 
-  scfbuild = python2.pkgs.callPackage ../tools/misc/scfbuild { };
+  scfbuild = python3.pkgs.callPackage ../tools/misc/scfbuild { };
 
   scriptaculous = callPackage ../development/libraries/scriptaculous { };
 
@@ -7472,6 +7477,8 @@ in
 
   zbar = libsForQt5.callPackage ../tools/graphics/zbar { };
 
+  zchunk = callPackage ../tools/compression/zchunk { };
+
   zdelta = callPackage ../tools/compression/zdelta { };
 
   zerotierone = callPackage ../tools/networking/zerotierone { };
@@ -7501,6 +7508,8 @@ in
   zpaqd = callPackage ../tools/archivers/zpaq/zpaqd.nix { };
 
   zsh-autoenv = callPackage ../tools/misc/zsh-autoenv { };
+  
+  zsh-bd = callPackage ../shells/zsh/zsh-bd { };
 
   zsh-git-prompt = callPackage ../shells/zsh/zsh-git-prompt { };
 
@@ -8198,19 +8207,15 @@ in
       inherit (darwin.apple_sdk.frameworks) Security;
     };
 
-  go_1_10 = callPackage ../development/compilers/go/1.10.nix {
-    inherit (darwin.apple_sdk.frameworks) Security Foundation;
-  };
-
-  go_1_11 = callPackage ../development/compilers/go/1.11.nix {
-    inherit (darwin.apple_sdk.frameworks) Security Foundation;
-  };
-
   go_1_12 = callPackage ../development/compilers/go/1.12.nix {
     inherit (darwin.apple_sdk.frameworks) Security Foundation;
   };
 
-  go = go_1_12;
+  go_1_13 = callPackage ../development/compilers/go/1.13.nix {
+    inherit (darwin.apple_sdk.frameworks) Security Foundation;
+  };
+
+  go = go_1_13;
 
   go-repo-root = callPackage ../development/tools/go-repo-root { };
 
@@ -8497,13 +8502,13 @@ in
   manticore = callPackage ../development/compilers/manticore { };
 
   inherit (callPackage ../development/compilers/mercury { })
-    mercury-14
-    mercury-14-bootstrap
-    mercury-14-full
+    mercury-20
+    mercury-20-bootstrap
+    mercury-20-full
     mercury-rotd
     mercury-rotd-bootstrap
     ;
-  mercury = mercury-rotd;
+  mercury = mercury-20;
 
   microscheme = callPackage ../development/compilers/microscheme { };
 
@@ -8655,6 +8660,7 @@ in
 
   defaultCrateOverrides = callPackage ../build-support/rust/default-crate-overrides.nix { };
 
+  cargo-about = callPackage ../tools/package-management/cargo-about { };
   cargo-audit = callPackage ../tools/package-management/cargo-audit {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -9574,7 +9580,9 @@ in
 
   bazel-remote = callPackage ../development/tools/build-managers/bazel/bazel-remote { };
 
-  bazel-watcher = callPackage ../development/tools/bazel-watcher { };
+  bazel-watcher = callPackage ../development/tools/bazel-watcher {
+    go = go_1_12;
+  };
 
   bazelisk = callPackage ../development/tools/bazelisk { };
 
@@ -9852,6 +9860,8 @@ in
 
   doit = callPackage ../development/tools/build-managers/doit { };
 
+  dolt = callPackage ../servers/sql/dolt { };
+
   dot2tex = pythonPackages.dot2tex;
 
   doxygen = callPackage ../development/tools/documentation/doxygen {
@@ -9972,6 +9982,7 @@ in
   m4 = gnum4;
 
   gnumake42 = callPackage ../development/tools/build-managers/gnumake/4.2 { };
+  gnumake43 = callPackage ../development/tools/build-managers/gnumake/4.3 { };
   gnumake = gnumake42;
 
   gnustep = recurseIntoAttrs (callPackage ../desktops/gnustep {});
@@ -10466,6 +10477,8 @@ in
 
   swarm = callPackage ../development/tools/analysis/swarm { };
 
+  swiftformat = callPackage ../development/tools/swiftformat { };
+
   swig1 = callPackage ../development/tools/misc/swig { };
   swig2 = callPackage ../development/tools/misc/swig/2.x.nix { };
   swig3 = callPackage ../development/tools/misc/swig/3.x.nix { };
@@ -10487,7 +10500,11 @@ in
 
   terracognita = callPackage ../development/tools/misc/terracognita { };
 
-  terraform-lsp = callPackage ../development/tools/misc/terraform-lsp { };
+  terraform-lsp = callPackage ../development/tools/misc/terraform-lsp {
+    # Version 0.0.5 fails to build with go 1.13 due to dependency:
+    #   build github.com/juliosueiras/terraform-lsp: cannot load github.com/googleapis/gax-go/v2: github.com/googleapis/gax-go@v2.0.0+incompatible: reading file:///nix/store/ihiyd3mqa5gvfm2k2716hpl16knak798-terraform-lsp-0.0.5-go-modules/github.com/googleapis/gax-go/@v/v2.0.0+incompatible.zip: Not Found
+    buildGoModule = buildGo112Module;
+  };
 
   texinfo413 = callPackage ../development/tools/misc/texinfo/4.13a.nix { };
   texinfo4 = texinfo413;
@@ -11002,6 +11019,8 @@ in
 
   dhex = callPackage ../applications/editors/dhex { };
 
+  dnnl = callPackage ../development/libraries/dnnl { };
+
   double-conversion = callPackage ../development/libraries/double-conversion { };
 
   dclib = callPackage ../development/libraries/dclib { };
@@ -11264,6 +11283,8 @@ in
   gegl_0_4 = callPackage ../development/libraries/gegl/4.0.nix {
     inherit (darwin.apple_sdk.frameworks) OpenCL;
   };
+
+  gensio = callPackage ../development/libraries/gensio {};
 
   geoclue2 = callPackage ../development/libraries/geoclue {};
 
@@ -11583,8 +11604,6 @@ in
   pangomm = callPackage ../development/libraries/pangomm {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
   };
-
-  pangox_compat = callPackage ../development/libraries/pangox-compat { };
 
   gdata-sharp = callPackage ../development/libraries/gdata-sharp { };
 
@@ -12234,6 +12253,9 @@ in
   };
 
   libfprint = callPackage ../development/libraries/libfprint { };
+  libfprint-thinkpad = libfprint.override {
+    thinkpad = true;
+  };
 
   libfpx = callPackage ../development/libraries/libfpx { };
 
@@ -12401,6 +12423,8 @@ in
   libical = callPackage ../development/libraries/libical { };
 
   libicns = callPackage ../development/libraries/libicns { };
+
+  libieee1284 = callPackage ../development/libraries/libieee1284 { };
 
   libimobiledevice = callPackage ../development/libraries/libimobiledevice { };
 
@@ -12864,9 +12888,8 @@ in
 
   libwhereami = callPackage ../development/libraries/libwhereami { };
 
-  giflib = giflib_5_1;
   giflib_4_1 = callPackage ../development/libraries/giflib/4.1.nix { };
-  giflib_5_1 = callPackage ../development/libraries/giflib/5.1.nix { };
+  giflib     = callPackage ../development/libraries/giflib { };
 
   libunarr = callPackage ../development/libraries/libunarr { };
 
@@ -13514,6 +13537,8 @@ in
 
   protobuf = protobuf3_7;
 
+  protobuf3_11 = callPackage ../development/libraries/protobuf/3.11.nix { };
+  protobuf3_10 = callPackage ../development/libraries/protobuf/3.10.nix { };
   protobuf3_9 = callPackage ../development/libraries/protobuf/3.9.nix { };
   protobuf3_8 = callPackage ../development/libraries/protobuf/3.8.nix { };
   protobuf3_7 = callPackage ../development/libraries/protobuf/3.7.nix { };
@@ -13818,7 +13843,6 @@ in
   lilv = callPackage ../development/libraries/audio/lilv { };
 
   lv2 = callPackage ../development/libraries/audio/lv2 { };
-  lv2Unstable = callPackage ../development/libraries/audio/lv2/unstable.nix { };
 
   lvtk = callPackage ../development/libraries/audio/lvtk { };
 
@@ -13834,6 +13858,8 @@ in
     javac = jdk;
     jvm = jre;
   };
+
+  rinutils = callPackage ../development/libraries/rinutils { };
 
   rlog = callPackage ../development/libraries/rlog { };
 
@@ -13975,12 +14001,6 @@ in
     nsss = callPackage ../development/libraries/nsss { };
     utmps = callPackage ../development/libraries/utmps { };
     sdnotify-wrapper = callPackage ../os-specific/linux/sdnotify-wrapper { };
-  };
-
-  skydive = callPackage ../tools/networking/skydive {
-    # XXX: this is failing with Go 1.12. Error is related to cgo, an
-    # update to this package might fix it.
-    buildGoPackage = buildGo111Package;
   };
 
   slang = callPackage ../development/libraries/slang { };
@@ -14627,13 +14647,7 @@ in
 
   cppzmq = callPackage ../development/libraries/cppzmq {};
 
-  czmq3 = callPackage ../development/libraries/czmq/3.x.nix {};
-  czmq4 = callPackage ../development/libraries/czmq/4.x.nix {};
-  czmq = czmq4;
-
-  czmqpp = callPackage ../development/libraries/czmqpp {
-    czmq = czmq3;
-  };
+  czmq = callPackage ../development/libraries/czmq/default.nix {};
 
   zmqpp = callPackage ../development/libraries/zmqpp { };
 
@@ -14763,25 +14777,24 @@ in
 
   ### DEVELOPMENT / GO MODULES
 
-  buildGo110Package = callPackage ../development/go-packages/generic {
-    go = buildPackages.go_1_10;
-  };
-  buildGo111Package = callPackage ../development/go-packages/generic {
-    go = buildPackages.go_1_11;
-  };
   buildGo112Package = callPackage ../development/go-packages/generic {
     go = buildPackages.go_1_12;
   };
-
-  buildGoPackage = buildGo112Package;
-
-  buildGo111Module = callPackage ../development/go-modules/generic {
-    go = buildPackages.go_1_11;
+  buildGo113Package = callPackage ../development/go-packages/generic {
+    go = buildPackages.go_1_13;
   };
+
+  buildGoPackage = buildGo113Package;
+
   buildGo112Module = callPackage ../development/go-modules/generic {
     go = buildPackages.go_1_12;
   };
-  buildGoModule = buildGo112Module;
+
+  buildGo113Module = callPackage ../development/go-modules/generic {
+    go = buildPackages.go_1_13;
+  };
+
+  buildGoModule = buildGo113Module;
 
   go2nix = callPackage ../development/tools/go2nix { };
 
@@ -14839,8 +14852,8 @@ in
   perl530Packages = recurseIntoAttrs perl530.pkgs;
   perldevelPackages = perldevel.pkgs;
 
-  perl = perl528;
-  perlPackages = perl528Packages;
+  perl = perl530;
+  perlPackages = perl530Packages;
 
   ack = perlPackages.ack;
 
@@ -15078,7 +15091,9 @@ in
 
   gofish = callPackage ../servers/gopher/gofish { };
 
-  grafana = callPackage ../servers/monitoring/grafana { };
+  grafana = callPackage ../servers/monitoring/grafana {
+    buildGoPackage = buildGo113Package;
+  };
 
   grafana-loki = callPackage ../servers/monitoring/loki { };
 
@@ -15144,9 +15159,7 @@ in
 
   mediatomb = callPackage ../servers/mediatomb { };
 
-  meguca = callPackage ../servers/meguca {
-    buildGoPackage = buildGo110Package;
-  };
+  meguca = callPackage ../servers/meguca { };
 
   memcached = callPackage ../servers/memcached {};
 
@@ -15164,7 +15177,8 @@ in
   mod_python = pkgs.apacheHttpdPackages.mod_python;
   mod_wsgi = pkgs.apacheHttpdPackages.mod_wsgi;
 
-  mpd = callPackage ../servers/mpd (config.mpd or {});
+  inherit (callPackages ../servers/mpd { })
+    mpd mpd-small mpdWithFeatures;
 
   mpd_clientlib = callPackage ../servers/mpd/clientlib.nix { };
 
@@ -15395,7 +15409,7 @@ in
 
   check-esxi-hardware = callPackage ../servers/monitoring/plugins/esxi.nix {};
 
-  net_snmp = callPackage ../servers/monitoring/net-snmp { };
+  net-snmp = callPackage ../servers/monitoring/net-snmp { };
 
   newrelic-sysmond = callPackage ../servers/monitoring/newrelic-sysmond { };
 
@@ -15483,7 +15497,11 @@ in
   prometheus-statsd-exporter = callPackage ../servers/monitoring/prometheus/statsd-exporter.nix { };
   prometheus-surfboard-exporter = callPackage ../servers/monitoring/prometheus/surfboard-exporter.nix { };
   prometheus-unifi-exporter = callPackage ../servers/monitoring/prometheus/unifi-exporter { };
-  prometheus-varnish-exporter = callPackage ../servers/monitoring/prometheus/varnish-exporter.nix { };
+  prometheus-varnish-exporter = callPackage ../servers/monitoring/prometheus/varnish-exporter.nix {
+    # Version 1.5.1 fails to build with go 1.13 due to test failure
+    #  FAIL       github.com/jonnenauha/prometheus_varnish_exporter       0.041s
+    buildGoModule = buildGo112Module;
+  };
   prometheus-jmx-httpserver = callPackage ../servers/monitoring/prometheus/jmx-httpserver.nix {  };
   prometheus-wireguard-exporter = callPackage ../servers/monitoring/prometheus/wireguard-exporter.nix {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -15527,7 +15545,11 @@ in
 
   redstore = callPackage ../servers/http/redstore { };
 
-  restic = callPackage ../tools/backup/restic { };
+  restic = callPackage ../tools/backup/restic {
+    # Version 0.9.5 fails to build with go 1.13 due to dependency:
+    #    go: bazil.org/fuse@v0.0.0-20180421153158-65cc252bf669: Get https://proxy.golang.org/bazil.org/fuse/@v/v0.0.0-20180421153158-65cc252bf669.mod: dial tcp: lookup proxy.golang.org on [::1]:53: read udp [::1]:56450->[::1]:53: read: connection refused
+    buildGoPackage = buildGo112Package;
+  };
 
   restic-rest-server = callPackage ../tools/backup/restic/rest-server.nix { };
 
@@ -15634,6 +15656,8 @@ in
   smcroute = callPackage ../servers/smcroute { };
 
   spawn_fcgi = callPackage ../servers/http/spawn-fcgi { };
+
+  spring-boot = callPackage ../development/tools/spring-boot { };
 
   squid = callPackage ../servers/squid { };
 
@@ -15876,7 +15900,9 @@ in
 
   cpustat = callPackage ../os-specific/linux/cpustat { };
 
-  cockroachdb = callPackage ../servers/sql/cockroachdb { };
+  cockroachdb = callPackage ../servers/sql/cockroachdb {
+    buildGoPackage = buildGo112Package;
+  };
 
   conky = callPackage ../os-specific/linux/conky ({
     lua = lua5_3_compat;
@@ -16039,7 +16065,8 @@ in
 
   iproute_mptcp = callPackage ../os-specific/linux/iproute/mptcp.nix { };
 
-  iputils = callPackage ../os-specific/linux/iputils { };
+  iputils = hiPrio (callPackage ../os-specific/linux/iputils { });
+  # hiPrio for collisions with inetutils (ping and tftpd.8.gz)
   iputils-nosystemd = callPackage ../os-specific/linux/iputils { systemd = null; };
 
   iptables = iptables-legacy;
@@ -16366,7 +16393,9 @@ in
 
     facetimehd = callPackage ../os-specific/linux/facetimehd { };
 
-    jool = if stdenv.lib.versionOlder kernel.version "4.18" then  callPackage ../os-specific/linux/jool { } else null;
+    tuxedo-keyboard = callPackage ../os-specific/linux/tuxedo-keyboard { };
+
+    jool = callPackage ../os-specific/linux/jool { };
 
     mba6x_bl = callPackage ../os-specific/linux/mba6x_bl { };
 
@@ -16694,6 +16723,12 @@ in
   go-langserver = callPackage ../development/tools/go-langserver { };
 
   gotests = callPackage ../development/tools/gotests { };
+
+  gotestsum = callPackage ../development/tools/gotestsum {
+    # Version 0.3.5 fails to build with go 1.13:
+    #    build ./testjson/internal/badmain: cannot find module for path ./testjson/internal/badmain
+    buildGoModule = buildGo112Module;
+  };
 
   impl = callPackage ../development/tools/impl { };
 
@@ -17901,6 +17936,9 @@ in
 
   apache-directory-studio = callPackage ../applications/networking/apache-directory-studio {};
 
+  apngasm = callPackage ../applications/graphics/apngasm {};
+  apngasm_2 = callPackage ../applications/graphics/apngasm/2.nix {};
+
   appeditor = callPackage ../applications/misc/appeditor { };
 
   aqemu = libsForQt5.callPackage ../applications/virtualization/aqemu { };
@@ -18106,9 +18144,7 @@ in
 
   brave = callPackage ../applications/networking/browsers/brave { };
 
-  notmuch-bower = callPackage ../applications/networking/mailreaders/notmuch-bower {
-    mercury = mercury-rotd;
-  };
+  notmuch-bower = callPackage ../applications/networking/mailreaders/notmuch-bower { };
   notmuch-bower-musl = pkgsMusl.notmuch-bower.override {
     # Only needed for docs
     inherit pandoc;
@@ -18126,6 +18162,8 @@ in
   bs1770gain = callPackage ../applications/audio/bs1770gain { };
 
   bslizr = callPackage ../applications/audio/bslizr { };
+
+  bshapr = callPackage ../applications/audio/bshapr { };
 
   bspwm = callPackage ../applications/window-managers/bspwm { };
 
@@ -18154,7 +18192,11 @@ in
     poppler = poppler_0_61;
   };
 
-  perkeep = callPackage ../applications/misc/perkeep { };
+  perkeep = callPackage ../applications/misc/perkeep {
+    # Revision c9f78d02adf9740f3b8d403a1418554293cc9f41 fails to build with go 1.13 due to a dependency:
+    #   go: bazil.org/fuse@v0.0.0-20160811212531-371fbbdaa898: Get https://proxy.golang.org/bazil.org/fuse/@v/v0.0.0-20160811212531-371fbbdaa898.mod: dial tcp: lookup proxy.golang.org on [::1]:53: read udp [::1]:36526->[::1]:53: read: connection refused
+    buildGoPackage = buildGo112Package;
+  };
 
   canto-curses = callPackage ../applications/networking/feedreaders/canto-curses { };
 
@@ -18437,6 +18479,7 @@ in
   docker-machine-kvm2 = callPackage ../applications/networking/cluster/docker-machine/kvm2.nix { };
   docker-machine-xhyve = callPackage ../applications/networking/cluster/docker-machine/xhyve.nix {
     inherit (darwin.apple_sdk.frameworks) Hypervisor vmnet;
+    inherit (darwin) cctools;
   };
 
   docker-distribution = callPackage ../applications/virtualization/docker/distribution.nix { };
@@ -18866,6 +18909,8 @@ in
 
   flrig = callPackage ../applications/radio/flrig { };
 
+  fluxus = callPackage ../applications/graphics/fluxus { };
+
   flwrap = callPackage ../applications/radio/flwrap { };
 
   fluidsynth = callPackage ../applications/audio/fluidsynth {
@@ -19156,6 +19201,8 @@ in
 
   formatter = callPackage ../applications/misc/formatter { };
 
+  foxtrotgps = callPackage ../applications/misc/foxtrotgps { };
+
   fractal = callPackage ../applications/networking/instant-messengers/fractal { };
 
   freecad = qt5.callPackage ../applications/graphics/freecad { mpi = openmpi; };
@@ -19183,6 +19230,8 @@ in
   fte = callPackage ../applications/editors/fte { };
 
   game-music-emu = callPackage ../applications/audio/game-music-emu { };
+
+  gavrasm = callPackage ../development/compilers/gavrasm { };
 
   gcalcli = callPackage ../applications/misc/gcalcli { };
 
@@ -19671,6 +19720,8 @@ in
 
   imgcat = callPackage ../applications/graphics/imgcat { };
 
+  imgp = python3Packages.callPackage ../applications/graphics/imgp { };
+
   # Impressive, formerly known as "KeyJNote".
   impressive = callPackage ../applications/office/impressive { };
 
@@ -19779,7 +19830,7 @@ in
   inherit (kdeApplications)
     akonadi akregator ark dolphin dragon ffmpegthumbs filelight gwenview k3b
     kaddressbook kate kcachegrind kcalc kcharselect kcolorchooser kcontacts kdenlive kdf kdialog
-    keditbookmarks kfind kget kgpg khelpcenter kig kleopatra kmail kmix kmplot kolourpaint kompare konsole
+    keditbookmarks kfind kget kgpg khelpcenter kig kleopatra kmail kmix kmplot kolourpaint kompare konsole yakuake
     kpkpass kitinerary kontact korganizer krdc krfb ksystemlog ktouch kwalletmanager marble minuet okular spectacle;
 
   okteta = libsForQt5.callPackage ../applications/editors/okteta { };
@@ -19830,8 +19881,6 @@ in
     ffmpeg = ffmpeg_2;
   };
 
-  kipi-plugins = libsForQt5.callPackage ../applications/graphics/kipi-plugins { };
-
   kitty = callPackage ../applications/misc/kitty {
     harfbuzz = harfbuzz.override { withCoreText = stdenv.isDarwin; };
     inherit (darwin.apple_sdk.frameworks) Cocoa CoreGraphics Foundation IOKit Kernel OpenGL;
@@ -19864,7 +19913,9 @@ in
 
   kubeval = callPackage ../applications/networking/cluster/kubeval { };
 
-  kubernetes = callPackage ../applications/networking/cluster/kubernetes { };
+  kubernetes = callPackage ../applications/networking/cluster/kubernetes {
+    go = buildPackages.go_1_13;
+  };
 
   kubeseal = callPackage ../applications/networking/cluster/kubeseal { };
 
@@ -20039,7 +20090,10 @@ in
 
   lxdvdrip = callPackage ../applications/video/lxdvdrip { };
 
-  handbrake = callPackage ../applications/video/handbrake { };
+  handbrake = callPackage ../applications/video/handbrake {
+    inherit (darwin.apple_sdk.frameworks) AudioToolbox Foundation VideoToolbox;
+    inherit (darwin) libobjc;
+  };
 
   lilyterm = callPackage ../applications/misc/lilyterm {
     inherit (gnome2) vte;
@@ -20116,7 +20170,10 @@ in
 
   marp = callPackage ../applications/office/marp { };
 
-  magnetico = callPackage ../applications/networking/p2p/magnetico { };
+  magnetico = callPackage ../applications/networking/p2p/magnetico {
+    # Version 2019-08-14 fails to build with go 1.13 due to missing go.sum
+    buildGoModule = buildGo112Module;
+  };
 
   matchbox = callPackage ../applications/window-managers/matchbox { };
   
@@ -20306,6 +20363,8 @@ in
 
   ncmpcpp = callPackage ../applications/audio/ncmpcpp { };
 
+  rofi-mpd = callPackage ../applications/audio/rofi-mpd { };
+
   ympd = callPackage ../applications/audio/ympd { };
 
   nload = callPackage ../applications/networking/nload { };
@@ -20407,7 +20466,9 @@ in
 
   notion-app = callPackage ../applications/office/notion { };
 
-  openshift = callPackage ../applications/networking/cluster/openshift { };
+  openshift = callPackage ../applications/networking/cluster/openshift {
+    buildGoPackage = buildGo112Package;
+  };
 
   oroborus = callPackage ../applications/window-managers/oroborus {};
 
@@ -20625,7 +20686,7 @@ in
 
   obs-linuxbrowser = callPackage ../applications/video/obs-studio/linuxbrowser.nix { };
 
-  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio { };
+  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio { ffmpeg = ffmpeg_4; };
 
   octoprint = callPackage ../applications/misc/octoprint { };
 
@@ -20709,8 +20770,8 @@ in
   osmo = callPackage ../applications/office/osmo { };
 
   palemoon = callPackage ../applications/networking/browsers/palemoon {
-    # https://forum.palemoon.org/viewtopic.php?f=57&t=15296#p111146
-    stdenv = gcc49Stdenv;
+    # https://www.palemoon.org/sourcecode.shtml
+    stdenv = gcc7Stdenv;
   };
 
   pamix = callPackage ../applications/audio/pamix { };
@@ -21155,6 +21216,8 @@ in
 
   rofi-menugen = callPackage ../applications/misc/rofi-menugen { };
 
+  rofimoji = callPackage ../applications/misc/rofimoji { };
+
   rofi-systemd = callPackage ../tools/system/rofi-systemd { };
 
   rootlesskit = callPackage ../tools/virtualization/rootlesskit {};
@@ -21251,6 +21314,8 @@ in
 
   setbfree = callPackage ../applications/audio/setbfree { };
 
+  sfizz = callPackage ../applications/audio/sfizz { };
+
   sfxr = callPackage ../applications/audio/sfxr { };
 
   sfxr-qt = libsForQt5.callPackage ../applications/audio/sfxr-qt { };
@@ -21300,6 +21365,10 @@ in
   spideroak = callPackage ../applications/networking/spideroak { };
 
   split2flac = callPackage ../applications/audio/split2flac { };
+
+  spotify-tui = callPackage ../applications/audio/spotify-tui {
+    inherit (darwin.apple_sdk.frameworks) AppKit Security;
+  };
 
   squishyball = callPackage ../applications/audio/squishyball {
     ncurses = ncurses5;
@@ -21572,10 +21641,6 @@ in
 
   taizen = callPackage ../applications/misc/taizen { };
 
-  tangogps = callPackage ../applications/misc/tangogps {
-    gconf = gnome2.GConf;
-  };
-
   tambura = callPackage ../applications/audio/tambura { };
 
   teams = callPackage ../applications/networking/instant-messengers/teams { };
@@ -21620,7 +21685,11 @@ in
 
   telepathy-idle = callPackage ../applications/networking/instant-messengers/telepathy/idle {};
 
-  tendermint = callPackage ../tools/networking/tendermint {};
+  teleprompter = callPackage ../applications/misc/teleprompter {};
+
+  tendermint = callPackage ../tools/networking/tendermint {
+    buildGoModule = buildGo112Module;
+  };
 
   termdown = (newScope python3Packages) ../applications/misc/termdown { };
 
@@ -22474,10 +22543,6 @@ in
 
   yabar-unstable = callPackage ../applications/window-managers/yabar/unstable.nix { };
 
-  yakuake = libsForQt5.callPackage ../applications/misc/yakuake {
-    inherit (kdeApplications) konsole;
-  };
-
   yarp = callPackage ../applications/science/robotics/yarp {};
 
   yarssr = callPackage ../applications/misc/yarssr { };
@@ -22505,8 +22570,8 @@ in
   zam-plugins = callPackage ../applications/audio/zam-plugins { };
 
   zanshin = libsForQt5.callPackage ../applications/office/zanshin {
-    inherit (kdeApplications) akonadi-calendar akonadi-notes akonadi-search kidentitymanagement kontactinterface kldap kcalcore;
-    inherit (kdeFrameworks) krunner kwallet;
+    inherit (kdeApplications) akonadi-calendar akonadi-notes akonadi-search kidentitymanagement kontactinterface kldap;
+    inherit (kdeFrameworks) krunner kwallet kcalendarcore;
     #boost = boost160;
   };
 
@@ -22595,9 +22660,6 @@ in
     inherit (darwin) libobjc;
     inherit (darwin.apple_sdk.frameworks) IOKit;
   };
-  go-ethereum-classic = callPackage ../applications/blockchains/go-ethereum-classic {
-    buildGoPackage = buildGo110Package;
-  };
 
   ledger-live-desktop = callPackage ../applications/blockchains/ledger-live-desktop { };
 
@@ -22606,7 +22668,9 @@ in
   };
   litecoind = litecoin.override { withGui = false; };
 
-  lnd = callPackage ../applications/blockchains/lnd.nix { };
+  lnd = callPackage ../applications/blockchains/lnd.nix {
+    buildGoModule = buildGo112Module;
+  };
 
   monero = callPackage ../applications/blockchains/monero {
     inherit (darwin.apple_sdk.frameworks) CoreData IOKit PCSC;
@@ -22755,7 +22819,9 @@ in
 
   crispyDoom = callPackage ../games/crispy-doom { };
 
-  cri-o = callPackage ../applications/virtualization/cri-o {};
+  cri-o = callPackage ../applications/virtualization/cri-o {
+    buildGoPackage = buildGo112Package;
+  };
 
   ckan = callPackage ../games/ckan { };
 
@@ -23081,6 +23147,8 @@ in
 
   newtonwars = callPackage ../games/newtonwars { };
 
+  nudoku = callPackage ../games/nudoku { };
+
   nxengine-evo = callPackage ../games/nxengine-evo { };
 
   odamex = callPackage ../games/odamex { };
@@ -23132,6 +23200,8 @@ in
   orthorobot = callPackage ../games/orthorobot { };
 
   pacvim = callPackage ../games/pacvim { };
+
+  pentobi = libsForQt5.callPackage ../games/pentobi { };
 
   performous = callPackage ../games/performous {
     boost = boost166;
@@ -23224,7 +23294,9 @@ in
 
   sauerbraten = callPackage ../games/sauerbraten {};
 
-  scaleway-cli = callPackage ../tools/admin/scaleway-cli { };
+  scaleway-cli = callPackage ../tools/admin/scaleway-cli {
+    buildGoPackage = buildGo112Package;
+  };
 
   scid = callPackage ../games/scid {
     tcl = tcl-8_5;
@@ -23439,6 +23511,8 @@ in
     libpng = libpng12;
   };
 
+  vvvvvv = callPackage ../games/vvvvvv { };
+
   warmux = callPackage ../games/warmux { };
 
   warsow-engine = callPackage ../games/warsow/engine.nix { };
@@ -23593,11 +23667,11 @@ in
 
   plasma-applet-volumewin7mixer = libsForQt5.callPackage ../applications/misc/plasma-applet-volumewin7mixer { };
 
-  redshift = callPackage ../applications/misc/redshift {
+  inherit (callPackages ../applications/misc/redshift {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
     inherit (darwin.apple_sdk.frameworks) CoreLocation ApplicationServices Foundation Cocoa;
     geoclue = geoclue2;
-  };
+  }) redshift redshift-wlr;
 
   redshift-plasma-applet = libsForQt5.callPackage ../applications/misc/redshift-plasma-applet { };
 
@@ -23636,6 +23710,10 @@ in
     plasma-desktop plasma-integration plasma-nm plasma-pa plasma-vault plasma-workspace
     plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm
     systemsettings user-manager xdg-desktop-portal-kde;
+
+  kwin-tiling = libsForQt5.callPackage ../desktops/plasma-5/kwin/scripts/tiling.nix { };
+
+  krohnkite = libsForQt5.callPackage ../desktops/plasma-5/kwin/scripts/krohnkite.nix { };
 
   ### SCIENCE
 
@@ -23790,6 +23868,8 @@ in
   niftyreg = callPackage ../applications/science/biology/niftyreg { };
 
   niftyseg = callPackage ../applications/science/biology/niftyseg { };
+
+  manta = callPackage ../applications/science/biology/manta { };
 
   octopus-caller = callPackage ../applications/science/biology/octopus { };
 
@@ -25099,6 +25179,8 @@ in
 
   redprl = callPackage ../applications/science/logic/redprl { };
 
+  renderizer = pkgs.callPackage ../development/tools/renderizer {};
+
   retroarchBare = callPackage ../misc/emulators/retroarch {
     inherit (darwin) libobjc;
     inherit (darwin.apple_sdk.frameworks) AppKit Foundation;
@@ -25200,6 +25282,8 @@ in
 
   seafile-shared = callPackage ../misc/seafile-shared { };
 
+  ser2net = callPackage ../servers/ser2net {};
+
   serviio = callPackage ../servers/serviio {};
   selinux-python = callPackage ../os-specific/linux/selinux-python {
     # needs python3 bindings
@@ -25235,7 +25319,11 @@ in
 
   jx = callPackage ../applications/networking/cluster/jx {};
 
-  prow = callPackage ../applications/networking/cluster/prow {};
+  prow = callPackage ../applications/networking/cluster/prow {
+    # Version 2019-08-14 fails to build with go 1.13 due to dependencies:
+    #   go: golang.org/x/lint@v0.0.0-20190301231843-5614ed5bae6f used for two different module paths (github.com/golang/lint and golang.org/x/lint)
+    buildGoModule = buildGo112Module;
+  };
 
   inherit (callPackage ../applications/networking/cluster/terraform {})
     terraform_0_11
@@ -25249,7 +25337,9 @@ in
   terraform-full = terraform.full;
 
   terraform-providers = recurseIntoAttrs (
-    callPackage ../applications/networking/cluster/terraform-providers {}
+    callPackage ../applications/networking/cluster/terraform-providers {
+      inherit buildGo112Module;
+    }
   );
 
   terraform-docs = callPackage ../applications/networking/cluster/terraform-docs {};
@@ -25773,4 +25863,10 @@ in
   nota = haskellPackages.callPackage ../applications/science/math/nota { };
 
   unstick = callPackage ../os-specific/linux/unstick {};
+
+  lowdown = callPackage ../tools/text/lowdown {};
+
+  nix-store-gcs-proxy = callPackage ../tools/nix/nix-store-gcs-proxy {};
+
+  dat = callPackage ../applications/networking/dat { };
 }

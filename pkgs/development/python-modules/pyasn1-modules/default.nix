@@ -2,7 +2,7 @@
 
 buildPythonPackage rec {
   pname = "pyasn1-modules";
-  version = "0.2.6";
+  version = "0.2.8";
 
   #src = fetchFromGitHub {
   #  owner = "etingof";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   # broken, use git for now
   src = fetchPypi {
     inherit pname version;
-    sha256 = "08hph9j1r018drnrny29l7dl2q0cin78csswrhwrh8jmq61pmha3";
+    sha256 = "0pp6dcagd8c2c9qx3lahc1rdwlnmm0y0siqr5icjq2r32b3q8pwh";
   };
 
   propagatedBuildInputs = [ pyasn1 ];

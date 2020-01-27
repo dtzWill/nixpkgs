@@ -1,22 +1,15 @@
-{ fetchurl, stdenv, autoreconfHook, libkrb5 }:
+{ fetchurl, stdenv, autoreconfHook, libkrb5, fetchpatch }:
 
 stdenv.mkDerivation rec {
-  name = "libtirpc-1.1.4";
+  pname = "libtirpc";
+  version = "1.2.5";
 
   src = fetchurl {
-    url = "mirror://sourceforge/libtirpc/${name}.tar.bz2";
-    sha256 = "07anqypf7c719x9y683qz65cxllmzlgmlab2hlahrqcj4bq2k99c";
+    url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.bz2";
+    sha256 = "1jl6a5kkw2vrp4gb6pmvf72rqimywvwfb9f7iz2xjg4wgq63bdpk";
   };
 
   outputs = [ "out" "dev" ];
-
-  postPatch = ''
-    sed '1i#include <stdint.h>' -i src/xdr_sizeof.c
-  '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
-    substituteInPlace tirpc/rpc/types.h \
-      --replace '#if defined __APPLE_CC__ || defined __FreeBSD__' \
-                '#if defined __APPLE_CC__ || defined __FreeBSD__ || !defined __GLIBC__'
-  '';
 
   KRB5_CONFIG = "${libkrb5.dev}/bin/krb5-config";
   nativeBuildInputs = [ autoreconfHook ];
@@ -25,6 +18,14 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     sed -es"|/etc/netconfig|$out/etc/netconfig|g" -i doc/Makefile.in tirpc/netconfig.h
   '';
+
+  patches = [
+    (fetchpatch {
+      name = "dont-use-internal-bits-endian-header-use-endian.patch";
+      url = "https://git.linux-nfs.org/?p=steved/libtirpc.git;a=patch;h=d04f4d6f0e682f16b0ce96839ab4eadade591eb1";
+      sha256 = "1paf1c3bgmc07ci85wv025kfl56v9agxg00pk7z4mzpf59dk526h";
+    })
+  ];
 
   preInstall = "mkdir -p $out/etc";
 

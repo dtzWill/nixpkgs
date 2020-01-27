@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "purple-matrix-unstable";
-  version = "2019-06-06";
+  version = "2019-12-28";
 
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = "purple-matrix";
-    rev = "4494ba22b479917f0b1f96a3019792d3d75bcff1";
-    sha256 = "1gjm0z4wa5vi9x1xk43rany5pffrwg958n180ahdj9a7sa8a4hpm";
+    rev = "1d23385e6c22f63591fcbfc85c09999953c388ed";
+    sha256 = "18ghdhn7m3jzp5zgyggip70icdn01wdvkin8vm915v79jc0xcxh7";
   };
 
   nativeBuildInputs = [ pkgconfig ];

@@ -13,14 +13,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "palemoon";
-  version = "28.7.2";
+  version = "28.8.1";
 
   src = fetchFromGitHub {
     name   = "${pname}-${version}";
     owner  = "MoonchildProductions";
     repo   = "UXP";
     rev    = "PM${version}_Release";
-    sha256 = "08w90269mwcqsdhx4vvp18c5iccvzqhaaw6aw7w0nppf2f2k8lri";
+    sha256 = "055bmfgasxf7azjqry06bbgwx6ryrdc1zrcq8b217b6zb1in037x";
   };
 
   desktopItem = makeDesktopItem {
@@ -56,6 +56,7 @@ in stdenv.mkDerivation rec {
   configurePhase = ''
     export MOZBUILD_STATE_PATH=$(pwd)/mozbuild
     export MOZCONFIG=$(pwd)/mozconfig
+    export MOZ_NOSPAM=1
     export builddir=$(pwd)/pmbuild
 
     echo > $MOZCONFIG "
@@ -88,10 +89,12 @@ in stdenv.mkDerivation rec {
     ac_add_options --prefix=$out
     mk_add_options MOZ_MAKE_FLAGS='-j$NIX_BUILD_CORES'
     mk_add_options AUTOCONF=${autoconf213}/bin/autoconf
+
+    # Not in official listing, but official binaries seem to build this way!
+    # (it's disabled by default, under media.av1.enabled in about:config
+    ac_add_options --enable-av1
     "
   '';
-
-  hardeningDisable = [ "format" ];
 
   buildPhase = ''
     $src/mach build
@@ -129,7 +132,7 @@ in stdenv.mkDerivation rec {
     '';
     homepage    = "https://www.palemoon.org/";
     license     = licenses.mpl20;
-    maintainers = with maintainers; [ rnhmjoj AndersonTorres OPNA2608 ];
+    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
     platforms   = [ "i686-linux" "x86_64-linux" ];
   };
 }

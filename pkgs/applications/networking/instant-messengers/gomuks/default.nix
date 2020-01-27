@@ -13,7 +13,7 @@ buildGoModule rec {
     sha256 = "08yiyb5fd3407wb7jc51y75hs3mhjzqca8mq0jz0vdamkhiz4f21";
   };
 
-  modSha256 = "1jqah0998x1alwd4g4cil5n5zji2qff2c3nhkiibsr5d65p46k4a";
+  modSha256 = "1n53xxkgilq8bp9q9j23pcabdmys1j5yl06jjwi4abpp7d7h0a5b";
 
   meta = with stdenv.lib; {
     homepage = "https://maunium.net/go/gomuks/";

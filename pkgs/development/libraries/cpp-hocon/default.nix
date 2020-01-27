@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, boost, curl, leatherman }:
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, boost, curl, leatherman }:
 
 stdenv.mkDerivation rec {
   name = "cpp-hocon-${version}";
@@ -10,6 +10,14 @@ stdenv.mkDerivation rec {
     repo = "cpp-hocon";
     owner = "puppetlabs";
   };
+
+  patches = [
+    # Add missing boost filesystem dep, fix linking
+    (fetchpatch {
+      url = "https://github.com/puppetlabs/cpp-hocon/commit/caab275509826dc5fe5ab2632582abb8f83ea2b3.patch";
+      sha256 = "1sap2ayxjfa3rc0r1fdxw88mhkil0pxaqhzx5l6nqrr6kcbfqv9i";
+    })
+  ];
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=catch-value" ];
 

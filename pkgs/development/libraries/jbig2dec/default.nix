@@ -1,12 +1,12 @@
-{ stdenv, fetchurl, python, autoreconfHook }:
+{ stdenv, fetchurl, python3, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "jbig2dec";
-  version = "0.16";
+  version = "0.17";
 
   src = fetchurl {
-    url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs927/${pname}-${version}.tar.gz";
-    sha256 = "00h61y7bh3z6mqfzxyb318gyh0f8jwarg4hvlrm83rqps8avzxm4";
+    url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs950/${pname}-${version}.tar.gz";
+    sha256 = "0wpvslmwazia3z8gyk343kbq6yj47pxr4x5yjvx332v309qssazp";
   };
 
   postPatch = ''
@@ -15,8 +15,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  checkInputs = [ python ];
+  checkInputs = [ python3 ];
   doCheck = true;
+
+  patches = [ ./2001_disable_memento.patch ];
 
   meta = {
     homepage = https://www.jbig2dec.com/;

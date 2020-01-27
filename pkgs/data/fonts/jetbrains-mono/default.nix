@@ -1,18 +1,18 @@
 { lib, fetchzip }:
 
 let
-  version = "1.0.0";
+  version = "1.0.2";
 in
 fetchzip rec {
   name = "JetBrainsMono-${version}";
 
   url = "https://download.jetbrains.com/fonts/JetBrainsMono-${version}.zip";
 
-  sha256 = "0mwqi66d56v4ml1w7wjsiidrh153jvh0czafyic47rkvmxhnrrhv";
+  sha256 = "04diyyhmlzx8dcrna334afrw4717hq2ijjz8g3jai9qliik8qcql";
 
   postFetch = ''
     unzip $downloadedFile
-    install -m444 -Dt $out/share/fonts/truetype *.ttf
+    install -m444 -Dt $out/share/fonts/truetype ${name}/ttf/*.ttf
   '';
 
   meta = with lib; {

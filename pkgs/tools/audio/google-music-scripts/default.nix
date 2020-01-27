@@ -2,14 +2,12 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "google-music-scripts";
-  version = "4.0.1";
+  version = "4.2.0";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "5b2e9fdde8781a6d226984f0b61add2415a3804123ceeecb20fcc8527de9389d";
+    sha256 = "14cgwl5mhncm2skkjzidak8ki4rxk4zwn7s8i54c746cgyvairg1";
   };
-
-  patches = [ ./loguru.patch ];
 
   propagatedBuildInputs = with python3.pkgs; [
     appdirs

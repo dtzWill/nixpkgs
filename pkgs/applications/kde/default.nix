@@ -60,7 +60,7 @@ let
         inherit mkDerivation;
 
         # Team of maintainers assigned to the KDE PIM suite
-        kdepimTeam = with lib.maintainers; [ ttuegel vandenoever ];
+        kdepimTeam = with lib.maintainers; [ ttuegel vandenoever nyanloutre ];
       };
     in {
       akonadi = callPackage ./akonadi {};
@@ -118,10 +118,12 @@ let
       kidentitymanagement = callPackage ./kidentitymanagement.nix {};
       kig = callPackage ./kig.nix {};
       kimap = callPackage ./kimap.nix {};
+      kipi-plugins = callPackage ./kipi-plugins.nix {};
       kitinerary = callPackage ./kitinerary.nix {};
       kio-extras = callPackage ./kio-extras.nix {};
       kldap = callPackage ./kldap.nix {};
       kleopatra = callPackage ./kleopatra.nix {};
+      kmahjongg = callPackage ./kmahjongg.nix {};
       kmail = callPackage ./kmail.nix {};
       kmail-account-wizard = callPackage ./kmail-account-wizard.nix {};
       kmailtransport = callPackage ./kmailtransport.nix {};
@@ -130,6 +132,7 @@ let
       kmix = callPackage ./kmix.nix {};
       kmplot = callPackage ./kmplot.nix {};
       knotes = callPackage ./knotes.nix {};
+      kolf = callPackage ./kolf.nix {};
       kolourpaint = callPackage ./kolourpaint.nix {};
       kompare = callPackage ./kompare.nix {};
       konsole = callPackage ./konsole.nix {};
@@ -138,6 +141,7 @@ let
       konquest = callPackage ./konquest.nix {};
       konqueror = callPackage ./konqueror.nix {};
       korganizer = callPackage ./korganizer.nix {};
+      kpat = callPackage ./kpat.nix {};
       kpimtextedit = callPackage ./kpimtextedit.nix {};
       ksmtp = callPackage ./ksmtp {};
       kqtquickcharts = callPackage ./kqtquickcharts.nix {};
@@ -159,6 +163,7 @@ let
       libkgapi = callPackage ./libkgapi.nix {};
       libkipi = callPackage ./libkipi.nix {};
       libkleo = callPackage ./libkleo.nix {};
+      libkmahjongg = callPackage ./libkmahjongg.nix {};
       libkomparediff2 = callPackage ./libkomparediff2.nix {};
       libksane = callPackage ./libksane.nix {};
       libksieve = callPackage ./libksieve.nix {};
@@ -173,8 +178,10 @@ let
       pim-data-exporter = callPackage ./pim-data-exporter.nix {};
       pim-sieve-editor = callPackage ./pim-sieve-editor.nix {};
       print-manager = callPackage ./print-manager.nix {};
+      rocs = callPackage ./rocs.nix {};
       spectacle = callPackage ./spectacle.nix {};
       umbrello = callPackage ./umbrello.nix {};
+      yakuake = callPackage ./yakuake.nix {};
       # Okteta was removed from kde applications and will now be released independently
       # Lets keep an alias for compatibility reasons
       inherit okteta;

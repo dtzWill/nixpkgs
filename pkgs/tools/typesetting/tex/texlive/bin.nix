@@ -27,6 +27,7 @@ let
     };
 
     patches = [
+      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
     ];
 
     postPatch = let
@@ -68,6 +69,9 @@ let
       done
       cp -pv ${pdftoepdf} texk/web2c/pdftexdir/pdftoepdf.cc
       cp -pv ${pdftosrc} texk/web2c/pdftexdir/pdftosrc.cc
+
+      # poppler 0.84 compat fixups, use 0.83 files otherwise
+      patch -p1 -i ${./poppler84.patch}
     '';
 
     # remove when removing synctex-missing-header.patch
@@ -178,7 +182,7 @@ core = stdenv.mkDerivation rec {
   '' + cleanBrokenLinks;
 
   # needed for poppler and xpdf
-  CXXFLAGS = stdenv.lib.optionalString stdenv.cc.isClang "-std=c++11";
+  CXXFLAGS = stdenv.lib.optionalString stdenv.cc.isClang "-std=c++14";
 
   setupHook = ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
   passthru = { inherit version buildInputs; };
@@ -260,6 +264,21 @@ dvisvgm = stdenv.mkDerivation {
   inherit version;
 
   inherit (common) src;
+
+  patches = [
+    # Fix for ghostscript>=9.27
+    # Backport of
+    # https://github.com/mgieseki/dvisvgm/commit/bc51951bc90b700c28ea018993bdb058e5271e9b
+    ./dvisvgm-fix.patch
+
+    # Needed for ghostscript>=9.50
+    (fetchpatch {
+      url = "https://github.com/mgieseki/dvisvgm/commit/7b93a9197b69305429183affd24fa40ee04a663a.patch";
+      sha256 = "1gmj76ja9xng39wxckhs9q140abixgb8rkrcfv2cdgq786wm3vag";
+      stripLen = 1;
+      extraPrefix = "texk/dvisvgm/dvisvgm-src/";
+    })
+  ];
 
   nativeBuildInputs = [ pkgconfig ];
   # TODO: dvisvgm still uses vendored dependencies

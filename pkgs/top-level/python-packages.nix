@@ -179,6 +179,8 @@ in {
 
   argon2_cffi = callPackage ../development/python-modules/argon2_cffi { };
 
+  aria2p = callPackage ../development/python-modules/aria2p { inherit (pkgs) aria2 poetry; };
+
   asana = callPackage ../development/python-modules/asana { };
 
   asdf = callPackage ../development/python-modules/asdf { };
@@ -615,6 +617,8 @@ in {
 
   geoip2 = callPackage ../development/python-modules/geoip2 { };
 
+  getmac = callPackage ../development/python-modules/getmac { };
+
   gidgethub = callPackage ../development/python-modules/gidgethub { };
 
   gin-config = callPackage ../development/python-modules/gin-config { };
@@ -701,6 +705,10 @@ in {
   janus = callPackage ../development/python-modules/janus { };
 
   jira = callPackage ../development/python-modules/jira { };
+
+  junit-xml = callPackage ../development/python-modules/junit-xml { };
+
+  junitparser = callPackage ../development/python-modules/junitparser { };
 
   jwcrypto = callPackage ../development/python-modules/jwcrypto { };
 
@@ -1021,6 +1029,8 @@ in {
   */
   pyqt5_with_qtwebkit = self.pyqt5.override { withWebKit = true; };
 
+  pyqt5_with_qtmultimedia = self.pyqt5.override { withMultimedia = true; };
+
   pyqtwebengine = pkgs.libsForQt5.callPackage ../development/python-modules/pyqtwebengine {
     pythonPackages = self;
   };
@@ -1070,6 +1080,8 @@ in {
   pytelegrambotapi = callPackage ../development/python-modules/pyTelegramBotAPI { };
 
   pytesseract = callPackage ../development/python-modules/pytesseract { };
+
+  pytest-black = callPackage ../development/python-modules/pytest-black { };
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
 
@@ -1276,7 +1288,9 @@ in {
 
   unifi = callPackage ../development/python-modules/unifi { };
 
-  uvloop = callPackage ../development/python-modules/uvloop { };
+  uvloop = callPackage ../development/python-modules/uvloop {
+    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices CoreServices;
+  };
 
   pyunifi = callPackage ../development/python-modules/pyunifi { };
 
@@ -1631,6 +1645,8 @@ in {
 
   colour = callPackage ../development/python-modules/colour {};
 
+  colormath = callPackage ../development/python-modules/colormath {};
+
   configshell = callPackage ../development/python-modules/configshell { };
 
   constantly = callPackage ../development/python-modules/constantly { };
@@ -1681,7 +1697,7 @@ in {
 
   easysnmp = callPackage ../development/python-modules/easysnmp {
     openssl = pkgs.openssl;
-    net_snmp = pkgs.net_snmp;
+    net-snmp = pkgs.net-snmp;
   };
 
   iowait = callPackage ../development/python-modules/iowait {};
@@ -1905,6 +1921,10 @@ in {
   cookiecutter = callPackage ../development/python-modules/cookiecutter { };
 
   cookies = callPackage ../development/python-modules/cookies { };
+
+  coreapi = callPackage ../development/python-modules/coreapi { };
+
+  coreschema = callPackage ../development/python-modules/coreschema { };
 
   coveralls = callPackage ../development/python-modules/coveralls { };
 
@@ -2281,6 +2301,8 @@ in {
 
   urllib3 = callPackage ../development/python-modules/urllib3 {};
 
+  drf-yasg = callPackage ../development/python-modules/drf-yasg { };
+
   dropbox = callPackage ../development/python-modules/dropbox {};
 
   drms = callPackage ../development/python-modules/drms { };
@@ -2372,6 +2394,8 @@ in {
 
   fluent-logger = callPackage ../development/python-modules/fluent-logger {};
 
+  flux-led = callPackage ../development/python-modules/flux-led { };
+
   python-forecastio = callPackage ../development/python-modules/python-forecastio { };
 
   fpdf = callPackage ../development/python-modules/fpdf { };
@@ -2438,9 +2462,6 @@ in {
 
   python-gitlab = callPackage ../development/python-modules/python-gitlab { };
 
-  google-cloud-sdk = callPackage ../tools/admin/google-cloud-sdk { };
-  google-cloud-sdk-gce = callPackage ../tools/admin/google-cloud-sdk { with-gce=true; };
-
   google-compute-engine = callPackage ../tools/virtualization/google-compute-engine { };
 
   google-music = callPackage ../development/python-modules/google-music { };
@@ -2491,9 +2512,13 @@ in {
 
   hsaudiotag3k = callPackage ../development/python-modules/hsaudiotag3k { };
 
+  hstspreload = callPackage ../development/python-modules/hstspreload { };
+
   htmlmin = callPackage ../development/python-modules/htmlmin {};
 
   httpauth = callPackage ../development/python-modules/httpauth { };
+
+  httpx = callPackage ../development/python-modules/httpx { };
 
   idna-ssl = callPackage ../development/python-modules/idna-ssl { };
 
@@ -2526,6 +2551,8 @@ in {
   islpy = callPackage ../development/python-modules/islpy { };
 
   itsdangerous = callPackage ../development/python-modules/itsdangerous { };
+
+  itypes = callPackage ../development/python-modules/itypes { };
 
   iniparse = callPackage ../development/python-modules/iniparse { };
 
@@ -2636,6 +2663,8 @@ in {
   mailchimp = callPackage ../development/python-modules/mailchimp { };
 
   python-mapnik = callPackage ../development/python-modules/python-mapnik { };
+
+  measurement = callPackage ../development/python-modules/measurement {};
 
   midiutil = callPackage ../development/python-modules/midiutil {};
 
@@ -3326,7 +3355,7 @@ in {
   google_api_python_client = let
     google_api_python_client = callPackage ../development/python-modules/google-api-python-client { };
   in if isPy3k then google_api_python_client else
-    # Python 2.7 support was deprecated but is still needed by weboob
+    # Python 2.7 support was deprecated but is still needed by weboob and duplicity
     google_api_python_client.overridePythonAttrs (old: rec {
       version = "1.7.6";
       src = old.src.override {
@@ -3479,6 +3508,8 @@ in {
   httplib2 = callPackage ../development/python-modules/httplib2 { };
 
   hvac = callPackage ../development/python-modules/hvac { };
+
+  hydra = callPackage ../development/python-modules/hydra { };
 
   hypothesis = callPackage ../development/python-modules/hypothesis { };
 
@@ -4125,6 +4156,8 @@ in {
 
   od = callPackage ../development/python-modules/od { };
 
+  omegaconf = callPackage ../development/python-modules/omegaconf { };
+
   orderedset = callPackage ../development/python-modules/orderedset { };
 
   python-otr = callPackage ../development/python-modules/python-otr { };
@@ -4509,6 +4542,8 @@ in {
 
   pylint = if isPy3k then callPackage ../development/python-modules/pylint { }
            else callPackage ../development/python-modules/pylint/1.9.nix { };
+
+  pylint-plugin-utils = callPackage ../development/python-modules/pylint-plugin-utils { };
 
   pyomo = callPackage ../development/python-modules/pyomo { };
 
@@ -5079,6 +5114,8 @@ in {
 
   tadasets = callPackage ../development/python-modules/tadasets { };
 
+  tbm-utils = callPackage ../development/python-modules/tbm-utils { };
+
   tempita = callPackage ../development/python-modules/tempita { };
 
   terminado = callPackage ../development/python-modules/terminado { };
@@ -5465,7 +5502,7 @@ in {
 
   freezegun = callPackage ../development/python-modules/freezegun { };
 
-  tasklib = callPackage ../development/python-modules/tasklib { };
+  tasklib = disabledIf (!isPy3k) (callPackage ../development/python-modules/tasklib { });
 
   taskw = callPackage ../development/python-modules/taskw { };
 
@@ -5642,6 +5679,8 @@ in {
 
   python-libarchive = callPackage ../development/python-modules/python-libarchive { };
 
+  python-logstash = callPackage ../development/python-modules/python-logstash { };
+
   libarchive-c = callPackage ../development/python-modules/libarchive-c {
     inherit (pkgs) libarchive;
   };
@@ -5813,7 +5852,9 @@ in {
 
   parsimonious = callPackage ../development/python-modules/parsimonious { };
 
-  networkx = callPackage ../development/python-modules/networkx { };
+  networkx = if isPy3k then callPackage ../development/python-modules/networkx { }
+    else
+      callPackage ../development/python-modules/networkx/2.2.nix { };
 
   ofxclient = callPackage ../development/python-modules/ofxclient {};
 
@@ -6399,6 +6440,8 @@ in {
   xandikos = disabledIf (!isPy3k) (toPythonModule (pkgs.xandikos.override {
     python3Packages = self;
   }));
+
+  pony = callPackage ../development/python-modules/pony { };
 
 });
 

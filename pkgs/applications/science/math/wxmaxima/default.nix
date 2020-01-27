@@ -3,14 +3,14 @@
 , maxima, wxGTK, gnome3 }:
 
 stdenv.mkDerivation rec {
-  name = "wxmaxima-${version}";
-  version = "19.03.0";
+  pname = "wxmaxima";
+  version = "20.01.2";
 
   src = fetchFromGitHub {
-    owner = "andrejv";
+    owner = "wxMaxima-developers";
     repo = "wxmaxima";
     rev = "Version-${version}";
-    sha256 = "0s7bdykc77slqix28cyaa6x8wvxrn8461mkdgxflvi2apwsl56aa";
+    sha256 = "0ji6d8cmgfyc42jbbqx8svcswi8235bxv1451f4j7rl5vyyhrswn";
   };
 
   buildInputs = [ wxGTK maxima gnome3.adwaita-icon-theme ];

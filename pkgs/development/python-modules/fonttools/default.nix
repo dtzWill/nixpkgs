@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, isPy27
 , numpy
 , pytest
 , pytestrunner
@@ -9,11 +10,12 @@
 
 buildPythonPackage rec {
   pname = "fonttools";
-  version = "3.44.0";
+  version = "4.2.4";
+  disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0v6399g755f2hn1ry62i5b6gdinf2fpx2966v3bxh6bjw1accb5p";
+    sha256 = "0rz2fn707x8ri507bb5k5y3di851dwchn0886f77g5bgiflmnpwm";
     extension = "zip";
   };
 

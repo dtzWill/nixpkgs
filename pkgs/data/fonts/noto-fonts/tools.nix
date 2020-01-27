@@ -1,31 +1,44 @@
-{ fetchFromGitHub, lib, buildPythonPackage, isPy3k, fonttools, numpy, pillow, scour }:
+{ fetchFromGitHub, lib, fetchpatch, buildPythonPackage, isPy3k, fonttools, numpy, pillow, six, bash }:
 
 buildPythonPackage rec {
-  version = "unstable-2019-03-20";
-  name = "nototools-${version}";
+  pname = "nototools";
+  version = "unstable-2019-10-21";
 
   src = fetchFromGitHub {
     owner = "googlefonts";
     repo = "nototools";
-    rev = "9c4375f07c9adc00c700c5d252df6a25d7425870";
-    sha256 = "0z9i23vl6xar4kvbqbc8nznq3s690mqc5zfv280l1c02l5n41smc";
+    rev = "cae92ce958bee37748bf0602f5d7d97bb6db98ca";
+    sha256 = "1jqr0dz23rjqiyxw1w69l6ry16dwdcf3c6cysiy793g2v7pir2yi";
   };
 
-  propagatedBuildInputs = [
-    fonttools numpy
-    # requirements.txt
-    # booleanOperations==0.7.0
-    # defcon==0.3.1
-    # fonttools>=3.36.0
-    # Pillow==4.0.0
-    pillow
-    # pyclipper==1.0.6
-    # ufoLib==2.0.0
-    # scour==0.37
-    scour
+  propagatedBuildInputs = [ fonttools numpy ];
+
+  patches = lib.optionals isPy3k [
+    # Additional Python 3 compat https://github.com/googlefonts/nototools/pull/497
+    (fetchpatch {
+      url = https://github.com/googlefonts/nototools/commit/ded1f311b3260f015b5c5b80f05f7185392c4eff.patch;
+      sha256 = "0bn0rlbddxicw0h1dnl0cibgj6xjalja2qcm563y7kk3z5cdwhgq";
+    })
   ];
 
-  disabled = isPy3k;
+  postPatch = ''
+    sed -ie "s^join(_DATA_DIR_PATH,^join(\"$out/third_party/ucd\",^" nototools/unicode_data.py
+  '';
+
+  checkInputs = [
+    pillow six bash
+  ];
+
+  checkPhase = ''
+    patchShebangs tests/
+    cd tests
+    rm gpos_diff_test.py # needs ttxn?
+    ./run_tests
+  '';
+
+  postInstall = ''
+    cp -r third_party $out
+  '';
 
   meta = {
     description = "Noto fonts support tools and scripts plus web site generation";

@@ -63,7 +63,11 @@
 
   <itemizedlist>
    <listitem>
-    <para />
+    <para>
+    The kubernetes kube-proxy now supports a new hostname configuration
+    <literal>services.kubernetes.proxy.hostname</literal> which has to
+    be set if the hostname of the node should be non default.
+    </para>
    </listitem>
    <listitem>
     <para>
@@ -251,6 +255,12 @@ users.users.me =
        uses the release now instead of full version
        to be more suitable for presentation to the user
      </para>
+   </listitem>
+    <listitem>
+    <para>
+    It is now possible to unlock LUKS-Encrypted file systems using a FIDO2 token
+    via <option>boot.initrd.luks.fido2Support</option>.
+    </para>
    </listitem>
   </itemizedlist>
  </section>

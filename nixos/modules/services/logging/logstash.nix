@@ -58,7 +58,7 @@ in
         type = types.package;
         default = pkgs.logstash;
         defaultText = "pkgs.logstash";
-        example = literalExample "pkgs.logstash5";
+        example = literalExample "pkgs.logstash";
         description = "Logstash package to use.";
       };
 

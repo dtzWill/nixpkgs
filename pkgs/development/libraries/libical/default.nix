@@ -3,15 +3,16 @@
 
 stdenv.mkDerivation rec {
   pname = "libical";
-  version = "3.0.7";
+  version = "3.0.8";
 
   outputs = [ "out" "dev" ]; #"devdoc" ];
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "v${version}";
-    sha256 = "1ppf8jlpiclq3jprhx889y5lgf6lc2q4d8wy2zavzsxgnsqf67il";
+    #rev = "v${version}";
+    rev = "2faf08be22990876303e098795423960191498ac";
+    sha256 = "0kzhhym1206ks92gpz3y4ayxi7bkbbhqnic1lh2yxabdqdjrq0d6";
   };
 
   nativeBuildInputs = [
@@ -29,8 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    # TODO: upstream this patch
     # https://github.com/libical/libical/issues/350
+    # Upstream merged fix for respecting TZDIR (in 2018),
+    # but only in master branch not the 3.0 branch releases are cut from.
+    # This patch also makes libical check /etc/zoneinfo first,
+    # so keep that but drop the rest once this reaches a release.
     ./respect-env-tzdir.patch
   ];
 

@@ -1,17 +1,15 @@
 { stdenv, fetchFromGitHub, buildGoPackage, bash }:
 
 buildGoPackage rec {
-  name = "direnv-${version}";
-#  version = "2.20.1";
-  version = "unstable-2019-12-13";
+  pname = "direnv";
+  version = "2.21.1";
   goPackagePath = "github.com/direnv/direnv";
 
   src = fetchFromGitHub {
     owner = "direnv";
     repo = "direnv";
-#    rev = "v${version}";
-    rev = "c980189055f7d5aaae86436119a23fd955ef2295";
-    sha256 = "1827mjzwafxqcfsh8qs72mxsp183kp2q52sgb19njxp4675k5d4w";
+    rev = "v${version}";
+    sha256 = "05yhhd6f55ps96faw9gz4ap8qmv41cfrsz8l0qbvir0jn2hjhmqw";
   };
 
   postConfigure = ''

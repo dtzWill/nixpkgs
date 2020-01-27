@@ -7,13 +7,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname   = "mimalloc";
-  version = "1.3.0";
+  version = "1.4.0";
+  ver = stdenv.lib.versions.majorMinor version;
 
   src = fetchFromGitHub {
     owner  = "microsoft";
     repo   = pname;
     rev    = "refs/tags/v${version}";
-    sha256 = "03xvg911gpci4ayd37cl3i8gf4sr9mrdsla4ckw1npz9r3q06c65";
+    sha256 = "0n0xl8lccmnm5hwilli6szx14zpwjfppm7mkda91aj9f69r56ah3";
   };
 
   nativeBuildInputs = [ cmake ninja ];
@@ -26,20 +27,20 @@ stdenv.mkDerivation rec {
     mv $out/lib/*/include $dev/include
 
     # move .a and .o files into place
-    mv $out/lib/mimalloc-1.3/libmimalloc*.a           $out/lib/libmimalloc.a
-    mv $out/lib/mimalloc-1.3/mimalloc*.o              $out/lib/mimalloc.o
+    mv $out/lib/mimalloc-${ver}/libmimalloc*.a           $out/lib/libmimalloc.a
+    mv $out/lib/mimalloc-${ver}/mimalloc*.o              $out/lib/mimalloc.o
 
   '' + (if secureBuild then ''
-    mv $out/lib/mimalloc-1.3/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc-secure${soext}.1.3
-    ln -sfv $out/lib/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc-secure${soext}
-    ln -sfv $out/lib/libmimalloc-secure${soext}.1.3 $out/lib/libmimalloc${soext}
+    mv $out/lib/mimalloc-${ver}/libmimalloc-secure${soext}.${ver} $out/lib/libmimalloc-secure${soext}.${ver}
+    ln -sfv $out/lib/libmimalloc-secure${soext}.${ver} $out/lib/libmimalloc-secure${soext}
+    ln -sfv $out/lib/libmimalloc-secure${soext}.${ver} $out/lib/libmimalloc${soext}
   '' else ''
-    mv $out/lib/mimalloc-1.3/libmimalloc${soext}.1.3 $out/lib/libmimalloc${soext}.1.3
-    ln -sfv $out/lib/libmimalloc${soext}.1.3 $out/lib/libmimalloc${soext}
+    mv $out/lib/mimalloc-${ver}/libmimalloc${soext}.${ver} $out/lib/libmimalloc${soext}.${ver}
+    ln -sfv $out/lib/libmimalloc${soext}.${ver} $out/lib/libmimalloc${soext}
   '') + ''
     # remote duplicate dir. FIXME: try to fix the .cmake file distribution
     # so we can re-use it for dependencies...
-    rm -rf $out/lib/mimalloc-1.3
+    rm -rf $out/lib/mimalloc-${ver}
   '';
 
   outputs = [ "out" "dev" ];

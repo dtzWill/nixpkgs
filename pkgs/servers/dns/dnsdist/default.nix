@@ -1,16 +1,19 @@
 { stdenv, fetchurl, pkgconfig, systemd
 , boost, libsodium, libedit, re2
-, net_snmp, lua, protobuf, openssl }: stdenv.mkDerivation rec {
-  name = "dnsdist-${version}";
-  version = "1.3.3";
+, net-snmp, lua, protobuf, openssl, zlib, h2o
+}:
+
+stdenv.mkDerivation rec {
+  pname = "dnsdist";
+  version = "1.4.0";
 
   src = fetchurl {
     url = "https://downloads.powerdns.com/releases/dnsdist-${version}.tar.bz2";
     sha256 = "1kz84fmc3q9ds84dlizc85j9vamn0l59nviwkwb5an826a84zclz";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ systemd boost libsodium libedit re2 net_snmp lua protobuf openssl ];
+  nativeBuildInputs = [ pkgconfig protobuf ];
+  buildInputs = [ systemd boost libsodium libedit re2 net-snmp lua openssl zlib h2o ];
 
   configureFlags = [
     "--enable-libsodium"

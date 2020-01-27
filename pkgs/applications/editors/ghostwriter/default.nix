@@ -2,7 +2,7 @@
 
 mkDerivation rec {
   pname = "ghostwriter";
-  version = "1.8.0";
+  version = "unstable-2020-01-05";
 
   src = fetchFromGitHub {
     owner = "wereturtle";

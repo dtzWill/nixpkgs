@@ -536,11 +536,6 @@ lib.mapAttrs (n: v: v // { shortName = n; }) {
     fullName  = "University of Illinois/NCSA Open Source License";
   };
 
-  notion_lgpl = {
-    url = "https://raw.githubusercontent.com/raboof/notion/master/LICENSE";
-    fullName = "Notion modified LGPL";
-  };
-
   npl1 = {
     url = "https://git.pixie.town/thufie/NPL";
     fullName = "Non-Violent Public License v1";

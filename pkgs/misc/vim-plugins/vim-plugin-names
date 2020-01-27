@@ -30,6 +30,7 @@ bkad/camelcasemotion
 bling/vim-bufferline
 blueyed/vim-diminactive
 bogado/file-line
+bohlender/vim-smt2
 brennanfee/vim-gui-position
 bronson/vim-trailing-whitespace
 brooth/far.vim
@@ -65,6 +66,7 @@ davidhalter/jedi-vim
 dcharbon/vim-flatbuffers
 deoplete-plugins/deoplete-dictionary
 deoplete-plugins/deoplete-jedi
+deoplete-plugins/deoplete-zsh
 derekelkins/agda-vim
 derekwyatt/vim-scala
 dhruvasagar/vim-table-mode
@@ -72,6 +74,7 @@ digitaltoad/vim-jade
 direnv/direnv.vim
 dleonard0/pony-vim-syntax
 dracula/vim as dracula
+drewtempelmeyer/palenight.vim
 drmingdrmer/xptemplate
 dylanaraps/wal.vim
 eagletmt/ghcmod-vim
@@ -98,6 +101,7 @@ floobits/floobits-neovim
 freitass/todo.txt-vim
 frigoeu/psc-ide-vim
 fsharp/vim-fsharp
+fszymanski/deoplete-emoji
 garbas/vim-snipmate
 gentoo/gentoo-syntax
 gibiansky/vim-textobj-haskell
@@ -148,6 +152,7 @@ JazzCore/ctrlp-cmatcher
 jceb/vim-hier
 jceb/vim-orgmode
 jeetsukumaran/vim-buffergator
+jeetsukumaran/vim-indentwise
 jeffkreeftmeijer/neovim-sensible
 jelera/vim-javascript-syntax
 jgdavey/tslime.vim
@@ -197,8 +202,8 @@ KeitaNakamura/neodark.vim
 keith/swift.vim
 kien/rainbow_parentheses.vim
 konfekt/fastfold
-kristijanhusak/defx-icons
 kristijanhusak/defx-git
+kristijanhusak/defx-icons
 kristijanhusak/vim-hybrid-material
 kshenoy/vim-signature
 lambdalisue/vim-gista
@@ -227,6 +232,7 @@ lyokha/vim-xkbswitch
 m-pilia/vim-ccls
 machakann/vim-highlightedyank
 machakann/vim-swap
+machakann/vim-sandwich
 majutsushi/tagbar
 maksimr/vim-jsbeautify
 MarcWeber/vim-addon-actions
@@ -491,6 +497,7 @@ tyru/open-browser.vim
 uarun/vim-protobuf
 udalov/kotlin-vim
 ujihisa/neco-look
+Valodim/deoplete-notmuch
 valloric/youcompleteme
 vhda/verilog_systemverilog.vim
 vim-airline/vim-airline

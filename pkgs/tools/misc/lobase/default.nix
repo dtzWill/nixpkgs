@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub
 , bison, flex
-, libedit, libevent, libressl, ncurses, zlib
+, libedit, libevent, ssl, ncurses, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ bison flex ];
-  buildInputs = [ libedit libevent libressl ncurses zlib ];
+  buildInputs = [ libedit libevent ssl ncurses zlib ];
 
   postPatch = ''
     for x in bc ftp telnet ul; do
@@ -34,7 +34,19 @@ stdenv.mkDerivation rec {
         -e 's,/usr/,/,g'
 
     sed -i -e 's,SKIPDIR=.*,\0 spell,' usr.bin/Makefile
+
+    # remove stray semicolon from #define
+    substituteInPlace include/stdarg.h \
+      --replace "va_list;" "va_list"
   '';
 
   enableParallelBuilding = true;
+
+  # Remove stray symlinks to scripts not installed (not clear upstream intended to skip installing these?)
+  postInstall = ''
+    # zcmp -> zdiff
+    # zless -> zmore
+    ls -l $out/bin/{zcmp,zless}
+    rm -v $out/bin/{zcmp,zless}
+  '';
 }

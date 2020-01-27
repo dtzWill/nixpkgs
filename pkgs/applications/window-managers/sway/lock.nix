@@ -4,18 +4,18 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "swaylock-${version}";
-  version = "1.4";
+  pname = "swaylock";
+  version = "1.5";
 
   src = fetchFromGitHub {
     owner = "swaywm";
     repo = "swaylock";
     rev = version;
-    sha256 = "1ii9ql1mxkk2z69dv6bg1x22nl3a46iww764wqjiv78x08xpk982";
+    sha256 = "0r95p4w11dwm5ra614vddz83r8j7z6gd120z2vcchy7m9b0f15kf";
   };
 
   postPatch = ''
-    sed -iE "s/version: '1\.3',/version: '${version}',/" meson.build
+    sed -iE "s/version: '1\.4',/version: '${version}',/" meson.build
   '';
 
   nativeBuildInputs = [ meson ninja pkgconfig scdoc ];
@@ -24,6 +24,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dpam=enabled" "-Dgdk-pixbuf=enabled" "-Dman-pages=enabled"
   ];
+  NIX_CFLAGS_COMPILE = [ "-DGLIB_DISABLE_DEPRECATION_WARNINGS" ];
 
   meta = with stdenv.lib; {
     description = "Screen locker for Wayland";

@@ -40,7 +40,7 @@ in mkDerivation rec {
   version = "24.0.1";
 
   src = fetchFromGitHub {
-    owner = "jp9000";
+    owner = "obsproject";
     repo = "obs-studio";
     rev = version;
     sha256 = "056s0hs1ds3c57sc0gy39dxaxvwlakl3w25jxgawh0fs99211ar5";

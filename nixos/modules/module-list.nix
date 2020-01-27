@@ -60,6 +60,7 @@
   ./hardware/printers.nix
   ./hardware/raid/hpsa.nix
   ./hardware/steam-hardware.nix
+  ./hardware/tuxedo-keyboard.nix
   ./hardware/usb-wwan.nix
   ./hardware/onlykey.nix
   ./hardware/video/amdgpu.nix
@@ -151,6 +152,7 @@
   ./programs/system-config-printer.nix
   ./programs/thefuck.nix
   ./programs/tmux.nix
+  ./programs/traceroute.nix
   ./programs/tsm-client.nix
   ./programs/udevil.nix
   ./programs/usbtop.nix
@@ -798,6 +800,7 @@
   ./services/web-apps/codimd.nix
   ./services/web-apps/cryptpad.nix
   ./services/web-apps/documize.nix
+  ./services/web-apps/dokuwiki.nix
   ./services/web-apps/frab.nix
   ./services/web-apps/icingaweb2/icingaweb2.nix
   ./services/web-apps/icingaweb2/module-monitoring.nix

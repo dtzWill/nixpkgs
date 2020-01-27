@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, fetchFromGitHub, optipng, cairo, pythonPackages, pkgconfig, pngquant, which, imagemagick }:
+{ stdenv, fetchzip, fetchFromGitHub, optipng, cairo, python3Packages, pkgconfig, pngquant, which, imagemagick }:
 
 let
   mkNoto = { name, weights, sha256, }:
@@ -89,19 +89,22 @@ rec {
       maintainers = with maintainers; [ mathnerd314 ];
     };
   };
-  noto-fonts-emoji = let version = "2018-08-10-unicode11"; in stdenv.mkDerivation {
-    name = "noto-fonts-emoji-${version}";
+  noto-fonts-emoji = let
+    version = "2019-11-19-unicode12";
+  in stdenv.mkDerivation {
+    pname = "noto-fonts-emoji";
+    inherit version;
 
     src = fetchFromGitHub {
       owner = "googlei18n";
       repo = "noto-emoji";
       rev = "v${version}";
-      sha256 = "1y54zsvwf5pqhcd9cl2zz5l52qyswn6kycvrq03zm5kqqsngbw3p";
+      sha256 = "0qmnnjpp5lza6g5m3ki6hj46p891h9vl42k3acd0qw8i0jj5yn2c";
     };
 
     buildInputs = [ cairo ];
     nativeBuildInputs = [ pngquant optipng which cairo pkgconfig imagemagick ]
-                     ++ (with pythonPackages; [ python fonttools nototools ]);
+                     ++ (with python3Packages; [ python fonttools nototools ]);
 
     postPatch = ''
       sed -i 's,^PNGQUANT :=.*,PNGQUANT := ${pngquant}/bin/pngquant,' Makefile

@@ -1,14 +1,15 @@
 { stdenv, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, LWP, LWPProtocolHttps, DataDump, JSON }:
 
+# TODO: build gtk-enabled variant?
 buildPerlPackage rec {
   pname = "WWW-YoutubeViewer";
-  version = "3.3.0";
+  version = "3.7.2";
 
   src = fetchFromGitHub {
     owner  = "trizen";
     repo   = "youtube-viewer";
     rev    = version;
-    sha256 = "15xyrwv08fw8jmpydwzks26ipxnzliwddgyjcfqiaj0p7lwlhmx1";
+    sha256 = "07rs0c2zjj41haaiy7jzz10n0h48pkpl6knxyp0x2993kggk121r";
   };
 
   nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin shortenPerlShebang;

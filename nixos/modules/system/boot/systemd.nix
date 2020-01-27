@@ -63,6 +63,7 @@ let
       "systemd-logind.service"
       "autovt@.service"
       "systemd-user-sessions.service"
+      "dbus-org.freedesktop.import1.service"
       "dbus-org.freedesktop.machine1.service"
       "user@.service"
       "user-runtime-dir@.service"
@@ -146,6 +147,7 @@ let
       "user.slice"
       "machine.slice"
       "machines.target"
+      "systemd-importd.service"
       "systemd-machined.service"
       "systemd-nspawn@.service"
 
@@ -868,11 +870,15 @@ in
       "sysctl.d/50-coredump.conf".source = "${systemd}/example/sysctl.d/50-coredump.conf";
       "sysctl.d/50-default.conf".source = "${systemd}/example/sysctl.d/50-default.conf";
 
+      "tmpfiles.d/home.conf".source = "${systemd}/example/tmpfiles.d/home.conf";
       "tmpfiles.d/journal-nocow.conf".source = "${systemd}/example/tmpfiles.d/journal-nocow.conf";
+      "tmpfiles.d/portables.conf".source = "${systemd}/example/tmpfiles.d/portables.conf";
       "tmpfiles.d/static-nodes-permissions.conf".source = "${systemd}/example/tmpfiles.d/static-nodes-permissions.conf";
       "tmpfiles.d/systemd.conf".source = "${systemd}/example/tmpfiles.d/systemd.conf";
-      "tmpfiles.d/systemd-nspawn.conf".source = "${systemd}/example/tmpfiles.d/system-nspawn.conf";
-      "tmpfiles.d/systemd-tmp.conf".source = "${systemd}/example/tmpfiles.d/system-tmp.conf";
+      "tmpfiles.d/systemd-nologin.conf".source = "${systemd}/example/tmpfiles.d/systemd-nologin.conf";
+      "tmpfiles.d/systemd-nspawn.conf".source = "${systemd}/example/tmpfiles.d/systemd-nspawn.conf";
+      "tmpfiles.d/systemd-tmp.conf".source = "${systemd}/example/tmpfiles.d/systemd-tmp.conf";
+      "tmpfiles.d/tmp.conf".source = "${systemd}/example/tmpfiles.d/tmp.conf";
       "tmpfiles.d/var.conf".source = "${systemd}/example/tmpfiles.d/var.conf";
       "tmpfiles.d/x11.conf".source = "${systemd}/example/tmpfiles.d/x11.conf";
 
