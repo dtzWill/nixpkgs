@@ -1,5 +1,6 @@
 { stdenv, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, LWP, LWPProtocolHttps, DataDump, JSON }:
 
+# TODO: build gtk-enabled variant?
 buildPerlPackage rec {
   pname = "WWW-YoutubeViewer";
   version = "3.7.2";
