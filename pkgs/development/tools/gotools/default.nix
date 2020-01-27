@@ -30,7 +30,7 @@ buildGoModule rec {
     export GTD="$(HOME=$TMPDIR go env GOTOOLDIR)"
     echo "Linking tools from original GOTOOLDIR(=$GTD)..."
 
-    find "$GTD" -maxdepth 1 -type f -executable -print0 | xargs -tr -0 ln -sv -t $out/bin
+    find "$GTD" -maxdepth 1 -type f -executable -exec ln -sv -t $out/bin {} \+
 
     export GOTOOLDIR=$out/bin
   '';
