@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "go-license-detector";
-  version = "3.0.1";
+  version = "3.0.2";
 
   src = fetchFromGitHub {
     owner = "src-d";
     repo = pname;
     rev = "v${version}";
-    sha256 = "10dc7ra37bj107f4fvlprph2i0af0ma31d5alwz6h9dm3pdpk7xs";
+    sha256 = "0gp7na2hqn5crr5x4khllsq7ka9h7rx8b4y10yzxmi0wpmxr53sw";
   };
 
-  modSha256 = "1qidp8y5k1yi68rgm9m678c5kzqd3hxl8hrk32qvw901wm6daz5s";
+  modSha256 = "163f1kiy7kqrnaazb8ydaaiz57lv30jyjkvv6i7pczvcg9yfhmdb";
 
   meta = with lib; {
     description = "Reliable project licenses detector";
