@@ -10,7 +10,7 @@ buildGoModule rec {
     sha256 = "1y2kjwrk64l1h8b87m4iqsanib5rn68gzkdri1vd132qrlypycjn";
   };
 
-  modSha256 = "106cg00i2ml9lv7jgd1dfby2n9721r5d3b31zdw7nimgr8jrpr1g";
+  modSha256 = "0ajd007way1lwjsx712g1cijpzi3blvvqlycq1pmnab9m3d5snp2";
 
   meta = with lib; {
     description = "A pluggable transport proxy";
