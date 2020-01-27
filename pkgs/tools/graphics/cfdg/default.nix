@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp cfdg $out/bin/
 
-    mkdir -p $out/share/doc/${name}
-    cp *.txt $out/share/doc/${name}
+    mkdir -p $out/share/doc/${pname}-${version}
+    cp *.txt $out/share/doc/${pname}-${version}
   '';
 
   meta = with stdenv.lib; {
