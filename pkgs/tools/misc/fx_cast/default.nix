@@ -1,13 +1,5 @@
 { stdenv, fetchurl, dpkg }:
 
-  #json = {
-  #  name = "fx_cast_bridge";
-  #  description = "";
-  #  type = "stdio";
-  #  allowed_extensions = [ "fx_cast@matt.tf" ];
-  #  path = "";
-  #};
-
 stdenv.mkDerivation rec {
   pname = "fx_cast_bridge";
   version = "0.0.5";
