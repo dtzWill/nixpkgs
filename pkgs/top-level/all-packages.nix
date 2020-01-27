@@ -8502,13 +8502,13 @@ in
   manticore = callPackage ../development/compilers/manticore { };
 
   inherit (callPackage ../development/compilers/mercury { })
-    mercury-14
-    mercury-14-bootstrap
-    mercury-14-full
+    mercury-20
+    mercury-20-bootstrap
+    mercury-20-full
     mercury-rotd
     mercury-rotd-bootstrap
     ;
-  mercury = mercury-rotd;
+  mercury = mercury-20;
 
   microscheme = callPackage ../development/compilers/microscheme { };
 

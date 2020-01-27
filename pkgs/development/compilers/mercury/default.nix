@@ -70,16 +70,17 @@ let
     });
 
 in rec {
-  mercury-14 = mkMercury rec {
-    version = "14.01.1";
+  mercury-20= mkMercury rec {
+    version = "20.01";
     src = fetchurl {
-      url    = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
-      sha256 = "12z8qi3da8q50mcsjsy5bnr4ia6ny5lkxvzy01a3c9blgbgcpxwq";
+      url    = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.xz";
+      sha256 = "1q8jrp9ip32wih29b4187m4cvj6fwh6qdvirsk9v631q4anc5kjr";
     };
   };
-  mercury-14-bootstrap = mercury-14.override { enableMinimal = true; };
-  mercury-14-full = mercury-14.override { compilers = [ gcc erlang jdk ]; };
+  mercury-20-bootstrap = mercury-20.override { enableMinimal = true; };
+  mercury-20-full = mercury-20.override { compilers = [ gcc erlang jdk ]; };
 
+  # XXX: This makes more sense when newer than the base release used O:)
   mercury-rotd = mkMercury rec {
     version = "rotd-2020-01-17";
     src = fetchFromGitHub {
