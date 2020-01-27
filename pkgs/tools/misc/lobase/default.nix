@@ -41,4 +41,12 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
+
+  # Remove stray symlinks to scripts not installed (not clear upstream intended to skip installing these?)
+  postInstall = ''
+    # zcmp -> zdiff
+    # zless -> zmore
+    ls -l $out/bin/zmp $out/bin/zless
+    rm -v $out/bin/zcmp $out/bin/zless
+  '';
 }
