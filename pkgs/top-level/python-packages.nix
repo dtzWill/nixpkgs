@@ -5502,7 +5502,7 @@ in {
 
   freezegun = callPackage ../development/python-modules/freezegun { };
 
-  tasklib = callPackage ../development/python-modules/tasklib { };
+  tasklib = disabledIf (!isPy3k) (callPackage ../development/python-modules/tasklib { });
 
   taskw = callPackage ../development/python-modules/taskw { };
 
