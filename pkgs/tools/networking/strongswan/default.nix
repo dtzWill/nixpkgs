@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch
+{ stdenv, fetchurl
 , pkgconfig, autoreconfHook
 , gmp, python3, iptables, ldns, unbound, openssl, pcsclite, glib
 , openresolv
@@ -17,11 +17,11 @@ with stdenv.lib;
 
 stdenv.mkDerivation rec {
   pname = "strongswan";
-  version = "5.8.1"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
+  version = "5.8.2"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
 
   src = fetchurl {
     url = "https://download.strongswan.org/${pname}-${version}.tar.bz2";
-    sha256 = "034rd6kr1bmnvj8rg2kcxdjb0cgj3dn9310mmm94j1awxan71byr";
+    sha256 = "03j3fx357bh89n44a5v9wdc92azdx2d37j7jmlyr4z1kwzdhv446";
   };
 
   dontPatchELF = true;
@@ -38,12 +38,6 @@ stdenv.mkDerivation rec {
     ./ext_auth-path.patch
     ./firewall_defaults.patch
     ./updown-path.patch
-
-    # Don't use etc/dbus-1/system.d
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/strongswan/strongswan/pull/150.patch";
-      sha256 = "1irfxb99blb8v3hs0kmlhzkkwbmds1p0gq319z8lmacz36cgyj2c";
-    })
   ];
 
   postPatch = optionalString stdenv.isLinux ''
