@@ -4,13 +4,19 @@
 , gobject-introspection, modemmanager, openresolv, libndp, newt, libsoup
 , ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
 , docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
-, fetchFromGitHub
+, fetchFromGitHub, linkFarm
 , mobile-broadband-provider-info
 , openconnect, curl, meson, ninja, libpsl, libredirect }:
 
 let
   pname = "NetworkManager";
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  # Provide ipv4-only and ipv6-only "ping" utilities
+  # (iputils ping infers `-4` and `-6` from argv[0])
+  ping46 = linkFarm "ping46" [
+    { name = "bin/ping4"; path = "${iputils}/bin/ping"; }
+    { name = "bin/ping6"; path = "${iputils}/bin/ping"; }
+  ];
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
@@ -69,7 +75,7 @@ in stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      inherit iputils kmod openconnect ethtool gnused systemd;
+      inherit ping46 kmod openconnect ethtool gnused systemd;
       inherit (stdenv) shell;
     })
 
