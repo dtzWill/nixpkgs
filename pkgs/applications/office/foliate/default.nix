@@ -22,7 +22,6 @@ stdenv.mkDerivation rec {
     meson ninja
     pkgconfig
     gettext
-    python3
     desktop-file-utils
     wrapGAppsHook
     hicolor-icon-theme
@@ -39,6 +38,7 @@ stdenv.mkDerivation rec {
     # TODO: Add once packaged, unclear how language packages best handled
     # hyphen
     dict # dictd for offline dictionary support
+    python3
   ];
 
   doCheck = true;
@@ -59,5 +59,10 @@ stdenv.mkDerivation rec {
       -i $out/bin/com.github.johnfactotum.Foliate
 
     ln -s $out/bin/com.github.johnfactotum.Foliate $out/bin/foliate
+  '' + # for kindle, mobi support
+  ''
+    patchShebangs share/foliate/assets/KindleUnpack/*py
+
+    gappsWrapperArgs+=(--prefix PATH : "${python3}/bin")
   '';
 }
