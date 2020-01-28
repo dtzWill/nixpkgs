@@ -2,7 +2,7 @@
 
 keybase.overrideAttrs (o: let attrs = rec {
   pname = "keybase";
-  version = "5.1.1";
+  version = "unstable-2020-01-27";
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
