@@ -11790,6 +11790,7 @@ in
     shared-mime-info = shared-mime-info.override { glib = glib-untested; };
     desktop-file-utils = desktop-file-utils.override { glib = glib-untested; };
     dbus = dbus.override { systemd = null; };
+    ninja = samurai;
   });
 
   glibmm = callPackage ../development/libraries/glibmm { };
