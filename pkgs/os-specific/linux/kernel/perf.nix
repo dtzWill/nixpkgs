@@ -14,7 +14,9 @@ stdenv.mkDerivation {
 
   inherit (kernel) src;
 
-  preConfigure = ''
+  preConfigure = optionalString (versionAtLeast kernel.version "5.5") ''
+    patchShebangs scripts/bpf_helpers_doc.py
+  '' + ''
     cd tools/perf
 
     substituteInPlace Makefile \
