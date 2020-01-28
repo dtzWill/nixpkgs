@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchgit, meson, ninja, pkgconfig, mrsh }:
+{ stdenv, lib, fetchgit, meson, ninja, pkgconfig, mrsh, libtickit }:
 
 stdenv.mkDerivation rec {
   pname   = "imrsh";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
-  buildInputs = [ mrsh ];
+  buildInputs = [ mrsh libtickit ];
 
   meta = with stdenv.lib; {
     description = "Interactive POSIX shell based on mrsh";
