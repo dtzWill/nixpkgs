@@ -33,6 +33,12 @@ rec {
           url = " https://gitlab.com/snippets/1929174/raw";
           sha256 = "14ihxd1pilsbw88502dy1vm3sr6q5fsshp154h7kavb7xraw6x7n";
         })
+        # 5.5 patch
+        (fetchpatch {
+          name = "kernel-5.5.patch";
+          url = "https://gitlab.com/snippets/1923197/raw";
+          sha256 = "0w17h4nrkh9rry765bk53vfajkw8zgd0mh348w6amc8zj6j6g11a";
+        })
       ];
     }
     else legacy_390;
