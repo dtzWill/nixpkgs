@@ -6,11 +6,11 @@
 
 mkDerivation rec {
   pname = "musescore";
-  version = "3.2.3";
+  version = "3.4.1";
 
   src = fetchzip {
     url = "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.zip";
-    sha256 = "17mr0c8whw6vz86lp1j36rams4h8virc4z68fld0q3rpq6g05szs";
+    sha256 = "01i1c79blg0a04qkvm2czds5zxgvg5lq7mx69k24zxs08r319lbg";
     stripRoot = false;
   };
 
