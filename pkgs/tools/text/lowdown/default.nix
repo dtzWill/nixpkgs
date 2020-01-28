@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "lowdown";
-  version = "0.5.3";
+  version = "0.5.4";
   underscoreVersion = stdenv.lib.replaceChars ["."] ["_"] version;
 
   src = fetchFromGitHub {
     owner = "kristapsdz";
     repo = pname;
     rev = "VERSION_${underscoreVersion}";
-    sha256 = "0m7wn5pkk1ak8nrzwvn41vvl3i0wfnx4gk0pvd50h4gwkrz3rc5r";
+    sha256 = "0b0vxhxvx7ni75q23lbfjw6jhfvvhpi0bif5m9jbavgivigzlwjs";
   };
 
   prefixKey = "PREFIX=";
