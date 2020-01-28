@@ -2,7 +2,7 @@
 , wrapGAppsHook, pkgconfig, desktop-file-utils
 , appstream-glib, pythonPackages, glib, gobject-introspection
 , gtk3, webkitgtk, glib-networking, gnome3, gspell, texlive
-, haskellPackages}:
+, shared-mime-info, haskellPackages}:
 
 let
   pythonEnv = pythonPackages.python.withPackages(p: with p;
@@ -11,13 +11,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "uberwriter";
-  version = "unstable-2020-01-02";
+  version = "unstable-2020-01-24";
 
   src = fetchFromGitHub {
     owner  = pname;
     repo   = pname;
-    rev    = "0d1da19ce8fe013b5abd6b227fbadc00f2d72b8c";
-    sha256 = "186zhjh3l84cd67wmpn1s49fwisj0kxhv7592c06cl7lchmjx73m";
+    rev    = "0647b413407eb8789a25c353602c4ac979dc342a";
+    sha256 = "19z52fpbf0p7dzx7q0r5pk3nn0c8z69g1hv6db0cqp61cqv5z95q";
   };
 
   nativeBuildInputs = [ meson ninja cmake pkgconfig desktop-file-utils
@@ -41,6 +41,7 @@ in stdenv.mkDerivation rec {
       --prefix PYTHONPATH : "$out/lib/python${pythonEnv.pythonVersion}/site-packages/"
       --prefix PATH : "${texliveDist}/bin"
       --prefix PATH : "${haskellPackages.pandoc-citeproc}/bin"
+      --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
     )
   '';
 
