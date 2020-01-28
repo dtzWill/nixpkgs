@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildGoPackage, btrfs-progs, go-md2man, utillinux }:
+{ lib, fetchFromGitHub, buildGoPackage, btrfs-progs, go-md2man
+, utillinux, pkgconfig, libseccomp }:
 
 with lib;
 
@@ -16,7 +17,8 @@ buildGoPackage rec {
   goPackagePath = "github.com/containerd/containerd";
   outputs = [ "bin" "out" "man" ];
 
-  buildInputs = [ btrfs-progs go-md2man utillinux ];
+  nativeBuildInputs = [ pkgconfig ];
+  buildInputs = [ btrfs-progs go-md2man utillinux libseccomp ];
   buildFlags = "VERSION=v${version}";
 
   BUILDTAGS = []
