@@ -12845,6 +12845,8 @@ in
 
   libtheora = callPackage ../development/libraries/libtheora { };
 
+  libtickit  = callPackage ../development/libraries/libtickit { };
+
   libtiff = callPackage ../development/libraries/libtiff { };
 
   libtiger = callPackage ../development/libraries/libtiger { };
