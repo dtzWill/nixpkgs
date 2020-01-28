@@ -5044,6 +5044,7 @@ in
   mr = callPackage ../applications/version-management/mr { };
 
   mrsh = callPackage ../shells/mrsh { };
+  imrsh = callPackage ../shells/imrsh { };
 
   mrtg = callPackage ../tools/misc/mrtg { };
 
