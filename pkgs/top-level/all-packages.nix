@@ -4327,6 +4327,7 @@ in
 
     gconf = gnome2.GConf;
   };
+  keybase-git = callPackage ../tools/security/keybase/git.nix { };
 
   # Use keybase package
   #kbfs = callPackage ../tools/security/keybase/kbfs.nix { };
