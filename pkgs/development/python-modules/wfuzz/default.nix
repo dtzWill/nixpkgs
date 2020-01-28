@@ -1,7 +1,7 @@
 { buildPythonPackage
 , chardet
 , configparser
-, fetchFromGitHub
+, fetchPypi
 , future
 , isPy27
 , lib
@@ -16,13 +16,11 @@
 
 buildPythonPackage rec {
   pname = "wfuzz";
-  version = "2.4.2";
+  version = "2.4.5";
 
-  src = fetchFromGitHub {
-    owner = "xmendez";
-    repo = pname;
-    rev = "v.${version}";
-    sha256 = "15dihrc7jsvpxcmb4fp254s633mkjm7ksjfkr9pqaai49qmnddyf";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "18vyzzzirv9izywdfnm0ip9hmrdgqx2mx81i28jrfyqa4mp9zhhd";
   };
 
   buildInputs = [ pyparsing configparser ];
