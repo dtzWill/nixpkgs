@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, readline }:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, libedit }:
 
 stdenv.mkDerivation rec {
   pname   = "mrsh";
@@ -12,7 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
-  buildInputs = [ readline ];
+  buildInputs = [ libedit ];
+
+  mesonFlags = [ "-Dreadline-provider=editline" ];
 
   meta = with stdenv.lib; {
     description = "A minimal POSIX shell";
