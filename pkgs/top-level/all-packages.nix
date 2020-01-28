@@ -17141,6 +17141,7 @@ in
 
   systemd = callPackage ../os-specific/linux/systemd {
     utillinux = utillinuxMinimal; # break the cyclic dependency
+    ninja = samurai;
   };
   udev = systemd; # TODO: move to aliases.nix
 
