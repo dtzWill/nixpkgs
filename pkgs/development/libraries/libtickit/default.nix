@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unibilium, libtermkey, libtool }:
+{ stdenv, fetchurl, unibilium, libtermkey, libtool, pkgconfig }:
 
 stdenv.mkDerivation {
   pname = "libtickit";
@@ -9,8 +9,10 @@ stdenv.mkDerivation {
     sha256 = "1qigh471ygjjxby97q03v4yd59vilyv7k5c7hjxj5b56jc1hpk4p";
   };
 
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [ libtool pkgconfig ];
   buildInputs = [ unibilium libtermkey ];
+
+  makeFlags = [ "PREFIX=${placeholder "out"}" "DESTDIR=" ];
 
   meta = with stdenv.lib; {
     description = "Terminal Interface Construction Kit";
