@@ -22719,6 +22719,8 @@ in
 
   _2048-in-terminal = callPackage ../games/2048-in-terminal { };
 
+  _2048-cli  = callPackage ../games/2048-cli { };
+
   _20kly = callPackage ../games/20kly { };
 
   _90secondportraits = callPackage ../games/90secondportraits { love = love_0_10; };
