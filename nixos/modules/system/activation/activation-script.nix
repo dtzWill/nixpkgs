@@ -218,8 +218,7 @@ in
               mv -f ${target}.tmp ${target} # atomically replace
             '' else ''
               rm -f ${target}
-              [ -d $(dirname ${target}) ] && \
-                rmdir --ignore-fail-on-non-empty $(dirname ${target})
+              rm -f -d $(dirname ${target})
             '')
           {
             "i686-linux"   ."/lib/ld-linux.so.2"          = "${pkgs.glibc.out}/lib/ld-linux.so.2";
