@@ -1,6 +1,7 @@
 { stdenv
 , fetchFromGitHub
 , cmake
+, ninja 
 , icu, openssl
 }:
 
@@ -15,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vpci7vqzcpdd21zgigyz38k77r9fc81dmiwsvfr8w7gad5sg6sj";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ninja ];
 
   buildInputs = [ icu openssl ];
 

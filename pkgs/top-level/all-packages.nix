@@ -3260,6 +3260,7 @@ in
 
   fltrdr = callPackage ../tools/misc/fltrdr {
     icu = icu63;
+    ninja = samurai;
   };
 
   fluent-bit = callPackage ../tools/misc/fluent-bit {
@@ -12641,7 +12642,7 @@ in
 
   libibumad = callPackage ../development/libraries/libibumad { };
 
-  libical = callPackage ../development/libraries/libical { ninja = samurai; };
+  libical = callPackage ../development/libraries/libical { };
 
   libicns = callPackage ../development/libraries/libicns { };
 
