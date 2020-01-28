@@ -5,20 +5,20 @@ let
     name = "${repo}-${builtins.substring 0 7 rev}";
     owner = "phacility";
     repo = "libphutil";
-    rev = "f51f1b3f72b50246949d0917239ca84f39ec7a54";
-    sha256 = "1pffvq9rl5b1gldpzzyv6cvwmcr2f47kfavr9fkrdz63k3i7yan3";
+    rev = "cc2a3dbf590389400da55563cb6993f321ec6d73";
+    sha256 = "1k7sr3racwz845i7r5kdwvgqrz8gldz07pxj3yw77s58rqbix3ad";
   };
   arcanist = fetchFromGitHub rec {
     name = "${repo}-${builtins.substring 0 7 rev}";
     owner = "phacility";
     repo = "arcanist";
-    rev = "3cdfe1fff806d2b54a2df631cf90193e518f42b7";
-    sha256 = "1dngq8p4y4hln87hhgdm6hv68ld626j57lifw0821rvpnnmspw6j";
+    rev = "21a1828ea06cf031e93082db8664d73efc88290a";
+    sha256 = "05rq9l9z7446ks270viay57r5ibx702b5bnlf4ck529zc4abympx";
   };
 in
-stdenv.mkDerivation rec {
-  pname    = "arcanist";
-  version = "unstable-2019-09-05";
+stdenv.mkDerivation {
+  pname = "arcanist";
+  version = "20200127";
 
   srcs = [ arcanist libphutil ];
   sourceRoot = ".";
