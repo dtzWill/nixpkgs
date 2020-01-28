@@ -8,14 +8,14 @@
 
 stdenv.mkDerivation rec {
   pname = "foliate";
-  version = "1.5.3";
+  version = "e93c98e48f5e306468913627fe3b442484370403";
 
   # Fetch this from gnome mirror if/when available there instead!
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1bjlk9n1j34yx3bvzl95mpb56m2fjc5xcd6yks96pwfyfvjnbp93";
+    sha256 = "0y9vnfkd49hnh4c9m1w97f8m6wndqwcmicx842gp3ynyzc84rvs9";
   };
 
   nativeBuildInputs = [
