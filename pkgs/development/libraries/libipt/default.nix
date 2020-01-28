@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake }:
+{ stdenv, fetchFromGitHub, cmake, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "libipt";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "19y1lk5z1rf8xmr08m8zrpjkgr5as83b96xyaxwn67m2wz58mpmh";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ninja ];
 
   meta = with stdenv.lib; {
     description = "Intel Processor Trace decoder library";

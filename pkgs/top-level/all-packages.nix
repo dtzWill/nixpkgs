@@ -12803,7 +12803,7 @@ in
 
   libisoburn = callPackage ../development/libraries/libisoburn { };
 
-  libipt = callPackage ../development/libraries/libipt { };
+  libipt = callPackage ../development/libraries/libipt { ninja = samurai; };
 
   libiptcdata = callPackage ../development/libraries/libiptcdata { };
 
