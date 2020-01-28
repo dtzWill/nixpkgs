@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "119bgw1mjggj7ngpa3d69f8m0j9id23mx3925kbh3hnp9q6c5r2a";
   };
 
-  makeFlags = [ "prefix=${placeholder ''out''}" ];
+  makeFlags = [ "prefix=${placeholder "out"}" ];
   enableParallelBuilding = true;
 
   doInstallCheck = true;
