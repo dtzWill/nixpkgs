@@ -19,7 +19,7 @@ SYSTEMS=(
     [x86_64-darwin]=darwin-x64
 )
 
-hashfile="$(nix-prefetch-url --print-path "https://github.com/electron/electron/releases/download/v${VERSION}/SHASUMS256.txt"|tail -n1)"
+hashfile="$(nix-prefetch-url --print-path "https://github.com/electron/electron/releases/download/v${VERSION}/SHASUMS256.txt" 2>/dev/null|tail -n1)"
 
 echo "Put the following into hashes.nix:"
 echo
