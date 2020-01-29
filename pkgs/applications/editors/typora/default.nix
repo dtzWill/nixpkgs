@@ -2,7 +2,7 @@
 , lib
 , fetchurl
 , makeWrapper
-, electron_7
+, electron_5
 , dpkg
 , gtk3
 , glib
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    makeWrapper ${electron_7}/bin/electron $out/bin/typora \
+    makeWrapper ${electron_5}/bin/electron $out/bin/typora \
       --add-flags $out/share/typora \
       "''${gappsWrapperArgs[@]}" \
       ${lib.optionalString withPandoc ''--prefix PATH : "${lib.makeBinPath [ pandoc ]}"''} \
