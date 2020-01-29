@@ -1,4 +1,4 @@
-{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron_5, riot-web, mkYarnPackage }:
+{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron_6 /* should be 7! */, riot-web, mkYarnPackage }:
 
 # Notes for maintainers:
 # * versions of `riot-web` and `riot-desktop` should be kept in sync.
@@ -46,7 +46,7 @@ in mkYarnPackage rec {
     ln -s "${desktopItem}/share/applications" "$out/share/applications"
 
     # executable wrapper
-    makeWrapper '${electron_5}/bin/electron' "$out/bin/${executableName}" \
+    makeWrapper '${electron_6}/bin/electron' "$out/bin/${executableName}" \
       --add-flags "$out/share/riot/electron"
   '';
 
@@ -79,6 +79,6 @@ in mkYarnPackage rec {
     homepage = https://about.riot.im/;
     license = licenses.asl20;
     maintainers = with maintainers; [ pacien worldofpeace ];
-    inherit (electron_5.meta) platforms;
+    inherit (electron_6.meta) platforms;
   };
 }
