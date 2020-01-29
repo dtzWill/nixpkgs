@@ -1,6 +1,6 @@
 { stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core}:
 
-version:
+version: hashes:
 let
   name = "electron-${version}";
 
@@ -24,9 +24,6 @@ let
     aarch64-linux = "linux-arm64";
     x86_64-darwin = "darwin-x64";
   };
-
-  all_hashes = import ./hashes.nix;
-  hashes = all_hashes.${version};
 
   get = as: platform: as.${platform.system} or
     "Unsupported system: ${platform.system}";
