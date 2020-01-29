@@ -22,7 +22,9 @@ SYSTEMS=(
 hashfile="$(nix-prefetch-url --print-path "https://github.com/electron/electron/releases/download/v${VERSION}/SHASUMS256.txt"|tail -n1)"
 echo hashfile=$hashfile
 
-echo "hashes = {"
+echo "Put the following into hashes.nix:"
+echo
+echo "\"${VERSION}\" = {"
 
 for S in "${!SYSTEMS[@]}"; do
   hash="$(grep " *electron-v${VERSION}-${SYSTEMS[$S]}.zip$" "$hashfile"|cut -f1 -d' ')"
