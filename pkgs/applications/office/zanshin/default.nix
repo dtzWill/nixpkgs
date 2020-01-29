@@ -12,7 +12,7 @@ mkDerivation rec {
   version = "0.5.71";
 
   src = fetchurl {
-    url = "https://download.kde.org/stable/${pname}/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/${pname}/${pname}-${version}.tar.xz";
     sha256 = "0b316ddcd46sawva84x5d8nsp19v66gbm83djrra7fv3k8nkv4xh";
   };
 
