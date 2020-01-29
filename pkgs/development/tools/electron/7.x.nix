@@ -1,7 +1,8 @@
 { stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core}:
 
 let
-  version = "6.1.7";
+  version = "7.1.10"; # <--- only difference between this and 6.x.nix !!
+
   name = "electron-${version}";
 
   meta = with stdenv.lib; {
@@ -28,11 +29,6 @@ let
   # -----------------------------
 
   hashes = (import ./hashes.nix).${version};
-  # -----------------------------
-  # XXX: version-specific, generate this with ./print-hashes.sh
-  # GENERATED
-  # -----------------------------
-
 
   get = as: platform: as.${platform.system} or
     "Unsupported system: ${platform.system}";
