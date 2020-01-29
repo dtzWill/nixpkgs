@@ -21,18 +21,13 @@ SYSTEMS=(
 
 hashfile="$(nix-prefetch-url --print-path "https://github.com/electron/electron/releases/download/v${VERSION}/SHASUMS256.txt" 2>/dev/null|tail -n1)"
 
-echo "Put the following into hashes.nix:"
+echo "Entry similar to the following goes in default.nix:"
 echo
-echo "\"${VERSION}\" = {"
+echo "  electron_${VERSION%%.*} = mkElectron \"${VERSION}\" {"
 
 for S in "${!SYSTEMS[@]}"; do
   hash="$(grep " *electron-v${VERSION}-${SYSTEMS[$S]}.zip$" "$hashfile"|cut -f1 -d' ')"
-  echo "  $S = \"$hash\";"
+  echo "    $S = \"$hash\";"
 done
 
-echo "};"
-
-#for S in "${!HASHES[@]}"; do
-#    echo "$S"
-#    echo "sha256 = \"${HASHES[$S]}\";"
-#done
+echo "  };"
