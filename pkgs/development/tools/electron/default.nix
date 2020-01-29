@@ -5,7 +5,7 @@ let
 in
 {
   electron_4 = mkElectron "4.2.12";
-  electron_5 = mkElectron "5.0.9";
+  electron_5 = mkElectron "5.0.13";
   electron_6 = mkElectron "6.1.7";
   electron_7 = mkElectron "7.1.10";
 }
