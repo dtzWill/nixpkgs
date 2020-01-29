@@ -29,7 +29,6 @@ in mkYarnPackage rec {
     # resources
     mkdir -p "$out/share/riot"
     ln -s '${riot-web}' "$out/share/riot/webapp"
-    cp -r '${riot-web-src}/origin_migrator' "$out/share/riot/origin_migrator"
     cp -r './deps/riot-web' "$out/share/riot/electron"
     cp -r './deps/riot-web/img' "$out/share/riot"
     rm "$out/share/riot/electron/node_modules"
