@@ -28,8 +28,8 @@ rustPlatform.buildRustPackage rec {
     owner = "target";
     repo = pname;
     # Run `eval $(nix-build -A lorri.updater)` after updating the revision!
-    rev = "2a26a4fb9c0121b4489b8b660dcaac0178e5dccb";
-    sha256 = "0n13h5rpw6hn5d8icqs6xrvnls0c979zx96rj90kbnsxrkwjf0z2";
+    rev = "7b10ab986a4ee6db1190b4d7d7f79cd0346575e9";
+    sha256 = "0jav9njj0zgz735nmahgy40q2wmlb1mshsafy9lqj029vjhgbxya";
   };
 
   cargoSha256 = "1kdpzbn3353yk7i65hll480fcy16wdvppdr6xgfh06x88xhim4mp";
