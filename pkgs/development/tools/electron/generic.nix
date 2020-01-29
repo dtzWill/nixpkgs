@@ -1,8 +1,7 @@
 { stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core}:
 
+version:
 let
-  version = "7.1.10"; # <--- only difference between this and 6.x.nix !!
-
   name = "electron-${version}";
 
   meta = with stdenv.lib; {
@@ -13,12 +12,11 @@ let
     platforms = [ "x86_64-darwin" "x86_64-linux" "i686-linux" "armv7l-linux" "aarch64-linux" ];
   };
 
-  # -----------------------------
-  # XXX: version-agnostic, hoist!
   fetcher = vers: tag: hash: fetchurl {
     url = "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
     sha256 = hash;
   };
+
   tags = {
     i686-linux = "linux-ia32";
     x86_64-linux = "linux-x64";
@@ -26,9 +24,9 @@ let
     aarch64-linux = "linux-arm64";
     x86_64-darwin = "darwin-x64";
   };
-  # -----------------------------
 
-  hashes = (import ./hashes.nix).${version};
+  all_hashes = import ./hashes.nix;
+  hashes = all_hashes.${version};
 
   get = as: platform: as.${platform.system} or
     "Unsupported system: ${platform.system}";

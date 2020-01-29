@@ -9525,12 +9525,8 @@ in
 
   awf = callPackage ../development/tools/misc/awf { };
 
-  electron_7 = callPackage ../development/tools/electron/7.x.nix { };
-  electron_6 = callPackage ../development/tools/electron/6.x.nix { };
-
-  electron_5 = callPackage ../development/tools/electron/5.x.nix { };
-
-  electron_4 = callPackage ../development/tools/electron { };
+  inherit (callPackages ../development/tools/electron { })
+    electron_4 electron_5 electron_6 electron_7;
 
   electron_3 = callPackage ../development/tools/electron/3.x.nix { };
   electron = electron_4;
