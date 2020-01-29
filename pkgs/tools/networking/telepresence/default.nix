@@ -17,13 +17,13 @@ let
   });
 in pythonPackages.buildPythonPackage rec {
   pname = "telepresence";
-  version = "0.101";
+  version = "0.104";
 
   src = fetchFromGitHub {
     owner = "datawire";
     repo = "telepresence";
     rev = version;
-    sha256 = "1rxq22vcrw29682g7pdcwcjyifcg61z8y4my1di7yw731aldk274";
+    sha256 = "0igd7maa9s9zc3xswds1iz77s3dcab14h3lzzqgh6i836lm06ckg";
   };
 
   buildInputs = [ makeWrapper ];
