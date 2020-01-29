@@ -28,6 +28,11 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./hsluv.patch /* TODO: fetch, this includes hsluv source entirely O:) */ ];
 
+  # Gross hack so font sizes scale "better" (differently ;))
+  postPatch = ''
+    find . -type f -name "*.qml" -exec sed -e 's/pixelSize/pointSize/g' -i {} \;
+  '';
+
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
   buildInputs = [ qtbase qtkeychain-qt5 qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative olm cmark ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
