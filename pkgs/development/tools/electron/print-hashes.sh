@@ -19,11 +19,19 @@ SYSTEMS=(
     [x86_64-darwin]=darwin-x64
 )
 
-for S in "${!SYSTEMS[@]}"; do
-  HASHES["$S"]=$(nix-prefetch-url "https://github.com/electron/electron/releases/download/v${VERSION}/electron-v${VERSION}-${SYSTEMS[$S]}.zip")
-done
+hashfile="$(nix-prefetch-url "https://github.com/electron/electron/releases/download/v${VERSION}/SHASUMS256.txt"|tail -n1)"
 
-for S in "${!HASHES[@]}"; do
-    echo "$S"
-    echo "sha256 = \"${HASHES[$S]}\";"
+echo "hashes = {"
+for S in "${!SYSTEMS[@]}"; do
+  file="electron-v${VERSION}-${S}.zip"
+  hash="$(grep " ${file}$" "$hashfile"|cut -f1 -d' ')"
+  cat <<- EOF
+    $S = "$hash";
+  EOF
 done
+echo "};"
+
+#for S in "${!HASHES[@]}"; do
+#    echo "$S"
+#    echo "sha256 = \"${HASHES[$S]}\";"
+#done
