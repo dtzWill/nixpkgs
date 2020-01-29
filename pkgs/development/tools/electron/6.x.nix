@@ -29,16 +29,19 @@ let
 
   # -----------------------------
   # XXX: version-specific, generate this with ./print-hashes.sh
-  hashes = {
-    i686-linux = "1hikg5gn1x35cp77lnsr4i9k4m2n0h88js277ql6fwwxsrrymvcq";
-    x86_64-linux = "0ihgjhphq9xiacgn63rxq764yypm9d3q054xlny7h9n9h539l4yd";
-    armv7l-linux = "1111111111111111111111111111111111111111111111111111";
-    aarch64-linux = "1111111111111111111111111111111111111111111111111111";
-    x86_64-darwin = "1111111111111111111111111111111111111111111111111111";
-  };
+  # GENERATED
+hashes = {
+  x86_64-linux = "7fe94fc1edebe2f5645056a4300fc642c04155e55da8dd4ee058a0c0ef835ae8";
+  x86_64-darwin = "1c790a4cbda05f1c136d18fa6a09bdb09a1941f521207466756a3e95e343c485";
+  i686-linux = "1afd8ea79acb2b4782fb459e084549ed4cd4ead779764829b1d862148359eae5";
+  armv7l-linux = "14f2ea0459f0dda8c566b0fa4a2fe755f4220bbae313ea0c453861ac2f803196";
+  aarch64-linux = "80e05c1a0b51c335483666e959c1631a089246986b7fc3a4f9ee1288a57a602a";
+};
+  # -----------------------------
+
+
   get = as: platform: as.${platform.system} or
     "Unsupported system: ${platform.system}";
-  # -----------------------------
 
   common = platform: {
     inherit name version meta;
