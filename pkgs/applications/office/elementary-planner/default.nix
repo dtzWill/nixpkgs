@@ -2,17 +2,13 @@
 , meson, ninja, pkgconfig, appstream-glib, desktop-file-utils
 , python3, vala, wrapGAppsHook
 , evolution-data-server
-, libunity
 , libical
 , libgee
 , json-glib
-, geoclue2
 , sqlite
 , libsoup
 , gtk3
 , pantheon /* granite, schemas */
-, discount /* libmarkdown */
-, gtksourceview3
 , webkitgtk
 , appstream
 }:
@@ -40,30 +36,32 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     evolution-data-server
-    libunity
     libical
+    libgee
     json-glib
-    geoclue2
     sqlite
     libsoup
     gtk3
-    libgee
     pantheon.granite
-    discount
-    gtksourceview3
     webkitgtk
     appstream
     pantheon.elementary-gsettings-schemas
+    pantheon.elementary-icon-theme
   ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py
     patchShebangs build-aux/meson/post_install.py
+
+    # Fix version string not updated in this release.
+    # (please check if still needed when updating!)
+    substituteInPlace src/Dialogs/Preferences.vala \
+      --replace v2.0.8 v${version}
   '';
 
   meta = with stdenv.lib; {
     description = "Task and project manager designed to elementary OS";
-    homepage = https://github.com/alainm23/planner;
+    homepage = "https://planner-todo.web.app";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
   };
