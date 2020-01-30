@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
+  dontDropIconThemeCache = true;
+
   installPhase = ''
     patchShebangs install.sh
     mkdir -p $out/share/icons
