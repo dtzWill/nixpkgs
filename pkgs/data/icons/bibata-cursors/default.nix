@@ -31,7 +31,7 @@ in stdenvNoCC.mkDerivation rec {
   ];
 
   # cursor.theme files indicate "Inherit=DMZ-White" (and DMZ-Black)
-  propagatedBuildInputs = [ vanilla-dmz ];
+  propagatedUserEnvPkgs = [ vanilla-dmz ];
 
   buildPhase = ''
     HOME="$NIX_BUILD_ROOT" ./build.sh
