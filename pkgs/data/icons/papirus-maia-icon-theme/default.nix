@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, gtk3 }:
+{ stdenv, fetchFromGitHub, cmake, gtk3, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "papirus-maia-icon-theme";
@@ -19,6 +19,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace /usr "$out"
   '';
+
+  propagatedBuildInputs = [ hicolor-icon-theme ];
+
+  dontDropIconThemeCache = true;
 
   postFixup = ''
     for theme in $out/share/icons/*; do
