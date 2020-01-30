@@ -20,14 +20,14 @@ let
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "unstable-2020-01-29";
+  version = "unstable-2020-01-30";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "1ccdce0c1db175f0b5d135ff705398dec29f0560";
-    sha256 = "1276865146d42l9247m86xlssh47lmj3lw75icnfmnwrp4hga6bf";
+    rev = "e3a3e8bd514600310ac0328c671e533aa87d594f";
+    sha256 = "00wg74idm9lgaf0wgwx63507yvp7cc1rrgk7q0ny130yqf3p5w4p";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
