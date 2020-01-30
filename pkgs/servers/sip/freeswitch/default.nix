@@ -108,6 +108,8 @@ stdenv.mkDerivation rec {
   ++ lib.optionals enablePostgres [ postgresql ]
   ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
+  enableParallelBuilding = true;
+
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
   hardeningDisable = [ "format" ];
@@ -121,6 +123,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # helper for compiling modules... not generally useful; also pulls in perl dependency
     rm "$out"/bin/fsxs
+    # include configuration templates
+    cp -r conf $out/share/freeswitch/
   '';
 
   meta = {
