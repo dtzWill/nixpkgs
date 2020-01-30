@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper
+{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, autoconf-archive
 , pkgconfig, dbus, dbus-glib, libxml2 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1r2ll0hrgfyj0ndkvcsdicprx0i8q2a38ybgsdnp7mgqii16fbzr";
   };
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook makeWrapper ];
+  nativeBuildInputs = [ pkgconfig autoreconfHook autoconf-archive makeWrapper ];
   buildInputs = [ dbus dbus-glib libxml2 ];
 
   patches = [
