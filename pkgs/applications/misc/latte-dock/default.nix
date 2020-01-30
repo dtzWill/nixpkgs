@@ -11,7 +11,7 @@ let
 in
 mkDerivation rec {
   pname = "latte-dock";
-  version = "0.9.7";
+  version = "0.9.8.1";
   #version = "unstable-2019-09-11";
   name = "${pname}-${version}";
 
@@ -23,7 +23,7 @@ mkDerivation rec {
   #};
   src = fetchurl {
     url = "https://download.kde.org/stable/${pname}/${name}.tar.xz";
-    sha256 = "1b8yz6r6x46xajx900m8s0sjfwiwbpp6nfb780ygfcz6inb1234q";
+    sha256 = "10x5aplkjyi2w0793whjjzi777ffh3m4d0sp06qzkpx8jqd46him";
     name = "${name}.tar.xz";
   };
 
