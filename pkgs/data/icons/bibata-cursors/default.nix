@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen, python3 }:
+{ stdenvNoCC, fetchFromGitHub, gnome-themes-extra, inkscape, xcursorgen, python3, vanilla-dmz }:
 
 let
   py = python3.withPackages(ps: [ ps.pillow ]);
@@ -29,6 +29,9 @@ in stdenvNoCC.mkDerivation rec {
     xcursorgen
     py
   ];
+
+  # cursor.theme files indicate "Inherit=DMZ-White" (and DMZ-Black)
+  propagatedBuildInputs = [ vanilla-dmz ];
 
   buildPhase = ''
     HOME="$NIX_BUILD_ROOT" ./build.sh
