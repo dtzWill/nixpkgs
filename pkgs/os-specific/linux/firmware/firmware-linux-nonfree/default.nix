@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ stdenv, fetchgit, lib }:
 
 stdenv.mkDerivation rec {
   pname = "firmware-linux-nonfree";
