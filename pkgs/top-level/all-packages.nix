@@ -17179,6 +17179,8 @@ in
 
   caladea = callPackage ../data/fonts/caladea {};
 
+  canta-theme = callPackage ../data/themes/canta { };
+
   cantarell-fonts = callPackage ../data/fonts/cantarell-fonts { };
 
   capitaine-cursors = callPackage ../data/icons/capitaine-cursors { };
