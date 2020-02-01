@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, libsodium
-, llvmPackages, clang, lzma
+, llvmPackages, clang_39, lzma
 , Security }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     ./v3.1.1-fix-Cargo.lock.patch
   ];
 
-  nativeBuildInputs = [ pkgconfig llvmPackages.libclang clang ];
+  nativeBuildInputs = [ pkgconfig llvmPackages.libclang clang_39 ];
   buildInputs = [ openssl libsodium lzma ]
     ++ (stdenv.lib.optional stdenv.isDarwin Security);
 

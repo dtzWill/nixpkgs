@@ -40,6 +40,5 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms;
       linux;
     license = lib.licenses.gpl3Plus;
-    broken = true;
   };
 }

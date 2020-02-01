@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, gmp4, ncurses, zlib, clang }:
+{ stdenv, fetchurl, gmp4, ncurses, zlib, clang_35 }:
 
 let
   libPath = stdenv.lib.makeLibraryPath
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ln -s ${stdenv.cc.libc}/lib/libpthread.so.0 $out/lib/libpthread.so.0
 
     # Add a clang symlink for easy building with a suitable compiler.
-    ln -s ${clang}/bin/clang $out/bin/saw-clang
+    ln -s ${clang_35}/bin/clang $out/bin/saw-clang
   '';
 
   fixupPhase = ''

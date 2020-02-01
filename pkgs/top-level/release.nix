@@ -75,6 +75,8 @@ let
               jobs.tests.cc-wrapper.x86_64-darwin
               jobs.tests.cc-wrapper-clang.x86_64-darwin
               jobs.tests.cc-wrapper-libcxx.x86_64-darwin
+              jobs.tests.cc-wrapper-clang-39.x86_64-darwin
+              jobs.tests.cc-wrapper-libcxx-39.x86_64-darwin
               jobs.tests.stdenv-inputs.x86_64-darwin
               jobs.tests.macOSSierraShared.x86_64-darwin
               jobs.tests.patch-shebangs.x86_64-darwin
@@ -113,6 +115,10 @@ let
 
               jobs.tests.cc-wrapper-clang.x86_64-linux
               jobs.tests.cc-wrapper-libcxx.x86_64-linux
+              jobs.tests.cc-wrapper-clang-39.x86_64-linux
+              jobs.tests.cc-wrapper-libcxx-39.x86_64-linux
+              jobs.tests.cc-wrapper-clang-4.x86_64-linux
+              jobs.tests.cc-wrapper-libcxx-4.x86_64-linux
               jobs.tests.cc-wrapper-clang-5.x86_64-linux
               jobs.tests.cc-wrapper-libcxx-5.x86_64-linux
               jobs.tests.cc-wrapper-clang-6.x86_64-linux
@@ -142,6 +148,10 @@ let
               # jobs.tests.cc-wrapper-gcc8.x86_64-darwin
               jobs.tests.cc-wrapper-clang.x86_64-darwin
               jobs.tests.cc-wrapper-libcxx.x86_64-darwin
+              jobs.tests.cc-wrapper-clang-39.x86_64-darwin
+              jobs.tests.cc-wrapper-libcxx-39.x86_64-darwin
+              jobs.tests.cc-wrapper-clang-4.x86_64-darwin
+              jobs.tests.cc-wrapper-libcxx-4.x86_64-darwin
               jobs.tests.cc-wrapper-clang-5.x86_64-darwin
               jobs.tests.cc-wrapper-libcxx-6.x86_64-darwin
               jobs.tests.cc-wrapper-clang-6.x86_64-darwin
