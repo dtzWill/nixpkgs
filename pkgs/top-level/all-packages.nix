@@ -5269,12 +5269,13 @@ in
 
   networkmanager-sstp = callPackage ../tools/networking/network-manager/sstp { };
 
-  networkmanager_strongswan = callPackage ../tools/networking/network-manager/strongswan.nix { };
+  networkmanager_strongswan = callPackage ../tools/networking/network-manager/strongswan { };
 
-  networkmanagerapplet = callPackage ../tools/networking/network-manager/applet.nix { };
+  networkmanagerapplet = callPackage ../tools/networking/network-manager/applet { };
+
   libnma = callPackage ../tools/networking/network-manager/libnma.nix { };
 
-  networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu.nix  { };
+  networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu  { };
 
   nm-tray = libsForQt5.callPackage ../tools/networking/network-manager/tray.nix { };
 
