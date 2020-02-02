@@ -476,6 +476,10 @@ self: super: {
     };
   });
 
+  lf-vim = super.lf-vim.overrideAttrs(old: {
+    dependencies = with super; [ bclose-vim ];
+  });
+
   vim-stylish-haskell = super.vim-stylish-haskell.overrideAttrs (old: {
     postPatch = old.postPatch or "" + ''
       substituteInPlace ftplugin/haskell/stylish-haskell.vim --replace \

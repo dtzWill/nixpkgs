@@ -360,6 +360,7 @@ ponko2/deoplete-fish
 posva/vim-vue
 powerman/vim-plugin-AnsiEsc
 PProvost/vim-ps1
+ptzz/lf.vim
 prettier/vim-prettier
 prabirshrestha/async.vim
 prabirshrestha/asyncomplete-lsp.vim
