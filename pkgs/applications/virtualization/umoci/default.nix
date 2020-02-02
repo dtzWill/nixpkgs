@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "umoci";
-  version = "0.4.4";
+  version = "0.4.5";
 
   goPackagePath = "github.com/openSUSE/umoci";
 
@@ -10,7 +10,7 @@ buildGoPackage rec {
     owner = "openSUSE";
     repo = "umoci";
     rev = "v${version}";
-    sha256 = "1mmk9y6xk0qk5rgysmm7x16b025zzwa2sd13jd32drd48scai2dw";
+    sha256 = "1gzj4nnys73wajdwjn5jsskvnhzh8s2vmyl76ax8drpvw19bd5g3";
   };
 
   meta = with stdenv.lib; {
