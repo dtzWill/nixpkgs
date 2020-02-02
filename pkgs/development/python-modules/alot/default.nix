@@ -7,8 +7,7 @@
 
 buildPythonPackage rec {
   pname = "alot";
-#  version = "0.8.1";
-  version = "unstable-2019-09-06";
+  version = "0.9.0";
   outputs = [ "out" ] ++ lib.optional withManpage "man";
 
   disabled = !isPy3k;
@@ -16,8 +15,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pazz";
     repo = "alot";
-    rev = "244180d52f4ace8181bb288e77402c766ad620c1";
-    sha256 = "0jr3h7m6k670ar3fxp0ak2wkhwcw2mr82jgbbzj6qdk9pdq7v23g";
+    rev = version;
+    sha256 = "error: cannot download source from any mirror";
   };
 
   nativeBuildInputs = lib.optional withManpage sphinx;
