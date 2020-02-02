@@ -6,11 +6,11 @@
 
 mkDerivation rec {
   pname = "yubioath-desktop";
-  version = "5.0.0";
+  version = "5.0.2";
 
   src = fetchurl {
     url = "https://developers.yubico.com/yubioath-desktop/Releases/yubioath-desktop-${version}.tar.gz";
-    sha256 = "1dvl8dj09vwh3k324dpmsvrbidrgvsryhjyaj0589m4m8kcqdm1f";
+    sha256 = "19ingk0ab88a22s04apcw8kx9xygxlbk8kp4xnb8pmf8z3k6l2gf";
   };
 
   doCheck = false;
