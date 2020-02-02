@@ -226,6 +226,12 @@ users.users.me =
    <listitem>
     <para>The LLVM versions 3.5, 3.9 and 4 (including the corresponding CLang versions) have been dropped.</para>
    </listitem>
+   <listitem>
+    <para>
+     The <literal>*psu</literal> versions of <package>oraclejdk8</package> have been removed
+     as they aren't provided by upstream anymore.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
