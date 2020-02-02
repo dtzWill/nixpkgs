@@ -10167,8 +10167,6 @@ in
 
   mkdocs = callPackage ../development/tools/documentation/mkdocs { };
 
-  moby = callPackage ../development/tools/misc/moby { };
-
   modd = callPackage ../development/tools/modd { };
 
   msgpack-tools = callPackage ../development/tools/msgpack-tools { };
