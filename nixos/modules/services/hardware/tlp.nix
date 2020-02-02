@@ -21,7 +21,6 @@ confFile = pkgs.runCommand "tlp"
     preferLocalBuild = true;
   }
   ''
-    cat ${tlp}/etc/default/tlp > $out
     cat $configPath >> $out
   '';
 
@@ -106,7 +105,7 @@ in
 
     environment.etc =
       {
-        "default/tlp".source = confFile;
+        "tlp.conf".source = confFile;
       } // optionalAttrs enableRDW {
         "NetworkManager/dispatcher.d/99tlp-rdw-nm" = {
           source = "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm";
