@@ -1,1 +1,2 @@
 follow-symlinks.patch
+no-setcap-install.patch
