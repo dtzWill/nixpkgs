@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, hamlib, fltk13, libjpeg, libpng, portaudio, libsndfile,
+{ stdenv, fetchurl, hamlib, fltk14, libjpeg, libpng, portaudio, libsndfile,
   libsamplerate, libpulseaudio, libXinerama, gettext, pkgconfig, alsaLib }:
 
 stdenv.mkDerivation rec {
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jbk03w0wfvd9lxh1wdazim9gwxm1lkhc5xzi3h8ag7h9zx58jq0";
   };
 
-  buildInputs = [ libXinerama gettext hamlib fltk13 libjpeg libpng portaudio
+  buildInputs = [ libXinerama gettext hamlib fltk14 libjpeg libpng portaudio
                   libsndfile libsamplerate libpulseaudio pkgconfig alsaLib ];
 
   meta = {
