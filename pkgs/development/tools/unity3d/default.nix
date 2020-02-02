@@ -18,17 +18,18 @@ let
   ];
   libPath32 = lib.makeLibraryPath [ gcc_32bit.cc ];
   binPath = lib.makeBinPath [ nodejs gnutar ];
+# unityhub://2019.3.0f6/27ab2135bccf
 
-  ver = "2018.3.0";
-  build = "f2";
+  ver = "2019.3.0";
+  build = "f6";
 
 in stdenv.mkDerivation rec {
-  name = "unity-editor-${version}";
+  pname = "unity-editor";
   version = "${ver}x${build}";
 
   src = fetchurl {
-  	url = "https://beta.unity3d.com/download/6e9a27477296/LinuxEditorInstaller/Unity.tar.xz";
-    sha1 = "083imikkrgha5w9sihjvv1m74naxm5yv";
+  	url = "https://beta.unity3d.com/download/27ab2135bccf/LinuxEditorInstaller/Unity.tar.xz";
+    sha256 = "0w47m1vgnsqxj89bvdifv783qqj58m4wmqf08wsndwbfkxa5w87f";
   };
 
   nosuidLib = ./unity-nosuid.c;
