@@ -1,5 +1,6 @@
 907th/vim-auto-save
 adelarsq/vim-hackernews
+ajh17/VimCompletesMe
 airblade/vim-gitgutter
 airblade/vim-rooter
 ajh17/Spacegray.vim
@@ -91,6 +92,7 @@ enomsg/vim-haskellConcealPlus
 ensime/ensime-vim
 ervandew/supertab
 esneider/YUNOcommit.vim
+fannheyward/coc-texlab
 farmergreg/vim-lastplace
 fatih/vim-go
 FelikZ/ctrlp-py-matcher
@@ -199,6 +201,7 @@ kana/vim-textobj-user
 kassio/neoterm
 kchmck/vim-coffee-script
 KeitaNakamura/neodark.vim
+KeitaNakamura/tex-conceal.vim
 keith/swift.vim
 kien/rainbow_parentheses.vim
 konfekt/fastfold
