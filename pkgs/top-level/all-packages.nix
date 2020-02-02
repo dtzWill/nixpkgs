@@ -7475,6 +7475,10 @@ in
 
   yeshup = callPackage ../tools/system/yeshup { };
 
+  ytop = callPackage ../tools/system/ytop {
+    inherit (darwin.apple_sdk.frameworks) IOKit;
+  };
+
   # To expose more packages for Yi, override the extraPackages arg.
   yi = callPackage ../applications/editors/yi/wrapper.nix { };
 
