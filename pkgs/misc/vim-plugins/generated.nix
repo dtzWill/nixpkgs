@@ -587,6 +587,17 @@ let
     };
   };
 
+  coc-texlab = buildVimPluginFrom2Nix {
+    pname = "coc-texlab";
+    version = "2020-02-02";
+    src = fetchFromGitHub {
+      owner = "fannheyward";
+      repo = "coc-texlab";
+      rev = "bece8cec85baeb9e1949ed184e4c2aa03ad3974e";
+      sha256 = "02rj40agk52h39nqcg764cbfwdnq74k9igpz0ka4vgib62vvsl7k";
+    };
+  };
+
   coc-tslint = buildVimPluginFrom2Nix {
     pname = "coc-tslint";
     version = "2019-07-03";
@@ -2913,6 +2924,17 @@ let
       repo = "tern_for_vim";
       rev = "994ffbe783da36d67786b6c66a4bf784c5eab300";
       sha256 = "0vpi5lqlyf6kcc0ha8hf3ch2h8v3awidgpwbrv9f3bqvyg4yhdcd";
+    };
+  };
+
+  tex-conceal-vim = buildVimPluginFrom2Nix {
+    pname = "tex-conceal-vim";
+    version = "2016-10-15";
+    src = fetchFromGitHub {
+      owner = "KeitaNakamura";
+      repo = "tex-conceal.vim";
+      rev = "801af0d86035556f5d39aedd56d4206deed683e0";
+      sha256 = "0j7gfcgxdnw1p5n5nafxq8a5yj7y604jslw923xjzy6lqd6riwcl";
     };
   };
 
@@ -5841,6 +5863,17 @@ let
       repo = "vimagit";
       rev = "bf7b16e99e075b019e56f2fbfb96c493ca3635e2";
       sha256 = "1f7gvlhrvvkf69y5vfrkvidhx8aa03n1aqmdhk9qjd6sglfg5w0i";
+    };
+  };
+
+  VimCompletesMe = buildVimPluginFrom2Nix {
+    pname = "VimCompletesMe";
+    version = "2019-10-08";
+    src = fetchFromGitHub {
+      owner = "ajh17";
+      repo = "VimCompletesMe";
+      rev = "15156a8939d7eae0bfb2b80ff06999aecb48c124";
+      sha256 = "0bzg7gj74nhwcb2ahp1wz60dgh1z7iq54lj16hr9pkbl61w50lbq";
     };
   };
 
