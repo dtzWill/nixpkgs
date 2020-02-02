@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "joypixels";
-  version = "5.0.2";
+  version = "5.0.3";
 
   src = fetchurl {
     url = "https://cdn.joypixels.com/arch-linux/font/${version}/joypixels-android.ttf";
-    sha256 = "0javgnfsh2nfddr5flf4yzi81ar8wx2z8w1q7h4fvdng5fsrgici";
+    sha256 = "14dh6xzxr5qv635v2dvj6a7lndxgjd88i3c1s1kn2hr8z0bxqav2";
   };
 
   dontUnpack = true;

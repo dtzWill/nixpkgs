@@ -16,13 +16,13 @@
 
 buildPythonPackage rec {
   pname = "wfuzz";
-  version = "2.4.2";
+  version = "2.4.5";
 
   src = fetchFromGitHub {
     owner = "xmendez";
     repo = pname;
-    rev = "v.${version}";
-    sha256 = "15dihrc7jsvpxcmb4fp254s633mkjm7ksjfkr9pqaai49qmnddyf";
+    rev = "v${version}";
+    sha256 = "03iswnffq9dx8n2b5xp4l2v9wchy4g20w3iaqmw883br6wcl7vdd";
   };
 
   buildInputs = [ pyparsing configparser ];

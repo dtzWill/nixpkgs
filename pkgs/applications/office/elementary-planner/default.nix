@@ -2,31 +2,25 @@
 , meson, ninja, pkgconfig, appstream-glib, desktop-file-utils
 , python3, vala, wrapGAppsHook
 , evolution-data-server
-, libunity
 , libical
 , libgee
 , json-glib
-, geoclue2
 , sqlite
 , libsoup
 , gtk3
 , pantheon /* granite, schemas */
-, discount /* libmarkdown */
-, gtksourceview3
 , webkitgtk
 , appstream
 }:
 
 stdenv.mkDerivation rec {
-  pname = "planner";
-  #version = "unstable-2019-11-14";
-  version = "2.0.8";
+  pname = "elementary-planner";
+  version = "2.1.1";
   src = fetchFromGitHub {
     owner = "alainm23";
-    repo = pname;
-    #rev = "a11808a528cacb453fc945bcc1c382d8f4ecfcce";
+    repo = "planner";
     rev = version;
-    sha256 = "1im8vxparazmp7bpq3q9k93c42rb3pvb7i5mzhna61482rf1i08y";
+    sha256 = "0swj94pqf00wwzsgjap8z19k33gg1wj2b78ba1aj9h791j8lmaim";
   };
 
   nativeBuildInputs = [
@@ -42,30 +36,32 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     evolution-data-server
-    libunity
     libical
+    libgee
     json-glib
-    geoclue2
     sqlite
     libsoup
     gtk3
-    libgee
     pantheon.granite
-    discount
-    gtksourceview3
     webkitgtk
     appstream
     pantheon.elementary-gsettings-schemas
+    pantheon.elementary-icon-theme
   ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py
     patchShebangs build-aux/meson/post_install.py
+
+    # Fix version string not updated in this release.
+    # (please check if still needed when updating!)
+    substituteInPlace src/Dialogs/Preferences.vala \
+      --replace v2.0.8 v${version}
   '';
 
   meta = with stdenv.lib; {
     description = "Task and project manager designed to elementary OS";
-    homepage = https://github.com/alainm23/planner;
+    homepage = "https://planner-todo.web.app";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
   };

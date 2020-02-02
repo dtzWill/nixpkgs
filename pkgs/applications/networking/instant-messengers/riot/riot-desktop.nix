@@ -1,4 +1,4 @@
-{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron_5, riot-web, mkYarnPackage }:
+{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron_7, riot-web, mkYarnPackage }:
 
 # Notes for maintainers:
 # * versions of `riot-web` and `riot-desktop` should be kept in sync.
@@ -6,12 +6,12 @@
 
 let
   executableName = "riot-desktop";
-  version = "1.5.6";
+  version = "1.5.8";
   riot-web-src = fetchFromGitHub {
     owner = "vector-im";
     repo = "riot-web";
     rev = "v${version}";
-    sha256 = "148rg6wc84xy53bj16v5riw78s999ridid59x6v9jas827l0bdpk";
+    sha256 = "1ygyk9bv0h9kcv5s2klqrmnbz11ay5iq4l0g0g2rv60b795kxs2h";
   };
 
 in mkYarnPackage rec {
@@ -29,9 +29,8 @@ in mkYarnPackage rec {
     # resources
     mkdir -p "$out/share/riot"
     ln -s '${riot-web}' "$out/share/riot/webapp"
-    cp -r '${riot-web-src}/origin_migrator' "$out/share/riot/origin_migrator"
-    cp -r './deps/riot-web' "$out/share/riot/electron"
-    cp -r './deps/riot-web/img' "$out/share/riot"
+    cp -r './deps/riot-desktop' "$out/share/riot/electron"
+    cp -r './deps/riot-desktop/img' "$out/share/riot"
     rm "$out/share/riot/electron/node_modules"
     cp -r './node_modules' "$out/share/riot/electron"
 
@@ -46,7 +45,7 @@ in mkYarnPackage rec {
     ln -s "${desktopItem}/share/applications" "$out/share/applications"
 
     # executable wrapper
-    makeWrapper '${electron_5}/bin/electron' "$out/bin/${executableName}" \
+    makeWrapper '${electron_7}/bin/electron' "$out/bin/${executableName}" \
       --add-flags "$out/share/riot/electron"
   '';
 
@@ -79,6 +78,6 @@ in mkYarnPackage rec {
     homepage = https://about.riot.im/;
     license = licenses.asl20;
     maintainers = with maintainers; [ pacien worldofpeace ];
-    inherit (electron_5.meta) platforms;
+    inherit (electron_7.meta) platforms;
   };
 }

@@ -2,19 +2,23 @@
 
 stdenv.mkDerivation rec {
   name = "sct";
+  version = "0.5";
 
   src = fetchurl {
-    url = http://www.tedunangst.com/flak/files/sct.c;
-    sha256 = "01f3ndx3s6d2qh2xmbpmhd4962dyh8yp95l87xwrs4plqdz6knhd";
+    url = "https://www.umaxx.net/dl/sct-${version}.tar.gz";
+    sha256 = "0lrhx771iccbw04wrhj0ygids1pzmjfc4hvklm30m3p3flvhqf0m";
   };
 
-  unpackPhase = "cat ${src} > sct.c";
-  patches = [ ./DISPLAY-segfault.patch ];
-
   buildInputs = [ libX11 libXrandr ];
-  buildPhase = "cc sct.c -o sct -lm -lX11 -lXrandr";
 
-  installPhase = "install -Dt $out/bin sct";
+  makeFlags = [
+    "CC=cc"
+    "PREFIX=${placeholder "out"}"
+  ];
+
+  preInstall = ''
+    mkdir -p $out/bin $out/share/man/man1
+  '';
 
   meta = with stdenv.lib; {
     homepage = https://www.tedunangst.com/flak/post/sct-set-color-temperature;

@@ -56,6 +56,7 @@ mapAliases ({
   buildPerlPackage = perlPackages.buildPerlPackage; # added 2018-10-12
   bundler_HEAD = bundler; # added 2015-11-15
   cantarell_fonts = cantarell-fonts; # added 2018-03-03
+  catfish = xfce.catfish; # added 2019-12-22
   checkbashism = checkbashisms; # added 2016-08-16
   cifs_utils = cifs-utils; # added 2016-08
   ckb = ckb-next; # added 2018-10-21
@@ -209,6 +210,7 @@ mapAliases ({
   man_db = man-db; # added 2016-05
   manpages = man-pages; # added 2015-12-06
   mariadb-client = hiPrio mariadb.client; #added 2019.07.28
+  matrique = spectral; # added 2020.01.27
   mess = mame; # added 2019-10-30
   mysql-client = hiPrio mariadb.client;
   memtest86 = memtest86plus; # added 2019-05-08
@@ -419,6 +421,9 @@ mapAliases ({
   xbmcPlugins = kodiPlugins; # added 2018-04-25
   xmonad_log_applet_gnome3 = xmonad_log_applet; # added 2018-05-01
   xf86_video_nouveau = xorg.xf86videonouveau; # added 2015-09
+  xf86_input_mtrack = throw ("xf86_input_mtrack has been removed from nixpkgs as it hasn't been maintained"
+    + "and is broken. Working alternatives are libinput and synaptics.");
+  xf86_input_multitouch = throw "xf86_input_multitouch has been removed from nixpkgs."; # added 2020-01-20
   xlibs = xorg; # added 2015-09
   xpraGtk3 = xpra; # added 2018-09-13
   youtubeDL = youtube-dl;  # added 2014-10-26
@@ -480,4 +485,21 @@ mapAliases ({
   tor-browser-bundle = throw "tor-browser-bundle was removed because it was out of date and inadequately maintained. Please use tor-browser-bundle-bin instead. See #77452.";
   # added 2020-01-10
   tor-browser-unwrapped = throw "tor-browser-unwrapped was removed because it was out of date and inadequately maintained. Please use tor-browser-bundle-bin instead. See #77452.";
+
+    /* Cleanup before 20.09 */
+  llvm_4 = throw ''
+    The LLVM versions 3.5, 3.9 and 4.0 have been removed in NixOS 20.03
+    due to a lack of compatibility with glibc 2.30!
+  '';
+  llvm_39 = llvm_4;
+  llvm_35 = llvm_4;
+  lld_4 = llvm_4;
+
+  llvmPackages_4 = llvm_4;
+  llvmPackages_39 = llvm_4;
+  llvmPackages_35 = llvm_4;
+
+  clang_39 = llvm_4;
+  clang_35 = llvm_4;
+  clang_4 = llvm_4;
 })

@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, cmake, irrlicht, libpng, bzip2, curl, libogg, jsoncpp
 , libjpeg, libXxf86vm, libGLU, libGL, openal, libvorbis, sqlite, luajit
-, freetype, gettext, doxygen, ncurses, graphviz, xorg
+, freetype, gettext, doxygen, ncurses, graphviz, xorg, gmp, libspatialindex
 , leveldb, postgresql, hiredis
 }:
 
@@ -45,6 +45,7 @@ let
 
     buildInputs = [
       irrlicht luajit jsoncpp gettext freetype sqlite curl bzip2 ncurses
+      gmp libspatialindex
     ] ++ optionals buildClient [
       libpng libjpeg libGLU libGL openal libogg libvorbis xorg.libX11 libXxf86vm
     ] ++ optional buildServer [

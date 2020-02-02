@@ -15,13 +15,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "tlp";
-  version = "1.2.2";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "linrunner";
     repo = "TLP";
     rev = version;
-    sha256 = "0vm31ca6kdak9xzwskz7a8hvdp67drfh2zcdwlz3260r8r2ypgg1";
+    sha256 = "1bgx9psgx9izvhi0y76ayik6ymxsbj3rb9a0y4l1sxx1b4smixg8";
   };
 
   outRef = placeholder "out";
@@ -37,6 +37,7 @@ in stdenv.mkDerivation rec {
     "TLP_SHCPL=${outRef}/share/bash-completion/completions"
     "TLP_MAN=${outRef}/share/man"
     "TLP_META=${outRef}/share/metainfo"
+    "TLP_CONFDEF=${outRef}/share/tlp/defaults.conf"
 
     "TLP_NO_INIT=1"
   ];

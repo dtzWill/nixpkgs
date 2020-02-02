@@ -1,16 +1,16 @@
 { stdenv, mkDerivation, lib, fetchzip, cmake, pkgconfig
 , alsaLib, freetype, libjack2, lame, libogg, libpulseaudio, libsndfile, libvorbis
 , portaudio, portmidi, qtbase, qtdeclarative, qtscript, qtsvg, qttools
-, qtwebengine, qtxmlpatterns
+, qtwebengine, qtxmlpatterns, qtquickcontrols2
 }:
 
 mkDerivation rec {
-  name = "musescore-${version}";
-  version = "3.0.5";
+  pname = "musescore";
+  version = "3.4.1";
 
   src = fetchzip {
-    url = "https://download.musescore.com/releases/MuseScore-${version}/MuseScore-${version}.zip";
-    sha256 = "1pbf6v0l3nixxr8k5igwhj09wnqvw92av6q6yjrbb3kyjh5br2d8";
+    url = "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.zip";
+    sha256 = "01i1c79blg0a04qkvm2czds5zxgvg5lq7mx69k24zxs08r319lbg";
     stripRoot = false;
   };
 
@@ -27,6 +27,7 @@ mkDerivation rec {
     alsaLib libjack2 freetype lame libogg libpulseaudio libsndfile libvorbis
     portaudio portmidi # tesseract
     qtbase qtdeclarative qtscript qtsvg qttools qtwebengine qtxmlpatterns
+    qtquickcontrols2
   ];
 
   meta = with stdenv.lib; {

@@ -4,24 +4,30 @@
 , gobject-introspection, modemmanager, openresolv, libndp, newt, libsoup
 , ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
 , docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
-, fetchFromGitHub
+, fetchFromGitHub, linkFarm
 , mobile-broadband-provider-info
 , openconnect, curl, meson, ninja, libpsl, libredirect }:
 
 let
   pname = "NetworkManager";
   pythonForDocs = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  # Provide ipv4-only and ipv6-only "ping" utilities
+  # (iputils ping infers `-4` and `-6` from argv[0])
+  ping46 = linkFarm "ping46" [
+    { name = "bin/ping4"; path = "${iputils}/bin/ping"; }
+    { name = "bin/ping6"; path = "${iputils}/bin/ping"; }
+  ];
 in stdenv.mkDerivation rec {
   inherit pname;
 #  version = "1.19.5-dev"; # 2019-07-22
-  version = "unstable-2020-01-25";
+  version = "unstable-2020-01-31";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "b9820162f28df2816e2ae914d02f904bbae731e2";
-    sha256 = "11ri2yh542n0r3l157b6m9s5pymfqg5j74572gni5fwvhrl3b5r4";
+    rev = "3d03900e910cb3d9c0af5e27104d6a4748f8e0b8";
+    sha256 = "0wvzcr94msawvlk4r7c8508305xzlw6758vc1iz8bqmsn1qvhknw";
   };
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -69,7 +75,7 @@ in stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      inherit iputils kmod openconnect ethtool gnused systemd;
+      inherit ping46 kmod openconnect ethtool gnused systemd;
       inherit (stdenv) shell;
     })
 

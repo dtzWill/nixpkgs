@@ -98,13 +98,13 @@ let
     ./env_var_for_system_dir.patch
     ./firefox-68.0.2-system_graphite2_harfbuzz-1.patch
   ]
-  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "68.3.0") [
+  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "68.3.0")
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
       name = "write_error-parallel_make.diff";
       url = "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";
       sha256 = "11d7rgzinb4mwl7yzhidjkajynmxgmffr4l9isgskfapyax9p88y";
     })
-  ] ++ lib.optionals (stdenv.isAarch64 && lib.versionAtLeast ffversion "66" && lib.versionOlder ffversion "67") [
+  ++ lib.optionals (stdenv.isAarch64 && lib.versionAtLeast ffversion "66" && lib.versionOlder ffversion "67") [
     (fetchpatch {
       url = "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
       sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
@@ -166,12 +166,15 @@ stdenv.mkDerivation (rec {
                                      AVFoundation MediaToolbox CoreLocation
                                      Foundation libobjc AddressBook cups ];
 
-  NIX_CFLAGS_COMPILE = [
+  NIX_CFLAGS_COMPILE = toString ([
     "-I${glib.dev}/include/gio-unix-2.0"
   ]
   ++ lib.optionals (!isTorBrowserLike) [
     "-I${nss.dev}/include/nss"
-  ];
+  ]
+  ++ lib.optional (pname == "firefox-esr" && lib.versionAtLeast ffversion "68"
+                                          && lib.versionOlder ffversion "69")
+    "-Wno-error=format-security");
 
   postPatch = lib.optionalString (lib.versionAtLeast ffversion "63.0" && !isTorBrowserLike) ''
     substituteInPlace third_party/prio/prio/rand.c --replace 'nspr/prinit.h' 'prinit.h'
@@ -183,13 +186,12 @@ stdenv.mkDerivation (rec {
     [ autoconf213 which gnused pkgconfig perl python2 cargo rustc
       unzip zip makeWrapper file yasm
       # nspr-config :(
-      nspr nss
+      # nspr nss
     ]
     ++ lib.optional gtk3Support wrapGAppsHook
     ++ lib.optionals stdenv.isDarwin [ xcbuild rsync ]
-    ++ lib.optional  (lib.versionAtLeast ffversion "61.0") [ python3 ]
+    ++ lib.optional  (lib.versionAtLeast ffversion "61.0") python3
     ++ lib.optionals (lib.versionAtLeast ffversion "63.0") [ rust-cbindgen nodejs ]
-    ++ lib.optional (lib.versionAtLeast ffversion "66") nasm # XXX: not sure if still useful
     ++ lib.optionals (lib.versionAtLeast ffversion "67.0") [ llvmPackages.llvm ] # llvm-objdump is required in version >=67.0
     ++ extraNativeBuildInputs;
 
@@ -337,6 +339,9 @@ stdenv.mkDerivation (rec {
   ]
   ++ extraMakeFlags;
 
+  RUSTFLAGS = if (lib.versionAtLeast ffversion "67"/*somewhere betwween ESRs*/)
+    then null else "--cap-lints warn";
+
   enableParallelBuilding = true;
   doCheck = false; # "--disable-tests" above
 
@@ -387,5 +392,12 @@ stdenv.mkDerivation (rec {
 # unfortunately we can't just set this to `false` when we do not want it.
 # See https://github.com/NixOS/nixpkgs/issues/77289 for more details
 lib.optionalAttrs (lib.versionAtLeast ffversion "72") {
+  # Ideally we would figure out how to tell the build system to not
+  # care about changed hashes as we are already doing that when we
+  # fetch the sources. Any further modifications of the source tree
+  # is on purpose by some of our tool (or by accident and a bug?).
   dontFixLibtool = true;
+
+  # on aarch64 this is also required
+  dontUpdateAutotoolsGnuConfigScripts = true;
 })

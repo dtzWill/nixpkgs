@@ -8,21 +8,20 @@
 
 stdenv.mkDerivation rec {
   pname = "foliate";
-  version = "1.5.3";
+  version = "e93c98e48f5e306468913627fe3b442484370403";
 
   # Fetch this from gnome mirror if/when available there instead!
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1bjlk9n1j34yx3bvzl95mpb56m2fjc5xcd6yks96pwfyfvjnbp93";
+    sha256 = "0y9vnfkd49hnh4c9m1w97f8m6wndqwcmicx842gp3ynyzc84rvs9";
   };
 
   nativeBuildInputs = [
     meson ninja
     pkgconfig
     gettext
-    python3
     desktop-file-utils
     wrapGAppsHook
     hicolor-icon-theme
@@ -39,6 +38,7 @@ stdenv.mkDerivation rec {
     # TODO: Add once packaged, unclear how language packages best handled
     # hyphen
     dict # dictd for offline dictionary support
+    python3
   ];
 
   doCheck = true;
@@ -59,5 +59,10 @@ stdenv.mkDerivation rec {
       -i $out/bin/com.github.johnfactotum.Foliate
 
     ln -s $out/bin/com.github.johnfactotum.Foliate $out/bin/foliate
+  '' + # for kindle, mobi support
+  ''
+    patchShebangs share/foliate/assets/KindleUnpack/*py
+
+    gappsWrapperArgs+=(--prefix PATH : "${python3}/bin")
   '';
 }

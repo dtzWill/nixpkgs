@@ -1,6 +1,6 @@
 { stdenv, fetchurl
 , pkgconfig, autoreconfHook
-, gmp, python, iptables, ldns, unbound, openssl, pcsclite
+, gmp, python3, iptables, ldns, unbound, openssl, pcsclite, glib
 , openresolv
 , systemd, pam
 , curl
@@ -16,23 +16,23 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name = "strongswan-${version}";
-  version = "5.8.1"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
+  pname = "strongswan";
+  version = "5.8.2"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
 
   src = fetchurl {
-    url = "https://download.strongswan.org/${name}.tar.bz2";
-    sha256 = "034rd6kr1bmnvj8rg2kcxdjb0cgj3dn9310mmm94j1awxan71byr";
+    url = "https://download.strongswan.org/${pname}-${version}.tar.bz2";
+    sha256 = "03j3fx357bh89n44a5v9wdc92azdx2d37j7jmlyr4z1kwzdhv446";
   };
 
   dontPatchELF = true;
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
   buildInputs =
-    [ curl gmp python ldns unbound openssl pcsclite ]
+    [ curl gmp python3 ldns unbound openssl pcsclite ]
     ++ optionals enableTNC [ trousers sqlite libxml2 ]
     ++ optionals stdenv.isLinux [ systemd.dev pam iptables ]
     ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
-    ++ optionals enableNetworkManager [ networkmanager ];
+    ++ optionals enableNetworkManager [ networkmanager glib ];
 
   patches = [
     ./ext_auth-path.patch

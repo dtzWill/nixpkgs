@@ -3,12 +3,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "scummvm-${version}";
-  version = "2.0.0";
+  pname = "scummvm";
+  version = "2.1.1";
 
   src = fetchurl {
-    url = "http://scummvm.org/frs/scummvm/${version}/${name}.tar.xz";
-    sha256 = "0q6aiw97wsrf8cjw9vjilzhqqsr2rw2lll99s8i5i9svan6l314p";
+    url = "http://scummvm.org/frs/scummvm/${version}/${pname}-${version}.tar.xz";
+    sha256 = "1a6waf1ybp91nwva8g650cljlfb1di4l0jv13vg6yfgkas9pclsp";
   };
 
   nativeBuildInputs = [ nasm ];
@@ -16,6 +16,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     alsaLib curl freetype flac fluidsynth libjpeg libmad libmpeg2 libogg libvorbis libGLU libGL SDL2 zlib
   ];
+
+  dontDisableStatic = true;
 
   enableParallelBuilding = true;
 

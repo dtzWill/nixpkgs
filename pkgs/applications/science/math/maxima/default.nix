@@ -4,7 +4,7 @@
 
 let
   name    = "maxima";
-  version = "5.43.1";
+  version = "5.43.2";
 
   searchPath =
     stdenv.lib.makeBinPath
@@ -16,7 +16,7 @@ stdenv.mkDerivation ({
 
   src = fetchurl {
     url = "mirror://sourceforge/${name}/${name}-${version}.tar.gz";
-    sha256 = "0f07fjbw1awvgyr0aq5lhk0qy86fxhivavqwzpai9jyqv5zibija";
+    sha256 = "1fvpzgrdxznzmc2w35757bb6kn63zd26xbxq39i974jccy6fqy7a";
   };
 
   nativeBuildInputs = [ autoreconfHook ];

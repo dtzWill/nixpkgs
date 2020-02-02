@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ stdenv, fetchgit, lib }:
 
 stdenv.mkDerivation rec {
   pname = "firmware-linux-nonfree";
@@ -6,8 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-    rev = "refs/tags/${builtins.replaceStrings ["-"][""] version}";
-    #rev = "c62c3c26a5e77585e20e1b2b0f10976c36d4e910";
+    rev = lib.replaceStrings ["-"] [""] version;
     sha256 = "0256p99bqwf1d1s6gqnzpjcdmg6skcp1jzz64sd1p29xxrf0pzfa";
   };
 

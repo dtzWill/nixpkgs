@@ -58,6 +58,8 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   #### APPLICATIONS
 
+  catfish = callPackage ./applications/catfish { };
+
   gigolo = callPackage ./applications/gigolo { };
 
   mousepad = callPackage ./applications/mousepad { };

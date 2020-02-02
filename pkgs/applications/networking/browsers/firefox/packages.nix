@@ -16,10 +16,10 @@ in
 rec {
   firefox = common rec {
     pname = "firefox";
-    ffversion = "72.0";
+    ffversion = "72.0.2";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${ffversion}/source/firefox-${ffversion}.source.tar.xz";
-      sha512 = "3ri375myxn040avylz3xdvbgyb0ixn0q1sszrsc4b9jp620j1732qixylw0lyfym5a0vkhpmihbp5kdjrmc4r26myjar5c9zjzisnd0";
+      sha512 = "13l23p2dqsf2cpdzaydqqq4kbxlc5jxggz9r2i49avn4q9bqx036zvsq512q1hk37bz2bwq8zdr0530s44zickinls150xq14kq732d";
     };
 
     patches = [
@@ -31,6 +31,7 @@ rec {
       homepage = http://www.mozilla.com/en-US/firefox/;
       maintainers = with lib.maintainers; [ eelco andir ];
       platforms = lib.platforms.unix;
+      badPlatforms = lib.platforms.darwin;
       license = lib.licenses.mpl20;
     };
     updateScript = callPackage ./update.nix {
@@ -88,6 +89,7 @@ rec {
 
     meta = firefox.meta // {
       description = "A web browser built from Firefox Extended Support Release source tree";
+      knownVulnerabilities = [ "Support ended around October 2019." ];
     };
     updateScript = callPackage ./update.nix {
       attrPath = "firefox-esr-60-unwrapped";
@@ -98,10 +100,10 @@ rec {
 
   firefox-esr-68 = common rec {
     pname = "firefox-esr";
-    ffversion = "68.4.0esr";
+    ffversion = "68.4.2esr";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${ffversion}/source/firefox-${ffversion}.source.tar.xz";
-      sha512 = "29h0fm929jrk9nbb40bajf6a6s4x9w8zc2qw1hrg5jki1pabx30wdgn372pb51ak371a0q59k8p1vab6j31q7par6xvpwh7aiydfq04";
+      sha512 = "1n7ssx4w5b822bq8zcv6vsy5ph1xjyj9qh6zbnknym5bc0spzk19nrkrpl8a2m26z6xj2lgw1n19gjf4ab6jpfxv3cqq4qwmm0v2fz1";
     };
 
     patches = [
@@ -158,7 +160,7 @@ rec {
     };
   });
 
-in rec {
+in {
 
   icecat = iccommon rec {
     ffversion = "60.3.0";
@@ -173,6 +175,7 @@ in rec {
       ./no-buildconfig.patch
       missing-documentation-patch
     ];
+    meta.knownVulnerabilities = [ "Support ended around October 2019." ];
   };
 
   # Similarly to firefox-esr-52 above.
