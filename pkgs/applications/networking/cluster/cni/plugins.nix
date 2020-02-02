@@ -10,7 +10,7 @@ buildGoPackage rec {
     sha256 = "02kz6y3klhbriybsskn4hmldwli28cycnp2klsm2x0y9c73iczdp";
   };
 
-  goDeps = ./plugins-deps.nix;
+  # goDeps = ./plugins-deps.nix;
   goPackagePath = "github.com/containernetworking/plugins";
   subPackages = [
     "plugins/meta/bandwidth"
