@@ -37,6 +37,7 @@ in stdenv.mkDerivation rec {
     "TLP_SHCPL=${outRef}/share/bash-completion/completions"
     "TLP_MAN=${outRef}/share/man"
     "TLP_META=${outRef}/share/metainfo"
+    "TLP_CONFDEF=${outRef}/share/tlp/defaults.conf"
 
     "TLP_NO_INIT=1"
   ];
