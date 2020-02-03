@@ -15,12 +15,12 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-planner";
-  version = "f60b5c49d160b12c8e1cd4aea283e7603762775d";
+  version = "unstable-2020-02-02";
 
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = version;
+    rev = "f60b5c49d160b12c8e1cd4aea283e7603762775d";
     sha256 = "176plm17g4lg3aq08b7fc381f6cg4halb7292z4b3icnajbbwvhh";
   };
 
