@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, buildGoModule, wireshark-cli }:
+{ stdenv, fetchFromGitHub, makeWrapper, buildGoModule, wireshark-cli, ncurses }:
 
 buildGoModule rec {
   pname = "termshark";
@@ -17,7 +17,7 @@ buildGoModule rec {
   modSha256 = "0lp4gky76di7as78421p3lsirfr7mic3z204ildvj6gf6d15svpr";
 
   postFixup = ''
-    wrapProgram $out/bin/termshark --prefix PATH : ${stdenv.lib.makeBinPath [ wireshark-cli ]}
+    wrapProgram $out/bin/termshark --prefix PATH : ${stdenv.lib.makeBinPath [ wireshark-cli ncurses.dev ]}
   '';
 
   buildFlagsArray = ''
