@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme }:
+{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme, utillinux }:
 
 stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
@@ -24,7 +24,15 @@ stdenv.mkDerivation rec {
     #echo "MCFLAGS += --opt-space --parallel --stack-segments" > src/Mercury.params
   #  echo "MCFLAGS += --intermod-opt -O6 --verbose --no-libgrade --libgrade asm_fast.gc" > src/Mercury.params
 
-  makeFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
+  buildFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
+
+  doCheck = true;
+
+  checkInputs = [ utillinux /* rev */ ];
+
+  checkPhase = ''
+    make -C tests
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
