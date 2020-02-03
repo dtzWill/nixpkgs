@@ -24,6 +24,10 @@ in stdenv.mkDerivation rec {
     sha256 = "1bgx9psgx9izvhi0y76ayik6ymxsbj3rb9a0y4l1sxx1b4smixg8";
   };
 
+  patches = [
+    ./balance_power.patch
+  ];
+
   outRef = placeholder "out";
 
   makeFlags = [
