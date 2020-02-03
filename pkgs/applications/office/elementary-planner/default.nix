@@ -48,6 +48,8 @@ stdenv.mkDerivation rec {
     pantheon.elementary-icon-theme
   ];
 
+  patches = [ ./dont-force-elementary-themes.patch ];
+
   postPatch = ''
     chmod +x build-aux/meson/post_install.py
     patchShebangs build-aux/meson/post_install.py

@@ -1,0 +1,27 @@
+From 1705300b7e18eb11b18772a41364b7104e9f7fb1 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 3 Feb 2020 03:02:37 -0600
+Subject: [PATCH] Disable setting themes to elementary
+
+---
+ src/Application.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/Application.vala b/src/Application.vala
+index 1a21e49..449f1c9 100644
+--- a/src/Application.vala
++++ b/src/Application.vala
+@@ -116,8 +116,8 @@ public class Planner : Gtk.Application {
+ 
+         utils.apply_theme_changed ();
+ 
+-        Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
+-        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
++        // Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
++        // Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+     }
+ 
+     public override int command_line (ApplicationCommandLine command_line) {
+-- 
+2.25.0.2
+
