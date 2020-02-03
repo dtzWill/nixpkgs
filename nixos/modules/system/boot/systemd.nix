@@ -698,6 +698,16 @@ in
       '';
     };
 
+    systemd.sleep.extraConfig = mkOption {
+      default = "";
+      type = types.lines;
+      example = "HibernateDelaySec=1h";
+      description = ''
+        Extra config options for systemd sleep state logic.
+        See sleep.conf.d(5) man page for available options.
+      '';
+    };
+
     systemd.user.extraConfig = mkOption {
       default = "";
       type = types.lines;
@@ -864,6 +874,7 @@ in
 
       "systemd/sleep.conf".text = ''
         [Sleep]
+        ${config.systemd.sleep.extraConfig}
       '';
 
       # install provided sysctl snippets
