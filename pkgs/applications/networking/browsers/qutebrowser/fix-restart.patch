@@ -1,7 +1,7 @@
-diff --git a/qutebrowser/app.py b/qutebrowser/app.py
+diff --git a/qutebrowser/misc/quitter.py b/qutebrowser/misc/quitter.py
 index a47b5d2f4..f23ee23ef 100644
---- a/qutebrowser/app.py
-+++ b/qutebrowser/app.py
+--- a/qutebrowser/misc/quitter.py
++++ b/qutebrowser/misc/quitter.py
 @@ -573,13 +573,8 @@ class Quitter(QObject):
          Return:
              The commandline as a list of strings.
