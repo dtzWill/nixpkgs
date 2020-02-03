@@ -17592,6 +17592,7 @@ in
   polytopes_db = callPackage ../data/misc/polytopes_db { };
 
   pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
+  pop-icon-theme = callPackage ../data/icons/pop { };
 
   posix_man_pages = callPackage ../data/documentation/man-pages-posix { };
 
