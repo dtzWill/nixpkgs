@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme, utillinux }:
+{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme, utillinuxMinimal }:
 
 stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkInputs = [ utillinux /* rev */ ];
+  checkInputs = [ utillinuxMinimal /* rev */ ];
 
   checkPhase = ''
     make -C tests
