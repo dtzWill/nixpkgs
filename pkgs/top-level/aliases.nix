@@ -223,6 +223,7 @@ mapAliases ({
   midoriWrapper = midori; # added 2015-01
   mlt-qt5 = libsForQt5.mlt;  # added 2015-12-19
   mobile_broadband_provider_info = mobile-broadband-provider-info; # added 2018-02-25
+  moby = linuxkit; # added 2020-02-02
   module_init_tools = kmod; # added 2016-04-22
   mozart = mozart2-binary; # added 2019-09-23
   mozart-binary = mozart2-binary; # added 2019-09-23
@@ -256,6 +257,7 @@ mapAliases ({
   opensans-ttf = open-sans; # added 2018-12-04
   openssh_with_kerberos = openssh; # added 2018-01-28
   osquery = throw "osquery has been removed."; # added 2019-11-24
+  otter-browser = throw "otter-browser has been removed from nixpkgs, as it was unmaintained"; # added 2020-02-02
   owncloudclient = owncloud-client;  # added 2016-08
   p11_kit = p11-kit; # added 2018-02-25
   parquet-cpp = arrow-cpp; # added 2018-09-08
@@ -502,4 +504,13 @@ mapAliases ({
   clang_39 = llvm_4;
   clang_35 = llvm_4;
   clang_4 = llvm_4;
+
+  /* Cleanup before 20.09 */
+  oraclejdk8psu = throw ''
+    The *psu versions of oraclejdk aren't provided by upstream anymore and were therefore removed!
+  '';
+  oraclejre8psu = oraclejdk8psu;
+  oraclejdk8psu_distro = oraclejdk8psu;
+
+  dnscrypt-proxy = throw "dnscrypt-proxy has been removed. Please use dnscrypt-proxy2."; # added 2020-02-02
 })

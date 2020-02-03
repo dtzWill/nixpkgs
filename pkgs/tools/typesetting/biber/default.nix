@@ -40,6 +40,7 @@ perlPackages.buildPerlModule rec {
     ClassAccessor TextCSV TextCSV_XS TextRoman DataUniqid LinguaTranslit SortKey
     TestDifferences
     PerlIOutf8_strict
+    ParseRecDescent
   ];
   nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin shortenPerlShebang;
 

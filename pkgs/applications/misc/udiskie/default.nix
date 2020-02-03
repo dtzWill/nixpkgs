@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "udiskie";
-  version = "2.0.4";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "coldfix";
     repo = "udiskie";
     rev = version;
-    sha256 = "0xhhs4mpbli9fh9c9rrwkri4byjwsxcy3yzlk1ryl99kdpcqk4d2";
+    sha256 = "1d8fz0jrnpgldvdwpl27az2kjhpbcjd8nqn3qc2v6682q12p3jqb";
   };
 
   nativeBuildInputs = [

@@ -1064,6 +1064,8 @@ in
 
   azureus = callPackage ../tools/networking/p2p/azureus { };
 
+  b3sum = callPackage ../tools/security/b3sum {};
+
   backblaze-b2 = python.pkgs.callPackage ../development/tools/backblaze-b2 { };
 
   bandwhich = callPackage ../tools/networking/bandwhich {
@@ -1909,6 +1911,8 @@ in
 
   monetdb = callPackage ../servers/sql/monetdb { };
 
+  mons = callPackage ../tools/misc/mons {};
+
   mousetweaks = callPackage ../applications/accessibility/mousetweaks {
     inherit (pkgs.xorg) libX11 libXtst libXfixes;
   };
@@ -2718,9 +2722,7 @@ in
 
   djbdns = callPackage ../tools/networking/djbdns { };
 
-  dnscrypt-proxy = callPackage ../tools/networking/dnscrypt-proxy/1.x { };
-
-  dnscrypt-proxy2 = callPackage ../tools/networking/dnscrypt-proxy/2.x { };
+  dnscrypt-proxy2 = callPackage ../tools/networking/dnscrypt-proxy2 { };
 
   dnscrypt-wrapper = callPackage ../tools/networking/dnscrypt-wrapper { };
 
@@ -6623,8 +6625,6 @@ in
 
   Sylk = callPackage ../applications/networking/Sylk {};
 
-  otter-browser = qt5.callPackage ../applications/networking/browsers/otter {};
-
   privoxy = callPackage ../tools/networking/privoxy {
     w3m = w3m-batch;
   };
@@ -7474,6 +7474,10 @@ in
   yaml-merge = callPackage ../tools/text/yaml-merge { };
 
   yeshup = callPackage ../tools/system/yeshup { };
+
+  ytop = callPackage ../tools/system/ytop {
+    inherit (darwin.apple_sdk.frameworks) IOKit;
+  };
 
   # To expose more packages for Yi, override the extraPackages arg.
   yi = callPackage ../applications/editors/yi/wrapper.nix { };
@@ -10162,8 +10166,6 @@ in
   mkcert = callPackage ../development/tools/misc/mkcert { };
 
   mkdocs = callPackage ../development/tools/documentation/mkdocs { };
-
-  moby = callPackage ../development/tools/misc/moby { };
 
   modd = callPackage ../development/tools/modd { };
 
@@ -13635,7 +13637,7 @@ in
       kservice ktexteditor ktextwidgets kunitconversion kwallet kwayland
       kwidgetsaddons kwindowsystem kxmlgui kxmlrpcclient modemmanager-qt
       networkmanager-qt plasma-framework prison solid sonnet syntax-highlighting
-      syndication threadweaver kirigami2 kholidays kpurpose qqc2-desktop-style;
+      syndication threadweaver kirigami2 kholidays kpurpose kcontacts qqc2-desktop-style;
 
     ### KDE PLASMA 5
 
@@ -17299,6 +17301,8 @@ in
 
   fira-mono = callPackage ../data/fonts/fira-mono { };
 
+  flat-remix-icon-theme = callPackage ../data/icons/flat-remix-icon-theme { };
+
   font-awesome_4 = (callPackage ../data/fonts/font-awesome-5 { }).v4;
   font-awesome_5 = (callPackage ../data/fonts/font-awesome-5 { }).v5;
   font-awesome = font-awesome_5;
@@ -17590,6 +17594,7 @@ in
   polytopes_db = callPackage ../data/misc/polytopes_db { };
 
   pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
+  pop-icon-theme = callPackage ../data/icons/pop { };
 
   posix_man_pages = callPackage ../data/documentation/man-pages-posix { };
 
@@ -19830,7 +19835,7 @@ in
 
   inherit (kdeApplications)
     akonadi akregator ark dolphin dragon ffmpegthumbs filelight gwenview k3b
-    kaddressbook kate kcachegrind kcalc kcharselect kcolorchooser kcontacts kdenlive kdf kdialog
+    kaddressbook kate kcachegrind kcalc kcharselect kcolorchooser kdenlive kdf kdialog
     keditbookmarks kfind kget kgpg khelpcenter kig kleopatra kmail kmix kmplot kolourpaint kompare konsole yakuake
     kpkpass kitinerary kontact korganizer krdc krfb ksystemlog ktouch kwalletmanager marble minuet okular spectacle;
 
@@ -19909,6 +19914,8 @@ in
   krusader = libsForQt5.callPackage ../applications/misc/krusader { };
 
   ksuperkey = callPackage ../tools/X11/ksuperkey { };
+
+  ktimetracker = libsForQt5.callPackage ../applications/office/ktimetracker { };
 
   ktorrent = libsForQt5.callPackage ../applications/networking/p2p/ktorrent { };
 
@@ -25761,6 +25768,8 @@ in
   wal-g = callPackage ../tools/backup/wal-g {};
 
   tlwg = callPackage ../data/fonts/tlwg { };
+
+  tt2020 = callPackage ../data/fonts/tt2020 { };
 
   simplehttp2server = callPackage ../servers/simplehttp2server { };
 

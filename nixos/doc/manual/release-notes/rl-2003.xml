@@ -44,7 +44,7 @@
    <listitem>
     <para>
       <command>nixos-option</command> has been rewritten in C++, speeding it up, improving correctness,
-      and adding a <option>--all</option> option which prints all options and their values.
+      and adding a <option>-r</option> option which prints all options and their values recursively.
     </para>
    </listitem>
   </itemizedlist>
@@ -225,6 +225,19 @@ users.users.me =
    </listitem>
    <listitem>
     <para>The LLVM versions 3.5, 3.9 and 4 (including the corresponding CLang versions) have been dropped.</para>
+   </listitem>
+   <listitem>
+    <para>
+     The <literal>*psu</literal> versions of <package>oraclejdk8</package> have been removed
+     as they aren't provided by upstream anymore.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The <option>services.dnscrypt-proxy</option> module has been removed
+     as it used the deprecated version of dnscrypt-proxy. We've added
+     <xref linkend="opt-services.dnscrypt-proxy2.enable"/> to use the supported version.
+    </para>
    </listitem>
   </itemizedlist>
  </section>

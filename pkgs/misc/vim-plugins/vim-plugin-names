@@ -1,5 +1,6 @@
 907th/vim-auto-save
 adelarsq/vim-hackernews
+ajh17/VimCompletesMe
 airblade/vim-gitgutter
 airblade/vim-rooter
 ajh17/Spacegray.vim
@@ -18,8 +19,8 @@ ap/vim-css-color
 arcticicestudio/nord-vim
 arrufat/vala.vim
 artur-shaik/vim-javacomplete2
-ayu-theme/ayu-vim
 autozimu/LanguageClient-neovim
+ayu-theme/ayu-vim
 bazelbuild/vim-bazel
 bbchung/clighter8
 benmills/vimux
@@ -91,6 +92,7 @@ enomsg/vim-haskellConcealPlus
 ensime/ensime-vim
 ervandew/supertab
 esneider/YUNOcommit.vim
+fannheyward/coc-texlab
 farmergreg/vim-lastplace
 fatih/vim-go
 FelikZ/ctrlp-py-matcher
@@ -199,6 +201,7 @@ kana/vim-textobj-user
 kassio/neoterm
 kchmck/vim-coffee-script
 KeitaNakamura/neodark.vim
+KeitaNakamura/tex-conceal.vim
 keith/swift.vim
 kien/rainbow_parentheses.vim
 konfekt/fastfold
@@ -360,6 +363,7 @@ ponko2/deoplete-fish
 posva/vim-vue
 powerman/vim-plugin-AnsiEsc
 PProvost/vim-ps1
+ptzz/lf.vim
 prettier/vim-prettier
 prabirshrestha/async.vim
 prabirshrestha/asyncomplete-lsp.vim
@@ -377,6 +381,7 @@ raghur/vim-ghost
 raichoo/purescript-vim
 Raimondi/delimitMate
 rakr/vim-one
+rbgrouleff/bclose.vim
 reedes/vim-pencil
 reedes/vim-wordy
 rhysd/committia.vim

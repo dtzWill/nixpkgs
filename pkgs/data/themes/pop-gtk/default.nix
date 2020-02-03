@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pop-gtk-theme";
-  version = "2019-12-17";
+  version = "2020-01-29";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "gtk-theme";
-    rev = "77601545f049251bce9c63a07f0d9819aa27cb60";
-    sha256 = "0bmkcdr1z9m3inrw33zprq2a4jawql4724a84nr89r19xllj2z1s";
+    rev = "b8a8a519a21b10dcfe7a303288dad8d9646199ea";
+    sha256 = "0xv7x92pwg0j5f27iz9pmb42cwnpn9ln411rbd1kwaz0by5kiqaw";
   };
 
   nativeBuildInputs = [

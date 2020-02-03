@@ -136,10 +136,6 @@ in {
             ++ optional (isFindutils && cfg.pruneNames != []) "findutils locate does not support pruning by directory component"
             ++ optional (isFindutils && cfg.pruneBindMounts) "findutils locate does not support skipping bind mounts";
 
-    # directory creation needs to be separated from main service
-    # because ReadWritePaths fails when the directory doesn't already exist
-    systemd.tmpfiles.rules = [ "d ${dirOf cfg.output} 0755 root root -" ];
-
     systemd.services.update-locatedb =
       { description = "Update Locate Database";
         path = mkIf (!isMLocate) [ pkgs.su ];

@@ -4,13 +4,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "gusb";
-  version = "0.3.2";
+  version = "0.3.3";
 
   outputs = [ "bin" "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/libgusb-${version}.tar.xz";
-    sha256 = "0plfm7a6393xn2z455p6kk16b31f4ss32pz7i3b18l3cp5alg8gx";
+    sha256 = "14pbd0812151ga7jrpzi88fcrwkckx6m07ay84l7dzkxbdc44fgr";
   };
 
   nativeBuildInputs = [

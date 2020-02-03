@@ -34,6 +34,7 @@ with lib;
       as the underlying package isn't being maintained. Working alternatives are
       libinput and synaptics.
     '')
+    (mkRemovedOptionModule [ "services" "dnscrypt-proxy" ] "Use services.dnscrypt-proxy2 instead")
 
     # Do NOT add any option renames here, see top of the file
   ];
