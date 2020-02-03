@@ -1,14 +1,12 @@
 { stdenv, fetchFromGitHub, bash, which, withFont ? "" }:
 
 stdenv.mkDerivation rec {
-  #version = "2.0.0";
-  version = "2019-01-24";
+  version = "2.1.0";
   name = "nerdfonts-${version}";
   src = fetchFromGitHub {
     owner = "ryanoasis";
     repo = "nerd-fonts";
-    #rev = version;
-    rev = "b84647df4fae0e0801900784d92fc0b6cf6f3102";
+    rev = version;
     sha256 = "129534ga6ipyjw2dpjlgqpyv4mf6wh9xpdbbh0krq3zls2gqwppd";
   };
   nativeBuildInputs = [ bash which ];
