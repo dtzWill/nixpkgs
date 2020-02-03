@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "ryanoasis";
     repo = "nerd-fonts";
     rev = version;
-    sha256 = "129534ga6ipyjw2dpjlgqpyv4mf6wh9xpdbbh0krq3zls2gqwppd";
+    sha256 = "1la79y16k9rwcl2zsxk73c0kgdms2ma43kpjfqnq5jlbfdj0niwg";
   };
   nativeBuildInputs = [ bash which ];
   patchPhase = ''
