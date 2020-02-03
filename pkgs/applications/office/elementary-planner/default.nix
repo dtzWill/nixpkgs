@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch
+{ stdenv, fetchFromGitHub
 , meson, ninja, pkgconfig, desktop-file-utils
 , python3, vala, wrapGAppsHook
 , evolution-data-server
@@ -46,14 +46,6 @@ stdenv.mkDerivation rec {
     pantheon.granite
     webkitgtk
     pantheon.elementary-icon-theme
-  ];
-
-  # Fix version string, remove in next update!
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/alainm23/planner/pull/194/commits/3d0a2197087b13fe90fa6f85f817ba56798d632c.patch";
-      sha256 = "077q5jddi8jaw2ypc6szbd1c50i4x3b21jvmvi3w7g5zhjwpkmf5";
-    })
   ];
 
   postPatch = ''
