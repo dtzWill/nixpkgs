@@ -106,14 +106,14 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin $out/lib/stretchly
     cp -r ./* $out/lib/stretchly/
-    ln -s $out/lib/stretchly/libffmpeg.so $out/lib/
-    ln -s $out/lib/stretchly/libnode.so $out/lib/
-    ln -s $out/lib/stretchly/stretchly $out/bin/
+    ln -svrt $out/lib $out/lib/stretchly/lib*.so
+    ln -svrt $out/bin $out/lib/stretchly/stretchly
   '';
 
   preFixup = ''
-    patchelf --set-rpath "${libPath}" $out/lib/stretchly/libffmpeg.so
-    patchelf --set-rpath "${libPath}" $out/lib/stretchly/libnode.so
+    for x in $out/lib/stretchly/lib*.so; do
+      patchelf --set-rpath "${libPath}" $x
+    done
 
     patchelf \
       --set-rpath "$out/lib/stretchly:${libPath}" \
