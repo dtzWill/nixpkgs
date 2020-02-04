@@ -13,7 +13,7 @@
 let
   libPath = lib.makeLibraryPath [
     # for libstdc++.so.6
-    stdenv.cc.cc
+    stdenv.cc.cc.lib
   ];
 
   sha256 = {
