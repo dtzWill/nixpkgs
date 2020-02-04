@@ -18166,7 +18166,7 @@ in
     # gpgme -> gnupg
     # gnupg -> guiSupport
     #      \-> libusb -> libusb1 -> "udev" (systemd)
-    # So for now just used non-musl gpgme
+    # So for now just used non-musl gnupg
     gpgme = pkgsMusl.gpgme.override { inherit gnupg; };
   };
 
