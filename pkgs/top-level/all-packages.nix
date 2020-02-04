@@ -10562,6 +10562,8 @@ in
 
   todoist = callPackage ../applications/misc/todoist { };
 
+  todoist-electron = callPackage ../applications/misc/todoist-electron { };
+
   todolist = callPackage ../applications/misc/todolist { };
 
   travis = callPackage ../development/tools/misc/travis { };
