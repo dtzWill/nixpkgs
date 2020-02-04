@@ -12,8 +12,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   ucdtxt = fetchurl {
-    url = http://www.unicode.org/Public/11.0.0/ucd/UnicodeData.txt;
-    sha256 = "16b0jzvvzarnlxdvs2izd5ia0ipbd87md143dc6lv6xpdqcs75s9";
+    url = http://www.unicode.org/Public/12.1.0/ucd/UnicodeData.txt;
+    sha256 = "0dn91zw7107dp9b5pclqiyjcv9sin7m7gbjh7d351m6riz6imawk";
   };
 
   postFixup = ''
