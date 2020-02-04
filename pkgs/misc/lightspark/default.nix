@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "04wn6d6gmpf848x0yghw26m9syv0hm6q5dwqiw3fxhs155jjqfgv";
   };
 
-  patchPhase = ''
+  postPatch = ''
     sed -i 's/SET(ETCDIR "\/etc")/SET(ETCDIR "etc")/g' CMakeLists.txt
   '';
 
