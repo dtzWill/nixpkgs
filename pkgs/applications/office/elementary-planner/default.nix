@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = "2845d90e21d5f7fdf34f5c7a24ce9e580899bd7c";
-    sha256 = "1j2mj1dqzlrf68hg14f126ybbrydnzp1dan0jgrvd48wwca36m24";
+    rev = "d1a4f759463e2d9bd9135c0e65cf32f6c67831b8";
+    sha256 = "0kf0kvq622pprylh24lq9afybi221h0f4irrp7bxj1ki7a2djz38";
   };
 
   nativeBuildInputs = [
