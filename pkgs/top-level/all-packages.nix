@@ -21560,9 +21560,7 @@ in
 
   stp = callPackage ../applications/science/logic/stp { };
 
-  stretchly = callPackage ../applications/misc/stretchly {
-    inherit (gnome2) GConf;
-  };
+  stretchly = callPackage ../applications/misc/stretchly { };
 
   stumpish = callPackage ../applications/window-managers/stumpish {};
 

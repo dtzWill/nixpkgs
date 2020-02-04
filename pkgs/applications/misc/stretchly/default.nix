@@ -1,88 +1,4 @@
-{ GConf
-, alsaLib
-, at-spi2-atk
-, atk
-, cairo
-, cups
-, dbus
-, expat
-, fetchurl
-, fontconfig
-, gdk-pixbuf
-, glib
-, gtk2
-, gtk3
-, lib
-, libX11
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libappindicator
-, libdrm
-, libnotify
-, libpciaccess
-, libpng12
-, libxcb
-, nspr
-, nss
-, pango
-, pciutils
-, pulseaudio
-, stdenv
-, udev
-, wrapGAppsHook
-}:
-
-let
-  libs = [
-    GConf
-    alsaLib
-    at-spi2-atk
-    atk
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    gdk-pixbuf
-    glib
-    gtk2
-    gtk3
-    libX11
-    libXScrnSaver
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    libXtst
-    libappindicator
-    libdrm
-    libnotify
-    libpciaccess
-    libpng12
-    libxcb
-    nspr
-    nss
-    pango
-    pciutils
-    pulseaudio
-    stdenv.cc.cc.lib
-    udev
-  ];
-
-  libPath = lib.makeLibraryPath libs;
-in
+{ stdenv, lib, fetchurl, makeWrapper, wrapGAppsHook, electron }:
 
 stdenv.mkDerivation rec {
   pname = "stretchly";
@@ -97,28 +13,18 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = libs;
-
-  dontPatchELF = true;
-  dontBuild = true;
-  dontConfigure = true;
-
   installPhase = ''
-    mkdir -p $out/bin $out/lib/stretchly
-    cp -r ./* $out/lib/stretchly/
-    ln -svrt $out/lib $out/lib/stretchly/lib*.so
-    ln -svrt $out/bin $out/lib/stretchly/stretchly
-  '';
+    runHook preInstall
 
-  preFixup = ''
-    for x in $out/lib/stretchly/lib*.so; do
-      patchelf --set-rpath "${libPath}" $x
-    done
+    mkdir -p $out/bin $out/share/${pname}/
+    mv resources/app.asar $out/share/${pname}/
 
-    patchelf \
-      --set-rpath "$out/lib/stretchly:${libPath}" \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      $out/lib/stretchly/stretchly
+    makeWrapper ${electron}/bin/electron $out/bin/${pname} \
+      --add-flags $out/share/${pname}/app.asar \
+      "''${gappsWrapperArgs[@]}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}"
+
+    runHook postInstall
   '';
 
   meta = with stdenv.lib; {
