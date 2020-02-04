@@ -5,7 +5,7 @@
 , polkit
 , bash
 , asar
-, electron
+, electron_7
 , gtk3
 , wrapGAppsHook
 }:
@@ -73,7 +73,7 @@ in stdenv.mkDerivation rec {
     # We'll use our Nixpkgs electron
     rm $out/opt/balenaEtcher/balena-etcher-electron
 
-    ln -s ${electron}/bin/electron $out/bin/balena-etcher-electron
+    ln -s ${electron_7}/bin/electron $out/bin/balena-etcher-electron
   '';
 
   preFixup = ''
