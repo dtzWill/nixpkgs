@@ -34,8 +34,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1sc64f7sxf063bdgnkg23vc170chq2ix25gs836hyswx98iyg5ly";
   };
 
-  CFLAGS = flags;
-  CXXFLAGS = flags;
+  NIX_CFLAGS_COMPILE = builtins.toString flags;
 
   nativeBuildInputs = [ cmake ninja makeWrapper ];
   buildInputs = [ SDL2 SDL2_mixer ];
