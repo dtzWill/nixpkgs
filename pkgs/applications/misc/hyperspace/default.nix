@@ -1,15 +1,6 @@
 { stdenv, fetchurl, lib
 , autoPatchelfHook, wrapGAppsHook, dpkg
 , electron_7
-, libX11, libXext, libXi, libXau, libXrender, libXft, libXmu, libSM, libXcomposite, libXfixes, libXpm
-, libXinerama, libXdamage, libICE, libXtst, libXaw, fontconfig, pango, cairo, glib, libxml2, atk, gtk3
-, gdk-pixbuf
-# more
-, nss, nspr
-, libXScrnSaver
-, alsaLib
-# rt?
-, udev, libGL
 }:
 
 stdenv.mkDerivation rec {
@@ -49,23 +40,6 @@ stdenv.mkDerivation rec {
      --replace 'Exec="/opt/Hyperspace Desktop/hyperspace"' \
                'Exec="$out/bin/hyperspace"'
   '';
-
-  buildInputs = [
-    # From maxx, only w/gtk3
-    stdenv.cc.cc libX11 libXext libXi libXau libXrender libXft libXmu libSM libXcomposite libXfixes libXpm
-    libXinerama libXdamage libICE libXtst libXaw fontconfig pango cairo glib libxml2 atk gtk3
-    gdk-pixbuf
-    # more
-    nss nspr
-    libXScrnSaver
-    alsaLib
-  ];
-
-  runtimeDependencies = [ libGL udev.lib ];
-
-  dontBuild = true;
-  dontStrip = true;
-  dontPatchELF = true;
 
   meta = with lib; {
     description = "A beautiful, fluffy client for the fediverse";
