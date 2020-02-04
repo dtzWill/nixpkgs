@@ -259,7 +259,7 @@ stdenv.mkDerivation (rec {
     "--enable-system-sqlite"
     #"--enable-system-cairo"
     "--enable-startup-notification"
-    "--enable-content-sandbox"
+    #"--enable-content-sandbox" # 72: flag not recognized
     "--disable-tests"
     "--disable-necko-wifi" # maybe we want to enable this at some point
     "--disable-updater"
