@@ -1,6 +1,6 @@
 { stdenv, fetchurl, fetchFromGitHub, requireFile, makeWrapper
 , SDL2, SDL2_mixer, cmake, ninja
-, fullGame ? false }:
+, fullGame ? true}:
 
 let
   dataZip = if fullGame then requireFile {
