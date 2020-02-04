@@ -86,11 +86,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "stretchly";
-  version = "0.19.1";
+  version = "0.21.1";
 
   src = fetchurl {
     url = "https://github.com/hovancik/stretchly/releases/download/v${version}/stretchly-${version}.tar.xz";
-    sha256 = "1q2wxfqs8qv9b1rfh5lhmyp3rrgdl05m6ihsgkxlgp0yzi07afz8";
+    sha256 = "0776pywyqylwd33m85l4wdr89x0q9xkrjgliag10fp1bswz844lf";
   };
 
   nativeBuildInputs = [
