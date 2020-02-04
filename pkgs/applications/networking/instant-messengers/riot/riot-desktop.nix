@@ -78,6 +78,6 @@ in mkYarnPackage rec {
     homepage = https://about.riot.im/;
     license = licenses.asl20;
     maintainers = with maintainers; [ pacien worldofpeace ];
-    inherit (electron_7.meta) platforms;
+    inherit (electron.meta) platforms;
   };
 }
