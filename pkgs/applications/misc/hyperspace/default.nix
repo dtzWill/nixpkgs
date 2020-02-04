@@ -1,6 +1,6 @@
 { stdenv, fetchurl, lib
 , autoPatchelfHook, wrapGAppsHook, dpkg
-, electron_7
+, electron
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     mv ./opt/Hyperspace\ Desktop/resources/app.asar $out/share/hyperspace/
 
     mkdir -p $out/bin
-    makeWrapper ${electron_7}/bin/electron $out/bin/hyperspace \
+    makeWrapper ${electron}/bin/electron $out/bin/hyperspace \
       --add-flags $out/share/hyperspace/app.asar \
       "''${gappsWrapperArgs[@]}"
 
