@@ -1,12 +1,11 @@
 { lib
 , stdenv
 , fetchurl
-, gcc-unwrapped
 , dpkg
 , polkit
 , bash
 , nodePackages
-, electron_3
+, electron
 , gtk3
 , wrapGAppsHook
 }:
@@ -14,7 +13,7 @@
 let
   libPath = lib.makeLibraryPath [
     # for libstdc++.so.6
-    gcc-unwrapped.lib
+    stdenv.cc.cc
   ];
 
   sha256 = {
@@ -71,10 +70,10 @@ in stdenv.mkDerivation rec {
     cp -r opt $out/
     cp -r usr/share $out/
 
-    # We'll use our Nixpkgs electron_3 instead
+    # We'll use our Nixpkgs electron
     rm $out/opt/balenaEtcher/balena-etcher-electron
 
-    ln -s ${electron_3}/bin/electron $out/bin/balena-etcher-electron
+    ln -s ${electron}/bin/electron $out/bin/balena-etcher-electron
   '';
 
   preFixup = ''
