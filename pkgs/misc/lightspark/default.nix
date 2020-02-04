@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, fetchpatch, pkgconfig, cmake, curl, zlib, ffmpeg, glew, pcre
 , rtmpdump, cairo, boost, SDL2, SDL2_mixer, libjpeg, gnome2, lzma, nasm
-, llvm, glibmm
+, glibmm
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     curl zlib ffmpeg glew pcre rtmpdump cairo boost SDL2 SDL2_mixer libjpeg
-    gnome2.pango lzma nasm llvm glibmm
+    gnome2.pango lzma nasm glibmm
   ];
 
   enableParallelBuilding = true;
