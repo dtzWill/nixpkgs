@@ -5,7 +5,7 @@
 , isTorBrowserLike ? false, tbversion ? null }:
 
 { lib, stdenv, pkgconfig, perl, python2, python3, zip, libIDL
-, cairo, pango, graphite2, harfbuzz
+, cairo, pango, harfbuzz
 , libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
 , freetype, fontconfig, file, nspr, nss, libnotify
 , yasm, libGLU, libGL, sqlite, unzip, makeWrapper
@@ -96,7 +96,7 @@ let
 
   browserPatches = [
     ./env_var_for_system_dir.patch
-    ./firefox-68.0.2-system_graphite2_harfbuzz-1.patch
+    ./firefox-72.0-system_harfbuzz-1.patch
   ]
   ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "68.3.0")
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
@@ -138,7 +138,7 @@ stdenv.mkDerivation (rec {
   buildInputs = [
     gtk2 perl zip libIDL libjpeg zlib bzip2
     dbus dbus-glib /* cairo */ pango
-    freetype fontconfig graphite2 harfbuzz
+    freetype fontconfig harfbuzz
     xorg.libXi xorg.libXcursor
     xorg.libX11 xorg.libXrender xorg.libXft xorg.libXt file
     libnotify xorg.pixman yasm libGLU libGL
@@ -252,7 +252,6 @@ stdenv.mkDerivation (rec {
     "--with-system-libevent"
     "--with-system-png" # needs APNG support
     "--with-system-icu"
-    "--with-system-graphite2"
     "--with-system-harfbuzz"
     "--with-system-webp"
     "--enable-system-ffi"
