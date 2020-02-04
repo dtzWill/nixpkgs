@@ -1,5 +1,6 @@
 { stdenv, fetchurl, lib
 , autoPatchelfHook, wrapGAppsHook, dpkg
+, electron_7
 , libX11, libXext, libXi, libXau, libXrender, libXft, libXmu, libSM, libXcomposite, libXfixes, libXpm
 , libXinerama, libXdamage, libICE, libXtst, libXaw, fontconfig, pango, cairo, glib, libxml2, atk, gtk3
 , gdk-pixbuf
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    #wrapGAppsHook
+    wrapGAppsHook
     dpkg
   ];
 
@@ -36,12 +37,13 @@ stdenv.mkDerivation rec {
     mv ./usr/* $out/
 
     # /opt/Hyperspace\ Desktop
-    mv ./opt/Hyperspace\ Desktop $out/share/hyperspace
+    mkdir -p $out/share/hyperspace
+    mv ./opt/Hyperspace\ Desktop/resources/app.asar $out/share/hyperspace/
 
     mkdir -p $out/bin
-    ln -s $out/share/hyperspace/hyperspace $out/bin/hyperspace
-
-    rm -vrf $out/share/hyperspace/{libGLESv2.so,libEGL.so,swiftshader}
+    makeWrapper ${electron_7}/bin/electron $out/bin/hyperspace \
+      --add-flags $out/share/hyperspace/app.asar \
+      "''${gappsWrapperArgs[@]}"
 
     substituteInPlace $out/share/applications/hyperspace.desktop \
      --replace 'Exec="/opt/Hyperspace Desktop/hyperspace"' \
