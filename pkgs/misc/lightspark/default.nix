@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, curl, zlib, ffmpeg, glew, pcre
+{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, cmake, curl, zlib, ffmpeg, glew, pcre
 , rtmpdump, cairo, boost, SDL2, SDL2_mixer, libjpeg, gnome2, lzma, nasm
 , llvm, glibmm
 }:
@@ -19,6 +19,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig cmake ];
+
+  patches = [
+    # Fix build w/boost 1.72, upstream PR409
+    (fetchpatch {
+      url = "https://github.com/lightspark/lightspark/pull/409/commits/a702f587fe5c130da9186e73a7d5e3a8b697923a.patch";
+      sha256 = "15hg13qmvl0xs3jys74mwm2q2q5bjamzf60vf48xrb1i8mymnlza";
+    })
+  ];
 
   buildInputs = [
     curl zlib ffmpeg glew pcre rtmpdump cairo boost SDL2 SDL2_mixer libjpeg
