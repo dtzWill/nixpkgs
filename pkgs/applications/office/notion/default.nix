@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron_3 }:
+{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron }:
 
 stdenv.mkDerivation rec {
   pname = "notion-app";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     # share/icons?
     cp -v Notion_512x512x32.png $out/share/notion-app/
 
-    makeWrapper ${electron_3}/bin/electron $out/bin/notion-app \
+    makeWrapper ${electron}/bin/electron $out/bin/notion-app \
       --run "cd $out/share/notion-app" \
       --add-flags "$out/share/notion-app/app.asar"
 
