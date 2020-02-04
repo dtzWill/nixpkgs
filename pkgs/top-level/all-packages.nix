@@ -3081,7 +3081,10 @@ in
     inherit (pythonPackages) buildPythonApplication pygtk numpy;
   };
 
-  etcher = callPackage ../tools/misc/etcher { };
+  etcher = callPackage ../tools/misc/etcher {
+    # version only matters because don't have asar in others, oops
+    inherit (nodePackages_10_x) asar;
+  };
 
   ethtool = callPackage ../tools/misc/ethtool { };
 

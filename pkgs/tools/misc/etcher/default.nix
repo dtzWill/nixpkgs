@@ -4,7 +4,7 @@
 , dpkg
 , polkit
 , bash
-, nodePackages
+, asar
 , electron
 , gtk3
 , wrapGAppsHook
@@ -53,12 +53,12 @@ in stdenv.mkDerivation rec {
   # sudo-prompt has hardcoded binary paths on Linux and we patch them here
   # along with some other paths
   patchPhase = ''
-    ${nodePackages.asar}/bin/asar extract opt/balenaEtcher/resources/app.asar tmp
+    ${asar}/bin/asar extract opt/balenaEtcher/resources/app.asar tmp
     # Use Nix(OS) paths
     sed -i "s|/usr/bin/pkexec|/usr/bin/pkexec', '/run/wrappers/bin/pkexec|" tmp/node_modules/sudo-prompt/index.js
     sed -i 's|/bin/bash|${bash}/bin/bash|' tmp/node_modules/sudo-prompt/index.js
     sed -i "s|process.resourcesPath|'$out/opt/balenaEtcher/resources/'|" tmp/generated/gui.js
-    ${nodePackages.asar}/bin/asar pack tmp opt/balenaEtcher/resources/app.asar
+    ${asar}/bin/asar pack tmp opt/balenaEtcher/resources/app.asar
     rm -rf tmp
     # Fix up .desktop file
     substituteInPlace usr/share/applications/balena-etcher-electron.desktop \
