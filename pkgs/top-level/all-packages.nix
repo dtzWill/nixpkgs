@@ -9516,7 +9516,6 @@ in
   inherit (callPackages ../development/tools/electron { })
     electron_4 electron_5 electron_6 electron_7 electron_8;
 
-  electron_3 = callPackage ../development/tools/electron/3.x.nix { };
   electron = electron_8;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
