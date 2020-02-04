@@ -30,6 +30,8 @@ blindFS/vim-taskwarrior
 bkad/camelcasemotion
 bling/vim-bufferline
 blueyed/vim-diminactive
+bluz71/vim-moonfly-colors
+bluz71/vim-nightfly-guicolors
 bogado/file-line
 bohlender/vim-smt2
 brennanfee/vim-gui-position
@@ -122,6 +124,7 @@ guns/vim-clojure-static
 guns/vim-sexp
 guns/xterm-color-table.vim
 gyim/vim-boxdraw
+haishanh/night-owl.vim
 hashivim/vim-terraform
 haya14busa/incsearch-easymotion.vim
 haya14busa/incsearch.vim
@@ -266,6 +269,7 @@ mattn/webapi-vim
 maximbaz/lightline-ale
 MaxMEllon/vim-jsx-pretty
 mbbill/undotree
+Mcmartelle/vim-monokai-bold
 megaannum/forms
 megaannum/self
 mfukar/robotframework-vim
@@ -338,6 +342,7 @@ neovim/nvim-lsp
 neutaaaaan/iosvkem
 nfnty/vim-nftables
 nicoe/deoplete-khard
+niklas-8/vim-darkspace
 nishigori/increment-activator
 nixprime/cpsm
 NLKNguyen/papercolor-theme
@@ -398,6 +403,7 @@ rust-lang/rust.vim
 ryanoasis/vim-devicons
 Rykka/riv.vim
 ryvnf/readline.vim
+sainnhe/edge
 samoshkin/vim-mergetool
 sbdchd/neoformat
 scrooloose/nerdcommenter
@@ -436,6 +442,8 @@ slashmili/alchemist.vim
 sonph/onehalf
 stefandtw/quickfix-reflector.vim
 stephpy/vim-yaml
+stillwwater/vim-nebula
+svermeulen/vim-subversive
 t9md/vim-choosewin
 t9md/vim-smalls
 takac/vim-hardtime
