@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, fetchurl, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
-  name = "unicode-${version}";
-  version = "2.6";
+  pname = "unicode";
+  version = "2.7";
 
   src = fetchFromGitHub {
     owner = "garabik";
     repo = "unicode";
     rev = "v${version}";
-    sha256 = "17hh4nwl5njsh7lnff583j2axn6rfvfbiqwp72n7vcsgkiszw4kg";
+    sha256 = "15d9yvarxsiy0whx1mxzsjnnkrjdm3ga4qv2yy398mk0jh763q9v";
   };
 
   ucdtxt = fetchurl {
