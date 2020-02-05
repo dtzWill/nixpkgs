@@ -167,7 +167,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
   pname = "texlive-core-big.bin";
   inherit version;
 
-  inherit (common) src patches postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch preAutoreconf postAutoreconf;
 
   hardeningDisable = [ "format" ];
 
