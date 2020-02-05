@@ -33,52 +33,10 @@ let
     #  sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
     #};
 
-    patches = [
-      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
-    ];
-
-    postPatch = let
-      # The source compatible with Poppler ${popplerVersion} not yet available in TeXLive ${year}
-      # so we need to use files introduced in https://www.tug.org/svn/texlive?view=revision&revision=52959
-      popplerVersion = "0.83.0";
-      pdftoepdf = let
-        revert-pdfmajorversion = fetchpatch {
-          name = "pdftoepdf-revert-pdfmajorversion.patch";
-          url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftoepdf.cc?view=patch&r1=52953&r2=52952&pathrev=52953";
-          sha256 = "19jiv5xbvnfdk8lj6yd6mdxgs8f313a4dwg8svjj90dd35kjcfh8";
-          revert = true;
-          postFetch = ''
-            # The default file, changed by this patch, contains a branch for vendored Poppler
-            # The version-specific file replaces the section with an error, so we need to drop that part from the patch.
-            # Fortunately, there is not anything else in the patch after #else.
-            sed '/ #else/q' $out > "$tmpfile"
-            ${patchutils}/bin/recountdiff "$tmpfile" > "$out"
-          '';
-        };
-      in fetchurl {
-        name = "pdftoepdf-poppler${popplerVersion}.cc";
-        url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftoepdf-poppler${popplerVersion}.cc?revision=52959&view=co";
-        sha256 = "0pngvw1jgnm4cqskrzf5a3z8rj4ssl10007n3wbblj50hvvzjph3";
-        postFetch = ''
-          # The trunk added some extra arguments to certain functions so we need to revert that
-          # https://www.tug.org/svn/texlive?view=revision&revision=52953
-          patch $out < ${revert-pdfmajorversion}
-        '';
-      };
-      pdftosrc = fetchurl {
-        name = "pdftosrc-poppler${popplerVersion}.cc";
-        url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftosrc-poppler${popplerVersion}.cc?revision=52959&view=co";
-        sha256 = "0iq2cmwvf2lxy32sygrafwqgcwvvbdnvxm5l3mrg9cb2a1g06380";
-      };
-    in ''
+    postPatch = ''
       for i in texk/kpathsea/mktex*; do
         sed -i '/^mydir=/d' "$i"
       done
-      cp -pv ${pdftoepdf} texk/web2c/pdftexdir/pdftoepdf.cc
-      cp -pv ${pdftosrc} texk/web2c/pdftexdir/pdftosrc.cc
-
-      # poppler 0.84 compat fixups, use 0.83 files otherwise
-      patch -p1 -i ${./poppler84.patch}
     '';
 
     # remove when removing synctex-missing-header.patch
@@ -116,7 +74,7 @@ core = stdenv.mkDerivation rec {
   pname = "texlive-bin";
   inherit version;
 
-  inherit (common) src patches postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch preAutoreconf postAutoreconf;
 
   outputs = [ "out" "doc" ];
 
