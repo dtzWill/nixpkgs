@@ -68,19 +68,8 @@ in buildEnv {
       '')
       pkgList.bin
     +
-
-    # Patch texlinks.sh back to 2015 version;
-    # otherwise some bin/ links break, e.g. xe(la)tex.
   ''
-    (
-      cd "$out/share/texmf/scripts/texlive-extra"
-      local target="$(readlink texlinks.sh)"
-      rm texlinks.sh && cp "$target" texlinks.sh
-      patch --verbose -R texlinks.sh < '${./texlinks.diff}'
-    )
-  '' +
-  ''
-    export PATH="$out/bin:$out/share/texmf/scripts/texlive:$out/share/texmf/scripts/texlive-extra:${perl}/bin:$PATH"
+    export PATH="$out/bin:$out/share/texmf/scripts/texlive:${perl}/bin:$PATH"
     export TEXMFCNF="$out/share/texmf/web2c"
     export TEXMFDIST="$out/share/texmf"
     export TEXMFSYSCONFIG="$out/share/texmf-config"

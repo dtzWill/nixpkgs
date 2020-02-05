@@ -129,8 +129,11 @@ core = stdenv.mkDerivation rec {
     cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
     mkdir -p $out/share/texmf-dist/scripts/texlive-extra
     mv  texlinks.sh $out/share/texmf-dist/scripts/texlive-extra
-    ls -l $out/bin/
-    rm $out/bin/texlinks
+  '' +
+    # Patch texlinks.sh back to 2015 version;
+    # otherwise some bin/ links break, e.g. xe(la)tex.
+  ''
+    patch --verbose -R $out/share/texmf-dist/scripts/texlive-extra/texlinks.sh -i ${./texlinks.diff}
   '' +
     (let extraScripts =
           ''
