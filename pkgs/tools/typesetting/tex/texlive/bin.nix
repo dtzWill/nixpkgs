@@ -95,9 +95,8 @@ core = stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   preConfigure = ''
-    rm -r libs/{cairo,freetype2,gd,gmp,icu,libpaper,libpng} \
-      libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib} \
-      libs/{harfbuzz,graphite2}
+    rm -r libs/{cairo,freetype2,gd,gmp,graphite2,harfbuzz,icu,libpaper,libpng} \
+      libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib}
     mkdir WorkDir
     cd WorkDir
   '';
@@ -108,6 +107,8 @@ core = stdenv.mkDerivation rec {
     ++ map (what: "--disable-${what}") ([
       "dvisvgm" "dvipng" # ghostscript dependency
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
+      # XXX: icu is included anyway (harfbuzz), so this doesn't make sense...
+      "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
     ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit");
 
   enableParallelBuilding = true;
@@ -187,8 +188,6 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
         # luajittex is mostly not needed, see:
         # http://tex.stackexchange.com/questions/97999/when-to-use-luajittex-in-favour-of-luatex
         "luajittex" "mfluajit"
-        # (build these now in core)
-        "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex"
       ];
 
   configureScript = ":";
