@@ -55,7 +55,7 @@ let
       "zziplib" "xpdf" "poppler" "mpfr" "gmp"
       "pixman" "potrace" "gd" "freetype2" "libpng" "libpaper" "zlib"
         # beware: xpdf means to use stuff from poppler :-/
-       "harfbuzz" "graphite2"
+       "harfbuzz" "graphite2" "icu"
     ];
 
     # clean broken links to stuff not built
@@ -84,14 +84,15 @@ core = stdenv.mkDerivation rec {
     /*teckit*/ zziplib poppler mpfr gmp
     pixman gd freetype libpng libpaper zlib
     perl
-    harfbuzz graphite2
+    harfbuzz graphite2 icu
   ];
 
   hardeningDisable = [ "format" ];
 
   preConfigure = ''
     rm -r libs/{cairo,freetype2,gd,gmp,icu,libpaper,libpng} \
-      libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib}
+      libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib} \
+      libs/{harfbuzz,graphite2}
     mkdir WorkDir
     cd WorkDir
   '';
@@ -102,10 +103,7 @@ core = stdenv.mkDerivation rec {
     ++ map (what: "--disable-${what}") ([
       "dvisvgm" "dvipng" # ghostscript dependency
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
-      "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
-    ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
-    ++ [ "--without-system-icu" ] # bogus configure
-    ;
+    ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit");
 
   enableParallelBuilding = true;
 
@@ -184,6 +182,8 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
         # luajittex is mostly not needed, see:
         # http://tex.stackexchange.com/questions/97999/when-to-use-luajittex-in-favour-of-luatex
         "luajittex" "mfluajit"
+        # (build these now in core)
+        "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex"
       ];
 
   configureScript = ":";
