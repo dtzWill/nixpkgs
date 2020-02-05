@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, makeWrapper
-, python3, git, gnupg, less, cacert
+, python3, git, gnupg, less
 }:
 
 stdenv.mkDerivation rec {
@@ -13,13 +13,15 @@ stdenv.mkDerivation rec {
     sha256 = "0yns7n8gpac33cbkm85slslcnfdb55ax9c0vpvmmfbgcgkvqlknb";
   };
 
+  patches = [ ./import-ssl-module.patch ];
+
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];
 
-  patchPhase = ''
+  postPatch = ''
     substituteInPlace repo --replace \
       'urllib.request.urlopen(url)' \
-      'urllib.request.urlopen(url, cafile="${cacert}/etc/ssl/certs/ca-bundle.crt")'
+      'urllib.request.urlopen(url, context=ssl.create_default_context())'
   '';
 
   installPhase = ''
