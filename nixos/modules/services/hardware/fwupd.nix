@@ -53,7 +53,7 @@ in {
 
       blacklistPlugins = mkOption {
         type = types.listOf types.str;
-        default = [ "test" ];
+        default = [ "test" "invalid" ];
         example = [ "udev" ];
         description = ''
           Allow blacklisting specific plugins
@@ -74,7 +74,7 @@ in {
         default = false;
         description = ''
           Whether to enable test remote. This is used by
-          <link xlink:href="https://github.com/hughsie/fwupd/blob/master/data/installed-tests/README.md">installed tests</link>.
+          <link xlink:href="https://github.com/fwupd/fwupd/blob/master/data/installed-tests/README.md">installed tests</link>.
         '';
       };
 
