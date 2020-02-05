@@ -96,7 +96,6 @@ let
 
   browserPatches = [
     ./env_var_for_system_dir.patch
-    ./firefox-72.0-system_harfbuzz-1.patch
   ]
   ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "68.3.0")
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
@@ -138,7 +137,7 @@ stdenv.mkDerivation (rec {
   buildInputs = [
     gtk2 perl zip libIDL libjpeg zlib bzip2
     dbus dbus-glib /* cairo */ pango
-    freetype fontconfig harfbuzz
+    freetype fontconfig
     xorg.libXi xorg.libXcursor
     xorg.libX11 xorg.libXrender xorg.libXft xorg.libXt file
     libnotify xorg.pixman yasm libGLU libGL
@@ -252,7 +251,7 @@ stdenv.mkDerivation (rec {
     "--with-system-libevent"
     "--with-system-png" # needs APNG support
     "--with-system-icu"
-    "--with-system-harfbuzz"
+    #"--with-system-harfbuzz"
     "--with-system-webp"
     "--enable-system-ffi"
     "--enable-system-pixman"
