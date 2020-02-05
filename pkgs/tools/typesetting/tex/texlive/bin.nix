@@ -102,7 +102,7 @@ core = stdenv.mkDerivation rec {
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
       "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
     ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
-    ++ [ "--without-system-harfbuzz" "--without-system-icu" ] # bogus configure
+    ++ [ "--without-system-harfbuzz" "--without-system-icu" "--without-system-graphite2" ] # bogus configure
     ;
 
   enableParallelBuilding = true;
