@@ -33,8 +33,8 @@ rustPlatform.buildRustPackage rec {
     owner = "GNOME";
     repo = "fractal";
     #rev = version;
-    rev = "e6b0af2bf53861c52182372a26095179831c958f";
-    sha256 = "1w4dnyh530kmkp67wn71nnvjrslvdvcagw8vrdisk3k7qdzzknj5";
+    rev = "3bceb012a0a56cbe8f20434419f9ef0c9d4aefc8";
+    sha256 = "0zjhx10kg7pf5bdj4f6ydj1xj7xk5b4vyr4dfzqsahxsyga6j6i6";
   };
 
   cargoSha256 = "1n9n4d057cz44sh1iy2hb2adplhnrhvr8drnp0v2h8yw73a5shvv";
