@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, patchutils
+{ stdenv, fetchurl, fetchFromGitHub, fetchpatch, patchutils
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
@@ -14,17 +14,24 @@
 let
   withSystemLibs = map (libname: "--with-system-${libname}");
 
-  year = "2019";
-  version = year; # keep names simple for now
+  year = "2020";
+  #version = year; # keep names simple for now
+  version = "${year}-02-04";
 
   common = {
-    src = fetchurl {
-      urls = [
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
-              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
-      ];
-      sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
+    src = fetchFromGitHub {
+      owner = "TeX-Live";
+      repo = "texlive-source";
+      rev = "6fd4be855a4f88604244e1b80b69affa3d7b02b5";
+      sha256 = "0vr1w3hmrpac144qsbg3671nygyn6zya754p4qih5faqiq9l6ky0";
     };
+    #src = fetchurl {
+    #  urls = [
+    #    "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
+    #          "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
+    #  ];
+    #  sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
+    #};
 
     patches = [
       ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
