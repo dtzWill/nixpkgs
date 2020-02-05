@@ -60,9 +60,9 @@ in buildEnv {
       (path: ''
         for f in '${path}'/bin/*; do
           if [[ -L "$f" ]]; then
-            cp -d "$f" ./bin/
+            cp -vd "$f" ./bin/
           else
-            ln -s "$f" ./bin/
+            ln -vs "$f" ./bin/
           fi
         done
       '')

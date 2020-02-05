@@ -129,6 +129,8 @@ core = stdenv.mkDerivation rec {
     cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
     mkdir -p $out/share/texmf-dist/scripts/texlive-extra
     mv  texlinks.sh $out/share/texmf-dist/scripts/texlive-extra
+    ls -l $out/bin/
+    rm $out/bin/texlinks
   '' +
     (let extraScripts =
           ''
