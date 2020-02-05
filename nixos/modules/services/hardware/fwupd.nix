@@ -143,10 +143,6 @@ in {
     services.udev.packages = [ cfg.package ];
 
     systemd.packages = [ cfg.package ];
-
-    systemd.tmpfiles.rules = [
-      "d /var/lib/fwupd 0755 root root -"
-    ];
   };
 
   meta = {
