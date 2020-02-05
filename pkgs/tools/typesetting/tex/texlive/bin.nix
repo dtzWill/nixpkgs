@@ -33,10 +33,15 @@ let
     #  sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
     #};
 
-    postPatch = ''
+    postPatch = let
+      popplerVersion = "0.83.0";
+    in ''
       for i in texk/kpathsea/mktex*; do
         sed -i '/^mydir=/d' "$i"
       done
+ 
+      cp -pv texk/web2c/pdftexdir/pdftoepdf{-poppler${popplerVersion},}.cc
+      cp -pv texk/web2c/pdftexdir/pdftosrc{-poppler${popplerVersion},}.cc
     '';
 
     # remove when removing synctex-missing-header.patch
