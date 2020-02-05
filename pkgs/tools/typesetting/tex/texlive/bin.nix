@@ -228,7 +228,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
 
     mv "$out/bin"/{inimf,mf,mf-nowin} "$metafont/bin/"
     mv "$out/bin"/{*tomp,mfplain,*mpost} "$metapost/bin/"
-    mv "$out/bin"/{luatex,texlua*} "$luatex/bin/"
+    mv "$out/bin"/{luatex,texlua*,luahbtex*} "$luatex/bin/"
     mv "$out/bin"/xetex "$xetex/bin/"
   '';
 };
