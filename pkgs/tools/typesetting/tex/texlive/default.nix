@@ -48,7 +48,8 @@ let
 
       # remove dependency-heavy packages from the basic collections
       collection-basic = orig.collection-basic // {
-        deps = removeAttrs orig.collection-basic.deps [ "metafont" "xdvi" ];
+        deps = (removeAttrs orig.collection-basic.deps [ "metafont" "xdvi" ])
+        // { inherit (tl) texlive-scripts-extra; };
       };
       # add them elsewhere so that collections cover all packages
       collection-metapost = orig.collection-metapost // {
