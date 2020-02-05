@@ -60,7 +60,6 @@ let
       "zziplib" "xpdf" "poppler" "mpfr" "gmp"
       "pixman" "potrace" "gd" "freetype2" "libpng" "libpaper" "zlib"
         # beware: xpdf means to use stuff from poppler :-/
-       "harfbuzz" "graphite2" "icu"
     ];
 
     # clean broken links to stuff not built
@@ -89,7 +88,6 @@ core = stdenv.mkDerivation rec {
     /*teckit*/ zziplib poppler mpfr gmp
     pixman gd freetype libpng libpaper zlib
     perl
-    harfbuzz graphite2 icu
   ];
 
   hardeningDisable = [ "format" ];
@@ -107,9 +105,11 @@ core = stdenv.mkDerivation rec {
     ++ map (what: "--disable-${what}") ([
       "dvisvgm" "dvipng" # ghostscript dependency
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
-      # XXX: icu is included anyway (harfbuzz), so this doesn't make sense...
+      "luahbtex" "luajithbtex"
       "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
-    ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit");
+    ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
+    ++ [ "--without-system-harfbuzz" "--without-system-icu" "--without-system-graphite2" ] # bogus configure
+    ;
 
   enableParallelBuilding = true;
 
@@ -188,6 +188,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
         # luajittex is mostly not needed, see:
         # http://tex.stackexchange.com/questions/97999/when-to-use-luajittex-in-favour-of-luatex
         "luajittex" "mfluajit"
+        "luajithbtex"
       ];
 
   configureScript = ":";
