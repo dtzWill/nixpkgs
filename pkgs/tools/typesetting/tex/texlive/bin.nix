@@ -88,7 +88,7 @@ core = stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   preConfigure = ''
-    rm -r libs/{cairo,freetype2,gd,gmp,graphite2,harfbuzz,icu,libpaper,libpng} \
+    rm -r libs/{cairo,freetype2,gd,gmp,icu,libpaper,libpng} \
       libs/{mpfr,pixman,poppler,xpdf,zlib,zziplib}
     mkdir WorkDir
     cd WorkDir
@@ -102,7 +102,7 @@ core = stdenv.mkDerivation rec {
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
       "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
     ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
-    ++ [ "--without-system-harfbuzz" "--without-system-icu" "--without-system-graphite2" ] # bogus configure
+    ++ [ "--without-system-icu" ] # bogus configure
     ;
 
   enableParallelBuilding = true;
