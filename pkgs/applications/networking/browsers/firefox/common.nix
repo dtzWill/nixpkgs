@@ -262,12 +262,12 @@ stdenv.mkDerivation (rec {
     "--disable-tests"
     "--disable-necko-wifi" # maybe we want to enable this at some point
     "--disable-updater"
-    "--disable-jemalloc"
+    "--enable-jemalloc"
     "--disable-gconf"
     "--enable-default-toolkit=${default-toolkit}"
-    "--without-stdcxx-compat"
-    "--enable-hardening"
-    "--enable-rust-simd"
+    #"--without-stdcxx-compat"
+    #"--enable-hardening"
+    #"--enable-rust-simd"
   ]
   ++ lib.optional (lib.versionOlder ffversion "64") "--disable-maintenance-service"
   ++ lib.optional (stdenv.isDarwin && lib.versionAtLeast ffversion "61") "--disable-xcode-checks"
