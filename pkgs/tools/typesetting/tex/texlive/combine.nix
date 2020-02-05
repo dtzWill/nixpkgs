@@ -183,8 +183,11 @@ in buildEnv {
   '' +
   # texlive post-install actions
   ''
-    mkdir -p "$out/share/texmf/scripts/texlive/"
-    ln -s '${bin.core.out}/share/texmf-dist/scripts/texlive/TeXLive' "$out/share/texmf/scripts/texlive/"
+    mkdir -p "$out/share/texmf/scripts/texlive.new/"
+    ln -vfs '${bin.core.out}/share/texmf-dist/scripts/texlive/TeXLive' -t "$out/share/texmf/scripts/texlive.new/"
+    cp -d $out/share/texmf/scripts/texlive/* $out/share/texmf/scripts/texlive.new/
+    rm -v $out/share/texmf/scripts/texlive
+    mv -v $out/share/texmf/scripts/texlive{.new,}
 
     for tool in updmap; do
       ln -sf "$out/share/texmf/scripts/texlive/$tool."* "$out/bin/$tool"
