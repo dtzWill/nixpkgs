@@ -121,11 +121,15 @@ core = stdenv.mkDerivation rec {
   # TODO: perhaps improve texmf.cnf search locations
   postInstall = /* a few texmf-dist files are useful; take the rest from pkgs */ ''
     mv "$out/share/texmf-dist/web2c/texmf.cnf" .
+    mv "$out/share/texmf-dist/scripts/texlive-extra/texlinks.sh" .
     rm -r "$out/share/texmf-dist"
     mkdir -p "$out"/share/texmf-dist/{web2c,scripts/texlive/TeXLive}
     mv ./texmf.cnf "$out/share/texmf-dist/web2c/"
     cp ../texk/tests/TeXLive/*.pm "$out/share/texmf-dist/scripts/texlive/TeXLive/"
     cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
+    mkdir -p $out/share/texmf-dist/scripts/texlive-extra
+    cp texlinks.sh $out/share/texmf-dist/scripts/texlive-extra
+    ln -s texlinks.sh $out/share/texmf-dist/scripts/texlive/
   '' +
     (let extraScripts =
           ''
