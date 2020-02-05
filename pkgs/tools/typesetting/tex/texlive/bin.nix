@@ -55,6 +55,7 @@ let
       "zziplib" "xpdf" "poppler" "mpfr" "gmp"
       "pixman" "potrace" "gd" "freetype2" "libpng" "libpaper" "zlib"
         # beware: xpdf means to use stuff from poppler :-/
+       "harfbuzz" "graphite2"
     ];
 
     # clean broken links to stuff not built
@@ -83,6 +84,7 @@ core = stdenv.mkDerivation rec {
     /*teckit*/ zziplib poppler mpfr gmp
     pixman gd freetype libpng libpaper zlib
     perl
+    harfbuzz graphite2
   ];
 
   hardeningDisable = [ "format" ];
