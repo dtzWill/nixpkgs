@@ -44,7 +44,7 @@
 
 , safeBrowsingSupport ? false
 , drmSupport ? false
-, goldLinker ? true
+, goldLinker ? false
 
 # macOS dependencies
 , xcbuild, CoreMedia, ExceptionHandling, Kerberos, AVFoundation, MediaToolbox
