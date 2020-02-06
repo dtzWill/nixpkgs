@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, makeWrapper, lib
 , dnsutils, coreutils, openssl, inetutils, utillinux, procps
-, curl, ldns, libidn2
+, curl, ldns, libidn2, ncurses
 }:
 
 stdenv.mkDerivation rec {
@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
     procps    # for ps
     utillinux # for hexdump
     curl ldns libidn2
+    ncurses   # for tput
   ];
 
   postPatch = ''
