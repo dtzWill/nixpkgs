@@ -1,7 +1,6 @@
 { stdenv
 , rustPlatform
 , fetchFromGitHub
-, nodejs
 , Security
 }:
 
