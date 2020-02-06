@@ -68,15 +68,15 @@ stdenv.mkDerivation {
     "--with-http_stub_status_module"
     "--with-threads"
     "--with-pcre-jit"
-  ] ++ optional withDebug [
+  ] ++ optionals withDebug [
     "--with-debug"
-  ] ++ optional withStream [
+  ] ++ optionals withStream [
     "--with-stream"
     "--with-stream_geoip_module"
     "--with-stream_realip_module"
     "--with-stream_ssl_module"
     "--with-stream_ssl_preread_module"
-  ] ++ optional withMail [
+  ] ++ optionals withMail [
     "--with-mail"
     "--with-mail_ssl_module"
   ] ++ optional (perl != null) [
@@ -89,10 +89,10 @@ stdenv.mkDerivation {
     ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules;
 
-  NIX_CFLAGS_COMPILE = [
+  NIX_CFLAGS_COMPILE = toString ([
     "-I${libxml2.dev}/include/libxml2"
     "-Wno-error=implicit-fallthrough"
-  ] ++ optional stdenv.isDarwin "-Wno-error=deprecated-declarations";
+  ] ++ optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
 
   configurePlatforms = [];
 
