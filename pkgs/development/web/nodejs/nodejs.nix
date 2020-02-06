@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openssl, python2, zlib, libuv, utillinux, http-parser
+{ stdenv, fetchurl, openssl, python2, zlib, libuv_for_node, utillinux, http-parser
 , pkgconfig, which
 # Updater dependencies
 , writeScript, coreutils, gnugrep, jq, curl, common-updater-scripts, nix, runtimeShell
@@ -13,6 +13,8 @@ with stdenv.lib;
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices ApplicationServices;
+
+  libuv = libuv_for_node;
 
   majorVersion = versions.major version;
   minorVersion = versions.minor version;
