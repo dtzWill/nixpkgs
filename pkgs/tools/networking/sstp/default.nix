@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, ppp, libevent, openssl }:
 
 stdenv.mkDerivation rec {
-  name = "sstp-client-${version}";
+  pname = "sstp-client";
   version = "1.0.12";
 
   src = fetchurl {
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-openssl=${openssl.dev}"
     "--with-runtime-dir=/run/sstpc"
-    "--with-pppd-plugin-dir=$(out)/lib/pppd"
+    "--with-pppd-plugin-dir=${placeholder "out"}/lib/pppd"
   ];
 
   nativeBuildInputs = [ pkgconfig ];
