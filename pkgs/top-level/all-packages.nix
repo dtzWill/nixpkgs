@@ -4257,6 +4257,8 @@ in
 
   jira-cli = callPackage ../development/tools/jira_cli { };
 
+  jirafeau = callPackage ../servers/web-apps/jirafeau { };
+
   jitterentropy = callPackage ../development/libraries/jitterentropy { };
 
   jl = haskellPackages.callPackage ../development/tools/jl { };
