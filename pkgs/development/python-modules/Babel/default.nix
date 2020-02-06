@@ -1,4 +1,4 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, pytz, pytest, freezegun, glibcLocales }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, pytz, pytest, freezegun }:
 
 buildPythonPackage rec {
   pname = "Babel";
@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytz ];
 
-  checkInputs = [ pytest freezegun glibcLocales ];
+  checkInputs = [ pytest freezegun ];
 
   doCheck = !stdenv.isDarwin;
 
