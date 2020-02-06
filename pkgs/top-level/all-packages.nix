@@ -4618,22 +4618,38 @@ in
 
   nodejs-slim = nodejs-slim-12_x;
 
+  libuv_for_node = libuv.overrideAttrs (o: rec {
+    name = "${pname}-${version}";
+    version = "1.34.1";
+    pname = "libuv";
 
-  nodejs-10_x = callPackage ../development/web/nodejs/v10.nix { };
+    src = fetchFromGitHub {
+      owner = pname;
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "0vkn76wr2nivhmgjnkni2yih642mrlzkxbivdmlvcf3hg4h7gipp";
+    };
+  });
+
+  nodejs-10_x = callPackage ../development/web/nodejs/v10.nix { libuv = libuv_for_node; };
   nodejs-slim-10_x = callPackage ../development/web/nodejs/v10.nix {
     enableNpm = false;
+    libuv = libuv_for_node;
   };
-  nodejs-11_x = callPackage ../development/web/nodejs/v11.nix { };
+  nodejs-11_x = callPackage ../development/web/nodejs/v11.nix { libuv = libuv_for_node; };
   nodejs-slim-11_x = callPackage ../development/web/nodejs/v11.nix {
     enableNpm = false;
+    libuv = libuv_for_node;
   };
-  nodejs-12_x = callPackage ../development/web/nodejs/v12.nix { };
+  nodejs-12_x = callPackage ../development/web/nodejs/v12.nix { libuv = libuv_for_node; };
   nodejs-slim-12_x = callPackage ../development/web/nodejs/v12.nix {
     enableNpm = false;
+    libuv = libuv_for_node;
   };
-  nodejs-13_x = callPackage ../development/web/nodejs/v13.nix { };
+  nodejs-13_x = callPackage ../development/web/nodejs/v13.nix { libuv = libuv_for_node; };
   nodejs-slim-13_x = callPackage ../development/web/nodejs/v13.nix {
     enableNpm = false;
+    libuv = libuv_for_node;
   };
 
   # Update this when adding the newest nodejs major version!
