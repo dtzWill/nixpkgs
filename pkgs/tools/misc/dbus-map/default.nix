@@ -1,13 +1,13 @@
 { stdenv, lib, fetchFromGitHub, pkgconfig, glib, procps, libxml2 }:
 
 stdenv.mkDerivation rec {
-  name = "dbus-map-${version}";
-  version = "2015-05-28";
+  pname = "dbus-map";
+  version = "2019-09-22";
   src = fetchFromGitHub {
     owner = "taviso";
     repo = "dbusmap";
-    rev = "43703fc5e15743309b67131b5ba457b0d6ea7667";
-    sha256 = "1pjqn6w29ci8hfxkn1aynzfc8nvy3pqv3hixbxwr7qx20g4rwvdc";
+    rev = "6bb2831d0ce0443e2ccc33f9493716d731c11937";
+    sha256 = "0g42pgcvv0pwhyycljjscpz12fgfq41vh1rr36qa2xqqc0rkrn5k";
   };
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
