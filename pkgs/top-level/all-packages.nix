@@ -4260,7 +4260,7 @@ in
 
   john = callPackage ../tools/security/john { };
 
-  inherit (nodePackages_12_x) joplin;
+  inherit (nodePackages_13_x) joplin;
 
   joplin-desktop = callPackage ../applications/misc/joplin-desktop { };
 
