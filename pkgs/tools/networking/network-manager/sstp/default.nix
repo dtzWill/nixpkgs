@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, intltool, pkgconfig, python
+{ stdenv, fetchFromGitHub, substituteAll
+, autoreconfHook, intltool, pkgconfig, python, file
 , networkmanager, ppp, sstp
 , gtk3, libsecret, libnma }:
 
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs= [ autoreconfHook intltool pkgconfig python ];
+  nativeBuildInputs= [ autoreconfHook intltool pkgconfig python file ];
   buildInputs = [
     networkmanager ppp sstp
     gtk3 libsecret libnma
