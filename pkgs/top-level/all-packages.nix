@@ -19144,7 +19144,7 @@ in
                                             Kerberos AVFoundation MediaToolbox
                                             CoreLocation Foundation AddressBook;
       inherit (darwin) libobjc;
-      stdenv = clangStdenv;
+      stdenv = gcc9Stdenv;
     };
   });
 
