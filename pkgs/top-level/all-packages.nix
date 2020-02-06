@@ -17692,6 +17692,8 @@ in
 
   qmc2 = libsForQt5.callPackage ../misc/emulators/qmc2 { };
 
+  qualitype-fonts = callPackage ../data/fonts/qualitype {};
+
   quattrocento = callPackage ../data/fonts/quattrocento {};
 
   quattrocento-sans = callPackage ../data/fonts/quattrocento-sans {};
