@@ -1,26 +1,26 @@
 diff --git a/src/nm-sstp-service.c b/src/nm-sstp-service.c
-index f2867ea..ae947fc 100644
+index 946212d..9dda0c6 100644
 --- a/src/nm-sstp-service.c
 +++ b/src/nm-sstp-service.c
-@@ -355,9 +355,7 @@ nm_find_pppd (void)
+@@ -383,9 +383,7 @@ nm_find_pppd (void)
  {
- 	static const char *pppd_binary_paths[] =
- 		{
--			"/sbin/pppd",
--			"/usr/sbin/pppd",
--			"/usr/local/sbin/pppd",
-+			"@ppp@/sbin/pppd",
- 			NULL
- 		};
+     static const char *pppd_binary_paths[] =
+         {
+-            "/sbin/pppd",
+-            "/usr/sbin/pppd",
+-            "/usr/local/sbin/pppd",
++            "@ppp@/sbin/pppd",
+             NULL
+         };
  
-@@ -377,9 +375,7 @@ nm_find_sstpc (void)
+@@ -405,9 +403,7 @@ nm_find_sstpc (void)
  {
- 	static const char *sstp_binary_paths[] =
- 		{
--			"/sbin/sstpc",
--			"/usr/sbin/sstpc",
--			"/usr/local/sbin/sstpc",
-+			"@sstp@/bin/sstpc",
- 			NULL
- 		};
+     static const char *sstp_binary_paths[] =
+     {
+-        "/sbin/sstpc",
+-        "/usr/sbin/sstpc",
+-        "/usr/local/sbin/sstpc",
++        "@sstp@/bin/sstpc",
+         NULL
+     };
  
