@@ -125,20 +125,6 @@ in {
           OverrideESPMountPoint=${config.boot.loader.efi.efiSysMountPoint}
         ''; # TODO: RequireShimForSecureBoot=true ?
       };
-
-      # Check kernel version for safety before attempting thunderbolt update
-      # Since NixOS uses nearly-vanilla kernels, use suggested value.
-      # Note that if not specified it appears this check is disabled.
-      # XXX: Ensure this matches what fwupd says is needed, if it changes!
-      "fwupd/thunderbolt.conf".source = pkgs.writeText "thunderbolt.conf" ''
-        [thunderbolt]
-
-        # Minimum kernel version to allow use of this plugin
-        # It's important that all backports from this kernel have been
-        # made if using an older kernel
-        MinimumKernelVersion=4.13.0
-      '';
-
     } // originalEtc // extraTrustedKeys // testRemote;
 
     services.dbus.packages = [ cfg.package ];
