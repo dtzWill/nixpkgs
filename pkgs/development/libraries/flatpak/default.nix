@@ -1,6 +1,5 @@
 { stdenv
 , fetchurl
-, fetchFromGitHub
 , autoreconfHook
 , docbook_xml_dtd_412
 , docbook_xml_dtd_42
@@ -33,6 +32,7 @@
 , gettext
 , hicolor-icon-theme
 , fuse
+, nixosTests
 , libsoup
 , lzma
 , ostree
@@ -43,7 +43,7 @@
 , valgrind
 , glib-networking
 , wrapGAppsHook
-, gnome3
+, dconf
 , gsettings-desktop-schemas
 , librsvg
 }:
@@ -68,29 +68,39 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    (
-      substituteAll {
-        src = ./fix-test-paths.patch;
-        inherit coreutils gettext glibcLocales;
-        hicolorIconTheme = hicolor-icon-theme;
-      }
-    )
-    (
-      substituteAll {
-        src = ./fix-paths.patch;
-        p11 = p11-kit;
-      }
-    )
-    (
-      substituteAll {
-        src = ./bubblewrap-paths.patch;
-        inherit (builtins) storeDir;
-      }
-    )
-    # patch taken from gtk_doc
+    # Hardcode paths used by tests and change test runtime generation to use files from Nix store.
+    # https://github.com/flatpak/flatpak/issues/1460
+    (substituteAll {
+      src = ./fix-test-paths.patch;
+      inherit coreutils gettext glibcLocales;
+      hicolorIconTheme = hicolor-icon-theme;
+    })
+
+    # Hardcode paths used by Flatpak itself.
+    (substituteAll {
+      src = ./fix-paths.patch;
+      p11 = p11-kit;
+    })
+
+    # Adapt paths exposed to sandbox for NixOS.
+    (substituteAll {
+      src = ./bubblewrap-paths.patch;
+      inherit (builtins) storeDir;
+    })
+
+    # Allow gtk-doc to find schemas using XML_CATALOG_FILES environment variable.
+    # Patch taken from gtk-doc expression.
     ./respect-xml-catalog-files-var.patch
+
+    # Don’t hardcode flatpak binary path in launchers stored under user’s profile otherwise they will break after Flatpak update.
+    # https://github.com/NixOS/nixpkgs/issues/43581
     ./use-flatpak-from-path.patch
+
+    # Nix environment hacks should not leak into the apps.
+    # https://github.com/NixOS/nixpkgs/issues/53441
     ./unset-env-vars.patch
+
+    # But we want the GDK_PIXBUF_MODULE_FILE from the wrapper affect the icon validator.
     ./validate-icon-pixbuf.patch
   ];
 
@@ -119,7 +129,7 @@ stdenv.mkDerivation rec {
     bubblewrap
     bzip2
     dbus
-    gnome3.dconf
+    dconf
     glib
     gpgme
     json-glib
@@ -140,9 +150,12 @@ stdenv.mkDerivation rec {
     fuse
   ];
 
-  checkInputs = [ valgrind ];
+  checkInputs = [
+    valgrind
+  ];
 
-  doCheck = false; # TODO: some issues with temporary files
+  # TODO: some issues with temporary files
+  doCheck = false;
 
   NIX_LDFLAGS = [
     "-lpthread"
@@ -164,8 +177,8 @@ stdenv.mkDerivation rec {
   # NIX_CFLAGS_LINK = [ "-lpthread" ];
 
   makeFlags = [
-    "installed_testdir=$(installedTests)/libexec/installed-tests/flatpak"
-    "installed_test_metadir=$(installedTests)/share/installed-tests/flatpak"
+    "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/flatpak"
+    "installed_test_metadir=${placeholder "installedTests"}/share/installed-tests/flatpak"
   ];
 
   postPatch = ''
@@ -175,7 +188,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Linux application sandboxing and distribution framework";
-    homepage = https://flatpak.org/;
+    homepage = "https://flatpak.org/";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.linux;
