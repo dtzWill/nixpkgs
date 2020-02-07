@@ -201,7 +201,7 @@ in buildEnv {
     ln -sf fmtutil "$out/bin/mktexfmt"
 
     perl `type -P mktexlsr.pl` ./share/texmf
-    texlinks.sh "$out/bin" && wrapBin
+    ${bin.core.out}/share/texmf-dist/scripts/texlive-extra/texlinks.sh --verbose "$out/bin" && wrapBin
     (perl `type -P fmtutil.pl` --sys --all || true) | grep '^fmtutil' # too verbose
     #texlinks.sh "$out/bin" && wrapBin # do we need to regenerate format links?
 

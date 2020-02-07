@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, fetchpatch, patchutils
+{ stdenv, fetchurl, fetchFromGitHub, fetchsvn, fetchpatch, patchutils
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
@@ -19,12 +19,17 @@ let
   version = "${year}-02-04";
 
   common = {
-    src = fetchFromGitHub {
-      owner = "TeX-Live";
-      repo = "texlive-source";
-      rev = "6fd4be855a4f88604244e1b80b69affa3d7b02b5";
-      sha256 = "0vr1w3hmrpac144qsbg3671nygyn6zya754p4qih5faqiq9l6ky0";
+    src = fetchsvn {
+      url = "svn://tug.org/texlive/trunk/Build/source";
+      rev = "53703";
+      sha256 = "0admxn59nj2idwvxncjrdqzkwj220a9v1j03n4w1rx3jwacqgg86";
     };
+    #src = fetchFromGitHub {
+    #  owner = "TeX-Live";
+    #  repo = "texlive-source";
+    #  rev = "6fd4be855a4f88604244e1b80b69affa3d7b02b5";
+    #  sha256 = "0vr1w3hmrpac144qsbg3671nygyn6zya754p4qih5faqiq9l6ky0";
+    #};
     #src = fetchurl {
     #  urls = [
     #    "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
