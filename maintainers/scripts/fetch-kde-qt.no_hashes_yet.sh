@@ -39,7 +39,8 @@ gawk -F , "{ print \$1 }" $csv | sort | uniq | while read name; do
     src=$(gawk -F , "/^$name,$latestVersion,/ { print \$3 }" $csv)
     filename=$(gawk -F , "/^$name,$latestVersion,/ { print \$4 }" $csv)
     url="${src:2}"
-    sha256=$(nix-hash --type sha256 --base32 --flat "$src")
+    #sha256=$(nix-hash --type sha256 --base32 --flat "$src")
+    sha256=$(nix-hash --type sha256 --flat "$src")
     cat >>"$SRCS" <<EOF
   $name = {
     version = "$latestVersion";
