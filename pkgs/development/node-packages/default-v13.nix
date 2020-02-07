@@ -1,4 +1,4 @@
-{ pkgs, nodejs, stdenv }:
+{ pkgs, nodejs, stdenv, fetchpatch }:
 
 let
   nodePackages = import ./composition-v13.nix {
@@ -26,5 +26,13 @@ nodePackages // {
 
       nodePackages.node-pre-gyp
     ];
+
+    # Fix spewing debug info, remove on update
+    preRebuild = ''
+      patch -p2 -i ${fetchpatch {
+        url = "https://github.com/laurent22/joplin/commit/7eabe74402e7a704505c11f3fc5b96a54e2ed4a6.patch";
+        sha256 = "0lmy2v3lqalkj7zsyi5nzbx9sci2rpcpcv7vgni1kvx8aa02d7py";
+      }}
+    '';
   };
 }
