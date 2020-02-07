@@ -49,7 +49,6 @@
 , bubblewrap
 , efibootmgr
 , flashrom
-, tpm2-tools
 , nixosTests
 }:
 
@@ -189,7 +188,6 @@ stdenv.mkDerivation rec {
     binPath = [
       efibootmgr
       bubblewrap
-      tpm2-tools
     ] ++ stdenv.lib.optional haveFlashrom flashrom;
   in ''
     gappsWrapperArgs+=(
