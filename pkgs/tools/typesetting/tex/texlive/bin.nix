@@ -2,7 +2,7 @@
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
-, perl, perlPackages, pkgconfig, autoreconfHook
+, perl, perlPackages, pkgconfig
 , poppler, libpaper, graphite2, zziplib, harfbuzz, potrace, gmp, mpfr
 , cairo, pixman, xorg, clisp, biber, xxHash
 , makeWrapper, shortenPerlShebang
@@ -44,10 +44,6 @@ let
       cp -pv texk/web2c/pdftexdir/pdftosrc{-poppler${popplerVersion},}.cc
     '';
 
-    # remove when removing synctex-missing-header.patch
-    preAutoreconf = "pushd texk/web2c";
-    postAutoreconf = "popd";
-
     configureFlags = [
       "--with-banner-add=/NixOS.org"
       "--disable-missing" "--disable-native-texlive-build"
@@ -79,11 +75,11 @@ core = stdenv.mkDerivation rec {
   pname = "texlive-bin";
   inherit version;
 
-  inherit (common) src postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch;
 
   outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook ];
+  nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
     /*teckit*/ zziplib poppler mpfr gmp
     pixman gd freetype libpng libpaper zlib
@@ -181,7 +177,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
   pname = "texlive-core-big.bin";
   inherit version;
 
-  inherit (common) src postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch;
 
   hardeningDisable = [ "format" ];
 
