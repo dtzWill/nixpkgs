@@ -9,6 +9,10 @@ stdenv.mkDerivation rec {
     sha256 = "16jr9yjk8wgzfh22hr3z6mp4jm3fkacyibds4jj5xx5yymbm8wj9";
   };
 
+  postPatch = stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
+    sed -i -e '/sysctl\.h/d' build-aux/yuck.c
+  '';
+
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ tzdata ]; # needed for datezone
   enableParallelBuilding = true;
