@@ -60,7 +60,25 @@ in
     nativeBuildInputs = [ which utillinux pkgconfig ]
       ++ optionals stdenv.isDarwin [ xcbuild ];
 
-    configureFlags = sharedConfigureFlags ++ [ "--without-dtrace" ] ++ extraConfigFlags;
+    configureFlags = let
+      isCross = stdenv.hostPlatform != stdenv.buildPlatform;
+      host = stdenv.hostPlatform.platform;
+      isAarch32 = stdenv.hostPlatform.isAarch32;
+    in sharedConfigureFlags ++ [
+      "--without-dtrace"
+    ] ++ (optionals isCross [
+      "--cross-compiling"
+      "--without-intl"
+      "--without-snapshot"
+    ]) ++ (optionals (isCross && isAarch32 && hasAttr "fpu" host.gcc) [
+      "--with-arm-fpu=${host.gcc.fpu}"
+    ]) ++ (optionals (isCross && isAarch32 && hasAttr "float-abi" host.gcc) [
+      "--with-arm-float-abi=${host.gcc.float-abi}"
+    ]) ++ (optionals (isCross && isAarch32) [
+      "--dest-cpu=arm"
+    ]) ++ extraConfigFlags;
+
+    # configurePlatforms = [];
 
     dontDisableStatic = true;
 
