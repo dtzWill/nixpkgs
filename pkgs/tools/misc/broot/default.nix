@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "broot";
-  version = "0.13.0";
+  version = "0.13.1";
 
   src = fetchFromGitHub {
     owner = "Canop";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0lm90n2hi4ljyhb2qv13979xr0p5faxhq4rcfz0bmyygsfss0zl2";
+    sha256 = "13b1w9g68aj3r70w9bmrmdc772y959n77ajbdm2cpjs5f4kgfpak";
   };
 
   cargoSha256 = "1rnk6lw6gxm1s0q9ciahzcymw4f10mpsj77n74scslald4fivj43";
