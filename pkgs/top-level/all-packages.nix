@@ -2293,6 +2293,8 @@ in
 
   cdrkit = callPackage ../tools/cd-dvd/cdrkit { };
 
+  cemu = qt5.callPackage ../applications/science/math/cemu { };
+
   isomd5sum = callPackage ../tools/cd-dvd/isomd5sum { };
 
   mdf2iso = callPackage ../tools/cd-dvd/mdf2iso { };
