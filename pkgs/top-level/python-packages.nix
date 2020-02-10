@@ -5268,6 +5268,8 @@ in {
 
   xxhash = callPackage ../development/python-modules/xxhash { };
 
+  ydiff = callPackage ../development/python-modules/ydiff { };
+
   youtube-dl = callPackage ../tools/misc/youtube-dl {};
 
   youtube-dl-light = callPackage ../tools/misc/youtube-dl {
