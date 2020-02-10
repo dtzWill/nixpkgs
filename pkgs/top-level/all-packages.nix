@@ -4792,6 +4792,8 @@ in
 
   libpointmatcher = callPackage ../development/libraries/libpointmatcher { };
 
+  libportal = callPackage ../development/libraries/libportal { };
+
   libmicrodns = callPackage ../development/libraries/libmicrodns { };
 
   libnids = callPackage ../tools/networking/libnids { };
@@ -11620,6 +11622,8 @@ in
 
   glib-networking = callPackage ../development/libraries/glib-networking {};
 
+  glib-testing = callPackage ../development/libraries/glib-testing { };
+
   gom = callPackage ../development/libraries/gom { };
 
   ace = callPackage ../development/libraries/ace { };
@@ -12548,7 +12552,9 @@ in
 
   librelp = callPackage ../development/libraries/librelp { };
 
-  librepo = callPackage ../tools/package-management/librepo { };
+  librepo = callPackage ../tools/package-management/librepo {
+    python = python3;
+  };
 
   libresample = callPackage ../development/libraries/libresample {};
 
@@ -12650,6 +12656,8 @@ in
   liblinear = callPackage ../development/libraries/liblinear { };
 
   libmad = callPackage ../development/libraries/libmad { };
+
+  malcontent = callPackage ../development/libraries/malcontent { };
 
   libmanette = callPackage ../development/libraries/libmanette { };
 
@@ -14679,6 +14687,8 @@ in
   };
 
   yubikey-personalization-gui = libsForQt5.callPackage ../tools/misc/yubikey-personalization-gui { };
+
+  zchunk = callPackage ../development/libraries/zchunk { };
 
   zeitgeist = callPackage ../development/libraries/zeitgeist { };
 
