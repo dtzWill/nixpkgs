@@ -3,12 +3,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "urweb-${version}";
-  version = "20190217";
+  pname = "urweb";
+  version = "20200209";
 
   src = fetchurl {
-    url = "https://github.com/urweb/urweb/releases/download/${version}/${name}.tar.gz";
-    sha256 = "1cl0x0sy7w1lazszc8q06q3wx0x0rczxh27vimrsw54s6s9y096s";
+    url = "https://github.com/urweb/urweb/releases/download/${version}/${pname}-${version}.tar.gz";
+    sha256 = "0qh6wcxfk5kf735i5gqwnkdirnnmqhnnpkfz96gz144dgz2i0c5c";
   };
 
   buildInputs = [ openssl mlton libmysqlclient postgresql sqlite icu ];
