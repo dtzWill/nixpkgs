@@ -12,19 +12,11 @@ in
 mkDerivation rec {
   pname = "latte-dock";
   version = "0.9.8.1";
-  #version = "unstable-2019-09-11";
-  name = "${pname}-${version}";
 
-  #src = fetchFromGitHub {
-  #  owner = "KDE";
-  #  repo = pname;
-  #  rev = "ac11a3a2d7d669d20ad16e8ce745032845704df1";
-  #  sha256 = "16m4gixbdcnc7y94ayax8b9ih0sizgpvvbn8ckj939md8s85zz5i";
-  #};
   src = fetchurl {
-    url = "https://download.kde.org/stable/${pname}/${name}.tar.xz";
+    url = "https://download.kde.org/stable/${pname}/${pname}-${version}.tar.xz";
     sha256 = "10x5aplkjyi2w0793whjjzi777ffh3m4d0sp06qzkpx8jqd46him";
-    name = "${name}.tar.xz";
+    name = "${pname}-${version}.tar.xz";
   };
 
   buildInputs = [
