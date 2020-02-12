@@ -167,6 +167,8 @@ stdenv.mkDerivation ({
       rust-cbindgen
       rustc
       which
+      unzip
+      makeWrapper
     ]
     ++ lib.optional gtk3Support wrapGAppsHook
     ++ lib.optionals stdenv.isDarwin [ xcbuild rsync ]
