@@ -29,12 +29,12 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "retroarch-bare";
-  version = "1.8.1";
+  version = "1.8.4";
 
   src = fetchFromGitHub {
     owner = "libretro";
     repo = "RetroArch";
-    sha256 = "0y7rcpz7psf8k3agsrq277jdm651vbnn9xpqvmj2in1a786idya7";
+    sha256 = "0zs86s6rg6c87hry52mjri5ff3lpc79wdiq4wr3rmkv7bzqrd9ca";
     rev = "v${version}";
   };
 
