@@ -21108,7 +21108,9 @@ in
     gtksharp = gtk-sharp-2_0;
   };
 
-  plex-media-player = libsForQt5.callPackage ../applications/video/plex-media-player { };
+  pistol = callPackage ../tools/misc/pistol { };
+
+  plex-mpv-shim = python3Packages.callPackage ../applications/video/plex-mpv-shim { };
 
   plover = recurseIntoAttrs (callPackage ../applications/misc/plover { });
 
