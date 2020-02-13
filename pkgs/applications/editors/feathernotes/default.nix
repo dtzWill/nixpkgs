@@ -1,5 +1,5 @@
 { mkDerivation, lib, fetchFromGitHub, pkgconfig
-, cmake, qttools, qtbase, qtsvg, qtx11extras }:
+, qmake, qttools, qtbase, qtsvg, qtx11extras }:
 
 mkDerivation rec {
   version = "0.5.1";
@@ -10,7 +10,7 @@ mkDerivation rec {
     rev = "V${version}";
     sha256 = "0x67cirzgb9z2cxq8q1x6w25ff6j98srg8xs68c9s7pnd73bl4cr";
   };
-  nativeBuildInputs = [ cmake pkgconfig qttools ];
+  nativeBuildInputs = [ qmake pkgconfig qttools ];
   buildInputs = [ qtbase qtsvg qtx11extras ];
   meta = with lib; {
     description = "Lightweight Qt5 Notes-Manager for Linux";
