@@ -22,4 +22,10 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig qttools ];
 
   buildInputs = [ qtbase syntax-highlighting libsecret ];
+
+  cmakeFlags = [
+    "-DOPENTODOLIST_FORCE_VERSION=${version}"
+    "-DOPENTODOLIST_WITH_UPDATE_SERVICE=OFF"
+    "-DOPENTODOLIST_WITH_APPIMAGE_EXTRAS=OFF"
+  ];
 }
