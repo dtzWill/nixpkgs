@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, libXt, libXpm, libXext, libxml2, gtk3, dbus }:
+{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, libXt, libXpm, libXext, libxml2, gtk3, dbus }:
 
 stdenv.mkDerivation rec {
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "07vly29k4flz0k5fp35i3j7abi7jbi4w5k7zxf3xa7ihy3sfdk5h";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
   buildInputs = [
     libXt libXpm libXext
     libxml2 gtk3
