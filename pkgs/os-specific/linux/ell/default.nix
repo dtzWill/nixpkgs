@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   enableParallelChecking = false;
 
   configureFlags = [
-    "--enable-debug"
+    #"--enable-debug"
     "--enable-asan"
     "--enable-ubsan"
   ];
