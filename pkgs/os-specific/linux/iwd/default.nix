@@ -36,18 +36,16 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-dbus-datadir=${placeholder "out"}/etc/"
-    "--with-dbus-busdir=${placeholder "out"}/share/dbus-1/system-services/"
-    "--with-systemd-unitdir=${placeholder "out"}/lib/systemd/system/"
-    "--with-systemd-modloaddir=${placeholder "out"}/etc/modules-load.d/" # maybe
-    "--localstatedir=/var/"
-    "--enable-wired"
     "--enable-external-ell"
-    "--enable-ofono"
+    "--enable-wired"
+    "--localstatedir=/var/"
+    "--with-dbus-busdir=${placeholder "out"}/share/dbus-1/system-services/"
+    "--with-dbus-datadir=${placeholder "out"}/share/"
+    "--with-systemd-modloaddir=${placeholder "out"}/etc/modules-load.d/" # maybe
+    "--with-systemd-unitdir=${placeholder "out"}/lib/systemd/system/"
+    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/network/"
 
-    # XXX: ?!
-    # iwd wants to disable persistent naming, via installed .link?
-    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/system/"
+    "--enable-ofono"
 
     "--enable-debug"
     "--enable-asan"
