@@ -9,6 +9,9 @@
 , readline
 , openssl
 , python3Packages
+, enableDebug ? true
+, enableAsan ? true
+, enableUbsan ? true
 }:
 
 stdenv.mkDerivation rec {
@@ -55,11 +58,9 @@ stdenv.mkDerivation rec {
     "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/network/"
 
     "--enable-ofono"
-
-    "--enable-debug"
-    "--enable-asan"
-    "--enable-ubsan"
-  ];
+  ] ++ stdenv.lib.optional enableDebug "--enable-debug"
+    ++ stdenv.lib.optional enableAsan "--enable-asan"
+    ++ stdenv.lib.optional enableUbsan "--enable-ubsan";
 
   #separateDebugInfo = true;
   dontStrip = true; # leave
