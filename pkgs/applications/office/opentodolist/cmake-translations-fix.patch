@@ -1,0 +1,32 @@
+From 23e85b2a1c69fde5196765e52d5a169bcab687b7 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 12 Feb 2020 22:26:13 -0600
+Subject: [PATCH] translations
+
+---
+ lib/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index ae0c7e3..d38b301 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -46,6 +46,7 @@ set(LIB_HEADERS
+     utils/directorywatcher.h
+     utils/jsonutils.h
+     utils/keystore.h
++    utils/translations.h
+     utils/updateservice.h
+     utils/syntaxhighlighter.h
+ 
+@@ -87,6 +88,7 @@ set(LIB_SOURCES
+     utils/directorywatcher.cpp
+     utils/jsonutils.cpp
+     utils/keystore.cpp
++    utils/translations.cpp
+     utils/updateservice.cpp
+     utils/syntaxhighlighter.cpp
+ 
+-- 
+2.25.0.4
+
