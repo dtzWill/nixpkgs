@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub, makeWrapper, ncurses }:
 
 buildGoModule rec {
   pname = "micro";
@@ -19,6 +19,12 @@ buildGoModule rec {
   subPackages = [ "cmd/micro" ];
 
   buildFlagsArray = [ "-ldflags=" "-X main.Version=${version}" ];
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  postInstall = ''
+    wrapProgram $out/bin/micro --prefix PATH : ${ncurses.dev}/bin
+  '';
 
   meta = with stdenv.lib; {
     homepage = https://micro-editor.github.io;
