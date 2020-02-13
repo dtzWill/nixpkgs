@@ -1,4 +1,4 @@
-{ mkDerivation, lib, fetchgit, cmake, pkgconfig
+{ mkDerivation, lib, fetchgit, qmake, pkgconfig
 , extra-cmake-modules, qttools
 , qtbase, qtdeclarative, qtsvg, qtimageformats
 , qtquick1
@@ -49,7 +49,7 @@ mkDerivation rec {
       --replace "add_subdirectory(application)" ""
   '';
 
-  nativeBuildInputs = [ cmake pkgconfig extra-cmake-modules qttools ];
+  nativeBuildInputs = [ qmake pkgconfig qttools ];
 
   buildInputs = [
     qtbase qtdeclarative qtsvg qtimageformats
@@ -69,5 +69,10 @@ mkDerivation rec {
     "-DOPENTODOLIST_FORCE_VERSION=${version}"
     "-DOPENTODOLIST_WITH_UPDATE_SERVICE=OFF"
     "-DOPENTODOLIST_WITH_APPIMAGE_EXTRAS=OFF"
+  ];
+
+  qmakeFlags = [
+    "INSTALL_ROOT=${placeholder "out"}"
+    "INSTALL_PREFIX=${placeholder "out"}"
   ];
 }
