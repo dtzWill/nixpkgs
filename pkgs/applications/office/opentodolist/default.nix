@@ -1,6 +1,7 @@
 { mkDerivation, lib, fetchgit, cmake, pkgconfig
 , extra-cmake-modules, qttools
 , qtbase, qtdeclarative, qtsvg, qtimageformats
+, qtquick1
 , qtquickcontrols, qtquickcontrols2
 , qttranslations
 , qtwayland, qtx11extras
@@ -52,7 +53,9 @@ mkDerivation rec {
 
   buildInputs = [
     qtbase qtdeclarative qtsvg qtimageformats
-    qtquickcontrols qtquickcontrols2 qttranslations
+    qtquick1
+    qtquickcontrols qtquickcontrols2
+    qttranslations
     qtwayland qtx11extras
     qtlocation
     qtgraphicaleffects
