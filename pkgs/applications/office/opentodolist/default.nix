@@ -1,6 +1,14 @@
 { mkDerivation, lib, fetchgit, cmake, pkgconfig
-, qttools
-, qtbase, qtdeclarative, qtsvg, qtimageformats, qtquickcontrols2, qttranslations, qtwayland, qtx11extras
+, extra-cmake-modules, qttools
+, qtbase, qtdeclarative, qtsvg, qtimageformats
+, qtquickcontrols, qtquickcontrols2
+, qttranslations
+, qtwayland, qtx11extras
+, qtlocation
+, qtgraphicaleffects
+, qtmultimedia
+, qtsensors
+, qtxmlpatterns
 , libsecret
 # kde
 , syntax-highlighting
@@ -31,10 +39,16 @@ mkDerivation rec {
     EOF
   '';
 
-  nativeBuildInputs = [ cmake pkgconfig qttools ];
+  nativeBuildInputs = [ cmake pkgconfig extra-cmake-modules qttools ];
 
   buildInputs = [
-    qtbase qtdeclarative qtsvg qtimageformats qtquickcontrols2 qttranslations qtwayland qtx11extras
+    qtbase qtdeclarative qtsvg qtimageformats qtquickcontrols qtquickcontrols2 qttranslations
+    qtwayland qtx11extras
+    qtlocation
+    qtgraphicaleffects
+    qtmultimedia
+    qtsensors
+    qtxmlpatterns
     syntax-highlighting libsecret
   ];
 
