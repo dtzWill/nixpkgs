@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
+  makeFlags = [ "gamesdir=${placeholder "out"}/bin" ];
   meta = {
     description = "Snow on your desktop";
     homepage = "https://www.ratrabbit.nl/ratrabbit/content/xsnow/introduction";
