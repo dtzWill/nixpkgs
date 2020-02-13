@@ -1,4 +1,6 @@
-{ mkDerivation, lib, fetchgit, cmake, pkgconfig, qtbase, qttools
+{ mkDerivation, lib, fetchgit, cmake, pkgconfig
+, qttools
+, qtbase, qtdeclarative, qtsvg, qtimageformats, qtquickcontrols2, qttranslations, qtwayland, qtx11extras
 , libsecret
 # kde
 , syntax-highlighting
@@ -31,11 +33,16 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig qttools ];
 
-  buildInputs = [ qtbase syntax-highlighting libsecret ];
+  buildInputs = [
+    qtbase qtdeclarative qtsvg qtimageformats qtquickcontrols2 qttranslations qtwayland qtx11extras
+    syntax-highlighting libsecret
+  ];
 
   cmakeFlags = [
     "-DOPENTODOLIST_FORCE_VERSION=${version}"
     "-DOPENTODOLIST_WITH_UPDATE_SERVICE=OFF"
     "-DOPENTODOLIST_WITH_APPIMAGE_EXTRAS=OFF"
   ];
+
+  doCheck = false;
 }
