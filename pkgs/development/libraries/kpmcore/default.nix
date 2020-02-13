@@ -7,11 +7,11 @@ let
   pname = "kpmcore";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
-  version = "4.0.1";
+  version = "4.1.0";
 
   src = fetchurl {
     url = "mirror://kde/stable/${pname}/${version}/src/${name}.tar.xz";
-    sha256 = "1sslkwcj2cyrn7bpjdjdwikp1q8wrsxpsg2sxxd8hsairgy7ygh3";
+    sha256 = "0jsig7algmab9h0fb09my0axjqzw83zgscamhzl8931lribs6idm";
   };
 
   buildInputs = [
