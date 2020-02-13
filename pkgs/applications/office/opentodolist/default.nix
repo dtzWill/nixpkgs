@@ -66,6 +66,4 @@ mkDerivation rec {
     "-DOPENTODOLIST_WITH_UPDATE_SERVICE=OFF"
     "-DOPENTODOLIST_WITH_APPIMAGE_EXTRAS=OFF"
   ];
-
-  doCheck = false;
 }
