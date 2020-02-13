@@ -1,8 +1,8 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage  rec {
-  name = "micro-${version}";
-  version = "1.4.1";
+buildGoModule rec {
+  pname = "micro";
+  version = "2.0.1";
 
   goPackagePath = "github.com/zyedidia/micro";
 
@@ -10,9 +10,11 @@ buildGoPackage  rec {
     owner = "zyedidia";
     repo = "micro";
     rev = "v${version}";
-    sha256 = "0m9p6smb5grdazsgr3m1x4rry9ihhlgl9ildhvfp53czrifbx0m5";
+    sha256 = "1gbin1miib0v4clbi4naff8051jcl7k7m254rs12knb458rbqq62";
     fetchSubmodules = true;
   };
+
+  modSha256 = "1s9pr192cs1iys8k1zqi846zj0iqsryz4na4cp1l7avdalzqiswy";
 
   subPackages = [ "cmd/micro" ];
 
