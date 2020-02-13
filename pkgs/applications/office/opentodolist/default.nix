@@ -17,6 +17,16 @@ mkDerivation rec {
   postPatch = ''
     # Fix build from separate dir, let include paths do the work for finding header
     substituteInPlace lib/fileutils.cpp --replace '../datamodel/library.h' 'datamodel/library.h'
+
+    # fix version gen, dunno
+    cat > lib/opentodolist_version.h <<EOF
+    #ifndef OPENTODOLIST_VERSION_H_
+    #define OPENTODOLIST_VERSION_H_
+    
+    #define OPENTODOLIST_VERSION "${version}"
+    
+    #endif // OPENTODOLIST_VERSION_H_
+    EOF
   '';
 
   nativeBuildInputs = [ cmake pkgconfig qttools ];
