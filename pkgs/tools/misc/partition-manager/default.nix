@@ -1,5 +1,5 @@
 { mkDerivation, fetchurl, lib
-, extra-cmake-modules, kdoctools, wrapGAppsHook, wrapQtAppsHook
+, extra-cmake-modules, kdoctools, wrapGAppsHook
 , kconfig, kcrash, kinit, kpmcore, kauth
 , eject, smartmontools, utillinux, qtbase
 }:
@@ -17,7 +17,7 @@ in mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
   # refer to kpmcore for the use of eject
   buildInputs = [ eject smartmontools utillinux ];
