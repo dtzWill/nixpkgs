@@ -3206,6 +3206,8 @@ in
 
   fdm = callPackage ../tools/networking/fdm {};
 
+  feathernotes = libsForQt5.callPackage ../applications/editors/feathernotes {};
+
   featherpad = libsForQt5.callPackage ../applications/editors/featherpad {};
 
   feedreader = callPackage ../applications/networking/feedreaders/feedreader {};
