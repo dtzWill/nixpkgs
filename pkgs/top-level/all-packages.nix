@@ -25930,4 +25930,5 @@ in
 
   quartus-prime-lite = callPackage ../applications/editors/quartus-prime {};
 
+  opentodolist = libsForQt5.callPackage ../applications/office/opentodolist {};
 }
