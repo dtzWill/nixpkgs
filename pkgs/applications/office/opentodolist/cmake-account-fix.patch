@@ -1,0 +1,32 @@
+From 522fb394c4ef47a7453f832d7a968375740a7062 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Wed, 12 Feb 2020 22:19:15 -0600
+Subject: [PATCH] cmake: account.h/account.cpp
+
+---
+ lib/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index 32d5352..ae0c7e3 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -37,6 +37,7 @@ set(LIB_HEADERS
+     models/itemssortfiltermodel.h
+     models/librariesmodel.h
+     opentodolistqmlextensionsplugin.h
++    sync/account.h
+     sync/synchronizer.h
+     sync/syncjob.h
+     sync/syncrunner.h
+@@ -77,6 +78,7 @@ set(LIB_SOURCES
+     models/itemssortfiltermodel.cpp
+     models/librariesmodel.cpp
+     opentodolistqmlextensionsplugin.cpp
++    sync/account.cpp
+     sync/synchronizer.cpp
+     sync/syncjob.cpp
+     sync/syncrunner.cpp
+-- 
+2.25.0.4
+
