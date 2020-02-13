@@ -51,7 +51,8 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig extra-cmake-modules qttools ];
 
   buildInputs = [
-    qtbase qtdeclarative qtsvg qtimageformats qtquickcontrols qtquickcontrols2 qttranslations
+    qtbase qtdeclarative qtsvg qtimageformats
+    qtquickcontrols qtquickcontrols2 qttranslations
     qtwayland qtx11extras
     qtlocation
     qtgraphicaleffects
