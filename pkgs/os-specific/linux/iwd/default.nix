@@ -1,7 +1,16 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, openssl, python3Packages }:
+{ stdenv
+, fetchgit
+, fetchpatch
+, autoreconfHook
+, pkgconfig
+, ell
+, coreutils
+, docutils
+, readline
+, openssl
+, python3Packages
+}:
 
-# TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
-# (and any req'd dependencies/wrapping, not sure)
 stdenv.mkDerivation rec {
   pname = "iwd";
 
@@ -17,8 +26,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     autoreconfHook
+    docutils
     pkgconfig
-    docutils # rst2man
     python3Packages.wrapPython
   ];
 
