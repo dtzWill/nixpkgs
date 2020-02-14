@@ -43,10 +43,11 @@ in stdenv.mkDerivation rec {
     mkdir -p $out/bin
     makeWrapper ${jdk12}/bin/java $out/bin/${pname} \
       --add-flags '--module-path "lib:tvbrowser.jar"' \
+      --add-flags "-Djava.library.path=$out/share/java/${pname}" \
       --add-flags "-splash:imgs/splash.png" \
+      --add-flags "-Dpropertiesfile=linux.properties" \
+      --add-flags "-m tvbrowser/tvbrowser.TVBrowser" \
       --run "cd $out/share/java/${pname}" \
-      --add-flags "-Dpropertiesfiles=linux.properties" \
-      --add-flags "-m tvbrowser/tvbrowser.TVBrowser"
   '';
 
   meta = with stdenv.lib; {
