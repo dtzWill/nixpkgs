@@ -35,7 +35,6 @@ let
       ./fix-java-home-jdk10.patch
       ./read-truststore-from-env-jdk10.patch
       ./currency-date-range-jdk10.patch
-      ./increase-javadoc-heap.patch
       # -Wformat etc. are stricter in newer gccs, per
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
       # so grab the work-around from
