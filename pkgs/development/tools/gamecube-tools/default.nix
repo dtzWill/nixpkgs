@@ -1,11 +1,11 @@
 { stdenv, which, autoconf, automake, fetchFromGitHub,
-  libtool, freeimage, mesa }:
+  libtool, freeimage, libGL }:
 stdenv.mkDerivation rec {
   version = "v1.0.2";
   name = "gamecube-tools-${version}";
 
   nativeBuildInputs = [ which autoconf automake libtool ];
-  buildInputs = [ freeimage mesa ];
+  buildInputs = [ freeimage libGL ];
 
   src = fetchFromGitHub {
     owner = "devkitPro";
