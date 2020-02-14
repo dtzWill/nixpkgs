@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
     # Find the correct lds and crt name when specifying -Defi_ldsdir
     (fetchpatch {
       url = "https://github.com/fwupd/fwupd/commit/52cda3db9ca9ab4faf99310edf29df926a713b5c.patch";
-      sha256 = "sha256-JtRsMJ5/Twsq5GcYrt6BYU1UGu88jvF9PtpX9Vs6UkM=";
+      sha256 = "0hsj79dzamys7ryz33iwxwd58kb1h7gaw637whm0nkvzkqq6rm16";
     })
   ];
 
