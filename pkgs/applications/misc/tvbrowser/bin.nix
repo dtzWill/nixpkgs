@@ -46,9 +46,18 @@ in stdenv.mkDerivation rec {
       --add-flags "-Djava.library.path=$out/share/java/${pname}" \
       --add-flags "-splash:imgs/splash.png" \
       --add-flags "-Dpropertiesfile=linux.properties" \
+      --add-flags "\
+        -Dawt.useSystemAAFontSettings=lcd \
+        -Dsun.java2d.xrender=True \
+        -Dswing.aatext=true \
+        " \
       --add-flags "-m tvbrowser/tvbrowser.TVBrowser" \
-      --run "cd $out/share/java/${pname}" \
+      --run "cd $out/share/java/${pname}"
   '';
+        #-Dsun.java2d.opengl=False
+   # "-Dswing.defaultlaf=com.sun.java"
+    #-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+    #-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 
   meta = with stdenv.lib; {
     description = "Electronic TV Program Guide";
