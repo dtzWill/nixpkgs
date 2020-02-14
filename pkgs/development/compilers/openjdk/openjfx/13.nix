@@ -35,6 +35,7 @@ let
       export GRADLE_USER_HOME=$(mktemp -d)
       ln -s $config gradle.properties
       export NIX_CFLAGS_COMPILE="$(pkg-config --cflags glib-2.0) $NIX_CFLAGS_COMPILE"
+      export NIX_CFLAGS_COMPILE="-DGLIB_DISABLE_DEPRECATION_WARNINGS $NIX_CFLAGS_COMPILE"
       gradle --no-daemon $gradleFlags sdk
 
       runHook postBuild
