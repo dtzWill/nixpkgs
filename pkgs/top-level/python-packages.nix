@@ -3532,6 +3532,8 @@ in {
 
   ifaddr = callPackage ../development/python-modules/ifaddr { };
 
+  imagecorruptions = callPackage ../development/python-modules/imagecorruptions { };
+
   imageio = callPackage ../development/python-modules/imageio { };
 
   imageio-ffmpeg = callPackage ../development/python-modules/imageio-ffmpeg { };
