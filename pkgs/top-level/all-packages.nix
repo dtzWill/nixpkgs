@@ -8299,6 +8299,8 @@ in
 
   openjfx12 = callPackage ../development/compilers/openjdk/openjfx/12.nix { };
 
+  openjfx13 = callPackage ../development/compilers/openjdk/openjfx/13.nix { };
+
   openjdk8-bootstrap =
     if adoptopenjdk-hotspot-bin-8.meta.available then
       adoptopenjdk-hotspot-bin-8
