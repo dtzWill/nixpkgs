@@ -4,18 +4,18 @@ assert stdenv.isDarwin -> IOKit != null;
 
 rustPlatform.buildRustPackage rec {
   pname = "ytop";
-  version = "0.4.2";
+  version = "0.4.3";
 
   src = fetchFromGitHub {
     owner = "cjbassi";
     repo = pname;
     rev = version;
-    sha256 = "1rq03wljkrgys375z6bdslj19k345k0hwshiyp0ymdhj26bpxawr";
+    sha256 = "09zpqw7nnwbc7h38fb8lsa77i77kav8ijszw8nyzzr7za7z928c9";
   };
 
   buildInputs = stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
 
-  cargoSha256 = "1g06zavhkasx2wqg24nzzavql53w2abkrp2v62783bh9v38vw48b";
+  cargoSha256 = "1as4zk0fg4n7rmpw6p1frwnr4l83a61adq7r68aam1v2cl5sjwgd";
   verifyCargoDeps = true;
 
   meta = with stdenv.lib; {
