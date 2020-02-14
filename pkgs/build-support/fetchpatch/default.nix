@@ -11,9 +11,17 @@ let
 in
 { stripLen ? 0, extraPrefix ? null, excludes ? [], includes ? [], revert ? false, ... }@args:
 
+let
+  tmpname =
+    if args ? hash then
+      # Make base-64 encoded SRI hash filename-safe using RFC 4648 §5
+      lib.replaceStrings [ "+" "/" "=" ] [ "-" "_" "" ] args.hash
+    else
+      args.sha256;
+in
 fetchurl ({
   postFetch = ''
-    tmpfile="$TMPDIR/${args.sha256}"
+    tmpfile="$TMPDIR/${tmpname}"
     if [ ! -s "$out" ]; then
       echo "error: Fetched patch file '$out' is empty!" 1>&2
       exit 1

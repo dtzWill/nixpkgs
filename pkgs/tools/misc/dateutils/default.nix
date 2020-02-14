@@ -1,13 +1,17 @@
 { stdenv, fetchurl, autoreconfHook, tzdata }:
 
 stdenv.mkDerivation rec {
-  version = "0.4.6";
-  name = "dateutils-${version}";
+  version = "0.4.7";
+  pname = "dateutils";
 
   src = fetchurl {
-    url = "https://bitbucket.org/hroptatyr/dateutils/downloads/${name}.tar.xz";
-    sha256 = "1kaphw474lz7336awr9rzsgcsr1p9njsjsryd8i0ywg5g8qp3816";
+    url = "https://bitbucket.org/hroptatyr/dateutils/downloads/${pname}-${version}.tar.xz";
+    sha256 = "16jr9yjk8wgzfh22hr3z6mp4jm3fkacyibds4jj5xx5yymbm8wj9";
   };
+
+  postPatch = stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
+    sed -i -e '/sysctl\.h/d' build-aux/yuck.c
+  '';
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ tzdata ]; # needed for datezone

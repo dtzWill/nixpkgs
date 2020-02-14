@@ -30,6 +30,8 @@ blindFS/vim-taskwarrior
 bkad/camelcasemotion
 bling/vim-bufferline
 blueyed/vim-diminactive
+bluz71/vim-moonfly-colors
+bluz71/vim-nightfly-guicolors
 bogado/file-line
 bohlender/vim-smt2
 brennanfee/vim-gui-position
@@ -58,8 +60,8 @@ cocopon/iceberg.vim
 cohama/lexima.vim
 ctjhoa/spacevim
 ctrlpvim/ctrlp.vim
-dag/vim2hs
 dag/vim-fish
+dag/vim2hs
 dannyob/quickfixstatus
 darfink/starsearch.vim
 dart-lang/dart-vim-plugin
@@ -122,6 +124,7 @@ guns/vim-clojure-static
 guns/vim-sexp
 guns/xterm-color-table.vim
 gyim/vim-boxdraw
+haishanh/night-owl.vim
 hashivim/vim-terraform
 haya14busa/incsearch-easymotion.vim
 haya14busa/incsearch.vim
@@ -170,6 +173,7 @@ joonty/vim-xdebug
 josa42/coc-go
 joshdick/onedark.vim
 jpalardy/vim-slime
+jparise/vim-phabricator
 jreybert/vimagit
 jsfaint/gen_tags.vim
 JuliaEditorSupport/deoplete-julia
@@ -266,6 +270,7 @@ mattn/webapi-vim
 maximbaz/lightline-ale
 MaxMEllon/vim-jsx-pretty
 mbbill/undotree
+Mcmartelle/vim-monokai-bold
 megaannum/forms
 megaannum/self
 mfukar/robotframework-vim
@@ -314,8 +319,8 @@ neoclide/coc-neco
 neoclide/coc-pairs
 neoclide/coc-prettier
 neoclide/coc-python
-neoclide/coc-rls
 neoclide/coc-r-lsp
+neoclide/coc-rls
 neoclide/coc-smartf
 neoclide/coc-snippets
 neoclide/coc-solargraph
@@ -331,13 +336,14 @@ neoclide/coc-yaml
 neoclide/coc-yank
 neoclide/vim-easygit
 neomake/neomake
+neovim/nvim-lsp
+neovim/nvimdev.nvim
 neovimhaskell/haskell-vim
 neovimhaskell/nvim-hs.vim
-neovim/nvimdev.nvim
-neovim/nvim-lsp
 neutaaaaan/iosvkem
 nfnty/vim-nftables
 nicoe/deoplete-khard
+niklas-8/vim-darkspace
 nishigori/increment-activator
 nixprime/cpsm
 NLKNguyen/papercolor-theme
@@ -398,6 +404,7 @@ rust-lang/rust.vim
 ryanoasis/vim-devicons
 Rykka/riv.vim
 ryvnf/readline.vim
+sainnhe/edge
 samoshkin/vim-mergetool
 sbdchd/neoformat
 scrooloose/nerdcommenter
@@ -433,9 +440,12 @@ sjl/gundo.vim
 sjl/splice.vim
 sk1418/last256
 slashmili/alchemist.vim
+solarnz/arcanist.vim
 sonph/onehalf
 stefandtw/quickfix-reflector.vim
 stephpy/vim-yaml
+stillwwater/vim-nebula
+svermeulen/vim-subversive
 t9md/vim-choosewin
 t9md/vim-smalls
 takac/vim-hardtime
@@ -507,16 +517,14 @@ valloric/youcompleteme
 vhda/verilog_systemverilog.vim
 vim-airline/vim-airline
 vim-airline/vim-airline-themes
-vimlab/split-term.vim
-vimoutliner/vimoutliner
 vim-pandoc/vim-pandoc
 vim-pandoc/vim-pandoc-after
 vim-pandoc/vim-pandoc-syntax
 vim-ruby/vim-ruby
+vim-scripts/a.vim
 vim-scripts/align
 vim-scripts/argtextobj.vim
 vim-scripts/autoload_cscope.vim
-vim-scripts/a.vim
 vim-scripts/bats.vim
 vim-scripts/changeColorScheme.vim
 vim-scripts/Colour-Sampler-Pack
@@ -539,6 +547,8 @@ vim-scripts/utl.vim
 vim-scripts/wombat256.vim
 vim-scripts/YankRing.vim
 vim-utils/vim-husk
+vimlab/split-term.vim
+vimoutliner/vimoutliner
 vimwiki/vimwiki
 vito-c/jq.vim
 vmchale/dhall-vim

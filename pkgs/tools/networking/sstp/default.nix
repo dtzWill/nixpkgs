@@ -1,12 +1,12 @@
 { stdenv, fetchurl, pkgconfig, ppp, libevent, openssl }:
 
 stdenv.mkDerivation rec {
-  name = "sstp-client-${version}";
-  version = "1.0.12";
+  pname = "sstp-client";
+  version = "1.0.13";
 
   src = fetchurl {
-    url = "mirror://sourceforge/sstp-client/sstp-client/${version}/sstp-client-${version}.tar.gz";
-    sha256 = "1zv7rx6wh9rhbyg9pg6759by8hc6n4162zrrw0y812cnaw3b8zj8";
+    url = "mirror://sourceforge/sstp-client/sstp-client/sstp-client-${version}.tar.gz";
+    sha256 = "06rjyncmgdy212xf9l9z6mfh4gdmgk7l4y841gb8lpbrl3y5h4ln";
   };
 
   patchPhase =
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-openssl=${openssl.dev}"
     "--with-runtime-dir=/run/sstpc"
-    "--with-pppd-plugin-dir=$(out)/lib/pppd"
+    "--with-pppd-plugin-dir=${placeholder "out"}/lib/pppd"
   ];
 
   nativeBuildInputs = [ pkgconfig ];

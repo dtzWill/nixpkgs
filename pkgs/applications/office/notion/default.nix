@@ -1,12 +1,12 @@
-{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron_3 }:
+{ stdenv, fetchurl, dmg2img, p7zip, libicns, makeWrapper, electron }:
 
 stdenv.mkDerivation rec {
   pname = "notion-app";
-  version = "1.0.8";
+  version = "2.0.5";
 
   src = fetchurl {
     url = "https://desktop-release.notion-static.com/Notion-${version}.dmg";
-    sha256 = "1ci4sbyibbd61nvaxnglsdm9f45dx598lc934wmlpkr5672kcwyn";
+    sha256 = "04bks8b6pk7awq0p4jjqg6dvf87wslqfda6hcn5j7rzk9ck31fki";
   };
 
   unpackPhase = ''
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     # share/icons?
     cp -v Notion_512x512x32.png $out/share/notion-app/
 
-    makeWrapper ${electron_3}/bin/electron $out/bin/notion-app \
+    makeWrapper ${electron}/bin/electron $out/bin/notion-app \
       --run "cd $out/share/notion-app" \
       --add-flags "$out/share/notion-app/app.asar"
 

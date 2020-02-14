@@ -1,24 +1,35 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, docutils, openssl, python3Packages }:
+{ stdenv
+, fetchgit
+, fetchpatch
+, autoreconfHook
+, pkgconfig
+, ell
+, coreutils
+, docutils
+, readline
+, openssl
+, python3Packages
+, enableAsan ? true
+, enableUbsan ? true
+}:
 
-# TODO: install the 'ios_convert.py' script added in d8dac9a330be3514a0ee8437ca020dee968a05ca
-# (and any req'd dependencies/wrapping, not sure)
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  #version = "1.4";
-  version = "unstable-2020-01-29";
+  version = "1.5";
+  #version = "unstable-2020-02-07";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    #rev = version;
-    rev = "0508879e2a64a4ecac6a37ab0669e1263d37e2e5";
-    sha256 = "0a04bykvlgn5h6jd3wwbah0yvgmp52qkv1mcx660cvjm2i4lq8fs";
+    rev = version;
+    #rev = "1896ac2d730d38b019c6bb77af8b39d335e9a584";
+    sha256 = "09viyfv5j2rl6ly52b2xlc2zbmb6i22dv89jc6823bzdjjimkrg6";
   };
 
   nativeBuildInputs = [
     autoreconfHook
+    docutils
     pkgconfig
-    docutils # rst2man
     python3Packages.wrapPython
   ];
 
@@ -36,26 +47,22 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-dbus-datadir=${placeholder "out"}/etc/"
-    "--with-dbus-busdir=${placeholder "out"}/share/dbus-1/system-services/"
-    "--with-systemd-unitdir=${placeholder "out"}/lib/systemd/system/"
-    "--with-systemd-modloaddir=${placeholder "out"}/etc/modules-load.d/" # maybe
-    "--localstatedir=/var/"
-    "--enable-wired"
     "--enable-external-ell"
+    "--enable-wired"
+    "--localstatedir=/var/"
+    "--with-dbus-busdir=${placeholder "out"}/share/dbus-1/system-services/"
+    "--with-dbus-datadir=${placeholder "out"}/share/"
+    "--with-systemd-modloaddir=${placeholder "out"}/etc/modules-load.d/" # maybe
+    "--with-systemd-unitdir=${placeholder "out"}/lib/systemd/system/"
+    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/network/"
+
     "--enable-ofono"
-
-    # XXX: ?!
-    # iwd wants to disable persistent naming, via installed .link?
-    "--with-systemd-networkdir=${placeholder "out"}/lib/systemd/system/"
-
-    "--enable-debug"
-    "--enable-asan"
-    "--enable-ubsan"
-  ];
+  ]
+    ++ stdenv.lib.optional enableAsan "--enable-asan"
+    ++ stdenv.lib.optional enableUbsan "--enable-ubsan";
 
   #separateDebugInfo = true;
-  dontStrip = true; # leave
+  dontStrip = true; # leave, separateDebugInfo works best for upstream-built packages
 
   postUnpack = ''
     patchShebangs .

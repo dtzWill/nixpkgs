@@ -1,8 +1,8 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
-  name = "peco-${version}";
-  version = "0.5.3";
+buildGoModule rec {
+  pname = "peco";
+  version = "0.5.6";
 
   goPackagePath = "github.com/peco/peco";
   subPackages = [ "cmd/peco" ];
@@ -11,10 +11,10 @@ buildGoPackage rec {
     owner = "peco";
     repo = "peco";
     rev = "v${version}";
-    sha256 = "1m3s1jrrhqccgg3frfnq6iprwwi97j13wksckpcyrg51z6y5q041";
+    sha256 = "1v0k7w8qhqqaxnavn8sgv1qxz1axfgs9m5zj0m3mzybv5i5xpab5";
   };
 
-  goDeps = ./deps.nix;
+  modSha256 = "1djba504z5lj8w4cfshk6ai3fd8gn1jzfp6aiwdzlg81356d430m";
 
   meta = with stdenv.lib; {
     description = "Simplistic interactive filtering tool";

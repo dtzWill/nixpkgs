@@ -1,0 +1,25 @@
+From fd55e37c6625009420ec75a24c563552d094ee90 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 6 Feb 2020 10:49:38 -0600
+Subject: [PATCH] label bump size
+
+---
+ data/stylesheet.css | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/stylesheet.css b/data/stylesheet.css
+index acccdcf..4ccb429 100644
+--- a/data/stylesheet.css
++++ b/data/stylesheet.css
+@@ -513,7 +513,7 @@ paned > separator {
+ 
+ 
+ .label {
+-    font-size: 13.6px;
++    font-size: 18px;
+ }
+ 
+ .check-button image,
+-- 
+2.25.0.3
+

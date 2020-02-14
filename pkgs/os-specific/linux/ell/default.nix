@@ -7,16 +7,16 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-  #version = "0.27";
-  version = "unstable-2020-01-28";
+  version = "0.28";
+  #version = "unstable-2020-01-28";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
-     # rev = version;
-     rev = "c62998eb73622a198588eea0568ebb2bce0c19d7";
-     sha256 = "1c256l41i0w0ifpjmdc87f4rkmycw89zx4c5dkprgrrwnba94s7p";
+     rev = version;
+     #rev = "c62998eb73622a198588eea0568ebb2bce0c19d7";
+     sha256 = "1am3ghji271364vmf2w5sxskvlhh4r2mwakza7vjjph16cvsv6a7";
   };
 
   patches = [
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   enableParallelChecking = false;
 
   configureFlags = [
-    "--enable-debug"
+    #"--enable-debug"
     "--enable-asan"
     "--enable-ubsan"
   ];

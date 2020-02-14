@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://downloads.powerdns.com/releases/dnsdist-${version}.tar.bz2";
-    sha256 = "1kz84fmc3q9ds84dlizc85j9vamn0l59nviwkwb5an826a84zclz";
+    sha256 = "1h0x5xd13j8xxrrinb7d55851m6n9w0r15wx9m3c50dk7qngldm3";
   };
 
   nativeBuildInputs = [ pkgconfig protobuf ];
@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
     "--enable-re2"
     "--enable-dnscrypt"
     "--enable-dns-over-tls"
+    "--enable-dns-over-https"
     "--with-protobuf=yes"
     "--with-net-snmp"
     "--disable-dependency-tracking"
@@ -28,6 +29,8 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
+
+  enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "DNS Loadbalancer";

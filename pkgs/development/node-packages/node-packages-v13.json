@@ -1,3 +1,9 @@
 [
-  "node2nix"
+  "nijs"
+, "castnow"
+, "coffee-script"
+, "grunt-cli"
+, "joplin"
+, "node-pre-gyp"
+, "node2nix"
 ]

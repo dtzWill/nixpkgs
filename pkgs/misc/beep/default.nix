@@ -1,24 +1,23 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchFromGitHub }:
 
 # this package is working only as root
 # in order to work as a non privileged user you would need to suid the bin
 
-stdenv.mkDerivation {
-  name = "beep-1.3";
-  src = fetchurl {
-    url = http://www.johnath.com/beep/beep-1.3.tar.gz;
-    sha256 = "0bgch6jq5cahakk3kbr9549iysf2dik09afixxy5brbxk1xfzb2r";
+stdenv.mkDerivation rec {
+  pname = "beep";
+  version = "1.4.8";
+  src = fetchFromGitHub {
+    owner = "spkr-beep";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "1sij2hjk63gy4na01h0fvydrya7nfnwgvm07vpqw708z7n4i6776";
   };
 
-  makeFlags = "INSTALL_DIR=\${out}/bin/ MAN_DIR=\${out}/man/man1/";
+  makeFlags = [ "DESTDIR=" "prefix=${placeholder "out"}" ];
 
-  preInstall = ''
-    mkdir -p $out/bin
-    mkdir -p $out/man/man1
-  '';
   meta = {
     description = "The advanced PC speaker beeper";
-    homepage = http://www.johnath.com/beep/;
+    homepage = "https://github.com/spkr-beep/beep";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
   };

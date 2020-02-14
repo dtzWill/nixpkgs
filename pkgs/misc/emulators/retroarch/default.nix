@@ -2,12 +2,14 @@
 , ffmpeg, libGLU, libGL, freetype, libxml2, python3
 , libobjc, AppKit, Foundation
 , alsaLib ? null
+, libdrm ? null
 , libpulseaudio ? null
 , libv4l ? null
 , libX11 ? null
 , libXdmcp ? null
 , libXext ? null
 , libXxf86vm ? null
+, mesa ? null
 , SDL2 ? null
 , udev ? null
 , enableNvidiaCgToolkit ? false, nvidia_cg_toolkit ? null
@@ -26,27 +28,29 @@ let
   };
 
 in stdenv.mkDerivation rec {
-  name = "retroarch-bare-${version}";
-  version = "1.7.5";
+  pname = "retroarch-bare";
+  version = "1.8.4";
 
   src = fetchFromGitHub {
     owner = "libretro";
     repo = "RetroArch";
-    sha256 = "1jfpgl34jjxn3dvxd1kd564swkw7v98hnn562v998b7vllz3dxdm";
+    sha256 = "0zs86s6rg6c87hry52mjri5ff3lpc79wdiq4wr3rmkv7bzqrd9ca";
     rev = "v${version}";
   };
 
   nativeBuildInputs = [ pkgconfig ]
-                      ++ optional withVulkan [ makeWrapper ];
+                      ++ optional withVulkan makeWrapper;
 
   buildInputs = [ ffmpeg freetype libxml2 libGLU libGL python3 SDL2 which ]
                 ++ optional enableNvidiaCgToolkit nvidia_cg_toolkit
-                ++ optional withVulkan [ vulkan-loader ]
+                ++ optional withVulkan vulkan-loader
                 ++ optionals stdenv.isDarwin [ libobjc AppKit Foundation ]
-                ++ optionals stdenv.isLinux [ alsaLib libpulseaudio libv4l libX11
-                                              libXdmcp libXext libXxf86vm udev ];
+                ++ optionals stdenv.isLinux [ alsaLib libdrm libpulseaudio libv4l libX11
+                                              libXdmcp libXext libXxf86vm mesa udev ];
 
   enableParallelBuilding = true;
+
+  configureFlags = if stdenv.isLinux then [ "--enable-kms" ] else "";
 
   postInstall = optionalString withVulkan ''
     wrapProgram $out/bin/retroarch --prefix LD_LIBRARY_PATH ':' ${vulkan-loader}/lib

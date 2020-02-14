@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-planner";
-  version = "unstable-2020-02-02";
+  version = "unstable-2020-02-12";
 
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = "f60b5c49d160b12c8e1cd4aea283e7603762775d";
-    sha256 = "176plm17g4lg3aq08b7fc381f6cg4halb7292z4b3icnajbbwvhh";
+    rev = "b1227202be994e8765a25710c6f7da1d49218d56";
+    sha256 = "09ps321s7cw81cr2ngjkcbjg852y2vpiksb8kvpbw6ycqy5xzslj";
   };
 
   nativeBuildInputs = [
@@ -48,7 +48,10 @@ stdenv.mkDerivation rec {
     pantheon.elementary-icon-theme
   ];
 
-  patches = [ ./dont-force-elementary-themes.patch ];
+  patches = [
+    ./dont-force-elementary-themes.patch
+    ./label-bump.patch
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

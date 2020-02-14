@@ -1,5 +1,5 @@
 { mkDerivation, fetchurl, lib
-, extra-cmake-modules, kdoctools, wrapGAppsHook, wrapQtAppsHook
+, extra-cmake-modules, kdoctools, wrapGAppsHook
 , kconfig, kcrash, kinit, kpmcore, kauth
 , eject, smartmontools, utillinux, qtbase
 }:
@@ -8,16 +8,16 @@ let
   pname = "partitionmanager";
 in mkDerivation rec {
   name = "${pname}-${version}";
-  version = "4.0.0";
+  version = "4.1.0";
 
   src = fetchurl {
     url = "mirror://kde/stable/${pname}/${version}/src/${name}.tar.xz";
-    sha256 = "1q8kqi05qv932spln8bh7n739ivq6pra2pgz67zl2dmdknpysrvr";
+    sha256 = "1d1mawaq4npw8kdny4210wslzgsikj9wbkhr5did6k45ghij07nn";
   };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
   # refer to kpmcore for the use of eject
   buildInputs = [ eject smartmontools utillinux ];

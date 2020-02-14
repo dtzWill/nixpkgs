@@ -1,15 +1,56 @@
-{ stdenv, fetchurl, fetchFromGitHub, substituteAll, gtk-doc, pkgconfig, gobject-introspection, intltool
-, libgudev, polkit, libxmlb, gusb, sqlite, libarchive, glib-networking
-, libsoup, help2man, gpgme, libxslt, elfutils, libsmbios, efivar, gnu-efi
-, libyaml, valgrind, meson, libuuid, docbook_xml_dtd_43, docbook_xsl
-, ninja, gcab, gnutls, python3, wrapGAppsHook, json-glib, bash-completion
-, shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf
-, cairo, freetype, fontconfig, pango
-, bubblewrap, efibootmgr, flashrom, tpm2-tss
-, plymouth /* offline */
-, diffutils
+# Updating? Keep $out/etc synchronized with passthru keys
+
+{ stdenv
+, fetchurl
+, fetchpatch
+, substituteAll
+, gtk-doc
+, pkgconfig
+, gobject-introspection
+, intltool
+, libgudev
+, polkit
+, libxmlb
+, gusb
+, sqlite
+, libarchive
+, glib-networking
+, libsoup
+, help2man
+, gpgme
+, libxslt
+, elfutils
+, libsmbios
+, efivar
+, gnu-efi
+, libyaml
+, valgrind
+, meson
+, libuuid
+, colord
+, docbook_xml_dtd_43
+, docbook_xsl
+, ninja
+, gcab
+, gnutls
+, python3
+, wrapGAppsHook
+, json-glib
+, bash-completion
+, shared-mime-info
+, umockdev
+, vala
+, makeFontsConf
+, freefont_ttf
+, cairo
+, freetype
+, fontconfig
+, pango
+, tpm2-tss
+, bubblewrap
+, efibootmgr
+, flashrom
 , nixosTests
-, which
 }:
 
 let
@@ -20,7 +61,10 @@ let
     setuptools
   ]);
 
-  installedTestsPython = python3.withPackages (p: with p; [ pygobject3 requests ]);
+  installedTestsPython = python3.withPackages (p: with p; [
+    pygobject3
+    requests
+  ]);
 
   fontsConf = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
@@ -34,44 +78,82 @@ let
   # only redfish for x86_64
   haveRedfish = stdenv.isx86_64;
 
-  # Currently broken on Aarch64
-  haveFlashrom = isx86;
+  # # Currently broken on Aarch64
+  # haveFlashrom = isx86;
+  # Experimental
+  haveFlashrom = false;
 
-in stdenv.mkDerivation rec {
+in
+
+stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.7";
-  #version = "unstable-2020-01-29";
+  version = "1.3.8";
 
-  #src = fetchFromGitHub {
-  #  owner = pname;
-  #  repo = pname;
-  #  rev = "2a026147ce148d57fbf73ce84bffe558430dc4fa";
-  #  sha256 = "1wivyx7blighj3va837fm7l7xhmd6wr6q1j9zblampbkh33s72z8";
-  #};
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "02mzn3whk5mba4nxyrkypawr1gzjx79n4nrkhrp8vja6mxxgsf10";
+    sha256 = "14hbwp3263n4z61ws62vj50kh9a89fz2l29hyv7f1xlas4zz6j8x";
   };
 
-  outputs = [ "out" /* "lib" */ "dev" "man" "installedTests" ];
+  # libfwupd goes to lib
+  # daemon, plug-ins and libfwupdplugin go to out
+  # CLI programs go to out
+  outputs = [ "out" "lib" "dev" "devdoc" "man" "installedTests" ];
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gobject-introspection intltool shared-mime-info
-    valgrind gcab help2man python wrapGAppsHook vala which
+    meson
+    ninja
+    gtk-doc
+    pkgconfig
+    gobject-introspection
+    intltool
+    shared-mime-info
+    valgrind
+    gcab
+    docbook_xml_dtd_43
+    docbook_xsl
+    help2man
+    libxslt
+    python
+    wrapGAppsHook
+    vala
   ];
 
   buildInputs = [
-    polkit libxmlb gusb sqlite libarchive libsoup elfutils gnu-efi libyaml
-    libgudev gpgme libuuid gnutls glib-networking json-glib umockdev
-    bash-completion cairo freetype fontconfig pango efivar tpm2-tss
-  ] ++ stdenv.lib.optionals haveDell [ libsmbios ];
-
-  LC_ALL = "C.UTF-8"; # For po/make-images
+    polkit
+    libxmlb
+    gusb
+    sqlite
+    libarchive
+    libsoup
+    elfutils
+    gnu-efi
+    libyaml
+    libgudev
+    colord
+    gpgme
+    libuuid
+    gnutls
+    glib-networking
+    json-glib
+    umockdev
+    bash-completion
+    cairo
+    freetype
+    fontconfig
+    pango
+    tpm2-tss
+    efivar
+  ] ++ stdenv.lib.optionals haveDell [
+    libsmbios
+  ];
 
   patches = [
     ./fix-paths.patch
     ./add-option-for-installation-sysconfdir.patch
-    ./sysconfdir-install.patch
+
+    # install plug-ins and libfwupdplugin to out,
+    # they are not really part of the library
+    ./install-fwupdplugin-to-out.patch
 
     # installed tests are installed to different output
     # we also cannot have fwupd-tests.conf in $out/etc since it would form a cycle
@@ -79,6 +161,12 @@ in stdenv.mkDerivation rec {
       src = ./installed-tests-path.patch;
       # needs a different set of modules than po/make-images
       inherit installedTestsPython;
+    })
+
+    # Find the correct lds and crt name when specifying -Defi_ldsdir
+    (fetchpatch {
+      url = "https://github.com/fwupd/fwupd/commit/52cda3db9ca9ab4faf99310edf29df926a713b5c.patch";
+      sha256 = "0hsj79dzamys7ryz33iwxwd58kb1h7gaw637whm0nkvzkqq6rm16";
     })
   ];
 
@@ -95,48 +183,20 @@ in stdenv.mkDerivation rec {
     # https://github.com/NixOS/nix/issues/1846
     substituteInPlace data/installed-tests/meson.build --subst-var installedTests
 
-    # install plug-ins to out, they are not really part of the library
-    substituteInPlace meson.build \
-      --replace "plugin_dir = join_paths(libdir, 'fwupd-plugins-3')" \
-                "plugin_dir = join_paths('${placeholder "out"}', 'fwupd_plugins-3')"
-
-    substituteInPlace src/fu-offline.c --replace '"plymouth"' '"${plymouth}/bin/plymouth"'
-
-    substituteInPlace libfwupdplugin/fu-common.c --replace \
-      'fu_common_find_program_in_path ("bwrap"' \
-      'fu_common_find_program_in_path ("${bubblewrap}/bin/bwrap"'
-
-    for x in \
-      libfwupd/fwupd-self-test.c \
-      src/fu-self-test.c \
-      plugins/dfu/dfu-self-test.c \
-    ; do
-      substituteInPlace $x \
-        --replace '("diff -urNp' \
-                  '("${diffutils}/bin/diff -urNp'
-    done
-
     substituteInPlace data/meson.build --replace \
       "install_dir: systemd.get_pkgconfig_variable('systemdshutdowndir')" \
-      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'" \
-      \
-      --replace "subdir('builder')" ""
-
-    substituteInPlace meson.build --replace \
-      "systemd.get_pkgconfig_variable('systemdsystempresetdir')" \
-      "'${placeholder "out"}/lib/systemd/system-preset'"
-
-    echo '#!/bin/sh' > meson_post_install.sh
-    chmod +x meson_post_install.sh
+      "install_dir: '${placeholder "out"}/lib/systemd/system-shutdown'"
   '';
 
   # /etc/os-release not available in sandbox
   # doCheck = true;
 
   preFixup = let
-    binPath = [ efibootmgr bubblewrap ] ++ stdenv.lib.optional haveFlashrom flashrom;
-  in
-  ''
+    binPath = [
+      efibootmgr
+      bubblewrap
+    ] ++ stdenv.lib.optional haveFlashrom flashrom;
+  in ''
     gappsWrapperArgs+=(
       --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
       # See programs reached with fu_common_find_program_in_path in source
@@ -145,6 +205,7 @@ in stdenv.mkDerivation rec {
   '';
 
   mesonFlags = [
+    "-Dgtkdoc=true"
     "-Dplugin_dummy=true"
     "-Dudevdir=lib/udev"
     "-Dsystemdunitdir=lib/systemd/system"
@@ -154,20 +215,20 @@ in stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--sysconfdir=/etc"
     "-Dsysconfdir_install=${placeholder "out"}/etc"
+
+    # We do not want to place the daemon into lib (cyclic reference)
+    "--libexecdir=${placeholder "out"}/libexec"
+    # Our builder only adds $lib/lib to rpath but some things link
+    # against libfwupdplugin which is in $out/lib.
+    "-Dc_link_args=-Wl,-rpath,${placeholder "out"}/lib"
   ] ++ stdenv.lib.optionals (!haveDell) [
     "-Dplugin_dell=false"
     "-Dplugin_synaptics=false"
   ] ++ stdenv.lib.optionals (!haveRedfish) [
     "-Dplugin_redfish=false"
-  ] ++ stdenv.lib.optionals (!haveFlashrom) [
-    "-Dplugin_flashrom=false"
+  ] ++ stdenv.lib.optionals haveFlashrom [
+    "-Dplugin_flashrom=true"
   ];
-
-  # TODO: We need to be able to override the directory flags from meson setup hook
-  # better – declaring them multiple times might become an error.
-  preConfigure = ''
-    mesonFlagsArray+=("--libexecdir=$out/libexec")
-  '';
 
   postInstall = ''
     moveToOutput share/installed-tests "$installedTests"
@@ -181,15 +242,18 @@ in stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
   PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "/run/current-system/sw/share/polkit-1/actions";
 
+  # cannot install to systemd prefix
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMPRESETDIR = "${placeholder "out"}/lib/systemd/system-preset";
+
   # TODO: wrapGAppsHook wraps efi capsule even though it is not elf
   dontWrapGApps = true;
   # so we need to wrap the executables manually
   postFixup = ''
     find -L "$out/bin" "$out/libexec" -type f -executable -print0 \
       | while IFS= read -r -d ''' file; do
-      if [[ "''${file}" != *.efi ]]; then
-        echo "Wrapping program ''${file}"
-        wrapProgram "''${file}" "''${gappsWrapperArgs[@]}"
+      if [[ "$file" != *.efi ]]; then
+        echo "Wrapping program $file"
+        wrapGApp "$file"
       fi
     done
   '';
@@ -197,11 +261,15 @@ in stdenv.mkDerivation rec {
   # /etc/fwupd/uefi.conf is created by the services.hardware.fwupd NixOS module
   passthru = {
     filesInstalledToEtc = [
+      # "fwupd/daemon.conf" # already created by the module
+      "fwupd/redfish.conf"
       "fwupd/remotes.d/dell-esrt.conf"
       "fwupd/remotes.d/lvfs-testing.conf"
       "fwupd/remotes.d/lvfs.conf"
       "fwupd/remotes.d/vendor.conf"
       "fwupd/remotes.d/vendor-directory.conf"
+      "fwupd/thunderbolt.conf"
+      # "fwupd/uefi.conf" # already created by the module
       "pki/fwupd/GPG-KEY-Hughski-Limited"
       "pki/fwupd/GPG-KEY-Linux-Foundation-Firmware"
       "pki/fwupd/GPG-KEY-Linux-Vendor-Firmware-Service"
@@ -211,13 +279,20 @@ in stdenv.mkDerivation rec {
       "pki/fwupd-metadata/LVFS-CA.pem"
     ];
 
+    # BlacklistPlugins key in fwupd/daemon.conf
+    defaultBlacklistedPlugins = [
+      "test"
+      "invalid"
+    ];
+
     tests = {
       installedTests = nixosTests.fwupd;
+     #  installedTests = nixosTests.installed-tests.fwupd;
     };
   };
 
   meta = with stdenv.lib; {
-    homepage = https://fwupd.org/;
+    homepage = "https://fwupd.org/";
     maintainers = with maintainers; [ jtojnar ];
     license = [ licenses.gpl2 ];
     platforms = platforms.linux;

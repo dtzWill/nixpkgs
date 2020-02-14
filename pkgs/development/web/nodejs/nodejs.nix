@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openssl, python2, zlib, libuv, utillinux, http-parser
+{ stdenv, fetchurl, openssl, python2, zlib, libuv_for_node, utillinux, http-parser
 , pkgconfig, which
 # Updater dependencies
 , writeScript, coreutils, gnugrep, jq, curl, common-updater-scripts, nix, runtimeShell
@@ -13,6 +13,8 @@ with stdenv.lib;
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices ApplicationServices;
+
+  libuv = libuv_for_node;
 
   majorVersion = versions.major version;
   minorVersion = versions.minor version;
@@ -58,7 +60,25 @@ in
     nativeBuildInputs = [ which utillinux pkgconfig ]
       ++ optionals stdenv.isDarwin [ xcbuild ];
 
-    configureFlags = sharedConfigureFlags ++ [ "--without-dtrace" ] ++ extraConfigFlags;
+    configureFlags = let
+      isCross = stdenv.hostPlatform != stdenv.buildPlatform;
+      host = stdenv.hostPlatform.platform;
+      isAarch32 = stdenv.hostPlatform.isAarch32;
+    in sharedConfigureFlags ++ [
+      "--without-dtrace"
+    ] ++ (optionals isCross [
+      "--cross-compiling"
+      "--without-intl"
+      "--without-snapshot"
+    ]) ++ (optionals (isCross && isAarch32 && hasAttr "fpu" host.gcc) [
+      "--with-arm-fpu=${host.gcc.fpu}"
+    ]) ++ (optionals (isCross && isAarch32 && hasAttr "float-abi" host.gcc) [
+      "--with-arm-float-abi=${host.gcc.float-abi}"
+    ]) ++ (optionals (isCross && isAarch32) [
+      "--dest-cpu=arm"
+    ]) ++ extraConfigFlags;
+
+    # configurePlatforms = [];
 
     dontDisableStatic = true;
 

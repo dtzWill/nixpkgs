@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme }:
+{ stdenv, fetchFromGitHub, gawk, mercury, pandoc, ncurses, gpgme, utillinuxMinimal }:
 
 stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
     owner = "dtzWill";
     repo = "bower";
     #rev = version;
-    rev = "8ea63463cc728522e9cfdc7fc19c7bbbac7142ec";
-    sha256 = "0hdh1nsdj28k795kp7sflssrsd03c23k574crnxdxj308b4x5xxz";
+    rev = "3d1b66223d7fe42e4738f971d220fb018a75fad0";
+    sha256 = "1isk5kam66y8qziigssqrx3hp4cfv4fxa7xj49qss3njz6jsj7rs";
   };
 
   nativeBuildInputs = [ gawk mercury pandoc ];
@@ -24,7 +24,15 @@ stdenv.mkDerivation rec {
     #echo "MCFLAGS += --opt-space --parallel --stack-segments" > src/Mercury.params
   #  echo "MCFLAGS += --intermod-opt -O6 --verbose --no-libgrade --libgrade asm_fast.gc" > src/Mercury.params
 
-  makeFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
+  buildFlags = [ "PARALLEL=-j$(NIX_BUILD_CORES)" "bower" "man" ];
+
+  doCheck = true;
+
+  checkInputs = [ utillinuxMinimal /* rev */ ];
+
+  checkPhase = ''
+    make -C tests
+  '';
 
   installPhase = ''
     mkdir -p $out/bin

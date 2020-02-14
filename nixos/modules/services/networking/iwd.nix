@@ -148,23 +148,18 @@ in {
     # hopefully merges with existing service nicely?
     systemd.services.iwd = {
       wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
-      before = [ "network.target" "multi-user.target" ];
-      after = [
-        "systemd-udevd.service" "network-pre.target"
-        #"sys-subsystem-net-devices-${cfg.interface}.device"
-      ];
-      #requires = [ "sys-subsystem-net-devices-${cfg.interface}.device" ];
+      ## wants = [ "network.target" ];
+      ## before = [ "network.target" "multi-user.target" ];
+      ## after = [
+      ##   "systemd-udevd.service" "network-pre.target"
+      ##   #"sys-subsystem-net-devices-${cfg.interface}.device"
+      ## ];
+      ## #requires = [ "sys-subsystem-net-devices-${cfg.interface}.device" ];
       serviceConfig.ExecStart = [
         "" # empty, reset upstream value
         iwdCmd
       ];
     };
-
-    systemd.tmpfiles.rules = [
-      "d /var/lib/iwd 0700 root root -"
-      "d /var/lib/ead 0700 root root -"
-    ];
 
     environment.etc."iwd/main.conf".text = generators.toINI {} cfg.mainConfig;
   };

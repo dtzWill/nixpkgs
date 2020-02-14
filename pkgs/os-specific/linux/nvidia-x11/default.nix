@@ -22,24 +22,10 @@ rec {
   # Policy: use the highest stable version as the default (on our master).
   stable = if stdenv.hostPlatform.system == "x86_64-linux"
     then generic {
-      version = "440.44";
-      sha256_64bit = "057wq9p2vl87gy61f079b6d7clw2vhw3kq7rj411brhrnvr7shmd";
-      settingsSha256 = "1hr1n78c92zksnnryrcz4b8kxvi6kz4yp801ks85hq4a3rryj4vg";
-      persistencedSha256 = "050znx2scm7x3r7czsz77ddjh4bs18hdd3k3shwpi3zflkmnhnvj";
-      patches = [
-        # https://bbs.archlinux.org/viewtopic.php?pid=1882507#p1882507
-        (fetchpatch {
-          name = "prime.patch";
-          url = " https://gitlab.com/snippets/1929174/raw";
-          sha256 = "14ihxd1pilsbw88502dy1vm3sr6q5fsshp154h7kavb7xraw6x7n";
-        })
-        # 5.5 patch
-        (fetchpatch {
-          name = "kernel-5.5.patch";
-          url = "https://gitlab.com/snippets/1923197/raw";
-          sha256 = "0w17h4nrkh9rry765bk53vfajkw8zgd0mh348w6amc8zj6j6g11a";
-        })
-      ];
+      version = "440.59";
+      sha256_64bit = "162gq6w44l8sgnn4qnl2rdlx8c008p04zv4c3i1ps20p21n1mjv1";
+      settingsSha256 = "0vxhmirqzyav5ljf0f04yk0az48ir5v0817dq9z9kyqfdvnby93g";
+      persistencedSha256 = "0npjh7nashasydp8q6bbcp21w8fc1dycgjy50ics775hjnvm61qn";
     }
     else legacy_390;
 

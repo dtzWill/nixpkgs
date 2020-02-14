@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, fetchpatch, patchutils
+{ stdenv, fetchurl, fetchFromGitHub, fetchsvn, fetchpatch, patchutils
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
-, perl, perlPackages, pkgconfig, autoreconfHook
+, perl, perlPackages, pkgconfig
 , poppler, libpaper, graphite2, zziplib, harfbuzz, potrace, gmp, mpfr
 , cairo, pixman, xorg, clisp, biber, xxHash
 , makeWrapper, shortenPerlShebang
@@ -14,69 +14,40 @@
 let
   withSystemLibs = map (libname: "--with-system-${libname}");
 
-  year = "2019";
-  version = year; # keep names simple for now
+  year = "2020";
+  #version = year; # keep names simple for now
+  version = "${year}-02-13";
 
   common = {
-    src = fetchurl {
-      urls = [
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
-              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
-      ];
-      sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
+    src = fetchsvn {
+      url = "svn://tug.org/texlive/trunk/Build/source";
+      rev = "53776";
+      sha256 = "16rbawqf8656p3c9vgjmq5s7fn4rgr36g9b8gisxjwi02vzpmib9";
     };
-
-    patches = [
-      ./reinstate-setting-HAVE_LIBGS-for-non-TL-builds.patch
-    ];
+    #src = fetchFromGitHub {
+    #  owner = "TeX-Live";
+    #  repo = "texlive-source";
+    #  rev = "6fd4be855a4f88604244e1b80b69affa3d7b02b5";
+    #  sha256 = "0vr1w3hmrpac144qsbg3671nygyn6zya754p4qih5faqiq9l6ky0";
+    #};
+    #src = fetchurl {
+    #  urls = [
+    #    "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
+    #          "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0410-source.tar.xz"
+    #  ];
+    #  sha256 = "1dfps39q6bdr1zsbp9p74mvalmy3bycihv19sb9c6kg30kprz8nj";
+    #};
 
     postPatch = let
-      # The source compatible with Poppler ${popplerVersion} not yet available in TeXLive ${year}
-      # so we need to use files introduced in https://www.tug.org/svn/texlive?view=revision&revision=52959
       popplerVersion = "0.83.0";
-      pdftoepdf = let
-        revert-pdfmajorversion = fetchpatch {
-          name = "pdftoepdf-revert-pdfmajorversion.patch";
-          url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftoepdf.cc?view=patch&r1=52953&r2=52952&pathrev=52953";
-          sha256 = "19jiv5xbvnfdk8lj6yd6mdxgs8f313a4dwg8svjj90dd35kjcfh8";
-          revert = true;
-          postFetch = ''
-            # The default file, changed by this patch, contains a branch for vendored Poppler
-            # The version-specific file replaces the section with an error, so we need to drop that part from the patch.
-            # Fortunately, there is not anything else in the patch after #else.
-            sed '/ #else/q' $out > "$tmpfile"
-            ${patchutils}/bin/recountdiff "$tmpfile" > "$out"
-          '';
-        };
-      in fetchurl {
-        name = "pdftoepdf-poppler${popplerVersion}.cc";
-        url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftoepdf-poppler${popplerVersion}.cc?revision=52959&view=co";
-        sha256 = "0pngvw1jgnm4cqskrzf5a3z8rj4ssl10007n3wbblj50hvvzjph3";
-        postFetch = ''
-          # The trunk added some extra arguments to certain functions so we need to revert that
-          # https://www.tug.org/svn/texlive?view=revision&revision=52953
-          patch $out < ${revert-pdfmajorversion}
-        '';
-      };
-      pdftosrc = fetchurl {
-        name = "pdftosrc-poppler${popplerVersion}.cc";
-        url = "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/pdftexdir/pdftosrc-poppler${popplerVersion}.cc?revision=52959&view=co";
-        sha256 = "0iq2cmwvf2lxy32sygrafwqgcwvvbdnvxm5l3mrg9cb2a1g06380";
-      };
     in ''
       for i in texk/kpathsea/mktex*; do
         sed -i '/^mydir=/d' "$i"
       done
-      cp -pv ${pdftoepdf} texk/web2c/pdftexdir/pdftoepdf.cc
-      cp -pv ${pdftosrc} texk/web2c/pdftexdir/pdftosrc.cc
-
-      # poppler 0.84 compat fixups, use 0.83 files otherwise
-      patch -p1 -i ${./poppler84.patch}
+ 
+      cp -pv texk/web2c/pdftexdir/pdftoepdf{-poppler${popplerVersion},}.cc
+      cp -pv texk/web2c/pdftexdir/pdftosrc{-poppler${popplerVersion},}.cc
     '';
-
-    # remove when removing synctex-missing-header.patch
-    preAutoreconf = "pushd texk/web2c";
-    postAutoreconf = "popd";
 
     configureFlags = [
       "--with-banner-add=/NixOS.org"
@@ -109,11 +80,11 @@ core = stdenv.mkDerivation rec {
   pname = "texlive-bin";
   inherit version;
 
-  inherit (common) src patches postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch;
 
   outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook ];
+  nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
     /*teckit*/ zziplib poppler mpfr gmp
     pixman gd freetype libpng libpaper zlib
@@ -135,9 +106,10 @@ core = stdenv.mkDerivation rec {
     ++ map (what: "--disable-${what}") ([
       "dvisvgm" "dvipng" # ghostscript dependency
       "luatex" "luajittex" "mp" "pmp" "upmp" "mf" # cairo would bring in X and more
+      "luahbtex" "luajithbtex"
       "xetex" "bibtexu" "bibtex8" "bibtex-x" "upmendex" # ICU isn't small
     ] ++ stdenv.lib.optional (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
-    ++ [ "--without-system-harfbuzz" "--without-system-icu" ] # bogus configure
+    ++ [ "--without-system-harfbuzz" "--without-system-icu" "--without-system-graphite2" ] # bogus configure
     ;
 
   enableParallelBuilding = true;
@@ -150,11 +122,19 @@ core = stdenv.mkDerivation rec {
   # TODO: perhaps improve texmf.cnf search locations
   postInstall = /* a few texmf-dist files are useful; take the rest from pkgs */ ''
     mv "$out/share/texmf-dist/web2c/texmf.cnf" .
+    mv "$out/share/texmf-dist/scripts/texlive-extra/texlinks.sh" .
     rm -r "$out/share/texmf-dist"
     mkdir -p "$out"/share/texmf-dist/{web2c,scripts/texlive/TeXLive}
     mv ./texmf.cnf "$out/share/texmf-dist/web2c/"
     cp ../texk/tests/TeXLive/*.pm "$out/share/texmf-dist/scripts/texlive/TeXLive/"
     cp ../texk/texlive/linked_scripts/scripts.lst "$out/share/texmf-dist/scripts/texlive/"
+    mkdir -p $out/share/texmf-dist/scripts/texlive-extra
+    mv  texlinks.sh $out/share/texmf-dist/scripts/texlive-extra
+  '' +
+    # Patch texlinks.sh back to 2015 version;
+    # otherwise some bin/ links break, e.g. xe(la)tex.
+  ''
+    patch --verbose -R $out/share/texmf-dist/scripts/texlive-extra/texlinks.sh -i ${./texlinks.diff}
   '' +
     (let extraScripts =
           ''
@@ -202,7 +182,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
   pname = "texlive-core-big.bin";
   inherit version;
 
-  inherit (common) src patches postPatch preAutoreconf postAutoreconf;
+  inherit (common) src postPatch;
 
   hardeningDisable = [ "format" ];
 
@@ -217,6 +197,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
         # luajittex is mostly not needed, see:
         # http://tex.stackexchange.com/questions/97999/when-to-use-luajittex-in-favour-of-luatex
         "luajittex" "mfluajit"
+        "luajithbtex"
       ];
 
   configureScript = ":";
@@ -253,7 +234,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
 
     mv "$out/bin"/{inimf,mf,mf-nowin} "$metafont/bin/"
     mv "$out/bin"/{*tomp,mfplain,*mpost} "$metapost/bin/"
-    mv "$out/bin"/{luatex,texlua*} "$luatex/bin/"
+    mv "$out/bin"/{luatex,texlua*,luahbtex*} "$luatex/bin/"
     mv "$out/bin"/xetex "$xetex/bin/"
   '';
 };
@@ -264,21 +245,6 @@ dvisvgm = stdenv.mkDerivation {
   inherit version;
 
   inherit (common) src;
-
-  patches = [
-    # Fix for ghostscript>=9.27
-    # Backport of
-    # https://github.com/mgieseki/dvisvgm/commit/bc51951bc90b700c28ea018993bdb058e5271e9b
-    ./dvisvgm-fix.patch
-
-    # Needed for ghostscript>=9.50
-    (fetchpatch {
-      url = "https://github.com/mgieseki/dvisvgm/commit/7b93a9197b69305429183affd24fa40ee04a663a.patch";
-      sha256 = "1gmj76ja9xng39wxckhs9q140abixgb8rkrcfv2cdgq786wm3vag";
-      stripLen = 1;
-      extraPrefix = "texk/dvisvgm/dvisvgm-src/";
-    })
-  ];
 
   nativeBuildInputs = [ pkgconfig ];
   # TODO: dvisvgm still uses vendored dependencies
@@ -305,15 +271,6 @@ dvipng = stdenv.mkDerivation {
 
   nativeBuildInputs = [ perl pkgconfig ];
   buildInputs = [ core/*kpathsea*/ zlib libpng freetype gd ghostscript makeWrapper ];
-
-  patches = [
-    (fetchpatch {
-      url = "http://git.savannah.nongnu.org/cgit/dvipng.git/patch/?id=f3ff241827a587e3d39eda477041fd3280f5b245";
-      sha256 = "1a0ixl9mga24p6xk8dy3v60yifvbzd27vs0hv8996rfkp8jqa7is";
-      stripLen = 1;
-      extraPrefix = "texk/dvipng/dvipng-src/";
-    })
-  ];
 
   preConfigure = ''
     cd texk/dvipng

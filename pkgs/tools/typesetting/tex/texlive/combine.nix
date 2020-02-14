@@ -60,25 +60,14 @@ in buildEnv {
       (path: ''
         for f in '${path}'/bin/*; do
           if [[ -L "$f" ]]; then
-            cp -d "$f" ./bin/
+            cp -vd "$f" ./bin/
           else
-            ln -s "$f" ./bin/
+            ln -vs "$f" ./bin/
           fi
         done
       '')
       pkgList.bin
     +
-
-    # Patch texlinks.sh back to 2015 version;
-    # otherwise some bin/ links break, e.g. xe(la)tex.
-  ''
-    (
-      cd "$out/share/texmf/scripts/texlive"
-      local target="$(readlink texlinks.sh)"
-      rm texlinks.sh && cp "$target" texlinks.sh
-      patch --verbose -R texlinks.sh < '${./texlinks.diff}'
-    )
-  '' +
   ''
     export PATH="$out/bin:$out/share/texmf/scripts/texlive:${perl}/bin:$PATH"
     export TEXMFCNF="$out/share/texmf/web2c"
@@ -194,8 +183,11 @@ in buildEnv {
   '' +
   # texlive post-install actions
   ''
-    mkdir -p "$out/share/texmf/scripts/texlive/"
-    ln -s '${bin.core.out}/share/texmf-dist/scripts/texlive/TeXLive' "$out/share/texmf/scripts/texlive/"
+    mkdir -p "$out/share/texmf/scripts/texlive.new/"
+    ln -vfs '${bin.core.out}/share/texmf-dist/scripts/texlive/TeXLive' -t "$out/share/texmf/scripts/texlive.new/"
+    cp -d $out/share/texmf/scripts/texlive/* $out/share/texmf/scripts/texlive.new/
+    rm -v $out/share/texmf/scripts/texlive
+    mv -v $out/share/texmf/scripts/texlive{.new,}
 
     for tool in updmap; do
       ln -sf "$out/share/texmf/scripts/texlive/$tool."* "$out/bin/$tool"
@@ -209,7 +201,7 @@ in buildEnv {
     ln -sf fmtutil "$out/bin/mktexfmt"
 
     perl `type -P mktexlsr.pl` ./share/texmf
-    texlinks.sh "$out/bin" && wrapBin
+    ${bin.core.out}/share/texmf-dist/scripts/texlive-extra/texlinks.sh --verbose "$out/bin" && wrapBin
     (perl `type -P fmtutil.pl` --sys --all || true) | grep '^fmtutil' # too verbose
     #texlinks.sh "$out/bin" && wrapBin # do we need to regenerate format links?
 

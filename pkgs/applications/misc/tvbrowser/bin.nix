@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, jre, makeDesktopItem }:
+{ stdenv, fetchurl, makeWrapper, jdk12, makeDesktopItem }:
 
 let
   desktopItem = makeDesktopItem {
@@ -17,12 +17,12 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "tvbrowser";
-  version = "4.0.1";
+  version = "4.2.1";
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%208%20and%20higher%29/${version}/${pname}_${version}_bin.tar.gz";
-    sha256 = "0ahsirf6cazs5wykgbwsc6n35w6jprxyphzqmm7d370n37sb07pm";
+    url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%2011%20and%20higher%29/${version}/${pname}_${version}_bin.tar.gz";
+    sha256 = "1zbl6nw7ia69ik4mkfkr3ka46rb1qh8v0dq64bww14w6dhqbr661";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -41,10 +41,23 @@ in stdenv.mkDerivation rec {
     done
 
     mkdir -p $out/bin
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-jar $out/share/java/${pname}/${pname}.jar" \
+    makeWrapper ${jdk12}/bin/java $out/bin/${pname} \
+      --add-flags '--module-path "lib:tvbrowser.jar"' \
+      --add-flags "-Djava.library.path=$out/share/java/${pname}" \
+      --add-flags "-splash:imgs/splash.png" \
+      --add-flags "-Dpropertiesfile=linux.properties" \
+      --add-flags "\
+        -Dawt.useSystemAAFontSettings=lcd \
+        -Dsun.java2d.xrender=True \
+        -Dswing.aatext=true \
+        " \
+      --add-flags "-m tvbrowser/tvbrowser.TVBrowser" \
       --run "cd $out/share/java/${pname}"
   '';
+        #-Dsun.java2d.opengl=False
+   # "-Dswing.defaultlaf=com.sun.java"
+    #-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+    #-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 
   meta = with stdenv.lib; {
     description = "Electronic TV Program Guide";

@@ -18,7 +18,7 @@ assert stdenv.isDarwin -> !enableGtk2Plugins;
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "webkitgtk";
-  version = "2.26.3";
+  version = "2.26.4";
 
   meta = {
     description = "Web content rendering engine, GTK port";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://webkitgtk.org/releases/${pname}-${version}.tar.xz";
-    sha256 = "04g6y0sv04d20bw401myq3k828ikysjhx383ly81vh9wji9i3mdd";
+    sha256 = "0gqi9f9njrdn8vad1zvr59b25arwc8r0n8bp25sgkbfz2c3r11j3";
   };
 
   patches = optionals stdenv.isLinux [
