@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, bash, pkgconfig, autoconf, cpio, file, which, unzip
+{ stdenv, lib, fetchurl, fetchpatch, bash, pkgconfig, autoconf, cpio, file, which, unzip
 , zip, perl, cups, freetype, alsaLib, libjpeg, giflib, libpng, zlib, lcms2
 , libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama
 , libXcursor, libXrandr, fontconfig, openjdk12
@@ -42,6 +42,10 @@ let
       (fetchurl {
         url = https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch;
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
+      })
+      (fetchpatch {
+        url = "https://hg.openjdk.java.net/jdk/jdk/raw-rev/cda5d1ed2c85";
+        sha256 = "1k1r8ckmvxfa0xczk016y4p10s92vyqi9ppwjbgvhxir1pcsvqmz";
       })
     ];
 
