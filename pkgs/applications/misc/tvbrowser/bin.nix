@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, jre, makeDesktopItem }:
+{ stdenv, fetchurl, makeWrapper, jdk11, makeDesktopItem }:
 
 let
   desktopItem = makeDesktopItem {
@@ -17,12 +17,12 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "tvbrowser";
-  version = "4.0.1";
+  version = "4.2.1";
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%208%20and%20higher%29/${version}/${pname}_${version}_bin.tar.gz";
-    sha256 = "0ahsirf6cazs5wykgbwsc6n35w6jprxyphzqmm7d370n37sb07pm";
+    url = "mirror://sourceforge/${pname}/TV-Browser%20Releases%20%28Java%2011%20and%20higher%29/${version}/${pname}_${version}_bin.tar.gz";
+    sha256 = "1zbl6nw7ia69ik4mkfkr3ka46rb1qh8v0dq64bww14w6dhqbr661";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -41,7 +41,7 @@ in stdenv.mkDerivation rec {
     done
 
     mkdir -p $out/bin
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
+    makeWrapper ${jdk11}/bin/java $out/bin/${pname} \
       --add-flags "-jar $out/share/java/${pname}/${pname}.jar" \
       --run "cd $out/share/java/${pname}"
   '';
