@@ -8360,6 +8360,12 @@ in
     else
       openjdk12.override { headless = true; };
 
+  openjdk13 = callPackage ../development/compilers/openjdk/13.nix {
+      openjfx = openjfx13;
+      inherit (gnome2) GConf gnome_vfs;
+    };
+  openjdk13_headless = openjdk13.override { headless = true; };
+
   openjdk = openjdk8;
   openjdk_headless = openjdk8_headless;
 
