@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1qv41g7mblnq07145m03s2fhbrjfsc0924zb9z4cp159ygkggxcy";
   };
 
-  cargoSha256 = "1z53408mcmy698xb2sxj1s1p9xc9srlkj0v8wswhdp7nq27vwkdj";
+  cargoSha256 = "1a8davsj49zs36i6igdd4i2sck5z8zfvbldamxvjlwh34y4gjqp9";
 
   meta = with stdenv.lib; {
     description = "Greps through binaries from various OSs and architectures, and colors them";
