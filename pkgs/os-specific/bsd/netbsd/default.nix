@@ -2,7 +2,9 @@
 , writeText, buildPackages, splicePackages, symlinkJoin }:
 
 let
-  fetchNetBSD = path: version: sha256: fetchcvs {
+  # Use variaant of fetchcvs w/o SSH, avoid cycle on musl
+  fetchcvsNoSSH = fetchcvs.override { openssh = null; };
+  fetchNetBSD = path: version: sha256: fetchcvsNoSSH {
     cvsRoot = ":pserver:anoncvs@anoncvs.NetBSD.org:/cvsroot";
     module = "src/${path}";
     inherit sha256;
