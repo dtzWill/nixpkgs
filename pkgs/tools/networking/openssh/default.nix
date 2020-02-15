@@ -4,7 +4,9 @@
 , withKerberos ? true
 , withGssapiPatches ? false
 , kerberos
-, linkOpenssl? true
+, linkOpenssl ? true
+, withFIDO ? true
+, libfido2
 }:
 
 let
@@ -64,6 +66,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib openssl libedit pam ]
     ++ optional withKerberos kerberos
     ++ optional hpnSupport autoreconfHook
+    ++ optional withFIDO libfido2
     ;
 
   preConfigure = ''
@@ -85,7 +88,8 @@ stdenv.mkDerivation rec {
   ] ++ optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ optional withKerberos (assert kerberos != null; "--with-kerberos5=${kerberos}")
     ++ optional stdenv.isDarwin "--disable-libutil"
-    ++ optional (!linkOpenssl) "--without-openssl";
+    ++ optional (!linkOpenssl) "--without-openssl"
+    ++ optional withFIDO "--with-security-key-builtin";
 
   enableParallelBuilding = true;
 
