@@ -28,6 +28,13 @@ let
     name = "knot-zones";
     paths = [ exampleZone delegatedZone ];
   };
+  # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
+  tsigFile = pkgs.writeText "tsig.conf" ''
+    key:
+      - id: slave_key
+        algorithm: hmac-sha256
+        secret: zOYgOgnzx3TGe5J5I/0kxd7gTcxXhLYMEq3Ek3fY37s=
+  '';
 in {
   name = "knot";
 
@@ -44,6 +51,7 @@ in {
       };
       services.knot.enable = true;
       services.knot.extraArgs = [ "-v" ];
+      services.knot.keyFiles = [ tsigFile ];
       services.knot.extraConfig = ''
         server:
             listen: 0.0.0.0@53
@@ -52,6 +60,7 @@ in {
         acl:
           - id: slave_acl
             address: 192.168.0.2
+            key: slave_key
             action: transfer
 
         remote:
@@ -99,6 +108,7 @@ in {
         ];
       };
       services.knot.enable = true;
+      services.knot.keyFiles = [ tsigFile ];
       services.knot.extraArgs = [ "-v" ];
       services.knot.extraConfig = ''
         server:
@@ -113,6 +123,7 @@ in {
         remote:
           - id: master
             address: 192.168.0.1@53
+            key: slave_key
 
         template:
           - id: default
@@ -151,10 +162,10 @@ in {
         ];
       };
       environment.systemPackages = [ pkgs.knot-dns ];
-    };    
+    };
   };
 
-  testScript = { nodes, ... }: let 
+  testScript = { nodes, ... }: let
     master4 = (lib.head nodes.master.config.networking.interfaces.eth1.ipv4.addresses).address;
     master6 = (lib.head nodes.master.config.networking.interfaces.eth1.ipv6.addresses).address;
 
