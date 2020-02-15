@@ -3532,6 +3532,8 @@ in {
 
   ifaddr = callPackage ../development/python-modules/ifaddr { };
 
+  imagecorruptions = callPackage ../development/python-modules/imagecorruptions { };
+
   imageio = callPackage ../development/python-modules/imageio { };
 
   imageio-ffmpeg = callPackage ../development/python-modules/imageio-ffmpeg { };
@@ -5267,6 +5269,8 @@ in {
   xlwt = callPackage ../development/python-modules/xlwt { };
 
   xxhash = callPackage ../development/python-modules/xxhash { };
+
+  ydiff = callPackage ../development/python-modules/ydiff { };
 
   youtube-dl = callPackage ../tools/misc/youtube-dl {};
 

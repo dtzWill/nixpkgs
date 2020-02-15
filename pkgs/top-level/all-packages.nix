@@ -4203,6 +4203,8 @@ in
 
   netmask = callPackage ../tools/networking/netmask {};
 
+  netifd = callPackage ../tools/networking/netifd {};
+
   ipv6calc = callPackage ../tools/networking/ipv6calc {};
 
   ipxe = callPackage ../tools/misc/ipxe { };
@@ -8299,6 +8301,8 @@ in
 
   openjfx12 = callPackage ../development/compilers/openjdk/openjfx/12.nix { };
 
+  openjfx13 = callPackage ../development/compilers/openjdk/openjfx/13.nix { };
+
   openjdk8-bootstrap =
     if adoptopenjdk-hotspot-bin-8.meta.available then
       adoptopenjdk-hotspot-bin-8
@@ -8357,6 +8361,12 @@ in
       openjdk12
     else
       openjdk12.override { headless = true; };
+
+  openjdk13 = callPackage ../development/compilers/openjdk/13.nix {
+      openjfx = openjfx13;
+      inherit (gnome2) GConf gnome_vfs;
+    };
+  openjdk13_headless = openjdk13.override { headless = true; };
 
   openjdk = openjdk8;
   openjdk_headless = openjdk8_headless;
@@ -10959,6 +10969,10 @@ in
   cpp-ipfs-api = callPackage ../development/libraries/cpp-ipfs-api { };
 
   cpp-netlib = callPackage ../development/libraries/cpp-netlib {};
+
+  ubus = callPackage ../development/libraries/ubus { };
+
+  uci = callPackage ../development/libraries/uci { };
 
   uri = callPackage ../development/libraries/uri { };
 
@@ -17225,11 +17239,13 @@ in
 
   culmus = callPackage ../data/fonts/culmus { };
 
-  clearlyU = callPackage ../data/fonts/clearlyU { };
+  clearlyU = callPackage ../data/fonts/clearlyU
+    { inherit (buildPackages.xorg) fonttosfnt mkfontscale; };
 
   cm_unicode = callPackage ../data/fonts/cm-unicode {};
 
-  creep = callPackage ../data/fonts/creep { };
+  creep = callPackage ../data/fonts/creep
+    { inherit (buildPackages.xorg) fonttosfnt mkfontscale; };
 
   crimson = callPackage ../data/fonts/crimson {};
 
@@ -17241,9 +17257,8 @@ in
     paths = [ dejavu_fonts.out ];
   };
 
-  dina-font = callPackage ../data/fonts/dina { };
-
-  dina-font-pcf = callPackage ../data/fonts/dina-pcf { };
+  dina-font = callPackage ../data/fonts/dina
+    { inherit (buildPackages.xorg) mkfontscale; };
 
   dns-root-data = callPackage ../data/misc/dns-root-data { };
 
@@ -17646,7 +17661,8 @@ in
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  profont = callPackage ../data/fonts/profont { };
+  profont = callPackage ../data/fonts/profont
+    { inherit (buildPackages.xorg) mkfontscale; };
 
   proggyfonts = callPackage ../data/fonts/proggyfonts { };
 
@@ -20817,6 +20833,8 @@ in
 
   paprefs = callPackage ../applications/audio/paprefs { };
 
+  pantalaimon = python3Packages.callPackage ../applications/networking/instant-messengers/pantalaimon { };
+
   pavucontrol = callPackage ../applications/audio/pavucontrol { };
 
   paraview = libsForQt5.callPackage ../applications/graphics/paraview { };
@@ -21650,10 +21668,12 @@ in
     systemdSupport = true;
   };
 
-  synergy = callPackage ../applications/misc/synergy {
+  synergy = libsForQt5.callPackage ../applications/misc/synergy {
     stdenv = if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Carbon Cocoa CoreServices ScreenSaver;
   };
+
+  synergyWithoutGUI = synergy.override { withGUI = false; };
 
   tabbed = callPackage ../applications/window-managers/tabbed {
     # if you prefer a custom config, write the config.h in tabbed.config.h

@@ -2,14 +2,14 @@
 , qtdeclarative, cmake, texlive, ninja }:
 
 stdenv.mkDerivation rec {
-  name = "dwarf-therapist-${version}";
-  version = "41.0.2";
+  pname = "dwarf-therapist";
+  version = "41.1.3";
 
   src = fetchFromGitHub {
     owner = "Dwarf-Therapist";
     repo = "Dwarf-Therapist";
     rev = "v${version}";
-    sha256 = "0cvnk1dkszh7q7viv3i1v3ifzv1w0xyz69mifa1cbvbi47z2dh0d";
+    sha256 = "15f6npbfgsxsr6pm2vxpali8f6nyyk80bcyhy9s77n064q0qg2nj";
   };
 
   buildInputs = [ qtbase qtdeclarative ];
