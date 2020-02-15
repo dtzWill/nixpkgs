@@ -4,12 +4,12 @@
 
 buildPythonPackage rec {
   pname = "todosrht";
-  version = "0.51.13";
+  version = "0.55.3";
 
   src = fetchgit {
     url = "https://git.sr.ht/~sircmpwn/todo.sr.ht";
     rev = version;
-    sha256 = "19gywq5j7wlpk7j2whm2ivz0z0i3j50n7k7bx29pghndl7l43c18";
+    sha256 = "1j82yxdnag0q6rp0rpiq3ccn5maa1k58j2f1ilcsxf1gr13pycf5";
   };
 
   patches = [
@@ -30,8 +30,13 @@ buildPythonPackage rec {
     export SRHT_PATH=${srht}/${python.sitePackages}/srht
   '';
 
-  # Tests require a network connection
-  doCheck = false;
+  # pytest tests fail
+  checkInputs = [
+    pytest
+    factory_boy
+  ];
+
+  dontUseSetuptoolsCheck = true;
 
   meta = with stdenv.lib; {
     homepage = https://todo.sr.ht/~sircmpwn/todo.sr.ht;
