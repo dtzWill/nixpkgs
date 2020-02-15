@@ -14,11 +14,11 @@
 
 mkDerivation rec {
   pname = "kstars";
-  version = "3.3.9";
+  version = "3.4.0";
 
   src = fetchurl {
     url = "mirror://kde/stable/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "0ywk0sy301sfq7l6n8gl878bbwmyxkdxvhi1pcci6nkkn9q0336w";
+    sha256 = "0fpami30dv2i5zfnhfsqvrx754a4f1j0sdf6y9ic5734f730vpns";
   };
 
   nativeBuildInputs = [
