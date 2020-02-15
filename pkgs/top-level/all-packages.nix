@@ -19313,6 +19313,7 @@ in
     withManual = false;
     pythonSupport = false;
     withpcre2 = false;
+    openssh = openssh.override { withFIDO = false; };
   };
 
   gitRepo = callPackage ../applications/version-management/git-repo { };
