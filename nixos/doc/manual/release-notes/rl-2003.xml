@@ -248,6 +248,12 @@ users.users.me =
      needed.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     The <citerefentry><refentrytitle>nixos-build-vms</refentrytitle><manvolnum>8</manvolnum>
+     </citerefentry>-script now uses the python test-driver.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
