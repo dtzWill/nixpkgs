@@ -18,8 +18,6 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC=cc" "prefix=${placeholder "out"}" ];
 
-  enableParallelBuilding = true;
-
   meta = with stdenv.lib; {
     homepage = http://www.muppetlabs.com/~breadbox/software/elfkickers.html;
     description = "A collection of programs that access and manipulate ELF files";
