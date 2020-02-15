@@ -6,6 +6,7 @@
 , alsaLib, libXdamage, libXtst, libXrandr, expat, cups
 , dbus, gtk2, gtk3, gdk-pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
 , kerberos
+, libdrm, mesa
 
 # command line arguments which are always set e.g "--disable-gpu"
 , commandLineArgs ? ""
