@@ -5,12 +5,12 @@
 
 {stdenvNoCC, cvs, openssh}:
 
-{cvsRoot, module, tag ? null, date ? null, sha256}:
+{cvsRoot, module, tag ? null, date ? null, sha256, sshSupport ? true }:
 
 stdenvNoCC.mkDerivation {
   name = "cvs-export";
   builder = ./builder.sh;
-  nativeBuildInputs = [cvs openssh];
+  nativeBuildInputs = [cvs] ++ stdenvNoCC.lib.optional sshSupport openssh;
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
