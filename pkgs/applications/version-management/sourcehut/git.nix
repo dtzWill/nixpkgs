@@ -64,7 +64,6 @@ in buildPythonPackage rec {
     export SRHT_PATH=${srht}/${python.sitePackages}/srht
   '';
 
-  # TODO: Remove redundant mkdir?
   postInstall = ''
     mkdir -p $out/bin
     cp ${buildShell "${src}/gitsrht-shell"}/bin/gitsrht-shell $out/bin/gitsrht-shell

@@ -1,6 +1,7 @@
 { stdenv, fetchgit, buildPythonPackage
 , python
-, srht, redis, alembic, pystache }:
+, srht, redis, alembic, pystache
+, pytest, factory_boy, writeText }:
 
 buildPythonPackage rec {
   pname = "todosrht";

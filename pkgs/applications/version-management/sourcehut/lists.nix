@@ -20,6 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     srht
+    pygit2
     asyncpg
     aiosmtpd
     emailthreads
