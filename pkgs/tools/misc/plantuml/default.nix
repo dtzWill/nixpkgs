@@ -18,6 +18,11 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/plantuml \
       --argv0 plantuml \
       --set GRAPHVIZ_DOT ${graphviz}/bin/dot \
+      --add-flags "\
+        -Dawt.useSystemAAFontSettings=lcd \
+        -Dsun.java2d.xrender=True \
+        -Dswing.aatext=true \
+        " \
       --add-flags "-jar $out/lib/plantuml.jar"
 
     $out/bin/plantuml -help
