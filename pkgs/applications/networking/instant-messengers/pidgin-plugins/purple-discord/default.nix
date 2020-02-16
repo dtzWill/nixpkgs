@@ -17,6 +17,13 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_PURPLE_PLUGINDIR = "${placeholder "out"}/lib/purple-2";
   PKG_CONFIG_PURPLE_DATADIR = "${placeholder "out"}/share";
 
+  postInstall = ''
+    for size in 16 22 24 48; do
+      install -TDm644 hangouts$size.png \
+        $out/share/pixmaps/pidgin/protocols/$size/hangouts.png
+    done
+  ''
+
   meta = with stdenv.lib; {
     homepage = https://github.com/EionRobb/purple-discord;
     description = "Discord plugin for Pidgin";
