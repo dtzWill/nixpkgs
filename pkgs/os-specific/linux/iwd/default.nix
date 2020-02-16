@@ -68,11 +68,12 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  patches = [
-    # Fix write past end of buffer in certain circumstances
-    # ... circumstances I encounter often, thanks neighbors ;)
-    ./completion-crash-fix-wip.patch
-  ];
+  # Experimentally drop this patch, let's see if still needed
+  ## patches = [
+  ##   # Fix write past end of buffer in certain circumstances
+  ##   # ... circumstances I encounter often, thanks neighbors ;)
+  ##   ./completion-crash-fix-wip.patch
+  ## ];
 
   doCheck = true;
 
