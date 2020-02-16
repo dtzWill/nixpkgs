@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, qmake, qttools, qtbase, libsForQt5, flex, bison }:
+{ mkDerivation, lib, fetchFromGitHub, qmake, qttools, qtbase, libsForQt5, flex, bison }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   name = "tikzit-${version}";
   version = "2.1.4";
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
   enableParallelBuilding = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A graphical tool for rapidly creating graphs and diagrams using PGF/TikZ";
     longDescription = ''
       TikZiT is a simple GUI editor for graphs and string diagrams.
