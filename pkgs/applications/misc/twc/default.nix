@@ -32,7 +32,7 @@ in with python.pkgs; buildPythonApplication rec {
   '';
 
   nativeBuildInputs = [ setuptools_scm ];
-  buildInputs = [
+  propagatedBuildInputs = [
     tasklib prompt_toolkit attrs mgcomm
   ];
 
