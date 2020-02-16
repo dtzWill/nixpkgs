@@ -6902,6 +6902,8 @@ in
   ttfautohint = libsForQt5.callPackage ../tools/misc/ttfautohint { };
   ttfautohint-nox = ttfautohint.override { enableGUI = false; };
 
+  twc = python3Packages.callPackage ../applications/misc/twc { };
+
   tty-clock = callPackage ../tools/misc/tty-clock { };
 
   ttyplot = callPackage ../tools/misc/ttyplot { };
