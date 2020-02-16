@@ -9388,8 +9388,6 @@ in
 
   proglodyte-wasm = callPackage ../development/interpreters/proglodyte-wasm { };
 
-  wasm-gc = callPackage ../development/interpreters/wasm-gc { };
-
 
   ### DEVELOPMENT / MISC
 
