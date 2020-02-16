@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, clang,
-  pkg-config, curl, mpv, yajl }:
+{ stdenv, fetchFromGitHub, fetchpatch, pkg-config, curl, mpv, yajl }:
 
 stdenv.mkDerivation rec {
   pname = "jftui";
@@ -21,13 +20,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    clang
-    pkg-config
     curl
     mpv
     yajl
   ];
+
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   installPhase = ''
     install -Dm555 build/jftui $out/bin/jftui
