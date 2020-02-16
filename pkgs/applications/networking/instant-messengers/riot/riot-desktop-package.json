@@ -1,5 +1,5 @@
 {
-  "name": "riot-web",
+  "name": "riot-desktop",
   "productName": "Riot",
   "main": "src/electron-main.js",
   "version": "1.5.9-rc.1",
