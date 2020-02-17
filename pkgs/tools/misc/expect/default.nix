@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, tcl, makeWrapper, autoreconfHook }:
+{ stdenv, fetchurl, tcl, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "5.45.4";
@@ -10,12 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ tcl ];
-  nativeBuildInputs = [ makeWrapper autoreconfHook ];
+  nativeBuildInputs = [ makeWrapper ];
 
   hardeningDisable = [ "format" ];
 
-  postPatch = ''
-    sed -i "s,/bin/stty,$(type -p stty),g" configure.in
+  patchPhase = ''
+    sed -i "s,/bin/stty,$(type -p stty),g" configure
   '';
 
   configureFlags = [
