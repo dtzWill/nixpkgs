@@ -3330,6 +3330,19 @@ in
     withGTK = true;
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa;
   };
+  fontforge-gtk-git = fontforge-gtk.overrideAttrs(o: rec {
+    version = "2020-02-14";
+    name = "${o.pname}-${version}";
+    src = fetchFromGitHub {
+      owner = "fontforge";
+      repo = "fontforge";
+      rev = "46704cc75744965c7d11a434332f8e4a81d42bfc";
+      sha256 = "0f9i8cvzh1dyw4xrb60vvjzqlrn4by1anfp1sxmmrnaizw6jzm3r";
+    };
+    nativeBuildInputs = o.nativeBuildInputs or [] ++ [ cmake ];
+    configureFlags = null;
+    preConfigure = null;
+  });
 
   fontforge-fonttools = callPackage ../tools/misc/fontforge/fontforge-fonttools.nix {};
 
