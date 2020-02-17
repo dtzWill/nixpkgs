@@ -63,10 +63,6 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_LIBUNINAMESLIST=OFF"
-
-    # Experimental
-    "-DENABLE_TILE_PATH=ON"
-    "-DENABLE_WRITE_PFM=ON"
   ];
 
   doCheck = false; # tries to wget some fonts
