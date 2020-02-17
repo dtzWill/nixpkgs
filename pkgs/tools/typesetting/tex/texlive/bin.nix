@@ -21,8 +21,8 @@ let
   common = {
     src = fetchsvn {
       url = "svn://tug.org/texlive/trunk/Build/source";
-      rev = "53776";
-      sha256 = "16rbawqf8656p3c9vgjmq5s7fn4rgr36g9b8gisxjwi02vzpmib9";
+      rev = "53817"; # 2020-02-16
+      sha256 = "0wc0dmf1mg1xc3cflxvl6rfrmdr6gw5w1fqmcn4vg9shmg0sb98d";
     };
     #src = fetchFromGitHub {
     #  owner = "TeX-Live";
