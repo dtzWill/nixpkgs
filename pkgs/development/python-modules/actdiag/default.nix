@@ -3,11 +3,11 @@
 
 buildPythonPackage rec {
   pname = "actdiag";
-  version = "0.5.4";
+  version = "2.0.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "983071777d9941093aaef3be1f67c198a8ac8d2bba264cdd1f337ca415ab46af";
+    sha256 = "0g51v9dmdq18z33v332f1f0cmb3hqgaga5minj0mc2sglark1s7h";
   };
 
   patches = fetchpatch {
