@@ -3,6 +3,7 @@
 , networkmanager, gtk3, gobject-introspection, gtk-doc
 , docbook_xsl, docbook_xml_dtd_43, libxml2
 , isocodes, mobile-broadband-provider-info
+, vala
 , withGnome ? true, gcr ? null
 }:
 
@@ -22,6 +23,7 @@ stdenv.mkDerivation rec {
     meson ninja pkgconfig
     gobject-introspection gtk-doc
     docbook_xsl docbook_xml_dtd_43 libxml2
+    vala
   ];
 
   outputs = [ "out" "dev" "devdoc" ];
