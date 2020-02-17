@@ -11,7 +11,7 @@
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
   #version = "1.8.22";
-  version = "unstable-2019-11-29";
+  version = "unstable-2020-02-14";
 
   #src = fetchurl {
   #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "74183667c082b9a6717f0748e6ce64c2986b4667";
-    sha256 = "1q13zdq1gszkg4pmddwacim1p3qvs94x27yipqycqqigqv03f5k9";
+    rev = "0b58efdd2e5aab68843cd354d921580bc3b5b514";
+    sha256 = "1xal5n05k3nal951irdjb26i8zc01x43yfhr83kxwnfj1zmfy7ic";
   };
 
   mesonFlags = [
