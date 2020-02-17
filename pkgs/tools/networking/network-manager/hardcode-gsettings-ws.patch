@@ -1,7 +1,7 @@
-diff --git a/src/wireless-security/eap-method.c b/src/wireless-security/eap-method.c
+diff --git a/src/nma-ws/nma-eap.c b/src/nma-ws/nma-eap.c
 index 2e9daa23..6663b3ce 100644
---- a/src/wireless-security/eap-method.c
-+++ b/src/wireless-security/eap-method.c
+--- a/src/nma-ws/nma-eap.c
++++ b/src/nma-ws/nma-eap.c
 @@ -265,8 +265,11 @@ eap_method_ca_cert_ignore_get (EAPMethod *method, NMConnection *connection)
  static GSettings *
  _get_ca_ignore_settings (NMConnection *connection)

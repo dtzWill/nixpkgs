@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Needed for wingpanel-indicator-network and switchboard-plug-network
-  patches = [ ./hardcode-gsettings.patch ];
+  patches = [ ./hardcode-gsettings-ws.patch ];
 
   postPatch = ''
     substituteInPlace src/nma-ws/nma-eap.c --subst-var-by NM_APPLET_GSETTINGS $lib/share/gsettings-schemas/${pname}-${version}/glib-2.0/schemas
