@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
     ./fix-dbus-tests.patch
     ./export-rtnl.patch
     ./regen-sym-for-rtnl.patch
+    ./and-ascii_table.patch
   ];
 
   nativeBuildInputs = [
