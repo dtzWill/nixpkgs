@@ -3,13 +3,13 @@
 stdenv.mkDerivation rec {
   pname = "elfkickers";
   #version = "3.1";
-  version = "unstable-2020-02-11";
+  version = "unstable-2020-02-18";
 
   src = fetchFromGitHub {
     owner = "BR903";
     repo = pname;
-    rev = "e1af22cc152abc9e9c8d28e8011fd39d33e8e3c1";
-    sha256 = "0k00jb61h28g3hqzsbxszk1kszlrzv2vzsjxrnwrm41dzcjcmrby";
+    rev = "dbeb4972ec3bddd1163608b7958e267cec594664";
+    sha256 = "01s3mkgsb3cikxqwlgpwdwgypmiphbm86xhkw6lfd179d1g6vihv";
   };
   #src = fetchurl {
   #  url = "http://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
