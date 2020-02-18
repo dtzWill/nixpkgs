@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional enableUbsan "--enable-ubsan";
 
   #separateDebugInfo = true;
-  dontStrip = true; # leave, separateDebugInfo works best for upstream-built packages
+  #dontStrip = true; # leave, separateDebugInfo works best for upstream-built packages
 
   postUnpack = ''
     patchShebangs .

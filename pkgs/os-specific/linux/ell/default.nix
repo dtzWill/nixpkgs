@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     "--enable-ubsan"
   ];
   #separateDebugInfo = true;
-  dontStrip = true; # leave
+  #dontStrip = true; # leave
 
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;
