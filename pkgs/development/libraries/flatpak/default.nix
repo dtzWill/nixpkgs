@@ -104,8 +104,6 @@ stdenv.mkDerivation rec {
     ./validate-icon-pixbuf.patch
   ];
 
-  autoreconfPhase = '':'';
-
   nativeBuildInputs = [
     autoreconfHook
     libxml2
@@ -146,7 +144,6 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
     glib-networking
     librsvg # for flatpak-validate-icon
-    fuse
   ];
 
   # Required by flatpak.pc
@@ -174,12 +171,9 @@ stdenv.mkDerivation rec {
     "--with-dbus-config-dir=${placeholder "out"}/share/dbus-1/system.d"
     "--localstatedir=/var"
     "--enable-installed-tests"
-    "--disable-documentation"
+    # XXX: nixpkgs master doesn't have this, revisit!
     "--with-system-helper-user=flatpak"
   ];
-
-  # Uses pthread_sigmask but doesn't link to pthread
-  # NIX_CFLAGS_LINK = [ "-lpthread" ];
 
   makeFlags = [
     "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/flatpak"
