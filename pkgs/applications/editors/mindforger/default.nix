@@ -2,13 +2,13 @@
 
 mkDerivation rec {
   pname = "mindforger";
-  version = "1.50.0";
+  version = "1.51.0";
 
   src = fetchFromGitHub {
     owner = "dvorka";
     repo = pname;
     rev = version;
-    sha256 = "0s0wav1jq29phcg1zid1bx52h3niiknhmzjramd3wfjmrl7aswj5";
+    sha256 = "126mkagyngr85rhbmai7z7k4svkf8j86qhcpwpwsrzjk4yqkazx9";
     fetchSubmodules = true;
   };
 
