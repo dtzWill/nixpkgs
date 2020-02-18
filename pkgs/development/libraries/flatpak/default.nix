@@ -58,15 +58,8 @@ stdenv.mkDerivation rec {
   version = "1.6.2";
 
   # TODO: split out lib once we figure out what to do with triggerdir
-  outputs = [ "out" /* "man" "doc" */ "installedTests" ];
+  outputs = [ "out" "dev" "man" "doc" "installedTests" ];
 
-  #src = fetchFromGitHub {
-  #  owner = pname;
-  #  repo = pname;
-  #  rev = "7a5c0246954566e4e7516b26beced10762290241";
-  #  sha256 = "09mdc6k0nnslr4vjpagarl2074qsi1a18i65vrf6xgdgilya0f04";
-  #  fetchSubmodules = true;
-  #};
   src = fetchurl {
     url = "https://github.com/flatpak/flatpak/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "02k9p5n60gz2k85n805n9niic4miw0mfh0i7yk1vrc8vaa5h69wd";
