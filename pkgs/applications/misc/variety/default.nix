@@ -1,5 +1,5 @@
 {
-  fehSupport ? false, feh
+  fehSupport ? true, feh
 , imagemagickSupport ? true, imagemagick
 , stdenv
 , lib
