@@ -19,13 +19,13 @@ with python37Packages;
 
 buildPythonApplication rec {
   pname = "variety";
-  version = "0.7.2-96-g3afe3ab";
+  version = "0.8.3";
 
   src = fetchFromGitHub {
     owner = "varietywalls";
     repo = "variety";
-    rev = "3afe3abf725e5db2aec0db575a17c9907ab20de1";
-    sha256 = "10vw0202dwrwi497nsbq077v4qd3qn5b8cmkfcsgbvvjwlz7ldm5";
+    rev = version;
+    sha256 = "00am2pvqk30kdfv6x6qksh8ipr61cdhr816krvfi17gl4hch4d2s";
   };
 
   nativeBuildInputs = [ intltool wrapGAppsHook ];
