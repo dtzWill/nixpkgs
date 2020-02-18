@@ -1,6 +1,7 @@
 { stdenv
 , fetchgit
 , autoreconfHook
+, pruneLibtoolFiles
 , pkgconfig
 , dbus
 }:
@@ -27,6 +28,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkgconfig
     autoreconfHook
+    pruneLibtoolFiles
   ];
 
   checkInputs = [
