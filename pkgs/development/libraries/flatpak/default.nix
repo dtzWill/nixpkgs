@@ -1,7 +1,52 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43, docbook_xsl, which, libxml2
-, gobject-introspection, gtk-doc, intltool, libxslt, pkgconfig, xmlto, appstream-glib, substituteAll, glibcLocales, yacc, xdg-dbus-proxy, p11-kit
-, bubblewrap, bzip2, dbus, glib, gpgme, json-glib, libarchive, libcap, libseccomp, coreutils, gettext, hicolor-icon-theme, fuse
-, libsoup, lzma, ostree, polkit, python3, systemd, xorg, valgrind, glib-networking, wrapGAppsHook, gnome3, gsettings-desktop-schemas, librsvg }:
+{ stdenv
+, fetchurl
+, fetchFromGitHub
+, autoreconfHook
+, docbook_xml_dtd_412
+, docbook_xml_dtd_42
+, docbook_xml_dtd_43
+, docbook_xsl
+, which
+, libxml2
+, gobject-introspection
+, gtk-doc
+, intltool
+, libxslt
+, pkgconfig
+, xmlto
+, appstream-glib
+, substituteAll
+, glibcLocales
+, yacc
+, xdg-dbus-proxy
+, p11-kit
+, bubblewrap
+, bzip2
+, dbus
+, glib
+, gpgme
+, json-glib
+, libarchive
+, libcap
+, libseccomp
+, coreutils
+, gettext
+, hicolor-icon-theme
+, fuse
+, libsoup
+, lzma
+, ostree
+, polkit
+, python3
+, systemd
+, xorg
+, valgrind
+, glib-networking
+, wrapGAppsHook
+, gnome3
+, gsettings-desktop-schemas
+, librsvg
+}:
 
 stdenv.mkDerivation rec {
   pname = "flatpak";
@@ -23,19 +68,25 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    (substituteAll {
-      src = ./fix-test-paths.patch;
-      inherit coreutils gettext glibcLocales;
-      hicolorIconTheme = hicolor-icon-theme;
-    })
-    (substituteAll {
-      src = ./fix-paths.patch;
-      p11 = p11-kit;
-    })
-    (substituteAll {
-      src = ./bubblewrap-paths.patch;
-      inherit (builtins) storeDir;
-    })
+    (
+      substituteAll {
+        src = ./fix-test-paths.patch;
+        inherit coreutils gettext glibcLocales;
+        hicolorIconTheme = hicolor-icon-theme;
+      }
+    )
+    (
+      substituteAll {
+        src = ./fix-paths.patch;
+        p11 = p11-kit;
+      }
+    )
+    (
+      substituteAll {
+        src = ./bubblewrap-paths.patch;
+        inherit (builtins) storeDir;
+      }
+    )
     # patch taken from gtk_doc
     ./respect-xml-catalog-files-var.patch
     ./use-flatpak-from-path.patch
@@ -46,14 +97,45 @@ stdenv.mkDerivation rec {
   autoreconfPhase = '':'';
 
   nativeBuildInputs = [
-    autoreconfHook libxml2 docbook_xml_dtd_412 docbook_xml_dtd_42 docbook_xml_dtd_43 docbook_xsl which gobject-introspection
-    gtk-doc intltool libxslt pkgconfig xmlto appstream-glib yacc wrapGAppsHook
+    autoreconfHook
+    libxml2
+    docbook_xml_dtd_412
+    docbook_xml_dtd_42
+    docbook_xml_dtd_43
+    docbook_xsl
+    which
+    gobject-introspection
+    gtk-doc
+    intltool
+    libxslt
+    pkgconfig
+    xmlto
+    appstream-glib
+    yacc
+    wrapGAppsHook
   ];
 
   buildInputs = [
-    bubblewrap bzip2 dbus gnome3.dconf glib gpgme json-glib libarchive libcap libseccomp
-    libsoup lzma ostree polkit python3 systemd xorg.libXau fuse
-    gsettings-desktop-schemas glib-networking
+    bubblewrap
+    bzip2
+    dbus
+    gnome3.dconf
+    glib
+    gpgme
+    json-glib
+    libarchive
+    libcap
+    libseccomp
+    libsoup
+    lzma
+    ostree
+    polkit
+    python3
+    systemd
+    xorg.libXau
+    fuse
+    gsettings-desktop-schemas
+    glib-networking
     librsvg # for flatpak-validate-icon
     fuse
   ];
