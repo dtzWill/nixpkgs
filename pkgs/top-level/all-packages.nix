@@ -3226,7 +3226,7 @@ in
 
   flashbench = callPackage ../os-specific/linux/flashbench { };
 
-  flatpak = callPackage ../development/libraries/flatpak { };
+  flatpak = callPackage ../development/libraries/flatpak { inherit (gnome3) dconf; /* eep */ };
 
   flatpak-builder = callPackage ../development/tools/flatpak-builder { };
 
