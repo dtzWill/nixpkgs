@@ -1,6 +1,6 @@
-{ stdenv, buildGoModule, fetchFromGitHub }:
+{ stdenv, buildGoPackage, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "vale";
   version = "2.0.0";
 
@@ -15,10 +15,10 @@ buildGoModule rec {
 
   goPackagePath = "github.com/errata-ai/vale";
 
-  modSha256 = "1cm9y4gk9m8af9sv11yv1qn8gw0h0q1207wrgfgiwr70f1hf2ls2";
+  buildFlagsArray = [ "-ldflags=-s -w -X main.version=${version}" ];
 
   meta = with stdenv.lib; {
-    homepage = https://errata-ai.github.io/vale/;
+    homepage = "https://errata-ai.gitbook.io/vale/";
     description = "A syntax-aware linter for prose built with speed and extensibility in mind";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
