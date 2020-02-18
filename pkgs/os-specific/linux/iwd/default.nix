@@ -9,8 +9,8 @@
 , readline
 , openssl
 , python3Packages
-, enableAsan ? true
-, enableUbsan ? true
+, enableAsan ? false
+, enableUbsan ? false
 }:
 
 stdenv.mkDerivation rec {
