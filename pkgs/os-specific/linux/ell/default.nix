@@ -21,6 +21,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix-dbus-tests.patch
+    ./export-rtnl.patch
   ];
 
   nativeBuildInputs = [
