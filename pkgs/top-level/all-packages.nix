@@ -5544,7 +5544,7 @@ in
 
   osslsigncode = callPackage ../development/tools/osslsigncode {};
 
-  ostree = callPackage ../tools/misc/ostree { };
+  ostree = callPackage ../tools/misc/ostree { inherit (gnome3) gjs; /* toplevel! */ };
 
   otfcc-stable = callPackage ../tools/misc/otfcc { };
   otfcc-unstable = callPackage ../tools/misc/otfcc/unstable.nix { };
