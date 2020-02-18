@@ -16,10 +16,14 @@ stdenv.mkDerivation rec {
   #  sha256 = "0n0sypjrdm3ramv0sby4sdh3i3j9d0ihadr951wa08ypdnq3yrkd";
   #};
 
+  postPatch = ''
+    substituteInPlace elftoc/Makefile --replace gcc cc
+  '';
+
   makeFlags = [ "CC=cc" "prefix=${placeholder "out"}" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.muppetlabs.com/~breadbox/software/elfkickers.html;
+    homepage = "http://www.muppetlabs.com/~breadbox/software/elfkickers.html";
     description = "A collection of programs that access and manipulate ELF files";
     platforms = platforms.linux;
     license = licenses.gpl2;
