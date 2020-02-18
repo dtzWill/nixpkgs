@@ -1,12 +1,15 @@
-{ mkDerivation, lib, fetchurl, cmake, qmake, qtbase, qtwebkit }:
+{ mkDerivation, lib, fetchFromGitHub, cmake, qmake, qtbase, qtwebkit }:
 
 mkDerivation rec {
   pname = "mindforger";
   version = "1.50.0";
 
-  src = fetchurl {
-    url = "https://github.com/dvorka/${pname}/releases/download/${version}/${pname}_${version}.tgz";
-    sha256 = "0nkaawdl0jp0279g8ig8n0h5h6fpz0y8fhsh92rdil9m9m5qndvi";
+  src = fetchFromGitHub {
+    owner = "dvorka";
+    repo = pname;
+    rev = version;
+    sha256 = "0s0wav1jq29phcg1zid1bx52h3niiknhmzjramd3wfjmrl7aswj5";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake qmake ] ;
