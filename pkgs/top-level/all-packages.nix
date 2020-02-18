@@ -19990,6 +19990,8 @@ in
 
   kexi = libsForQt5.callPackage ../applications/office/kexi { };
 
+  khronos = callPackage ../applications/office/khronos { };
+
   keyfinder = libsForQt5.callPackage ../applications/audio/keyfinder { };
 
   keyfinder-cli = libsForQt5.callPackage ../applications/audio/keyfinder-cli { };
