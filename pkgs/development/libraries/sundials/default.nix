@@ -1,7 +1,14 @@
-{ cmake, fetchurl, python, stdenv }:
+{ stdenv
+, cmake
+, fetchurl
+, python
+, openblas
+, gfortran
+, lapackSupport ? true }:
 
-stdenv.mkDerivation rec {
+let openblas32 = openblas.override { blas64 = false; };
 
+in stdenv.mkDerivation rec {
   pname = "sundials";
   version = "5.1.0";
 
@@ -29,15 +36,14 @@ stdenv.mkDerivation rec {
     "-DLAPACK_LIBRARIES=${openblas32}/lib/libopenblas${stdenv.hostPlatform.extensions.sharedLibrary}"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ python ];
+  doCheck = true;
+  checkPhase = "make test";
 
   meta = with stdenv.lib; {
     description = "Suite of nonlinear differential/algebraic equation solvers";
     homepage    = https://computation.llnl.gov/projects/sundials;
     platforms   = platforms.all;
-    maintainers = [ maintainers.idontgetoutmuch ];
+    maintainers = with maintainers; [ flokli idontgetoutmuch ];
     license     = licenses.bsd3;
   };
-
 }
