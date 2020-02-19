@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, cmake, ninja, gflags, libsodium, protobuf }:
 
 stdenv.mkDerivation rec {
-  name = "eternal-terminal-${version}";
-  version = "5.1.10";
+  pname = "eternal-terminal";
+  version = "6.0.6";
 
   src = fetchFromGitHub {
     owner = "MisterTea";
-    repo = "EternalTCP";
-    rev = "refs/tags/et-v${version}";
-    sha256 = "0jh89229bd9s82h3aj6faaybwr5xvnk8w2kgz47gq263pz021zpl";
+    repo = "EternalTerminal";
+    rev = "et-v${version}";
+    sha256 = "0vhhiccyvp9pjdmmscwdwcynxfwd2kgv418z90blnir0yfkvsryq";
   };
 
   nativeBuildInputs = [ cmake ninja ];
