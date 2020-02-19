@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   name = "burp-${version}";
-  version = "2.2.18";
+  version = "2.3.22";
 
   src = fetchFromGitHub {
     owner = "grke";
     repo = "burp";
     rev = version;
-    sha256 = "1zhq240kz881vs2s620qp0kifmgr582caalm85ls789w9rmdkhjl";
+    sha256 = "186ai8isqqrx4kpq2nj9q3ikfd3q628007yiaffv142nls9qs1js";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
