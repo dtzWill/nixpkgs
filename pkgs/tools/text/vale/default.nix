@@ -1,8 +1,8 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   pname = "vale";
-  version = "1.7.1";
+  version = "2.0.0";
 
   subPackages = [ "." ];
 
@@ -10,10 +10,12 @@ buildGoPackage rec {
     owner  = "errata-ai";
     repo   = "vale";
     rev    = "v${version}";
-    sha256 = "1qi3brjppiymk6as0xic2n3bhq8g8qw1z8d9a24w60x9gp52yq5m";
+    sha256 = "068973ayd883kzkxl60lpammf3icjz090nw07kfccvhcf24x07bh";
   };
 
   goPackagePath = "github.com/errata-ai/vale";
+
+  modSha256 = "1cm9y4gk9m8af9sv11yv1qn8gw0h0q1207wrgfgiwr70f1hf2ls2";
 
   meta = with stdenv.lib; {
     homepage = https://errata-ai.github.io/vale/;
