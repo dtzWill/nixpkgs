@@ -156,6 +156,7 @@ in {
 
     users.groups = optionalAttrs (cfg.group == "uwsgi") {
       uwsgi.gid = config.ids.gids.uwsgi;
+    };
 
     services.uwsgi.package = pkgs.uwsgi.override {
       inherit (cfg) plugins;
