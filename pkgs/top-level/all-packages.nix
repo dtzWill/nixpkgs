@@ -9076,6 +9076,7 @@ in
   kanif = callPackage ../applications/networking/cluster/kanif { };
 
   lumo = callPackage ../development/interpreters/clojurescript/lumo {
+    # nodejs = nodejs-13_x;
     nodejs = nodejs-10_x;
     nodePackages = nodePackages_10_x;
   };
