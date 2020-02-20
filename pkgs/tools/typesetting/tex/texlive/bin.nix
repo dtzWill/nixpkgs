@@ -16,13 +16,13 @@ let
 
   year = "2020";
   #version = year; # keep names simple for now
-  version = "${year}-02-13";
+  version = "${year}-02-19";
 
   common = {
     src = fetchsvn {
       url = "svn://tug.org/texlive/trunk/Build/source";
-      rev = "53817"; # 2020-02-16
-      sha256 = "0wc0dmf1mg1xc3cflxvl6rfrmdr6gw5w1fqmcn4vg9shmg0sb98d";
+      rev = "53848"; # 2020-02-19
+      sha256 = "1qb1z206j674fysp2qkcqqhjrf42mv8y6wligclxpfd6af7mp829";
     };
     #src = fetchFromGitHub {
     #  owner = "TeX-Live";
