@@ -7,11 +7,11 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "kmod";
-  version = "26";
+  version = "27";
 
   src = fetchurl {
     url = "mirror://kernel/linux/utils/kernel/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "17dvrls70nr3b3x1wm8pwbqy4r8a5c20m0dhys8mjhsnpg425fsp";
+    sha256 = "035wzfzjx4nwidk747p8n085mgkvy531ppn16krrajx2dkqzply1";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig libxslt ];
