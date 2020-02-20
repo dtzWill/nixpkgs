@@ -6,7 +6,7 @@
 
 let
   optional = stdenv.lib.optional;
-  version = "3.18";
+  version = "3.30";
   name = "libreswan-${version}";
   binPath = stdenv.lib.makeBinPath [
     bash iproute iptables procps coreutils gnused gawk nss.tools which python
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://download.libreswan.org/${name}.tar.gz";
-    sha256 = "0zginnakxw7m79zrdvfdvliaiyg78zgqfqkks9z5d1rjj5w13xig";
+    sha256 = "1bww4w5r6hx0xf9xdxvkfmcv7zyas58ls1mklk6k197kv2i0p24w";
   };
 
   # These flags were added to compile v3.18. Try to lift them when updating.
