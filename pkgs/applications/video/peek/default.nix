@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "peek";
-  version = "1.5.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "phw";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "0qwcxaay7vig1b5yq91y1dlnhd826cnp3pzcicq1rp6xp6nxd08a";
+    repo = "peek";
+    rev = version;
+    sha256 = "1xwlfizga6hvjqq127py8vabaphsny928ar7mwqj9cyqfl6fx41x";
   };
 
   preConfigure = ''
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage    = https://github.com/phw/peek;
+    homepage = "https://github.com/phw/peek";
     description = "Simple animated GIF screen recorder with an easy to use interface";
     license     = licenses.gpl3;
     maintainers = with maintainers; [ puffnfresh ];
