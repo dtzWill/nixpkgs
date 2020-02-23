@@ -21350,7 +21350,7 @@ in
 
   ries = callPackage ../applications/science/math/ries { };
 
-  ripcord = callPackage ../applications/networking/instant-messengers/ripcord { };
+  ripcord = qt5.callPackage ../applications/networking/instant-messengers/ripcord { };
 
   ripser = callPackage ../applications/science/math/ripser { };
 
