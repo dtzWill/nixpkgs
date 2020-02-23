@@ -1,7 +1,7 @@
 { stdenv, fetchurl, makeWrapper,
   pkgconfig, systemd, gmp, unbound, bison, flex, pam, libevent, libcap_ng, curl, nspr,
   bash, iproute, iptables, procps, coreutils, gnused, gawk, nss, which, python,
-  docs ? false, xmlto
+  docs ? false, xmlto, libselinux, ldns
   }:
 
 let
@@ -14,6 +14,7 @@ let
 in
 
 assert docs -> xmlto != null;
+assert stdenv.isLinux -> libselinux != null;
 
 stdenv.mkDerivation {
   inherit name;
@@ -30,19 +31,26 @@ stdenv.mkDerivation {
     "-Wno-error=implicit-fallthrough"
     "-Wno-error=format-truncation"
     "-Wno-error=pointer-compare"
+    "-Wno-error=stringop-truncation"
   ];
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
   buildInputs = [ bash iproute iptables systemd coreutils gnused gawk gmp unbound bison flex pam libevent
-                  libcap_ng curl nspr nss python ]
-                ++ optional docs xmlto;
+                  libcap_ng curl nspr nss python ldns ]
+                ++ optional docs xmlto
+                ++ optional stdenv.isLinux libselinux;
 
   prePatch = ''
     # Correct bash path
     sed -i -e 's|/bin/bash|/usr/bin/env bash|' mk/config.mk
 
-    # Fix systemd unit directory, and prevent the makefile from trying to reload the systemd daemon
-    sed -i -e 's|UNITDIR=.*$|UNITDIR=$\{out}/etc/systemd/system/|' -e 's|systemctl --system daemon-reload|true|' initsystems/systemd/Makefile
+    # Fix systemd unit directory, and prevent the makefile from trying to reload the
+    # systemd daemon or create tmpfiles
+    sed -i -e 's|UNITDIR=.*$|UNITDIR=$\{out}/etc/systemd/system/|g' \
+      -e 's|TMPFILESDIR=.*$|TMPFILESDIR=$\{out}/tmpfiles.d/|g' \
+      -e 's|systemctl|true|g' \
+      -e 's|systemd-tmpfiles|true|g' \
+      initsystems/systemd/Makefile
 
     # Fix the ipsec program from crushing the PATH
     sed -i -e 's|\(PATH=".*"\):.*$|\1:$PATH|' programs/ipsec/ipsec.in
@@ -50,8 +58,6 @@ stdenv.mkDerivation {
     # Fix python script to use the correct python
     sed -i -e 's|#!/usr/bin/python|#!/usr/bin/env python|' -e 's/^\(\W*\)installstartcheck()/\1sscmd = "ss"\n\0/' programs/verify/verify.in
   '';
-
-  patches = [ ./libreswan-3.18-glibc-2.26.patch ];
 
   # Set appropriate paths for build
   preBuild = "export INC_USRLOCAL=\${out}";
