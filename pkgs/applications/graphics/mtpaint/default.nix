@@ -6,14 +6,14 @@
 stdenv.mkDerivation rec {
   p_name  = "mtPaint";
   ver_maj = "3.49";
-  ver_min = "12";
+  ver_min = "20";
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchFromGitHub {
     owner = "wjaguar";
     repo = p_name;
-    rev = "6aed1b0441f99055fc7d475942f8bd5cb23c41f8";
-    sha256 = "0bvf623g0n2ifijcxv1nw0z3wbs2vhhdky4n04ywsbjlykm44nd1";
+    rev = "e55eb7d3d14bc17ea92f5e5f00ecc538dced0aeb";
+    sha256 = "1kc8p8lyrqzfqc95h76y7jm346hkykgksl15pwrnfh6rq8355ylw";
   };
 
   nativeBuildInputs = [ pkgconfig ];
