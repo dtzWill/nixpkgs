@@ -205,12 +205,10 @@ in rec {
 
   nixFlakes = lib.lowPrio (callPackage common rec {
     name = "nix-2.4${suffix}";
-    suffix = "pre20191022_9cac895";
-    src = fetchFromGitHub {
-      owner = "NixOS";
-      repo = "nix";
-      rev = "9cac895406724e0304dff140379783c4d786e855";
-      hash = "sha256-Y1cdnCNoJmjqyC/a+Nt2N+5L3Ttg7K7zOD7gmtg1QzA=";
+    suffix = "pre20200220_4a4521f";
+    src = fetchurl {
+      url = "https://hydra.nixos.org/build/113373394/download/3/nix-2.4${suffix}.tar.xz";
+      sha256 = "31fe87c40f40a590bc8f575283725d5f04ecb9aebb6b404f679d77438d75265d";
     };
     fromGit = true;
 
