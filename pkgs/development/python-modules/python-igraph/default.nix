@@ -3,14 +3,14 @@
 
 buildPythonPackage rec {
   pname = "python-igraph";
-  version = "0.7.1.post6";
+  version = "0.8.0";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ igraph ];
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0xp61zz710qlzhmzbfr65d5flvsi8zf2xy78s6rsszh719wl5sm5";
+    sha256 = "13mbrlmnbgbzw6y8ws7wj0a3ly3in8j4l1ngi6yxvgvxxi4bprj7";
   };
 
   doCheck = !isPy3k;
