@@ -50,7 +50,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./dont-force-elementary-themes.patch
-    ./label-bump.patch
   ];
 
   postPatch = ''
