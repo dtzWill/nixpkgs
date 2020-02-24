@@ -1,22 +1,14 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, fetchpatch }:
+{ stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "editline";
-  version = "1.17.0";
+  version = "1.17.1";
   src = fetchFromGitHub {
     owner = "troglobit";
     repo = "editline";
     rev = version;
-    sha256 = "0vjm42y6zjmi6hdcng0l7wkksw7s50agbmk5dxsc3292q8mvq8v6";
+    sha256 = "0y7vis52kfq2km9isrlzakpf7bn1k7v9vf3xg3q1cslla18q6myh";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "fix-for-multiline-as-one-line.patch";
-      url = "https://github.com/troglobit/editline/commit/ceee039cfc819c8e09eebbfca192091b0cf8df75.patch";
-      sha256 = "149fmfva05ghzwkd0bq1sahdbkys3qyyky28ssqb5jq7q9hw3ddm";
-    })
-  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
