@@ -25340,6 +25340,8 @@ in
 
   rfc-bibtex = python3Packages.callPackage ../development/python-modules/rfc-bibtex { };
 
+  routed-gothic = callPackage ../data/fonts/routed-gothic { };
+
   rpl = callPackage ../tools/text/rpl {
     pythonPackages = python3Packages;
   };
