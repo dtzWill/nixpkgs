@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "PREFIX=${placeholder "out"}"
     "LEX=flex"
-    "RGBDEF=${netpbm}/share/netpbm/misc/rgb.txt"
+    "RGBDEF=${netpbm.out}/share/netpbm/misc/rgb.txt"
   ];
 
   nativeBuildInputs = [
