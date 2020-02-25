@@ -25176,6 +25176,8 @@ in
   nix-deploy = haskell.lib.justStaticExecutables haskellPackages.nix-deploy;
   nix-diff = haskell.lib.justStaticExecutables haskellPackages.nix-diff;
 
+  nix-build-gc = callPackage ../tools/package-management/nix-build-gc { };
+
   nix-du = callPackage ../tools/package-management/nix-du { };
 
   nix-info = callPackage ../tools/nix/info { };
