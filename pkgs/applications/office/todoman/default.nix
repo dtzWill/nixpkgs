@@ -41,11 +41,6 @@ buildPythonApplication rec {
     rm tests/test_cli.py
   '';
 
-  postInstall = ''
-    install -Dm644 contrib/completion/bash/_todo -t $out/share/bash-completion/completions/
-    install -Dm644 contrib/completion/zsh/_todo -t $out/share/zsh/vendor-completions/
-  '';
-
   meta = with stdenv.lib; {
     homepage = https://github.com/pimutils/todoman;
     description = "Standards-based task manager based on iCalendar";
