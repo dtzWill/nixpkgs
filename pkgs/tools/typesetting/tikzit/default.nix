@@ -1,7 +1,7 @@
-{ mkDerivation, lib, fetchFromGitHub, qmake, qttools, qtbase, libsForQt5, flex, bison }:
+{ stdenv, mkDerivation, fetchFromGitHub, qmake, qttools, qtbase, poppler, flex, bison }:
 
-mkDerivation rec {
-  name = "tikzit-${version}";
+mkDerivation {
+  pname = "tikzit";
   version = "2.1.4";
 
   src = fetchFromGitHub {
@@ -12,7 +12,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake qttools flex bison ];
-  buildInputs = [ qtbase libsForQt5.poppler ];
+  buildInputs = [ qtbase poppler ];
 
   # src/data/tikzlexer.l:29:10: fatal error: tikzparser.parser.hpp: No such file or directory
   enableParallelBuilding = false;
