@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "talloc";
-  version = "2.3.0";
+  version = "2.3.1";
 
   src = fetchurl {
     url = "mirror://samba/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "1iigk4a7n9k9qqq0h3a5vah67ycpqzvahvdhzy15lm428jrvrmbm";
+    sha256 = "0xwzgzrqamfdlklwacp9d219pqkah0yfrhxb1j7bxlmgzp924j7g";
   };
 
   nativeBuildInputs = [ pkgconfig fixDarwinDylibNames which python wafHook
