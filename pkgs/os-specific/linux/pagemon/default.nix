@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pagemon";
-  version = "0.01.17";
+  version = "0.01.18";
 
   src = fetchurl {
     url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "1k084ipldqj29zxwqynk3q07q0n6x06xj7fr22rq549qs48k7c7m";
+    sha256 = "0m2x8x1bi8a3bwb7vvhzqfz79jbfsafsvkrvv11fig1m09lw060g";
   };
 
   buildInputs = [ ncurses ];
