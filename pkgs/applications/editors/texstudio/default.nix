@@ -1,5 +1,5 @@
 { lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtscript, qtsvg,
-  poppler, zlib, pkgconfig }:
+  poppler, zlib, pkgconfig, hunspell }:
 
 mkDerivation rec {
   pname = "texstudio";
@@ -13,9 +13,9 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake pkgconfig ];
-  buildInputs = [ qtbase qtscript qtsvg poppler zlib ];
+  buildInputs = [ qtbase qtscript qtsvg poppler zlib hunspell ];
 
-  qmakeFlags = [ "NO_APPDATA=True" ];
+  qmakeFlags = [ "NO_APPDATA=True" "USE_SYSTEM_HUNSPELL=True" ];
 
   meta = with lib; {
     description = "TeX and LaTeX editor";
