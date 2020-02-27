@@ -902,6 +902,8 @@ in
 
   gitter = callPackage  ../applications/networking/instant-messengers/gitter { };
 
+  glances = python3Packages.callPackage ../applications/system/glances { };
+
   gucci = callPackage ../tools/text/gucci { };
 
   grc = callPackage ../tools/misc/grc { };
