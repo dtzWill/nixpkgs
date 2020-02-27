@@ -16,11 +16,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "aspell";
-  version = "0.60.7";
+  version = "0.60.8";
 
   src = fetchurl {
     url = "mirror://gnu/aspell/${pname}-${version}.tar.gz";
-    sha256 = "1r3h7f1psh634rvqh5xz1msv6msxpk8wcr2vxg4wc31pn26gra2w";
+    sha256 = "1wi60ankalmh8ds7nplz434jd7j94gdvbahdwsr539rlad8pxdzr";
   };
 
   patches = stdenv.lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
