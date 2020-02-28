@@ -18715,9 +18715,7 @@ in
 
   electrum-ltc = callPackage ../applications/misc/electrum/ltc.nix { };
 
-  elinks = callPackage ../applications/networking/browsers/elinks {
-    openssl = openssl_1_0_2;
-  };
+  elinks = callPackage ../applications/networking/browsers/elinks { };
 
   elvis = callPackage ../applications/editors/elvis { };
 
