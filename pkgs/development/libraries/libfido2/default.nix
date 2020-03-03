@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libcbor, libressl, udev }:
+{ stdenv, fetchurl, cmake, pkgconfig, libcbor, openssl, udev, IOKit }:
 
 stdenv.mkDerivation rec {
   pname = "libfido2";
@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
-  buildInputs = [ libcbor libressl udev ];
+  buildInputs = [ libcbor openssl ]
+    ++ stdenv.lib.optionals stdenv.isLinux [ udev ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
+
+  patches = [ ./detect_apple_ld.patch ];
 
   cmakeFlags = [ "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d" ];
 
@@ -27,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = https://github.com/Yubico/libfido2;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill ];
-
+    maintainers = with maintainers; [ dtzWill prusnak ];
+    platforms = platforms.unix;
   };
 }
