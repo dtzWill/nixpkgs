@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "fnotifystat";
   version = "0.02.05";
   src = fetchurl {
-    url = "https://kernel.ubuntu.com/~cking/tarballs/fnotifystat/fnotifystat-${version}.tar.gz";
+    url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.gz";
     sha256 = "1b8pxq731sj976m2daf0hnqfaaq688vqnjffinpwh2w9nzzi4gi9";
   };
   installFlags = [
