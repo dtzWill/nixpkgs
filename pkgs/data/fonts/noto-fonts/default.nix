@@ -90,7 +90,7 @@ rec {
     };
   };
   noto-fonts-emoji = let
-    version = "2019-11-19-unicode12";
+    version = "unstable-2019-10-22";
   in stdenv.mkDerivation {
     pname = "noto-fonts-emoji";
     inherit version;
@@ -98,7 +98,7 @@ rec {
     src = fetchFromGitHub {
       owner = "googlei18n";
       repo = "noto-emoji";
-      rev = "v${version}";
+      rev = "018aa149d622a4fea11f01c61a7207079da301bc";
       sha256 = "0qmnnjpp5lza6g5m3ki6hj46p891h9vl42k3acd0qw8i0jj5yn2c";
     };
 
