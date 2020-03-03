@@ -2,7 +2,7 @@
 , docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11
-, libXinerama, libXext, xprop, xwininfo, libxdg_basedir }:
+, libXinerama, libXext, xprop, xwininfo }:
 stdenv.mkDerivation rec {
   pname = "picom";
   #version = "7.3";
@@ -35,7 +35,6 @@ stdenv.mkDerivation rec {
     libXinerama libdrm pcre libxml2 libxslt libconfig libGL
     libxcb xcbutilrenderutil xcbutilimage
     pixman libev
-    libxdg_basedir
     # TODO: upstream, check if still needed
     uthash
   ];
