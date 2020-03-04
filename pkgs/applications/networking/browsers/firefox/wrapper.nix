@@ -12,6 +12,7 @@
 , rofi-tab-switcher ? if (dtz != null) then dtz.pkgs.rofi-tab-switcher.plugin /* manifest */ else null
 , udev
 , kerberos
+, libva
 }:
 
 ## configurability of the wrapper itself
@@ -69,7 +70,7 @@ let
           ++ lib.optional (cfg.enableFF2MPV or false) ff2mpv
           ++ extraNativeMessagingHosts
         );
-      libs =   lib.optional stdenv.isLinux udev
+      libs =   lib.optionals stdenv.isLinux [ udev libva ]
             ++ lib.optional ffmpegSupport ffmpeg
             ++ lib.optional gssSupport kerberos
             ++ lib.optional gdkWayland libglvnd
