@@ -1,30 +1,54 @@
-{ stdenv, fetchurl, aspell, pkgconfig, glib, hunspell, hspell, unittest-cpp }:
+{ stdenv
+, fetchurl
+, aspell
+, pkgconfig
+, glib
+, hunspell
+, hspell
+, unittest-cpp
+}:
 
-let
-  version = "2.2.5";
+stdenv.mkDerivation rec {
   pname = "enchant";
-in stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
+  version = "2.2.8";
 
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${name}.tar.gz";
-    sha256 = "0iqwzs11i9fvqdxv5kn0svcn2mzymn657qf3j66lg8dx1nh4xkpz";
+    url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
+    sha256 = "0m9m564qqwbssvvf7y3dlz1yxzqsjiqy1yd2zsmb3l0d7y2y5df7";
   };
 
-  configureFlags = [ "--enable-relocatable" ];
+  nativeBuildInputs = [
+    pkgconfig
+  ];
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ glib hunspell ];
-  propagatedBuildInputs = [ hspell aspell ]; # libtool puts it to la file
+  buildInputs = [
+    glib
+    hunspell
+  ];
 
-  checkInputs = [ unittest-cpp ];
+  checkInputs = [
+    unittest-cpp
+  ];
+
+  # libtool puts these to .la files
+  propagatedBuildInputs = [
+    hspell
+    aspell
+  ];
+
+  enableParallelBuilding = true;
+
   doCheck = true;
+
+  configureFlags = [
+    "--enable-relocatable" # needed for tests
+  ];
 
   meta = with stdenv.lib; {
     description = "Generic spell checking library";
-    homepage = https://abiword.github.io/enchant/;
+    homepage = "https://abiword.github.io/enchant/";
     license = licenses.lgpl21Plus; # with extra provision for non-free checkers
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.unix;
