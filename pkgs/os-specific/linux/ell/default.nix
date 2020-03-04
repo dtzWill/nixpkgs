@@ -8,15 +8,15 @@
 stdenv.mkDerivation rec {
   pname = "ell";
   #version = "0.28";
-  version = "unstable-2020-02-17";
+  version = "unstable-2020-03-02";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
      #rev = version;
-     rev = "ff6ff2435edd2b4161ebadc31c317f346f2ab71e";
-     sha256 = "0d8bi4vw23bps0l4a8kga4a7y1cmq41f1n5m26gw1hq8jy86rifk";
+     rev = "07b792306fed881af9f12f5052f375240c70b1b3";
+     sha256 = "06jlspd9y7qc3jg2kim65p5b4b9nzgwyyhmxypgyxk8br9vgrxwr";
   };
 
   patches = [
