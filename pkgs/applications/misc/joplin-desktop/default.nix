@@ -2,7 +2,7 @@
 
 let
   pname = "joplin-desktop";
-  version = "1.0.187";
+  version = "1.0.189";
   desktopItem = makeDesktopItem {
      name = "Joplin";
      exec = "joplin-desktop";
@@ -13,7 +13,7 @@ in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
-    sha256 = "0by810qmvbdswa2f7bwl2i8dcdj7962h51qnnhy58xcd9lc3fp5a";
+    sha256 = "1df11d447wl3k4jmn5yc4kw6sslsgc2bczrxqv5a2vf8qa518kdc";
   };
 
 
