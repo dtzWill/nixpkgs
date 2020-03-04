@@ -14771,6 +14771,8 @@ in
 
   zita-resampler = callPackage ../development/libraries/audio/zita-resampler { };
 
+  zz = callPackage ../development/compilers/zz { };
+
   zziplib = callPackage ../development/libraries/zziplib { };
 
   gsignond = callPackage ../development/libraries/gsignond {
