@@ -17,12 +17,12 @@
 
 mkDerivation rec {
   pname = "opentodolist";
-  version = "3.19.2";
+  version = "3.20.0";
 
   src = fetchgit {
     url = "https://gitlab.com/rpdev/opentodolist.git";
     rev = version;
-    sha256 = "0g0msk9c5bsqjjxhpqjdr6xw9m0yd27ikxrf13xb850h6vh0sf8k";
+    sha256 = "0yafn4bqnkghma44wfyzqxpjzd50xsf9q81bd176qagsmv5pcanp";
   };
 
   patches = [
