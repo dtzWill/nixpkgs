@@ -43,7 +43,7 @@ mkDerivation rec {
         -i src/modules/locale/SetTimezoneJob.cpp
 
     sed -e 's,/usr/share/i18n/locales,${glibc.out}/share/i18n/locales,' \
-        -i src/modules/locale/timezonewidget/localeconst.h
+        -i src/modules/locale/timezonewidget/localeglobal.cpp
 
     sed -e 's,/usr/share/X11/xkb/rules/base.lst,${xkeyboard_config}/share/X11/xkb/rules/base.lst,' \
         -i src/modules/keyboard/keyboardwidget/keyboardglobal.h
