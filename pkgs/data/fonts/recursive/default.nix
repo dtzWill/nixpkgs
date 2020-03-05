@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "recursive";
-  version = "1.030";
+  version = "1.043";
 
   src = fetchzip {
-    url = "https://github.com/arrowtype/recursive/releases/download/${version}/recursive-beta_1_030--statics.zip";
-    sha256 = "1clds4ljiqdf0zc3b7nlna1w7kc23pc9gxdd5vwbgmz9xfvkam0f";
+    url = "https://github.com/arrowtype/recursive/releases/download/${version}/Recursive-Beta_${version}.zip";
+    sha256 = "0l39wdc1ycbg0n18zin8g7spfvnd8xr8d1172h26mwfl4arxsks4";
     stripRoot = false;
   };
 
