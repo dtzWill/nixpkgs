@@ -39,7 +39,6 @@ let
     clang-polly-unwrapped = callPackage ./clang {
       inherit clang-tools-extra_src;
       llvm = tools.llvm-polly;
-      enablePolly = true;
     };
 
     llvm-manpages = lowPrio (tools.llvm.override {
