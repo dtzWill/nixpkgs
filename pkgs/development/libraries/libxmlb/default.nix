@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libxmlb";
-  version = "0.1.14";
+  version = "0.1.15";
 
   outputs = [ "out" "lib" "dev" "devdoc" "installedTests" ];
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     owner = "hughsie";
     repo = "libxmlb";
     rev = version;
-    sha256 = "05snbv1dvqa96k7xlwi2sj161315kps3baansr9xdpwim5ckmwc6";
+    sha256 = "1mb73pnfwqc4mm0lm16yfn0lj495h8hcciprb2v6wgy3ifnnjxib";
   };
 
   patches = [
