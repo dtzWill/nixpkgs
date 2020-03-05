@@ -11,6 +11,7 @@ stdenv.mkDerivation rec {
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
+    "BASHDIR=${placeholder "out"}/share/bash-completions/completions"
   ];
   meta = with lib; {
     description = "Tool to calibrate power consumption";
