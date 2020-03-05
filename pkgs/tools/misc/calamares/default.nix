@@ -39,7 +39,7 @@ mkDerivation rec {
         -i com.github.calamares.calamares.policy
 
     sed -e 's,/usr/share/zoneinfo,${tzdata}/share/zoneinfo,' \
-        -i src/modules/locale/timezonewidget/localeconst.h \
+        -i src/libcalamares/locale/TimeZone.cpp \
         -i src/modules/locale/SetTimezoneJob.cpp
 
     sed -e 's,/usr/share/i18n/locales,${glibc.out}/share/i18n/locales,' \
