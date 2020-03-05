@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     "-Dwith_docs=true"
     "-Dunittest=true"
     # Optional, I prefer to leave it on for sanity's sake
-    "-Dsanitize=true"
+#    "-Dsanitize=true"
   ];
 
   installFlags = [ "PREFIX=$(out)" ];
