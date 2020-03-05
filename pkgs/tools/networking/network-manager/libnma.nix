@@ -9,14 +9,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libnma";
-  version = "unstable-2020-02-16";
+  version = "unstable-2020-03-05";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "7f5f87992f0834dfda62e53174d601d954ef49be";
-    sha256 = "1id6zfgspa7qixlb4n9z1ynlicgjqv6r678350f63l07wz4mmmzi";
+    rev = "50cda26ae4beab31f30fb93fd36a7bcc5435adc1";
+    sha256 = "19k0vbw4dnwnvmf8x8g48jybsldwaadnlmzg2zpqr4mjp4l8x23z";
   };
 
   nativeBuildInputs = [
