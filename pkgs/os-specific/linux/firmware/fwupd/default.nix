@@ -87,11 +87,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.8";
+  version = "1.3.9";
 
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "14hbwp3263n4z61ws62vj50kh9a89fz2l29hyv7f1xlas4zz6j8x";
+    sha256 = "0h67m83w1dybc9y80ph654gsvq6ijf2kj7wzwppvaybw8gwldr36";
   };
 
   # libfwupd goes to lib
