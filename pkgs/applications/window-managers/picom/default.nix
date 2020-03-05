@@ -39,14 +39,14 @@ stdenv.mkDerivation rec {
     uthash
   ];
 
-    NIX_CFLAGS_COMPILE = [
-      "-fno-strict-aliasing"
-      # These control some verbose debugging info
-      # useful should anything go wrong but not suitable
-      # for regular use.
-      #"-DDEBUG_RESTACK=1"
-      #"-DDEBUG_EVENTS=1"
-    ];
+  NIX_CFLAGS_COMPILE = [
+    "-fno-strict-aliasing"
+    # These control some verbose debugging info
+    # useful should anything go wrong but not suitable
+    # for regular use.
+    #"-DDEBUG_RESTACK=1"
+    #"-DDEBUG_EVENTS=1"
+  ];
 
   patches = [ ./fix-xdg-config-home.patch ];
 
