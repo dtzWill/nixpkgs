@@ -1,22 +1,22 @@
 { stdenv, fetchFromGitHub, pkgconfig
-, libelf
+, libelf, zlib
 }:
 
 with builtins;
 
 stdenv.mkDerivation rec {
   pname = "libbpf";
-  version = "0.0.6";
+  version = "0.0.7";
 
   src = fetchFromGitHub {
-    owner  = pname;
-    repo   = pname;
-    rev    = "v${version}";
-    sha256 = "0x82iyzq37rm7r961arivgfm099n0sxwrqibmkwnbwkq74xw20z1";
+    owner = "libbpf";
+    repo = "libbpf";
+    rev = "v${version}";
+    sha256 = "1jcqhqvfbnbijm4jn949ibw1qywai9rwhyijf6lg8cvnyxkib2bs";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libelf ];
+  buildInputs = [ libelf zlib ];
 
   sourceRoot = "source/src";
   enableParallelBuilding = true;
