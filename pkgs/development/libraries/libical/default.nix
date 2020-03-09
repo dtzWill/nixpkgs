@@ -10,9 +10,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    #rev = "v${version}";
-    rev = "9f96063962ffce9c8df07a77619757674f0e0aab";
-    sha256 = "0pig4qv6k9vc3a6h7w0335i8cnwrmaylj5b8icj2wf80fdakqlrf";
+    rev = "v${version}";
+    sha256 = "0pkh74bfrgp1slv8wsv7lbmal2m7qkixwm5llpmfwaiv14njlp68";
   };
 
   nativeBuildInputs = [
