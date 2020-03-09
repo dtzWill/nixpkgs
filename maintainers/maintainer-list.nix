@@ -4286,6 +4286,12 @@
     githubId = 1711539;
     name = "matklad";
   };
+  matt-snider = {
+    email = "matt.snider@protonmail.com";
+    github = "matt-snider";
+    githubId = 11810057;
+    name = "Matt Snider";
+  };
   matthewbauer = {
     email = "mjbauer95@gmail.com";
     github = "matthewbauer";
