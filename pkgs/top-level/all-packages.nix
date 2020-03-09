@@ -8785,7 +8785,6 @@ in
   };
 
   pyo3-pack = callPackage ../development/tools/rust/pyo3-pack { };
-  rainicorn = callPackage ../development/tools/rust/rainicorn { };
   inherit (rustPackages) rls;
   rustfmt = rustPackages.rustfmt;
   rustracer = callPackage ../development/tools/rust/racer {
