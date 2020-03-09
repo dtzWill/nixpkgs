@@ -48,8 +48,6 @@ stdenv.mkDerivation rec {
     #"-DDEBUG_EVENTS=1"
   ];
 
-  patches = [ ./fix-xdg-config-home.patch ];
-
   # This doesn't help anymore, IIRC, TODO: check and report to nixpkgs master
   ##preBuild = ''
   ##  git() { echo "v${version}"; }
