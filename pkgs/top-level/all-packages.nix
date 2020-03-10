@@ -26077,4 +26077,6 @@ in
   quartus-prime-lite = callPackage ../applications/editors/quartus-prime {};
 
   opentodolist = libsForQt5.callPackage ../applications/office/opentodolist {};
+
+  bulk_extractor = callPackage ../tools/filesystems/bulk_extractor {};
 }
