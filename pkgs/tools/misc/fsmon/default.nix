@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "18p80nmax8lniza324kvwq06r4w2yxcq90ypk2kqym3bnv0jm938";
   };
 
-  installPhase = ''
-    make install PREFIX=$out
-  '';
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with stdenv.lib; {
     description = "FileSystem Monitor utility";
