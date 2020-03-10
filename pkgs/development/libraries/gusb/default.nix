@@ -1,7 +1,6 @@
 { stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gobject-introspection
 , gtk-doc, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_44
 , glib, systemd, libusb1, vala, hwdata
-, python3
 }:
 stdenv.mkDerivation rec {
   pname = "gusb";
@@ -14,15 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "011f705wvh466p11hv2i2a9gskam1f0jywx0nawm8rj9297d47sq";
   };
 
-  postPatch = ''
-    patchShebangs contrib/generate-version-script.py
-  '';
-
   nativeBuildInputs = [
     meson ninja pkgconfig gettext
     gtk-doc docbook_xsl docbook_xml_dtd_412 docbook_xml_dtd_44
     gobject-introspection vala
-    python3
   ];
   buildInputs = [ systemd glib ];
 
