@@ -45,7 +45,11 @@ stdenv.mkDerivation {
     sha256 = "1r6xxrhh86ldwbzrsy4gpv8v49l181mvfkcfq2zlnlmhihzvllv1";
   };
 
-  prePatch = "patchShebangs .";
+  prePatch = ''
+    chmod +x bin/install_megadrivers.py
+
+    patchShebangs .
+  '';
 
   # TODO:
   #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved
