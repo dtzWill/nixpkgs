@@ -8,9 +8,8 @@
 , glib
 , desktop-file-utils
 , gtk-doc
-, autoconf
-, automake
-, libtool
+, meson
+, ninja
 , wrapGAppsHook
 , gnome3
 , itstool
@@ -26,6 +25,7 @@
 , runCommand
 , symlinkJoin
 , gobject-introspection
+, vala
 }:
 
 let
@@ -57,23 +57,14 @@ in stdenv.mkDerivation rec {
     sha256 = "17arjigs1lw1h428s9g171n0idrpf9ks23sndldsik1zvvwzlldh";
   };
 
-  patches = [
-    # fix build with Unicode 12.1
-    (fetchpatch {
-      url = "https://salsa.debian.org/gnome-team/gucharmap/raw/de079ad494a15f662416257fca2f2b8db757f4ea/debian/patches/update-to-unicode-12.1.patch";
-      sha256 = "093gqsxfpp3s0b88p1dgkskr4ng3hv8irmxc60l3fdrkl8am00xh";
-    })
-  ];
-
   nativeBuildInputs = [
+    meson
+    ninja
     pkgconfig
     wrapGAppsHook
     unzip
     intltool
     itstool
-    autoconf
-    automake
-    libtool
     gtk-doc
     docbook_xsl
     docbook_xml_dtd_412
@@ -81,6 +72,7 @@ in stdenv.mkDerivation rec {
     libxml2
     desktop-file-utils
     gobject-introspection
+    vala
   ];
 
   buildInputs = [
@@ -90,19 +82,14 @@ in stdenv.mkDerivation rec {
     adwaita-icon-theme
   ];
 
-  configureFlags = [
-    "--with-unicode-data=${ucd}/share/unicode"
-    "--enable-gtk-doc"
+  mesonFlags = [
+    "-Ducd_path=${ucd}/share/unicode"
   ];
 
   doCheck = true;
 
   postPatch = ''
     patchShebangs gucharmap/gen-guch-unicode-tables.pl
-  '';
-
-  preConfigure = ''
-    NOCONFIGURE=1 ./autogen.sh
   '';
 
   passthru = {
