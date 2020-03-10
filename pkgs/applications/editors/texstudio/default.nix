@@ -3,13 +3,13 @@
 
 mkDerivation rec {
   pname = "texstudio";
-  version = "unstable-2020-02-28";
+  version = "unstable-2020-03-07";
 
   src = fetchFromGitHub {
     owner = "${pname}-org";
     repo = pname;
-    rev = "ce6595446701aa6e9967a53d8281fa09ddfd56b1";
-    sha256 = "1mncf6hpylmqiyk7lmrxx02n4mkjyqzib4xzvb12n1s0y8dllix1";
+    rev = "f8d003f899e19be0975977e5d163c33f3e35fcfa";
+    sha256 = "1krm3700lr6mrzn4726zmg9nzssh0iznw1d0w6qf1g1f71rs3790";
   };
 
   nativeBuildInputs = [ qmake pkgconfig ];
