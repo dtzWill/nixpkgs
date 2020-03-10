@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/unicode
     cp -r * $out/share/unicode
+    rm $out/share/unicode/env-vars
 
     runHook postInstall
   '';
