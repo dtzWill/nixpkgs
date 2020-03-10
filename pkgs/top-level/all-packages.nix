@@ -13232,6 +13232,7 @@ in
   mesa = callPackage ../development/libraries/mesa {
     inherit (darwin.apple_sdk.frameworks) OpenGL;
     inherit (darwin.apple_sdk.libs) Xplugin;
+    stdenv = gcc9Stdenv;
   };
 
   mesa_glu =  callPackage ../development/libraries/mesa-glu {
