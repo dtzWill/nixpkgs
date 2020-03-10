@@ -13233,6 +13233,7 @@ in
     inherit (darwin.apple_sdk.frameworks) OpenGL;
     inherit (darwin.apple_sdk.libs) Xplugin;
     stdenv = clangStdenv;
+    meson = mesonClang;
   };
 
   mesa_glu =  callPackage ../development/libraries/mesa-glu {
