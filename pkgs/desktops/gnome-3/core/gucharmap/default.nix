@@ -20,6 +20,7 @@
 , gsettings-desktop-schemas
 , callPackage
 , unzip
+, gettext
 , unicode-character-database
 , unihan-database
 , runCommand
@@ -65,6 +66,7 @@ in stdenv.mkDerivation rec {
     unzip
     intltool
     itstool
+    gettext
     gtk-doc
     docbook_xsl
     docbook_xml_dtd_412
