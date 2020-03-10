@@ -13,7 +13,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  cargoSha256 = "1m9az3adbkx2ab6fkg64cr7f9d73jbx8kx2pmgpw29csmh9hzqjy";
+  #cargoSha256 = "1m9az3adbkx2ab6fkg64cr7f9d73jbx8kx2pmgpw29csmh9hzqjy";
+  # "old fetcher"
+  cargoSha256 = "1l54gppdypmkbvg11zf8f81bhz2pz95nfsbs9ck31b0fhpspfaax";
 
   postInstall = ''
     wrapProgram $out/bin/zz --prefix PATH ":" "${lib.getBin z3}/bin"
