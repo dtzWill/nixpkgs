@@ -22,7 +22,6 @@ mkDerivation rec {
   patches = [ ./build.patch ] ;
 
   postPatch = ''
-    substituteInPlace deps/discount/version.c.in --subst-var-by TABSTOP 4
     substituteInPlace app/resources/gnome-shell/mindforger.desktop --replace /usr "$out"
 
     # delete build directory
@@ -34,11 +33,6 @@ mkDerivation rec {
     mkdir build && cd build
     cmake -DCMARK_TESTS=OFF -DCMARK_SHARED=OFF ..
     cmake --build .
-    popd
-
-    export AC_PATH="$PATH"
-    pushd deps/discount
-    ./configure.sh
     popd
   '';
 
