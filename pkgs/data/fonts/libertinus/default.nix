@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub }:
 
 let
-  version = "6.10";
+  version = "6.11";
 in fetchFromGitHub rec {
   name = "libertinus-${version}";
 
@@ -14,7 +14,7 @@ in fetchFromGitHub rec {
     install -m444 -Dt $out/share/fonts/opentype *.otf
     install -m444 -Dt $out/share/doc/${name}    *.txt
   '';
-  sha256 = "1lfc93pigs9dm9fp7x43d9h8yspv13iy1w4scigdil8flw224kxj";
+  sha256 = "07f1h2bymb2p16ixmc9bs31n5y68k7y4n17wpa1lxw9xps9fbngp";
 
   meta = with lib; {
     description = "A fork of the Linux Libertine and Linux Biolinum fonts";
