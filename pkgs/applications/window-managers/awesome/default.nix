@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ] ++ stdenv.lib.optional luaPackages.isLuaJIT "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
   ;
 
-  GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0:${gtk3}/lib/girepository-1.0";
+  GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";
   # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags
   # below for how awesome finds the libraries it needs at runtime.
   LUA_CPATH = "${lgi}/lib/lua/${lua.luaversion}/?.so";
