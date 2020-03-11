@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "fortune-mod";
-  version = "2.12.0";
+  version = "2.16.0";
 
   src = fetchurl {
     url = "https://www.shlomifish.org/open-source/projects/fortune-mod/arcs/fortune-mod-${version}.tar.xz";
-    sha256 = "0vglkg985al4hp1cxvm10r6wmkxjvrncigd5y5874fgdqx4i4hmn";
+    sha256 = "03bgb4s0w6ip0949wfm2r0fj84sm7s3h60ncmrdcyqdj40yngx8r";
   };
 
   nativeBuildInputs = [ cmake perl ];

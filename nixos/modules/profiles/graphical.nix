@@ -15,7 +15,6 @@
 
   # Enable sound in virtualbox appliances.
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.systemWide = true; # Needed since we run plasma as root.
 
   environment.systemPackages = [ pkgs.glxinfo pkgs.firefox ];
 }

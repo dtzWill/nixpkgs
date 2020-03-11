@@ -1,18 +1,21 @@
 { lib, fetchzip }:
 
-let
-  version = "3.12";
-in fetchzip {
-  name = "inter-${version}";
+#let
+#  version = "3.12";
+#in fetchzip {
+fetchzip {
+  #name = "inter-${version}";
+  name = "inter-3.12-display-alpha";
 
-  url = "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip";
+  # url = "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip";
+  url = "https://github.com/rsms/inter/releases/download/v3.12-display-alpha/Inter-3.12-Display-1fcc00b62b.zip";
 
   postFetch = ''
     mkdir -p $out/share/fonts/opentype
     unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
   '';
 
-  sha256 = "0bvzi1an3vdhwmlq6g36w5kd1xxp6cp9pyran8g8rh07xvj8l4l6";
+  sha256 = "00p63f1glzz2a7fapcls89rgb7qmz4w646j294rpfsdcnxj62awx";
 
   meta = with lib; {
     homepage = https://rsms.me/inter/;

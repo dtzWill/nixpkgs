@@ -2,11 +2,11 @@
 , docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11
-, libXinerama, libXext, xprop, xwininfo, libxdg_basedir }:
+, libXinerama, libXext, xprop, xwininfo }:
 stdenv.mkDerivation rec {
   pname = "picom";
   #version = "7.3";
-  version = "unstable-2020-02-08";
+  version = "unstable-2020-03-10";
 
   COMPTON_VERSION = "v${version}";
 
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = pname;
     #rev    = COMPTON_VERSION;
-    rev = "499b49eb033a04e1e5bfc0d80a4d2e99f63aa6fd";
-    sha256 = "0axy3v5ryjkf5a510f2qjvcm97vpp84ai0y4cwllfm9lyjka84zx";
+    rev = "9547d7af705d80ed733a493284c5509f6d68d1af";
+    sha256 = "1ifgcdqdbhw147b2d6dmy0k2gpa2i8dmxsyykzk61ndfg958bqi9";
     fetchSubmodules = true;
   };
 
@@ -35,19 +35,18 @@ stdenv.mkDerivation rec {
     libXinerama libdrm pcre libxml2 libxslt libconfig libGL
     libxcb xcbutilrenderutil xcbutilimage
     pixman libev
-    libxdg_basedir
     # TODO: upstream, check if still needed
     uthash
   ];
 
-    NIX_CFLAGS_COMPILE = [
-      "-fno-strict-aliasing"
-      # These control some verbose debugging info
-      # useful should anything go wrong but not suitable
-      # for regular use.
-      #"-DDEBUG_RESTACK=1"
-      #"-DDEBUG_EVENTS=1"
-    ];
+  NIX_CFLAGS_COMPILE = [
+    "-fno-strict-aliasing"
+    # These control some verbose debugging info
+    # useful should anything go wrong but not suitable
+    # for regular use.
+    #"-DDEBUG_RESTACK=1"
+    #"-DDEBUG_EVENTS=1"
+  ];
 
   # This doesn't help anymore, IIRC, TODO: check and report to nixpkgs master
   ##preBuild = ''

@@ -58,13 +58,13 @@ in {
   };
   liberation_ttf_v2 = common rec {
     repo = "liberation-fonts";
-    version = "2.00.5";
+    version = "2.1.0";
     nativeBuildInputs = [ fontforge fonttools ];
     postPatch = ''
       substituteInPlace scripts/setisFixedPitch-fonttools.py --replace \
         'font = ttLib.TTFont(fontfile)' \
         'font = ttLib.TTFont(fontfile, recalcTimestamp=False)'
     '';
-    sha256 = "14bn1zlhyr4qaz5z2sx4h115pnbd41ix1vky8fxm2lx76xrjjiaa";
+    sha256 = "03xpzaas264x5n6qisxkhc68pkpn32m7y78qdm3rdkxdwi8mv8mz";
   };
 }

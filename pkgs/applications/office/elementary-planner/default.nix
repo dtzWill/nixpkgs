@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-planner";
-  version = "unstable-2020-02-12";
+  version = "unstable-2020-03-03";
 
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = "b1227202be994e8765a25710c6f7da1d49218d56";
-    sha256 = "09ps321s7cw81cr2ngjkcbjg852y2vpiksb8kvpbw6ycqy5xzslj";
+    rev = "bf2181ddd77be07f2c32393a7775790b9c5bd73f";
+    sha256 = "14k5kiknr0d3my17p4v20iiqzifpz3y80gdzj8vdxic8yk2yr1ap";
   };
 
   nativeBuildInputs = [
@@ -50,7 +50,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./dont-force-elementary-themes.patch
-    ./label-bump.patch
   ];
 
   postPatch = ''

@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "txr";
-  version = "231";
+  version = "233";
 
   src = fetchurl {
     url = "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
-    sha256 = "0mcglb84zfmrai2bcdg9j0ck8jp8h7ii2rf4m38yjggy0dvii2lc";
+    sha256 = "1n28j6qn6hg7hawkibn7bbj4ir9drfijc7dwhmn4ydgkq5lpfbm1";
   };
 
   nativeBuildInputs = [ bison flex ];
@@ -17,8 +17,13 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "tests";
 
-  # Remove failing test-- mentions 'usr/bin' so probably related :)
-  preCheck = "rm -rf tests/017";
+  preCheck = ''
+    # Remove failing test-- mentions 'usr/bin' so probably related :)
+    rm -rf tests/017
+
+    # Remove failing chmod test, sticky bit behavior doesn't work in sandbox
+    rm -rf tests/018
+  '';
 
   postInstall = ''
     d=${placeholder "out"}/share/vim-plugins/txr

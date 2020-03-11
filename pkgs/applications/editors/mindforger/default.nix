@@ -1,12 +1,15 @@
-{ mkDerivation, lib, fetchurl, cmake, qmake, qtbase, qtwebkit }:
+{ mkDerivation, lib, fetchFromGitHub, cmake, qmake, qtbase, qtwebkit }:
 
 mkDerivation rec {
   pname = "mindforger";
-  version = "1.50.0";
+  version = "1.52.0";
 
-  src = fetchurl {
-    url = "https://github.com/dvorka/${pname}/releases/download/${version}/${pname}_${version}.tgz";
-    sha256 = "0nkaawdl0jp0279g8ig8n0h5h6fpz0y8fhsh92rdil9m9m5qndvi";
+  src = fetchFromGitHub {
+    owner = "dvorka";
+    repo = pname;
+    rev = version;
+    sha256 = "1gyv6r3cjpg407i3jd5k15nv7zf14mkx76hc71na90hlz6zyc49a";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake qmake ] ;
@@ -19,7 +22,6 @@ mkDerivation rec {
   patches = [ ./build.patch ] ;
 
   postPatch = ''
-    substituteInPlace deps/discount/version.c.in --subst-var-by TABSTOP 4
     substituteInPlace app/resources/gnome-shell/mindforger.desktop --replace /usr "$out"
 
     # delete build directory
@@ -31,11 +33,6 @@ mkDerivation rec {
     mkdir build && cd build
     cmake -DCMARK_TESTS=OFF -DCMARK_SHARED=OFF ..
     cmake --build .
-    popd
-
-    export AC_PATH="$PATH"
-    pushd deps/discount
-    ./configure.sh
     popd
   '';
 

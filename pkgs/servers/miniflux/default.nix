@@ -2,13 +2,13 @@
 
 buildGoPackage rec {
   pname = "miniflux";
-  version = "2.0.19";
+  version = "2.0.20";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "121qy1af1qbc09c3yfwhpk6r3hwmh3jg6gjx8ygfv3hfrss9yfll";
+    sha256 = "1dzcshg2j98szd0ak53r2y6bjxj92hyc9j6r80wcrw74jbm06fl3";
   };
 
   goPackagePath = "miniflux.app";

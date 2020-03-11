@@ -2,7 +2,6 @@
 
 { stdenv
 , fetchurl
-, fetchpatch
 , substituteAll
 , gtk-doc
 , pkgconfig
@@ -87,11 +86,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.8";
+  version = "1.3.9";
 
   src = fetchurl {
     url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "14hbwp3263n4z61ws62vj50kh9a89fz2l29hyv7f1xlas4zz6j8x";
+    sha256 = "ZuRG+UN8ebXv5Z8fOYWT0eCtHykGXoB8Ysu3wAeqx0A=";
   };
 
   # libfwupd goes to lib
@@ -161,12 +160,6 @@ stdenv.mkDerivation rec {
       src = ./installed-tests-path.patch;
       # needs a different set of modules than po/make-images
       inherit installedTestsPython;
-    })
-
-    # Find the correct lds and crt name when specifying -Defi_ldsdir
-    (fetchpatch {
-      url = "https://github.com/fwupd/fwupd/commit/52cda3db9ca9ab4faf99310edf29df926a713b5c.patch";
-      sha256 = "0hsj79dzamys7ryz33iwxwd58kb1h7gaw637whm0nkvzkqq6rm16";
     })
   ];
 
@@ -269,6 +262,7 @@ stdenv.mkDerivation rec {
       "fwupd/remotes.d/vendor.conf"
       "fwupd/remotes.d/vendor-directory.conf"
       "fwupd/thunderbolt.conf"
+      "fwupd/upower.conf"
       # "fwupd/uefi.conf" # already created by the module
       "pki/fwupd/GPG-KEY-Hughski-Limited"
       "pki/fwupd/GPG-KEY-Linux-Foundation-Firmware"

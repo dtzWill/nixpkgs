@@ -9,21 +9,21 @@
 , readline
 , openssl
 , python3Packages
-, enableAsan ? true
-, enableUbsan ? true
+, enableAsan ? false
+, enableUbsan ? false
 }:
 
 stdenv.mkDerivation rec {
   pname = "iwd";
 
-  version = "1.5";
-  #version = "unstable-2020-02-07";
+  #version = "1.5";
+  version = "unstable-2020-03-10";
 
   src = fetchgit {
     url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
-    rev = version;
-    #rev = "1896ac2d730d38b019c6bb77af8b39d335e9a584";
-    sha256 = "09viyfv5j2rl6ly52b2xlc2zbmb6i22dv89jc6823bzdjjimkrg6";
+    #rev = version;
+    rev = "eb7845ec2949a54fce93906868065d915a4709f7";
+    sha256 = "19lnixg338916mipwfimklmlaaldm0cfajxhc69nnqpcshlndilx";
   };
 
   nativeBuildInputs = [
@@ -62,17 +62,18 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional enableUbsan "--enable-ubsan";
 
   #separateDebugInfo = true;
-  dontStrip = true; # leave, separateDebugInfo works best for upstream-built packages
+  #dontStrip = true; # leave, separateDebugInfo works best for upstream-built packages
 
   postUnpack = ''
     patchShebangs .
   '';
 
-  patches = [
-    # Fix write past end of buffer in certain circumstances
-    # ... circumstances I encounter often, thanks neighbors ;)
-    ./completion-crash-fix-wip.patch
-  ];
+  # Experimentally drop this patch, let's see if still needed
+  ## patches = [
+  ##   # Fix write past end of buffer in certain circumstances
+  ##   # ... circumstances I encounter often, thanks neighbors ;)
+  ##   ./completion-crash-fix-wip.patch
+  ## ];
 
   doCheck = true;
 

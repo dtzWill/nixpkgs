@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   baseName = "belr";
-  version = "0.1.3";
+  version = "4.3.0";
   name = "${baseName}-${version}";
 
   src = fetchFromGitHub {
     owner = "BelledonneCommunications";
     repo = "${baseName}";
     rev = "${version}";
-    sha256 = "0mf8lsyq1z3b5p47c00lnwc8n7v9nzs1fd2g9c9hnz6fjd2ka44w";
+    sha256 = "0lsd6dc64ygjz5k1cm088vl78f3qlw43bnfrf239afglkxp0h0m9";
   };
 
   buildInputs = [ bctoolbox ];

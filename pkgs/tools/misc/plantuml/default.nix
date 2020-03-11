@@ -1,12 +1,12 @@
 { stdenv, fetchurl, makeWrapper, jre, graphviz }:
 
 stdenv.mkDerivation rec {
-  version = "1.2019.13";
+  version = "1.2020.2";
   pname = "plantuml";
 
   src = fetchurl {
     url = "mirror://sourceforge/project/plantuml/${version}/plantuml.${version}.jar";
-    sha256 = "0r8ahcnim7is7np68ci6ppzr07iyx417wi81gkckfyy5p4pwk8kz";
+    sha256 = "1wvlhy76h1bxwjj8r48ixypch1bj9m9721rbawayj8v0hpyr1an4";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -18,6 +18,11 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/plantuml \
       --argv0 plantuml \
       --set GRAPHVIZ_DOT ${graphviz}/bin/dot \
+      --add-flags "\
+        -Dawt.useSystemAAFontSettings=lcd \
+        -Dsun.java2d.xrender=True \
+        -Dswing.aatext=true \
+        " \
       --add-flags "-jar $out/lib/plantuml.jar"
 
     $out/bin/plantuml -help

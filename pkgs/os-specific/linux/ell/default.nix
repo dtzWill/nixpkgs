@@ -7,20 +7,23 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-  version = "0.28";
-  #version = "unstable-2020-01-28";
+  #version = "0.28";
+  version = "unstable-2020-03-02";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
-     rev = version;
-     #rev = "c62998eb73622a198588eea0568ebb2bce0c19d7";
-     sha256 = "1am3ghji271364vmf2w5sxskvlhh4r2mwakza7vjjph16cvsv6a7";
+     #rev = version;
+     rev = "07b792306fed881af9f12f5052f375240c70b1b3";
+     sha256 = "06jlspd9y7qc3jg2kim65p5b4b9nzgwyyhmxypgyxk8br9vgrxwr";
   };
 
   patches = [
     ./fix-dbus-tests.patch
+    ./export-rtnl.patch
+    ./regen-sym-for-rtnl.patch
+    ./and-ascii_table.patch
   ];
 
   nativeBuildInputs = [
@@ -39,11 +42,11 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     #"--enable-debug"
-    "--enable-asan"
-    "--enable-ubsan"
+    #"--enable-asan"
+    #"--enable-ubsan"
   ];
   #separateDebugInfo = true;
-  dontStrip = true; # leave
+  #dontStrip = true; # leave
 
   meta = with stdenv.lib; {
     homepage = https://01.org/ell;

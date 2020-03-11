@@ -27,7 +27,7 @@
 with stdenv.lib;
 
 let
-  version = "19.3.2";
+  version = "20.0.1";
   branch  = versions.major version;
 in
 
@@ -42,10 +42,14 @@ stdenv.mkDerivation {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "1hg1gvcwvayksrdh9z8rfz66h3z1ffspmm2qgyy2nd8n8qrfwfjf";
+    sha256 = "1r6xxrhh86ldwbzrsy4gpv8v49l181mvfkcfq2zlnlmhihzvllv1";
   };
 
-  prePatch = "patchShebangs .";
+  prePatch = ''
+    chmod +x bin/install_megadrivers.py
+
+    patchShebangs .
+  '';
 
   # TODO:
   #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved

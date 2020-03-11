@@ -19,6 +19,15 @@ stdenv.mkDerivation rec {
     -DWITH_MATLAB=false 
   '';
 
+  preConfigure = ''
+    rm cmake/FindNETPBM.cmake
+    echo "SET(NETPBM_LIBRARY `find ${stdenv.lib.getLib netpbm} -name "*.${stdenv.hostPlatform.extensions.sharedLibrary}*" -type f`)" >> cmake/FindNETPBM.cmake
+    echo "SET(NETPBM_LIBRARIES `find ${stdenv.lib.getLib netpbm} -name "*.${stdenv.hostPlatform.extensions.sharedLibrary}*" -type f`)" >> cmake/FindNETPBM.cmake
+    echo "SET(NETPBM_INCLUDE_DIR ${stdenv.lib.getDev netpbm}/include/netpbm)" >> cmake/FindNETPBM.cmake
+    echo "INCLUDE(FindPackageHandleStandardArgs)" >> cmake/FindNETPBM.cmake
+    echo "FIND_PACKAGE_HANDLE_STANDARD_ARGS(NETPBM DEFAULT_MSG NETPBM_LIBRARY NETPBM_INCLUDE_DIR)" >> cmake/FindNETPBM.cmake
+  '';
+
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [
     openexr zlib imagemagick fftwFloat
@@ -29,7 +38,7 @@ stdenv.mkDerivation rec {
     libGLU libGL freeglut
   ]);
 
-  patches = [ ./threads.patch ./pfstools.patch ];
+  patches = [ ./threads.patch ./pfstools.patch ./pfsalign.patch ];
 
   meta = with stdenv.lib; {
     homepage = http://pfstools.sourceforge.net/;

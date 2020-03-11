@@ -107,19 +107,19 @@ with super;
       pkgs.glib
       pkgs.gobjectIntrospection
     ];
-    patches = [
-      (pkgs.fetchpatch {
-        name = "lgi-find-cairo-through-typelib.patch";
-        url = "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
-        sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
-      })
-    ];
+    #patches = [
+    #  (pkgs.fetchpatch {
+    #    name = "lgi-find-cairo-through-typelib.patch";
+    #    url = "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
+    #    sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
+    #  })
+    #];
     # latest git, 0.9.2 is 2017-10-09
     src = pkgs.fetchFromGitHub {
       owner = "pavouk";
       repo = "lgi";
-      rev = "7aa51f1b146d57b1a56e847d319cd3289b45244a";
-      sha256 = "18d913nf977g98sxygg2i2d2g78jlpfxwv6f17w7hnx3l1y2xsyi";
+      rev = "ff50e59e85fe808a3bf6783005041449ec2a6bb8";
+      sha256 = "0b2d59p37zizw1w59f7vkz644rmi56sd3m7w56qn3hz577n6dwv5";
     };
     knownRockspec = with super.lgi; "${pname}-${version}.rockspec";
     preConfigure = "make rock VERSION=0.9.2";
@@ -161,11 +161,11 @@ with super;
   });
 
   luadbi-mysql = super.luadbi-mysql.override({
-    extraVariables = ''
-      -- Can't just be /include and /lib, unfortunately needs the trailing 'mysql'
-      MYSQL_INCDIR='${pkgs.libmysqlclient}/include/mysql';
-      MYSQL_LIBDIR='${pkgs.libmysqlclient}/lib/mysql';
-    '';
+    extraVariables = {
+      # Can't just be /include and /lib, unfortunately needs the trailing 'mysql'
+      MYSQL_INCDIR="${pkgs.libmysqlclient}/include/mysql";
+      MYSQL_LIBDIR="${pkgs.libmysqlclient}/lib/mysql";
+    };
     buildInputs = [
       pkgs.mysql.client
       pkgs.libmysqlclient

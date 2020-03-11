@@ -12,12 +12,8 @@ in
 { stripLen ? 0, extraPrefix ? null, excludes ? [], includes ? [], revert ? false, ... }@args:
 
 let
-  tmpname =
-    if args ? hash then
-      # Make base-64 encoded SRI hash filename-safe using RFC 4648 §5
-      lib.replaceStrings [ "+" "/" "=" ] [ "-" "_" "" ] args.hash
-    else
-      args.sha256;
+  # Make base-64 encoded SRI hash filename-safe using RFC 4648 §5
+  tmpname = lib.replaceStrings [ "+" "/" "=" ] [ "-" "_" "" ] args.sha256;
 in
 fetchurl ({
   postFetch = ''

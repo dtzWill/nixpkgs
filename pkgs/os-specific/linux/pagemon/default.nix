@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pagemon";
-  version = "0.01.17";
+  version = "0.01.19";
 
   src = fetchurl {
     url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "1k084ipldqj29zxwqynk3q07q0n6x06xj7fr22rq549qs48k7c7m";
+    sha256 = "0f9p0cvk721r7sqgca11mxmdcavcd7syl3daz47llf411fbry111";
   };
 
   buildInputs = [ ncurses ];
@@ -14,6 +14,7 @@ stdenv.mkDerivation rec {
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
+    "BASHDIR=${placeholder "out"}/share/bash-completions/completions"
   ];
 
   meta = with stdenv.lib; {

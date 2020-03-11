@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   name = "abiword-${version}";
-  version = "3.0.2";
+  version = "3.0.4";
 
   src = fetchurl {
     url = "https://www.abisource.com/downloads/abiword/${version}/source/${name}.tar.gz";
-    sha256 = "08imry821g81apdwym3gcs4nss0l9j5blqk31j5rv602zmcd9gxg";
+    sha256 = "1mx5l716n0z5788i19qmad30cck4v9ggr071cafw2nrf375rcc79";
   };
 
   enableParallelBuilding = true;

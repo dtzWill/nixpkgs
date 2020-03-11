@@ -1,4 +1,4 @@
-{ stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core}:
+{ stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core, libappindicator-gtk3 }:
 
 version: hashes:
 let
@@ -34,7 +34,7 @@ let
   };
 
   linux = {
-    buildInputs = [ gtk3 ];
+    buildInputs = [ gtk3 libappindicator-gtk3 ];
 
     nativeBuildInputs = [
       unzip
@@ -70,11 +70,11 @@ let
       unzip $src
       mv Electron.app $out/Applications
       mkdir -p $out/bin
-      ln -s $out/Applications/Electron.app/Contents/MacOs/Electron $out/bin/electron
+      ln -s $out/Applications/Electron.app/Contents/MacOS/Electron $out/bin/electron
     '';
   };
 in
-  stdenv.mkDerivation (
-    (common stdenv.hostPlatform) //
-    (if stdenv.isDarwin then darwin else linux)
-  )
+stdenv.mkDerivation (
+  (common stdenv.hostPlatform)
+  // (if stdenv.isDarwin then darwin else linux)
+)

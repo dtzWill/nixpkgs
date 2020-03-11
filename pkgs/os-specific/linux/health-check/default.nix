@@ -2,17 +2,18 @@
 
 stdenv.mkDerivation rec {
   pname = "health-check";
-  version = "0.03.05";
+  version = "0.03.06";
 
   src = fetchurl {
     url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "1qxmkdl4pa043yg4kq5ffapm0c2cmm64h3v2c3xhnx0ad5pbhy5z";
+    sha256 = "1kliw6l3im8ris9fs7ag0371bdpn4d3psdvcvcj8ffbn8p57skck";
   };
   buildInputs = [ json_c libbsd ];
   makeFlags = [ "JSON_OUTPUT=y" "FNOTIFY=y" ];
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
+    "BASHDIR=${placeholder "out"}/share/bash-completions/completions"
   ];
   meta = with lib; {
     description = "Process monitoring tool";

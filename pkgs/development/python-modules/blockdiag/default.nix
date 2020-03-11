@@ -1,15 +1,14 @@
-{ stdenv, fetchurl, buildPythonPackage, pep8, nose, unittest2, docutils
+{ stdenv, fetchPypi, buildPythonPackage, pep8, nose, unittest2, docutils
 , pillow, webcolors, funcparserlib
 }:
 
 buildPythonPackage rec {
   pname = "blockdiag";
-  version = "1.5.3";
-  name = pname + "-" + version;
+  version = "2.0.1";
 
-  src = fetchurl {
-    url = "https://bitbucket.org/blockdiag/blockdiag/get/${version}.tar.bz2";
-    sha256 = "0r0qbmv0ijnqidsgm2rqs162y9aixmnkmzgnzgk52hiy7ydm4k8f";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "15r3fyx2v40crblyr1mwzsc6cn38m4mfi74rd449wk5lygcrv9hn";
   };
 
   buildInputs = [ pep8 nose unittest2 docutils ];

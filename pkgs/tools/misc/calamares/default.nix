@@ -7,12 +7,12 @@
 mkDerivation rec {
   name = "${pname}-${version}";
   pname = "calamares";
-  version = "3.2.17.1";
+  version = "3.2.20";
 
   # release including submodule
   src = fetchurl {
     url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
-    sha256 = "156zpjyw8w4y23aa60mvg3d3mr0kzfq5jkl7ixgahq33zpc17ms8";
+    sha256 = "1d7ninp197h493nrxyrl6z7xmh3j08zkynzl6g7mj1mbyhc3d5vl";
   };
 
   buildInputs = [
@@ -39,11 +39,11 @@ mkDerivation rec {
         -i com.github.calamares.calamares.policy
 
     sed -e 's,/usr/share/zoneinfo,${tzdata}/share/zoneinfo,' \
-        -i src/modules/locale/timezonewidget/localeconst.h \
+        -i src/libcalamares/locale/TimeZone.cpp \
         -i src/modules/locale/SetTimezoneJob.cpp
 
     sed -e 's,/usr/share/i18n/locales,${glibc.out}/share/i18n/locales,' \
-        -i src/modules/locale/timezonewidget/localeconst.h
+        -i src/modules/locale/timezonewidget/localeglobal.cpp
 
     sed -e 's,/usr/share/X11/xkb/rules/base.lst,${xkeyboard_config}/share/X11/xkb/rules/base.lst,' \
         -i src/modules/keyboard/keyboardwidget/keyboardglobal.h

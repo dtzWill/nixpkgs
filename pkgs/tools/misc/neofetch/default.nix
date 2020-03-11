@@ -1,13 +1,14 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "neofetch-${version}";
-  version = "6.1.0";
+  pname = "neofetch";
+  version = "7.0.0";
+
   src = fetchFromGitHub {
     owner = "dylanaraps";
     repo = "neofetch";
     rev = version;
-    sha256 = "022xzn9jk18k2f4b6011d8jk5nbl84i3mw3inlz4q52p2hvk8fch";
+    sha256 = "0xc0fdc7n5bhqirh83agqiy8r14l14zwca07czvj8vgnsnfybslr";
   };
 
   dontBuild = true;
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A fast, highly customizable system info script";
-    homepage = https://github.com/dylanaraps/neofetch;
+    homepage = "https://github.com/dylanaraps/neofetch";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ alibabzo konimex ];

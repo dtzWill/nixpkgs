@@ -56,11 +56,11 @@ with py.pkgs;
 
 buildPythonApplication rec {
   pname = "aws-sam-cli";
-  version = "0.40.0";
+  version = "0.41.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1vlg5fdkq5xr4v3a86gyxbbrx4rzdspbv62ki7q8yq8xdja1qz05";
+    sha256 = "1v21bhylys1mvrsvxqw88cvghl6s46hdni52xn661bbn4byrrv3b";
   };
 
   # Tests are not included in the PyPI package
@@ -97,6 +97,6 @@ buildPythonApplication rec {
     homepage = https://github.com/awslabs/aws-sam-cli;
     description = "CLI tool for local development and testing of Serverless applications";
     license = licenses.asl20;
-    maintainers = with maintainers; [ andreabedini dhkl ];
+    maintainers = with maintainers; [ andreabedini lo1tuma ];
   };
 }

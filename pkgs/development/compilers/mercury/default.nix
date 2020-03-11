@@ -71,10 +71,10 @@ let
 
 in rec {
   mercury-20= mkMercury rec {
-    version = "20.01";
+    version = "20.01.1";
     src = fetchurl {
       url    = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.xz";
-      sha256 = "1q8jrp9ip32wih29b4187m4cvj6fwh6qdvirsk9v631q4anc5kjr";
+      sha256 = "1ydl58rh0w43x3qzpfanmfwq7hgsw06n6x0l38m7fpi70amfkbc6";
     };
   };
   mercury-20-bootstrap = mercury-20.override { enableMinimal = true; };

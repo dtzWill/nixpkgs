@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "slade";
-  version = "3.1.7";
+  version = "3.1.9";
 
   src = fetchFromGitHub {
     owner = "sirjuddington";
     repo = "SLADE";
     rev = version;
-    sha256 = "1yfq7ghg9whys7a07xfcza8rwyfhnrcz6qi5bay1ilj3ml4m12zy";
+    sha256 = "17axc37wbysjv6nq9rrs0gsr8nnzp5rib3q9ikjvci9yyxlvwf6a";
   };
 
   nativeBuildInputs = [ cmake pkgconfig zip which wrapGAppsHook ];

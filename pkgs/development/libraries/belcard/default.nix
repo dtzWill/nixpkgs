@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   baseName = "belcard";
-  version = "1.0.2";
+  version = "4.3.0";
   name = "${baseName}-${version}";
 
   src = fetchFromGitHub {
     owner = "BelledonneCommunications";
     repo = "${baseName}";
     rev = "${version}";
-    sha256 = "1pwji83vpsdrfma24rnj3rz1x0a0g6zk3v4xjnip7zf2ys3zcnlk";
+    sha256 = "0xgkpb2spwymidfaqngkin6jsrsjzgi2kcyvs2jci8f5qkb08kdc";
   };
 
   buildInputs = [ bctoolbox belr ];

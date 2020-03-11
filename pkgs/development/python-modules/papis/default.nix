@@ -2,7 +2,8 @@
 , requests, filetype, pyparsing, configparser, arxiv2bib
 , pyyaml, chardet, beautifulsoup4, colorama, bibtexparser
 , pylibgen, click, python-slugify, habanero, isbnlib
-, prompt_toolkit, pygments, stevedore, tqdm, lxml, python-doi
+, prompt_toolkit, pygments, stevedore, tqdm, lxml
+, python-doi, isPy3k, pythonOlder
 #, optional, dependencies
 , whoosh, pytest
 , stdenv
@@ -11,6 +12,7 @@
 buildPythonPackage rec {
   pname = "papis";
   version = "0.9";
+  disabled = !isPy3k;
 
   # Missing tests on Pypi
   src = fetchFromGitHub {
@@ -21,17 +23,6 @@ buildPythonPackage rec {
     sha256 = "15i79q6nr7gcpcafdz5797axmp6r3081sys07k1k2vi5b2g3qc4k";
   };
 
-  # Remove limit on lxml version (ours is newer),
-  # perhaps there is a good reason but the commit adding this limit
-  # introduced comment indicating it was "for python 3.4" which
-  # doesn't seem worth breaking the build or introducing local
-  # variant of lxml with the requested version.
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace '"lxml<=4.3.5"' \
-                '"lxml"'
-  '';
-
   propagatedBuildInputs = [
     requests filetype pyparsing configparser arxiv2bib
     pyyaml chardet beautifulsoup4 colorama bibtexparser
@@ -41,7 +32,14 @@ buildPythonPackage rec {
     whoosh
   ];
 
-  doCheck = !stdenv.isDarwin;
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "lxml<=4.3.5" "lxml~=4.3" \
+      --replace "python-slugify>=1.2.6,<4" "python-slugify"
+  '';
+
+  # pytest seems to hang with python3.8
+  doCheck = !stdenv.isDarwin && pythonOlder "3.8";
 
   checkInputs = ([
     pytest

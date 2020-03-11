@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, cmake }:
 stdenv.mkDerivation rec {
-  name = "vulkan-headers-${version}";
-  version = "1.1.106";
+  pname = "vulkan-headers";
+  version = "1.2.131.1";
 
   buildInputs = [ cmake ];
 
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner = "KhronosGroup";
     repo = "Vulkan-Headers";
     rev = "sdk-${version}";
-    sha256 = "0idw7q715ikj575qmspvgq2gzc6c1sj581b8z3xnv6wz9qbzrmsd";
+    sha256 = "1yf42c2cnhx1y4wkxsdl6g653xl2vvamhpkldz6jb4ca5wk03gxf";
   };
 
   meta = with stdenv.lib; {

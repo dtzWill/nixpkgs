@@ -29,28 +29,6 @@ index 0000000..ce05df1
 +isEmpty(PREFIX) {
 + PREFIX = /usr
 +}
-diff --git a/deps/discount/discount.pro b/deps/discount/discount.pro
-index a8dfe35..ec16468 100644
---- a/deps/discount/discount.pro
-+++ b/deps/discount/discount.pro
-@@ -5,6 +5,8 @@
- # Webpage: http://www.pell.portland.or.us/~orc/Code/discount/
- #
- 
-+include(../../config.pri)
-+
- QT       -= core gui
- 
- TARGET = discount
-@@ -46,7 +48,7 @@ unix:!symbian {
-     maemo5 {
-         target.path = /opt/usr/lib
-     } else {
--        target.path = /usr/lib
-+        target.path = $$PREFIX/lib
-     }
-     INSTALLS += target
- }
 diff --git a/mindforger.pro b/mindforger.pro
 index ae627f2..0953856 100644
 --- a/mindforger.pro
