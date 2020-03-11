@@ -9174,8 +9174,8 @@ in
 
   pachyderm = callPackage ../applications/networking/cluster/pachyderm { };
 
-  php = php73;
-  phpPackages = php73Packages;
+  php = php74;
+  phpPackages = php74Packages;
 
   php72Packages = recurseIntoAttrs (callPackage ./php-packages.nix {
     php = php72;
@@ -9189,7 +9189,7 @@ in
     php = php74;
   });
 
-  phpPackages-unit = php72Packages-unit;
+  phpPackages-unit = php74Packages-unit;
 
   php72Packages-unit = recurseIntoAttrs (callPackage ./php-packages.nix {
     php = php72-unit;
@@ -9210,7 +9210,7 @@ in
     php73
     php72;
 
-  php-embed = php73-embed;
+  php-embed = php74-embed;
 
   php72-embed = php72.override {
     config.php.embed = true;
@@ -9227,7 +9227,7 @@ in
     config.php.apxs2 = false;
   };
 
-  php-unit = php73-unit;
+  php-unit = php74-unit;
 
   php72-unit = php72.override {
     config.php.embed = true;
