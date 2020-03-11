@@ -39,7 +39,6 @@ stdenv.mkDerivation rec {
       src = ./fix-bubblewrap-paths.patch;
       inherit (builtins) storeDir;
     })
-    ./libglvnd-headers.patch
   ];
 
   postPatch = ''
