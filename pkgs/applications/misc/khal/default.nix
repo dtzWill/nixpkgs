@@ -15,14 +15,14 @@ let
  
 in with python.pkgs; buildPythonApplication rec {
   pname = "khal";
-  version = "unstable-2019-11-09";
+  version = "unstable-2020-03-09";
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "0.10.1-${version}";
   src = fetchFromGitHub {
     owner = "pimutils";
     repo = pname;
-    rev = "ed31553b1fb18d28779dd63e8fd11e3e54218027";
-    sha256 = "1dn4y90z2pzrskdvrknyavlksn1wm97n1ki3xi7fhbgd18nw4vih";
+    rev = "aadce9175a5ac9a14f4d39d1b7ea79e068974143";
+    sha256 = "00zgz6fcwwsr3grlfvj9ci6s0ly2w5yzmjkb0z1df9m6nq77vc50";
   };
 
   propagatedBuildInputs = [
