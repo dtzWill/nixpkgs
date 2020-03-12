@@ -18225,8 +18225,6 @@ in
     glew = glew110;
   };
 
-  bitcoinarmory = callPackage ../applications/misc/bitcoinarmory { pythonPackages = python2Packages; };
-
   bitkeeper = callPackage ../applications/version-management/bitkeeper {
     gperf = gperf_3_0;
   };
