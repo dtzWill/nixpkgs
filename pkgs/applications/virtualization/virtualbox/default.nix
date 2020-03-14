@@ -34,7 +34,8 @@ let
     NIX_CFLAGS_COMPILE = old.NIX_CFLAGS_COMPILE + " -Wno-error=stringop-truncation";
   });
 in stdenv.mkDerivation {
-  name = "virtualbox-${version}";
+  pname = "virtualbox";
+  inherit version;
 
   src = fetchurl {
     url = "https://download.virtualbox.org/virtualbox/${version}/VirtualBox-${version}.tar.bz2";
