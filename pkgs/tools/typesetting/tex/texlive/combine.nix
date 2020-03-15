@@ -60,9 +60,9 @@ in buildEnv {
       (path: ''
         for f in '${path}'/bin/*; do
           if [[ -L "$f" ]]; then
-            cp -vd "$f" ./bin/
+            cp -d "$f" ./bin/
           else
-            ln -vs "$f" ./bin/
+            ln -s "$f" ./bin/
           fi
         done
       '')
@@ -74,7 +74,7 @@ in buildEnv {
     export TEXMFDIST="$out/share/texmf"
     export TEXMFSYSCONFIG="$out/share/texmf-config"
     export TEXMFSYSVAR="$out/share/texmf-var"
-    export PERL5LIB="$out/share/texmf/scripts/texlive"
+    export PERL5LIB="$out/share/texmf/scripts/texlive:${bin.core.out}/share/texmf-dist/scripts/texlive"
   '' +
     # patch texmf-dist  -> $out/share/texmf
     # patch texmf-local -> $out/share/texmf-local
@@ -153,7 +153,7 @@ in buildEnv {
       rm "$link"
       makeWrapper "$target" "$link" \
         --prefix PATH : "$out/bin:${perl}/bin" \
-        --prefix PERL5LIB : "$out/share/texmf/scripts/texlive"
+        --prefix PERL5LIB : "$PERL5LIB"
 
       # avoid using non-nix shebang in $target by calling interpreter
       if [[ "$(head -c 2 "$target")" = "#!" ]]; then
@@ -183,12 +183,6 @@ in buildEnv {
   '' +
   # texlive post-install actions
   ''
-    mkdir -p "$out/share/texmf/scripts/texlive.new/"
-    ln -vfs '${bin.core.out}/share/texmf-dist/scripts/texlive/TeXLive' -t "$out/share/texmf/scripts/texlive.new/"
-    cp -d $out/share/texmf/scripts/texlive/* $out/share/texmf/scripts/texlive.new/
-    rm -v $out/share/texmf/scripts/texlive
-    mv -v $out/share/texmf/scripts/texlive{.new,}
-
     for tool in updmap; do
       ln -sf "$out/share/texmf/scripts/texlive/$tool."* "$out/bin/$tool"
     done
@@ -201,9 +195,9 @@ in buildEnv {
     ln -sf fmtutil "$out/bin/mktexfmt"
 
     perl `type -P mktexlsr.pl` ./share/texmf
-    ${bin.core.out}/share/texmf-dist/scripts/texlive-extra/texlinks.sh --verbose "$out/bin" && wrapBin
+    ${bin.texlinks} "$out/bin" && wrapBin
     (perl `type -P fmtutil.pl` --sys --all || true) | grep '^fmtutil' # too verbose
-    #texlinks.sh "$out/bin" && wrapBin # do we need to regenerate format links?
+    #${bin.texlinks} "$out/bin" && wrapBin # do we need to regenerate format links?
 
     # Disable unavailable map files
     echo y | perl `type -P updmap.pl` --sys --syncwithtrees --force
