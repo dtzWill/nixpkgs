@@ -364,7 +364,8 @@ latexindent = perlPackages.buildPerlPackage rec {
 
 pygmentex = python2Packages.buildPythonApplication rec {
   pname = "pygmentex";
-  inherit (src) version;
+  #inherit (src) version;
+  version = "0.8"; # XXX: src.version
 
   src = stdenv.lib.head (builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs);
 
