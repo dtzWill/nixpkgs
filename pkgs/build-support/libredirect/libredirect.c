@@ -19,6 +19,25 @@ static char * to[MAX_REDIRECTS];
 // FIXME: might run too late.
 static void init() __attribute__((constructor));
 
+int (*open_real) (const char *, int, mode_t);
+int (*open64_real) (const char *, int, mode_t);
+int (*openat_real) (int, const char *, int, mode_t);
+FILE * (*fopen_real) (const char *, const char *);
+FILE * (*fopen64_real) (const char *, const char *);
+int (*__xstat_real) (int ver, const char *, struct stat *);
+int (*__xstat64_real) (int ver, const char *, struct stat64 *);
+int (*stat_real) (const char *, struct stat *);
+int (*access_real) (const char *, int mode);
+int (*posix_spawn_real) (pid_t *, const char *,
+        const posix_spawn_file_actions_t *,
+        const posix_spawnattr_t *,
+        char * const argv[], char * const envp[]);
+int (*posix_spawnp_real) (pid_t *, const char *,
+        const posix_spawn_file_actions_t *,
+        const posix_spawnattr_t *,
+        char * const argv[], char * const envp[]);
+int (*execv_real) (const char *path, char *const argv[]);
+
 static void init()
 {
     char * spec = getenv("NIX_REDIRECTS");
@@ -43,6 +62,19 @@ static void init()
         pos = end + 1;
     }
 
+#define INIT(name) do { name ## _real = dlsym(RTLD_NEXT, #name); } while(0)
+    INIT(open);
+    INIT(open64);
+    INIT(fopen);
+    INIT(fopen64);
+    INIT(__xstat);
+    INIT(__xstat64);
+    INIT(stat);
+    INIT(access);
+    INIT(posix_spawn);
+    INIT(posix_spawnp);
+    INIT(execv);
+#undef INIT
 }
 
 static const char * rewrite(const char * path, char * buf)
@@ -74,7 +106,6 @@ static int open_needs_mode(int flags)
 
 int open(const char * path, int flags, ...)
 {
-    int (*open_real) (const char *, int, mode_t) = dlsym(RTLD_NEXT, "open");
     mode_t mode = 0;
     if (open_needs_mode(flags)) {
         va_list ap;
@@ -88,7 +119,6 @@ int open(const char * path, int flags, ...)
 
 int open64(const char * path, int flags, ...)
 {
-    int (*open64_real) (const char *, int, mode_t) = dlsym(RTLD_NEXT, "open64");
     mode_t mode = 0;
     if (open_needs_mode(flags)) {
         va_list ap;
@@ -102,7 +132,6 @@ int open64(const char * path, int flags, ...)
 
 int openat(int dirfd, const char * path, int flags, ...)
 {
-    int (*openat_real) (int, const char *, int, mode_t) = dlsym(RTLD_NEXT, "openat");
     mode_t mode = 0;
     if (open_needs_mode(flags)) {
         va_list ap;
@@ -116,42 +145,36 @@ int openat(int dirfd, const char * path, int flags, ...)
 
 FILE * fopen(const char * path, const char * mode)
 {
-    FILE * (*fopen_real) (const char *, const char *) = dlsym(RTLD_NEXT, "fopen");
     char buf[PATH_MAX];
     return fopen_real(rewrite(path, buf), mode);
 }
 
 FILE * fopen64(const char * path, const char * mode)
 {
-    FILE * (*fopen64_real) (const char *, const char *) = dlsym(RTLD_NEXT, "fopen64");
     char buf[PATH_MAX];
     return fopen64_real(rewrite(path, buf), mode);
 }
 
 int __xstat(int ver, const char * path, struct stat * st)
 {
-    int (*__xstat_real) (int ver, const char *, struct stat *) = dlsym(RTLD_NEXT, "__xstat");
     char buf[PATH_MAX];
     return __xstat_real(ver, rewrite(path, buf), st);
 }
 
 int __xstat64(int ver, const char * path, struct stat64 * st)
 {
-    int (*__xstat64_real) (int ver, const char *, struct stat64 *) = dlsym(RTLD_NEXT, "__xstat64");
     char buf[PATH_MAX];
     return __xstat64_real(ver, rewrite(path, buf), st);
 }
 
 int stat(const char * path, struct stat * st)
 {
-    int (*__stat_real) (const char *, struct stat *) = dlsym(RTLD_NEXT, "stat");
     char buf[PATH_MAX];
-    return __stat_real(rewrite(path, buf), st);
+    return stat_real(rewrite(path, buf), st);
 }
 
 int access(const char * path, int mode)
 {
-    int (*access_real) (const char *, int mode) = dlsym(RTLD_NEXT, "access");
     char buf[PATH_MAX];
     return access_real(rewrite(path, buf), mode);
 }
@@ -161,10 +184,6 @@ int posix_spawn(pid_t * pid, const char * path,
     const posix_spawnattr_t * attrp,
     char * const argv[], char * const envp[])
 {
-    int (*posix_spawn_real) (pid_t *, const char *,
-        const posix_spawn_file_actions_t *,
-        const posix_spawnattr_t *,
-        char * const argv[], char * const envp[]) = dlsym(RTLD_NEXT, "posix_spawn");
     char buf[PATH_MAX];
     return posix_spawn_real(pid, rewrite(path, buf), file_actions, attrp, argv, envp);
 }
@@ -174,17 +193,12 @@ int posix_spawnp(pid_t * pid, const char * file,
     const posix_spawnattr_t * attrp,
     char * const argv[], char * const envp[])
 {
-    int (*posix_spawnp_real) (pid_t *, const char *,
-        const posix_spawn_file_actions_t *,
-        const posix_spawnattr_t *,
-        char * const argv[], char * const envp[]) = dlsym(RTLD_NEXT, "posix_spawnp");
     char buf[PATH_MAX];
     return posix_spawnp_real(pid, rewrite(file, buf), file_actions, attrp, argv, envp);
 }
 
 int execv(const char *path, char *const argv[])
 {
-    int (*execv_real) (const char *path, char *const argv[]) = dlsym(RTLD_NEXT, "execv");
     char buf[PATH_MAX];
     return execv_real(rewrite(path, buf), argv);
 }
