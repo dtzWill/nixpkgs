@@ -19,24 +19,24 @@ static char *to[MAX_REDIRECTS];
 // FIXME: might run too late.
 static void init() __attribute__((constructor));
 
-int (*open_real)(const char *, int, mode_t);
-int (*open64_real)(const char *, int, mode_t);
-int (*openat_real)(int, const char *, int, mode_t);
-FILE *(*fopen_real)(const char *, const char *);
-FILE *(*fopen64_real)(const char *, const char *);
-int (*__xstat_real)(int ver, const char *, struct stat *);
-int (*__xstat64_real)(int ver, const char *, struct stat64 *);
-int (*stat_real)(const char *, struct stat *);
-int (*access_real)(const char *, int mode);
-int (*posix_spawn_real)(pid_t *, const char *,
-                        const posix_spawn_file_actions_t *,
-                        const posix_spawnattr_t *, char *const argv[],
-                        char *const envp[]);
-int (*posix_spawnp_real)(pid_t *, const char *,
-                         const posix_spawn_file_actions_t *,
-                         const posix_spawnattr_t *, char *const argv[],
-                         char *const envp[]);
-int (*execv_real)(const char *path, char *const argv[]);
+static int (*open_real)(const char *, int, mode_t);
+static int (*open64_real)(const char *, int, mode_t);
+static int (*openat_real)(int, const char *, int, mode_t);
+static FILE *(*fopen_real)(const char *, const char *);
+static FILE *(*fopen64_real)(const char *, const char *);
+static int (*__xstat_real)(int ver, const char *, struct stat *);
+static int (*__xstat64_real)(int ver, const char *, struct stat64 *);
+static int (*stat_real)(const char *, struct stat *);
+static int (*access_real)(const char *, int mode);
+static int (*posix_spawn_real)(pid_t *, const char *,
+                               const posix_spawn_file_actions_t *,
+                               const posix_spawnattr_t *, char *const argv[],
+                               char *const envp[]);
+static int (*posix_spawnp_real)(pid_t *, const char *,
+                                const posix_spawn_file_actions_t *,
+                                const posix_spawnattr_t *, char *const argv[],
+                                char *const envp[]);
+static int (*execv_real)(const char *path, char *const argv[]);
 
 static void init() {
   char *spec = getenv("NIX_REDIRECTS");
