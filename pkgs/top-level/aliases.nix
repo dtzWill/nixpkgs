@@ -191,6 +191,7 @@ mapAliases ({
   keybase-go = keybase;  # added 2016-08-24
   krename-qt5 = krename; # added 2017-02-18
   kvm = qemu_kvm; # added 2018-04-25
+  latinmodern-math = lmmath;
   letsencrypt = certbot; # added 2016-05-16
   libaudit = audit; # added 2018-04-25
   libcanberra_gtk2 = libcanberra-gtk2; # added 2018-02-25
