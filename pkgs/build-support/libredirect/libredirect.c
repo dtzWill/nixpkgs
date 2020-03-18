@@ -39,6 +39,23 @@ static int (*posix_spawnp_real)(pid_t *, const char *,
 static int (*execv_real)(const char *path, char *const argv[]);
 
 static void init() {
+#define INIT(name)                                                             \
+  do {                                                                         \
+    name##_real = dlsym(RTLD_NEXT, #name);                                     \
+  } while (0)
+  INIT(open);
+  INIT(open64);
+  INIT(fopen);
+  INIT(fopen64);
+  INIT(__xstat);
+  INIT(__xstat64);
+  INIT(stat);
+  INIT(access);
+  INIT(posix_spawn);
+  INIT(posix_spawnp);
+  INIT(execv);
+#undef INIT
+
   char *spec = getenv("NIX_REDIRECTS");
   if (!spec)
     return;
@@ -63,23 +80,6 @@ static void init() {
     *end = 0;
     pos = end + 1;
   }
-
-#define INIT(name)                                                             \
-  do {                                                                         \
-    name##_real = dlsym(RTLD_NEXT, #name);                                     \
-  } while (0)
-  INIT(open);
-  INIT(open64);
-  INIT(fopen);
-  INIT(fopen64);
-  INIT(__xstat);
-  INIT(__xstat64);
-  INIT(stat);
-  INIT(access);
-  INIT(posix_spawn);
-  INIT(posix_spawnp);
-  INIT(execv);
-#undef INIT
 }
 
 static const char *rewrite(const char *path, char *buf) {
