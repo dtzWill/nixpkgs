@@ -104,7 +104,7 @@ def install_symbols (arch, binarylist):
 			# Download the package and install it
 			#
 			file_url="%s/%s" % (REPO,stanza['Filename'])
-			download_file(p, os.path.splitext(os.path.basename(stanza['Filename']))[0], file_url)
+			download_file(p, os.path.splitext(os.path.basename(stanza['Filename']))[0], file_url, stanza["SHA256"])
 
 
 
