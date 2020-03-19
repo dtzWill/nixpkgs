@@ -26,13 +26,7 @@ let
 
     "riscv32-linux" "riscv64-linux"
 
-    "arm-none" "armv6l-none" "aarch64-none"
-    "avr-none"
-    "i686-none" "x86_64-none"
-    "powerpc-none"
-    "msp430-none"
-    "riscv64-none" "riscv32-none"
-    "vc4-none"
+    "aarch64-none" "avr-none" "arm-none" "i686-none" "x86_64-none" "powerpc-none" "msp430-none" "riscv64-none" "riscv32-none" "vc4-none"
 
     "js-ghcjs"
   ];

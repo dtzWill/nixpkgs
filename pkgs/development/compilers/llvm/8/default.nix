@@ -59,10 +59,8 @@ let
 
     libstdcxxClang = wrapCCWith rec {
       cc = tools.clang-unwrapped;
-      extraTools = [
-        libstdcxxHook
-      ];
       extraPackages = [
+        libstdcxxHook
         targetLlvmLibraries.compiler-rt
       ];
       extraBuildCommands = mkExtraBuildCommands cc;
