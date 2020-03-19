@@ -1,6 +1,5 @@
 { lowPrio, newScope, pkgs, stdenv, cmake, libstdcxxHook
 , libxml2, python3, isl, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith
-, z3
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
 }:
@@ -18,7 +17,7 @@ let
   clang-tools-extra_src = fetch "clang-tools-extra" "03669c93wzmbmfpv0pyzb7y4z1xc912l95iqywyx01xgdl1xws0r";
 
   tools = stdenv.lib.makeExtensible (tools: let
-    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch z3; });
+    callPackage = newScope (tools // { inherit stdenv cmake libxml2 python3 isl release_version version fetch; });
     mkExtraBuildCommands = cc: ''
       rsrc="$out/resource-root"
       mkdir "$rsrc"
@@ -63,10 +62,8 @@ let
 
     libstdcxxClang = wrapCCWith rec {
       cc = tools.clang-unwrapped;
-      extraTools = [
-        libstdcxxHook
-      ];
       extraPackages = [
+        libstdcxxHook
         targetLlvmLibraries.compiler-rt
       ];
       extraBuildCommands = mkExtraBuildCommands cc;
