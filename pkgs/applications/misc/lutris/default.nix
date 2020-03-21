@@ -1,4 +1,4 @@
-{ buildPythonApplication, lib, fetchFromGitHub
+{ buildPythonApplication, lib, fetchFromGitHub, fetchpatch
 , wrapGAppsHook, gobject-introspection, gnome-desktop, libnotify, libgnome-keyring, pango
 , gdk-pixbuf, atk, webkitgtk, gst_all_1
 , evdev, pyyaml, pygobject3, requests, pillow
@@ -40,6 +40,13 @@ in buildPythonApplication rec {
     sha256 = "0i4i6g3pys1vf2q1pbs1fkywgapj4qfxrjrvim98hzw9al4l06y9";
   };
 
+  patches = [(
+    fetchpatch {
+      url = "https://github.com/lutris/lutris/pull/2558.patch";
+      sha256 = "1wbsplri5ii06gzv6mzhiic61zkgsp9bkjkaknkd83203p0i9b2d";
+    }
+  )];
+
   buildInputs = [
     wrapGAppsHook gobject-introspection gnome-desktop libnotify libgnome-keyring pango
     gdk-pixbuf atk webkitgtk
@@ -63,4 +70,3 @@ in buildPythonApplication rec {
     platforms = platforms.linux;
   };
 }
-
