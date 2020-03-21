@@ -1,7 +1,7 @@
 { stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig
 , file, findutils
-, gtk3, ppp, xl2tpd, strongswan, libsecret, openssl, nss
-, networkmanager
+, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret
+, openssl, nss
 , withGnome ? true, libnma }:
 
 let pname = "NetworkManager-l2tp"; in
