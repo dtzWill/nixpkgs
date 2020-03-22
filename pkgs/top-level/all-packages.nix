@@ -21506,6 +21506,8 @@ in
 
   shfmt = callPackage ../tools/text/shfmt { };
 
+  shortwave = callPackage ../applications/audio/shortwave { };
+
   shotgun = callPackage ../tools/graphics/shotgun {};
 
   shutter = callPackage ../applications/graphics/shutter { };
