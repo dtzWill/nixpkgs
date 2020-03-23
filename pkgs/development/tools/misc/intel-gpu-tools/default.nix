@@ -1,6 +1,6 @@
 { stdenv, fetchurl, fetchgit, pkgconfig, libdrm, libpciaccess, cairo, pixman, udev, xorgproto
 , libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod, json_c, docutils
-, procps, utilmacros, gtk-doc, openssl, peg, meson, ninja, elfutils, flex }:
+, procps, utilmacros, gtk-doc, openssl, peg, meson, ninja, elfutils, flex, liboping }:
 
 stdenv.mkDerivation rec {
   pname = "intel-gpu-tools";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig utilmacros meson ninja flex ];
   buildInputs = [ libdrm libpciaccess cairo pixman xorgproto udev libX11 kmod
     libXext libXv libXrandr glib bison libunwind python3 procps
-    gtk-doc openssl peg elfutils json_c docutils ];
+    gtk-doc openssl peg elfutils json_c docutils liboping ];
 
   mesonFlags = [
     "-Ddocs=disabled" # requires building tests, shrug
