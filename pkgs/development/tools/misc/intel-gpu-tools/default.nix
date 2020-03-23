@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     gtk-doc openssl peg elfutils json_c docutils ];
 
   mesonFlags = [
-    "-Dbuild_docs=disabled" # requires building tests, shrug
-    "-Dbuild_man=enabled"
-    "-Dwith_valgrind=disabled"
-    "-Dbuild_chamelium=disabled"
+    "-Ddocs=disabled" # requires building tests, shrug
+    "-Dman=enabled"
+    "-Dvalgrind=disabled"
+    "-Dchamelium=disabled"
   ];
 
   postPatch = ''
