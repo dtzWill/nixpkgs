@@ -28,6 +28,8 @@ stdenv.mkDerivation rec {
 
     patchShebangs debugger/system_routine/pre_cpp.py
 
+    patchShebangs lib/i915/perf-configs/perf-codegen.py
+
     patchShebangs man/rst2man.sh
   '';
 
