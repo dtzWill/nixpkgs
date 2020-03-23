@@ -13,10 +13,10 @@ let
     (map (p: "${p}/lib/${p.libPrefix}") tclLibraries);
 in stdenv.mkDerivation {
   pname = "remind";
-  version = "3.3.0";
+  version = "3.3.1";
   src = fetchurl {
-    url = https://dianne.skoll.ca/projects/remind/download/remind-03.03.00.tar.gz;
-    sha256 = "06mnnf0wlvmi9vzildvz35cvjkxari5xb6n56shkp7753ac5p2cn";
+    url = https://dianne.skoll.ca/projects/remind/download/remind-03.03.01.tar.gz;
+    sha256 = "0y4l960529sl3sn4r4g36qpy3jk5h1x4algjy7an7sfiqb8n98fi";
   };
 
   nativeBuildInputs = optional tkremind makeWrapper;
