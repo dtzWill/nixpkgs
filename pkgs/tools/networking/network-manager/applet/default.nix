@@ -1,4 +1,5 @@
 { stdenv
+, fetchFromGitLab
 , fetchurl
 , meson
 , ninja
