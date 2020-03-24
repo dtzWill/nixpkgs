@@ -1,4 +1,5 @@
 { stdenv
+, fetchFromGitLab
 , fetchurl
 , meson
 , ninja
@@ -31,6 +32,13 @@ stdenv.mkDerivation rec {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "09mp6k0hfam1vyyv9kcd8j4gb2r58i05ipx2nswb58ris599bxja";
   };
+  # src = fetchFromGitLab {
+  #   domain = "gitlab.gnome.org";
+  #   owner = "GNOME";
+  #   repo = pname;
+  #   rev = "7f5f87992f0834dfda62e53174d601d954ef49be";
+  #   sha256 = "1id6zfgspa7qixlb4n9z1ynlicgjqv6r678350f63l07wz4mmmzi";
+  # };
 
   patches = [
     # Needed for wingpanel-indicator-network and switchboard-plug-network
