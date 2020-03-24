@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/libnma";
     description = "NetworkManager UI utilities (libnm version)";
     license = licenses.gpl2Plus; # Mix of GPL and LPGL 2+
-    maintainers = teams.gnome.members;
+    # TODO: restore this, I guess I missed the addition of teams or at least this one oops
+    #maintainers = teams.gnome.members;
     platforms = platforms.linux;
   };
 }
