@@ -86,6 +86,11 @@
 }</programlisting>
     </para>
    </listitem>
+   <listitem>
+    <para>
+      The package <package>onedrive</package> needs the end user to reauthorize the client for all the accounts. Details <link xlink:href="https://github.com/abraunegg/onedrive/issues/835">here</link>.  
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
