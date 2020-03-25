@@ -2014,6 +2014,8 @@ in
 
   pueue = callPackage ../applications/misc/pueue { };
 
+  pixiecore = callPackage ../tools/networking/pixiecore {};
+
   pyCA = python3Packages.callPackage ../applications/video/pyca {};
 
   pyznap = python3Packages.callPackage ../tools/backup/pyznap {};
