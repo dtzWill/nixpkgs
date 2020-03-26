@@ -1,7 +1,7 @@
 { lib, fetchzip }:
 
 let
-  version = "1.0.4";
+  version = "1.0.5";
 in
 fetchzip rec {
   name = "JetBrainsMono-${version}";
@@ -9,7 +9,7 @@ fetchzip rec {
   #url = "https://download.jetbrains.com/fonts/JetBrainsMono-${version}.zip";
   url = "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip";
 
-  sha256 = "0w22dcb8zxyx8cgwn4fdi0wgqxvqnsr9vn0islrh5kbrd7qwc1l9";
+  sha256 = "1fmzm31wfr63afzvj54yllrs7p6fjcv67bqpfn3wzs90gv10n3wq";
 
   postFetch = ''
     unzip $downloadedFile
