@@ -20631,6 +20631,9 @@ in
 
   notion = callPackage ../applications/window-managers/notion { };
 
+  nootka = qt5.callPackage ../applications/audio/nootka { };
+  nootka-unstable = qt5.callPackage ../applications/audio/nootka/unstable.nix { };
+
   notion-app = callPackage ../applications/office/notion { };
 
   openshift = callPackage ../applications/networking/cluster/openshift {
