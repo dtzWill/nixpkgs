@@ -4534,6 +4534,12 @@
     githubId = 3958340;
     name = "Eshin Kunishima";
   };
+  millerjason = {
+    email = "mailings-github@millerjason.com";
+    github = "millerjason";
+    githubId = 7610974;
+    name = "Jason Miller";
+  };
   miltador = {
     email = "miltador@yandex.ua";
     name = "Vasiliy Solovey";
