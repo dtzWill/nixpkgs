@@ -19714,9 +19714,7 @@ in
       '' + (drv.postInstall or "");
     });
 
-  slack = callPackage ../applications/networking/instant-messengers/slack { nodePackages = nodePackages_10_x; };
-  slack-theme-black = callPackage ../applications/networking/instant-messengers/slack/dark-theme.nix { };
-  slack-dark = pkgs.slack.override { theme = slack-theme-black; };
+  slack = callPackage ../applications/networking/instant-messengers/slack { };
 
   slack-cli = callPackage ../tools/networking/slack-cli { };
 
