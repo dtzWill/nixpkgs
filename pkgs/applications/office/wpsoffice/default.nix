@@ -3,7 +3,8 @@
 , zlib, libpng12, libICE, libXrender, cups
 , alsaLib, atk, cairo, dbus, expat
 , gdk-pixbuf, gtk2-x11, lzma, pango, zotero
-, sqlite, libuuid, qt5, dpkg }:
+, sqlite, libuuid, qt5, dpkg
+, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "wpsoffice";
@@ -76,6 +77,8 @@ stdenv.mkDerivation rec {
     libXrandr
     libXScrnSaver
     libXtst
+
+    libGL
   ];
 
   dontPatchELF = true;
