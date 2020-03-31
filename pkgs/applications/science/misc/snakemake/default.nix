@@ -1,26 +1,26 @@
-{
-  stdenv
-, python
-}:
+{ stdenv, python3Packages }:
 
-python.buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "snakemake";
   version = "5.13.0";
 
-  propagatedBuildInputs = with python; [
+  propagatedBuildInputs = with python3Packages; [
     appdirs
     ConfigArgParse
     datrie
     docutils
     GitPython
     jsonschema
+    nbformat
+    psutil
     pyyaml
     ratelimiter
     requests
+    toposort
     wrapt
   ];
 
-  src = python.fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     sha256 = "11snr7sgv70d3y63s5svijfx8f4xpggh96g8chr6lccl4mi1s9x9";
   };
@@ -38,6 +38,6 @@ python.buildPythonPackage rec {
       workflows are essentially Python scripts extended by declarative code to define
       rules. Rules describe how to create output files from input files.
     '';
-    maintainers = with maintainers; [ helkafen renatoGarcia ];
+    maintainers = with maintainers; [ helkafen renatoGarcia veprbl ];
   };
 }
