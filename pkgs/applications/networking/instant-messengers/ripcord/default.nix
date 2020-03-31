@@ -1,63 +1,70 @@
-{ lib, stdenv, fetchurl, writeScript, appimageTools, buildFHSUserEnv,
-  runtimeShell, makeFontsConf, twemoji-color-font }:
+{ lib, mkDerivation, fetchurl, makeFontsConf, appimageTools,
+  qtbase, qtsvg, qtmultimedia, qtwebsockets, qtimageformats,
+  autoPatchelfHook, desktop-file-utils, imagemagick, makeWrapper,
+  twemoji-color-font, xorg, libsodium, libopus, libGL, zlib, alsaLib }:
 
-let
+mkDerivation rec {
   pname = "ripcord";
-  version = "0.4.23";
-  name = "${pname}-${version}";
+  version = "0.4.24";
 
-  src = fetchurl {
-    url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
-    sha256 = "0395w0pwr1cz8ichcbyrsscmm2p7srgjk4vkqvqgwyx41prm0x2h";
-    name = "${pname}-${version}.AppImage";
+  src = let
+    appimage = fetchurl {
+      url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
+      sha256 = "0rscmnwxvbdl0vfx1pz7x5gxs9qsjk905zmcad4f330j5l5m227z";
+      name = "${pname}-${version}.AppImage";
+    };
+  in appimageTools.extract {
+    name = "${pname}-${version}";
+    src = appimage;
   };
+
+  nativeBuildInputs = [ autoPatchelfHook desktop-file-utils imagemagick ];
+  buildInputs = [ libsodium libopus libGL alsaLib ] ++
+                [ qtbase qtsvg qtmultimedia qtwebsockets qtimageformats ] ++
+                (with xorg; [ libX11 libXScrnSaver libXcursor xkeyboardconfig ]);
 
   fontsConf = makeFontsConf {
-    fontDirectories = [
-      twemoji-color-font
-    ];
+    fontDirectories = [ twemoji-color-font ];
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit name src;
-  };
+  installPhase = ''
+    runHook preInstall
 
-in buildFHSUserEnv (appimageTools.defaultFhsEnvArgs // {
-  inherit name;
+    mkdir -p $out
+    cp -r ${src}/{qt.conf,translations,twemoji.ripdb} $out
 
-  targetPkgs = pkgs: appimageTools.defaultFhsEnvArgs.targetPkgs pkgs ++ (with pkgs; [ ]);
+    for size in 16 32 48 64 72 96 128 192 256 512 1024; do
+      mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
+      convert -resize "$size"x"$size" ${src}/Ripcord_Icon.png $out/share/icons/hicolor/"$size"x"$size"/apps/ripcord.png
+    done
 
-  extraBuildCommands = ''
-    # Begin patch to fix https://dev.cancel.fm/tktview?name=d2dc78360c
-    chmod u+w ./etc
+    desktop-file-install --dir $out/share/applications \
+      --set-key Exec --set-value ripcord \
+      --set-key Icon --set-value ripcord \
+      --set-key Comment --set-value "${meta.description}" \
+      ${src}/Ripcord.desktop
+    mv $out/share/applications/Ripcord.desktop $out/share/applications/ripcord.desktop
 
-    # Realise fonts by one level
-    rm ./etc/fonts && mkdir ./etc/fonts
+    install -Dm755 ${src}/Ripcord $out/Ripcord
+    patchelf --replace-needed libsodium.so.18 libsodium.so $out/Ripcord
+    makeQtWrapper $out/Ripcord $out/bin/ripcord \
+      --run "cd $out" \
+      --set FONTCONFIG_FILE "${fontsConf}" \
+      --prefix LD_LIBRARY_PATH ":" "${xorg.libXcursor}/lib" \
+      --prefix QT_XKB_CONFIG_ROOT ":" "${xorg.xkeyboardconfig}/share/X11/xkb" \
+      --set RIPCORD_ALLOW_UPDATES 0
 
-    # Substitute fonts.conf
-    ln -s ${fontsConf.out} ./etc/fonts/fonts.conf
-  '';
-
-  extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
-    install -m 444 -D ${appimageContents}/Ripcord.desktop $out/share/applications/ripcord.desktop
-    install -m 444 -D ${appimageContents}/Ripcord_Icon.png \
-      $out/share/icons/hicolor/512x512/apps/ripcord.png
-  '';
-
-  runScript = writeScript "run" ''
-    #!${runtimeShell}
-    export APPDIR=${appimageContents}
-    export APPIMAGE_SILENT_INSTALL=1
-    cd $APPDIR
-    exec ./AppRun "$@"
+    runHook postInstall
   '';
 
   meta = with lib; {
     description = "Desktop chat client for Slack and Discord";
     homepage = "https://cancel.fm/ripcord/";
+
+    # See: https://cancel.fm/ripcord/shareware-redistribution/
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ bqv ];
+
+    maintainers = with maintainers; [ infinisil ];
     platforms = [ "x86_64-linux" ];
   };
-})
+}

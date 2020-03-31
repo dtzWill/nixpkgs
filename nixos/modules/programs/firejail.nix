@@ -25,8 +25,14 @@ in {
     enable = mkEnableOption "firejail";
 
     wrappedBinaries = mkOption {
-      type = types.attrs;
+      type = types.attrsOf types.path;
       default = {};
+      example = literalExample ''
+        {
+          firefox = "''${lib.getBin pkgs.firefox}/bin/firefox";
+          mpv = "''${lib.getBin pkgs.mpv}/bin/mpv";
+        }
+      '';
       description = ''
         Wrap the binaries in firejail and place them in the global path.
         </para>
@@ -41,7 +47,7 @@ in {
   config = mkIf cfg.enable {
     security.wrappers.firejail.source = "${lib.getBin pkgs.firejail}/bin/firejail";
 
-    environment.systemPackages = [ wrappedBins ];
+    environment.systemPackages = [ pkgs.firejail ] ++ [ wrappedBins ];
   };
 
   meta.maintainers = with maintainers; [ peterhoeg ];

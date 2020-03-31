@@ -13,9 +13,9 @@ let
 in stdenv.mkDerivation rec {
   # only fetches the yaracpp source patched to work with a local yara clone,
   # does not build anything
-  name = "yaracpp-src-${version}";
+  pname = "yaracpp-src";
   version = "2018-10-09";
-  rev = "1ba9a78e0a46260a77c5a34a141ecaab66298192"; # as specified in retdec/deps/yaracpp/CMakeLists.txt
+  rev = "b92bde0e59e3b75bc445227e04b71105771dee8b"; # as specified in retdec/deps/yaracpp/CMakeLists.txt
 
   src = fetchFromGitHub {
     inherit rev;

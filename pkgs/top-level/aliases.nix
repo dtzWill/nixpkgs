@@ -321,6 +321,7 @@ mapAliases ({
   ppl-address-book = throw "deprecated in 2019-05-02: abandoned by upstream.";
   processing3 = processing; # added 2019-08-16
   procps-ng = procps; # added 2018-06-08
+  pygmentex = texlive.bin.pygmentex; # added 2019-12-15
   pulseaudioLight = pulseaudio; # added 2018-04-25
   qca-qt5 = libsForQt5.qca-qt5;  # added 2015-12-19
   qt_gstreamer = qt-gstreamer;  # added 2017-02
@@ -424,6 +425,7 @@ mapAliases ({
   terraform-provider-libvirt = terraform-providers.libvirt; # added 2018-09-28
   terraform-provider-nixos = terraform-providers.nixos; # added 2018-09-28
   tesseract_4 = tesseract4; # added 2018-12-19
+  testdisk-photorec = throw "This package was a duplicate, please use testdisk or testdisk-qt instead"; # added 2019-10-13
   tetra-gtk-theme = adementary-theme; # added 2019-05-10
   tex-gyre-bonum-math = tex-gyre-math.bonum; # added 2018-04-03
   tex-gyre-pagella-math = tex-gyre-math.pagella; # added 2018-04-03

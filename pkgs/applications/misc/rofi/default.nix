@@ -1,12 +1,12 @@
 { stdenv, lib, fetchurl, fetchFromGitHub
 , autoreconfHook, pkgconfig, libxkbcommon, pango, which, git
 , cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification
-, bison, flex, librsvg, check
+, bison, flex, librsvg, libjpeg, check
 }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-unwrapped";
-  version = "1.5.4-next";
+  version = "unstable-2019-06-26";
 
   #src = fetchurl {
   #  url = "https://github.com/davatorium/rofi/releases/download/${version}/rofi-${version}.tar.gz";
@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "davatorium";
     repo = "rofi";
-    rev = "7a6fcb20f45c2b4751c30cb46be5e8f28e56e3d3";
-    sha256 = "1jmlzpsd8q4v25fn6f9a35p8fsgx3mw3kzrbbd1030w4a9sn3s5h";
+    rev = "35d2c341c84bfae2365439267d08efa270badacf";
+    sha256 = "1rbgcfgp2yylapzgj2yqz4ik7f4ixvncfi3qnmpz8a25ppnyfvjn";
     fetchSubmodules = true;
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ libxkbcommon pango cairo git bison flex librsvg check
+  buildInputs = [ libxkbcommon pango cairo git bison flex librsvg libjpeg check
     libstartup_notification libxcb xcbutil xcbutilwm xcbutilxrm which
   ];
 

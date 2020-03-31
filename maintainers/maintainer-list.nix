@@ -3884,6 +3884,16 @@
     githubId = 3425311;
     name = "Antoine Eiche";
   };
+  lexuge = {
+    name = "Harry Ying";
+    email = "lexugeyky@outlook.com";
+    github = "LEXUGE";
+    githubId = 13804737;
+    keys = [{
+      longkeyid = "rsa4096/0xAE53B4C2E58EDD45";
+      fingerprint = "7FE2 113A A08B 695A C8B8  DDE6 AE53 B4C2 E58E DD45";
+    }];
+  };
   lheckemann = {
     email = "git@sphalerite.org";
     github = "lheckemann";
@@ -4286,6 +4296,12 @@
     githubId = 1711539;
     name = "matklad";
   };
+  matt-snider = {
+    email = "matt.snider@protonmail.com";
+    github = "matt-snider";
+    githubId = 11810057;
+    name = "Matt Snider";
+  };
   matthewbauer = {
     email = "mjbauer95@gmail.com";
     github = "matthewbauer";
@@ -4517,6 +4533,12 @@
     github = "mikoim";
     githubId = 3958340;
     name = "Eshin Kunishima";
+  };
+  millerjason = {
+    email = "mailings-github@millerjason.com";
+    github = "millerjason";
+    githubId = 7610974;
+    name = "Jason Miller";
   };
   miltador = {
     email = "miltador@yandex.ua";
@@ -6296,6 +6318,12 @@
     githubId = 848812;
     name = "Stephan Jau";
   };
+  sjfloat = {
+    email = "steve+nixpkgs@jonescape.com";
+    github = "sjfloat";
+    githubId = 216167;
+    name = "Steve Jones";
+  };
   sjmackenzie = {
     email = "setori88@gmail.com";
     github = "sjmackenzie";
@@ -6823,6 +6851,12 @@
     github = "thiagokokada";
     githubId = 844343;
     name = "Thiago K. Okada";
+  };
+  thmzlt = {
+    email = "git@thomazleite.com";
+    github = "thmzlt";
+    githubId = 7709;
+    name = "Thomaz Leite";
   };
   ThomasMader = {
     email = "thomas.mader@gmail.com";

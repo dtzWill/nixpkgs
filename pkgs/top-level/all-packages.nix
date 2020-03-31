@@ -128,6 +128,8 @@ in
 
   addOpenGLRunpath = callPackage ../build-support/add-opengl-runpath { };
 
+  ankisyncd = callPackage ../servers/ankisyncd { };
+
   avro-tools = callPackage ../development/tools/avro-tools { };
 
   # Zip file format only allows times after year 1980, which makes e.g. Python wheel building fail with:
@@ -172,6 +174,8 @@ in
   };
 
   deadcode = callPackage ../development/tools/deadcode { };
+
+  hobbes = callPackage ../development/tools/hobbes { stdenv = gcc6Stdenv; }; # GCC 6 is latest currently supported. See https://git.io/JvK6M.
 
   proto-contrib = callPackage ../development/tools/proto-contrib {};
 
@@ -612,6 +616,8 @@ in
 
   amp = callPackage ../applications/editors/amp {};
 
+  ams = callPackage ../applications/audio/ams {};
+
   amtterm = callPackage ../tools/system/amtterm {};
 
   analog = callPackage ../tools/admin/analog {};
@@ -839,6 +845,9 @@ in
   crc32c = callPackage ../development/libraries/crc32c { };
 
   cue = callPackage ../development/tools/cue { };
+
+  deltachat-electron = callPackage
+    ../applications/networking/instant-messengers/deltachat-electron { };
 
   deskew = callPackage ../applications/graphics/deskew { };
 
@@ -1253,9 +1262,9 @@ in
 
   btrfs-progs = callPackage ../tools/filesystems/btrfs-progs { };
 
-  btrfs-dedupe = callPackage ../tools/filesystems/btrfs-dedupe {};
-
-  btrbk = callPackage ../tools/backup/btrbk { };
+  btrbk = callPackage ../tools/backup/btrbk {
+    asciidoc = asciidoc-full;
+  };
 
   buildpack = callPackage ../development/tools/buildpack { };
 
@@ -2004,6 +2013,8 @@ in
   parallel-rust = callPackage ../tools/misc/parallel-rust { };
 
   pueue = callPackage ../applications/misc/pueue { };
+
+  pixiecore = callPackage ../tools/networking/pixiecore {};
 
   pyCA = python3Packages.callPackage ../applications/video/pyca {};
 
@@ -2999,7 +3010,7 @@ in
 
   cholmod-extra = callPackage ../development/libraries/science/math/cholmod-extra { };
 
-  emscriptenVersion = "1.38.28";
+  emscriptenVersion = "1.39.1";
 
   emscripten = callPackage ../development/compilers/emscripten { };
 
@@ -4760,6 +4771,8 @@ in
 
   libgumath = callPackage ../development/libraries/libgumath { };
 
+  libinsane = callPackage ../development/libraries/libinsane { };
+
   libipfix = callPackage ../development/libraries/libipfix { };
 
   libircclient = callPackage ../development/libraries/libircclient { };
@@ -5258,12 +5271,13 @@ in
 
   networkmanager-sstp = callPackage ../tools/networking/network-manager/sstp { };
 
-  networkmanager_strongswan = callPackage ../tools/networking/network-manager/strongswan.nix { };
+  networkmanager_strongswan = callPackage ../tools/networking/network-manager/strongswan { };
 
-  networkmanagerapplet = callPackage ../tools/networking/network-manager/applet.nix { };
-  libnma = callPackage ../tools/networking/network-manager/libnma.nix { };
+  networkmanagerapplet = callPackage ../tools/networking/network-manager/applet { };
 
-  networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu.nix  { };
+  libnma = callPackage ../tools/networking/network-manager/libnma { };
+
+  networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu  { };
 
   nm-tray = libsForQt5.callPackage ../tools/networking/network-manager/tray.nix { };
 
@@ -5935,8 +5949,6 @@ in
   pydb = callPackage ../development/tools/pydb { };
 
   pydf = callPackage ../applications/misc/pydf { };
-
-  pygmentex = callPackage ../tools/typesetting/pygmentex { };
 
   pympress = callPackage ../applications/office/pympress { };
 
@@ -6745,8 +6757,6 @@ in
 
   termplay = callPackage ../tools/misc/termplay { };
 
-  testdisk-photorec = callPackage ../tools/system/testdisk-photorec { };
-
   tewisay = callPackage ../tools/misc/tewisay { };
 
   texmacs = if stdenv.isDarwin
@@ -7209,7 +7219,12 @@ in
 
   xe = callPackage ../tools/system/xe { };
 
-  testdisk = callPackage ../tools/misc/testdisk { };
+  testdisk = libsForQt5.callPackage ../tools/system/testdisk {
+    enableExtFs = !stdenv.isDarwin;
+    enableNtfs = !stdenv.isDarwin;
+  };
+
+  testdisk-qt = testdisk.override { enableQt = true; };
 
   textql = callPackage ../development/tools/textql { };
 
@@ -8785,7 +8800,6 @@ in
   };
 
   pyo3-pack = callPackage ../development/tools/rust/pyo3-pack { };
-  rainicorn = callPackage ../development/tools/rust/rainicorn { };
   inherit (rustPackages) rls;
   rustfmt = rustPackages.rustfmt;
   rustracer = callPackage ../development/tools/rust/racer {
@@ -8803,7 +8817,7 @@ in
   sagittarius-scheme = callPackage ../development/compilers/sagittarius-scheme {};
 
   sbclBootstrap = callPackage ../development/compilers/sbcl/bootstrap.nix {};
-  sbcl_2_0_1 = callPackage ../development/compilers/sbcl {};
+  sbcl_2_0_2 = callPackage ../development/compilers/sbcl {};
   sbcl = callPackage ../development/compilers/sbcl/2.0.0.nix {};
 
   scala_2_10 = callPackage ../development/compilers/scala/2.10.nix { };
@@ -10441,7 +10455,8 @@ in
   remake = callPackage ../development/tools/build-managers/remake { };
 
   retdec = callPackage ../development/tools/analysis/retdec {
-    stdenv = clangStdenv;
+    #stdenv = clangStdenv;
+    stdenv = gcc8Stdenv;
   };
   retdec-full = retdec.override {
     withPEPatterns = true;
@@ -10670,6 +10685,8 @@ in
   };
 
   watson-ruby = callPackage ../development/tools/misc/watson-ruby {};
+
+  webdis = callPackage ../development/tools/database/webdis { };
 
   xc3sprog = callPackage ../development/tools/misc/xc3sprog { };
 
@@ -14727,7 +14744,9 @@ in
 
   yubico-pam = callPackage ../development/libraries/yubico-pam { };
 
-  yubico-piv-tool = callPackage ../tools/misc/yubico-piv-tool { };
+  yubico-piv-tool = callPackage ../tools/misc/yubico-piv-tool {
+    inherit (darwin.apple_sdk.frameworks) PCSC;
+  };
 
   yubikey-manager = callPackage ../tools/misc/yubikey-manager { };
 
@@ -16643,7 +16662,6 @@ in
 
   # Hardened linux
   hardenedLinuxPackagesFor = kernel: linuxPackagesFor (kernel.override {
-    features.ia32Emulation = false;
     structuredExtraConfig = import ../os-specific/linux/kernel/hardened-config.nix {
       inherit stdenv;
       inherit (kernel) version;
@@ -17490,7 +17508,10 @@ in
   iconpack-obsidian = callPackage ../data/icons/iconpack-obsidian { };
 
   inconsolata = callPackage ../data/fonts/inconsolata {};
+
   inconsolata-lgc = callPackage ../data/fonts/inconsolata/lgc.nix {};
+
+  inconsolata-nerdfont = callPackage ../data/fonts/inconsolata-nerdfont {};
 
   input-fonts = callPackage ../data/fonts/input-fonts { };
 
@@ -17900,6 +17921,8 @@ in
 
   terminus_font_ttf = callPackage ../data/fonts/terminus-font-ttf { };
 
+  terminus-nerdfont = callPackage ../data/fonts/terminus-nerdfont { };
+
   termtekst = callPackage ../misc/emulators/termtekst { };
 
   tex-gyre = callPackages ../data/fonts/tex-gyre { };
@@ -18174,7 +18197,8 @@ in
 
   awesome-4-0 = callPackage ../applications/window-managers/awesome {
     cairo = cairo.override { xcbSupport = true; };
-    luaPackages = lua53Packages;
+    # luaPackages = lua53Packages;
+    luaPackages = lua5_3_compat.pkgs;
     inherit (texFunctions) fontsConf;
   };
   awesome = awesome-4-0;
@@ -18225,8 +18249,6 @@ in
     ffmpeg = ffmpeg_4;
     glew = glew110;
   };
-
-  bitcoinarmory = callPackage ../applications/misc/bitcoinarmory { pythonPackages = python2Packages; };
 
   bitkeeper = callPackage ../applications/version-management/bitkeeper {
     gperf = gperf_3_0;
@@ -18422,6 +18444,9 @@ in
   cipher = callPackage ../applications/misc/cipher { };
 
   claws-mail = callPackage ../applications/networking/mailreaders/claws-mail {
+    inherit (xorg) libSM;
+  };
+  claws-mail-gtk3 = callPackage ../applications/networking/mailreaders/claws-mail/gtk3.nix {
     inherit (xorg) libSM;
   };
 
@@ -20574,6 +20599,8 @@ in
       else null;
   };
 
+  mup = callPackage ../applications/audio/mup { };
+
   # TODO: we should probably merge these 2
   musescore =
     if stdenv.isDarwin then
@@ -20603,6 +20630,9 @@ in
   };
 
   notion = callPackage ../applications/window-managers/notion { };
+
+  nootka = qt5.callPackage ../applications/audio/nootka { };
+  nootka-unstable = qt5.callPackage ../applications/audio/nootka/unstable.nix { };
 
   notion-app = callPackage ../applications/office/notion { };
 
@@ -21350,7 +21380,7 @@ in
 
   ries = callPackage ../applications/science/math/ries { };
 
-  ripcord = callPackage ../applications/networking/instant-messengers/ripcord { };
+  ripcord = qt5.callPackage ../applications/networking/instant-messengers/ripcord { };
 
   ripser = callPackage ../applications/science/math/ripser { };
 
@@ -22078,6 +22108,8 @@ in
     gtk3 = if stdenv.isDarwin then gtk3-x11 else gtk3;
   });
 
+  vimacs = callPackage ../applications/editors/vim/vimacs.nix { };
+
   qpdfview = libsForQt5.callPackage ../applications/misc/qpdfview {};
 
   qtile = callPackage ../applications/window-managers/qtile {
@@ -22475,6 +22507,10 @@ in
   x2vnc = callPackage ../tools/X11/x2vnc { };
 
   x32edit = callPackage ../applications/audio/midas/x32edit.nix {};
+
+  x42-avldrums = callPackage ../applications/audio/x42-avldrums { };
+
+  x42-gmsynth = callPackage ../applications/audio/x42-gmsynth { };
 
   x42-plugins = callPackage ../applications/audio/x42-plugins { };
 
@@ -25047,13 +25083,9 @@ in
 
   lilypond-unstable = callPackage ../misc/lilypond/unstable.nix { };
 
-  lilypond-with-fonts = callPackage ../misc/lilypond/with-fonts.nix {
-    lilypond = lilypond-unstable;
-  };
+  lilypond-with-fonts = callPackage ../misc/lilypond/with-fonts.nix { };
 
-  openlilylib-fonts = callPackage ../misc/lilypond/fonts.nix {
-    lilypond = lilypond-unstable;
-  };
+  openlilylib-fonts = callPackage ../misc/lilypond/fonts.nix { };
 
   loop = callPackage ../tools/misc/loop { };
 

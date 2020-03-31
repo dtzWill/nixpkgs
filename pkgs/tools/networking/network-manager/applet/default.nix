@@ -1,21 +1,37 @@
-{ stdenv, fetchurl, fetchFromGitLab, meson, ninja, intltool, pkgconfig
-, networkmanager, libnma, gnome3
-, libnotify, libsecret, polkit, modemmanager, libxml2 
-, glib-networking, gsettings-desktop-schemas
-, libgudev, jansson, wrapGAppsHook, python3, gtk3
+{ stdenv
+, fetchFromGitLab
+, fetchurl
+, meson
+, ninja
+, gettext
+, pkg-config
+, networkmanager
+, gnome3
+, libnotify
+, libsecret
+, polkit
+, modemmanager
+, libnma
+, mobile-broadband-provider-info
+, glib-networking
+, gsettings-desktop-schemas
+, libgudev
+, jansson
+, wrapGAppsHook
+, gobject-introspection
+, python3
+, gtk3
 , libappindicator-gtk3
-# TODO: revamp
-, withGnome ? false
 }:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
-  #version = "1.8.22";
+  # version = "1.16.0";
   version = "unstable-2020-02-14";
 
   #src = fetchurl {
-  #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-  #  sha256 = "1vbyhxknixyrf75pbjl3rxcy32m8y9cx5s30s3598vgza081rvzb";
+  #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+  #  sha256 = "1rf3nm0hjcy9f8ajb4vmvwy503w8yj8d4daxkcb7w7i7b92qmyfn";
   #};
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -30,20 +46,34 @@ stdenv.mkDerivation rec {
     "-Dappindicator=yes"
   ];
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [ "out" "man" ];
 
   buildInputs = [
-    gtk3 networkmanager libnotify libsecret gsettings-desktop-schemas
-    polkit libgudev
-    modemmanager jansson glib-networking
-    libappindicator-gtk3 gnome3.adwaita-icon-theme
-    (libnma.override { inherit withGnome; })
+    libnma
+    gtk3
+    networkmanager
+    libnotify
+    libsecret
+    gsettings-desktop-schemas
+    polkit
+    libgudev
+    modemmanager
+    jansson
+    glib-networking
+    libappindicator-gtk3
+    gnome3.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook python3 libxml2 ];
-
-  # Needed for wingpanel-indicator-network and switchboard-plug-network
-  patches = [ ./hardcode-gsettings.patch ];
+  # nativeBuildInputs = [ meson ninja intltool pkgconfig wrapGAppsHook python3 libxml2 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gettext
+    pkg-config
+    wrapGAppsHook
+    gobject-introspection
+    python3
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file
@@ -60,7 +90,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/NetworkManager;
+    homepage = "https://gitlab.gnome.org/GNOME/network-manager-applet/";
     description = "NetworkManager control applet for GNOME";
     license = licenses.gpl2;
     maintainers = with maintainers; [ phreedom ];

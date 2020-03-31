@@ -145,9 +145,10 @@ lib.makeScope pkgs.newScope (self: with self; {
     withGnome = true;
   };
 
-  networkmanagerapplet = pkgs.networkmanagerapplet.override {
-    withGnome = true;
-  };
+  inherit (pkgs) networkmanagerapplet;
+  #networkmanagerapplet = pkgs.networkmanagerapplet.override {
+  #  withGnome = true;
+  #};
 
   rygel = callPackage ./core/rygel { };
 

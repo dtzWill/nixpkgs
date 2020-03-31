@@ -34,21 +34,19 @@
 }:
 
 let
-  optional = stdenv.lib.optional;
+  inherit (stdenv.lib) optional optionals;
 in mkDerivation rec {
   pname = "obs-studio";
-  version = "24.0.1";
+  version = "25.0.0";
 
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "056s0hs1ds3c57sc0gy39dxaxvwlakl3w25jxgawh0fs99211ar5";
+    sha256 = "1xbvj69zk1x2sv39wqjp5s929c61szn32d3d0ykhxr6jxb0sih4w";
   };
 
-  nativeBuildInputs = [ cmake
-                        pkgconfig
-                      ];
+  nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [ curl
                   fdk_aac
@@ -68,7 +66,7 @@ in mkDerivation rec {
                   makeWrapper
                   mbedtls
                 ]
-                ++ optional scriptingSupport [ luajit swig python3 ]
+                ++ optionals scriptingSupport [ luajit swig python3 ]
                 ++ optional alsaSupport alsaLib
                 ++ optional pulseaudioSupport libpulseaudio;
 
@@ -89,7 +87,7 @@ in mkDerivation rec {
       Software", software originally designed for recording and streaming live
       video content, efficiently
     '';
-    homepage = https://obsproject.com;
+    homepage = "https://obsproject.com";
     maintainers = with maintainers; [ jb55 MP2E ];
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];

@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-planner";
-  version = "unstable-2020-03-03";
+  version = "unstable-2020-03-19";
 
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = "bf2181ddd77be07f2c32393a7775790b9c5bd73f";
-    sha256 = "14k5kiknr0d3my17p4v20iiqzifpz3y80gdzj8vdxic8yk2yr1ap";
+    rev = "b2c545003bebd541b01b2e4b14cf4df8f8a32e30";
+    sha256 = "0hafjxfhywj5my18byd0h6ib839mkjf1q43grnkj509idas0aqdq";
   };
 
   nativeBuildInputs = [

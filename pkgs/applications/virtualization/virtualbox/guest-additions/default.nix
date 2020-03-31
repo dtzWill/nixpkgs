@@ -1,5 +1,5 @@
 { stdenv, fetchurl, lib, patchelf, cdrkit, kernel, which, makeWrapper
-, zlib, xorg, dbus, virtualbox }:
+, zlib, xorg, dbus, virtualbox}:
 
 let
   version = virtualbox.version;
@@ -12,14 +12,21 @@ let
   # It's likely to work again in some future update.
   xserverABI = let abi = xserverVListFunc 0 + xserverVListFunc 1;
     in if abi == "119" || abi == "120" then "118" else abi;
-in
 
-stdenv.mkDerivation {
+  # Specifies how to patch binaries to make sure that libraries loaded using
+  # dlopen are found. We grep binaries for specific library names and patch
+  # RUNPATH in matching binaries to contain the needed library paths.
+  dlopenLibs = [
+    { name = "libdbus-1.so"; pkg = dbus; }
+    { name = "libXfixes.so"; pkg = xorg.libXfixes; }
+  ];
+
+in stdenv.mkDerivation rec {
   name = "VirtualBox-GuestAdditions-${version}-${kernel.version}";
 
   src = fetchurl {
     url = "http://download.virtualbox.org/virtualbox/${version}/VBoxGuestAdditions_${version}.iso";
-    sha256 = "1njgxb18r8a1m8fk2b32mmnbwciip3wcxwyhza5k73bx4q2sifac";
+    sha256 = "e2846a7576cce1b92a7c0744f41eaac750248d6e31dfca5c45d5766648b394c7";
   };
 
   KERN_DIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
@@ -35,10 +42,20 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ patchelf makeWrapper ];
   buildInputs = [ cdrkit ] ++ kernel.moduleBuildDependencies;
 
+
+  prePatch = ''
+    substituteInPlace src/vboxguest-${version}/vboxvideo/vbox_ttm.c \
+      --replace "<ttm/" "<drm/ttm/"
+  '';
+
+  patchFlags = [ "-p1" "-d" "src/vboxguest-${version}" ];
+
   unpackPhase = ''
     ${if stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux" then ''
         isoinfo -J -i $src -x /VBoxLinuxAdditions.run > ./VBoxLinuxAdditions.run
         chmod 755 ./VBoxLinuxAdditions.run
+        # An overflow leads the is-there-enough-space check to fail when there's too much space available, so fake how much space there is
+        sed -i 's/\$leftspace/16383/' VBoxLinuxAdditions.run
         ./VBoxLinuxAdditions.run --noexec --keep
       ''
       else throw ("Architecture: "+stdenv.hostPlatform.system+" not supported for VirtualBox guest additions")
@@ -90,7 +107,7 @@ stdenv.mkDerivation {
   installPhase = ''
     # Install kernel modules.
     cd src/vboxguest-${version}
-    make install INSTALL_MOD_PATH=$out
+    make install INSTALL_MOD_PATH=$out KBUILD_EXTRA_SYMBOLS=$PWD/vboxsf/Module.symvers
     cd ../..
 
     # Install binaries
@@ -129,13 +146,13 @@ stdenv.mkDerivation {
   # Stripping breaks these binaries for some reason.
   dontStrip = true;
 
-  # Some code dlopen() libdbus, patch RUNPATH in fixupPhase so it isn't stripped.
-  postFixup = ''
-    for i in $(grep -F libdbus-1.so -l -r $out/{lib,bin}); do
+  # Patch RUNPATH according to dlopenLibs (see the comment there).
+  postFixup = lib.concatMapStrings (library: ''
+    for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
       origRpath=$(patchelf --print-rpath "$i")
-      patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ dbus ]}" "$i"
+      patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
     done
-  '';
+  '') dlopenLibs;
 
   meta = {
     description = "Guest additions for VirtualBox";

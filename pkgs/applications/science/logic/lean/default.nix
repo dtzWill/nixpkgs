@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lean";
-  version = "3.5.1";
+  version = "3.7.2";
 
   src = fetchFromGitHub {
     owner  = "leanprover-community";
     repo   = "lean";
     rev    = "v${version}";
-    sha256 = "0m7knf1hfbn2v6p6kmqxlx8c40p5nzv8d975w2xwljaccc42j1yp";
+    sha256 = "0d9lz0mbxyaaykkvk2p8w2hcif9cx0ksihgh7qhxf417bz6msgc1";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Automatic and interactive theorem prover";
-    homepage    = https://leanprover.github.io/;
+    homepage    = "https://leanprover.github.io/";
+    changelog   = "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md";
     license     = licenses.asl20;
     platforms   = platforms.unix;
     maintainers = with maintainers; [ thoughtpolice gebner ];

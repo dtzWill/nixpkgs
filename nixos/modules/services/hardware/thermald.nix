@@ -23,6 +23,15 @@ in {
         '';
       };
 
+      # TODO: make 'log-level' option or something
+      info = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to enable info logging.
+        '';
+      };
+
       configFile = mkOption {
         type = types.nullOr types.path;
         default = null;
@@ -46,6 +55,7 @@ in {
           ${pkgs.thermald}/sbin/thermald \
             --no-daemon \
             ${optionalString cfg.debug "--loglevel=debug"} \
+            ${optionalString cfg.info "--loglevel=info"} \
             ${optionalString (cfg.configFile != null) "--config-file ${cfg.configFile}"} \
             --dbus-enable
         '';

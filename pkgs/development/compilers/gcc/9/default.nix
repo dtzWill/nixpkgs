@@ -37,7 +37,7 @@ assert langGo -> langCC;
 with stdenv.lib;
 with builtins;
 
-let version = "9.2.0";
+let version = "9.3.0";
 
     inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
@@ -131,7 +131,7 @@ stdenv.mkDerivation ({
 
   src = fetchurl {
     url = "mirror://gcc/releases/gcc-${version}/gcc-${version}.tar.xz";
-    sha256 = "01mj3yk7z49i49168hg2cg7qs4bsccrrnv7pjmbdlf8j2a7z0vpa";
+    sha256 = "1la2yy27ziasyf0jvzk58y1i5b5bq2h176qil550bxhifs39gqbi";
   };
 
   inherit patches;
@@ -349,6 +349,12 @@ stdenv.mkDerivation ({
   inherit enableMultilib;
 
   inherit (stdenv) is64bit;
+
+  # In this particular combination it stopped creating lib output at all.
+  # TODO: perhaps find a better fix?  (ideally understand what's going on)
+  postFixup = if crossStageStatic && targetPlatform.isMusl && targetPlatform.is32bit
+    then ''mkdir "$lib"''
+    else null;
 
   meta = {
     homepage = https://gcc.gnu.org/;

@@ -8,7 +8,7 @@
 , gtk3
 , granite
 , networkmanager
-, networkmanagerapplet
+, libnma
 , wingpanel
 , libgee
 , elementary-icon-theme
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gtk3
     libgee
     networkmanager
-    networkmanagerapplet
+    libnma
     wingpanel
   ];
 

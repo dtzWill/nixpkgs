@@ -48,6 +48,7 @@
 , mutter
 , networkmanager
 , networkmanagerapplet
+, libnma
 , ninja
 , pkgconfig
 , polkit
@@ -125,7 +126,7 @@ stdenv.mkDerivation rec {
     modemmanager
     mutter # schemas for the keybindings
     networkmanager
-    networkmanagerapplet
+    libnma
     polkit
     samba
     tracker

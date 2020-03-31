@@ -2,6 +2,7 @@
 
 { stdenv
 , fetchurl
+, fetchFromGitHub
 , substituteAll
 , gtk-doc
 , pkgconfig
@@ -86,12 +87,18 @@ in
 
 stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "1.3.9";
+  version = "unstable-2019-03-23";
 
-  src = fetchurl {
-    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
-    sha256 = "ZuRG+UN8ebXv5Z8fOYWT0eCtHykGXoB8Ysu3wAeqx0A=";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "5f3a2c0bc1fe0e48657e717aa1971dd680e05fa8";
+    sha256 = "02hjqdzl0nhy9l3709srikzx15gmlclq1vbf9n6jazr7175d2gvy";
   };
+  #src = fetchurl {
+  #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+  #  sha256 = "0h67m83w1dybc9y80ph654gsvq6ijf2kj7wzwppvaybw8gwldr36";
+  #};
 
   # libfwupd goes to lib
   # daemon, plug-ins and libfwupdplugin go to out

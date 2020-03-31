@@ -3,7 +3,7 @@
 , libstartup_notification, telepathy-glib, telepathy-logger, libXtst, unzip, glibcLocales, shared-mime-info
 , libgweather, libcanberra-gtk3, librsvg, geoclue2, perl, docbook_xml_dtd_42, desktop-file-utils
 , libpulseaudio, libical, gobject-introspection, gstreamer, wrapGAppsHook, libxslt, gcr, caribou
-, accountsservice, gdk-pixbuf, gdm, upower, ibus, networkmanagerapplet, libgnomekbd, gnome-desktop
+, accountsservice, gdk-pixbuf, gdm, upower, ibus, libnma, libgnomekbd, gnome-desktop
 , gsettings-desktop-schemas, gnome-keyring, glib, gjs, mutter, evolution-data-server, gtk3
 , sassc, systemd, gst_all_1, adwaita-icon-theme, gnome-bluetooth, gnome-clocks, gnome-settings-daemon }:
 
@@ -41,7 +41,7 @@ in stdenv.mkDerivation rec {
     gobject-introspection
 
     # not declared at build time, but typelib is needed at runtime
-    libgweather networkmanagerapplet
+    libgweather libnma
   ];
   propagatedUserEnvPkgs = [
     # Needed to support on-screen keyboard used with touch screen devices

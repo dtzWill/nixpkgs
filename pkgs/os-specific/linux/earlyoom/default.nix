@@ -1,15 +1,17 @@
 { lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "earlyoom-${VERSION}";
+  pname = "earlyoom";
+  version = "1.5";
+
   # This environment variable is read by make to set the build version.
-  VERSION = "1.3";
+  VERSION = version;
 
   src = fetchFromGitHub {
     owner = "rfjakob";
     repo = "earlyoom";
     rev = "v${VERSION}";
-    sha256 = "0fwbx0y80nqgkxrc9kf9j3iwa0wbps2jmqir3pgqbc2cj0wjh0lr";
+    sha256 = "1wcw2lfd9ajachbrjqywkzj9x6zv32gij2r6yap26x1wdd5x7i93";
   };
 
   installPhase = ''
