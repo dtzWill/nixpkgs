@@ -1,8 +1,10 @@
 { lib, fetchzip }:
 
-let version = "1.002"; in
-fetchzip {
-  name = "junicode-${version}";
+let
+  pname = "junicode";
+  version = "1.002";
+in fetchzip {
+  name = "${pname}-${version}";
 
   url = "mirror://sourceforge/junicode/junicode/junicode-${version}/junicode-${version}.zip";
 
