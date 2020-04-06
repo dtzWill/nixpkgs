@@ -679,6 +679,15 @@ let
         sha512 = "GWSSJGFy4e9GUeCcbIkED+bgAoFyj7XF1mV8rma3QW4NIqX9Kyx79N/PF61H5udOV3aY1IaMLs6pGbH71nlCTA==";
       };
     };
+    "fs-minipass-2.1.0" = {
+      name = "fs-minipass";
+      packageName = "fs-minipass";
+      version = "2.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz";
+        sha512 = "V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==";
+      };
+    };
     "fs.extra-1.3.2" = {
       name = "fs.extra";
       packageName = "fs.extra";
@@ -1291,22 +1300,13 @@ let
         sha512 = "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==";
       };
     };
-    "minimist-0.0.8" = {
+    "minimist-1.2.5" = {
       name = "minimist";
       packageName = "minimist";
-      version = "0.0.8";
+      version = "1.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz";
-        sha1 = "857fcabfc3397d2625b8228262e86aa7a011b05d";
-      };
-    };
-    "minimist-1.2.0" = {
-      name = "minimist";
-      packageName = "minimist";
-      version = "1.2.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz";
-        sha1 = "a35008b20f41383eec1fb914f4cd5df79a264284";
+        url = "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz";
+        sha512 = "FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==";
       };
     };
     "minipass-2.9.0" = {
@@ -1318,6 +1318,15 @@ let
         sha512 = "wxfUjg9WebH+CUDX/CdbRlh5SmfZiy/hpkxaRI16Y9W56Pa75sWgd/rvFilSgrauD9NyFymP/+JFV3KwzIsJeg==";
       };
     };
+    "minipass-3.1.1" = {
+      name = "minipass";
+      packageName = "minipass";
+      version = "3.1.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/minipass/-/minipass-3.1.1.tgz";
+        sha512 = "UFqVihv6PQgwj8/yTGvl9kPz7xIAY+R5z6XYjRInD3Gk3qx6QGSD6zEcpeG4Dy/lQnv1J6zv8ejV90hyYIKf3w==";
+      };
+    };
     "minizlib-1.3.3" = {
       name = "minizlib";
       packageName = "minizlib";
@@ -1325,6 +1334,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/minizlib/-/minizlib-1.3.3.tgz";
         sha512 = "6ZYMOEnmVsdCeTJVE0W9ZD+pVnE8h9Hma/iOwwRDsdQoePpoX56/8B6z3P9VNwppJuBKNRuFDRNRqRWexT9G9Q==";
+      };
+    };
+    "minizlib-2.1.0" = {
+      name = "minizlib";
+      packageName = "minizlib";
+      version = "2.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/minizlib/-/minizlib-2.1.0.tgz";
+        sha512 = "EzTZN/fjSvifSX0SlqUERCN39o6T40AMarPbv0MrarSFtIITCBh7bi+dU8nxGFHuqs9jdIAeoYoKuQAAASsPPA==";
       };
     };
     "mixin-deep-1.3.2" = {
@@ -1345,13 +1363,22 @@ let
         sha1 = "de3e5f8961c88c787ee1368df849ac4413eca8d7";
       };
     };
-    "mkdirp-0.5.1" = {
+    "mkdirp-0.5.5" = {
       name = "mkdirp";
       packageName = "mkdirp";
-      version = "0.5.1";
+      version = "0.5.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz";
-        sha1 = "30057438eac6cf7f8c4767f38648d6697d75c903";
+        url = "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.5.tgz";
+        sha512 = "NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==";
+      };
+    };
+    "mkdirp-1.0.4" = {
+      name = "mkdirp";
+      packageName = "mkdirp";
+      version = "1.0.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz";
+        sha512 = "vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==";
       };
     };
     "ms-2.0.0" = {
@@ -1390,13 +1417,13 @@ let
         sha1 = "abcc6cbd3ec2ed2a729ff6e7c1fa8f01784a8574";
       };
     };
-    "needle-2.4.0" = {
+    "needle-2.4.1" = {
       name = "needle";
       packageName = "needle";
-      version = "2.4.0";
+      version = "2.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/needle/-/needle-2.4.0.tgz";
-        sha512 = "4Hnwzr3mi5L97hMYeNl8wRW/Onhy4nUKR/lVemJ8gJedxxUyBLm9kkrDColJvoSfwi0jCNhD+xCdOtiGDQiRZg==";
+        url = "https://registry.npmjs.org/needle/-/needle-2.4.1.tgz";
+        sha512 = "x/gi6ijr4B7fwl6WYL9FwlCvRQKGlUNvnceho8wxkwXqN8jvVmmmATTmZPRRG7b/yC1eode26C2HO9jl78Du9g==";
       };
     };
     "nijs-0.0.25" = {
@@ -1417,13 +1444,13 @@ let
         sha1 = "c6465dbf08abcd4db359317f79ac68a646b28ff9";
       };
     };
-    "nopt-4.0.1" = {
+    "nopt-4.0.3" = {
       name = "nopt";
       packageName = "nopt";
-      version = "4.0.1";
+      version = "4.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nopt/-/nopt-4.0.1.tgz";
-        sha1 = "d0d4685afd5415193c8c7505602d0d17cd64474d";
+        url = "https://registry.npmjs.org/nopt/-/nopt-4.0.3.tgz";
+        sha512 = "CvaGwVMztSMJLOeXPrez7fyfObdZqNUK1cPAEzLHrTybIua9pMdmmPR5YwtfNftIOMv3DPUhFaxsZMNTQO20Kg==";
       };
     };
     "normalize-package-data-2.5.0" = {
@@ -1723,13 +1750,13 @@ let
         sha1 = "212d5bfe1318306a420f6402b8e26ff39647a849";
       };
     };
-    "psl-1.7.0" = {
+    "psl-1.8.0" = {
       name = "psl";
       packageName = "psl";
-      version = "1.7.0";
+      version = "1.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/psl/-/psl-1.7.0.tgz";
-        sha512 = "5NsSEDv8zY70ScRnOTn7bK7eanl2MvFrOrS/R6x+dBt5g1ghnj9Zv90kO8GwT8gxcu2ANyFprnFYB85IogIJOQ==";
+        url = "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz";
+        sha512 = "RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==";
       };
     };
     "punycode-2.1.1" = {
@@ -1948,13 +1975,13 @@ let
         sha512 = "sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==";
       };
     };
-    "semver-6.1.3" = {
+    "semver-7.1.3" = {
       name = "semver";
       packageName = "semver";
-      version = "6.1.3";
+      version = "7.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-6.1.3.tgz";
-        sha512 = "aymF+56WJJMyXQHcd4hlK4N75rwj5RQpfW8ePlQnJsTYOBLlLbcIErR/G1s9SkIvKBqOudR3KAx4wEqP+F1hNQ==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.1.3.tgz";
+        sha512 = "ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==";
       };
     };
     "set-blocking-2.0.0" = {
@@ -1975,13 +2002,13 @@ let
         sha512 = "JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==";
       };
     };
-    "signal-exit-3.0.2" = {
+    "signal-exit-3.0.3" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.2";
+      version = "3.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.2.tgz";
-        sha1 = "b5fdc08f1287ea1178628e415e25132b73646c6d";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz";
+        sha512 = "VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==";
       };
     };
     "slasp-0.0.4" = {
@@ -2171,6 +2198,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/tar/-/tar-4.4.13.tgz";
         sha512 = "w2VwSrBoHa5BsSyH+KxEqeQBAllHhccyMFVHtGtdMpF4W7IRWfZjFiQceJPChOeTsSDVUpER2T8FA93pr0L+QA==";
+      };
+    };
+    "tar-6.0.1" = {
+      name = "tar";
+      packageName = "tar";
+      version = "6.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/tar/-/tar-6.0.1.tgz";
+        sha512 = "bKhKrrz2FJJj5s7wynxy/fyxpE0CmCjmOQ1KV4KkgXFWOgoIT/NbTMnB1n+LFNrNk0SSBVGGxcK5AGsyC+pW5Q==";
       };
     };
     "temp-0.9.1" = {
@@ -2407,6 +2443,15 @@ let
         sha512 = "a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==";
       };
     };
+    "yallist-4.0.0" = {
+      name = "yallist";
+      packageName = "yallist";
+      version = "4.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz";
+        sha512 = "3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==";
+      };
+    };
   };
 in
 {
@@ -2591,7 +2636,7 @@ in
       })
       sources."ms-2.0.0"
       sources."nanomatch-1.2.13"
-      sources."nopt-4.0.1"
+      sources."nopt-4.0.3"
       (sources."object-copy-0.1.0" // {
         dependencies = [
           sources."define-property-0.2.5"
@@ -2753,13 +2798,13 @@ in
       sources."is-fullwidth-code-point-1.0.0"
       sources."isarray-1.0.0"
       sources."minimatch-3.0.4"
-      sources."minimist-0.0.8"
+      sources."minimist-1.2.5"
       sources."minipass-2.9.0"
       sources."minizlib-1.3.3"
-      sources."mkdirp-0.5.1"
+      sources."mkdirp-0.5.5"
       sources."ms-2.1.2"
-      sources."needle-2.4.0"
-      sources."nopt-4.0.1"
+      sources."needle-2.4.1"
+      sources."nopt-4.0.3"
       sources."npm-bundled-1.1.1"
       sources."npm-normalize-package-bin-1.0.1"
       sources."npm-packlist-1.4.8"
@@ -2772,11 +2817,7 @@ in
       sources."osenv-0.1.5"
       sources."path-is-absolute-1.0.1"
       sources."process-nextick-args-2.0.1"
-      (sources."rc-1.2.8" // {
-        dependencies = [
-          sources."minimist-1.2.0"
-        ];
-      })
+      sources."rc-1.2.8"
       sources."readable-stream-2.3.7"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.1.2"
@@ -2784,7 +2825,7 @@ in
       sources."sax-1.2.4"
       sources."semver-5.7.1"
       sources."set-blocking-2.0.0"
-      sources."signal-exit-3.0.2"
+      sources."signal-exit-3.0.3"
       sources."string-width-1.0.2"
       sources."string_decoder-1.1.1"
       sources."strip-ansi-3.0.1"
@@ -2808,10 +2849,10 @@ in
   node2nix = nodeEnv.buildNodePackage {
     name = "node2nix";
     packageName = "node2nix";
-    version = "1.7.0";
+    version = "1.8.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/node2nix/-/node2nix-1.7.0.tgz";
-      sha512 = "p9lcFtr02Ryoo0FqNNGJ7lklDzVCT1vHHQ0Qg81SdbSQ+Ib4DwzAItJSy8EMwUvDdim1o9K3wMQljURxApvItg==";
+      url = "https://registry.npmjs.org/node2nix/-/node2nix-1.8.0.tgz";
+      sha512 = "v5QBcH6KxWVVRftbXdpGPIo3s0nPRcTJ56vLLbnmk0f1+32efqpI5t+fYekRys5yJPKFlXDRJCo6o8qnw581gQ==";
     };
     dependencies = [
       sources."abbrev-1.1.1"
@@ -2857,7 +2898,7 @@ in
           sources."rimraf-2.2.8"
         ];
       })
-      sources."fs-minipass-1.2.7"
+      sources."fs-minipass-2.1.0"
       (sources."fs.extra-1.3.2" // {
         dependencies = [
           sources."mkdirp-0.3.5"
@@ -2889,10 +2930,10 @@ in
       sources."mime-db-1.43.0"
       sources."mime-types-2.1.26"
       sources."minimatch-3.0.4"
-      sources."minimist-0.0.8"
-      sources."minipass-2.9.0"
-      sources."minizlib-1.3.3"
-      sources."mkdirp-0.5.1"
+      sources."minimist-1.2.5"
+      sources."minipass-3.1.1"
+      sources."minizlib-2.1.0"
+      sources."mkdirp-0.5.5"
       sources."ncp-0.4.2"
       sources."nijs-0.0.25"
       sources."nopt-3.0.6"
@@ -2931,7 +2972,7 @@ in
       sources."performance-now-2.1.0"
       sources."process-nextick-args-2.0.1"
       sources."proto-list-1.2.4"
-      sources."psl-1.7.0"
+      sources."psl-1.8.0"
       sources."punycode-2.1.1"
       sources."qs-6.5.2"
       (sources."readable-stream-2.3.7" // {
@@ -2945,9 +2986,9 @@ in
       sources."rimraf-2.6.3"
       sources."safe-buffer-5.2.0"
       sources."safer-buffer-2.1.2"
-      sources."semver-6.1.3"
+      sources."semver-7.1.3"
       sources."set-blocking-2.0.0"
-      sources."signal-exit-3.0.2"
+      sources."signal-exit-3.0.3"
       sources."slasp-0.0.4"
       sources."slide-1.1.6"
       sources."spdx-correct-3.1.0"
@@ -2963,7 +3004,11 @@ in
         ];
       })
       sources."strip-ansi-3.0.1"
-      sources."tar-4.4.13"
+      (sources."tar-6.0.1" // {
+        dependencies = [
+          sources."mkdirp-1.0.4"
+        ];
+      })
       sources."temp-0.9.1"
       sources."tough-cookie-2.5.0"
       sources."tunnel-agent-0.6.0"
@@ -2979,7 +3024,7 @@ in
       sources."walk-2.3.14"
       sources."wide-align-1.1.3"
       sources."wrappy-1.0.2"
-      sources."yallist-3.1.1"
+      sources."yallist-4.0.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
