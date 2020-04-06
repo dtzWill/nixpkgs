@@ -1,0 +1,24 @@
+From 4434bef62fdf320cb08d2e6a621a96cf0459ad3b Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Mon, 6 Apr 2020 10:25:29 -0500
+Subject: [PATCH] add l_genl_msg_get_extended_error to exported syms
+
+---
+ ell/ell.sym | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ell/ell.sym b/ell/ell.sym
+index 6545896..33998e8 100644
+--- a/ell/ell.sym
++++ b/ell/ell.sym
+@@ -217,6 +217,7 @@ global:
+ 	l_genl_msg_enter_nested;
+ 	l_genl_msg_get_command;
+ 	l_genl_msg_get_error;
++	l_genl_msg_get_extended_error;
+ 	l_genl_msg_get_version;
+ 	l_genl_msg_leave_nested;
+ 	l_genl_msg_new;
+-- 
+2.26.0
+
