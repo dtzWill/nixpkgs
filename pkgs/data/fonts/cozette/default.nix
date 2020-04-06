@@ -1,7 +1,7 @@
 { stdenv, fetchurl, mkfontscale }:
 
 let
-  version = "1.7.2";
+  version = "1.8.0";
   releaseUrl =
     "https://github.com/slavfox/Cozette/releases/download/v.${version}";
 in stdenv.mkDerivation rec {
@@ -11,15 +11,15 @@ in stdenv.mkDerivation rec {
   srcs = map fetchurl [
     {
       url = "${releaseUrl}/cozette.otb";
-      sha256 = "0kmb34vnzm40p1db1swzbm1165ix142n1vdjfxs5320np5w1bgmj";
+      sha256 = "1zw33w9nvg7lr1llqqzm0gf8h2gzrj8bhm86zwkb92pyrz4c7a7r";
     }
     {
       url = "${releaseUrl}/CozetteVector.otf";
-      sha256 = "0v5lapd3a2mb6i6qk9w4b61ddbi5fpfgn5i57skk4a8dcxqp4c4a";
+      sha256 = "0vrrxzbic2jf7528xlfvr7xrhcfxgsvch5p23zwh98qs1wypv32m";
     }
     {
       url = "${releaseUrl}/CozetteVector.ttf";
-      sha256 = "00zlaw6swvlydqc83jlnwzn83kjzqfi09f340jm68kvlpcrlb031";
+      sha256 = "0x05jkynbv4bkq4z8gs2dhhsbz7a0mp9vrv7caqjpwp0sd58xkll";
     }
   ];
 
