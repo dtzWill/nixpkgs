@@ -3,13 +3,13 @@
 # TODO: build gtk-enabled variant?
 buildPerlPackage rec {
   pname = "WWW-YoutubeViewer";
-  version = "3.7.2";
+  version = "3.7.5";
 
   src = fetchFromGitHub {
     owner  = "trizen";
     repo   = "youtube-viewer";
     rev    = version;
-    sha256 = "07rs0c2zjj41haaiy7jzz10n0h48pkpl6knxyp0x2993kggk121r";
+    sha256 = "1caz56sxy554avz2vdv9gm7gyqcq0gyixzrh5v9ixmg6vxif5d4f";
   };
 
   nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin shortenPerlShebang;
