@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--with-dbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
     "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    ];
+  ];
+
+  postInstall = ''
+    cp ./data/thermal-conf.xml $out/etc/thermald/
+  '';
 
   postInstall = ''
     mkdir -p $out/bin
