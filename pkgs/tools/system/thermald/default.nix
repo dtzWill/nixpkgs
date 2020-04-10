@@ -29,15 +29,13 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    cp ./data/thermal-conf.xml $out/etc/thermald/
-  '';
-
-  postInstall = ''
     mkdir -p $out/bin
     cp ./tools/thermald_set_pref.sh $out/bin/
 
     patchShebangs $out/bin/thermald_set_pref.sh
     wrapProgram $out/bin/thermald_set_pref.sh --prefix PATH ':' ${stdenv.lib.makeBinPath [ dbus ]}
+
+    cp ./data/thermal-conf.xml $out/etc/thermald/
   '';
 
   meta = with stdenv.lib; {
