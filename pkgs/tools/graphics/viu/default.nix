@@ -13,7 +13,8 @@ rustPlatform.buildRustPackage rec {
   # tests are failing, reported at upstream: https://github.com/atanunq/viu/issues/40
   doCheck = false;
 
-  cargoSha256 = "15zdnr95a363w4rddv1fbz796m01430gzly5p953m23g2mbxdmp0";
+  # XXX: legacy deps fetcher still, conflicts w/nixpkgs-master
+  cargoSha256 = "0pqggg9vcrrms6pmg8w6la29q173hslflf96q4qihfdd0ar9391h";
 
   meta = with lib; {
     description = "A command-line application to view images from the terminal written in Rust";
