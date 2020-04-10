@@ -26133,4 +26133,6 @@ in
   opentodolist = libsForQt5.callPackage ../applications/office/opentodolist {};
 
   bulk_extractor = callPackage ../tools/filesystems/bulk_extractor {};
+
+  jitsi-meet-electron = callPackage ../applications/networking/instant-messengers/jitsi-meet-electron { };
 }
