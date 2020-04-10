@@ -88,14 +88,14 @@ let
 
   # Upstream source
   #version = "9.0.4";
-  version = "9.5a8";
+  version = "9.5a11";
 
   lang = "en-US";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux64-${version}_${lang}.tar.xz";
-      sha256 = "1a85dx89k1cgvyvi2g9m6n775inj474prhhk5kly0hhi86d81mi0";
+      sha256 = "03zk8hx5c1gmy55j79m6jznvs5bx48ni3axzh3cw01y25zn10rxk";
     };
 
     #i686-linux = fetchurl {
