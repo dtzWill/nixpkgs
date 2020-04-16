@@ -20,7 +20,9 @@
 }:
 
 let
-  llvmPackages = llvmPackages_10;
+  llvmPackages = if channel != "stable"
+    then llvmPackages_10
+    else llvmPackages_9;
   stdenv = llvmPackages.stdenv;
 
   callPackage = newScope chromium;
@@ -33,7 +35,7 @@ let
     mkChromiumDerivation = callPackage ./common.nix ({
       inherit gnome gnomeSupport gnomeKeyringSupport proprietaryCodecs cupsSupport pulseSupport useVaapi useOzone;
       gnChromium = gn;
-    } // lib.optionalAttrs (channel == "dev") {
+    } // lib.optionalAttrs (channel != "stable") {
       # TODO: Remove after we can update gn for the stable channel (backward incompatible changes):
       gnChromium = gn.overrideAttrs (oldAttrs: {
         version = "2020-03-23";
