@@ -1,5 +1,6 @@
 { stdenv, fetchurl, pkgconfig, intltool, file, wrapGAppsHook
 , openssl, curl, libevent, inotify-tools, systemd, zlib
+, fetchpatch
 , enableGTK3 ? false, gtk3
 , enableSystemd ? stdenv.isLinux
 , enableDaemon ? true
@@ -16,6 +17,13 @@ stdenv.mkDerivation rec {
     url = "https://github.com/transmission/transmission-releases/raw/master/transmission-2.94.tar.xz";
     sha256 = "0zbbj7rlm6m7vb64x68a64cwmijhsrwx9l63hbwqs7zr9742qi1m";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://sources.debian.org/data/main/t/transmission/2.94-2/debian/patches/patch-vendored-libdht.patch";
+      sha256 = "088n8yshljs3yyqv2a381b5kxsla8a5b2nw36dbaadzygd6vngmx";
+    })
+  ];
 
   nativeBuildInputs = [ pkgconfig ]
     ++ optionals enableGTK3 [ wrapGAppsHook ];
