@@ -49,6 +49,7 @@ let
             "icedtea"
             "enableGoogleTalkPlugin"
             "enableFriBIDPlugin"
+            "enableGnomeExtensions"
             "enableBluejeans"
             "enableAdobeReader"
           ];
