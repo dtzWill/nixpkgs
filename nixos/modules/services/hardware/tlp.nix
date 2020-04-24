@@ -3,7 +3,10 @@ with lib;
 let
   cfg = config.services.tlp;
   enableRDW = config.networking.networkmanager.enable;
-  tlp = pkgs.tlp.override { inherit enableRDW; };
+  tlp = pkgs.tlp.override {
+    inherit enableRDW;
+    inherit (config.boot.kernelPackages) x86_energy_perf_policy;
+  };
   # TODO: Use this for having proper parameters in the future
   mkTlpConfig = tlpConfig: generators.toKeyValue {
     mkKeyValue = generators.mkKeyValueDefault {
