@@ -16,8 +16,7 @@ top-level attribute to `top-level/all-packages.nix`.
 
 {
   newScope,
-  stdenv, fetchurl, fetchFromGitHub, fetchpatch,
-  makeSetupHook, makeWrapper,
+  stdenv, fetchurl, fetchFromGitHub, makeSetupHook, makeWrapper,
   bison, cups ? null, harfbuzz, libGL, perl,
   gstreamer, gst-plugins-base, gtk3, dconf,
 
