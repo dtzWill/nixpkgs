@@ -6,7 +6,7 @@
 stdenv.mkDerivation rec {
   pname = "picom";
   #version = "7.3";
-  version = "unstable-2020-04-21";
+  version = "unstable-2020-04-24";
 
   COMPTON_VERSION = "v${version}";
 
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     owner  = "yshui";
     repo   = pname;
     #rev    = COMPTON_VERSION;
-    rev = "7043b2da5ebf00e27fe3cc73df44900eb27908f9";
-    sha256 = "0ayjgwlf0ch0ig6b9ac5xlkjk9liq5wc0lldkssnscnq7l09nc86";
+    rev = "0b377537ec9c3f6faaa13878701d8d0b2ee62d0c";
+    sha256 = "0z4iw2ypi3r4hrqxci9yi46acfpc7q35b0srlbrba4wznpfziagm";
     fetchSubmodules = true;
   };
 
