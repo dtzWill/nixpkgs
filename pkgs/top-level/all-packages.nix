@@ -19714,7 +19714,7 @@ in
       '' + (drv.postInstall or "");
     });
 
-  slack = callPackage ../applications/networking/instant-messengers/slack { };
+  slack = callPackage ../applications/networking/instant-messengers/slack { nodePackages = nodePackages_10_x; /* asar */ };
 
   slack-cli = callPackage ../tools/networking/slack-cli { };
 
