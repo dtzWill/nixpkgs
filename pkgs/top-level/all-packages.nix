@@ -17765,7 +17765,6 @@ in
   polytopes_db = callPackage ../data/misc/polytopes_db { };
 
   pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
-  pop-icon-theme = callPackage ../data/icons/pop { };
 
   pop-icon-theme = callPackage ../data/icons/pop-icon-theme { };
 
