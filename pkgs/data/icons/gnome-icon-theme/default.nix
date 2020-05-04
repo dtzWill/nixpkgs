@@ -1,20 +1,33 @@
 { stdenv, fetchurl, pkgconfig, intltool, iconnamingutils, gtk2 }:
 
 stdenv.mkDerivation rec {
-  name = "gnome-icon-theme-2.91.93";
+  pname = "gnome-icon-theme";
+  version = "3.12.0";
 
   src = fetchurl {
-    #url = "mirror://gnome/sources/gnome-icon-theme/3.4/${name}.tar.xz";
-    url = "mirror://gnome/sources/gnome-icon-theme/2.91/${name}.tar.bz2";
-    sha256 = "cc7f15e54e2640697b58c26e74cc3f6ebadeb4ef6622bffe9c1e6874cc3478d6";
+    url = "mirror://gnome/sources/gnome-icon-theme/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "0fjh9qmmgj34zlgxb09231ld7khys562qxbpsjlaplq2j85p57im";
   };
 
-  nativeBuildInputs = [ pkgconfig intltool iconnamingutils gtk2 ];
+  nativeBuildInputs = [
+    pkgconfig
+    intltool
+    iconnamingutils
+    gtk2
+  ];
 
-  # remove a tree of dirs with no files within
-  postInstall = '' rm -r "$out/share/locale" '';
+  dontDropIconThemeCache = true;
 
-  meta = {
-    platforms = stdenv.lib.platforms.linux;
+  postInstall = ''
+    # remove a tree of dirs with no files within
+    rm -r "$out/share/locale"
+  '';
+
+  meta = with stdenv.lib; {
+    description = "Collection of icons for the GNOME 2 desktop";
+    homepage = "https://download.gnome.org/sources/gnome-icon-theme/";
+    license = licenses.gpl3Plus;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
   };
 }
