@@ -7,6 +7,7 @@
 , gnome3
 , pantheon
 , hicolor-icon-theme
+, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -24,6 +25,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     gtk3
+    python3
   ];
 
   propagatedBuildInputs = [
