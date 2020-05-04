@@ -37,6 +37,11 @@ stdenv.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
+  postPatch = ''
+    chmod +x meson/post_install.py
+    patchShebangs meson/post_install.py
+  '';
+
   meta = with stdenv.lib; {
     description = "Icon theme for Pop!_OS with a semi-flat design and raised 3D motifs";
     homepage = "https://github.com/pop-os/icon-theme";
