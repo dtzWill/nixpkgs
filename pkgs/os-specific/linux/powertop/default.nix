@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "powertop";
-  version = "2.11";
+  version = "2.12";
 
   src = fetchFromGitHub {
     owner = "fenrus75";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1mm1hf92vdy15n4y15wzp7hxv12p8s09g6j2aqsfwa7npqrdzcmi";
+    sha256 = "0jd4mlgmlp1a5grwb1svb9n4sm19zaazdhccyna4q3xb34mmmrr1";
   };
 
   outputs = [ "out" "man" ];
