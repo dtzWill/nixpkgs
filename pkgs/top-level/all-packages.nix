@@ -1877,6 +1877,8 @@ in
 
   linuxptp = callPackage ../os-specific/linux/linuxptp { };
 
+  lite = callPackage ../applications/editors/lite { };
+
   loadwatch = callPackage ../tools/system/loadwatch { };
 
   loccount = callPackage ../development/tools/misc/loccount { };
