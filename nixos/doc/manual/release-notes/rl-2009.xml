@@ -91,6 +91,23 @@
       The package <package>onedrive</package> needs the end user to reauthorize the client for all the accounts. Details <link xlink:href="https://github.com/abraunegg/onedrive/issues/835">here</link>.  
     </para>
    </listitem>
+   <listitem>
+     <para>
+       Add option <literal>services.nginx.enableSandbox</literal> to starting Nginx web server with additional sandbox/hardening options.
+       By default, write access to <literal>services.nginx.stateDir</literal> is allowed. To allow writing to other folders,
+       use <literal>systemd.services.nginx.serviceConfig.ReadWritePaths</literal>
+       <programlisting>
+systemd.services.nginx.serviceConfig.ReadWritePaths = [ "/var/www" ];
+       </programlisting>
+     </para>
+   </listitem>
+   <listitem>
+    <para>
+      The Nginx log directory has been moved to <literal>/var/log/nginx</literal>, the cache directory
+      to <literal>/var/cache/nginx</literal>. The option <literal>services.nginx.stateDir</literal> has
+      been removed.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
