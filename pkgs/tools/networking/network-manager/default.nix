@@ -26,7 +26,7 @@ in stdenv.mkDerivation rec {
     owner = pname;
     repo = pname;
   #  rev = "refs/tags/${version}";
-    rev = "daee41b82af023d72bbaa55ca213e31a3a43d35d";
+    rev = "";
     sha256 = "0nls60y6b5mngjdkc0nzr9axgav7f4nlvpq8wl1c5n2zb9fm055x";
   };
   #src = fetchurl {
