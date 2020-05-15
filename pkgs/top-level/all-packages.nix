@@ -18255,6 +18255,8 @@ in
 
   bb =  callPackage ../applications/misc/bb { };
 
+  berry = callPackage ../applications/window-managers/berry { };
+
   bevelbar = callPackage ../applications/window-managers/bevelbar { };
 
   bibletime = callPackage ../applications/misc/bibletime { };
@@ -19710,6 +19712,8 @@ in
 
   leftwm = callPackage ../applications/window-managers/leftwm { };
 
+  lwm = callPackage ../applications/window-managers/lwm { };
+
   musikcube = callPackage ../applications/audio/musikcube {};
 
   pinboard-notes-backup = haskell.lib.overrideCabal
@@ -19730,6 +19734,8 @@ in
   singularity = callPackage ../applications/virtualization/singularity { };
 
   spectmorph = callPackage ../applications/audio/spectmorph { };
+
+  smallwm = callPackage ../applications/window-managers/smallwm { };
 
   spectrwm = callPackage ../applications/window-managers/spectrwm { };
 
@@ -22272,6 +22278,8 @@ in
   vuze = callPackage ../applications/networking/p2p/vuze { };
 
   vwm = callPackage ../applications/window-managers/vwm { };
+
+  yeahwm = callPackage ../applications/window-managers/yeahwm { };
 
   vym = qt5.callPackage ../applications/misc/vym { };
 
