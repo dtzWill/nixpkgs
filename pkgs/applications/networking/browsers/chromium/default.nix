@@ -15,7 +15,7 @@
 , enableWideVine ? false
 , useVaapi ? false # test video on radeon, before enabling this
 , cupsSupport ? true
-, pulseSupport ? config.pulseaudio or stdenv.isLinux
+, pulseSupport ? config.pulseaudio or llvmPackages_10.stdenv.isLinux
 , commandLineArgs ? ""
 }:
 
