@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gtk3, gdk-pixbuf, librsvg, gtk-engine-murrine, hicolor-icon-theme }:
+{ stdenv, fetchFromGitHub, gdk-pixbuf, librsvg, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "canta-theme";
@@ -11,13 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "0b9ffkw611xxb2wh43sjqla195jp0ygxph5a8dvifkxdw6nxc2y0";
   };
 
-  nativeBuildInputs = [ gtk3 ];
-
   buildInputs = [ gdk-pixbuf librsvg ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine hicolor-icon-theme ];
-
-  dontDropIconThemeCache = true;
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   installPhase = ''
     patchShebangs .
@@ -25,12 +21,6 @@ stdenv.mkDerivation rec {
     name= ./install.sh -d $out/share/themes
     install -D -t $out/share/backgrounds wallpaper/canta-wallpaper.svg
     rm $out/share/themes/*/{AUTHORS,COPYING}
-
-    # icons theme too
-    mkdir -p $out/share/icons/
-    cp -ur icons/Canta $out/share/icons/
-
-    gtk-update-icon-cache $out/share/icons/Canta
   '';
 
   meta = with stdenv.lib; {
