@@ -1,4 +1,4 @@
-{ newScope, config, stdenv, llvmPackages_10,
+{ newScope, config, llvmPackages_10
 , makeWrapper, ed
 , glib, gtk3, gnome3, gsettings-desktop-schemas
 , libva ? null
