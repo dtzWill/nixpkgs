@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, gtk3, moka-icon-theme, hicolor-icon-theme }:
+{ stdenv, fetchFromGitHub, autoreconfHook, gtk3, gnome3, moka-icon-theme, gnome-icon-theme, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "arc-icon-theme";
@@ -11,9 +11,15 @@ stdenv.mkDerivation rec {
     sha256 = "1ch3hp08qri93510hypzz6m2x4xgg2h15wvnhjwh1x1s1b7jvxjd";
   };
 
-  nativeBuildInputs = [ autoreconfHook gtk3 moka-icon-theme ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gtk3
+  ];
 
   propagatedBuildInputs = [
+    moka-icon-theme
+    gnome3.adwaita-icon-theme
+    gnome-icon-theme
     hicolor-icon-theme
   ];
 

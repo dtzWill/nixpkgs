@@ -169,6 +169,8 @@ in
 
   colorz = callPackage ../tools/misc/colorz { };
 
+  cpu-x = callPackage ../applications/misc/cpu-x { };
+
   dhallToNix = callPackage ../build-support/dhall-to-nix.nix {
     inherit dhall-nix;
   };
@@ -1876,6 +1878,8 @@ in
   link-grammar = callPackage ../tools/text/link-grammar { };
 
   linuxptp = callPackage ../os-specific/linux/linuxptp { };
+
+  lite = callPackage ../applications/editors/lite { };
 
   loadwatch = callPackage ../tools/system/loadwatch { };
 
@@ -5059,6 +5063,8 @@ in
 
   minijail = callPackage ../tools/system/minijail { };
 
+  minijail-tools = python3.pkgs.callPackage ../tools/system/minijail/tools.nix { };
+
   minixml = callPackage ../development/libraries/minixml { };
 
   mir-qualia = callPackage ../tools/text/mir-qualia {
@@ -6120,10 +6126,6 @@ in
 
   reiserfsprogs = callPackage ../tools/filesystems/reiserfsprogs { };
 
-  relfs = callPackage ../tools/filesystems/relfs {
-    inherit (gnome2) gnome_vfs GConf;
-  };
-
   remarkjs = callPackage ../development/web/remarkjs { };
 
   alarm-clock-applet = callPackage ../tools/misc/alarm-clock-applet { };
@@ -6775,7 +6777,7 @@ in
 
   textadept = callPackage ../applications/editors/textadept { };
 
-  texworks = callPackage ../applications/editors/texworks { };
+  texworks = libsForQt5.callPackage ../applications/editors/texworks { };
 
   thc-hydra = callPackage ../tools/security/thc-hydra { };
 
@@ -10419,6 +10421,8 @@ in
 
   qtcreator = libsForQt5.callPackage ../development/tools/qtcreator { };
 
+  qxmledit = libsForQt5.callPackage ../applications/editors/qxmledit {} ;
+
   r10k = callPackage ../tools/system/r10k { };
 
   inherit (callPackages ../development/tools/analysis/radare2 ({
@@ -10530,7 +10534,7 @@ in
 
   smc = callPackage ../tools/misc/smc { };
 
-  snakemake = callPackage ../applications/science/misc/snakemake { python = python3Packages; };
+  snakemake = callPackage ../applications/science/misc/snakemake { };
 
   snzip = callPackage ../tools/archivers/snzip { };
 
@@ -11964,8 +11968,8 @@ in
   isocodes = callPackage ../development/libraries/iso-codes { };
 
   ispc = callPackage ../development/compilers/ispc {
-    llvmPackages = llvmPackages_8;
-    stdenv = llvmPackages_8.stdenv;
+    stdenv = llvmPackages_10.stdenv;
+    llvmPackages = llvmPackages_10;
   };
 
   isso = callPackage ../servers/isso { };
@@ -12985,10 +12989,6 @@ in
 
   libtsm = callPackage ../development/libraries/libtsm { };
 
-  libtxc_dxtn = callPackage ../development/libraries/libtxc_dxtn { };
-
-  libtxc_dxtn_s2tc = callPackage ../development/libraries/libtxc_dxtn_s2tc { };
-
   libgeotiff = callPackage ../development/libraries/libgeotiff { };
 
   libu2f-host = callPackage ../development/libraries/libu2f-host { };
@@ -13077,6 +13077,7 @@ in
   libviper = callPackage ../development/libraries/libviper { };
 
   libvpx = callPackage ../development/libraries/libvpx { };
+  libvpx_1_8 = callPackage ../development/libraries/libvpx/1_8.nix { };
 
   libvterm = callPackage ../development/libraries/libvterm { };
   libvterm-neovim = callPackage ../development/libraries/libvterm-neovim { };
@@ -16406,6 +16407,14 @@ in
     ];
   };
 
+  linux_5_6 = callPackage ../os-specific/linux/kernel/linux-5.6.nix {
+    kernelPatches = [
+      kernelPatches.bridge_stp_helper
+      kernelPatches.request_key_helper
+      kernelPatches.export_kernel_fpu_functions."5.3"
+    ];
+  };
+
   linux_testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
     kernelPatches = [
       kernelPatches.bridge_stp_helper
@@ -16590,7 +16599,7 @@ in
       virtualbox = pkgs.virtualboxHardened;
     };
 
-    wireguard = callPackage ../os-specific/linux/wireguard { };
+    wireguard = if lib.versionOlder kernel.version "5.6" then callPackage ../os-specific/linux/wireguard { } else null;
 
     x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
@@ -16611,7 +16620,7 @@ in
   linux = linuxPackages.kernel;
 
   # Update this when adding the newest kernel major version!
-  linuxPackages_latest = linuxPackages_5_5;
+  linuxPackages_latest = linuxPackages_5_6;
   linux_latest = linuxPackages_latest.kernel;
 
   # Build the kernel modules for the some of the kernels.
@@ -16626,6 +16635,7 @@ in
   linuxPackages_5_3 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_3);
   linuxPackages_5_4 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_4);
   linuxPackages_5_5 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_5);
+  linuxPackages_5_6 = recurseIntoAttrs (linuxPackagesFor pkgs.linux_5_6);
 
   # When adding to this list:
   # - Update linuxPackages_latest to the latest version
@@ -17479,6 +17489,8 @@ in
 
   gnome-breeze = callPackage ../data/themes/gnome-breeze { };
 
+  gnome-icon-theme = callPackage ../data/icons/gnome-icon-theme { };
+
   go-font = callPackage ../data/fonts/go-font { };
 
   greybird = callPackage ../data/themes/greybird { };
@@ -17499,11 +17511,15 @@ in
 
   hermit = callPackage ../data/fonts/hermit { };
 
+  humanity-icon-theme = callPackage ../data/icons/humanity-icon-theme { };
+
   hyperscrypt-font = callPackage ../data/fonts/hyperscrypt { };
 
   ia-writer-duospace = callPackage ../data/fonts/ia-writer-duospace { };
 
   ibm-plex = callPackage ../data/fonts/ibm-plex { };
+
+  iconpack-jade = callPackage ../data/icons/iconpack-jade { };
 
   iconpack-obsidian = callPackage ../data/icons/iconpack-obsidian { };
 
@@ -17511,7 +17527,9 @@ in
 
   inconsolata-lgc = callPackage ../data/fonts/inconsolata/lgc.nix {};
 
-  inconsolata-nerdfont = callPackage ../data/fonts/inconsolata-nerdfont {};
+  inconsolata-nerdfont = nerdfonts.override {
+    fonts = [ "Inconsolata" ];
+  };
 
   input-fonts = callPackage ../data/fonts/input-fonts { };
 
@@ -17547,8 +17565,6 @@ in
 
   kochi-substitute-naga10 = callPackage ../data/fonts/kochi-substitute-naga10 {};
 
-  latinmodern-math = callPackage ../data/fonts/lm-math {};
-
   lato = callPackage ../data/fonts/lato {};
 
   league-of-moveable-type = callPackage ../data/fonts/league-of-moveable-type {};
@@ -17583,7 +17599,7 @@ in
 
   libre-franklin = callPackage ../data/fonts/libre-franklin { };
 
-  lmmath = callPackage ../data/fonts/lmodern/lmmath.nix {};
+  lmmath = callPackage ../data/fonts/lmmath {};
 
   lmodern = callPackage ../data/fonts/lmodern { };
 
@@ -17751,7 +17767,8 @@ in
   polytopes_db = callPackage ../data/misc/polytopes_db { };
 
   pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
-  pop-icon-theme = callPackage ../data/icons/pop { };
+
+  pop-icon-theme = callPackage ../data/icons/pop-icon-theme { };
 
   posix_man_pages = callPackage ../data/documentation/man-pages-posix { };
 
@@ -17921,7 +17938,9 @@ in
 
   terminus_font_ttf = callPackage ../data/fonts/terminus-font-ttf { };
 
-  terminus-nerdfont = callPackage ../data/fonts/terminus-nerdfont { };
+  terminus-nerdfont = nerdfonts.override {
+    fonts = [ "Terminus" ];
+  };
 
   termtekst = callPackage ../misc/emulators/termtekst { };
 
@@ -18236,10 +18255,7 @@ in
 
   bb =  callPackage ../applications/misc/bb { };
 
-  beast = callPackage ../applications/audio/beast {
-    inherit (gnome2) libgnomecanvas libart_lgpl;
-    guile = guile_1_8;
-  };
+  berry = callPackage ../applications/window-managers/berry { };
 
   bevelbar = callPackage ../applications/window-managers/bevelbar { };
 
@@ -19696,6 +19712,10 @@ in
 
   leftwm = callPackage ../applications/window-managers/leftwm { };
 
+  lwm = callPackage ../applications/window-managers/lwm { };
+
+  musikcube = callPackage ../applications/audio/musikcube {};
+
   pinboard-notes-backup = haskell.lib.overrideCabal
     (haskell.lib.generateOptparseApplicativeCompletion "pnbackup"
       haskellPackages.pinboard-notes-backup)
@@ -19705,9 +19725,7 @@ in
       '' + (drv.postInstall or "");
     });
 
-  slack = callPackage ../applications/networking/instant-messengers/slack { nodePackages = nodePackages_10_x; };
-  slack-theme-black = callPackage ../applications/networking/instant-messengers/slack/dark-theme.nix { };
-  slack-dark = pkgs.slack.override { theme = slack-theme-black; };
+  slack = callPackage ../applications/networking/instant-messengers/slack { nodePackages = nodePackages_10_x; /* asar */ };
 
   slack-cli = callPackage ../tools/networking/slack-cli { };
 
@@ -19716,6 +19734,8 @@ in
   singularity = callPackage ../applications/virtualization/singularity { };
 
   spectmorph = callPackage ../applications/audio/spectmorph { };
+
+  smallwm = callPackage ../applications/window-managers/smallwm { };
 
   spectrwm = callPackage ../applications/window-managers/spectrwm { };
 
@@ -20204,9 +20224,7 @@ in
     portaudio = portaudio2014;
   };
 
-  lingot = callPackage ../applications/audio/lingot {
-    inherit (gnome2) libglade;
-  };
+  lingot = callPackage ../applications/audio/lingot { };
 
   linuxband = callPackage ../applications/audio/linuxband { };
 
@@ -21108,7 +21126,9 @@ in
     gtksharp = gtk-sharp-2_0;
   };
 
-  plex-media-player = libsForQt5.callPackage ../applications/video/plex-media-player { };
+  pistol = callPackage ../tools/misc/pistol { };
+
+  plex-mpv-shim = python3Packages.callPackage ../applications/video/plex-mpv-shim { };
 
   plover = recurseIntoAttrs (callPackage ../applications/misc/plover { });
 
@@ -21502,6 +21522,8 @@ in
   shadowfox = callPackage ../tools/networking/shadowfox { };
 
   shfmt = callPackage ../tools/text/shfmt { };
+
+  shortwave = callPackage ../applications/audio/shortwave { };
 
   shotgun = callPackage ../tools/graphics/shotgun {};
 
@@ -22256,6 +22278,8 @@ in
   vuze = callPackage ../applications/networking/p2p/vuze { };
 
   vwm = callPackage ../applications/window-managers/vwm { };
+
+  yeahwm = callPackage ../applications/window-managers/yeahwm { };
 
   vym = qt5.callPackage ../applications/misc/vym { };
 
@@ -24563,6 +24587,8 @@ in
 
   caneda = libsForQt5.callPackage ../applications/science/electronics/caneda { };
 
+  fparser = callPackage ../applications/science/electronics/fparser { };
+
   geda = callPackage ../applications/science/electronics/geda {
     guile = guile_2_0;
   };
@@ -25064,6 +25090,8 @@ in
   jack2Full = jack2; # TODO: move to aliases.nix
 
   keynav = callPackage ../tools/X11/keynav { };
+
+  kmon = callPackage ../tools/system/kmon { };
 
   kompose = callPackage ../applications/networking/cluster/kompose { };
 
@@ -26122,4 +26150,6 @@ in
   opentodolist = libsForQt5.callPackage ../applications/office/opentodolist {};
 
   bulk_extractor = callPackage ../tools/filesystems/bulk_extractor {};
+
+  jitsi-meet-electron = callPackage ../applications/networking/instant-messengers/jitsi-meet-electron { };
 }

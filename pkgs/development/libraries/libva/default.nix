@@ -6,14 +6,14 @@
 
 stdenv.mkDerivation rec {
   name = "libva-${lib.optionalString minimal "minimal-"}${version}";
-  version = "2.6.0.pre1";
+  version = if minimal then "2.6.0.pre1" else "2.7.0";
 
   # update libva-utils and vaapiIntel as well
   src = fetchFromGitHub {
     owner  = "01org";
     repo   = "libva";
-    rev    = if minimal then version else "09c8c2e20b7763fc44299172dbb16061b57f9c71";
-    sha256 = if minimal then "1vlvk0wyzrj2qnvkzafs78164z5dmblcw8in6wd5w9b20g62vhp5" else "0spa6j7yp58bxqfrm344y6891kvcsxzg74a9rhyfwwbw8hbj2j8p";
+    rev    = version;
+    sha256 = if minimal then "1vlvk0wyzrj2qnvkzafs78164z5dmblcw8in6wd5w9b20g62vhp5" else "0i9i9xnivii920jrcd9x34y8d245qrj5x3nbqkzkllr8zjx20vxs";
   };
 
   outputs = [ "dev" "out" ];

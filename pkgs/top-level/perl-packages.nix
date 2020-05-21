@@ -3096,6 +3096,19 @@ let
     };
   };
 
+  ConvertUU = buildPerlPackage rec {
+    pname = "Convert-UU";
+    version = "0.5201";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/A/AN/ANDK/${pname}-${version}.tar.gz";
+      sha256 = "92329ce1c32b5952c48e1223db018c8c58ceafef03bfa0fd4817cd89c355a3bd";
+    };
+    meta = {
+      description = "Perl module for uuencode and uudecode";
+      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
   constantboolean = buildPerlModule {
     pname = "constant-boolean";
     version = "0.02";
@@ -11165,6 +11178,21 @@ let
     perlPreHook = "export LD=$CC";
     meta = {
       description = "A Module::Build class for building XS modules";
+      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  ModuleCompile = buildPerlPackage rec {
+    pname = "Module-Compile";
+    version = "0.37";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/I/IN/INGY/${pname}-${version}.tar.gz";
+      sha256 = "18e6c4c4d2d5e39c21dde60a64424eed547e1d234ecc73a35278ea08161a8078";
+    };
+    propagatedBuildInputs = [ CaptureTiny DigestSHA1 ];
+    meta = {
+      homepage = "https://github.com/ingydotnet/module-compile-pm";
+      description = "Perl Module Compilation";
       license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
     };
   };

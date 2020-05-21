@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "0kmfg61v3xnf8m4m9nna28sr7hdwqbxwivc7j91zhfj2wpdswywp";
   };
 
-  configFile = optionalString (conf!=null) (builtins.toFile "nnn.h" conf);
-  preBuild = optionalString (conf!=null) "cp ${configFile} nnn.h";
+  configFile = optionalString (conf != null) (builtins.toFile "nnn.h" conf);
+  preBuild = optionalString (conf != null) "cp ${configFile} src/nnn.h";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ readline ncurses ];
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Small ncurses-based file browser forked from noice";
-    homepage = https://github.com/jarun/nnn;
+    homepage = "https://github.com/jarun/nnn";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [ jfrankenau filalex77 ];
   };
 }

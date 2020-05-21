@@ -191,6 +191,7 @@ mapAliases ({
   keybase-go = keybase;  # added 2016-08-24
   krename-qt5 = krename; # added 2017-02-18
   kvm = qemu_kvm; # added 2018-04-25
+  latinmodern-math = lmmath;
   letsencrypt = certbot; # added 2016-05-16
   libaudit = audit; # added 2018-04-25
   libcanberra_gtk2 = libcanberra-gtk2; # added 2018-02-25
@@ -214,6 +215,8 @@ mapAliases ({
   librecad2 = librecad;  # backwards compatibility alias, added 2015-10
   libsysfs = sysfsutils; # added 2018-04-25
   libtidy = html-tidy;  # added 2014-12-21
+  libtxc_dxtn = throw "removed 2020-03-16, now integrated in Mesa";
+  libtxc_dxtn_s2tc = throw "removed 2020-03-16, now integrated in Mesa";
   libudev = udev; # added 2018-04-25
   links = links2; # added 2016-01-31
   lttngTools = lttng-tools;  # added 2014-07-31
@@ -364,6 +367,7 @@ mapAliases ({
   skrooge2 = skrooge; # added 2017-02-18
   skype = skypeforlinux; # added 2017-07-27
   skydive = throw "skydive has been removed from nixpkgs (2019-09-10)";
+  slack-dark = slack; # added 2020-03-27
   slic3r-prusa3d = prusa-slicer; # added 2019-05-21
   slurm-llnl = slurm; # renamed July 2017
   slurm-llnl-full = slurm-full; # renamed July 2017

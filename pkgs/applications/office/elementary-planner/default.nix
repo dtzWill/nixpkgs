@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-planner";
-  version = "unstable-2020-03-19";
+  version = "unstable-2020-05-03";
 
   src = fetchFromGitHub {
     owner = "alainm23";
     repo = "planner";
-    rev = "b2c545003bebd541b01b2e4b14cf4df8f8a32e30";
-    sha256 = "0hafjxfhywj5my18byd0h6ib839mkjf1q43grnkj509idas0aqdq";
+    rev = "914c4e897c32d49fa7b7e054f00b98616b8b3950";
+    sha256 = "0gi4gbchvymcfy356v69v6ys3632pingzslppf0bib4y20gdhwij";
   };
 
   nativeBuildInputs = [
@@ -46,10 +46,6 @@ stdenv.mkDerivation rec {
     pantheon.granite
     webkitgtk
     pantheon.elementary-icon-theme
-  ];
-
-  patches = [
-    ./dont-force-elementary-themes.patch
   ];
 
   postPatch = ''

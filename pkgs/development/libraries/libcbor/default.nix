@@ -16,7 +16,9 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # needs "-DWITH_TESTS=ON", but fails w/compilation error
 
-  NIX_CFLAGS_COMPILE = [ "-fno-lto" ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+
+  NIX_CFLAGS_COMPILE = "-fno-lto";
 
   meta = with stdenv.lib; {
     description = "CBOR protocol implementation for C and others";

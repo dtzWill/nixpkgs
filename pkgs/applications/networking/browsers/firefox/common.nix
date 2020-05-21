@@ -7,7 +7,8 @@
 , libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
 , freetype, fontconfig, file, nspr, nss, libnotify
 , yasm, libGLU, libGL, sqlite, unzip, makeWrapper
-, hunspell, libXdamage, libevent, libstartup_notification, libwebp
+, hunspell, libXdamage, libevent, libstartup_notification
+, libvpx, libvpx_1_8
 , icu, libpng, jemalloc, glib
 , autoconf213, which, gnused, cargo, rustc, llvmPackages
 , rust-cbindgen, nodejs, nasm, fetchpatch
@@ -121,8 +122,8 @@ stdenv.mkDerivation ({
     xorg.libX11 xorg.libXrender xorg.libXft xorg.libXt file
     libnotify xorg.pixman yasm libGLU libGL
     xorg.libXScrnSaver xorg.xorgproto
-    xorg.libXext sqlite
-    libevent libstartup_notification libwebp
+    xorg.libXext unzip makeWrapper
+    libevent libstartup_notification /* cairo */
     icu libpng jemalloc glib
     nasm
     # >= 66 requires nasm for the AV1 lib dav1d
@@ -131,7 +132,8 @@ stdenv.mkDerivation ({
     # https://groups.google.com/forum/#!msg/mozilla.dev.platform/o-8levmLU80/SM_zQvfzCQAJ
     nspr nss
   ]
-
+  ++ lib.optionals  (lib.versionOlder ffversion "75") [ libvpx sqlite ]
+  ++ lib.optional  (lib.versionAtLeast ffversion "75.0") libvpx_1_8
   ++ lib.optional  alsaSupport alsaLib
   ++ lib.optional  pulseaudioSupport libpulseaudio # only headers are needed
   ++ lib.optional  gtk3Support gtk3
@@ -193,7 +195,7 @@ stdenv.mkDerivation ({
       $(< ${stdenv.cc}/nix-support/cc-cflags) \
       ${stdenv.cc.default_cxx_stdlib_compile} \
       ${lib.optionalString stdenv.cc.isClang "-idirafter ${stdenv.cc.cc}/lib/clang/${lib.getVersion stdenv.cc.cc}/include"} \
-      ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/$(cc -dumpmachine)"} \
+      ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config}"} \
       $NIX_CFLAGS_COMPILE"
 
     echo "ac_add_options BINDGEN_CFLAGS='$BINDGEN_CFLAGS'" >> $MOZCONFIG
@@ -222,7 +224,6 @@ stdenv.mkDerivation ({
     "--with-system-webp"
     "--enable-system-ffi"
     "--enable-system-pixman"
-    "--enable-system-sqlite"
     #"--enable-system-cairo"
     "--enable-startup-notification"
     #"--enable-content-sandbox" # 72: flag not recognized
@@ -237,6 +238,7 @@ stdenv.mkDerivation ({
     "--with-system-nspr"
     "--with-system-nss"
   ]
+  ++ lib.optional (lib.versionOlder ffversion "75") "--enable-system-sqlite"
   ++ lib.optional (stdenv.isDarwin) "--disable-xcode-checks"
   ++ lib.optionals (lib.versionOlder ffversion "69") [
     "--enable-webrender=build"

@@ -7,23 +7,20 @@
 
 stdenv.mkDerivation rec {
   pname = "ell";
-  #version = "0.28";
-  version = "unstable-2020-03-12";
+  #version = "0.31";
+  version = "unstable-2020-04-30";
 
   outputs = [ "out" "dev" ];
 
   src = fetchgit {
      url = "https://git.kernel.org/pub/scm/libs/${pname}/${pname}.git";
      #rev = version;
-     rev = "95d17688075bb7a149bf770ff515f8a887003a28";
-     sha256 = "0xysvhdkd7p9vlnpg7ma7mnjs62ixj4a569jqci0q1k5fpps59hq";
+     rev = "87516f3e469c9e2fd34aab9363989946692081e6";
+     sha256 = "1fp2gqbka0lg70qjacnddnqyx81cr3a7q9hbbcilw00a65vaw3j0";
   };
 
   patches = [
     ./fix-dbus-tests.patch
-    ./export-rtnl.patch
-    ./regen-sym-for-rtnl.patch
-    ./and-ascii_table.patch
   ];
 
   nativeBuildInputs = [

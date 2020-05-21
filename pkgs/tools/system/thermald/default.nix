@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "thermald";
-  version = "unstable-2020-02-02";
+  version = "2.1";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "thermal_daemon";
-    rev = "c4a004ff2e3848093c6eca9751c2d84931cba9f3";
-    sha256 = "07qbbpn0zw9rpfdajp8lm491dn3z3xixbi8nhnhiszrlk0nkh3yb";
+    rev = "v${version}";
+    sha256 = "1k8svy03k57ld6p5d29i0ccrd1gics6kbyx1bkfmw9fh1bbljyf7";
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook autoconf-archive makeWrapper ];
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--with-dbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
     "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    ];
+  ];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -34,6 +34,8 @@ stdenv.mkDerivation rec {
 
     patchShebangs $out/bin/thermald_set_pref.sh
     wrapProgram $out/bin/thermald_set_pref.sh --prefix PATH ':' ${stdenv.lib.makeBinPath [ dbus ]}
+
+    cp ./data/thermal-conf.xml $out/etc/thermald/
   '';
 
   meta = with stdenv.lib; {

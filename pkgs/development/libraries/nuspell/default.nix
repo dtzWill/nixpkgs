@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, cmake, pkgconfig, boost, icu, catch2, ronn }:
 
 stdenv.mkDerivation rec {
-  name = "nuspell-${version}";
-  version = "2.3.0";
+  pname = "nuspell";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "nuspell";
     repo = "nuspell";
     rev = "v${version}";
-    sha256 = "0n5cajrp1fhk8p54ch3akkd9nl8b9c6wwf25980dhagcdys3vab3";
+    sha256 = "19mwjg5mz645i4ijhx93rqbcim14ca6nczymr20p0z0pn5mx5p18";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ronn ];

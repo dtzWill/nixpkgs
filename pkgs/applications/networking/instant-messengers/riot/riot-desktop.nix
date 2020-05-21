@@ -6,12 +6,12 @@
 
 let
   executableName = "riot-desktop";
-  version = "1.5.12";
+  version = "1.5.14";
   riot-web-src = fetchFromGitHub {
     owner = "vector-im";
     repo = "riot-web";
     rev = "v${version}";
-    sha256 = "1qz3n2dlklhbi6rbhv2v769xbr4rcp9s6pm2cc9r33ak6axn4aym";
+    sha256 = "0dkji5rgiakdzcba2v104hhvbw9j98ik95vzwcckksja79zfjmww";
   };
 
 in mkYarnPackage rec {
@@ -69,7 +69,7 @@ in mkYarnPackage rec {
     comment = meta.description;
     categories = "Network;InstantMessaging;Chat;";
     extraEntries = ''
-      StartupWMClass="riot"
+      StartupWMClass=riot
     '';
   };
 

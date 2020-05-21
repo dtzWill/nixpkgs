@@ -1,8 +1,10 @@
 { lib, fetchzip }:
 
-let version = "1.002"; in
-fetchzip {
-  name = "junicode-${version}";
+let
+  pname = "junicode";
+  version = "1.002";
+in fetchzip {
+  name = "${pname}-${version}";
 
   url = "mirror://sourceforge/junicode/junicode/junicode-${version}/junicode-${version}.zip";
 
@@ -16,6 +18,7 @@ fetchzip {
   meta = {
     homepage = http://junicode.sourceforge.net/;
     description = "A Unicode font for medievalists";
-    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ ivan-timokhin ];
+    license = lib.licenses.ofl;
   };
 }

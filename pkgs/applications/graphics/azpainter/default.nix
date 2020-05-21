@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook
+{ stdenv, fetchFromGitHub
 , libX11, libXext, libXi
 , freetype, fontconfig
 , libpng, libjpeg
@@ -7,16 +7,14 @@
 
 stdenv.mkDerivation rec {
   pname = "azpainter";
-  version = "2.1.5";
+  version = "2.1.6";
 
   src = fetchFromGitHub {
     owner = "Symbian9";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "0x5jmsprjissqcvwq75pqq9wgv4k9b7cy507hai8xk6xs3vxwgba";
+    sha256 = "0i5g67s4ysnvbaxmi7dhan0hfcfk8an14xykkafl47pqfx33npva";
   };
-
-  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = [
     libX11 libXext libXi
