@@ -16,10 +16,11 @@ callPackage ../nginx/generic.nix args rec {
     sha256 = "05jxrb8hv758nm38jil8n63q1nhrz3d249bsrwc7maa7sn24wss3";
   };
 
-  fixPatch = patch:
-    runCommand "openresty-${patch.name}" { src = patch; } ''
+  fixPatch = patch: let name = patch.name or (builtins.baseNameOf patch); in
+    runCommand "openresty-${name}" { src = patch; } ''
       substitute $src $out \
-        --replace "src/" "bundle/nginx-${nginxVersion}/src/"
+        --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
+        --replace "b/" "b/bundle/nginx-${nginxVersion}/"
     '';
 
   buildInputs = [ postgresql ];
