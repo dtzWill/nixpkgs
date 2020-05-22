@@ -9356,8 +9356,12 @@ in
 
   pipenv = python3Packages.callPackage ../development/tools/pipenv {};
 
-  pipewire = callPackage ../development/libraries/pipewire {};
+  pipewire_0_3 = callPackage ../development/libraries/pipewire {};
   pipewire_0_2 = callPackage ../development/libraries/pipewire/2.nix {};
+
+  # XXX: default in nixpkgs/master is 0.3, but use 0.2 for now
+  # (master has newer gnome bits, mutter needs 0.2 here)
+  pipewire = pipewire_0_2;
 
   pyrex = pyrex095;
 
