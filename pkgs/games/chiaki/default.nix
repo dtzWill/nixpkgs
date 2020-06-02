@@ -6,14 +6,14 @@
 
 mkDerivation rec {
   pname = "chiaki";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     rev = "v${version}";
     owner = "thestr4ng3r";
     repo = "chiaki";
     fetchSubmodules = true;
-    sha256 = "18bhmlgxnfwv80cybsw0rngf8mp5wfhdpbz0i84xp2y66cm7bj1k";
+    sha256 = "00lzsbjd1w1bhlblgf7zp112sk8ac09c3bzi5ljxbn02mi0an3qp";
   };
 
   nativeBuildInputs = [
