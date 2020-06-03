@@ -16471,7 +16471,7 @@ in
       llvmPackages = llvmPackages_9;
     };
 
-    bpftrace = callPackage ../os-specific/linux/bpftrace { llvmPackages = llvmPackageS_9; };
+    bpftrace = callPackage ../os-specific/linux/bpftrace { llvmPackages = llvmPackages_9; };
 
     bbswitch = callPackage ../os-specific/linux/bbswitch {};
 
