@@ -10246,7 +10246,7 @@ in
 
   linuxkit = callPackage ../development/tools/misc/linuxkit { };
 
-  lit = callPackage ../development/tools/misc/lit { python = python3; };
+  lit = callPackage ../development/tools/misc/lit { };
 
   litecli = callPackage ../development/tools/database/litecli {};
 
