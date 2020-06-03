@@ -16468,6 +16468,7 @@ in
 
     bcc = callPackage ../os-specific/linux/bcc {
       python = python3;
+      llvmPackages = llvmPackages_9;
     };
 
     bpftrace = callPackage ../os-specific/linux/bpftrace { };
