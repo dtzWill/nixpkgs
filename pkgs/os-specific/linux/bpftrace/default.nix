@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "bpftrace";
-  version = "0.9.4";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner  = "iovisor";
     repo   = pname;
     rev    = "refs/tags/v${version}";
-    sha256 = "00fvkq3razwacnpb82zkpv63dgyigbqx3gj6g0ka94nwa74i5i77";
+    sha256 = "023ardywbw5w8815j2ny9rrp2xlpxndqaa7v2njjm8109p7ilsdn";
   };
 
   enableParallelBuilding = true;
