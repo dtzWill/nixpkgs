@@ -8541,7 +8541,7 @@ in
   llvm_6  = llvmPackages_6.llvm;
   llvm_5  = llvmPackages_5.llvm;
 
-  llvmPackages = recurseIntoAttrs llvmPackages_10;
+  llvmPackages = recurseIntoAttrs llvmPackages_9;
 
   llvmPackages_5 = callPackage ../development/compilers/llvm/5 ({
     inherit (stdenvAdapters) overrideCC;
@@ -8593,7 +8593,7 @@ in
     stdenv = gcc7Stdenv;
   });
 
-  llvmPackages_latest = llvmPackages_10;
+  llvmPackages_latest = llvmPackages_9;
 
   lorri = callPackage ../tools/misc/lorri {
     inherit (darwin) cf-private;
