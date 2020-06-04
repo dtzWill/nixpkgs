@@ -8585,11 +8585,13 @@ in
     stdenv = gcc6Stdenv; # with gcc-7: undefined reference to `__divmoddi4'
   });
 
-  llvmPackages_10 = callPackage ../development/compilers/llvm/10 {
+  llvmPackages_10 = callPackage ../development/compilers/llvm/10 ({
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_10.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_10.libraries;
-  };
+  } // stdenv.lib.optionalAttrs (stdenv.hostPlatform.isi686 && buildPackages.stdenv.cc.isGNU) {
+    stdenv = gcc7Stdenv;
+  });
 
   llvmPackages_latest = llvmPackages_10;
 
