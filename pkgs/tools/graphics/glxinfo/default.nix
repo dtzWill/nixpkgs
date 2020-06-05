@@ -13,6 +13,13 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
+  patches = [
+    (fetchurl {
+      url = "http://deb.debian.org/debian/pool/main/m/mesa-demos/mesa-demos_8.4.0-1.diff.gz";
+      sha256 = "1n4kiarci2802i6xc4pjifn8scsixbzfpyjs690nmnfz9fl4476d";
+    })
+  ];
+
   buildPhase = "
     $CC src/xdemos/{glxinfo.c,glinfo_common.c} -o glxinfo -lGL -lX11
     $CC src/xdemos/glxgears.c -o glxgears -lGL -lX11 -lm
