@@ -21,23 +21,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ intltool makeWrapper pkgconfig ];
   buildInputs = [ curl gtk3 ];
 
-  patches = [ (builtins.toFile "format-string" ''
-    Index: src/top10.c
-    ===================================================================
-    diff --git a/src/top10.c b/src/top10.c
-    --- a/src/top10.c	(revision 105)
-    +++ b/src/top10.c	(working copy)
-    @@ -845,7 +845,7 @@
-     		curl_easy_setopt (curl, CURLOPT_WRITEDATA, fh);
-     		curl_easy_setopt (curl, CURLOPT_SSL_VERIFYPEER, 0L);
-     		fail = curl_easy_perform (curl);
-    -		if (fail) g_message (curl_easy_strerror (fail));
-    +		if (fail) g_message ("error in download: %s", curl_easy_strerror (fail));
-     		fclose (fh);
-     	}
-     	curl_easy_cleanup (curl);
-  '') ];
-
   # Ensure dictation mode is available if desired.  As it's enabled by default
   # letting users desiring to opt-out use settings menu instead of build flag.
   # Happy to change if that's preferred :).
