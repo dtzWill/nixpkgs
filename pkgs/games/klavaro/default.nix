@@ -6,6 +6,7 @@
 , gtk3
 , intltool
 , pkgconfig
+, espeak
 }:
 
 stdenv.mkDerivation rec {
