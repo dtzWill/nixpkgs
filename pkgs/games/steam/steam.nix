@@ -27,7 +27,7 @@ in stdenv.mkDerivation {
       chmod +x $out/bin/steamdeps
     ''}
     install -d $out/lib/udev/rules.d
-    install -m644 lib/udev/rules.d/*.rules $out/lib/udev/rules.d
+    install -m644 subprojects/steam-devices/*.rules $out/lib/udev/rules.d
   '';
 
   meta = with stdenv.lib; {
