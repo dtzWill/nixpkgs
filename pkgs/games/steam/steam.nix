@@ -13,7 +13,7 @@ in stdenv.mkDerivation {
     sha256 = "1pw8ypsiv1wirn5mwh4b1s6v7yg5gdi1pysiwqaq3vxkg5rzzjw3";
   };
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     rm $out/bin/steamdeps
