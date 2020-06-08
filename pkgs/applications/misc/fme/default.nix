@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, autoconf, automake, gettext
 , fluxbox, bc, gtkmm2, glibmm, libglademm, libsigcxx }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "fme-${version}";
   version = "1.1.3";

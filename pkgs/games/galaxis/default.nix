@@ -1,7 +1,7 @@
 { stdenv, fetchurl, ncurses, xmlto }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "galaxis-${version}";
   version = "1.10";

@@ -3,7 +3,7 @@
 , withGui }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = if withGui then "bitcoin" else "bitcoind";
   version = "0.20.0";
 

@@ -3,7 +3,7 @@
 , perlPackages, python3 }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "freecell-solver-${version}";
   version = "4.18.0";

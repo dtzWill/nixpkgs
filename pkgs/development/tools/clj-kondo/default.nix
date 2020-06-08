@@ -1,6 +1,6 @@
 { stdenv, lib, graalvm8, fetchurl }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "clj-kondo";
   version = "2019.10.26";
 

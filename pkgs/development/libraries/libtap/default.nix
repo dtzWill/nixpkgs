@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, cmake, perl }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "libtap-${version}";
   version = "1.12.0";

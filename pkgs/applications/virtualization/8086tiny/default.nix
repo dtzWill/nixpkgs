@@ -4,7 +4,7 @@
 
 assert sdlSupport -> (SDL != null);
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "8086tiny-${version}";
   version = "1.25";

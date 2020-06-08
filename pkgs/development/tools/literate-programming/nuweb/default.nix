@@ -1,6 +1,6 @@
 {stdenv, fetchurl, tex}:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "nuweb-${version}";
   version = "1.58";

@@ -3,7 +3,7 @@
 , ed, glibc
 }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "netatalk-3.1.12";
 
   src = fetchurl {
