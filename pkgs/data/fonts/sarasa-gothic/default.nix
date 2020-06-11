@@ -1,18 +1,19 @@
-{ lib, fetchurl, p7zip }:
+{ lib, fetchurl, libarchive }:
 
 let
-  version = "0.12.3";
+  version = "0.12.6";
 in fetchurl rec {
   name = "sarasa-gothic-${version}";
 
   url = "https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z";
-  sha256 = "0dlpl3rmarpv0950g3gm4869lnrddbjck1fbl0gznxlf19ids4l5";
+  sha256 = "1b15gsmv2jr0r8xssr8216s8xsghr6w5wm3w3imm3qlh3kqk1qg8";
 
   recursiveHash = true;
   downloadToTemp = true;
 
   postFetch = ''
-    ${p7zip}/bin/7z x $downloadedFile -o$out/share/fonts
+    mkdir -p $out/share/fonts
+    ${libarchive}/bin/bsdtar -xf $downloadedFile -C $out/share/fonts
   '';
 
   meta = with lib; {

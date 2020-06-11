@@ -3,16 +3,16 @@
 , withGui }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = if withGui then "bitcoin" else "bitcoind";
-  version = "0.19.1";
+  version = "0.20.0";
 
   src = fetchurl {
     urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
              "https://bitcoin.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
              #"https://github.com/bitcoin/bitcoin/archive/v${version}.tar.gz"
            ];
-    sha256 = "1h3w7brc18145np920vy7j5ms5hym59hvr40swdjx34fbdaisngj";
+    sha256 = "0a7vbv2cb0yhc8sp22jygp2n7w0zcgnw6kyw2m8q93c6xrc26npc";
   };
 
   nativeBuildInputs =

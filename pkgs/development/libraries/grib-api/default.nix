@@ -2,7 +2,7 @@
   cmake, netcdf, gfortran, jasper, libpng,
   enablePython ? false, pythonPackages }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "grib-api-${version}";
   version = "1.28.0";
 

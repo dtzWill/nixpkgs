@@ -1,6 +1,6 @@
 { stdenv, fetchurl, fetchpatch, pkgconfig, autoreconfHook, doxygen }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "libqb";
   version = "1.0.5";
 

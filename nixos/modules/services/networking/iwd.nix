@@ -121,7 +121,7 @@ in {
             # desired. The default is 1.0, which does not affect the calculated ranking.
             #
             #rank_5g_factor = "1.0"; # XXX: why aren't floats/doubles handled automatically?
-            BandModifier5Ghz = "3.0";
+            BandModifier5Ghz = "1.0";
           };
         };
         description = "settings to write to /etc/iwd/main.conf";

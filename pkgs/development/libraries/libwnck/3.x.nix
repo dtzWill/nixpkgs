@@ -19,7 +19,7 @@
 , gnome3
 }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "libwnck";
   version = "3.32.0";
 

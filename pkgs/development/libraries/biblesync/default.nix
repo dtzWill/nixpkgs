@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, cmake, libuuid }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "biblesync-${version}";
   version = "1.1.2";

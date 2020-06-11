@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "go-chromecast";
-  version = "0.0.15";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "vishen";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "0s3ylx6sq8fy9pfzpcs00qqv6hw8mfrsvpg7hnc82fk36gn07ih0";
+    sha256 = "13zb1vppn2i1p5in61rn546ad2246v1y4w664fkjs9jvd4yl5bw6";
   };
-  modSha256 = "09cxgjz3hm900rgckhnlm6riqywgvr9j7c0pnxl888d8sffhjk6f";
+  modSha256 = "04d5v45jq4ixmr9p241aq7ghwh1cvqbh80f3hk0055w76rchw9v1";
 
   patches = [ ./mkv.patch ];
 

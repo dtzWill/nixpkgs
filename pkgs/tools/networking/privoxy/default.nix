@@ -1,6 +1,6 @@
 { stdenv, fetchurl, autoreconfHook, zlib, pcre, w3m, man }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "privoxy-${version}";
   version = "3.0.28";
