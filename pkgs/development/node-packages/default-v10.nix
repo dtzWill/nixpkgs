@@ -24,13 +24,6 @@ nodePackages // {
     buildInputs = [ nodePackages.node-gyp-build pkgs.libtool pkgs.autoconf pkgs.automake ];
   };
 
-  dnschain = nodePackages.dnschain.override {
-    buildInputs = [ pkgs.makeWrapper nodePackages.coffee-script ];
-    postInstall = ''
-      wrapProgram $out/bin/dnschain --suffix PATH : ${pkgs.openssl.bin}/bin
-    '';
-  };
-
   ios-deploy = nodePackages.ios-deploy.override (drv: {
     nativeBuildInputs = drv.nativeBuildInputs or [] ++ [ pkgs.buildPackages.rsync ];
     preRebuild = ''
