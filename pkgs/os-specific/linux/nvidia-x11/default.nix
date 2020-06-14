@@ -26,6 +26,14 @@ rec {
       sha256_64bit = "13km9800skyraa0s312fc4hwyw5pzb0jfkrv1yg6anppyan1bm7d";
       settingsSha256 = "15psxvd65wi6hmxmd2vvsp2v0m07axw613hb355nh15r1dpkr3ma";
       persistencedSha256 = "13izz9p2kg9g38gf57g3s2sw7wshp1i9m5pzljh9v82c4c22x1fw";
+      patches = [
+        # https://gitlab.com/snippets/1945940
+        (fetchpatch {
+          name = "kernel-5.7-440.82.patch";
+          url = "https://gitlab.com/snippets/1965550/raw";
+          sha256 = "03iwxhkajk65phc0h5j7v4gr4fjj6mhxdn04pa57am5qax8i2g9w";
+        })
+      ];
     }
     else legacy_390;
 
