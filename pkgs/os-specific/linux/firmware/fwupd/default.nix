@@ -87,13 +87,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "fwupd";
-  version = "unstable-2019-03-23";
+  version = "1.4.4";
 
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "5f3a2c0bc1fe0e48657e717aa1971dd680e05fa8";
-    sha256 = "02hjqdzl0nhy9l3709srikzx15gmlclq1vbf9n6jazr7175d2gvy";
+  src = fetchurl {
+    url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
+    sha256 = "03yn96kxs53vxcbza17y99rdhbjlybv44gkc90vaj6301grxahnp";
   };
   #src = fetchurl {
   #  url = "https://people.freedesktop.org/~hughsient/releases/fwupd-${version}.tar.xz";
