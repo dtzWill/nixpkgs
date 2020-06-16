@@ -27,7 +27,7 @@ with stdenv.lib;
 
 stdenv.mkDerivation {
   name = "${pname}-unwrapped-${version}";
-  inherit pname version;
+  inherit version;
 
   src = fetchurl {
     url = "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
