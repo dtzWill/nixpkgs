@@ -8,6 +8,9 @@
 , kerberos
 , libdrm, mesa
 
+# Command line programs
+, coreutils
+
 # command line arguments which are always set e.g "--disable-gpu"
 , commandLineArgs ? ""
 
@@ -59,7 +62,7 @@ let
     liberation_ttf curl utillinux xdg_utils wget
     flac harfbuzz icu libpng opusWithCustomModes snappy speechd
     bzip2 libcap at-spi2-atk at-spi2-core
-    kerberos libdrm mesa
+    kerberos libdrm mesa coreutils
   ] ++ optional pulseSupport libpulseaudio
     ++ [ gtk ];
 
