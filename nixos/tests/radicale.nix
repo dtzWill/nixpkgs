@@ -14,9 +14,6 @@ let
 
         [storage]
         filesystem_folder = /tmp/collections
-
-        [logging]
-        debug = True
       '';
     };
     # WARNING: DON'T DO THIS IN PRODUCTION!
@@ -49,12 +46,17 @@ in
         services.radicale.extraArgs = [
           "--export-storage" "/tmp/collections-new"
         ];
+        system.stateVersion = "17.03";
       };
       radicale2_verify = lib.recursiveUpdate radicale2 {
-        services.radicale.extraArgs = [ "--verify-storage" ];
+        services.radicale.extraArgs = [ "--debug" "--verify-storage" ];
+        system.stateVersion = "17.09";
       };
       radicale2 = lib.recursiveUpdate (common args) {
         system.stateVersion = "17.09";
+      };
+      radicale3 = lib.recursiveUpdate (common args) {
+        system.stateVersion = "20.09";
       };
     };
 
@@ -93,14 +95,52 @@ in
         die "storage verification failed"
       }
 
-      # Check Radicale 2 functionality
-      $radicale->succeed('${switchToConfig "radicale2"} >&2');
-      $radicale->waitForUnit('radicale.service');
-      $radicale->waitForOpenPort(${port});
-      my ($retcode, $output) = $radicale->execute('curl --fail http://${user}:${password}@localhost:${port}/someuser/calendar.ics/');
-      if ($retcode != 0 || index($output, 'VCALENDAR') == -1) {
-        die "Could not read calendar from Radicale 2"
-      }
-      $radicale->succeed('curl --fail http://${user}:${password}@localhost:${port}/.web/');
+      with subtest("Verify data in Radicale 2 format"):
+          radicale.succeed("rm -r /tmp/collections/${user}")
+          radicale.succeed("mv /tmp/collections-new/collection-root /tmp/collections")
+          radicale.succeed(
+              "${switchToConfig "radicale2_verify"} >&2"
+          )
+          radicale.wait_until_fails("systemctl status radicale")
+
+          (retcode, logs) = radicale.execute("journalctl -u radicale -n 10")
+          assert (
+              retcode == 0 and "Verifying storage" in logs
+          ), "Radicale 2 didn't verify storage"
+          assert (
+              "failed" not in logs and "exception" not in logs
+          ), "storage verification failed"
+
+      with subtest("Check Radicale 2 functionality"):
+          radicale.succeed(
+              "${switchToConfig "radicale2"} >&2"
+          )
+          radicale.wait_for_unit("radicale.service")
+          radicale.wait_for_open_port(${port})
+
+          (retcode, output) = radicale.execute(
+              "curl --fail http://${user}:${password}@localhost:${port}/someuser/calendar.ics/"
+          )
+          assert (
+              retcode == 0 and "VCALENDAR" in output
+          ), "Could not read calendar from Radicale 2"
+
+          radicale.succeed("curl --fail http://${user}:${password}@localhost:${port}/.web/")
+
+      with subtest("Check Radicale 3 functionality"):
+          radicale.succeed(
+              "${switchToConfig "radicale3"} >&2"
+          )
+          radicale.wait_for_unit("radicale.service")
+          radicale.wait_for_open_port(${port})
+
+          (retcode, output) = radicale.execute(
+              "curl --fail http://${user}:${password}@localhost:${port}/someuser/calendar.ics/"
+          )
+          assert (
+              retcode == 0 and "VCALENDAR" in output
+          ), "Could not read calendar from Radicale 3"
+
+          radicale.succeed("curl --fail http://${user}:${password}@localhost:${port}/.web/")
     '';
 })
