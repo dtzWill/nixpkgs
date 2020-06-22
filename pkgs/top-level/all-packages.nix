@@ -18233,6 +18233,8 @@ in
 
   autotrace = callPackage ../applications/graphics/autotrace {};
 
+  av-98 = callPackage ../applications/networking/browsers/av-98 { };
+
   avocode = callPackage ../applications/graphics/avocode {};
 
   azpainter = callPackage ../applications/graphics/azpainter { };
