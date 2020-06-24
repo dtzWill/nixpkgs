@@ -26,20 +26,20 @@
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";
-  # version = "1.16.0";
-  version = "unstable-2020-02-14";
+   version = "1.18.0";
+  #version = "unstable-2020-02-14";
 
-  #src = fetchurl {
-  #  url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-  #  sha256 = "1rf3nm0hjcy9f8ajb4vmvwy503w8yj8d4daxkcb7w7i7b92qmyfn";
-  #};
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "GNOME";
-    repo = pname;
-    rev = "0b58efdd2e5aab68843cd354d921580bc3b5b514";
-    sha256 = "1xal5n05k3nal951irdjb26i8zc01x43yfhr83kxwnfj1zmfy7ic";
+  src = fetchurl {
+    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "12xiy8g8qk18jvxvn78mvq03zvzp06bww49na765jjw0rq541fyx";
   };
+  #src = fetchFromGitLab {
+  #  domain = "gitlab.gnome.org";
+  #  owner = "GNOME";
+  #  repo = pname;
+  #  rev = "0b58efdd2e5aab68843cd354d921580bc3b5b514";
+  #  sha256 = "1xal5n05k3nal951irdjb26i8zc01x43yfhr83kxwnfj1zmfy7ic";
+  #};
 
   mesonFlags = [
     "-Dselinux=false"
