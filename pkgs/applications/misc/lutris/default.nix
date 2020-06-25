@@ -1,9 +1,42 @@
 { buildPythonApplication, lib, fetchFromGitHub, fetchpatch
-, wrapGAppsHook, gobject-introspection, glib-networking, gnome-desktop, libnotify, libgnome-keyring, pango
-, gdk-pixbuf, atk, webkitgtk, gst_all_1
-, dbus-python, evdev, pyyaml, pygobject3, requests, pillow
-, xrandr, pciutils, psmisc, glxinfo, vulkan-tools, xboxdrv, pulseaudio, p7zip, xgamma
-, libstrangle, wine, fluidsynth, xorgserver
+
+# build inputs
+, atk
+, gdk-pixbuf
+, glib-networking
+, gnome-desktop
+, gobject-introspection
+, gst_all_1
+, gtk3
+, libgnome-keyring
+, libnotify
+, pango
+, webkitgtk
+, wrapGAppsHook
+
+# python dependencies
+, dbus-python
+, distro
+, evdev
+, pillow
+, pygobject3
+, pyyaml
+, requests
+
+# commands that lutris needs
+, xrandr
+, pciutils
+, psmisc
+, glxinfo
+, vulkan-tools
+, xboxdrv
+, pulseaudio
+, p7zip
+, xgamma
+, libstrangle
+, wine
+, fluidsynth
+, xorgserver
 }:
 
 let
@@ -25,8 +58,12 @@ let
   ];
 
   gstDeps = with gst_all_1; [
-    gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly
     gst-libav
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
   ];
 
 in buildPythonApplication rec {
@@ -42,17 +79,31 @@ in buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
   buildInputs = [
-    gobject-introspection glib-networking gnome-desktop libnotify libgnome-keyring pango
-    gdk-pixbuf atk webkitgtk
+    atk
+    gdk-pixbuf
+    glib-networking
+    gnome-desktop
+    gobject-introspection
+    gtk3
+    libgnome-keyring
+    libnotify
+    pango
+    webkitgtk
   ] ++ gstDeps;
 
-  makeWrapperArgs = [
-    "--prefix PATH : ${binPath}"
+  propagatedBuildInputs = [
+    evdev distro pyyaml pygobject3 requests pillow dbus-python
   ];
 
-  propagatedBuildInputs = [
-    evdev pyyaml pygobject3 requests pillow dbus-python
+  # avoid double wrapping
+  dontWrapGApps = true;
+  makeWrapperArgs = [
+    "--prefix PATH : ${binPath}"
+    ''''${gappsWrapperArgs[@]}''
   ];
+  # needed for glib-schemas to work correctly (will crash on dialogues otherwise)
+  # see https://github.com/NixOS/nixpkgs/issues/56943
+  strictDeps = false;
 
   preCheck = "export HOME=$PWD";
 
