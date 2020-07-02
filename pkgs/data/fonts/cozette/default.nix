@@ -1,52 +1,24 @@
-{ stdenv, fetchurl, mkfontscale }:
+{ lib, fetchzip }:
 
 let
-  version = "1.8.2";
-  releaseUrl =
-    "https://github.com/slavfox/Cozette/releases/download/v.${version}";
-in stdenv.mkDerivation rec {
-  pname = "Cozette";
-  inherit version;
+  version = "1.8.3";
+in
+fetchzip rec {
+  name = "Cozette-${version}";
 
-  # TODO: font files are available together in release now, as of 1.8.1
-  srcs = map fetchurl [
-    {
-      url = "${releaseUrl}/cozette.otb";
-      sha256 = "0prmbqls2vz2xm5zq64kgvksbwh49a2r2kx5zdc20y5g3cbp6986";
-    }
-    {
-      url = "${releaseUrl}/CozetteVector.otf";
-      sha256 = "160ij61j0xig8q41a10432iabfwhgbp50gakh995mjnlvj6zasqw";
-    }
-    {
-      url = "${releaseUrl}/CozetteVector.ttf";
-      sha256 = "1z1fm1wr7sy0pvkx3hl3q9m0djvd4x9drkpp0y4d87x2cp78b2bc";
-    }
-  ];
+  url = "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip";
 
-  nativeBuildInputs = [ mkfontscale ];
+  sha256 = "1nc4zk6n7cbv9vwlhpm3ady5lc4d4ic1klyywwfg27w8j0jv57hx";
 
-  sourceRoot = "./";
-
-  unpackCmd = ''
-    otName=$(stripHash "$curSrc")
-    cp $curSrc ./$otName
+  postFetch = ''
+    mkdir -p $out/share/fonts
+    unzip -j $downloadedFile \*.ttf -d $out/share/fonts/truetype
+    unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+    unzip -j $downloadedFile \*.bdf -d $out/share/fonts/misc
+    unzip -j $downloadedFile \*.otb -d $out/share/fonts/misc
   '';
 
-  installPhase = ''
-
-    install -D -m 644 *.otf -t "$out/share/fonts/opentype"
-    install -D -m 644 *.ttf -t "$out/share/fonts/truetype"
-    install -D -m 644 *.otb -t "$out/share/fonts/misc"
-
-    mkfontdir "$out/share/fonts/misc"
-    mkfontscale "$out/share/fonts/truetype"
-    mkfontscale "$out/share/fonts/opentype"
-  '';
-
-  outputs = [ "out" ];
-
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A bitmap programming font optimized for coziness.";
     homepage = "https://github.com/slavfox/cozette";
     license = licenses.mit;
