@@ -1,4 +1,4 @@
-{ stdenv, fetchFromBitbucket, meson, ninja, pkgconfig, help2man,
+{ stdenv, fetchhg, meson, ninja, pkgconfig, help2man,
 glib, gobject-introspection, libxml2, ncurses
 # lua
 # python3
@@ -6,13 +6,12 @@ glib, gobject-introspection, libxml2, ncurses
 
 stdenv.mkDerivation rec {
   pname = "libgnt";
-  version = "unstable-2019-11-05";
+  version = "unstable-2020-07-02";
 
-  src = fetchFromBitbucket {
-    owner = "pidgin";
-    repo = "libgnt";
-    rev = "88c07b4";
-    sha256 = "1r333ad6mmhyyy3pahi0fshzd7x2xhq5ca3a4fkxc0p8bw9dnl7c";
+  src = fetchhg {
+    url = "https://keep.imfreedom.org/libgnt/libgnt";
+    rev = "ac726721ef4f";
+    sha256 = "127ik5flp222jh252j3d85q4pb5jz5ban20i5qw74jsrk1gfqzdk";
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig help2man gobject-introspection ];
