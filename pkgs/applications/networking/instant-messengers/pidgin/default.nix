@@ -8,7 +8,7 @@
 , openssl ? null
 , gnutls ? null
 , libgcrypt ? null
-, libgnt
+, libgnt ? null
 , plugins, symlinkJoin
 }:
 
@@ -37,13 +37,13 @@ let unwrapped = stdenv.mkDerivation rec {
     libXScrnSaver ncurses python
     avahi dbus dbus-glib intltool libidn
     libICE libXext libSM cyrus_sasl
-    libgnt
   ]
   ++ (lib.optional (openssl != null) openssl)
   ++ (lib.optional (gnutls != null) gnutls)
   ++ (lib.optional (libgcrypt != null) libgcrypt)
   ++ (lib.optionals (stdenv.isLinux) [gtk2 gtkspell2 farstream])
-  ++ (lib.optional (stdenv.isDarwin) gtk2-x11);
+  ++ (lib.optional (stdenv.isDarwin) gtk2-x11)
+  ++ (lib.optional (libgnt != null) libgnt;
 
 
   propagatedBuildInputs = [ pkgconfig gettext ]
