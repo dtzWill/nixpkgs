@@ -13,6 +13,9 @@ in symlinkJoin {
     wrapProgram $out/bin/pidgin \
       --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${pidgin.majorVersion} $out/lib/pidgin" \
       ${toString extraArgs}
+
+    # Wrap 'finch' if it exists
+    [ -x $out/bin/finch ] && \
     wrapProgram $out/bin/finch \
       --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${pidgin.majorVersion}" \
       ${toString extraArgs}
