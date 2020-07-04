@@ -43,7 +43,7 @@ let unwrapped = stdenv.mkDerivation rec {
   ++ (lib.optional (libgcrypt != null) libgcrypt)
   ++ (lib.optionals (stdenv.isLinux) [gtk2 gtkspell2 farstream])
   ++ (lib.optional (stdenv.isDarwin) gtk2-x11)
-  ++ (lib.optional (libgnt != null) libgnt;
+  ++ (lib.optional (libgnt != null) libgnt);
 
 
   propagatedBuildInputs = [ pkgconfig gettext ]
