@@ -21079,6 +21079,7 @@ in
     gnutls = if config.pidgin.gnutls or false then gnutls else null;
     libgcrypt = if config.pidgin.gnutls or false then libgcrypt else null;
     startupnotification = libstartup_notification;
+    libgnt = null; # FIXME: this is null because doesn't build presently, restore once fixed
     plugins = [];
   };
   pidgin-3 = callPackage ../applications/networking/instant-messengers/pidgin/3.x.nix { };
