@@ -8,6 +8,7 @@
 , openssl ? null
 , gnutls ? null
 , libgcrypt ? null
+, libgnt
 , plugins, symlinkJoin
 }:
 
@@ -36,6 +37,7 @@ let unwrapped = stdenv.mkDerivation rec {
     libXScrnSaver ncurses python
     avahi dbus dbus-glib intltool libidn
     libICE libXext libSM cyrus_sasl
+    libgnt
   ]
   ++ (lib.optional (openssl != null) openssl)
   ++ (lib.optional (gnutls != null) gnutls)
