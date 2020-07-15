@@ -39,10 +39,10 @@ rec {
 
   # No active beta right now
   beta = generic {
-    version = "450.51";
-    sha256_64bit = "17pam9737jx9vvczma5rafa0rihprccmfz84clb1y4nhbay5alf2";
-    settingsSha256 = "09hc1mjh7s94hy37rslxrxr30kx9a4yfnkmv35wn86b2p9zk3w6n";
-    persistencedSha256 = "0jmri8kj6gffqn8pm8nijhq2airvgid11vj2ffc037l7z4w0s6ar";
+    version = "450.57";
+    sha256_64bit = "04fp0p5f11hrgjzhvbvxpmvl08d3m16m4r5gn9d5qans9zy7f36m";
+    settingsSha256 = "1clbj9a3kv3j8jg35c197gd7b3f9f9f4h9ll5hlax95hdg12lgan";
+    persistencedSha256 = "17747z1fsbiznfsmahxmz8kmhwwcjanpfih60v5mwzk63gy4i3d5";
   };
 
   # Last one supporting x86
