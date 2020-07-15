@@ -28,6 +28,8 @@ in stdenv.mkDerivation {
     ''}
     install -d $out/lib/udev/rules.d
     install -m644 subprojects/steam-devices/*.rules $out/lib/udev/rules.d
+  '' + ''
+    substituteInPlace $out/lib/udev/rules.d/60-steam-input.rules --replace /bin/sh ${runtimeShell}
   '';
 
   meta = with stdenv.lib; {
