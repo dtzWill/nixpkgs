@@ -26,18 +26,18 @@
 rustPlatform.buildRustPackage rec {
   pname = "fractal";
   #version = "4.2.2";
-  version = "unstable-2020-07-16";
+  version = "unstable-2020-04-28";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
     #rev = version;
-    rev = "36ce8cd1cf948993bbc0eb6bc20dcd3445f20848";
-    sha256 = "093ph9grsm16vmlb5q0wv7hfynhhz2k1ss11vj99ccdgfnsfp5ad";
+    rev = "fc61f561045f4943790444831046a15f825b8dc6";
+    sha256 = "1y84kx2cb1pv38z03vv232v8i4v42w51bfcfzninxhcrzh6bqycy";
   };
 
-  cargoSha256 = "0p978djq3jvnykmi65m87lkpypvida5lxzqj22kx17zzzrn7psq3";
+  cargoSha256 = "0zd3rsz8di1w2vv5zpipd2p9aaisr311j1z9dgmixx05wdrlmm0c";
 
   nativeBuildInputs = [
     cargo
