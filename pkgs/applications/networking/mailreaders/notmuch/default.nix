@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     doxygen                   # (optional) api docs
     pythonPackages.sphinx     # (optional) documentation -> doc/INSTALL
     texinfo                   # (optional) documentation -> doc/INSTALL
-  ] ++ optional withEmacs [ emacs ];
+  ] ++ optional withEmacs emacs;
 
   buildInputs = [
     gnupg                     # undefined dependencies
