@@ -83,8 +83,8 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
   checkInputs = [
     which dtach openssl bash
-    gdb man
-  ] ++ stdenv.lib.optional withEmacs emacs;
+    gdb man emacs
+  ];
 
   installTargets = [ "install" "install-man" "install-info" ];
 
