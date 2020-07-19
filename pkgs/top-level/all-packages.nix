@@ -5375,6 +5375,8 @@ in
 
   nnn = callPackage ../applications/misc/nnn { };
 
+  noisetorch = callPackage ../applications/audio/noisetorch { };
+
   notary = callPackage ../tools/security/notary { };
 
   notify-osd = callPackage ../applications/misc/notify-osd { };
