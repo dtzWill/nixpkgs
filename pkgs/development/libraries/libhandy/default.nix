@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, gobject-introspection, vala
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43
 , gtk3, gnome3
 , dbus, xvfb_run, libxml2, hicolor-icon-theme
@@ -6,19 +6,17 @@
 
 let
   pname = "libhandy";
-  version = "0.0.13";
+  version = "0.84.0";
 in stdenv.mkDerivation rec {
+  inherit pname version;
   name = "${pname}-${version}";
 
   outputs = [ "out" "dev" "devdoc" "glade" ];
   outputBin = "dev";
 
-  src = fetchFromGitLab {
-    domain = "source.puri.sm";
-    owner = "Librem5";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "1y23k623sjkldfrdiwfarpchg5mg58smcy1pkgnwfwca15wm1ra5";
+  src = fetchurl {
+    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    sha256 = "1ak1yncnbq9gc2735mqns9vwz7whfin5f83kl0lxy77rjsgm6p60";
   };
 
   nativeBuildInputs = [
