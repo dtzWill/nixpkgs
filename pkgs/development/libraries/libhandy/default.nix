@@ -1,7 +1,7 @@
 { stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, gobject-introspection, vala
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43
 , gtk3, gnome3
-, dbus, xvfb_run, libxml2, hicolor-icon-theme
+, dbus, xvfb_run, libxml2, hicolor-icon-theme, librsvg
 }:
 
 let
@@ -48,7 +48,7 @@ in stdenv.mkDerivation rec {
     gtk-doc docbook_xsl docbook_xml_dtd_43
   ];
   buildInputs = [ gnome3.gnome-desktop gtk3 gnome3.glade libxml2 ];
-  checkInputs = [ dbus xvfb_run hicolor-icon-theme ];
+  checkInputs = [ dbus xvfb_run hicolor-icon-theme librsvg ];
 
   mesonFlags = [
     "-Dgtk_doc=true"
