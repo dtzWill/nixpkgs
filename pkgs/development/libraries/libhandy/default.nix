@@ -21,14 +21,14 @@ in stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      name = "dont-crash-if-avatar-icon-not-found.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/36b8b469ed0d487390f6ea6f5c8eb705b51a57bd.patch";
-      sha256 = "0znmian0nq3k5gsdyb03cdhc0rfy9xbcfiy2pn46jzzl10shq1p9";
-    })
-    (fetchpatch {
       name = "add-avatar-default-symbolic.patch";
       url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/d84fad380cf81930e1fd602b488baf55732f1d9f.patch";
       sha256 = "1f31prh0kmxa69jpjam2irw3gvwicssjaa6qdbhf4vlbfawkqria";
+    })
+    (fetchpatch {
+      name = "avatar-make-text-prop-consistent.patch";
+      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/073d1160b546643edf01212f7fd18b2a4d4be781.patch";
+      sha256 = "1kksawjhf0m32c3l7ihpzcg85n7r6ln2ay8ckxf21bmd8s1nbk7k";
     })
     (fetchpatch {
       name = "icon-name-property.patch";
@@ -36,9 +36,9 @@ in stdenv.mkDerivation rec {
       sha256 = "0v4vwnnhfbg0gm2fk1b7a27j9l5kjx21irizhn1p14cfd40bhrry";
     })
     (fetchpatch {
-      name = "avatar-make-text-prop-consistent.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/073d1160b546643edf01212f7fd18b2a4d4be781.patch";
-      sha256 = "1kksawjhf0m32c3l7ihpzcg85n7r6ln2ay8ckxf21bmd8s1nbk7k";
+      name = "dont-crash-if-avatar-icon-not-found.patch";
+      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/36b8b469ed0d487390f6ea6f5c8eb705b51a57bd.patch";
+      sha256 = "0znmian0nq3k5gsdyb03cdhc0rfy9xbcfiy2pn46jzzl10shq1p9";
     })
   ];
 
