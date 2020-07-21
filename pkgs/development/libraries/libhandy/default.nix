@@ -33,7 +33,8 @@ in stdenv.mkDerivation rec {
     (fetchpatch {
       name = "icon-name-property.patch";
       url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/cde0693c1e7c035dc74557a27bccb527b6a2c850.patch";
-      sha256 = "0v4vwnnhfbg0gm2fk1b7a27j9l5kjx21irizhn1p14cfd40bhrry";
+      sha256 = "1jy4my8igiagnq3cnilbmgh409wg85yh181gq52dmiy97cy4vqvs";
+      excludes = [ "debian/*.symbols" ];
     })
     (fetchpatch {
       name = "dont-crash-if-avatar-icon-not-found.patch";
