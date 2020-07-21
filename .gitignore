@@ -18,3 +18,4 @@ result-*
 
 /tmp/
 /*.sh
+/*.patch
