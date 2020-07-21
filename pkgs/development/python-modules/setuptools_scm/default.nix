@@ -1,12 +1,11 @@
 { stdenv, buildPythonPackage, fetchPypi, pip }:
-
 buildPythonPackage rec {
   pname = "setuptools_scm";
-  version = "3.3.3";
+  version = "3.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "19cyndx23xmpbhz4qrwmfwsmnnaczd0dw7qg977ksq2dbvxy29dx";
+    sha256 = "52ab47715fa0fc7d8e6cd15168d1a69ba995feb1505131c3e814eb7087b57358";
   };
 
   # Seems to fail due to chroot and would cause circular dependency
