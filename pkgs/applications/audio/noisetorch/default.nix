@@ -13,7 +13,9 @@ buildGoModule rec {
 
   patches = [ ./version.patch ./config.patch ./embedlibrnnoise.patch ];
 
-  vendorSha256 = null;
+  #vendorSha256 = null;
+  # (upstream moved to vendorSha256, haven't ported/merged that yet)
+  modSha256 = "1f585ql8qj8jryrv4bx7hdisssfspk3axx5qp0crfd57p893w5qh";
 
   subPackages = [ "." ];
 
