@@ -6,7 +6,7 @@
 
 let
   pname = "libhandy";
-  version = "0.84.0";
+  version = "0.83.0";
 in stdenv.mkDerivation rec {
   inherit pname version;
   name = "${pname}-${version}";
@@ -16,7 +16,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1ak1yncnbq9gc2735mqns9vwz7whfin5f83kl0lxy77rjsgm6p60";
+    sha256 = "0d7v5kycnfnzvrx8dhjrfh4s84y152gayhs9jlja09jxcgk9mm9f";
   };
 
   nativeBuildInputs = [
