@@ -6,7 +6,7 @@
 
 let
   pname = "libhandy";
-  version = "0.83.0";
+  version = "0.84.0";
 in stdenv.mkDerivation rec {
   inherit pname version;
   name = "${pname}-${version}";
@@ -16,15 +16,15 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "0d7v5kycnfnzvrx8dhjrfh4s84y152gayhs9jlja09jxcgk9mm9f";
+    sha256 = "1ak1yncnbq9gc2735mqns9vwz7whfin5f83kl0lxy77rjsgm6p60";
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gobject-introspection vala
+    meson ninja pkgconfig gobject-introspection vala libxml2
     gtk-doc docbook_xsl docbook_xml_dtd_43
   ];
   buildInputs = [ gnome3.gnome-desktop gtk3 gnome3.glade libxml2 ];
-  checkInputs = [ dbus xvfb_run ];
+  checkInputs = [ dbus xvfb_run hicolor-icon-theme ];
 
   mesonFlags = [
     "-Dgtk_doc=true"
