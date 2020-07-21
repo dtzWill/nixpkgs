@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, gobject-introspection, vala
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43
 , gtk3, gnome3
 , dbus, xvfb_run, libxml2, hicolor-icon-theme
@@ -18,6 +18,19 @@ in stdenv.mkDerivation rec {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
     sha256 = "1ak1yncnbq9gc2735mqns9vwz7whfin5f83kl0lxy77rjsgm6p60";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "dont-crash-if-avatar-icon-not-found.patch";
+      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/36b8b469ed0d487390f6ea6f5c8eb705b51a57bd.patch";
+      sha256 = "0znmian0nq3k5gsdyb03cdhc0rfy9xbcfiy2pn46jzzl10shq1p9";
+    })
+    (fetchpatch {
+      name = "add-avatar-default-symbolic.patch";
+      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/d84fad380cf81930e1fd602b488baf55732f1d9f.patch";
+      sha256 = "1f31prh0kmxa69jpjam2irw3gvwicssjaa6qdbhf4vlbfawkqria";
+    })
+  ];
 
   nativeBuildInputs = [
     meson ninja pkgconfig gobject-introspection vala libxml2
