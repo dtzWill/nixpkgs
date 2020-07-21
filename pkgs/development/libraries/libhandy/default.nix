@@ -1,54 +1,32 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, gobject-introspection, vala
+{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, gobject-introspection, vala
 , gtk-doc, docbook_xsl, docbook_xml_dtd_43
 , gtk3, gnome3
-, dbus, xvfb_run, libxml2, hicolor-icon-theme, librsvg
+, dbus, xvfb_run, libxml2, hicolor-icon-theme
 }:
 
 let
   pname = "libhandy";
-  version = "0.84.0";
+  version = "0.0.13";
 in stdenv.mkDerivation rec {
-  inherit pname version;
   name = "${pname}-${version}";
 
   outputs = [ "out" "dev" "devdoc" "glade" ];
   outputBin = "dev";
 
-  src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1ak1yncnbq9gc2735mqns9vwz7whfin5f83kl0lxy77rjsgm6p60";
+  src = fetchFromGitLab {
+    domain = "source.puri.sm";
+    owner = "Librem5";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "1y23k623sjkldfrdiwfarpchg5mg58smcy1pkgnwfwca15wm1ra5";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "add-avatar-default-symbolic.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/d84fad380cf81930e1fd602b488baf55732f1d9f.patch";
-      sha256 = "1f31prh0kmxa69jpjam2irw3gvwicssjaa6qdbhf4vlbfawkqria";
-    })
-    (fetchpatch {
-      name = "avatar-make-text-prop-consistent.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/073d1160b546643edf01212f7fd18b2a4d4be781.patch";
-      sha256 = "1kksawjhf0m32c3l7ihpzcg85n7r6ln2ay8ckxf21bmd8s1nbk7k";
-    })
-    (fetchpatch {
-      name = "icon-name-property.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/cde0693c1e7c035dc74557a27bccb527b6a2c850.patch";
-      sha256 = "1jy4my8igiagnq3cnilbmgh409wg85yh181gq52dmiy97cy4vqvs";
-      excludes = [ "debian/*.symbols" ];
-    })
-    (fetchpatch {
-      name = "dont-crash-if-avatar-icon-not-found.patch";
-      url = "https://gitlab.gnome.org/GNOME/libhandy/-/commit/36b8b469ed0d487390f6ea6f5c8eb705b51a57bd.patch";
-      sha256 = "0znmian0nq3k5gsdyb03cdhc0rfy9xbcfiy2pn46jzzl10shq1p9";
-    })
-  ];
-
   nativeBuildInputs = [
-    meson ninja pkgconfig gobject-introspection vala libxml2
+    meson ninja pkgconfig gobject-introspection vala
     gtk-doc docbook_xsl docbook_xml_dtd_43
   ];
   buildInputs = [ gnome3.gnome-desktop gtk3 gnome3.glade libxml2 ];
-  checkInputs = [ dbus xvfb_run hicolor-icon-theme librsvg ];
+  checkInputs = [ dbus xvfb_run ];
 
   mesonFlags = [
     "-Dgtk_doc=true"
