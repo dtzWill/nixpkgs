@@ -91,7 +91,7 @@ in buildFHSUserEnv {
 
   multiPkgs = pkgs: with pkgs; [
     # Common
-    libsndfile libtheora libogg libvorbis libopus libGLU libpcap libpulseaudio
+    libsndfile libtheora libogg libvorbis libopus libGL libGLU libpcap libpulseaudio
     libao libevdev udev libgcrypt libxml2 libusb libpng libmpeg2 libv4l
     libjpeg libxkbcommon libass libcdio libjack2 libsamplerate libzip libmad libaio
     libcap libtiff libva libgphoto2 libxslt libsndfile giflib zlib glib
