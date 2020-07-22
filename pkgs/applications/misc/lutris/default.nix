@@ -22,6 +22,7 @@
 , pygobject3
 , pyyaml
 , requests
+, keyring
 
 # commands that lutris needs
 , xrandr
@@ -95,7 +96,7 @@ in buildPythonApplication rec {
   ] ++ gstDeps;
 
   propagatedBuildInputs = [
-    evdev distro pyyaml pygobject3 requests pillow dbus-python
+    evdev distro pyyaml pygobject3 requests pillow dbus-python keyring
   ];
 
   # avoid double wrapping
