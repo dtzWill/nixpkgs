@@ -109,7 +109,7 @@ in buildFHSUserEnv {
     libselinux
 
     # Winetricks
-    fribidi wget
+    fribidi
   ] ++ xorgDeps pkgs;
 
   extraInstallCommands = ''
