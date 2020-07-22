@@ -36,6 +36,7 @@
 , xgamma
 , libstrangle
 , wine
+, winetricks
 , fluidsynth
 , xorgserver
 , xorg
@@ -55,6 +56,7 @@ let
     xgamma
     libstrangle
     wine
+    winetricks
     fluidsynth
     xorgserver
     xorg.setxkbmap

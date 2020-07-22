@@ -20379,6 +20379,9 @@ in
   lutris-unwrapped = python3.pkgs.callPackage ../applications/misc/lutris {
     inherit (gnome3) gnome-desktop libgnome-keyring;
     wine = wineWowPackages.staging;
+    winetricks = winetricks.override {
+      wine = wineWowPackages.staging;
+    };
   };
   lutris = callPackage ../applications/misc/lutris/chrootenv.nix { };
   lutris-free = lutris.override {
