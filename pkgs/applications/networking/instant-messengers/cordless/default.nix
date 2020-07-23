@@ -24,7 +24,7 @@ buildGoModule rec {
     '';
     homepage = https://www.github.com/Bios-Marcel/cordless;
     license = licenses.bsd3;
-    maintainers = [ "Marcel Schramm <marceloschr@googlemail.com>" ];
+    # maintainers = [ "Marcel Schramm <marceloschr@googlemail.com>" ];
     platforms = platforms.linux;
   };
 }
