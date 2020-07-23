@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   name = "cordless-${version}";
-  version = "2019-06-13";
+  version = "2020-06-26";
 
   src = fetchurl {
     url = "https://github.com/Bios-Marcel/cordless/archive/${version}.tar.gz";
-    sha256 = "ef9c4db21b7c75a5263281ed783c905b47e752f8b596575e0a41cd6e7d450566";
+    sha256 = "15kzz4md9xrj3j4rr0iqgr1j53xkihy246gmd7wamylza64cbklw";
   };
 
   doCheck = true;
 
-  modSha256 = "08a1dg4d7fjdy8w3sbri3ik8k7c1snpa0rzwinal6inzmdyancys";
+  modSha256 = "05b5vai6wqv7x9sdry8m5k0cnl1098gg7k3iccs48sv8szs9gbir";
 
   subPackages = [ "." ];
 
