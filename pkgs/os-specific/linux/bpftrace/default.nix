@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
   # patch the source, *then* substitute on @NIX_KERNEL_SRC@ in the result. we could
   # also in theory make this an environment variable around bpftrace, but this works
   # nicely without wrappers.
-  patchPhase = ''
-    patch -p1 < ${./fix-kernel-include-dir.patch}
+  patches = [ ./fix-kernel-include-dir.patch ];
+  postPatch = ''
     substituteInPlace ./src/utils.cpp \
       --subst-var-by NIX_KERNEL_SRC '${kernel.dev}/lib/modules/${kernel.modDirVersion}'
   '';
