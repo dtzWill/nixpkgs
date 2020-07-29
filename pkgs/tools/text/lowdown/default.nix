@@ -1,9 +1,12 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, fetchFromGitHub, which }:
 
 stdenv.mkDerivation rec {
   pname = "lowdown";
   version = "0.7.1";
   underscoreVersion = stdenv.lib.replaceChars ["."] ["_"] version;
+
+  # for ./configure, probably could patch around instead
+  nativeBuildInputs = [ which ];
 
   src = fetchFromGitHub {
     owner = "kristapsdz";
