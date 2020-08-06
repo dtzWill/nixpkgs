@@ -47,6 +47,7 @@ mapAliases ({
   at_spi2_core = at-spi2-core; # added 2018-02-25
   bar-xft = lemonbar-xft;  # added 2015-01-16
   bashCompletion = bash-completion; # Added 2016-09-28
+  bluezFull = bluez; # Added 2019-12-03
   bridge_utils = bridge-utils;  # added 2015-02-20
   bro = zeek; # added 2019-09-29
   btrfsProgs = btrfs-progs; # added 2016-01-03
@@ -347,7 +348,16 @@ mapAliases ({
   ruby_2_4_3 = throw "deprecated 2018-0213: use ruby_2_4 instead";
   ruby_2_5_0 = throw "deprecated 2018-0213: use ruby_2_5 instead";
   rubygems = throw "deprecated 2016-03-02: rubygems is now bundled with ruby";
-  rxvt_unicode_with-plugins = rxvt_unicode-with-plugins; # added 2015-04-02
+  rxvt_unicode_with-plugins = rxvt-unicode; # added 2020-02-02
+  rxvt_unicode = rxvt-unicode-unwrapped; # added 2020-02-02
+  urxvt_autocomplete_all_the_things = rxvt-unicode-plugins.autocomplete-all-the-things; # added 2020-02-02
+  urxvt_perl = rxvt-unicode-plugins.perl; # added 2020-02-02
+  urxvt_perls = rxvt-unicode-plugins.perls; # added 2020-02-02
+  urxvt_tabbedex = rxvt-unicode-plugins.tabbedex; # added 2020-02-02
+  urxvt_font_size = rxvt-unicode-plugins.font-size; # added 2020-02-02
+  urxvt_theme_switch = rxvt-unicode-plugins.theme-switch; # added 2020-02-02
+  urxvt_vtwheel = rxvt-unicode-plugins.vtwheel; # added 2020-02-02
+  urxvt_bidi = rxvt-unicode-plugins.bidi; # added 2020-02-02
   s6Dns = s6-dns; # added 2018-07-23
   s6Networking = s6-networking; # added 2018-07-23
   s6LinuxUtils = s6-linux-utils; # added 2018-07-23

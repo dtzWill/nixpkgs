@@ -1,39 +1,28 @@
 { stdenv, fetchFromGitHub, pkgconfig, makeWrapper
 , libsndfile, jack2Full
 , libGLU, libGL, lv2, cairo
-, ladspaH, php, expat }:
+, ladspaH, php }:
 
 stdenv.mkDerivation rec {
   pname = "lsp-plugins";
-  version = "1.1.10";
+  version = "1.1.24";
 
   src = fetchFromGitHub {
     owner = "sadko4u";
     repo = pname;
     rev = "${pname}-${version}";
-    sha256 = "09gmwzh1gq1q2lxn8fc1bpdh02h8vr7r0i040c1nx256wgfsarqb";
+    sha256 = "0rzgzkg6wvhjcf664i16nz4v30drgv80s34bhdflcjzx2x7ix5zk";
   };
 
-  nativeBuildInputs = [ pkgconfig php expat ];
-  buildInputs = [ jack2Full libsndfile libGLU libGL lv2 cairo ladspaH makeWrapper ];
+  nativeBuildInputs = [ pkgconfig php makeWrapper ];
+  buildInputs = [ jack2Full libsndfile libGLU libGL lv2 cairo ladspaH ];
 
   makeFlags = [
-    "BIN_PATH=$(out)/bin"
-    "LIB_PATH=$(out)/lib"
-    "DOC_PATH=$(out)/share/doc"
+    "PREFIX=${placeholder ''out''}"
+    "ETC_PATH=$(out)/etc"
   ];
 
   NIX_CFLAGS_COMPILE = [ "-DLSP_NO_EXPERIMENTAL" ];
-
-  patchPhase = ''
-    runHook prePatch
-    substituteInPlace Makefile --replace "/usr/lib" "$out/lib"
-    substituteInPlace ./include/container/jack/main.h --replace "/usr/lib" "$out/lib"
-    substituteInPlace ./include/container/vst/main.h --replace "/usr/lib" "$out/lib"
-    # for https://github.com/sadko4u/lsp-plugins/issues/7#issuecomment-426561549 :
-    sed -i '/X11__NET_WM_WINDOW_TYPE_DOCK;/d' ./src/ui/ws/x11/X11Window.cpp
-    runHook postPatch
-  '';
 
   doCheck = true;
 
@@ -45,7 +34,7 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  buildFlags = "release";
+  buildFlags = [ "release" ];
 
   meta = with stdenv.lib;
     { description = "Collection of open-source audio plugins";
@@ -154,6 +143,6 @@ stdenv.mkDerivation rec {
       homepage = https://lsp-plug.in;
       maintainers = with maintainers; [ magnetophon ];
       license = licenses.gpl2;
-      platforms = [ "x86_64-linux" ];
+      platforms = platforms.linux;
     };
 }

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "lf";
-  version = "13";
+  version = "15";
 
   src = fetchFromGitHub {
     owner = "gokcehan";
     repo = pname;
     rev = "r${version}";
-    sha256 = "1ld3q75v8rvp169w5p85z1vznqs9bhck6bm2f6fykxx16hmpb6ga";
+    sha256 = "1fjwkng6fnbl6dlicbxj0z92hl9xggni5zfi3nsxn3fa6rmzbiay";
   };
 
-  modSha256 = "14fvn8yjm9cnpsmzgxw2dypr3h8h36mxrbk7zma42w8rsp46jpz7";
+  modSha256 = "0xc5cyr0873cybd38gyyfpgwn2x6slbkc5w1h5i71fpc757rxj7c";
 
   # TODO: Setting buildFlags probably isn't working properly. I've tried a few
   # variants, e.g.:

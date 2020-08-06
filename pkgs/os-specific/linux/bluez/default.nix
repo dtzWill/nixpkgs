@@ -1,8 +1,23 @@
-{ stdenv, fetchurl, pkgconfig, dbus, glib, alsaLib,
-  python3, readline, udev, libical, systemd, fetchpatch,
-  enableWiimote ? false, enableMidi ? false, enableSixaxis ? false }:
-
-stdenv.mkDerivation rec {
+{ stdenv
+, lib
+, fetchurl
+, alsaLib
+, dbus
+, glib
+, json_c
+, libical
+, pkgconfig
+, python3
+, readline
+, systemd
+, udev
+}: let
+  pythonPath = with python3.pkgs; [
+    dbus-python
+    pygobject3
+    recursivePthLoader
+  ];
+in stdenv.mkDerivation rec {
   pname = "bluez";
   version = "5.54";
 
@@ -11,50 +26,58 @@ stdenv.mkDerivation rec {
     sha256 = "1p2ncvjz6alr9n3l5wvq2arqgc7xjs6dqyar1l9jp0z8cfgapkb8";
   };
 
-  pythonPath = with python3.pkgs; [
-    dbus-python pygobject2 pygobject3 recursivePthLoader
-  ];
-
   buildInputs = [
-    dbus glib alsaLib python3 python3.pkgs.wrapPython
-    readline udev libical
+    alsaLib
+    dbus
+    glib
+    json_c
+    libical
+    python3
+    readline
+    udev
   ];
 
-  nativeBuildInputs = [ pkgconfig ];
-
-  outputs = [ "out" "dev" "test" ];
-
-  patches = [
-    ./bluez-5.37-obexd_without_systemd-1.patch
+  nativeBuildInputs = [
+    pkgconfig
+    python3.pkgs.wrapPython
   ];
 
-  postConfigure = ''
+  outputs = [ "out" "dev" ] ++ lib.optional doCheck "test";
+
+  postPatch = ''
     substituteInPlace tools/hid2hci.rules \
       --replace /sbin/udevadm ${systemd}/bin/udevadm \
       --replace "hid2hci " "$out/lib/udev/hid2hci "
   '';
 
-  configureFlags = (with stdenv.lib; [
+  configureFlags = [
     "--localstatedir=/var"
     "--enable-library"
     "--enable-cups"
     "--enable-pie"
-    "--with-dbusconfdir=$(out)/etc"
-    "--with-dbussystembusdir=$(out)/share/dbus-1/system-services"
-    "--with-dbussessionbusdir=$(out)/share/dbus-1/services"
-    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
-    "--with-systemduserunitdir=$(out)/etc/systemd/user"
-    "--with-udevdir=$(out)/lib/udev"
-    ] ++ optional enableWiimote [ "--enable-wiimote" ]
-      ++ optional enableMidi    [ "--enable-midi" ]
-      ++ optional enableSixaxis [ "--enable-sixaxis" ]);
+    "--with-dbusconfdir=${placeholder "out"}/share"
+    "--with-dbussystembusdir=${placeholder "out"}/share/dbus-1/system-services"
+    "--with-dbussessionbusdir=${placeholder "out"}/share/dbus-1/services"
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+    "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
+    "--with-udevdir=${placeholder "out"}/lib/udev"
+    "--enable-health"
+    "--enable-mesh"
+    "--enable-midi"
+    "--enable-nfc"
+    "--enable-sap"
+    "--enable-sixaxis"
+    "--enable-wiimote"
+  ];
 
   # Work around `make install' trying to create /var/lib/bluetooth.
-  installFlags = "statedir=$(TMPDIR)/var/lib/bluetooth";
+  installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];
 
-  makeFlags = "rulesdir=$(out)/lib/udev/rules.d";
+  makeFlags = [ "rulesdir=${placeholder "out"}/lib/udev/rules.d" ];
 
-  postInstall = ''
+  doCheck = stdenv.hostPlatform.isx86_64;
+
+  postInstall = lib.optionalString doCheck ''
     mkdir -p $test/{bin,test}
     cp -a test $test
     pushd $test/test
@@ -69,8 +92,8 @@ stdenv.mkDerivation rec {
       ln -s ../test/$a $test/bin/bluez-$a
     done
     popd
-    wrapPythonProgramsIn $test/test "$test/test $pythonPath"
-
+    wrapPythonProgramsIn $test/test "$test/test ${toString pythonPath}"
+  '' + ''
     # for bluez4 compatibility for NixOS
     mkdir $out/sbin
     ln -s ../libexec/bluetooth/bluetoothd $out/sbin/bluetoothd
@@ -91,7 +114,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Bluetooth support for Linux";
-    homepage = http://www.bluez.org/;
+    homepage = "http://www.bluez.org/";
     license = with licenses; [ gpl2 lgpl21 ];
     platforms = platforms.linux;
     repositories.git = https://git.kernel.org/pub/scm/bluetooth/bluez.git;

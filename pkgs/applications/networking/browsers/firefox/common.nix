@@ -96,16 +96,17 @@ stdenv.mkDerivation ({
 
   patches = [
     ./env_var_for_system_dir.patch
-  ] ++ lib.optionals (stdenv.isAarch64) [
+    # Fix for NSS 3.52 (add missing CK_GCM_PARMS field)
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
-      sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
-    })
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/build-arm-libopus.patch";
-      sha256 = "1zg56v3lc346fkzcjjx21vjip2s9hb2xw4pvza1dsfdnhsnzppfp";
+      url = "https://hg.mozilla.org/mozilla-central/raw-rev/463069687b3d";
+      sha256 = "00yhz67flnkww3rbry0kqn6z6bm7vxfb2sgf7qikgbjcm3ysvpsm";
     })
   ]
+  ++ lib.optional (lib.versionAtLeast ffversion "73") (fetchpatch {
+    # https://phabricator.services.mozilla.com/D60667
+    url = "https://hg.mozilla.org/mozilla-central/raw-rev/b3d8b08265b800165d684281d19ac845a8ff9a66";
+    sha256 = "0b4s75w7sl619rglcjmlyvyibpj2ar5cpy6pnywl1xpd9qzyb27p";
+  })
   ++ patches;
 
 
@@ -151,7 +152,6 @@ stdenv.mkDerivation ({
     "-Wno-error=format-security");
 
   postPatch = ''
-    substituteInPlace third_party/prio/prio/rand.c --replace 'nspr/prinit.h' 'prinit.h'
     rm -rf obj-x86_64-pc-linux-gnu
   '';
 

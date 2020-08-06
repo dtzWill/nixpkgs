@@ -108,6 +108,24 @@ systemd.services.nginx.serviceConfig.ReadWritePaths = [ "/var/www" ];
       been removed.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     The <link xlink:href="https://github.com/okTurtles/dnschain">DNSChain</link>
+     package and NixOS module have been removed from Nixpkgs as the software is
+     unmaintained and can't be built. For more information see issue
+     <link xlink:href="https://github.com/NixOS/nixpkgs/issues/89205">#89205</link>.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Radicale's default package has changed from 2.x to 3.x. An upgrade
+     checklist can be found
+     <link xlink:href="https://github.com/Kozea/Radicale/blob/3.0.x/NEWS.md#upgrade-checklist">here</link>.
+     You can use the newer version in the NixOS service by setting the
+     <literal>package</literal> to <literal>radicale3</literal>, which is done
+     automatically if <literal>stateVersion</literal> is 20.09 or higher.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 

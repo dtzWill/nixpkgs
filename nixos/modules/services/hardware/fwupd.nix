@@ -102,29 +102,15 @@ in {
           [fwupd]
           BlacklistDevices=${lib.concatStringsSep ";" cfg.blacklistDevices}
           BlacklistPlugins=${lib.concatStringsSep ";" cfg.blacklistPlugins}
-
-          # Maximum archive size that can be loaded in Mb, with 0 for the default
-          ArchiveSizeMax=0
-
-          # Idle time in seconds to shut down the daemon -- note some plugins might
-          # inhibit the auto-shutdown, for instance thunderbolt.
-          #
-          # A value of 0 specifies 'never'
-          IdleTimeout=7200
-
-          # Comma separated list of domains to log in verbose mode
-          # If unset, no domains
-          # If set to FuValue, FuValue domain (same as --domain-verbose=FuValue)
-          # If set to *, all domains (same as --verbose)
-          VerboseDomains=
         '';
       };
       "fwupd/uefi.conf" = {
         source = pkgs.writeText "uefi.conf" ''
           [uefi]
           OverrideESPMountPoint=${config.boot.loader.efi.efiSysMountPoint}
-        ''; # TODO: RequireShimForSecureBoot=true ?
+        '';
       };
+
     } // originalEtc // extraTrustedKeys // testRemote;
 
     services.dbus.packages = [ cfg.package ];

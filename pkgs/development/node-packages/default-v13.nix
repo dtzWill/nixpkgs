@@ -24,6 +24,9 @@ nodePackages // {
       libjpeg_turbo libpng librsvg libtiff vips
       libwebp libxml2 pango pixman zlib
 
+      # Additional dep
+      libsecret
+
       nodePackages.node-pre-gyp
     ];
   };

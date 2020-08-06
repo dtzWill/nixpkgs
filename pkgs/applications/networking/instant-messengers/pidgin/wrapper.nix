@@ -13,8 +13,12 @@ in symlinkJoin {
     wrapProgram $out/bin/pidgin \
       --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${pidgin.majorVersion} $out/lib/pidgin" \
       ${toString extraArgs}
-    wrapProgram $out/bin/finch \
-      --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${pidgin.majorVersion}" \
-      ${toString extraArgs}
+
+    # Wrap 'finch' if it exists
+    if [ -x $out/bin/finch ]; then
+      wrapProgram $out/bin/finch \
+        --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${pidgin.majorVersion}" \
+        ${toString extraArgs}
+    fi
   '';
 }

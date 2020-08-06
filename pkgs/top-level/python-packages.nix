@@ -167,6 +167,8 @@ in {
 
   ansicolor = callPackage ../development/python-modules/ansicolor { };
 
+  ansiwrap =  callPackage ../development/python-modules/ansiwrap { };
+
   ansi2html = callPackage ../development/python-modules/ansi2html { };
 
   anytree = callPackage ../development/python-modules/anytree {
@@ -605,7 +607,11 @@ in {
 
   foxdot = callPackage ../development/python-modules/foxdot { };
 
+  freetype-py = callPackage ../development/python-modules/freetype-py { };
+
   fsspec = callPackage ../development/python-modules/fsspec { };
+
+  furl = callPackage ../development/python-modules/furl { };
 
   fuse = callPackage ../development/python-modules/fuse-python {
     inherit (pkgs) fuse pkgconfig;
@@ -816,6 +822,8 @@ in {
   oauthenticator = callPackage ../development/python-modules/oauthenticator { };
 
   ordered-set = callPackage ../development/python-modules/ordered-set { };
+
+  orderedmultidict = callPackage ../development/python-modules/orderedmultidict { };
 
   ortools = (toPythonModule (pkgs.or-tools.override {
     inherit (self) python;
@@ -1062,6 +1070,8 @@ in {
   });
 
   simplefix = callPackage ../development/python-modules/simplefix { };
+
+  pyscrypt = callPackage ../development/python-modules/pyscrypt { };
 
   pyside2-tools = toPythonModule (callPackage ../development/python-modules/pyside2-tools {
     inherit (pkgs) cmake qt5;
@@ -3126,6 +3136,8 @@ in {
 
   et_xmlfile = callPackage ../development/python-modules/et_xmlfile { };
 
+  etesync = callPackage ../development/python-modules/etesync { };
+
   eventlet = callPackage ../development/python-modules/eventlet { };
 
   exifread = callPackage ../development/python-modules/exifread { };
@@ -3930,7 +3942,10 @@ in {
 
   editorconfig = callPackage ../development/python-modules/editorconfig { };
 
-  mock = callPackage ../development/python-modules/mock { };
+  mock = if pythonOlder "3.6" then
+    callPackage ../development/python-modules/mock/2.nix { }
+  else
+    callPackage ../development/python-modules/mock { };
 
   mock-open = callPackage ../development/python-modules/mock-open { };
 
@@ -4160,7 +4175,10 @@ in {
 
   oauth2client = callPackage ../development/python-modules/oauth2client { };
 
-  oauthlib = callPackage ../development/python-modules/oauthlib { };
+  oauthlib = if isPy27 then
+      callPackage ../development/python-modules/oauthlib/3.1.nix { }
+    else
+      callPackage ../development/python-modules/oauthlib { };
 
   obfsproxy = callPackage ../development/python-modules/obfsproxy { };
 
@@ -5156,6 +5174,8 @@ in {
 
   texttable = callPackage ../development/python-modules/texttable { };
 
+  textwrap3 =  callPackage ../development/python-modules/textwrap3 { };
+
   tiros = callPackage ../development/python-modules/tiros { };
 
   tifffile = callPackage ../development/python-modules/tifffile { };
@@ -5233,6 +5253,8 @@ in {
   virtual-display = callPackage ../development/python-modules/virtual-display { };
 
   virtualenv = callPackage ../development/python-modules/virtualenv { };
+
+  vispy = callPackage ../development/python-modules/vispy { };
 
   vsts = callPackage ../development/python-modules/vsts { };
 

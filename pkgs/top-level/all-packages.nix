@@ -840,6 +840,8 @@ in
 
   cozy = callPackage ../applications/audio/cozy-audiobooks { };
 
+  cordless = callPackage ../applications/networking/instant-messengers/cordless { };
+
   ctrtool = callPackage ../tools/archivers/ctrtool { };
 
   crumbs = callPackage ../applications/misc/crumbs { };
@@ -1964,6 +1966,8 @@ in
 
   nfstrace = callPackage ../tools/networking/nfstrace { };
 
+  nix-direnv = callPackage ../tools/misc/nix-direnv { };
+
   nixpkgs-pytools = with python3.pkgs; toPythonApplication nixpkgs-pytools;
 
   noteshrink = callPackage ../tools/misc/noteshrink { };
@@ -2359,6 +2363,8 @@ in
   };
 
   clementineUnfree = clementine.unfree;
+
+  mellowplayer = libsForQt5.callPackage ../applications/audio/mellowplayer { };
 
   ciopfs = callPackage ../tools/filesystems/ciopfs { };
 
@@ -5375,6 +5381,10 @@ in
 
   nnn = callPackage ../applications/misc/nnn { };
 
+  noise-repellent = callPackage ../applications/audio/noise-repellent { };
+
+  noisetorch = callPackage ../applications/audio/noisetorch { };
+
   notary = callPackage ../tools/security/notary { };
 
   notify-osd = callPackage ../applications/misc/notify-osd { };
@@ -6180,6 +6190,8 @@ in
   rng-tools = callPackage ../tools/security/rng-tools { };
 
   rnnoise = callPackage ../development/libraries/rnnoise { };
+
+  rnnoise-plugin = callPackage ../development/libraries/rnnoise-plugin {};
 
   rnv = callPackage ../tools/text/xml/rnv { };
 
@@ -9068,6 +9080,7 @@ in
   kanif = callPackage ../applications/networking/cluster/kanif { };
 
   lumo = callPackage ../development/interpreters/clojurescript/lumo {
+    # nodejs = nodejs-13_x;
     nodejs = nodejs-10_x;
     nodePackages = nodePackages_10_x;
   };
@@ -9297,14 +9310,48 @@ in
 
   # Python interpreter that is build with all modules, including tkinter.
   # These are for compatibility and should not be used inside Nixpkgs.
-  pythonFull = python.override{x11Support=true;};
-  python2Full = python2.override{x11Support=true;};
-  python27Full = python27.override{x11Support=true;};
-  python3Full = python3.override{x11Support=true;};
-  python35Full = python35.override{x11Support=true;};
-  python36Full = python36.override{x11Support=true;};
-  python37Full = python37.override{x11Support=true;};
-  python38Full = python38.override{x11Support=true;};
+  pythonFull = python.override {
+    self = pythonFull;
+    x11Support = true;
+  };
+  python2Full = python2.override {
+    self = python2Full;
+    x11Support = true;
+  };
+  python27Full = python27.override {
+    self = python27Full;
+    x11Support = true;
+  };
+  python3Full = python3.override {
+    self = python3Full;
+    bluezSupport = true;
+    x11Support = true;
+  };
+  python35Full = python35.override {
+    self = python35Full;
+    bluezSupport = true;
+    x11Support = true;
+  };
+  python36Full = python36.override {
+    self = python36Full;
+    bluezSupport = true;
+    x11Support = true;
+  };
+  python37Full = python37.override {
+    self = python37Full;
+    bluezSupport = true;
+    x11Support = true;
+  };
+  python38Full = python38.override {
+    self = python38Full;
+    bluezSupport = true;
+    x11Support = true;
+  };
+  #python39Full = python39.override {
+  #  self = python39Full;
+  #  bluezSupport = true;
+  #  x11Support = true;
+  #};
 
   # pythonPackages further below, but assigned here because they need to be in sync
   pythonPackages = python.pkgs;
@@ -12715,6 +12762,8 @@ in
 
   libiptcdata = callPackage ../development/libraries/libiptcdata { };
 
+  libjcat = callPackage ../development/libraries/libjcat { };
+
   libjpeg_original = callPackage ../development/libraries/libjpeg { };
   libjpeg_turbo = callPackage ../development/libraries/libjpeg-turbo { };
   libjpeg_drop = callPackage ../development/libraries/libjpeg-drop { };
@@ -13668,6 +13717,7 @@ in
 
   protobuf = protobuf3_7;
 
+  protobuf3_12 = callPackage ../development/libraries/protobuf/3.12.nix { };
   protobuf3_11 = callPackage ../development/libraries/protobuf/3.11.nix { };
   protobuf3_10 = callPackage ../development/libraries/protobuf/3.10.nix { };
   protobuf3_9 = callPackage ../development/libraries/protobuf/3.9.nix { };
@@ -15682,9 +15732,10 @@ in
   };
 
   radicale1 = callPackage ../servers/radicale/1.x.nix { };
-  radicale2 = callPackage ../servers/radicale { };
+  radicale2 = callPackage ../servers/radicale/2.x.nix { };
+  radicale3 = callPackage ../servers/radicale/3.x.nix { };
 
-  radicale = radicale2;
+  radicale = radicale3;
 
   rake = callPackage ../development/tools/build-managers/rake { };
 
@@ -16015,12 +16066,6 @@ in
   };
 
   bluez = bluez5;
-
-  bluezFull = bluez.override {
-    enableWiimote = true;
-    enableMidi = true;
-    enableSixaxis = true;
-  };
 
   inherit (python3Packages) bedup;
 
@@ -18202,6 +18247,8 @@ in
 
   autotrace = callPackage ../applications/graphics/autotrace {};
 
+  av-98 = callPackage ../applications/networking/browsers/av-98 { };
+
   avocode = callPackage ../applications/graphics/avocode {};
 
   azpainter = callPackage ../applications/graphics/azpainter { };
@@ -18243,7 +18290,7 @@ in
   awesome-4-0 = callPackage ../applications/window-managers/awesome {
     cairo = cairo.override { xcbSupport = true; };
     # luaPackages = lua53Packages;
-    luaPackages = lua5_3_compat.pkgs;
+    #luaPackages = lua5_3_compat.pkgs;
     inherit (texFunctions) fontsConf;
   };
   awesome = awesome-4-0;
@@ -19141,6 +19188,8 @@ in
   fondo = callPackage ../applications/graphics/fondo { };
 
   font-manager = callPackage ../applications/misc/font-manager { };
+
+  fontpreview = callPackage ../applications/misc/fontpreview { };
 
   foo-yc20 = callPackage ../applications/audio/foo-yc20 { };
 
@@ -20332,6 +20381,9 @@ in
   lutris-unwrapped = python3.pkgs.callPackage ../applications/misc/lutris {
     inherit (gnome3) gnome-desktop libgnome-keyring;
     wine = wineWowPackages.staging;
+    winetricks = winetricks.override {
+      wine = wineWowPackages.staging;
+    };
   };
   lutris = callPackage ../applications/misc/lutris/chrootenv.nix { };
   lutris-free = lutris.override {
@@ -20876,6 +20928,7 @@ in
     pythonPackages = python3Packages;
     # Don't pull in rust (librsvg) and other graphical things
     emacs = emacs26-nox;
+    withEmacs = false;
   };
 
   notejot = callPackage ../applications/misc/notejot { };
@@ -21077,6 +21130,7 @@ in
     gnutls = if config.pidgin.gnutls or false then gnutls else null;
     libgcrypt = if config.pidgin.gnutls or false then libgcrypt else null;
     startupnotification = libstartup_notification;
+    libgnt = null; # FIXME: this is null because doesn't build presently, restore once fixed
     plugins = [];
   };
   pidgin-3 = callPackage ../applications/networking/instant-messengers/pidgin/3.x.nix { };
@@ -21471,29 +21525,11 @@ in
 
   rxvt = callPackage ../applications/misc/rxvt { };
 
-  # urxvt
-  rxvt_unicode = callPackage ../applications/misc/rxvt_unicode { };
+  rxvt-unicode = callPackage ../applications/misc/rxvt-unicode/wrapper.nix { };
 
-  rxvt_unicode-with-plugins = callPackage ../applications/misc/rxvt_unicode/wrapper.nix {
-    plugins = [
-      urxvt_autocomplete_all_the_things
-      urxvt_perl
-      urxvt_perls
-      urxvt_tabbedex
-      urxvt_font_size
-      urxvt_theme_switch
-      urxvt_vtwheel
-    ];
-  };
+  rxvt-unicode-unwrapped = callPackage ../applications/misc/rxvt-unicode { };
 
-  # urxvt plugins
-  urxvt_autocomplete_all_the_things = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-autocomplete-all-the-things { };
-  urxvt_perl = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-perl { };
-  urxvt_perls = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-perls { };
-  urxvt_tabbedex = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-tabbedex { };
-  urxvt_font_size = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-font-size { };
-  urxvt_theme_switch = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-theme-switch { };
-  urxvt_vtwheel = callPackage ../applications/misc/rxvt_unicode-plugins/urxvt-vtwheel.nix { };
+  rxvt-unicode-plugins = import ../applications/misc/rxvt-unicode-plugins { inherit callPackage; };
 
   uade123 = callPackage ../applications/audio/uade123 {};
 
@@ -25869,11 +25905,7 @@ in
 
   xteddy = callPackage ../applications/misc/xteddy { };
 
-  xwiimote = callPackage ../misc/drivers/xwiimote {
-    bluez = pkgs.bluez5.override {
-      enableWiimote = true;
-    };
-  };
+  xwiimote = callPackage ../misc/drivers/xwiimote { };
 
   xzoom = callPackage ../tools/X11/xzoom {};
 
@@ -26180,4 +26212,6 @@ in
   bulk_extractor = callPackage ../tools/filesystems/bulk_extractor {};
 
   jitsi-meet-electron = callPackage ../applications/networking/instant-messengers/jitsi-meet-electron { };
+
+  zettlr = callPackage ../applications/misc/zettlr { };
 }

@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub
 , vala, meson, ninja, pkgconfig, python3, libgee, gsettings-desktop-schemas
 , gnome3, pantheon, gobject-introspection, wrapGAppsHook
-, gtk3, json-glib, glib, glib-networking
+, gtk3, json-glib, glib, glib-networking, libhandy
 }:
 
 stdenv.mkDerivation rec {
@@ -28,6 +28,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gtk3 pantheon.granite json-glib glib glib-networking
     libgee gnome3.libsoup gsettings-desktop-schemas
+    libhandy
   ];
 
   #patches = [
