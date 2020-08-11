@@ -1,8 +1,8 @@
 { lib, haskellPackages, fetchFromGitHub }:
 
 let
-  version = "1.9.3";
-  sha256  = "1xh18884xkhcln4blglzi0faag4ydhxxsk9hj6llb81kcsxlsi89";
+  version = "1.10.0";
+  sha256  = "102iwn6011rypdlx07fzbdll3r5cd204qf96lzwkadvjb7h8clil";
 
 in (haskellPackages.mkDerivation {
   pname = "taskell";
