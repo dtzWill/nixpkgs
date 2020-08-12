@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "notmuch-bower-${version}";
-  version = "0.11.0.3"; # not really
+  version = "0.12.0.1"; # not really
 
   # Temporarily use fork until I can cleanup patch/merge mashup
   src = fetchFromGitHub {
@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
     owner = "dtzWill";
     repo = "bower";
     #rev = version;
-    rev = "f64090199de963ce476557e5122dcbe38b13f91e";
-    sha256 = "1qq341fmihrkhvxdgwc2i8ax4crdbssa801hvha5nbyjf2qxlps2";
+    rev = "51fc41dba0df22d85599de8327df91ca7f0fd1fa";
+    sha256 = "0wfz5xi7ylck1x2zdspl4hqinzma2l5gv0djc3xhfai0v3kpvij5";
   };
 
   nativeBuildInputs = [ gawk mercury pandoc ];
