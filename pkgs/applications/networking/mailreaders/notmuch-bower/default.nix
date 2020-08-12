@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
     owner = "dtzWill";
     repo = "bower";
     #rev = version;
-    rev = "03feed61b3f77fa5c1e8c7ac4053011bc148b05b";
-    sha256 = "1vw0yn65xi1nbaciicj1kkngskis96k538brhcbm1qfpibmwma0p";
+    rev = "f64090199de963ce476557e5122dcbe38b13f91e";
+    sha256 = "1qq341fmihrkhvxdgwc2i8ax4crdbssa801hvha5nbyjf2qxlps2";
   };
 
   nativeBuildInputs = [ gawk mercury pandoc ];
