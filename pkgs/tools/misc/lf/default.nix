@@ -13,17 +13,7 @@ buildGoModule rec {
 
   modSha256 = "0xc5cyr0873cybd38gyyfpgwn2x6slbkc5w1h5i71fpc757rxj7c";
 
-  # TODO: Setting buildFlags probably isn't working properly. I've tried a few
-  # variants, e.g.:
-  # - buildFlags = "-ldflags \"-s -w -X 'main.gVersion=${version}'\"";
-  # - buildFlags = "-ldflags \\\"-X ${goPackagePath}/main.gVersion=${version}\\\"";
-  # Override the build phase (to set buildFlags):
-  buildPhase = ''
-    runHook preBuild
-    runHook renameImports
-    go install -ldflags="-s -w -X main.gVersion=r${version}"
-    runHook postBuild
-  '';
+  buildFlagsArray = [ "-ldflags=-s -w -X main.gVersion=r${version}" ];
 
   postInstall = ''
     install -D --mode=444 lf.1 $out/share/man/man1/lf.1
