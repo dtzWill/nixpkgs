@@ -140,6 +140,11 @@ systemd.services.nginx.serviceConfig.ReadWritePaths = [ "/var/www" ];
    <listitem>
     <para />
    </listitem>
+   <listitem>
+    <para>
+     Nginx module <literal>nginxModules.fastcgi-cache-purge</literal> renamed to official name <literal>nginxModules.cache-purge</literal>.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 </section>

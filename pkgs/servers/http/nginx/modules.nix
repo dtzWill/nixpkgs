@@ -18,6 +18,8 @@ let
 in
 
 {
+  fastcgi-cache-purge = throw "fastcgi-cache-purge was renamed to cache-purge";
+
   brotli = {
     src = fetchFromGitHub {
       owner = "google";
@@ -25,6 +27,15 @@ in
       rev = "e505dce68acc190cc5a1e780a3b0275e39f160ca";
       sha256 = "18l3rfc2c8ah92sdiyvbisz2sv1h5lzldzrjcjjfazsdhyi0h72m";
       fetchSubmodules = true;
+    };
+  };
+
+  cache-purge = {
+    src = fetchFromGitHub {
+      owner  = "nginx-modules";
+      repo   = "ngx_cache_purge";
+      rev    = "2.5.1";
+      sha256 = "0va4jz36mxj76nmq05n3fgnpdad30cslg7c10vnlhdmmic9vqncd";
     };
   };
 
@@ -71,15 +82,6 @@ in
       repo = "ngx-fancyindex";
       rev = "v0.4.3";
       sha256 = "12xdx6a76sfrq0yciylvyjlnvyczszpadn31jqya8c2dzdkyyx7f";
-    };
-  };
-
-  fastcgi-cache-purge = {
-    src = fetchFromGitHub {
-      owner  = "nginx-modules";
-      repo   = "ngx_cache_purge";
-      rev    = "2.5";
-      sha256 = "1f4kxagzvz10vqbcjwi57wink6xw3s1h7wlrrlrlpkmhfbf9704y";
     };
   };
 
