@@ -1,7 +1,7 @@
 { lib, fetchzip }:
 
 let
-  version = "3.14";
+  version = "3.15";
 in fetchzip {
   name = "inter-${version}";
 
@@ -12,7 +12,7 @@ in fetchzip {
     unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
   '';
 
-  sha256 = "0kng9dnbbffp7i3ifhm3hn8khchs6528mb4601805ga9fnsp9daf";
+  sha256 = "0dnxczy2avc47wq5fc3psd1zbxbsjz5w24rkh5ynrfgw6n0753n0";
 
   meta = with lib; {
     homepage = https://rsms.me/inter/;
