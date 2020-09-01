@@ -13,6 +13,7 @@
 , udev
 , kerberos
 , libva
+, mesa # firefox wants gbm for drm+dmabuf
 }:
 
 ## configurability of the wrapper itself
@@ -70,7 +71,7 @@ let
           ++ lib.optional (cfg.enableFF2MPV or false) ff2mpv
           ++ extraNativeMessagingHosts
         );
-      libs =   lib.optionals stdenv.isLinux [ udev libva ]
+      libs =   lib.optionals stdenv.isLinux [ udev libva mesa ]
             ++ lib.optional ffmpegSupport ffmpeg_4
             ++ lib.optional gssSupport kerberos
             ++ lib.optional gdkWayland libglvnd
