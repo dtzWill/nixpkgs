@@ -1623,6 +1623,8 @@ in
 
   dua = callPackage ../tools/misc/dua { };
 
+  duf = callPackage ../tools/misc/duf { };
+
   inherit (ocamlPackages) dune;
 
   duperemove = callPackage ../tools/filesystems/duperemove { };
