@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "duf";
@@ -13,7 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "1aj7rxlylgvxdnnfnfzh20v2jvs8falvjjishxd8rdk1jgfpipl8";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/muesli/duf/";
     description = "Disk Usage/Free Utility";
     license = licenses.mit;
