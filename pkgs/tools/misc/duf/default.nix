@@ -11,7 +11,9 @@ buildGoModule rec {
     sha256 = "1akziaa5wjszflyylvnw284pz1aqngl40civzfabjz94pvyjkp76";
   };
 
-  vendorSha256 = "1aj7rxlylgvxdnnfnfzh20v2jvs8falvjjishxd8rdk1jgfpipl8";
+  #vendorSha256 = "1aj7rxlylgvxdnnfnfzh20v2jvs8falvjjishxd8rdk1jgfpipl8";
+  # old fetcher :(
+  modSha256 = "0m9dzkcli7kg8z72mvc86dil6d9hjzy6z5hi7gyz4x3lcay4lh5s";
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/muesli/duf/";
