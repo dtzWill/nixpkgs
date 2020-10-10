@@ -1,21 +1,21 @@
-{ stdenv, fetchzip }:
+{ lib, fetchzip }:
+let
+  version = "2009.22";
+in
+fetchzip {
+  name = "cascadia-code-${version}";
 
-stdenv.mkDerivation rec {
-  pname = "cascadia-code";
-  version = "2007.01";
+  url = "https://github.com/microsoft/cascadia-code/releases/download/v${version}/CascadiaCode-${version}.zip";
 
-  src = fetchzip {
-    url = "https://github.com/microsoft/cascadia-code/releases/download/v${version}/CascadiaCode-${version}.zip";
-    sha256 = "0jqggqjqck0nkq301r217hv9k5xzcy6vqc4fqgdmh2d9divbja5m";
-    stripRoot = false;
-  };
+  sha256 = "0wdkjzaf5a14yfiqqqn6wvi6db6r7g1m5r07cg9730b0mkzhfyhl";
 
-  installPhase = ''
-    install -Dm444 -t $out/share/fonts/truetype ttf/*.ttf
-    install -Dm444 -t $out/share/fonts/opentype otf/*.otf
+  postFetch = ''
+    mkdir -p $out/share/fonts/
+    unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+    unzip -j $downloadedFile \*.ttf -d $out/share/fonts/truetype
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Monospaced font that includes programming ligatures and is designed to enhance the modern look and feel of the Windows Terminal";
     homepage = "https://github.com/microsoft/cascadia-code";
     license = licenses.ofl;
