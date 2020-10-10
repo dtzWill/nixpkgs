@@ -87,29 +87,27 @@ let
   fteLibPath = makeLibraryPath [ stdenv.cc.cc gmp ];
 
   # Upstream source
-  version = "10.0";
+  #version = "9.0.4";
+  version = "9.5a11";
 
   lang = "en-US";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux64-${version}_${lang}.tar.xz";
-      sha256 = "1l2rfknffnh6hsi16dzps1wav5s723vyk57fzv9y5vjmbcbf7l2l";
+      sha256 = "03zk8hx5c1gmy55j79m6jznvs5bx48ni3axzh3cw01y25zn10rxk";
     };
 
-    i686-linux = fetchurl {
-      url = "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux32-${version}_${lang}.tar.xz";
-      sha256 = "0x80w02ckb6mznrm1gjdpkxk9yf2rdcl16ljjglivq358a309cl2";
-    };
+    #i686-linux = fetchurl {
+    #  url = "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux32-${version}_${lang}.tar.xz";
+    #  sha256 = "1bmih91gsh698fp2mbnjcq8vmwhg822wanmn99r0xhkmgpi4zw2s";
+    #};
   };
 in
 
 stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
   inherit version;
-
-  src = srcs.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
-
   preferLocalBuild = true;
   allowSubstitutes = false;
 
@@ -122,6 +120,9 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     categories = "Network;WebBrowser;Security;";
   };
+
+  src = srcs."${stdenv.hostPlatform.system}" or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+
 
   buildCommand = ''
     # For convenience ...
