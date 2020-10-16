@@ -37,10 +37,14 @@ in
       name = "brotli";
       owner = "google";
       repo = "ngx_brotli";
-      rev = "e505dce68acc190cc5a1e780a3b0275e39f160ca";
-      sha256 = "18l3rfc2c8ah92sdiyvbisz2sv1h5lzldzrjcjjfazsdhyi0h72m";
-      fetchSubmodules = true;
-    };
+      rev = "25f86f0bac1101b6512135eac5f93c49c63609e3";
+      sha256 = "02hfvfa6milj40qc2ikpb9f95sxqvxk4hly3x74kqhysbdi06hhv";
+    }; in pkgs.runCommandNoCC "ngx_brotli-src" {} ''
+      cp -a ${gitsrc} $out
+      substituteInPlace $out/filter/config \
+        --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev pkgs.brotli}
+    '';
+    inputs = [ pkgs.brotli ];
   };
 
   cache-purge = {
@@ -99,8 +103,8 @@ in
       name = "fancyindex";
       owner = "aperezdc";
       repo = "ngx-fancyindex";
-      rev = "v0.4.3";
-      sha256 = "12xdx6a76sfrq0yciylvyjlnvyczszpadn31jqya8c2dzdkyyx7f";
+      rev = "v0.4.4";
+      sha256 = "14xmzcl608pr7hb7wng6hpz7by51cfnxlszbka3zhp3kk86ljsi6";
     };
   };
 
