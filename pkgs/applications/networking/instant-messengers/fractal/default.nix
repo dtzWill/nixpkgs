@@ -1,5 +1,7 @@
 { stdenv
 , fetchFromGitLab
+# XXX: restore, not present here yet :(
+#, nix-update-script
 , fetchpatch
 , meson
 , ninja
@@ -8,7 +10,7 @@
 , rustc
 , python3
 , rustPlatform
-, pkgconfig
+, pkg-config
 , gtksourceview4
 , glib
 , libhandy
@@ -25,29 +27,28 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fractal";
-  #version = "4.2.2";
-  version = "unstable-2020-04-28";
+  version = "4.4.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "fractal";
-    #rev = version;
-    rev = "fc61f561045f4943790444831046a15f825b8dc6";
-    sha256 = "1y84kx2cb1pv38z03vv232v8i4v42w51bfcfzninxhcrzh6bqycy";
+    rev = version;
+    sha256 = "DSNVd9YvI7Dd3s3+M0+wE594tmL1yPNMnD1W9wLhSuw=";
   };
 
-  cargoSha256 = "0zd3rsz8di1w2vv5zpipd2p9aaisr311j1z9dgmixx05wdrlmm0c";
+  cargoSha256 = "xim5sOzeXJjRXbTOg2Gk/LHU0LioiyMK5nSr1LwMPjc=";
 
   nativeBuildInputs = [
     cargo
     gettext
     meson
     ninja
-    pkgconfig
+    pkg-config
     python3
     rustc
     wrapGAppsHook
+    glib
   ];
 
   buildInputs = [
@@ -59,6 +60,9 @@ rustPlatform.buildRustPackage rec {
     gst_all_1.gst-editing-services
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
+    (gst_all_1.gst-plugins-good.override {
+      gtkSupport = true;
+    })
     gst_all_1.gstreamer
     gst_all_1.gst-validate
     gtk3
@@ -71,15 +75,6 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     chmod +x scripts/test.sh
     patchShebangs scripts/meson_post_install.py scripts/test.sh
-
-    # Don't limit tests to single thread
-    substituteInPlace scripts/test.sh --replace 'cargo test -j 1' 'cargo test'
-  '' + stdenv.lib.optionalString true ''
-    # When building from non-official-releases, modify the in-app
-    # version to indicate it was built from git and what revision.
-    substituteInPlace meson.build \
-      --replace "name_suffix = '" "name_suffix = ' (git)" \
-      --replace "version_suffix = '" "version_suffix = '-${builtins.substring 0 8 src.rev}"
   '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
@@ -88,11 +83,16 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
+  #passthru = {
+  #  updateScript = nix-update-script {
+  #    attrPath = pname;
+  #  };
+  #};
+
   meta = with stdenv.lib; {
     description = "Matrix group messaging app";
-    homepage = https://gitlab.gnome.org/GNOME/fractal;
+    homepage = "https://gitlab.gnome.org/GNOME/fractal";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill worldofpeace ];
   };
 }
-
