@@ -33,18 +33,14 @@ in
   };
 
   brotli = {
-    src = let gitsrc = pkgs.fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       name = "brotli";
       owner = "google";
       repo = "ngx_brotli";
       rev = "25f86f0bac1101b6512135eac5f93c49c63609e3";
-      sha256 = "02hfvfa6milj40qc2ikpb9f95sxqvxk4hly3x74kqhysbdi06hhv";
-    }; in pkgs.runCommandNoCC "ngx_brotli-src" {} ''
-      cp -a ${gitsrc} $out
-      substituteInPlace $out/filter/config \
-        --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev pkgs.brotli}
-    '';
-    inputs = [ pkgs.brotli ];
+      sha256 = "1fwk4cwcdk733m3qsvjgq263v2l6byj58hnpzsys5dbv4lxpqapg";
+      fetchSubmodules = true;
+    };
   };
 
   cache-purge = {
