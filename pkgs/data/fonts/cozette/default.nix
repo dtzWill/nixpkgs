@@ -1,14 +1,14 @@
 { lib, fetchzip }:
 
 let
-  version = "1.9.0";
+  version = "1.9.2";
 in
 fetchzip rec {
   name = "Cozette-${version}";
 
   url = "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip";
 
-  sha256 = "0sc8xvyxby45pagspk7fwq304q9pd2grc0h4zhm8fqzxhaddhffa";
+  sha256 = "1n915y273wx7k4dk27h0qs6g3bhjdzi0894rqg22skl3bzwggr8i";
 
   postFetch = ''
     mkdir -p $out/share/fonts

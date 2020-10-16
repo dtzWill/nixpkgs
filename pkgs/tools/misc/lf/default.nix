@@ -2,28 +2,18 @@
 
 buildGoModule rec {
   pname = "lf";
-  version = "15";
+  version = "17";
 
   src = fetchFromGitHub {
     owner = "gokcehan";
     repo = pname;
     rev = "r${version}";
-    sha256 = "1fjwkng6fnbl6dlicbxj0z92hl9xggni5zfi3nsxn3fa6rmzbiay";
+    sha256 = "0hs70hbbwz9kbbf13l2v32yv70n4aw8sz7rky82qdcqcpnpisjq8";
   };
 
-  modSha256 = "0xc5cyr0873cybd38gyyfpgwn2x6slbkc5w1h5i71fpc757rxj7c";
+  modSha256 = "109w7fzqc5ap5j5np7c2c5h7py3cqdm7zavp424xs9k16pd0qrln";
 
-  # TODO: Setting buildFlags probably isn't working properly. I've tried a few
-  # variants, e.g.:
-  # - buildFlags = "-ldflags \"-s -w -X 'main.gVersion=${version}'\"";
-  # - buildFlags = "-ldflags \\\"-X ${goPackagePath}/main.gVersion=${version}\\\"";
-  # Override the build phase (to set buildFlags):
-  buildPhase = ''
-    runHook preBuild
-    runHook renameImports
-    go install -ldflags="-s -w -X main.gVersion=r${version}"
-    runHook postBuild
-  '';
+  buildFlagsArray = [ "-ldflags=-s -w -X main.gVersion=r${version}" ];
 
   postInstall = ''
     install -D --mode=444 lf.1 $out/share/man/man1/lf.1

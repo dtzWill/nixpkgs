@@ -16,7 +16,7 @@ assert (versionAtLeast gmime.version "3.0");
 
 stdenv.mkDerivation rec {
   pname = "notmuch";
-  version = "0.30";
+  version = "0.31";
 
   passthru = {
     pythonSourceRoot = "${pname}-${version}/bindings/python";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://notmuchmail.org/releases/${pname}-${version}.tar.xz";
-    sha256 = "1ylnj12f7xr18v3ckb1nwc2aw2rj3ghqnj5f4rzccr8xw5pslfsy";
+    sha256 = "1543l57viqzqikjgfzp2abpwz3p0k2iq0b1b3wmn31lwaghs07sp";
   };
 
   nativeBuildInputs = [
@@ -71,14 +71,6 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "man" "info" ] ++ stdenv.lib.optional withEmacs "emacs";
 
-  preCheck = let
-    test-database = fetchurl {
-      url = "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
-      sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
-    };
-  in ''
-    ln -s ${test-database} test/test-databases/database-v1.tar.xz
-  '';
   doCheck = !stdenv.hostPlatform.isDarwin && (versionAtLeast gmime.version "3.0.3");
   checkTarget = "test";
   checkInputs = [
