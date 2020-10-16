@@ -490,14 +490,6 @@ in
         '';
       };
 
-      enableSandbox = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Starting Nginx web server with additional sandbox/hardening options.
-        '';
-      };
-
       user = mkOption {
         type = types.str;
         default = "nginx";
@@ -737,7 +729,10 @@ in
       '';
       serviceConfig = {
         ExecStart = execCommand;
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        ExecReload = [
+          "${execCommand} -t"
+          "${pkgs.coreutils}/bin/kill -HUP $MAINPID"
+        ];
         Restart = "always";
         RestartSec = "10s";
         StartLimitInterval = "1min";
@@ -758,7 +753,6 @@ in
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" "CAP_SYS_RESOURCE" ];
         # Security
         NoNewPrivileges = true;
-      } // optionalAttrs cfg.enableSandbox {
         # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = mkDefault true;
@@ -793,9 +787,8 @@ in
       serviceConfig.Type = "oneshot";
       serviceConfig.TimeoutSec = 60;
       script = ''
-        if ${pkgs.systemd}/bin/systemctl -q is-active nginx.service ; then
-          ${execCommand} -t && \
-            ${pkgs.systemd}/bin/systemctl reload nginx.service
+        if /run/current-system/systemd/bin/systemctl -q is-active nginx.service ; then
+          /run/current-system/systemd/bin/systemctl reload nginx.service
         fi
       '';
       serviceConfig.RemainAfterExit = true;
@@ -809,7 +802,7 @@ in
             webroot = vhostConfig.acmeRoot;
             extraDomains = genAttrs vhostConfig.serverAliases (alias: null);
             postRun = ''
-              systemctl reload nginx
+              /run/current-system/systemd/bin/systemctl reload nginx
             '';
           }; }) acmeEnabledVhosts;
       in
