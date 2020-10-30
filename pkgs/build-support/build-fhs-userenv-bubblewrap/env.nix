@@ -1,4 +1,4 @@
-{ stdenv, buildEnv, writeText, pkgs, pkgsi686Linux }:
+{ stdenv, buildEnv, writeText, writeScriptBin, pkgs, pkgsi686Linux }:
 
 { name, profile ? ""
 , targetPkgs ? pkgs: [], multiPkgs ? pkgs: []
@@ -49,6 +49,12 @@ let
     [ (toString gcc.cc.lib)
     ];
 
+  ldconfig = writeScriptBin "ldconfig" ''
+    #!${pkgs.stdenv.shell}
+
+    exec ${pkgs.glibc.bin}/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
+  '';
+
 # TODO: use this instead of infixSalt below!
 #    export NIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}=1
   etcProfile = writeText "profile" ''
@@ -88,7 +94,8 @@ let
   # Composes a /usr-like directory structure
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
-    paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
+    # ldconfig wrapper must come first so it overrides the original ldconfig
+    paths = [ etcPkg ldconfig ] ++ basePkgs ++ targetPaths;
     extraOutputsToInstall = [ "out" "lib" "bin" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
   };
