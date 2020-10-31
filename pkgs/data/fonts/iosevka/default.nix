@@ -1,5 +1,5 @@
 { stdenv, lib, pkgs, fetchFromGitHub, nodejs, nodePackages, remarshal
-, ttfautohint-nox, otfcc
+, ttfautohint-nox
 
 # Custom font set options.
 # See https://github.com/be5invis/Iosevka#build-your-own-style
@@ -43,7 +43,6 @@ stdenv.mkDerivation rec {
     nodejs
     nodePackages."iosevka-build-deps-../../data/fonts/iosevka"
     remarshal
-    otfcc
     ttfautohint-nox
   ];
 
