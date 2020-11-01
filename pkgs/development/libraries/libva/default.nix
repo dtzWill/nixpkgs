@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   # update libva-utils and vaapiIntel as well
   src = fetchFromGitHub {
-    owner  = "01org";
+    owner  = "intel";
     repo   = "libva";
     rev    = version;
     sha256 = if minimal then "1vlvk0wyzrj2qnvkzafs78164z5dmblcw8in6wd5w9b20g62vhp5" else "0i9i9xnivii920jrcd9x34y8d245qrj5x3nbqkzkllr8zjx20vxs";
