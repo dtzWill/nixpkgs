@@ -49,6 +49,8 @@ let
     [ (toString gcc.cc.lib)
     ];
 
+# TODO: use this instead of infixSalt below!
+#    export NIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}=1
   etcProfile = writeText "profile" ''
     export PS1='${name}-chrootenv:\u@\h:\w\$ '
     export LOCALE_ARCHIVE='/usr/lib/locale/locale-archive'
@@ -58,7 +60,7 @@ let
 
     # Force compilers and other tools to look in default search paths
     unset NIX_ENFORCE_PURITY
-    export NIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}=1
+    export NIX_CC_WRAPPER_${stdenv.cc.infixSalt}_TARGET_HOST=1
     export NIX_CFLAGS_COMPILE='-idirafter /usr/include'
     export NIX_CFLAGS_LINK='-L/usr/lib -L/usr/lib32'
     export NIX_LDFLAGS='-L/usr/lib -L/usr/lib32'
