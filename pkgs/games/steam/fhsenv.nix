@@ -42,6 +42,12 @@ let
   ldPath = map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
            ++ lib.optionals (steam-runtime-wrapped-i686 != null) (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs);
 
+  # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
+  exportLDPath = ''
+    export LD_LIBRARY_PATH=/lib32:/lib64:${lib.concatStringsSep ":" ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
+    export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+  '';
+
   setupSh = writeScript "setup.sh" ''
     #!${runtimeShell}
   '';
@@ -54,6 +60,7 @@ let
       exit 0
     fi
     export LD_LIBRARY_PATH="$runtime_paths''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+    export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
     exec "$@"
   '';
 
@@ -82,6 +89,7 @@ in buildFHSUserEnv rec {
     at-spi2-core   # CrossCode
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-ugly
+    gst_all_1.gst-plugins-base
     libdrm
     mono
     xorg.xkeyboardconfig
@@ -186,8 +194,6 @@ in buildFHSUserEnv rec {
     SDL_mixer
     SDL2_ttf
     SDL2_mixer
-    gstreamer
-    gst-plugins-base
     libappindicator-gtk2
     libcaca
     libcanberra
@@ -217,7 +223,7 @@ in buildFHSUserEnv rec {
     mkdir -p $out/share/applications
     ln -s ${steam}/share/icons $out/share
     ln -s ${steam}/share/pixmaps $out/share
-    sed "s,/usr/bin/steam,$out/bin/steam,g" ${steam}/share/applications/steam.desktop > $out/share/applications/steam.desktop
+    sed "s,/usr/bin/steam,steam,g" ${steam}/share/applications/steam.desktop > $out/share/applications/steam.desktop
   '';
 
   profile = ''
@@ -251,6 +257,7 @@ in buildFHSUserEnv rec {
     EOF
       fi
     fi
+    ${lib.optionalString (!nativeOnly) exportLDPath}
     exec steam "$@"
   '';
 
@@ -272,7 +279,7 @@ in buildFHSUserEnv rec {
         exit 1
       fi
       shift
-      ${lib.optionalString (!nativeOnly) "export LD_LIBRARY_PATH=/lib32:/lib64:${lib.concatStringsSep ":" ldPath}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"}
+      ${lib.optionalString (!nativeOnly) exportLDPath}
       exec -- "$run" "$@"
     '';
   };

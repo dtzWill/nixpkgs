@@ -147,7 +147,10 @@ in
 
   buildEnv = callPackage ../build-support/buildenv { }; # not actually a package
 
-  buildFHSUserEnv = callPackage ../build-support/build-fhs-userenv { };
+  # TODO: eventually migrate everything to buildFHSUserEnvBubblewrap
+  buildFHSUserEnv = buildFHSUserEnvChrootenv;
+  buildFHSUserEnvChrootenv = callPackage ../build-support/build-fhs-userenv { };
+  buildFHSUserEnvBubblewrap = callPackage ../build-support/build-fhs-userenv-bubblewrap { };
 
   buildMaven = callPackage ../build-support/build-maven.nix {};
 
@@ -23685,9 +23688,11 @@ in
 
   stockfish = callPackage ../games/stockfish { };
 
-  steamPackages = dontRecurseIntoAttrs (callPackage ../games/steam { });
+  steamPackages = dontRecurseIntoAttrs (callPackage ../games/steam {
+    buildFHSUserEnv = buildFHSUserEnvBubblewrap;
+  });
 
-  steam = steamPackages.steam-chrootenv;
+  steam = steamPackages.steam-fhsenv;
 
   steam-run = steam.run;
   steam-run-native = (steam.override {

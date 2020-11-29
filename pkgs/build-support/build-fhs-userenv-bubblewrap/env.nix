@@ -1,4 +1,4 @@
-{ stdenv, buildEnv, writeText, pkgs, pkgsi686Linux }:
+{ stdenv, buildEnv, writeText, writeScriptBin, pkgs, pkgsi686Linux }:
 
 { name, profile ? ""
 , targetPkgs ? pkgs: [], multiPkgs ? pkgs: []
@@ -49,6 +49,14 @@ let
     [ (toString gcc.cc.lib)
     ];
 
+  ldconfig = writeScriptBin "ldconfig" ''
+    #!${pkgs.stdenv.shell}
+
+    exec ${pkgs.glibc.bin}/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
+  '';
+
+# TODO: use this instead of infixSalt below!
+#    export NIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}=1
   etcProfile = writeText "profile" ''
     export PS1='${name}-chrootenv:\u@\h:\w\$ '
     export LOCALE_ARCHIVE='/usr/lib/locale/locale-archive'
@@ -78,41 +86,6 @@ let
       # environment variables
       ln -s ${etcProfile} profile
 
-      # compatibility with NixOS
-      ln -s /host/etc/static static
-
-      # symlink some NSS stuff
-      ln -s /host/etc/passwd passwd
-      ln -s /host/etc/group group
-      ln -s /host/etc/shadow shadow
-      ln -s /host/etc/hosts hosts
-      ln -s /host/etc/resolv.conf resolv.conf
-      ln -s /host/etc/nsswitch.conf nsswitch.conf
-
-      # symlink sudo and su stuff
-      ln -s /host/etc/login.defs login.defs
-      ln -s /host/etc/sudoers sudoers
-      ln -s /host/etc/sudoers.d sudoers.d
-
-      # symlink other core stuff
-      ln -s /host/etc/localtime localtime
-      ln -s /host/etc/zoneinfo zoneinfo
-      ln -s /host/etc/machine-id machine-id
-      ln -s /host/etc/os-release os-release
-
-      # symlink PAM stuff
-      ln -s /host/etc/pam.d pam.d
-
-      # symlink fonts stuff
-      ln -s /host/etc/fonts fonts
-
-      # symlink ALSA stuff
-      ln -s /host/etc/asound.conf asound.conf
-
-      # symlink SSL certs
-      mkdir -p ssl
-      ln -s /host/etc/ssl/certs ssl/certs
-
       # symlink /etc/mtab -> /proc/mounts (compat for old userspace progs)
       ln -s /proc/mounts mtab
     '';
@@ -121,7 +94,8 @@ let
   # Composes a /usr-like directory structure
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
-    paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
+    # ldconfig wrapper must come first so it overrides the original ldconfig
+    paths = [ etcPkg ldconfig ] ++ basePkgs ++ targetPaths;
     extraOutputsToInstall = [ "out" "lib" "bin" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
   };
@@ -134,14 +108,14 @@ let
   };
 
   # setup library paths only for the targeted architecture
-  setupLibDirs_target = ''
+  setupLibDirsTarget = ''
     # link content of targetPaths
     cp -rsHf ${staticUsrProfileTarget}/lib lib
     ln -s lib lib${if is64Bit then "64" else "32"}
   '';
 
   # setup /lib, /lib32 and /lib64
-  setupLibDirs_multi = ''
+  setupLibDirsMulti = ''
     mkdir -m0755 lib32
     mkdir -m0755 lib64
     ln -s lib64 lib
@@ -159,8 +133,8 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild then setupLibDirs_target
-                                  else setupLibDirs_multi;
+  setupLibDirs = if isTargetBuild then setupLibDirsTarget
+                                  else setupLibDirsMulti;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''
