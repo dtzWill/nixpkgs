@@ -12440,6 +12440,8 @@ with pkgs;
 
   vtm = callPackage ../tools/misc/vtm { };
 
+  vtune = callPackage ../development/tools/profiling/vtune { };
+
   witness = callPackage ../tools/security/witness { };
 
   openconnectPackages = callPackage ../tools/networking/openconnect { };
