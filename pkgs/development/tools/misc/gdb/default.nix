@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     "--with-expat" "--with-libexpat-prefix=${expat.dev}"
     "--with-auto-load-safe-path=${builtins.concatStringsSep ":" safePaths}"
   ] ++ lib.optional (!pythonSupport) "--without-python"
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-nls"
+    ++ lib.optional stdenv.hostPlatform.isMusl [ "--disable-nls" "--disable-werror" ]
     ++ lib.optional enableDebuginfod "--with-debuginfod=yes";
 
   postInstall =
