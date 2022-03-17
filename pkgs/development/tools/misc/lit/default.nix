@@ -13,6 +13,8 @@ python3.pkgs.buildPythonApplication rec {
     python = python3;
   };
 
+  propagatedBuildInputs = [ python3.pkgs.psutil ];
+
   # Non-standard test suite. Needs custom checkPhase.
   doCheck = false;
 
