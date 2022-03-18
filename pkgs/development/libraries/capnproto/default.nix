@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ]
     ++ lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) capnproto;
 
-  cmakeFlags = lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) "-DEXTERNAL_CAPNP"
-    ++ lib.optional stdenv.isMusl "-DWITH_FIBERS=OFF"; # needs {make,get,set}context for these
+  cmakeFlags = lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) "-DEXTERNAL_CAPNP";
+
+  # Upstream 77ac9154440bcc216fda1092fd5bb51da62ae09c, modified to apply to v0.9.1.  Drop on update.
+  patches = lib.optional stdenv.hostPlatform.isMusl ./musl-no-fibers.patch;
 
   meta = with lib; {
     homepage    = "https://capnproto.org/";
