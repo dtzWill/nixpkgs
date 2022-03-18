@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ]
     ++ lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) capnproto;
 
-  cmakeFlags = lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) "-DEXTERNAL_CAPNP";
+  cmakeFlags = lib.optional (!(stdenv.hostPlatform.isCompatible stdenv.buildPlatform)) "-DEXTERNAL_CAPNP"
+    ++ lib.optional stdenv.isMusl "-DWITH_FIBERS=OFF"; # needs {make,get,set}context for these
 
   meta = with lib; {
     homepage    = "https://capnproto.org/";
