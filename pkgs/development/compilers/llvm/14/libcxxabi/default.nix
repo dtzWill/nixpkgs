@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   postUnpack = lib.optionalString stdenv.isDarwin ''
     export TRIPLE=x86_64-apple-darwin
   '' + lib.optionalString stdenv.hostPlatform.isWasm ''
-    patch -p1 -d llvm -i ${./wasm.patch}
+    chmod u+rw -R "$sourceRoot/../llvm/cmake"
+    patch -p1 -d "$sourceRoot/../llvm" -i ${./wasm.patch}
   '';
 
   patches = [
