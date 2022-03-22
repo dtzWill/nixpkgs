@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man"
+    "VERSION=${version}"
   ];
 
   passthru.tests.version = testVersion {
