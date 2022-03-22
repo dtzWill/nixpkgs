@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-NYhPujm5A0j810IKUZEHru/oLXCW7xZf5FjjKAbatZY=";
   };
 
+  patches = [ ./flush-stdout-help-version.patch ];
+
   postPatch = ''
     substituteInPlace Makefile \
       --replace '`date +%Y%m%d`' '19700101'
