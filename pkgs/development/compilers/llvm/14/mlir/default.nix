@@ -3,6 +3,7 @@
 , cmake
 , libllvm
 , version
+, lit
 
 # TODO: python bindings
 # TODO: ROCm, CUDA ?
@@ -33,6 +34,8 @@ stdenv.mkDerivation rec {
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
+    mkdir -p "$out/llvm/utils"
+    cp -r ${monorepoSrc}/llvm/utils/unittest -t "$out/llvm/utils"
   '';
 
   sourceRoot = "${src.name}/${pname}";
@@ -49,6 +52,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableVulkan [ vulkan-headers vulkan-loader ];
 
   cmakeFlags = [
+    "-DLLVM_BUILD_MAIN_SRC_DIR=${src}/llvm"
+    "-DMLIR_INCLUDE_TESTS=ON"
+    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
     # Documentation suggests packagers may wish to disable, do so until needed
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF"
   ] ++ lib.optionals enableRunners ([
