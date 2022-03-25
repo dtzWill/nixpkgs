@@ -60,6 +60,8 @@ stdenv.mkDerivation rec {
     done
     substituteInPlace test/CMakeLists.txt \
         --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
+
+    substituteInPlace test/lit.site.cfg.py.in --replace '@MLIR_ENABLE_VULKAN_RUNNER@' '0'
   '' + ''
     patchShebangs test/mlir-reduce/{failure-,}test.sh
   '';
