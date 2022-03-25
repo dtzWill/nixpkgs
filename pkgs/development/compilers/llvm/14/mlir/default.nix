@@ -7,25 +7,12 @@
 
 # TODO: python bindings
 # TODO: ROCm, CUDA ?
-# TODO: Tests (unit+lit), not integration
 , enableRunners ? stdenv.hostPlatform == stdenv.buildPlatform
 , enableVulkan ? enableRunners
 , vulkan-headers
 , vulkan-loader
 }:
 
-let
-  # List of runners to build, native-only
-  ## runners = lib.optionals enableRunners ([
-  ##   "cpu-runner" "spirv-cpu-runner"
-  ## ] ++ lib.optional enableVulkan "vulkan-runner");
-  ## # List of binaries to build + install
-  ## # LLVM_{BUILD,INSTALL}_UTILS=ON doesn't seem to work
-  ## bins = map (n: "mlir-" + n) (runners ++ [
-  ##   "linalg-ods-yaml-gen" "tblgen" # needed for cross
-  ##   "lsp-server" "opt" "pdll" "reduce" "translate" # misc utilities
-  ## ]);
-in
 stdenv.mkDerivation rec {
   pname = "mlir";
   inherit version;
@@ -34,9 +21,8 @@ stdenv.mkDerivation rec {
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
-    mkdir -p "$out/llvm/utils"
+    mkdir -p "$out/llvm/utils" "$out/llvm/include"
     cp -r ${monorepoSrc}/llvm/utils/unittest -t "$out/llvm/utils"
-    mkdir -p "$out/llvm/include"
     cp -r ${monorepoSrc}/llvm/include -t "$out/llvm"
   '';
 
@@ -69,8 +55,9 @@ stdenv.mkDerivation rec {
     for x in lib/CAPI/CMakeLists.txt lib/CMakeLists.txt python/CMakeLists.txt test/CAPI/CMakeLists.txt test/CMakeLists.txt tools/CMakeLists.txt unittests/CMakeLists.txt; do
       substituteInPlace "$x" \
         --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)' \
-        --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
     done
+    substituteInPlace test/CMakeLists.txt \
+        --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
   '';
 
   doCheck = true;
