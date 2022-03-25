@@ -43,6 +43,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./gnu-install-dirs.patch
     ./add_mlir_tool.patch
+    ./mlir-standalone-test.patch
   ];
 
   outputs = [ "out" "lib" "dev" ];
