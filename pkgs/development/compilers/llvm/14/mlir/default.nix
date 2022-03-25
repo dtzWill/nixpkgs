@@ -68,7 +68,10 @@ stdenv.mkDerivation rec {
     patch -p4 -i ${./llvm-tablegen-install-path.patch}
     mv TableGen.cmake MLIRTableGen.cmake
 
-    substituteInPlace CMakeLists.txt --replace "include(TableGen)" "include(MLIRTableGen)"
+    substituteInPlace CMakeLists.txt \
+      --replace "include(TableGen)" "include(MLIRTableGen)" \
+      --replace 'set(CMAKE_MODULE_PATH ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})' \
+                'set(CMAKE_MODULE_PATH . ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})'
   '';
 
   doCheck = true;
