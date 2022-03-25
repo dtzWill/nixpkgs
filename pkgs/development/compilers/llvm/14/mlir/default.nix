@@ -36,6 +36,8 @@ stdenv.mkDerivation rec {
     cp -r ${monorepoSrc}/${pname} "$out"
     mkdir -p "$out/llvm/utils"
     cp -r ${monorepoSrc}/llvm/utils/unittest -t "$out/llvm/utils"
+    mkdir -p "$out/llvm/include"
+    cp -r ${monorepoSrc}/llvm/include -t "$out/llvm"
   '';
 
   sourceRoot = "${src.name}/${pname}";
