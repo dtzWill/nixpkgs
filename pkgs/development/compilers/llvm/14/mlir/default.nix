@@ -51,8 +51,9 @@ stdenv.mkDerivation rec {
     "-DMLIR_ENABLE_SPIRV_CPU_RUNNER=ON"
   ] ++ lib.optional enableVulkan "-DMLIR_ENABLE_VULKAN_RUNNER=ON");
 
-  # Patch around check for being built native (maybe because not built w/LLVM?)
   postPatch = lib.optionalString enableRunners ''
+    # Patch around check for being built native (maybe because not built w/LLVM?)
+    # TODO: Find a way to fix this check (instead of forcing it) for the standalone case
     for x in lib/CAPI/CMakeLists.txt lib/CMakeLists.txt python/CMakeLists.txt test/CAPI/CMakeLists.txt test/CMakeLists.txt tools/CMakeLists.txt unittests/CMakeLists.txt; do
       substituteInPlace "$x" \
         --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)'
@@ -62,6 +63,7 @@ stdenv.mkDerivation rec {
 
     substituteInPlace test/lit.site.cfg.py.in --replace '@MLIR_ENABLE_VULKAN_RUNNER@' '0'
   '' + ''
+    # Fixup /bin/bash shebangs:
     patchShebangs test/mlir-reduce/{failure-,}test.sh
 
     # Copy over LLVM's TableGen module, so we can patch it:
@@ -69,7 +71,7 @@ stdenv.mkDerivation rec {
     cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake MLIRTableGen.cmake
     patch -p1 -i ${./llvm-tablegen-install-path.patch}
 
-    # Patch cmake to look in current directory for modules, so our patched module is found
+    # Path CMakeLists.txt to look for MLIRTableGen instead, and modify search path to include this dir
     substituteInPlace CMakeLists.txt \
       --replace "include(TableGen)" "include(MLIRTableGen)" \
       --replace 'set(CMAKE_MODULE_PATH ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})' \
