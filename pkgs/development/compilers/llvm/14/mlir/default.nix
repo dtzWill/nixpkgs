@@ -61,6 +61,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
+  doCheck = true;
+
+  checkTarget = "check-mlir";
+
   postBuild = ''
     make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
   '';
