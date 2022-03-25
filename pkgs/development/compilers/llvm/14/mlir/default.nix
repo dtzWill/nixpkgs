@@ -63,6 +63,9 @@ stdenv.mkDerivation rec {
     substituteInPlace test/lit.site.cfg.py.in --replace '@MLIR_ENABLE_VULKAN_RUNNER@' '0'
   '' + ''
     patchShebangs test/mlir-reduce/{failure-,}test.sh
+
+    cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake cmake/modules/
+    patch -p2 -i ${./llvm-tablegen-install-path.patch}
   '';
 
   doCheck = true;
