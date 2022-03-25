@@ -1,21 +1,20 @@
-From 6d096b0942f13b1a28d44ce9f04fde3c3b3b3442 Mon Sep 17 00:00:00 2001
+From 179723e3c20c05c78946cc4251abbd80fa222512 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Fri, 25 Mar 2022 11:57:25 -0500
 Subject: [PATCH] mlir: fix standalone test configuration, from flang
 
----
- mlir/test/CMakeLists.txt | 9 +++++++++
- 1 file changed, 9 insertions(+)
 
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
-index 8e44a9c37cf1..24e626813797 100644
+index 8e44a9c37cf1..6093e4a31d7c 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
-@@ -167,3 +167,12 @@ set_target_properties(check-mlir PROPERTIES FOLDER "Tests")
- add_lit_testsuites(MLIR ${CMAKE_CURRENT_SOURCE_DIR}
-   DEPENDS ${MLIR_TEST_DEPENDS}
- )
-+
+@@ -164,6 +164,11 @@ add_lit_testsuite(check-mlir "Running the MLIR regression tests"
+   )
+ set_target_properties(check-mlir PROPERTIES FOLDER "Tests")
+ 
+-add_lit_testsuites(MLIR ${CMAKE_CURRENT_SOURCE_DIR}
+-  DEPENDS ${MLIR_TEST_DEPENDS}
+-)
 +# In case of standalone builds.
 +if (MLIR_STANDALONE_BUILD)
 +  add_lit_testsuites(MLIR ${CMAKE_CURRENT_BINARY_DIR}
