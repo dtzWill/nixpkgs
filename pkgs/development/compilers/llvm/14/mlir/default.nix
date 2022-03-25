@@ -64,9 +64,8 @@ stdenv.mkDerivation rec {
   '' + ''
     patchShebangs test/mlir-reduce/{failure-,}test.sh
 
-    cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake .
-    patch -p4 -i ${./llvm-tablegen-install-path.patch}
-    mv TableGen.cmake MLIRTableGen.cmake
+    cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake MLIRTableGen.cmake
+    patch -p1 -i ${./llvm-tablegen-install-path.patch}
 
     substituteInPlace CMakeLists.txt \
       --replace "include(TableGen)" "include(MLIRTableGen)" \
