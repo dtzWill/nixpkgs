@@ -81,9 +81,6 @@ stdenv.mkDerivation rec {
   checkTarget = "check-mlir";
 
   postInstall = ''
-    # Manually install mlir-tblgen (LLVM_INSTALL_UTILS=ON tries to install to LLVM's installation directory)
-    install -Dm755 -t $out/bin bin/mlir-tblgen
-
     # Install editor bits
     mkdir -p $out/share/vim-plugins/
     cp -r ../utils/vim $out/share/vim-plugins/mlir
