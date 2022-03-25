@@ -45,7 +45,6 @@ stdenv.mkDerivation rec {
     "-DMLIR_INCLUDE_TESTS=ON"
     "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
     "-DLLVM_BUILD_UTILS=ON"
-    "-DLLVM_INSTALL_UTILS=ON"
     # Documentation suggests packagers may wish to disable, do so until needed
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF"
   ] ++ lib.optionals enableRunners ([
@@ -70,8 +69,11 @@ stdenv.mkDerivation rec {
 
   checkTarget = "check-mlir";
 
-  # Install editor bits
   postInstall = ''
+    # Manually install mlir-tblgen (LLVM_INSTALL_UTILS=ON tries to install to LLVM's installation directory)
+    install -Dm755 -t $out/bin bin/mlir-tblgen
+
+    # Install editor bits
     mkdir -p $out/share/vim-plugins/
     cp -r ../utils/vim $out/share/vim-plugins/mlir
     install -Dt $out/share/emacs/site-lisp ../utils/emacs/mlir-mode.el
