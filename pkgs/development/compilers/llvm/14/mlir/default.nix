@@ -75,6 +75,10 @@ stdenv.mkDerivation rec {
 
   checkTarget = "check-mlir";
 
+  preCheck = ''
+    patchShebangs test/mlir-reduce/{failure-,}test.sh
+  '';
+
   # postBuild = ''
   #   make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
   # '';
