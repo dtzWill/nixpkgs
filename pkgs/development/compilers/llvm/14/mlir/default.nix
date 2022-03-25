@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt \
       --replace "include(TableGen)" "include(MLIRTableGen)" \
       --replace 'set(CMAKE_MODULE_PATH ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})' \
-                'set(CMAKE_MODULE_PATH . ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})'
+                'set(CMAKE_MODULE_PATH ''${CMAKE_CURRENT_SOURCE_DIR} ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})'
   '';
 
   doCheck = true;
