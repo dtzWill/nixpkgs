@@ -8,11 +8,12 @@ build is problematic -- MLIR's bits go in its own bin directory.
 
 We could fix this with some conditionals, but lets leave our LLVM alone
 for now (and not rebuild it just for this change for MLIR).
+
+(patch modified to apply to renamed copy, "MLIRTableGen.cmake")
 ---
-diff --git a/TableGen.cmake b/TableGen.cmake
-index 59fd0d3b0733..d0f0bd8da170 100644
---- a/TableGen.cmake
-+++ b/TableGen.cmake
+diff --git a/MLIRTableGen.cmake b/MLIRTableGen.cmake
+--- a/MLIRTableGen.cmake
++++ b/MLIRTableGen.cmake
 @@ -192,7 +192,7 @@ macro(add_tablegen target project)
      install(TARGETS ${target}
              ${export_to_llvmexports}
