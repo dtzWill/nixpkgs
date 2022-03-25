@@ -66,8 +66,10 @@ stdenv.mkDerivation rec {
 
   # Patch around check for being built native (maybe because not built w/LLVM?)
   postPatch = lib.optionalString enableRunners ''
-    for x in **/CMakeLists.txt; do
-      substituteInPlace "$x" --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)'
+    for x in */CMakeLists.txt */*/CMakeLists.txt; do
+      substituteInPlace "$x" \
+        --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)' \
+        --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
     done
   '';
 
