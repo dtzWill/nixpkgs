@@ -1,0 +1,249 @@
+(adjusted patch prefix)
+From 2dde100dc3b88e175921263c1f7fd3a7f0ccece1 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Fri, 25 Mar 2022 11:32:26 -0500
+Subject: [PATCH] mlir: introduce and use add_mlir_{tool,executable} variants
+
+* Identify MLIR targets
+* Optionally don't build tools
+* per-project installation directory
+---
+ mlir/CMakeLists.txt                           |  3 ++
+ mlir/cmake/modules/AddMLIR.cmake              | 28 +++++++++++++++++++
+ .../standalone/standalone-opt/CMakeLists.txt  |  2 +-
+ .../standalone-translate/CMakeLists.txt       |  2 +-
+ .../standalone/test/CAPI/CMakeLists.txt       |  2 +-
+ mlir/test/CAPI/CMakeLists.txt                 |  2 +-
+ mlir/tools/mlir-cpu-runner/CMakeLists.txt     |  2 +-
+ mlir/tools/mlir-linalg-ods-gen/CMakeLists.txt |  2 +-
+ mlir/tools/mlir-lsp-server/CMakeLists.txt     |  2 +-
+ mlir/tools/mlir-opt/CMakeLists.txt            |  2 +-
+ mlir/tools/mlir-pdll/CMakeLists.txt           |  2 +-
+ mlir/tools/mlir-reduce/CMakeLists.txt         |  2 +-
+ .../mlir-spirv-cpu-runner/CMakeLists.txt      |  2 +-
+ mlir/tools/mlir-translate/CMakeLists.txt      |  2 +-
+ mlir/tools/mlir-vulkan-runner/CMakeLists.txt  |  2 +-
+ 15 files changed, 44 insertions(+), 13 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7bb24adb3d6e..ec20c54d77cb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -123,6 +123,9 @@ set(MLIR_INSTALL_AGGREGATE_OBJECTS 1 CACHE BOOL
+ 
+ set(MLIR_BUILD_MLIR_C_DYLIB 0 CACHE BOOL "Builds libMLIR-C shared library.")
+ 
++option(MLIR_BUILD_TOOLS
++  "Build the MLIR tools. If OFF, just generate build targets." ON)
++
+ #-------------------------------------------------------------------------------
+ # Python Bindings Configuration
+ # Requires:
+diff --git a/cmake/modules/AddMLIR.cmake b/cmake/modules/AddMLIR.cmake
+index b45c44e0276b..d284c8e96c3d 100644
+--- a/cmake/modules/AddMLIR.cmake
++++ b/cmake/modules/AddMLIR.cmake
+@@ -467,3 +467,31 @@ function(mlir_check_all_link_libraries name)
+     endforeach()
+   endif()
+ endfunction(mlir_check_all_link_libraries)
++
++macro(add_mlir_executable name)
++  add_llvm_executable(${name} ${ARGN})
++  set_target_properties(${name} PROPERTIES FOLDER "MLIR executables")
++endmacro(add_mlir_executable)
++
++macro(add_mlir_tool name)
++  if (NOT MLIR_BUILD_TOOLS)
++    set(EXCLUDE_FROM_ALL ON)
++  endif()
++
++  add_mlir_executable(${name} ${ARGN})
++
++  if (MLIR_BUILD_TOOLS)
++    get_target_export_arg(${name} MLIR export_to_mlirtargets)
++    install(TARGETS ${name}
++      ${export_to_mlirtargets}
++      RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
++      COMPONENT ${name})
++
++    if(NOT LLVM_ENABLE_IDE)
++      add_llvm_install_targets(install-${name}
++                               DEPENDS ${name}
++                               COMPONENT ${name})
++    endif()
++    set_property(GLOBAL APPEND PROPERTY MLIR_EXPORTS ${name})
++  endif()
++endmacro()
+diff --git a/examples/standalone/standalone-opt/CMakeLists.txt b/examples/standalone/standalone-opt/CMakeLists.txt
+index 8b1747da2e01..58ec0e40e719 100644
+--- a/examples/standalone/standalone-opt/CMakeLists.txt
++++ b/examples/standalone/standalone-opt/CMakeLists.txt
+@@ -7,7 +7,7 @@ set(LIBS
+         MLIROptLib
+         MLIRStandalone
+         )
+-add_llvm_executable(standalone-opt standalone-opt.cpp)
++add_mlir_executable(standalone-opt standalone-opt.cpp)
+ 
+ llvm_update_compile_flags(standalone-opt)
+ target_link_libraries(standalone-opt PRIVATE ${LIBS})
+diff --git a/examples/standalone/standalone-translate/CMakeLists.txt b/examples/standalone/standalone-translate/CMakeLists.txt
+index 137f7947cfac..1f481048feee 100644
+--- a/examples/standalone/standalone-translate/CMakeLists.txt
++++ b/examples/standalone/standalone-translate/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(LLVM_LINK_COMPONENTS
+ get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+ get_property(translation_libs GLOBAL PROPERTY MLIR_TRANSLATION_LIBS)
+ 
+-add_llvm_executable(standalone-translate
++add_mlir_executable(standalone-translate
+   standalone-translate.cpp
+   )
+ llvm_update_compile_flags(standalone-translate)
+diff --git a/examples/standalone/test/CAPI/CMakeLists.txt b/examples/standalone/test/CAPI/CMakeLists.txt
+index 89584310c7c6..7eb3728101dc 100644
+--- a/examples/standalone/test/CAPI/CMakeLists.txt
++++ b/examples/standalone/test/CAPI/CMakeLists.txt
+@@ -10,7 +10,7 @@ add_mlir_aggregate(StandaloneCAPITestLib
+   StandaloneCAPI
+ )
+ 
+-add_llvm_executable(standalone-capi-test
++add_mlir_executable(standalone-capi-test
+   standalone-capi-test.c
+ )
+ llvm_update_compile_flags(standalone-capi-test)
+diff --git a/test/CAPI/CMakeLists.txt b/test/CAPI/CMakeLists.txt
+index 9610df62457e..eb023d41745b 100644
+--- a/test/CAPI/CMakeLists.txt
++++ b/test/CAPI/CMakeLists.txt
+@@ -6,7 +6,7 @@ function(_add_capi_test_executable name)
+     ${ARGN})
+   set(LLVM_LINK_COMPONENTS
+     )
+-  add_llvm_executable(${name}
++  add_mlir_executable(${name}
+     PARTIAL_SOURCES_INTENDED
+     ${ARG_UNPARSED_ARGUMENTS})
+   llvm_update_compile_flags(${name})
+diff --git a/tools/mlir-cpu-runner/CMakeLists.txt b/tools/mlir-cpu-runner/CMakeLists.txt
+index 8ca83a289150..d0d37eabfa88 100644
+--- a/tools/mlir-cpu-runner/CMakeLists.txt
++++ b/tools/mlir-cpu-runner/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(LLVM_LINK_COMPONENTS
+   native
+   )
+ 
+-add_llvm_tool(mlir-cpu-runner
++add_mlir_tool(mlir-cpu-runner
+   mlir-cpu-runner.cpp
+   )
+ llvm_update_compile_flags(mlir-cpu-runner)
+diff --git a/tools/mlir-linalg-ods-gen/CMakeLists.txt b/tools/mlir-linalg-ods-gen/CMakeLists.txt
+index 15e745f612b1..88ab69f47623 100644
+--- a/tools/mlir-linalg-ods-gen/CMakeLists.txt
++++ b/tools/mlir-linalg-ods-gen/CMakeLists.txt
+@@ -4,7 +4,7 @@ set(LLVM_LINK_COMPONENTS
+   )
+ 
+ # New mlir-linalg-ods-yaml-gen.
+-add_llvm_tool(mlir-linalg-ods-yaml-gen
++add_mlir_tool(mlir-linalg-ods-yaml-gen
+   mlir-linalg-ods-yaml-gen.cpp
+ )
+ llvm_update_compile_flags(mlir-linalg-ods-yaml-gen)
+diff --git a/tools/mlir-lsp-server/CMakeLists.txt b/tools/mlir-lsp-server/CMakeLists.txt
+index 204c7aeac292..246f71114ab8 100644
+--- a/tools/mlir-lsp-server/CMakeLists.txt
++++ b/tools/mlir-lsp-server/CMakeLists.txt
+@@ -41,7 +41,7 @@ set(LIBS
+   MLIRIR
+   )
+ 
+-add_llvm_tool(mlir-lsp-server
++add_mlir_tool(mlir-lsp-server
+   mlir-lsp-server.cpp
+ 
+   DEPENDS
+diff --git a/tools/mlir-opt/CMakeLists.txt b/tools/mlir-opt/CMakeLists.txt
+index c03d6403a74e..4b2dc4b6cfb2 100644
+--- a/tools/mlir-opt/CMakeLists.txt
++++ b/tools/mlir-opt/CMakeLists.txt
+@@ -61,7 +61,7 @@ add_mlir_library(MLIRMlirOptMain
+   ${LIBS}
+   )
+ 
+-add_llvm_tool(mlir-opt
++add_mlir_tool(mlir-opt
+   mlir-opt.cpp
+ 
+   DEPENDS
+diff --git a/tools/mlir-pdll/CMakeLists.txt b/tools/mlir-pdll/CMakeLists.txt
+index d8ec70218097..91d26917178a 100644
+--- a/tools/mlir-pdll/CMakeLists.txt
++++ b/tools/mlir-pdll/CMakeLists.txt
+@@ -3,7 +3,7 @@ set(LIBS
+   MLIRPDLLParser
+   )
+ 
+-add_llvm_tool(mlir-pdll
++add_mlir_tool(mlir-pdll
+   mlir-pdll.cpp
+ 
+   DEPENDS
+diff --git a/tools/mlir-reduce/CMakeLists.txt b/tools/mlir-reduce/CMakeLists.txt
+index 8893316f53b8..8549dbf805f5 100644
+--- a/tools/mlir-reduce/CMakeLists.txt
++++ b/tools/mlir-reduce/CMakeLists.txt
+@@ -17,7 +17,7 @@ set(LIBS
+   MLIRReduceLib
+   )
+ 
+-add_llvm_tool(mlir-reduce
++add_mlir_tool(mlir-reduce
+   mlir-reduce.cpp
+ 
+   DEPENDS
+diff --git a/tools/mlir-spirv-cpu-runner/CMakeLists.txt b/tools/mlir-spirv-cpu-runner/CMakeLists.txt
+index 9c8ec7e0aecb..58fe5122bccf 100644
+--- a/tools/mlir-spirv-cpu-runner/CMakeLists.txt
++++ b/tools/mlir-spirv-cpu-runner/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(LLVM_LINK_COMPONENTS
+ if (MLIR_ENABLE_SPIRV_CPU_RUNNER)
+   message(STATUS "Building SPIR-V CPU runner")
+ 
+-  add_llvm_tool(mlir-spirv-cpu-runner
++  add_mlir_tool(mlir-spirv-cpu-runner
+     mlir-spirv-cpu-runner.cpp
+   )
+ 
+diff --git a/tools/mlir-translate/CMakeLists.txt b/tools/mlir-translate/CMakeLists.txt
+index 99b98f9288b9..cc7ff64da42e 100644
+--- a/tools/mlir-translate/CMakeLists.txt
++++ b/tools/mlir-translate/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(LLVM_LINK_COMPONENTS
+ get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+ get_property(translation_libs GLOBAL PROPERTY MLIR_TRANSLATION_LIBS)
+ 
+-add_llvm_tool(mlir-translate
++add_mlir_tool(mlir-translate
+   mlir-translate.cpp
+   )
+ llvm_update_compile_flags(mlir-translate)
+diff --git a/tools/mlir-vulkan-runner/CMakeLists.txt b/tools/mlir-vulkan-runner/CMakeLists.txt
+index cde6e1a31317..89b9a3cf9143 100644
+--- a/tools/mlir-vulkan-runner/CMakeLists.txt
++++ b/tools/mlir-vulkan-runner/CMakeLists.txt
+@@ -88,7 +88,7 @@ if (MLIR_ENABLE_VULKAN_RUNNER)
+     LIST(APPEND targets_to_link "LLVM${t}")
+   ENDFOREACH(t)
+ 
+-  add_llvm_tool(mlir-vulkan-runner
++  add_mlir_tool(mlir-vulkan-runner
+     mlir-vulkan-runner.cpp
+ 
+     DEPENDS
+-- 
+2.35.1
+

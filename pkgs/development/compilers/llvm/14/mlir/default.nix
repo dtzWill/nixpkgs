@@ -15,15 +15,15 @@
 
 let
   # List of runners to build, native-only
-  runners = lib.optionals enableRunners ([
-    "cpu-runner" "spirv-cpu-runner"
-  ] ++ lib.optional enableVulkan "vulkan-runner");
-  # List of binaries to build + install
-  # LLVM_{BUILD,INSTALL}_UTILS=ON doesn't seem to work
-  bins = map (n: "mlir-" + n) (runners ++ [
-    "linalg-ods-yaml-gen" "tblgen" # needed for cross
-    "lsp-server" "opt" "pdll" "reduce" "translate" # misc utilities
-  ]);
+  ## runners = lib.optionals enableRunners ([
+  ##   "cpu-runner" "spirv-cpu-runner"
+  ## ] ++ lib.optional enableVulkan "vulkan-runner");
+  ## # List of binaries to build + install
+  ## # LLVM_{BUILD,INSTALL}_UTILS=ON doesn't seem to work
+  ## bins = map (n: "mlir-" + n) (runners ++ [
+  ##   "linalg-ods-yaml-gen" "tblgen" # needed for cross
+  ##   "lsp-server" "opt" "pdll" "reduce" "translate" # misc utilities
+  ## ]);
 in
 stdenv.mkDerivation rec {
   pname = "mlir";
@@ -39,6 +39,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./gnu-install-dirs.patch
+    ./add_mlir_tool.patch
   ];
 
   outputs = [ "out" "lib" "dev" ];
@@ -65,13 +66,14 @@ stdenv.mkDerivation rec {
 
   checkTarget = "check-mlir";
 
-  postBuild = ''
-    make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
-  '';
+  # postBuild = ''
+  #   make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
+  # '';
 
+    # install -Dm755 -t $out/bin ${lib.concatMapStringsSep " " (x: "bin/${x}") bins}
+
+  # Install editor bits
   postInstall = ''
-    install -Dm755 -t $out/bin ${lib.concatMapStringsSep " " (x: "bin/${x}") bins}
-
     mkdir -p $out/share/vim-plugins/
     cp -r ../utils/vim $out/share/vim-plugins/mlir
     install -Dt $out/share/emacs/site-lisp ../utils/emacs/mlir-mode.el
