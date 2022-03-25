@@ -7,10 +7,10 @@ Subject: [PATCH] mlir: fix standalone test configuration, from flang
  mlir/test/CMakeLists.txt | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/mlir/test/CMakeLists.txt b/mlir/test/CMakeLists.txt
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
 index 8e44a9c37cf1..24e626813797 100644
---- a/mlir/test/CMakeLists.txt
-+++ b/mlir/test/CMakeLists.txt
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
 @@ -167,3 +167,12 @@ set_target_properties(check-mlir PROPERTIES FOLDER "Tests")
  add_lit_testsuites(MLIR ${CMAKE_CURRENT_SOURCE_DIR}
    DEPENDS ${MLIR_TEST_DEPENDS}
