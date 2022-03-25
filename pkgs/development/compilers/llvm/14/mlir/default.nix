@@ -54,25 +54,17 @@ stdenv.mkDerivation rec {
   postPatch = lib.optionalString enableRunners ''
     for x in lib/CAPI/CMakeLists.txt lib/CMakeLists.txt python/CMakeLists.txt test/CAPI/CMakeLists.txt test/CMakeLists.txt tools/CMakeLists.txt unittests/CMakeLists.txt; do
       substituteInPlace "$x" \
-        --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)' \
+        --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)'
     done
     substituteInPlace test/CMakeLists.txt \
         --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
+  '' + ''
+    patchShebangs mlir-reduce/{failure-,}test.sh
   '';
 
   doCheck = true;
 
   checkTarget = "check-mlir";
-
-  preCheck = ''
-    patchShebangs test/mlir-reduce/{failure-,}test.sh
-  '';
-
-  # postBuild = ''
-  #   make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
-  # '';
-
-    # install -Dm755 -t $out/bin ${lib.concatMapStringsSep " " (x: "bin/${x}") bins}
 
   # Install editor bits
   postInstall = ''
