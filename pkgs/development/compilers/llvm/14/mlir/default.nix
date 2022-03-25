@@ -44,6 +44,8 @@ stdenv.mkDerivation rec {
     "-DLLVM_BUILD_MAIN_SRC_DIR=${src}/llvm"
     "-DMLIR_INCLUDE_TESTS=ON"
     "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
+    "-DLLVM_BUILD_UTILS=ON"
+    "-DLLVM_INSTALL_UTILS=ON"
     # Documentation suggests packagers may wish to disable, do so until needed
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF"
   ] ++ lib.optionals enableRunners ([
