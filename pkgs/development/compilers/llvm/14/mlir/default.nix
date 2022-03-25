@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
   '' + ''
     patchShebangs test/mlir-reduce/{failure-,}test.sh
 
-    cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake cmake/modules/
-    patch -p2 -i ${./llvm-tablegen-install-path.patch}
+    cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake .
+    patch -p4 -i ${./llvm-tablegen-install-path.patch}
   '';
 
   doCheck = true;
