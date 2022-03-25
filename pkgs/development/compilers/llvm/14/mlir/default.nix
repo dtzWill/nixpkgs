@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     substituteInPlace test/CMakeLists.txt \
         --replace 'if(NOT TARGET ''${LLVM_NATIVE_ARCH})' 'if (0)'
   '' + ''
-    patchShebangs mlir-reduce/{failure-,}test.sh
+    patchShebangs test/mlir-reduce/{failure-,}test.sh
   '';
 
   doCheck = true;
