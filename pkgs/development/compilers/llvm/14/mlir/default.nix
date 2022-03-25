@@ -64,9 +64,12 @@ stdenv.mkDerivation rec {
   '' + ''
     patchShebangs test/mlir-reduce/{failure-,}test.sh
 
+    # Copy over LLVM's TableGen module, so we can patch it:
+    # (give it a unique name just to be sure it's what is used)
     cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake MLIRTableGen.cmake
     patch -p1 -i ${./llvm-tablegen-install-path.patch}
 
+    # Patch cmake to look in current directory for modules, so our patched module is found
     substituteInPlace CMakeLists.txt \
       --replace "include(TableGen)" "include(MLIRTableGen)" \
       --replace 'set(CMAKE_MODULE_PATH ''${CMAKE_MODULE_PATH} ''${LLVM_CMAKE_DIR})' \
