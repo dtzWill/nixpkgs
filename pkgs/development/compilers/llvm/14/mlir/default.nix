@@ -66,6 +66,9 @@ stdenv.mkDerivation rec {
 
     cp ${lib.getDev libllvm}/lib/cmake/llvm/TableGen.cmake .
     patch -p4 -i ${./llvm-tablegen-install-path.patch}
+    mv TableGen.cmake MLIRTableGen.cmake
+
+    substituteInPlace CMakeLists.txt --replace "include(TableGen)" "include(MLIRTableGen)"
   '';
 
   doCheck = true;
