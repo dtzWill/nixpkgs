@@ -212,6 +212,9 @@ in stdenv.mkDerivation (rec {
   # For the update script:
   passthru.monorepoSrc = monorepoSrc;
 
+  # So downstream projects can match
+  passthru.debugVersion = debugVersion;
+
   requiredSystemFeatures = [ "big-parallel" ];
   meta = llvm_meta // {
     homepage = "https://llvm.org/";

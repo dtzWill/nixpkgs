@@ -4,6 +4,7 @@
 , buildLlvmTools
 , fixDarwinDylibNames
 , enableManpages ? false
+, debugVersion ? libllvm.debugVersion or false
 }:
 
 let
@@ -26,6 +27,7 @@ let
     buildInputs = [ libxml2 libllvm ];
 
     cmakeFlags = [
+      "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
       "-DCMAKE_CXX_FLAGS=-std=c++14"
       "-DCLANGD_BUILD_XPC=OFF"
       "-DLLVM_ENABLE_RTTI=ON"
@@ -71,7 +73,7 @@ let
       # Move libclang to 'lib' output
       moveToOutput "lib/libclang.*" "$lib"
       moveToOutput "lib/libclang-cpp.*" "$lib"
-      substituteInPlace $out/lib/cmake/clang/ClangTargets-release.cmake \
+      substituteInPlace $out/lib/cmake/clang/ClangTargets-${if debugVersion then "debug" else "release"}.cmake \
           --replace "\''${_IMPORT_PREFIX}/lib/libclang." "$lib/lib/libclang." \
           --replace "\''${_IMPORT_PREFIX}/lib/libclang-cpp." "$lib/lib/libclang-cpp."
 
