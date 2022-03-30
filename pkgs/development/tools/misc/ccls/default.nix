@@ -1,7 +1,7 @@
-{ lib, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 , cmake, llvmPackages, rapidjson, runtimeShell }:
 
-llvmPackages.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "ccls";
   version = "0.20220729";
 
@@ -12,7 +12,7 @@ llvmPackages.stdenv.mkDerivation rec {
     sha256 = "sha256-eSWgk6KdEyjDLPc27CsOCXDU7AKMoXNyzoA6dSwZ5TI=";
   };
 
-  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
+  nativeBuildInputs = [ cmake ];
   buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
 
   cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
