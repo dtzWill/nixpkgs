@@ -12,13 +12,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eSWgk6KdEyjDLPc27CsOCXDU7AKMoXNyzoA6dSwZ5TI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
   buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
 
   cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
+  '';
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "project(ccls LANGUAGES CXX)" \
+                "project(ccls LANGUAGES C CXX)"
   '';
 
   clang = llvmPackages.clang;
