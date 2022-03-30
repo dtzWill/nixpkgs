@@ -14914,7 +14914,7 @@ with pkgs;
   cpplint = callPackage ../development/tools/analysis/cpplint { };
 
   ccls = callPackage ../development/tools/misc/ccls {
-    llvmPackages = llvmPackages_latest;
+    llvmPackages = llvmPackages_14;
   };
 
   credstash = with python3Packages; toPythonApplication credstash;
