@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
   buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
 
-  cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
+  cmakeFlags = [ "-DCCLS_VERSION=${version}" "-DCMAKE_BUILD_TYPE=Debug" ];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
