@@ -21,13 +21,15 @@ stdenv.mkDerivation rec {
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
   '';
 
+  # Fix build w/recent Clang by adding 'C' to LANGUAGES
+  # TODO: replace this with upstream commit!
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "project(ccls LANGUAGES CXX)" \
                 "project(ccls LANGUAGES C CXX)"
     
     # Bump default thread stack size
-    substituteInPlace src/posix_platform.cc \
+    substituteInPlace src/platform_posix.cc \
       --replace 'size_t stack_size = 4 * 1024 * 1024;' \
                 'size_t stack_size = 10 * 1024 * 1024;'
 
