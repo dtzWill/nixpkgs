@@ -89,6 +89,8 @@ let
       cp bin/clang-tblgen $dev/bin
     '';
 
+    dontStrip = debugVersion;
+
     passthru = {
       isClang = true;
       inherit libllvm;

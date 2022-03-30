@@ -215,6 +215,8 @@ in stdenv.mkDerivation (rec {
   # So downstream projects can match
   passthru.debugVersion = debugVersion;
 
+  dontStrip = debugVersion;
+
   requiredSystemFeatures = [ "big-parallel" ];
   meta = llvm_meta // {
     homepage = "https://llvm.org/";
