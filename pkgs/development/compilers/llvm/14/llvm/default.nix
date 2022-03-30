@@ -15,7 +15,7 @@
 , zlib
 , which
 , buildLlvmTools
-, debugVersion ? false
+, debugVersion ? true
 , enableManpages ? false
 , enableSharedLibraries ? !stdenv.hostPlatform.isStatic
 , enablePFM ? !(stdenv.isDarwin
