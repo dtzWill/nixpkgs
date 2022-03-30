@@ -25,6 +25,12 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt \
       --replace "project(ccls LANGUAGES CXX)" \
                 "project(ccls LANGUAGES C CXX)"
+    
+    # Bump default thread stack size
+    substituteInPlace src/posix_platform.cc \
+      --replace 'size_t stack_size = 4 * 1024 * 1024;' \
+                'size_t stack_size = 10 * 1024 * 1024;'
+
   '';
 
   clang = llvmPackages.clang;
