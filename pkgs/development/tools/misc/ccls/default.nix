@@ -12,6 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eSWgk6KdEyjDLPc27CsOCXDU7AKMoXNyzoA6dSwZ5TI=";
   };
 
+  # Improve handling of large amounts of stack (e.g., template instantiation)
+  patches = [ ./fix-stack-usage.patch ];
+
   nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
   buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
 

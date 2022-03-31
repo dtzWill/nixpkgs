@@ -1,0 +1,82 @@
+From e5170527d571ccad77816f2fc434ad266f41d79c Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 31 Mar 2022 12:37:52 -0500
+Subject: [PATCH] Help clang determine stack space for safety
+
+Without this, checks against stack space don't work as Clang doesn't know where
+the stack begins.
+
+Needed per-thread.
+---
+ src/indexer.cc      | 2 ++
+ src/main.cc         | 5 ++++-
+ src/sema_manager.cc | 2 ++
+ 3 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/src/indexer.cc b/src/indexer.cc
+index 644c0ccb..75142408 100644
+--- a/src/indexer.cc
++++ b/src/indexer.cc
+@@ -10,6 +10,7 @@
+ #include "sema_manager.hh"
+ 
+ #include <clang/AST/AST.h>
++#include <clang/Basic/Stack.h>
+ #include <clang/Basic/TargetInfo.h>
+ #include <clang/Frontend/FrontendAction.h>
+ #include <clang/Frontend/MultiplexConsumer.h>
+@@ -1344,6 +1345,7 @@ index(SemaManager *manager, WorkingFiles *wfiles, VFS *vfs,
+   {
+     llvm::CrashRecoveryContext crc;
+     auto parse = [&]() {
++      clang::noteBottomOfStack(); // per-thread, needed to detect/avoid running out of stack
+       if (!action->BeginSourceFile(*clang, clang->getFrontendOpts().Inputs[0]))
+         return;
+ #if LLVM_VERSION_MAJOR >= 9 // rL364464
+diff --git a/src/main.cc b/src/main.cc
+index eb18d26c..db8b83d1 100644
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -8,6 +8,7 @@
+ #include "test.hh"
+ #include "working_files.hh"
+ 
++#include <clang/Basic/Stack.h>
+ #include <clang/Basic/Version.h>
+ #include <llvm/Support/CommandLine.h>
+ #include <llvm/Support/CrashRecoveryContext.h>
+@@ -78,8 +79,10 @@ int main(int argc, char **argv) {
+ 
+   pipeline::init();
+   const char *env = getenv("CCLS_CRASH_RECOVERY");
+-  if (!env || strcmp(env, "0") != 0)
++  if (!env || strcmp(env, "0") != 0) {
+     CrashRecoveryContext::Enable();
++    clang::noteBottomOfStack();
++  }
+ 
+   bool language_server = true;
+ 
+diff --git a/src/sema_manager.cc b/src/sema_manager.cc
+index dbe57672..64189a9b 100644
+--- a/src/sema_manager.cc
++++ b/src/sema_manager.cc
+@@ -9,6 +9,7 @@
+ #include "pipeline.hh"
+ #include "platform.hh"
+ 
++#include <clang/Basic/Stack.h>
+ #include <clang/Basic/TargetInfo.h>
+ #include <clang/Lex/PreprocessorOptions.h>
+ #include <clang/Sema/CodeCompleteConsumer.h>
+@@ -330,6 +331,7 @@ bool parse(CompilerInstance &clang) {
+   llvm::CrashRecoveryContext crc;
+   bool ok = false;
+   auto run = [&]() {
++    clang::noteBottomOfStack(); // per-thread, needed to detect/avoid running out of stack
+     if (!action.BeginSourceFile(clang, clang.getFrontendOpts().Inputs[0]))
+       return;
+ #if LLVM_VERSION_MAJOR >= 9 // rL364464
+-- 
+2.35.1
+
