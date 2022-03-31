@@ -1,0 +1,37 @@
+From 7ce05e82440df2dbe3c8eac078b42233e00a6518 Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Thu, 31 Mar 2022 14:33:44 -0500
+Subject: [PATCH] Increase stack size of pthreads to clang's desired size
+
+This is presently 8MB, and is used by clang's stack management
+mechanisms to measure stack usage when determining if there's
+sufficient space (and warn or run on thread with more).
+---
+ src/platform_posix.cc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/platform_posix.cc b/src/platform_posix.cc
+index 885e9557..955cb22b 100644
+--- a/src/platform_posix.cc
++++ b/src/platform_posix.cc
+@@ -27,6 +27,8 @@
+ #include <malloc.h>
+ #endif
+ 
++#include <clang/Basic/Stack.h>
++
+ #include <llvm/ADT/SmallString.h>
+ #include <llvm/Support/Path.h>
+ 
+@@ -65,7 +67,7 @@ void spawnThread(void *(*fn)(void *), void *arg) {
+   pthread_t thd;
+   pthread_attr_t attr;
+   struct rlimit rlim;
+-  size_t stack_size = 4 * 1024 * 1024;
++  size_t stack_size = clang::DesiredStackSize;
+   if (getrlimit(RLIMIT_STACK, &rlim) == 0 && rlim.rlim_cur != RLIM_INFINITY)
+     stack_size = rlim.rlim_cur;
+   pthread_attr_init(&attr);
+-- 
+2.35.1
+
