@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   # Improve handling of large amounts of stack (e.g., template instantiation)
-  patches = [ ./fix-stack-usage.patch ./use-clang-stack-size.patch ];
+  # patches = [ ./fix-stack-usage.patch ./use-clang-stack-size.patch ];
 
   nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
   buildInputs = with llvmPackages; [ libclang llvm rapidjson ];
