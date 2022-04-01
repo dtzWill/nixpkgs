@@ -1,40 +1,34 @@
-From e5170527d571ccad77816f2fc434ad266f41d79c Mon Sep 17 00:00:00 2001
+From af94ed027d89ff54fdd2f111cc1736d8839d9182 Mon Sep 17 00:00:00 2001
 From: Will Dietz <w@wdtz.org>
 Date: Thu, 31 Mar 2022 12:37:52 -0500
-Subject: [PATCH] Help clang determine stack space for safety
+Subject: [PATCH] Help Clang find bottom of stacks for safety, use desired
+ stack size
 
-Without this, checks against stack space don't work as Clang doesn't know where
-the stack begins.
+noteBottomOfStack:
 
-Needed per-thread.
+Without this, checks against stack space within Clang don't work as
+Clang doesn't know where the stack begins.
+
+Needed per-thread, as early as possible.
+
+Using desired stack size:
+
+Additionally increase stack size of pthreads to clang's desired size.
+
+This is presently 8MB, and is used by clang's stack management
+mechanisms to check* if close to stack exhaustion when determining if
+there's sufficient space (and warn or run on thread with more).
+
+The constant is available in LLVM 7 onwards.
+
+* (abs(cur - bottom) > DesiredStackSize - threshold)
 ---
- src/indexer.cc      | 2 ++
- src/main.cc         | 5 ++++-
- src/sema_manager.cc | 2 ++
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ src/main.cc           |  7 ++++++-
+ src/platform_posix.cc | 20 ++++++++++++++++++--
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/src/indexer.cc b/src/indexer.cc
-index 644c0ccb..75142408 100644
---- a/src/indexer.cc
-+++ b/src/indexer.cc
-@@ -10,6 +10,7 @@
- #include "sema_manager.hh"
- 
- #include <clang/AST/AST.h>
-+#include <clang/Basic/Stack.h>
- #include <clang/Basic/TargetInfo.h>
- #include <clang/Frontend/FrontendAction.h>
- #include <clang/Frontend/MultiplexConsumer.h>
-@@ -1344,6 +1345,7 @@ index(SemaManager *manager, WorkingFiles *wfiles, VFS *vfs,
-   {
-     llvm::CrashRecoveryContext crc;
-     auto parse = [&]() {
-+      clang::noteBottomOfStack(); // per-thread, needed to detect/avoid running out of stack
-       if (!action->BeginSourceFile(*clang, clang->getFrontendOpts().Inputs[0]))
-         return;
- #if LLVM_VERSION_MAJOR >= 9 // rL364464
 diff --git a/src/main.cc b/src/main.cc
-index eb18d26c..db8b83d1 100644
+index eb18d26c..dbd21302 100644
 --- a/src/main.cc
 +++ b/src/main.cc
 @@ -8,6 +8,7 @@
@@ -45,38 +39,68 @@ index eb18d26c..db8b83d1 100644
  #include <clang/Basic/Version.h>
  #include <llvm/Support/CommandLine.h>
  #include <llvm/Support/CrashRecoveryContext.h>
-@@ -78,8 +79,10 @@ int main(int argc, char **argv) {
+@@ -78,8 +79,12 @@ int main(int argc, char **argv) {
  
    pipeline::init();
    const char *env = getenv("CCLS_CRASH_RECOVERY");
 -  if (!env || strcmp(env, "0") != 0)
 +  if (!env || strcmp(env, "0") != 0) {
      CrashRecoveryContext::Enable();
-+    clang::noteBottomOfStack();
++#if LLVM_VERSION_MAJOR >= 10    // rL369940
++    clang::noteBottomOfStack(); // per-thread, needed to avoid stack exhaustion
++#endif
 +  }
  
    bool language_server = true;
  
-diff --git a/src/sema_manager.cc b/src/sema_manager.cc
-index dbe57672..64189a9b 100644
---- a/src/sema_manager.cc
-+++ b/src/sema_manager.cc
-@@ -9,6 +9,7 @@
- #include "pipeline.hh"
- #include "platform.hh"
+diff --git a/src/platform_posix.cc b/src/platform_posix.cc
+index 885e9557..33719573 100644
+--- a/src/platform_posix.cc
++++ b/src/platform_posix.cc
+@@ -27,6 +27,8 @@
+ #include <malloc.h>
+ #endif
  
 +#include <clang/Basic/Stack.h>
- #include <clang/Basic/TargetInfo.h>
- #include <clang/Lex/PreprocessorOptions.h>
- #include <clang/Sema/CodeCompleteConsumer.h>
-@@ -330,6 +331,7 @@ bool parse(CompilerInstance &clang) {
-   llvm::CrashRecoveryContext crc;
-   bool ok = false;
-   auto run = [&]() {
-+    clang::noteBottomOfStack(); // per-thread, needed to detect/avoid running out of stack
-     if (!action.BeginSourceFile(clang, clang.getFrontendOpts().Inputs[0]))
-       return;
- #if LLVM_VERSION_MAJOR >= 9 // rL364464
++
+ #include <llvm/ADT/SmallString.h>
+ #include <llvm/Support/Path.h>
+ 
+@@ -61,18 +63,32 @@ void traceMe() {
+     raise(traceme[0] == 's' ? SIGSTOP : SIGTSTP);
+ }
+ 
++struct ThreadInfo {
++  void *(*fn)(void *);
++  void *arg;
++};
++
++void *threadWrapper(void *arg) {
++  ThreadInfo ti = *(ThreadInfo *)arg;
++  delete (ThreadInfo *)arg;
++#if LLVM_VERSION_MAJOR >= 10  // rL369940
++  clang::noteBottomOfStack(); // per-thread, needed to avoid stack exhaustion
++#endif
++  return ti.fn(ti.arg);
++}
++
+ void spawnThread(void *(*fn)(void *), void *arg) {
+   pthread_t thd;
+   pthread_attr_t attr;
+   struct rlimit rlim;
+-  size_t stack_size = 4 * 1024 * 1024;
++  size_t stack_size = clang::DesiredStackSize;
+   if (getrlimit(RLIMIT_STACK, &rlim) == 0 && rlim.rlim_cur != RLIM_INFINITY)
+     stack_size = rlim.rlim_cur;
+   pthread_attr_init(&attr);
+   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+   pthread_attr_setstacksize(&attr, stack_size);
+   pipeline::threadEnter();
+-  pthread_create(&thd, &attr, fn, arg);
++  pthread_create(&thd, &attr, threadWrapper, new ThreadInfo{fn, arg});
+   pthread_attr_destroy(&attr);
+ }
+ } // namespace ccls
 -- 
 2.35.1
 
