@@ -34,21 +34,6 @@ index 7d48491ec89a..c04543585588 100644
  install(TARGETS lldbIntelFeatures
 -  LIBRARY DESTINATION lib${LLVM_LIBDIR_SUFFIX})
 +  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${LLVM_LIBDIR_SUFFIX})
-diff --git a/cmake/modules/LLDBStandalone.cmake b/cmake/modules/LLDBStandalone.cmake
-index 752113b..010f187 100644
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b5633e2..86e4738 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -79,7 +79,7 @@ if (LLDB_ENABLE_PYTHON)
-   if(LLDB_BUILD_FRAMEWORK)
-     set(lldb_python_target_dir "${LLDB_FRAMEWORK_ABSOLUTE_BUILD_DIR}/LLDB.framework/Resources/Python/lldb")
-   else()
--    set(lldb_python_target_dir "${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${LLDB_PYTHON_RELATIVE_PATH}/lldb")
-+    set(lldb_python_target_dir "${CMAKE_INSTALL_LIBDIR}/../${LLDB_PYTHON_RELATIVE_PATH}/lldb")
-   endif()
-   get_target_property(lldb_python_bindings_dir swig_wrapper_python BINARY_DIR)
-   finish_swig_python("lldb-python" "${lldb_python_bindings_dir}" "${lldb_python_target_dir}")
 diff --git a/bindings/python/CMakeLists.txt b/bindings/python/CMakeLists.txt
 index 82a52da89a7e..5127dc1d8f41 100644
 --- a/bindings/python/CMakeLists.txt
