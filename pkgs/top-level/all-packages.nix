@@ -15768,6 +15768,30 @@ with pkgs;
   ccls = callPackage ../development/tools/misc/ccls {
     llvmPackages = llvmPackages_14;
   };
+  ccls7 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_7;
+  };
+  ccls8 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_8;
+  };
+  ccls9 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_9;
+  };
+  ccls10 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_10;
+  };
+  ccls11 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_11;
+  };
+  ccls12 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_12;
+  };
+  ccls13 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_13;
+  };
+  ccls14 = callPackage ../development/tools/misc/ccls {
+    llvmPackages = llvmPackages_14;
+  };
 
   credstash = with python3Packages; toPythonApplication credstash;
 
