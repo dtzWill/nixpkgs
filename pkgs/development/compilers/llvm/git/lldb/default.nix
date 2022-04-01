@@ -90,8 +90,9 @@ stdenv.mkDerivation (rec {
 
   doCheck = false;
 
+  # Check existence of a file like: _lldb.cpython-39-x86_64-linux-gnu.so
   installCheckPhase = ''
-    if [ ! -e "$lib/${python3.sitePackages}/lldb/_lldb.so" ] ; then
+    if [ ! -e $lib/${python3.sitePackages}/lldb/_lldb*.so ] ; then
         return 1;
     fi
   '';
