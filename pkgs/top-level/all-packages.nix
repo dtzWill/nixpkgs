@@ -15359,8 +15359,6 @@ with pkgs;
 
   findnewest = callPackage ../development/tools/misc/findnewest { };
 
-  firrtl = callPackage ../development/tools/firrtl { };
-
   flootty = callPackage ../development/tools/flootty { };
 
   fffuu = haskell.lib.compose.justStaticExecutables (haskellPackages.callPackage ../tools/misc/fffuu { });
@@ -25930,6 +25928,8 @@ with pkgs;
   exercism = callPackage ../applications/misc/exercism { };
 
   expenses = callPackage ../applications/misc/expenses { };
+
+  firrtl = callPackage ../applications/science/electronics/firrtl { };
 
   fnott = callPackage ../applications/misc/fnott { };
 

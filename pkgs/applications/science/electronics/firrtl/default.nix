@@ -32,4 +32,15 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  meta = with lib; {
+    description = "Flexible Intermediate Representation for RTL";
+    longDescription = ''
+      Firrtl is an intermediate representation (IR) for digital circuits
+      designed as a platform for writing circuit-level transformations.
+    '';
+    homepage = "https://www.chisel-lang.org/firrtl/";
+    license = licenses.asl20;
+    maintainers =  with maintainers; [ dtzWill ];
+  };
 }
