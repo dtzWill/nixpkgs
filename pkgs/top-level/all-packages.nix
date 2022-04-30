@@ -12404,6 +12404,8 @@ with pkgs;
 
   flasm = callPackage ../development/compilers/flasm { };
 
+  firrtl = callPackage ../development/compilers/firrtl { };
+
   flyctl = callPackage ../development/web/flyctl { };
 
   fluidd = callPackage ../applications/misc/fluidd { };
