@@ -1,14 +1,13 @@
-{ lib, stdenv, jre, jdk, coursier, makeWrapper }:
+{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
 
-# cs bootstrap edu.berkeley.cs::firrtl::1.5.3 -M firrtl.stage.FirrtlMain -o firrtl-1.5.3
-let
+stdenv.mkDerivation rec {
   pname = "firrtl";
   version = "1.5.3";
+
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version;
     nativeBuildInputs = [ coursier ];
-    ## TODO: Pin to 2.13?
     buildCommand = ''
       export COURSIER_CACHE=$(pwd)
       cs fetch edu.berkeley.cs::${pname}::${version} > deps
@@ -19,12 +18,9 @@ let
     outputHashAlgo = "sha256";
     outputHash = "sha256-xy3zdJZk6Q2HbEn5tRQ9Z0AjyXEteXepoWDaATjiUUw=";
   };
-in
-stdenv.mkDerivation {
-  inherit pname version;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk deps ];
+  nativeBuildInputs = [ makeWrapper setJavaClassPath ];
+  buildInputs = [ deps ];
 
   dontUnpack = true;
 
