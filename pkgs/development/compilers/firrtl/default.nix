@@ -1,4 +1,4 @@
-{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
+{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper, writeTextFile }:
 
 stdenv.mkDerivation rec {
   pname = "firrtl";
@@ -31,6 +31,23 @@ stdenv.mkDerivation rec {
       --add-flags "-cp $CLASSPATH firrtl.stage.FirrtlMain"
 
     runHook postInstall
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = let
+    testFile = writeTextFile {
+      name = "test.fir";
+      text = ''
+        circuit test:
+          module test:
+            input a: UInt<8>
+            input b: UInt<8>
+            output o: UInt
+            o <= add(a, not(b))
+      '';
+    }; in ''
+    $out/bin/firrtl -i ${testFile} -o test.v
+    cat test.v
   '';
 
   meta = with lib; {
