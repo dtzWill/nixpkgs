@@ -1,4 +1,4 @@
-{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper, writeTextFile }:
+{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "firrtl";
@@ -34,19 +34,15 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = true;
-  installCheckPhase = let
-    testFile = writeTextFile {
-      name = "test.fir";
-      text = ''
+  installCheckPhase = ''
+    $out/bin/firrtl --firrtl-source "${''
         circuit test:
           module test:
             input a: UInt<8>
             input b: UInt<8>
             output o: UInt
             o <= add(a, not(b))
-      '';
-    }; in ''
-    $out/bin/firrtl -i ${testFile} -o test.v
+      ''}" -o test.v
     cat test.v
   '';
 
