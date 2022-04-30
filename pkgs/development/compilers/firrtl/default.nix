@@ -1,6 +1,6 @@
-{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
+{ lib, stdenv, makeWrapper, runCommand, setJavaClassPath, jre, coursier }:
 
-stdenv.mkDerivation rec {
+let self = stdenv.mkDerivation rec {
   pname = "firrtl";
   version = "1.5.3";
 
@@ -33,9 +33,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    $out/bin/firrtl --firrtl-source "${''
+  passthru.tests.addnot = runCommand "addnot" {
+    nativeBuildInputs = [ self ];
+  } ''
+    firrtl --firrtl-source "${''
         circuit test:
           module test:
             input a: UInt<8>
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
             output o: UInt
             o <= add(a, not(b))
       ''}" -o test.v
-    cat test.v
+    grep -q "module test" test.v
+    cat test.v | tee $out
   '';
 
   meta = with lib; {
@@ -56,4 +58,4 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers =  with maintainers; [ dtzWill ];
   };
-}
+}; in self
