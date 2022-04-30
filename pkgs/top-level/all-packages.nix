@@ -15359,6 +15359,8 @@ with pkgs;
 
   findnewest = callPackage ../development/tools/misc/findnewest { };
 
+  firrtl = callPackage ../development/tools/firrtl { };
+
   flootty = callPackage ../development/tools/flootty { };
 
   fffuu = haskell.lib.compose.justStaticExecutables (haskellPackages.callPackage ../tools/misc/fffuu { });
