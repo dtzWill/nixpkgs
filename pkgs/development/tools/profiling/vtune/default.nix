@@ -20,6 +20,8 @@
 , nss
 , cups
 , alsa-lib
+, mesa
+, libdrm
 , libGL
 , libglvnd
 , kmod
@@ -69,11 +71,14 @@ in stdenv.mkDerivation {
     nss
     cups
     alsa-lib
+    mesa
+    libdrm
     libGL
     libglvnd
     kmod
     systemdMinimal
   ] ++ (with xorg; [
+    libXdamage
     libXrandr
     libxcb
     libxshmfence
