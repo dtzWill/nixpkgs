@@ -38,7 +38,7 @@ let
     { id = "intel.oneapi.lin.oneapi-common.licensing"; version = "2022.0.1-140"; }
     { id = "intel.oneapi.lin.vtune"; inherit version; }
   ];
-in stdenv.mkDerivation {
+in stdenv.mkDerivation rec {
   pname = "vtune";
   inherit version;
 
@@ -88,6 +88,8 @@ in stdenv.mkDerivation {
     xcbutilwm
   ]);
 
+  runtimeDependencies = buildInputs;
+
   autoPatchelfIgnoreMissingDeps = true;
 
   nativeBuildInputs = [
@@ -109,7 +111,7 @@ in stdenv.mkDerivation {
 
     ${builtins.concatStringsSep "\n" commands}
 
-    for executable in "vtune" "vtune-gui" "vtune-agent" "vtune-backend" "vtune-worker" "aps" "aps-report" "sep" "sepagent" "amplxe-gui" "vtune-self-checker.sh" "vtune-server"; do
+    for executable in "vtune" "vtune-gui" "vtune-agent" "vtune-backend" "vtune-worker" "aps" "aps-report" "sep" "sepagent" "vtune-server"; do
       ln -s $out/opt/intel/vtune/${baseVersion}/bin64/$executable $out/bin/$executable
     done
 
