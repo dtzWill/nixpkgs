@@ -20,7 +20,7 @@
 , nss
 , cups
 , alsa-lib
-, mesa
+, libGL
 , libglvnd
 , kmod
 , systemdMinimal
@@ -69,7 +69,7 @@ in stdenv.mkDerivation {
     nss
     cups
     alsa-lib
-    mesa
+    libGL
     libglvnd
     kmod
     systemdMinimal
