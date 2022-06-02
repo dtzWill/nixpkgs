@@ -28,21 +28,23 @@
 }:
 
 let
-  version = "2022.1.0-98";
+  version = "2022.3.0-195";
   baseVersion = lib.head (lib.splitString "-" version);
 
   # See the build output for a list of components and their versions
   components = [
-    { id = "intel.oneapi.lin.oneapi-common.licensing"; version = "2022.0.0-59"; }
-    { id = "intel.oneapi.lin.vtune"; version = "2022.1.0-98"; }
+    { id = "intel.oneapi.lin.oneapi-common.licensing"; version = "2022.0.1-140"; }
+    { id = "intel.oneapi.lin.vtune"; inherit version; }
   ];
 in stdenv.mkDerivation {
   pname = "vtune";
   inherit version;
 
   src = fetchurl {
-    url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18447/l_oneapi_vtune_p_2022.1.0.98_offline.sh";
-    sha256 = "sha256-Ox0MYhUNhYXegTRMeCk6keXfG49XsdgPXoSkq/yNQ4I=";
+    #url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18447/l_oneapi_vtune_p_2022.1.0.98_offline.sh";
+    url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18656/l_oneapi_vtune_p_2022.3.0.195_offline.sh";
+    #sha256 = "sha256-Ox0MYhUNhYXegTRMeCk6keXfG49XsdgPXoSkq/yNQ4I=";
+    sha256 = "sha256-eSH85/zDuCV1viLZw2vuyWG6Kp+1JiuhagQJC8vS4aY=";
   };
 
   buildInputs = [
