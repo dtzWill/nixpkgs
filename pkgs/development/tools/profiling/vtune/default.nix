@@ -109,7 +109,7 @@ in stdenv.mkDerivation {
 
     ${builtins.concatStringsSep "\n" commands}
 
-    for executable in "vtune" "vtune-gui" "vtune-agent" "vtune-backend" "vtune-worker"; do
+    for executable in "vtune" "vtune-gui" "vtune-agent" "vtune-backend" "vtune-worker" "aps" "aps-report" "sep" "sepagent" "amplxe-gui" "vtune-self-checker.sh" "vtune-server"; do
       ln -s $out/opt/intel/vtune/${baseVersion}/bin64/$executable $out/bin/$executable
     done
   '';
