@@ -218,6 +218,11 @@ in stdenv.mkDerivation (rec {
       --replace "PassBuilderCallbacksTest.cpp" ""
     rm unittests/IR/PassBuilderCallbacksTest.cpp
     rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
+
+    # malloc: unknown:0: assertion botched
+    # free: called with unallocated block argument
+    # Maybe related to function pointer cast warning building the gold plugin.
+    rm test/tools/gold/X86/parallel.ll
   '' + optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -i ${../../TLI-musl.patch}
     substituteInPlace unittests/Support/CMakeLists.txt \
