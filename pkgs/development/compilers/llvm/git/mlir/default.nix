@@ -7,23 +7,16 @@
 # TODO: python bindings
 # TODO: ROCm, CUDA ?
 # TODO: Tests (unit+lit), not integration
-, enableRunners ? stdenv.hostPlatform == stdenv.buildPlatform
-, enableVulkan ? enableRunners
-, vulkan-headers
-, vulkan-loader
 }:
 
 let
-  # List of runners to build, native-only
-  runners = lib.optionals enableRunners ([
-    "cpu-runner" "spirv-cpu-runner"
-  ] ++ lib.optional enableVulkan "vulkan-runner");
   # List of binaries to build + install
   # LLVM_{BUILD,INSTALL}_UTILS=ON doesn't seem to work
-  bins = map (n: "mlir-" + n) (runners ++ [
+  bins = (map (n: "mlir-" + n) [
     "linalg-ods-yaml-gen" "tblgen" # needed for cross
     "lsp-server" "opt" "pdll" "reduce" "translate" # misc utilities
-  ]);
+    "pdll-lsp-server"
+  ]) ++ [ "tblgen-lsp-server" ];
 in
 stdenv.mkDerivation rec {
   pname = "mlir";
@@ -44,22 +37,12 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "lib" "dev" ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libllvm ]
-    ++ lib.optionals enableVulkan [ vulkan-headers vulkan-loader ];
+  buildInputs = [ libllvm ];
 
   cmakeFlags = [
     # Documentation suggests packagers may wish to disable, do so until needed
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF"
-  ] ++ lib.optionals enableRunners ([
-    "-DMLIR_ENABLE_SPIRV_CPU_RUNNER=ON"
-  ] ++ lib.optional enableVulkan "-DMLIR_ENABLE_VULKAN_RUNNER=ON");
-
-  # Patch around check for being built native (maybe because not built w/LLVM?)
-  postPatch = lib.optionalString enableRunners ''
-    for x in **/CMakeLists.txt; do
-      substituteInPlace "$x" --replace 'if(TARGET ''${LLVM_NATIVE_ARCH})' 'if (1)'
-    done
-  '';
+  ];
 
   postBuild = ''
     make ${lib.concatStringsSep " " bins} -j$NIX_BUILD_CORES -l$NIX_BUILD_CORES
