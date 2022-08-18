@@ -16,6 +16,14 @@ python3.pkgs.buildPythonApplication rec {
   # Non-standard test suite. Needs custom checkPhase.
   doCheck = false;
 
+  # Allow invocation via 'python $out/bin/lit', don't create bash wrapper.
+  # We do want the magical injection so use that portion (patchPythonScript).
+  dontWrapPythonPrograms = true;
+  postFixup = ''
+    buildPythonPath $out $pythonPath
+    patchPythonScript $out/bin/lit
+  '';
+
   meta = {
     description = "Portable tool for executing LLVM and Clang style test suites";
     homepage = "http://llvm.org/docs/CommandGuide/lit.html";
