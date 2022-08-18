@@ -23,6 +23,14 @@ buildPythonPackage rec {
   # have the possibility of not correctly interfacing with newer lit versions
   doCheck = false;
 
+  # Allow invocation via 'python $out/bin/lit', don't create bash wrapper.
+  # We do want the magical injection so use that portion (patchPythonScript).
+  dontWrapPythonPrograms = true;
+  postFixup = ''
+    buildPythonPath $out $pythonPath
+    patchPythonScript $out/bin/lit
+  '';
+
   meta = {
     description = "Portable tool for executing LLVM and Clang style test suites";
     homepage = "http://llvm.org/docs/CommandGuide/lit.html";
