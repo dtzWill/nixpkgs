@@ -48,7 +48,7 @@ let
       ./gnu-install-dirs.patch
       ./add-nostdlibinc-flag.patch
       (substituteAll {
-        src = ../../clang-11-12-LLVMgold-path.patch;
+        src = ../../clang-16-LLVMgold-path.patch;
         libllvmLibdir = "${libllvm.lib}/lib";
       })
     ];
