@@ -21,8 +21,8 @@ let
   release_version = "16.0.0";
   candidate = ""; # empty or "rcN"
   dash-candidate = lib.optionalString (candidate != "") "-${candidate}";
-  rev = "fba88adc8961fc8b8d7dece7bfecbfc31c652aff"; # When using a Git commit
-  rev-version = "unstable-2022-08-12"; # When using a Git commit
+  rev = "bfcd536a8ef6b1d6e9dd211925be3b078d06fe77"; # When using a Git commit
+  rev-version = "unstable-2022-09-20"; # When using a Git commit
   version = if rev != "" then rev-version else "${release_version}${dash-candidate}";
   targetConfig = stdenv.targetPlatform.config;
 
@@ -30,7 +30,7 @@ let
     owner = "llvm";
     repo = "llvm-project";
     rev = if rev != "" then rev else "llvmorg-${version}";
-    sha256 = "sha256-3UVgIpQAjDgX7tNkjdnaDB2k6jwjWM6zKRuPm3wBW7M=";
+    sha256 = "0ysxr6c9cxjvhhivz90f0929px3vmsk6kr87f733kq7wafyhkqi4";
   };
 
   llvm_meta = {
