@@ -93,7 +93,7 @@ in stdenv.mkDerivation rec {
   autoPatchelfIgnoreMissingDeps = true;
 
   nativeBuildInputs = [
-    libarchive autoPatchelfHook
+    libarchive autoPatchelfHook wrapGAppsHook
   ];
 
   unpackPhase = ''
