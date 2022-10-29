@@ -110,10 +110,21 @@ in stdenv.mkDerivation rec {
     ${builtins.concatStringsSep "\n" commands}
 
     # Fixup percent-encoded filenames... kludge
-    for x in $(find $out -name "*%*"); do
-      new="$(echo "$x"|sed -e 's,%2B,,g' -e 's,%5B,[,g' -e 's,%5D,],g')"
-      mv -vn "$x" "$new"
-    done
+      function traverseRename () {
+        for e in *
+        do
+          t="$(echo "$e" | sed -e 's,%2B,+,g' -e 's,%5B,[,g' -e 's,%5D,],g')"
+          [ "$t" != "$e" ] && mv -vn "$e" "$t"
+          if [ -d "$t" ]
+          then
+            cd "$t"
+            traverseRename
+            cd ..
+          fi
+        done
+      }
+
+      traverseRename
     
 
     wrapProgram $out/opt/intel/vtune/${baseVersion}/bin64/sep \
