@@ -116,6 +116,7 @@ in stdenv.mkDerivation rec {
     done
 
     ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib
+    ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib64
   '';
 
   # dontPatchELF = true;
