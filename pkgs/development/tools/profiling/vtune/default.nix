@@ -88,7 +88,7 @@ in stdenv.mkDerivation rec {
     xcbutilwm
   ]);
 
-  runtimeDependencies = buildInputs ++ [ "${placeholder "out"}" ];
+  runtimeDependencies = [ "${placeholder "out"}" ] ++ buildInputs;
 
   autoPatchelfIgnoreMissingDeps = true;
 
