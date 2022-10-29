@@ -88,7 +88,7 @@ in stdenv.mkDerivation rec {
     xcbutilwm
   ]);
 
-  runtimeDependencies = buildInputs;
+  runtimeDependencies = buildInputs ++ [ "${placeholder "out"}" ];
 
   autoPatchelfIgnoreMissingDeps = true;
 
@@ -118,7 +118,7 @@ in stdenv.mkDerivation rec {
     ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib
   '';
 
-  dontPatchELF = true;
+  # dontPatchELF = true;
   # dontStrip = true;
 
   meta = with lib; {
