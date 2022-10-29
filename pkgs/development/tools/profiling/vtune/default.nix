@@ -118,6 +118,9 @@ in stdenv.mkDerivation rec {
     ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib
   '';
 
+  dontPatchELF = true;
+  # dontStrip = true;
+
   meta = with lib; {
     description = "Performance analysis tool for x86-based machines";
     license = licenses.unfreeRedistributable;
