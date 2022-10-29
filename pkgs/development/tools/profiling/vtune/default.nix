@@ -110,6 +110,7 @@ in stdenv.mkDerivation rec {
     ${builtins.concatStringsSep "\n" commands}
 
     # Fixup percent-encoded filenames... kludge
+    pushd $out
       function traverseRename () {
         for e in *
         do
@@ -125,6 +126,7 @@ in stdenv.mkDerivation rec {
       }
 
       traverseRename
+   popd
     
 
     wrapProgram $out/opt/intel/vtune/${baseVersion}/bin64/sep \
