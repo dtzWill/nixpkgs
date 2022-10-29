@@ -109,6 +109,13 @@ in stdenv.mkDerivation rec {
 
     ${builtins.concatStringsSep "\n" commands}
 
+    # Fixup percent-encoded filenames... kludge
+    for x in $(find $out -name "*%*"); do
+      new="$(echo "$x"|sed -e 's,%2B,,g' -e 's,%5B,[,g' -e 's,%5D,],g')"
+      mv -vn "$x" "$new"
+    done
+    
+
     wrapProgram $out/opt/intel/vtune/${baseVersion}/bin64/sep \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [(placeholder "out")]}"
 
