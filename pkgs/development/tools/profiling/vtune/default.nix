@@ -111,6 +111,9 @@ in stdenv.mkDerivation rec {
 
     ${builtins.concatStringsSep "\n" commands}
 
+    wrapProgram $out/opt/intel/vtune/${baseVersion}/bin64/sep \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [(placeholder "out")]}"
+
     for executable in "vtune" "vtune-gui" "vtune-agent" "vtune-backend" "vtune-worker" "aps" "aps-report" "sep" "sepagent" "vtune-server"; do
       ln -s $out/opt/intel/vtune/${baseVersion}/bin64/$executable $out/bin/$executable
     done
@@ -118,9 +121,6 @@ in stdenv.mkDerivation rec {
     ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib
     ln -s $out/opt/intel/vtune/${baseVersion}/lib64 $out/lib64
   '';
-
-  # dontPatchELF = true;
-  # dontStrip = true;
 
   meta = with lib; {
     description = "Performance analysis tool for x86-based machines";
