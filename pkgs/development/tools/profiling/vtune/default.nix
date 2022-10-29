@@ -143,5 +143,6 @@ in stdenv.mkDerivation rec {
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ zhaofengli ];
     platforms = [ "x86_64-linux" ];
+    mainProgram = "vtune-gui";
   };
 }
