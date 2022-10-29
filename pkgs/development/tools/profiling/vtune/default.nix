@@ -43,9 +43,7 @@ in stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    #url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18656/l_oneapi_vtune_p_2022.3.0.195_offline.sh";
     url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18888/l_oneapi_vtune_p_2022.4.0.8705_offline.sh";
-    #sha256 = "sha256-eSH85/zDuCV1viLZw2vuyWG6Kp+1JiuhagQJC8vS4aY=";
     sha256 = "sha256-jFoUTtYe+a3apBq+f7/O7ttqj+HFOS4+JlqtofVFsP4=";
   };
 
