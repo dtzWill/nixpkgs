@@ -16,9 +16,6 @@ let
       cp -r ${monorepoSrc}/cmake "$out"
       cp -r ${monorepoSrc}/${pname} "$out"
       cp -r ${monorepoSrc}/clang-tools-extra "$out"
-
-      mkdir -p "$out/llvm/utils"
-      cp -r ${monorepoSrc}/llvm/utils/add_llvm_symbol_exports.py "$out/llvm/utils/"
     '';
 
     sourceRoot = "${src.name}/${pname}";
