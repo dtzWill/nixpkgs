@@ -51,7 +51,7 @@ index 057431208322..56f0dcb258da 100644
    elseif(UNIX)
      set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
 -    set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")
-+    set(_install_rpath "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
++    set(_install_rpath "${CMAKE_INSTALL_FULL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
      if(${CMAKE_SYSTEM_NAME} MATCHES "(FreeBSD|DragonFly)")
        set_property(TARGET ${name} APPEND_STRING PROPERTY
                     LINK_FLAGS " -Wl,-z,origin ")
@@ -64,10 +64,10 @@ index 891c9e6d618c..8d963f3b0069 100644
  
    if( APPLE )
 -    set(ocaml_rpath "@executable_path/../../../lib${LLVM_LIBDIR_SUFFIX}")
-+    set(ocaml_rpath "@executable_path/../../../${CMAKE_INSTALL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
++    set(ocaml_rpath "${CMAKE_INSTALL_FULL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
    elseif( UNIX )
 -    set(ocaml_rpath "\\$ORIGIN/../../../lib${LLVM_LIBDIR_SUFFIX}")
-+    set(ocaml_rpath "\\$ORIGIN/../../../${CMAKE_INSTALL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
++    set(ocaml_rpath "${CMAKE_INSTALL_FULL_LIBDIR}${LLVM_LIBDIR_SUFFIX}")
    endif()
    list(APPEND ocaml_flags "-ldopt" "-Wl,-rpath,${ocaml_rpath}")
  
