@@ -30,6 +30,8 @@ let
       "-DCLANG_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/clang"
       "-DCLANGD_BUILD_XPC=OFF"
       "-DLLVM_ENABLE_RTTI=ON"
+      # XXX: Hack, should work w/LLVM's gtest bits.
+      "-DLLVM_INCLUDE_TESTS=OFF"
     ] ++ lib.optionals enableManpages [
       "-DCLANG_INCLUDE_DOCS=ON"
       "-DLLVM_ENABLE_SPHINX=ON"
