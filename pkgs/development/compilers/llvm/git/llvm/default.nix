@@ -7,8 +7,10 @@
 , darwin
 , ninja
 , python3
+, python3Packages
 , libffi
-, enableGoldPlugin ? (!stdenv.isDarwin && !stdenv.targetPlatform.isWasi)
+# TODO: Gold plugin on LLVM16 has a severe memory corruption bug: https://github.com/llvm/llvm-project/issues/61350.
+, enableGoldPlugin ? false
 , libbfd
 , libpfm
 , libxml2

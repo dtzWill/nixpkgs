@@ -106,10 +106,11 @@ in let
 
   tools = lib.makeExtensible (tools: let
     callPackage = newScope (tools // { inherit stdenv cmake ninja libxml2 python3 release_version version monorepoSrc buildLlvmTools; });
+    major = lib.versions.major release_version;
     mkExtraBuildCommands0 = cc: ''
       rsrc="$out/resource-root"
       mkdir "$rsrc"
-      ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
+      ln -s "${cc.lib}/lib/clang/${major}/include" "$rsrc"
       echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
     '';
     mkExtraBuildCommands = cc: mkExtraBuildCommands0 cc + ''
@@ -152,16 +153,14 @@ in let
       python3 = pkgs.python3;  # don't use python-boot
     });
 
-    # TODO: lldb/docs/index.rst:155:toctree contains reference to nonexisting document 'design/structureddataplugins'
-    # lldb-manpages = lowPrio (tools.lldb.override {
-    #   enableManpages = true;
-    #   python3 = pkgs.python3;  # don't use python-boot
-    # });
+    lldb-manpages = lowPrio (tools.lldb.override {
+      enableManpages = true;
+      python3 = pkgs.python3;  # don't use python-boot
+    });
 
     # pick clang appropriate for package set we are targeting
     clang =
-      /**/ if stdenv.targetPlatform.libc == null then tools.clangNoLibc
-      else if stdenv.targetPlatform.useLLVM or false then tools.clangUseLLVM
+      /**/ if stdenv.targetPlatform.useLLVM or false then tools.clangUseLLVM
       else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then tools.libstdcxxClang
       else tools.libcxxClang;
 
@@ -197,20 +196,33 @@ in let
       '') { };
       patches =
         let
-          resourceDirPatch = callPackage
-            ({ substituteAll, libclang }: substituteAll
-              {
-                src = ./lldb/resource-dir.patch;
-                clangLibDir = "${libclang.lib}/lib";
-              })
-            { };
+          resourceDirPatch = callPackage ({ runCommand, libclang }: (runCommand "resource-dir.patch"
+            {
+              clangLibDir = "${libclang.lib}/lib";
+            } ''
+            substitute '${./lldb/resource-dir.patch}' "$out" --subst-var clangLibDir
+          '')) { };
         in
         [
-          ./lldb/procfs.patch # FIXME: do we need this?
+          # FIXME: do we need this? ./procfs.patch
           resourceDirPatch
           ./lldb/gnu-install-dirs.patch
-        ];
-      inherit llvm_meta;
+        ]
+        # This is a stopgap solution if/until the macOS SDK used for x86_64 is
+        # updated.
+        #
+        # The older 10.12 SDK used on x86_64 as of this writing has a `mach/machine.h`
+        # header that does not define `CPU_SUBTYPE_ARM64E` so we replace the one use
+        # of this preprocessor symbol in `lldb` with its expansion.
+        #
+        # See here for some context:
+        # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
+        ++ lib.optional (
+          stdenv.targetPlatform.isDarwin
+            && !stdenv.targetPlatform.isAarch64
+            && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
+        ) ./lldb/cpu_subtype_arm64e_replacement.patch;
+      inherit llvm_meta release_version;
     };
 
     mlir = callPackage ./mlir {
