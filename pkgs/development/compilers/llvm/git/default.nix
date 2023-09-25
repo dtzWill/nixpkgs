@@ -18,10 +18,10 @@
 , darwin
 # LLVM release information; specify one of these but not both:
 , gitRelease ? {
-    version = "17.0.0";
-    rev = "015dabd7672f936cdb5bdcad20fe80b17f05c9ca";
-    rev-version = "unstable-2023-07-05";
-    sha256 = "5Dr+79rC6YrQIQI+Uew2Y/9snQQhzSX5UxlBXCewImY=";
+    version = "18.0.0";
+    rev = "2f23666ae7e434a222a67ac6499d118035ab7903";
+    rev-version = "unstable-2023-09-25";
+    sha256 = "vxVqhEPW/E3JKl9H1Yn5N+w1uytJID6p0oCSSAl3V3M=";
   }
   # i.e.:
   # {
