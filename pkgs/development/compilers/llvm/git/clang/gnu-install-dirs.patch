@@ -13,19 +13,6 @@ index 21ac332e4f5f..b16c314bd1e2 100644
            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
  
          if (NOT LLVM_ENABLE_IDE)
-diff --git a/lib/Headers/CMakeLists.txt b/lib/Headers/CMakeLists.txt
-index 6e2060991b92..b9bc930d26b8 100644
---- a/lib/Headers/CMakeLists.txt
-+++ b/lib/Headers/CMakeLists.txt
-@@ -420,7 +420,7 @@ add_header_target("openmp-resource-headers" ${openmp_wrapper_files})
- add_header_target("windows-resource-headers" ${windows_only_files})
- add_header_target("utility-resource-headers" ${utility_files})
- 
--set(header_install_dir lib${LLVM_LIBDIR_SUFFIX}/clang/${CLANG_VERSION_MAJOR}/include)
-+set(header_install_dir ${CMAKE_INSTALL_LIBDIR}${LLVM_LIBDIR_SUFFIX}/clang/${CLANG_VERSION_MAJOR}/include)
- 
- #############################################################
- # Install rules for the catch-all clang-resource-headers target
 diff --git a/tools/libclang/CMakeLists.txt b/tools/libclang/CMakeLists.txt
 index 8d95d0900e8c..ebc70ff7526d 100644
 --- a/tools/libclang/CMakeLists.txt
