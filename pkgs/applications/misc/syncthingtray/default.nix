@@ -17,6 +17,9 @@
 , plasma-framework
 , qttools
 , iconv
+, cppunit
+, syncthing
+, xdg-utils
 , webviewSupport ? true
 , jsSupport ? true
 , kioPluginSupport ? stdenv.isLinux
@@ -31,14 +34,14 @@ https://github.com/NixOS/nixpkgs/issues/199596#issuecomment-1310136382 */
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  version = "1.4.6";
+  version = "1.4.12";
   pname = "syncthingtray";
 
   src = fetchFromGitHub {
     owner = "Martchus";
     repo = "syncthingtray";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-/HAqO0eVFt4YLGeTbZSZcH2pOojvykukAGTBHZTfKLQ=";
+    sha256 = "sha256-KfJ/MEgQdvzAM+rnKGMsjnRrbFeFu6F8Or+rgFNLgFI=";
   };
 
   buildInputs = [
@@ -58,18 +61,31 @@ stdenv.mkDerivation (finalAttrs: {
     wrapQtAppsHook
     cmake
     qttools
+    # Although these are test dependencies, we add them anyway so that we test
+    # whether the test units compile. On Darwin we don't run the tests but we
+    # still build them.
+    cppunit
+    syncthing
   ]
     ++ lib.optionals plasmoidSupport [ extra-cmake-modules ]
   ;
 
-  # No tests are available by upstream, but we test --help anyway
-  # Don't test on Darwin because output is .app
+  # syncthing server seems to hang on darwin, causing tests to fail.
+  doCheck = !stdenv.isDarwin;
+  preCheck = ''
+    export QT_QPA_PLATFORM=offscreen
+    export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
+  '';
+  # don't test --help  on Darwin because output is .app
   doInstallCheck = !stdenv.isDarwin;
   installCheckPhase = ''
     $out/bin/syncthingtray --help | grep ${finalAttrs.version}
   '';
 
   cmakeFlags = [
+    "-DBUILD_TESTING=ON"
+    # See https://github.com/Martchus/syncthingtray/issues/208
+    "-DEXCLUDE_TESTS_FROM_ALL=OFF"
     "-DAUTOSTART_EXEC_PATH=${autostartExecPath}"
     # See https://github.com/Martchus/syncthingtray/issues/42
     "-DQT_PLUGIN_DIR:STRING=${placeholder "out"}/${qtbase.qtPluginPrefix}"
@@ -79,6 +95,10 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals systemdSupport ["-DSYSTEMD_SUPPORT=ON"]
     ++ lib.optionals (!webviewSupport) ["-DWEBVIEW_PROVIDER:STRING=none"]
   ;
+
+  qtWrapperArgs = [
+    "--prefix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";

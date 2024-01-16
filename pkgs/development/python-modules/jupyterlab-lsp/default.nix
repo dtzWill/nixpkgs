@@ -1,18 +1,24 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, setuptools
 , jupyterlab
 , jupyter-lsp
 }:
 
 buildPythonPackage rec {
   pname = "jupyterlab-lsp";
-  version = "4.2.0";
+  version = "5.0.1";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-OqsByMrAQKjTqev6QIUiOwVLf71iGdPHtWD2qXZsovM=";
+    hash = "sha256-jQ8mhTfZ+6F9EgDfBWVI6I/I3n2lIlJs+mM0OJ0MKTQ=";
   };
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     jupyterlab
@@ -28,8 +34,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = with maintainers; [ ];
-    # No support for Jupyterlab > 4
-    # https://github.com/jupyter-lsp/jupyterlab-lsp/pull/949
-    broken = lib.versionAtLeast jupyterlab.version "4.0";
   };
 }

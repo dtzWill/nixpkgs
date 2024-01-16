@@ -1,11 +1,6 @@
 # Test ensures buildbot master comes up correctly and workers can connect
 
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
-
-import ./make-test-python.nix {
+import ./make-test-python.nix ({ pkgs, ... }: {
   name = "buildbot";
 
   nodes = {
@@ -109,5 +104,5 @@ import ./make-test-python.nix {
         bbworker.fail("nc -z bbmaster 8011")
   '';
 
-  meta.maintainers = with pkgs.lib.maintainers; [ ];
-} {}
+  meta.maintainers = pkgs.lib.teams.buildbot.members;
+})

@@ -1,34 +1,30 @@
 { lib
 , callPackage
-, stdenvNoCC
 , runCommand
 , makeWrapper
 , wrapGAppsHook
-, llvmPackages_13
+, buildDartApplication
 , cacert
 , glib
 , flutter
+, pkg-config
 , jq
+, yq
+, moreutils
 }:
 
 # absolutely no mac support for now
 
 { pubGetScript ? "flutter pub get"
 , flutterBuildFlags ? [ ]
-, runtimeDependencies ? [ ]
-, customPackageOverrides ? { }
-, autoDepsList ? false
-, depsListFile ? null
-, vendorHash ? ""
-, pubspecLockFile ? null
-, nativeBuildInputs ? [ ]
-, preUnpack ? ""
-, postFixup ? ""
 , extraWrapProgramArgs ? ""
 , ...
 }@args:
-let
-  flutterSetupScript = ''
+
+(buildDartApplication.override {
+  dart = flutter;
+}) (args // {
+  sdkSetupScript = ''
     # Pub needs SSL certificates. Dart normally looks in a hardcoded path.
     # https://github.com/dart-lang/sdk/blob/3.1.0/runtime/bin/security_context_linux.cc#L48
     #
@@ -54,136 +50,101 @@ let
     flutter config --enable-linux-desktop >/dev/null
   '';
 
-  deps = callPackage ../dart/fetch-dart-deps { dart = flutter; } {
-    sdkSetupScript = flutterSetupScript;
-    inherit pubGetScript vendorHash pubspecLockFile;
-    buildDrvArgs = args;
+  inherit pubGetScript;
+
+  sdkSourceBuilders = {
+    # https://github.com/dart-lang/pub/blob/68dc2f547d0a264955c1fa551fa0a0e158046494/lib/src/sdk/flutter.dart#L81
+    "flutter" = name: runCommand "flutter-sdk-${name}" { passthru.packageRoot = "."; } ''
+      for path in '${flutter}/packages/${name}' '${flutter}/bin/cache/pkg/${name}'; do
+        if [ -d "$path" ]; then
+          ln -s "$path" "$out"
+          break
+        fi
+      done
+
+      if [ ! -e "$out" ]; then
+        echo 1>&2 'The Flutter SDK does not contain the requested package: ${name}!'
+        exit 1
+      fi
+    '';
   };
 
-  baseDerivation = llvmPackages_13.stdenv.mkDerivation (finalAttrs: args // {
-    inherit flutterBuildFlags runtimeDependencies;
+  extraPackageConfigSetup = ''
+    # https://github.com/flutter/flutter/blob/3.13.8/packages/flutter_tools/lib/src/dart/pub.dart#L755
+    if [ "$('${yq}/bin/yq' '.flutter.generate // false' pubspec.yaml)" = "true" ]; then
+      '${jq}/bin/jq' '.packages |= . + [{
+        name: "flutter_gen",
+        rootUri: "flutter_gen",
+        languageVersion: "2.12",
+      }]' "$out" | '${moreutils}/bin/sponge' "$out"
+    fi
+  '';
 
-    outputs = [ "out" "debug" ];
+  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    wrapGAppsHook
 
-    nativeBuildInputs = [
-      makeWrapper
-      deps
-      flutter
-      jq
-      glib
-      wrapGAppsHook
-    ] ++ nativeBuildInputs;
+    # Flutter requires pkg-config for Linux desktop support, and many plugins
+    # attempt to use it.
+    #
+    # It is available to the `flutter` tool through its wrapper, but it must be
+    # added here as well so the setup hook adds plugin dependencies to the
+    # pkg-config search paths.
+    pkg-config
+  ];
 
-    dontWrapGApps = true;
+  buildInputs = (args.buildInputs or [ ]) ++ [ glib ];
 
-    preUnpack = ''
-      ${lib.optionalString (!autoDepsList) ''
-        if ! { [ '${lib.boolToString (depsListFile != null)}' = 'true' ] ${lib.optionalString (depsListFile != null) "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"}; }; then
-          echo 1>&2 -e '\nThe dependency list file was either not given or differs from the expected result.' \
-                      '\nPlease choose one of the following solutions:' \
-                      '\n - Duplicate the following file and pass it to the depsListFile argument.' \
-                      '\n   ${finalAttrs.passthru.depsListFile}' \
-                      '\n - Set autoDepsList to true (not supported by Hydra or permitted in Nixpkgs)'.
-          exit 1
-        fi
-      ''}
+  dontDartBuild = true;
+  buildPhase = args.buildPhase or ''
+    runHook preBuild
 
-      ${preUnpack}
-    '';
+    mkdir -p build/flutter_assets/fonts
 
-    configurePhase = ''
-      runHook preConfigure
+    flutter build linux -v --release --split-debug-info="$debug" ${builtins.concatStringsSep " " (map (flag: "\"${flag}\"") flutterBuildFlags)}
 
-      ${flutterSetupScript}
+    runHook postBuild
+  '';
 
-      runHook postConfigure
-    '';
+  dontDartInstall = true;
+  installPhase = args.installPhase or ''
+    runHook preInstall
 
-    buildPhase = ''
-      runHook preBuild
+    built=build/linux/*/release/bundle
 
-      mkdir -p build/flutter_assets/fonts
+    mkdir -p $out/bin
+    mv $built $out/app
 
-      doPubGet flutter pub get --offline -v
-      flutter build linux -v --release --split-debug-info="$debug" ${builtins.concatStringsSep " " (map (flag: "\"${flag}\"") finalAttrs.flutterBuildFlags)}
+    for f in $(find $out/app -iname "*.desktop" -type f); do
+      install -D $f $out/share/applications/$(basename $f)
+    done
 
-      runHook postBuild
-    '';
+    for f in $(find $out/app -maxdepth 1 -type f); do
+      ln -s $f $out/bin/$(basename $f)
+    done
 
-    installPhase = ''
-      runHook preInstall
+    # make *.so executable
+    find $out/app -iname "*.so" -type f -exec chmod +x {} +
 
-      built=build/linux/*/release/bundle
+    # remove stuff like /build/source/packages/ubuntu_desktop_installer/linux/flutter/ephemeral
+    for f in $(find $out/app -executable -type f); do
+      if patchelf --print-rpath "$f" | grep /build; then # this ignores static libs (e,g. libapp.so) also
+        echo "strip RPath of $f"
+        newrp=$(patchelf --print-rpath $f | sed -r "s|/build.*ephemeral:||g" | sed -r "s|/build.*profile:||g")
+        patchelf --set-rpath "$newrp" "$f"
+      fi
+    done
 
-      mkdir -p $out/bin
-      mv $built $out/app
+    # Install the package_config.json file.
+    # This is normally done by dartInstallHook, but we disable it.
+    mkdir -p "$pubcache"
+    cp .dart_tool/package_config.json "$pubcache/package_config.json"
 
-      for f in $(find $out/app -iname "*.desktop" -type f); do
-        install -D $f $out/share/applications/$(basename $f)
-      done
+    runHook postInstall
+  '';
 
-      for f in $(find $out/app -maxdepth 1 -type f); do
-        ln -s $f $out/bin/$(basename $f)
-      done
-
-      # make *.so executable
-      find $out/app -iname "*.so" -type f -exec chmod +x {} +
-
-      # remove stuff like /build/source/packages/ubuntu_desktop_installer/linux/flutter/ephemeral
-      for f in $(find $out/app -executable -type f); do
-        if patchelf --print-rpath "$f" | grep /build; then # this ignores static libs (e,g. libapp.so) also
-          echo "strip RPath of $f"
-          newrp=$(patchelf --print-rpath $f | sed -r "s|/build.*ephemeral:||g" | sed -r "s|/build.*profile:||g")
-          patchelf --set-rpath "$newrp" "$f"
-        fi
-      done
-
-      runHook postInstall
-    '';
-
-    postFixup = ''
-      # Add runtime library dependencies to the LD_LIBRARY_PATH.
-      # For some reason, the RUNPATH of the executable is not used to load dynamic libraries in dart:ffi with DynamicLibrary.open().
-      #
-      # This could alternatively be fixed with patchelf --add-needed, but this would cause all the libraries to be opened immediately,
-      # which is not what application authors expect.
-      for f in "$out"/bin/*; do
-        wrapProgram "$f" \
-          --suffix LD_LIBRARY_PATH : '${lib.makeLibraryPath finalAttrs.runtimeDependencies}' \
-          ''${gappsWrapperArgs[@]} \
-          ${extraWrapProgramArgs}
-      done
-
-      ${postFixup}
-    '';
-
-    passthru = (args.passthru or {}) // {
-      inherit (deps) depsListFile;
-    };
-  });
-
-  packageOverrideRepository = (callPackage ../../development/compilers/flutter/package-overrides { }) // customPackageOverrides;
-  productPackages = builtins.filter (package: package.kind != "dev")
-    (if autoDepsList
-    then lib.importJSON deps.depsListFile
-    else
-      if depsListFile == null
-      then [ ]
-      else lib.importJSON depsListFile);
-in
-builtins.foldl'
-  (prev: package:
-  if packageOverrideRepository ? ${package.name}
-  then
-    prev.overrideAttrs
-      (packageOverrideRepository.${package.name} {
-        inherit (package)
-          name
-          version
-          kind
-          source
-          dependencies;
-      })
-  else prev)
-  baseDerivation
-  productPackages
+  dontWrapGApps = true;
+  extraWrapProgramArgs = ''
+    ''${gappsWrapperArgs[@]} \
+    ${extraWrapProgramArgs}
+  '';
+})

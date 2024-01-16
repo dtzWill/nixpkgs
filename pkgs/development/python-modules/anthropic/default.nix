@@ -1,10 +1,12 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, poetry-core
+, hatchling
 , anyio
 , distro
+, dirty-equals
 , httpx
+, sniffio
 , pydantic
 , pytest-asyncio
 , respx
@@ -16,8 +18,8 @@
 
 buildPythonPackage rec {
   pname = "anthropic";
-  version = "0.3.11";
-  format = "pyproject";
+  version = "0.7.8";
+  pyproject = true;
 
   disabled = pythonOlder "3.8";
 
@@ -25,23 +27,25 @@ buildPythonPackage rec {
     owner = "anthropics";
     repo = "anthropic-sdk-python";
     rev = "refs/tags/v${version}";
-    hash = "sha256-bjagT0I0/N76CGf1b8EBNyOTzPBWybr2I2yO5NWO3po=";
+    hash = "sha256-1mpNwZJbYdKVmUeUM+PBL6vPhwe8tr2SnAP/t/MMKpI=";
   };
 
   nativeBuildInputs = [
-    poetry-core
+    hatchling
   ];
 
   propagatedBuildInputs = [
     anyio
     distro
     httpx
+    sniffio
     pydantic
     tokenizers
     typing-extensions
   ];
 
   nativeCheckInputs = [
+    dirty-equals
     pytest-asyncio
     pytestCheckHook
     respx

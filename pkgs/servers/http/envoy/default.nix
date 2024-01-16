@@ -3,6 +3,7 @@
 , bazel-gazelle
 , buildBazelPackage
 , fetchFromGitHub
+, fetchpatch
 , stdenv
 , cmake
 , gn
@@ -14,7 +15,7 @@
 , linuxHeaders
 , nixosTests
 
-# v8 (upstream default), wavm, wamr, wasmtime, disabled
+  # v8 (upstream default), wavm, wamr, wasmtime, disabled
 , wasmRuntime ? "wamr"
 }:
 
@@ -24,19 +25,25 @@ let
     # However, the version string is more useful for end-users.
     # These are contained in a attrset of their own to make it obvious that
     # people should update both.
-    version = "1.26.4";
-    rev = "cfa32deca25ac57c2bbecdad72807a9b13493fc1";
+    version = "1.27.2";
+    rev = "ae07f9a11715245f7d25d2a13699c260c2ae8ebb";
+    hash = "sha256-VgP3st26Wkx51tTM++tKAZX7+BmPGgy1MIJFGLDu4JU=";
   };
+
+  # these need to be updated for any changes to fetchAttrs
+  depsHash = {
+    x86_64-linux = "sha256-389CaxJ3F66eMID7+KgwzCdlT2QPOTkKPLnqpmM49ig=";
+    aarch64-linux = "sha256-ui7AUzWouAn2DZ7kUpp1huNxPGBqzKXqtwcuRZUhmqo=";
+  }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
 in
-buildBazelPackage rec {
+buildBazelPackage {
   pname = "envoy";
   inherit (srcVer) version;
   bazel = bazel_6;
   src = fetchFromGitHub {
     owner = "envoyproxy";
     repo = "envoy";
-    inherit (srcVer) rev;
-    hash = "sha256-j5QyqT+9tpChg5JxdSw21rtb9AI036vIiAmzCNzGWGc=";
+    inherit (srcVer) hash rev;
 
     postFetch = ''
       chmod -R +w $out
@@ -59,6 +66,15 @@ buildBazelPackage rec {
 
     # use system Go, not bazel-fetched binary Go
     ./0002-nixpkgs-use-system-Go.patch
+
+    # use system C/C++ tools
+    ./0003-nixpkgs-use-system-C-C-toolchains.patch
+
+    # bump proxy-wasm-cpp-host until > 1.27.2/1.28.0
+    (fetchpatch {
+      url = "https://github.com/envoyproxy/envoy/pull/31451.patch";
+      hash = "sha256-n8k7bho3B8Gm0dJbgf43kU7ymvo15aGJ2Twi2xR450g=";
+    })
   ];
 
   nativeBuildInputs = [
@@ -79,10 +95,7 @@ buildBazelPackage rec {
   hardeningDisable = [ "format" ];
 
   fetchAttrs = {
-    sha256 = {
-      x86_64-linux = "sha256-MvY4cLdLOeb7+Zt7Oz7Kzz1+dsUceemP/V02egvHg+M=";
-      aarch64-linux = "sha256-U5mnAq8RHDygxiYeNc0HDeOgoaGyrd0MPjHKdyUkM0A=";
-    }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
+    sha256 = depsHash;
     dontUseCmakeConfigure = true;
     dontUseGnConfigure = true;
     preInstall = ''
@@ -108,6 +121,9 @@ buildBazelPackage rec {
 
       # Remove Unix timestamps from go cache.
       rm -rf $bazelOut/external/bazel_gazelle_go_repository_cache/{gocache,pkg/mod/cache,pkg/sumdb}
+
+      # fix tcmalloc failure https://github.com/envoyproxy/envoy/issues/30838
+      sed -i '/TCMALLOC_GCC_FLAGS = \[/a"-Wno-changes-meaning",' $bazelOut/external/com_github_google_tcmalloc/tcmalloc/copts.bzl
     '';
   };
   buildAttrs = {

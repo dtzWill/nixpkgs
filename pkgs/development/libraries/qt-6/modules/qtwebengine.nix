@@ -60,7 +60,6 @@
 , mesa
 , enableProprietaryCodecs ? true
   # darwin
-, llvmPackages_14
 , bootstrap_cmds
 , cctools
 , xcbuild
@@ -93,7 +92,6 @@
 
 qtModule {
   pname = "qtwebengine";
-  qtInputs = [ qtdeclarative qtwebchannel qtwebsockets qtpositioning ];
   nativeBuildInputs = [
     bison
     coreutils
@@ -107,7 +105,6 @@ qtModule {
     gn
     nodejs
   ] ++ lib.optionals stdenv.isDarwin [
-    llvmPackages_14.clang
     bootstrap_cmds
     cctools
     xcbuild
@@ -134,6 +131,10 @@ qtModule {
 
     # Override locales install path so they go to QtWebEngine's $out
     ../patches/qtwebengine-locales-path.patch
+
+    # Cherry-pick libxml 2.12 build fix
+    # FIXME: remove for 6.7
+    ../patches/qtwebengine-libxml-2.12.patch
   ];
 
   postPatch = ''
@@ -166,7 +167,7 @@ qtModule {
       src/3rdparty/chromium/gpu/config/gpu_info_collector_linux.cc
   ''
   + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace configure.cmake \
+    substituteInPlace configure.cmake src/gn/CMakeLists.txt \
       --replace "AppleClang" "Clang"
     substituteInPlace cmake/Functions.cmake \
       --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
@@ -201,6 +202,11 @@ qtModule {
   ];
 
   propagatedBuildInputs = [
+    qtdeclarative
+    qtwebchannel
+    qtwebsockets
+    qtpositioning
+
     # Image formats
     libjpeg
     libpng
@@ -306,7 +312,7 @@ qtModule {
 
   meta = with lib; {
     description = "A web engine based on the Chromium web browser";
-    platforms = platforms.unix;
+    platforms = [ "x86_64-darwin" "aarch64-darwin" "aarch64-linux" "armv7a-linux" "armv7l-linux" "x86_64-linux" ];
     # This build takes a long time; particularly on slow architectures
     # 1 hour on 32x3.6GHz -> maybe 12 hours on 4x2.4GHz
     timeout = 24 * 3600;

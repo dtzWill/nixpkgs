@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "kubeseal";
-  version = "0.24.0";
+  version = "0.24.5";
 
   src = fetchFromGitHub {
     owner = "bitnami-labs";
     repo = "sealed-secrets";
     rev = "v${version}";
-    sha256 = "sha256-7v0r5xwxlTUASkhVRbUUD+/wjvyurylqaRPmspLY/IM=";
+    sha256 = "sha256-OyYVilc5QEK7Mjp9NKQpvhR4HyNSUh/82eCl1LHf4fQ=";
   };
 
-  vendorHash = "sha256-77KUQlOCIRxuyL/vkxK+F+WEyzDFAYaBNq+JuAmkQvY=";
+  vendorHash = "sha256-TdEfw/f7dSIoueJoi7qqOegEBJQLHc6Em21dcDnCuJU=";
 
   subPackages = [ "cmd/kubeseal" ];
 

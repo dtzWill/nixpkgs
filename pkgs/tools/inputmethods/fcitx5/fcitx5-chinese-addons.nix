@@ -31,18 +31,14 @@ in
 
 mkDerivation rec {
   pname = "fcitx5-chinese-addons";
-  version = "5.1.0";
+  version = "5.1.3";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = pname;
     rev = version;
-    sha256 = "sha256-Z5X/yKxj8jX/einrebkP6rSCSrKvaQ7vOlbmT1IKXfY=";
+    sha256 = "sha256-z+udRjvAZbnu6EcvvdaFVCr0OKLxFBJbgoYpH9QjrDI=";
   };
-
-  cmakeFlags = [
-    "-DUSE_WEBKIT=off"
-  ];
 
   nativeBuildInputs = [
     cmake

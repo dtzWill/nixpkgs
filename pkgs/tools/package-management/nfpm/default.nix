@@ -8,16 +8,16 @@
 
 buildGoModule rec {
   pname = "nfpm";
-  version = "2.32.0";
+  version = "2.35.2";
 
   src = fetchFromGitHub {
     owner = "goreleaser";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-qxxa7V96cJJLu9Ki2NL5UreRyiR9sPhIVA9cllF4y70=";
+    hash = "sha256-ic6SOgIE+g7ccvg163xCwTmz960mWYcxN8ghEdB11To=";
   };
 
-  vendorHash = "sha256-lVejUufXI5Ihv7hU1N8/MHrwUgIfaHmcj1MR0RTsKVU=";
+  vendorHash = "sha256-rIgEctBGff5/pzbPPaDgqZCwmIVDjF98wmLBD17KXTM=";
 
   ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
@@ -40,5 +40,6 @@ buildGoModule rec {
     changelog = "https://github.com/goreleaser/nfpm/releases/tag/v${version}";
     maintainers = with maintainers; [ marsam techknowlogick caarlos0 ];
     license = with licenses; [ mit ];
+    mainProgram = "nfpm";
   };
 }

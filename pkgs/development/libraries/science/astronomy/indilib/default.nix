@@ -1,9 +1,11 @@
 { stdenv
 , lib
 , fetchFromGitHub
+, bash
 , cmake
 , cfitsio
 , libusb1
+, kmod
 , zlib
 , boost
 , libev
@@ -17,13 +19,13 @@
 
 stdenv.mkDerivation rec {
   pname = "indilib";
-  version = "2.0.3";
+  version = "2.0.5";
 
   src = fetchFromGitHub {
     owner = "indilib";
     repo = "indi";
     rev = "v${version}";
-    hash = "sha256-YhUwRbpmEybezvopbqFj7M1EE3pufkNrN8yi/zbnJ3U=";
+    hash = "sha256-n1zj1U26l30JYr5Tio5zwv8v/e2cjEeIRGsyncMtt9I=";
   };
 
   nativeBuildInputs = [
@@ -57,6 +59,15 @@ stdenv.mkDerivation rec {
 
   # Socket address collisions between tests
   enableParallelChecking = false;
+
+  postFixup = lib.optionalString stdenv.isLinux ''
+    for f in $out/lib/udev/rules.d/*.rules
+    do
+      substituteInPlace $f --replace "/bin/sh" "${bash}/bin/sh" \
+                           --replace "/sbin/modprobe" "${kmod}/sbin/modprobe"
+    done
+  '';
+
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";

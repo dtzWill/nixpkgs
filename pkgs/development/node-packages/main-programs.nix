@@ -9,13 +9,10 @@
 
   # Packages that provide a single executable.
   "@angular/cli" = "ng";
-  "@antora/cli" = "antora";
   "@astrojs/language-server" = "astro-ls";
   "@babel/cli" = "babel";
   "@commitlint/cli" = "commitlint";
   "@gitbeaker/cli" = "gitbeaker";
-  "@mermaid-js/mermaid-cli" = "mmdc";
-  "@nerdwallet/shepherd" = "shepherd";
   "@prisma/language-server" = "prisma-language-server";
   "@tailwindcss/language-server" = "tailwindcss-language-server";
   "@uppy/companion" = "companion";
@@ -52,8 +49,6 @@
   prettier = "prettier";
   purescript-psa = "psa";
   purs-tidy = "purs-tidy";
-  react-native-cli = "react-native";
-  react-tools = "jsx";
   remod-cli = "remod";
   svelte-language-server = "svelteserver";
   teck-programmer = "teck-firmware-upgrade";
@@ -64,5 +59,4 @@
   vscode-html-languageserver-bin = "html-languageserver";
   vscode-json-languageserver-bin = "json-languageserver";
   webtorrent-cli = "webtorrent";
-  "@zwave-js/server" = "zwave-server";
 }

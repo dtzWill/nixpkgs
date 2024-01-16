@@ -10,25 +10,28 @@
 , qtscxml
 , qtsvg
 , qtdeclarative
+, qtwayland
 , qt5compat
 , wrapQtAppsHook
 , nix-update-script
+, pkg-config
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "albert";
-  version = "0.22.4";
+  version = "0.22.17";
 
   src = fetchFromGitHub {
     owner = "albertlauncher";
     repo = "albert";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-M5wMi/yH5c08Y7tpHpOulcz0utnnduGsR5z3EHeBecM=";
+    sha256 = "sha256-2wu4bOQDKoZ4DDzTttXXRNDluvuJth7M1pCvJmYQ+f4=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
     cmake
+    pkg-config
     wrapQtAppsHook
   ];
 
@@ -40,6 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtscxml
     qtsvg
     qtdeclarative
+    qtwayland
     qt5compat
   ] ++ (with python3Packages; [ python pybind11 ]);
 

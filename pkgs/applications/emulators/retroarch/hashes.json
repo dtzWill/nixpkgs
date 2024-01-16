@@ -29,6 +29,12 @@
         "rev": "65460e3a9ad529f6901caf669abbda11f437ab55",
         "hash": "sha256-+xfD1ZMKtbv5Lp12+5RM7Vl3eEF38kykKW8wj/2EN5w="
     },
+    "beetle-pce": {
+        "owner": "libretro",
+        "repo": "beetle-pce-libretro",
+        "rev": "541463bd937dad175aec09c2a0c8d6a52d175386",
+        "hash": "sha256-wWS9reb6aN71Q7OlGst+32T8XX1yMCSOHUKHkXht3hg="
+    },
     "beetle-pce-fast": {
         "owner": "libretro",
         "repo": "beetle-pce-fast-libretro",
@@ -52,12 +58,6 @@
         "repo": "beetle-saturn-libretro",
         "rev": "cd395e9e3ee407608450ebc565e871b24e7ffed6",
         "hash": "sha256-EIZRv1EydfLWFoBb8TzvAY3kkL9Qr2OrwrljOnnM92A="
-    },
-    "beetle-snes": {
-        "owner": "libretro",
-        "repo": "beetle-bsnes-libretro",
-        "rev": "d770563fc3c4bd9abb522952cefb4aa923ba0b91",
-        "hash": "sha256-zHPtfgp9hc8Q4gXJ5VgfJLWLeYjCsQhkfU1T5RM7AL0="
     },
     "beetle-supafaust": {
         "owner": "libretro",

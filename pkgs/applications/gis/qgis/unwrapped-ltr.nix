@@ -1,5 +1,7 @@
 { lib
+, callPackage
 , fetchFromGitHub
+, fetchpatch
 , makeWrapper
 , mkDerivation
 , substituteAll
@@ -23,7 +25,7 @@
 , netcdf
 , ninja
 , openssl
-, pdal
+# , pdal
 , postgresql
 , proj
 , protobuf
@@ -45,6 +47,10 @@
 }:
 
 let
+
+  # replace with global pdal version once
+  # https://github.com/qgis/QGIS/pull/54940 is backported
+  pdal = callPackage ./pdal-2_5.nix { };
 
   py = python3.override {
     packageOverrides = self: super: {
@@ -75,14 +81,14 @@ let
     urllib3
   ];
 in mkDerivation rec {
-  version = "3.28.11";
+  version = "3.28.14";
   pname = "qgis-ltr-unwrapped";
 
   src = fetchFromGitHub {
     owner = "qgis";
     repo = "QGIS";
     rev = "final-${lib.replaceStrings [ "." ] [ "_" ] version}";
-    hash = "sha256-3yV47GlIhYGR7+ZlPLQw1vy1x8xuJd5erUJO3Pw7L+g=";
+    hash = "sha256-BiBrnma6HlaRF2kC/AwbdhRaZOYrJ7lzDLdJfjkDmfk=";
   };
 
   passthru = {
@@ -137,6 +143,11 @@ in mkDerivation rec {
       src = ./set-pyqt-package-dirs-ltr.patch;
       pyQt5PackageDir = "${py.pkgs.pyqt5}/${py.pkgs.python.sitePackages}";
       qsciPackageDir = "${py.pkgs.qscintilla-qt5}/${py.pkgs.python.sitePackages}";
+    })
+    (fetchpatch {
+      name = "qgis-3.28.9-exiv2-0.28.patch";
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-geosciences/qgis/files/qgis-3.28.9-exiv2-0.28.patch?id=002882203ad6a2b08ce035a18b95844a9f4b85d0";
+      hash = "sha256-mPRo0A7ko4GCHJrfJ2Ls0dUKvkFtDmhKekI2CR9StMw=";
     })
   ];
 

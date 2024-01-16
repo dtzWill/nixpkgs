@@ -10,7 +10,7 @@ index 81e8dc04acea..479ff95681e2 100644
  import subprocess
  
  import lit.formats
-@@ -55,3 +56,26 @@ if sys.platform in ['win32', 'cygwin'] and os.path.isdir(config.shlibdir):
+@@ -55,3 +56,26 @@ if sys.platform in ["win32", "cygwin"] and os.path.isdir(config.shlibdir):
  # Win32 may use %SYSTEMDRIVE% during file system shell operations, so propogate.
  if sys.platform == "win32" and "SYSTEMDRIVE" in os.environ:
      config.environment["SYSTEMDRIVE"] = os.environ["SYSTEMDRIVE"]
@@ -19,14 +19,14 @@ index 81e8dc04acea..479ff95681e2 100644
 +#
 +# TODO: this is copied from `clang`'s `lit.cfg.py`; should unify..
 +def find_shlibpath_var():
-+    if platform.system() in ['Linux', 'FreeBSD', 'NetBSD', 'OpenBSD', 'SunOS']:
-+        yield 'LD_LIBRARY_PATH'
-+    elif platform.system() == 'Darwin':
-+        yield 'DYLD_LIBRARY_PATH'
-+    elif platform.system() == 'Windows':
-+        yield 'PATH'
-+    elif platform.system() == 'AIX':
-+        yield 'LIBPATH'
++    if platform.system() in ["Linux", "FreeBSD", "NetBSD", "OpenBSD", "SunOS"]:
++        yield "LD_LIBRARY_PATH"
++    elif platform.system() == "Darwin":
++        yield "DYLD_LIBRARY_PATH"
++    elif platform.system() == "Windows":
++        yield "PATH"
++    elif platform.system() == "AIX":
++        yield "LIBPATH"
 +
 +for shlibpath_var in find_shlibpath_var():
 +    shlibpath = os.path.pathsep.join(
@@ -48,14 +48,14 @@ index 75a38b4c5dad..856fc75c9d74 100644
 +#
 +# TODO: this is copied from `clang`'s `lit.cfg.py`; should unify..
 +def find_shlibpath_var():
-+    if platform.system() in ['Linux', 'FreeBSD', 'NetBSD', 'OpenBSD', 'SunOS']:
-+        yield 'LD_LIBRARY_PATH'
-+    elif platform.system() == 'Darwin':
-+        yield 'DYLD_LIBRARY_PATH'
-+    elif platform.system() == 'Windows':
-+        yield 'PATH'
-+    elif platform.system() == 'AIX':
-+        yield 'LIBPATH'
++    if platform.system() in ["Linux", "FreeBSD", "NetBSD", "OpenBSD", "SunOS"]:
++        yield "LD_LIBRARY_PATH"
++    elif platform.system() == "Darwin":
++        yield "DYLD_LIBRARY_PATH"
++    elif platform.system() == "Windows":
++        yield "PATH"
++    elif platform.system() == "AIX":
++        yield "LIBPATH"
 +
 +for shlibpath_var in find_shlibpath_var():
 +    shlibpath = config.llvm_shlib_dir

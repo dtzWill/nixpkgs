@@ -446,7 +446,7 @@ rec {
       '';
 
       postMount = ''
-        mkdir -p mnt/{dev,proc,sys} mnt${storeDir}
+        mkdir -p mnt/{dev,proc,sys,tmp} mnt${storeDir}
 
         # Mount /dev, /sys and the nix store as shared folders.
         mount --rbind /dev mnt/dev
@@ -914,17 +914,30 @@ rec {
             (cd old_out; eval "$extraCommands" )
 
             mkdir $out
-            ${optionalString enableFakechroot ''proot -r $PWD/old_out ${bind-paths} --pwd=/ ''}fakeroot bash -c '
-              source $stdenv/setup
-              ${optionalString (!enableFakechroot) ''cd old_out''}
-              eval "$fakeRootCommands"
-              tar \
-                --sort name \
-                --numeric-owner --mtime "@$SOURCE_DATE_EPOCH" \
-                --hard-dereference \
-                -cf $out/layer.tar .
-            '
-
+            ${if enableFakechroot then ''
+              proot -r $PWD/old_out ${bind-paths} --pwd=/ --root-id bash -c '
+                source $stdenv/setup
+                eval "$fakeRootCommands"
+                tar \
+                  --sort name \
+                  --exclude=./proc \
+                  --exclude=./sys \
+                  --numeric-owner --mtime "@$SOURCE_DATE_EPOCH" \
+                  --hard-dereference \
+                  -cf $out/layer.tar .
+              '
+            '' else ''
+              fakeroot bash -c '
+                source $stdenv/setup
+                cd old_out
+                eval "$fakeRootCommands"
+                tar \
+                  --sort name \
+                  --numeric-owner --mtime "@$SOURCE_DATE_EPOCH" \
+                  --hard-dereference \
+                  -cf $out/layer.tar .
+              '
+            ''}
             sha256sum $out/layer.tar \
               | cut -f 1 -d ' ' \
               > $out/checksum

@@ -76,13 +76,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "freerdp";
-  version = "2.11.1";
+  version = "2.11.2";
 
   src = fetchFromGitHub {
     owner = "FreeRDP";
     repo = "FreeRDP";
     rev = version;
-    sha256 = "sha256-x97I0TDPAd/zULM/FpAvYQTcArG2CwGoUUp/eEM4vdc=";
+    sha256 = "sha256-buInsfjzpY4EF7bSojy42YNXssbNriSQGYBFE/DUJ7A=";
   };
 
   postPatch = ''
@@ -190,6 +190,8 @@ stdenv.mkDerivation rec {
     "-DTARGET_OS_IPHONE=0"
     "-DTARGET_OS_WATCH=0"
     "-include AudioToolbox/AudioToolbox.h"
+  ] ++ lib.optionals stdenv.cc.isClang [
+    "-Wno-error=incompatible-function-pointer-types"
   ]);
 
   NIX_LDFLAGS = lib.optionals stdenv.isDarwin [

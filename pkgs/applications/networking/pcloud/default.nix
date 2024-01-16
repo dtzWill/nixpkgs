@@ -38,13 +38,13 @@
 
 let
   pname = "pcloud";
-  version = "1.14.0";
-  code = "XZpL8AVZAqfCXz5TebJ2gcvAiHi15pYFKPey";
+  version = "1.14.3";
+  code = "XZ7IM70ZtWFon9pgEbk4XuvzJsTduQUyGFwV";
 
   # Archive link's codes: https://www.pcloud.com/release-notes/linux.html
   src = fetchzip {
     url = "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip";
-    hash = "sha256-uirj/ASOrJyE728q+SB7zq0O9O58XDNzhokvNyca+2c=";
+    hash = "sha256-huv1XXghWwh/oTtOsukffZP3nnHS2K5VcsuVs6CjFYc=";
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -121,5 +121,6 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     maintainers = with maintainers; [ patryk27 ];
     platforms = [ "x86_64-linux" ];
+    mainProgram = "pcloud";
   };
 }

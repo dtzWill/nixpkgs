@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "oranda";
-  version = "0.4.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "axodotdev";
     repo = "oranda";
     rev = "v${version}";
-    hash = "sha256-PHaqWKsZyNZnEAzEWMzJK6MD0b4O6pkYQG403ONIj0w=";
+    hash = "sha256-/tlGpsJ7qqBKC13w0kX2AqYyGR+KLNh+hM/FKjlEIaY=";
   };
 
-  cargoHash = "sha256-zV7vG1mcgVusWCa4jKNLD+SqzReLZQRotk6nvzPYCU4=";
+  cargoHash = "sha256-cXf94Y9v80ofayJxzVTnrz0EpzWwhIH1CLvQIHDm1sw=";
 
   nativeBuildInputs = [
     pkg-config
@@ -30,6 +30,7 @@ rustPlatform.buildRustPackage rec {
     oniguruma
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.CoreServices
+    darwin.apple_sdk.frameworks.SystemConfiguration
   ];
 
   # requires internet access

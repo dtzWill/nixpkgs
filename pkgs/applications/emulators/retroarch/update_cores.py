@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I nixpkgs=../../../../ -i python3 -p "python3.withPackages (ps: with ps; [ requests nix-prefetch-github ])" -p "git"
+#!nix-shell -I nixpkgs=../../../../ -i python3 -p "python3.withPackages (ps: with ps; [ nix-prefetch-github ])" -p "git"
 
 import json
 import os
@@ -17,11 +17,11 @@ CORES = {
     "beetle-gba": {"repo": "beetle-gba-libretro"},
     "beetle-lynx": {"repo": "beetle-lynx-libretro"},
     "beetle-ngp": {"repo": "beetle-ngp-libretro"},
+    "beetle-pce": {"repo": "beetle-pce-libretro"},
     "beetle-pce-fast": {"repo": "beetle-pce-fast-libretro"},
     "beetle-pcfx": {"repo": "beetle-pcfx-libretro"},
     "beetle-psx": {"repo": "beetle-psx-libretro"},
     "beetle-saturn": {"repo": "beetle-saturn-libretro"},
-    "beetle-snes": {"repo": "beetle-bsnes-libretro"},
     "beetle-supafaust": {"repo": "supafaust"},
     "beetle-supergrafx": {"repo": "beetle-supergrafx-libretro"},
     "beetle-vb": {"repo": "beetle-vb-libretro"},

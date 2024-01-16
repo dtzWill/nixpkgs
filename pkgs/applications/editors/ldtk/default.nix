@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ldtk";
-  version = "1.3.4";
+  version = "1.5.2";
 
   src = fetchurl {
     url = "https://github.com/deepnight/ldtk/releases/download/v${finalAttrs.version}/ubuntu-distribution.zip";
-    hash = "sha256-/EFmuzj8hYhQJegZpZhZb4fuSeMF9wdG1Be4duEvW54=";
+    hash = "sha256-/2exLVMdSnn/Rc2lL1ytDZ6NvYRJA6W+NT7gGzxm6Vc=";
   };
 
   nativeBuildInputs = [ unzip makeWrapper copyDesktopItems appimage-run ];
@@ -57,5 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ felschr ];
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    mainProgram = "ldtk";
   };
 })

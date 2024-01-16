@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lean4";
-  version = "4.0.0";
+  version = "4.4.0";
 
   src = fetchFromGitHub {
     owner = "leanprover";
     repo = "lean4";
     rev = "v${version}";
-    hash = "sha256-3Ni+NiD0iSsOruUyRpBd+aC0TZNYfOLhwqCpPHPruPg=";
+    hash = "sha256-lU67wjl6yJP2r97lHYxrJqn+JhqMcBIbz/+qlCgY3/o=";
   };
 
   postPatch = ''
@@ -46,7 +46,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DUSE_GITHASH=OFF"
+    "-DINSTALL_LICENSE=OFF"
   ];
+
+  # Work around https://github.com/NixOS/nixpkgs/issues/166205.
+  env = lib.optionalAttrs stdenv.cc.isClang {
+    NIX_LDFLAGS = "-l${stdenv.cc.libcxx.cxxabi.libName}";
+  };
 
   meta = with lib; {
     description = "Automatic and interactive theorem prover";

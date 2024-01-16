@@ -1,5 +1,5 @@
 diff --git a/cmake/modules/AddClang.cmake b/cmake/modules/AddClang.cmake
-index 21ac332e4f5f..b16c314bd1e2 100644
+index 75b0080f6715..c895b884cd27 100644
 --- a/cmake/modules/AddClang.cmake
 +++ b/cmake/modules/AddClang.cmake
 @@ -119,8 +119,8 @@ macro(add_clang_library name)
@@ -14,10 +14,10 @@ index 21ac332e4f5f..b16c314bd1e2 100644
  
          if (NOT LLVM_ENABLE_IDE)
 diff --git a/tools/libclang/CMakeLists.txt b/tools/libclang/CMakeLists.txt
-index 8d95d0900e8c..ebc70ff7526d 100644
+index 4f23065a2472..6a0f55991e24 100644
 --- a/tools/libclang/CMakeLists.txt
 +++ b/tools/libclang/CMakeLists.txt
-@@ -180,7 +180,7 @@ foreach(PythonVersion ${CLANG_PYTHON_BINDINGS_VERSIONS})
+@@ -234,7 +234,7 @@ foreach(PythonVersion ${CLANG_PYTHON_BINDINGS_VERSIONS})
            COMPONENT
              libclang-python-bindings
            DESTINATION
@@ -27,7 +27,7 @@ index 8d95d0900e8c..ebc70ff7526d 100644
  if(NOT LLVM_ENABLE_IDE)
    add_custom_target(libclang-python-bindings)
 diff --git a/tools/scan-build-py/CMakeLists.txt b/tools/scan-build-py/CMakeLists.txt
-index 061dc7ef4dd9..adc54b2edc32 100644
+index 3aca22c0b0a8..3115353e3fe3 100644
 --- a/tools/scan-build-py/CMakeLists.txt
 +++ b/tools/scan-build-py/CMakeLists.txt
 @@ -88,7 +88,7 @@ foreach(lib ${LibScanbuild})

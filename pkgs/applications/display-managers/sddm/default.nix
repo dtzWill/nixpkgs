@@ -1,16 +1,19 @@
-{ mkDerivation, lib, fetchFromGitHub
-, cmake, extra-cmake-modules, pkg-config, qttools
-, libxcb, libXau, pam, qtbase, qtdeclarative, qtquickcontrols2, systemd, xkeyboardconfig
+{ stdenv, lib, fetchFromGitHub
+, cmake, pkg-config, qttools
+, libxcb, libXau, pam, qtbase, wrapQtAppsHook, qtdeclarative
+, qtquickcontrols2 ? null, systemd, xkeyboardconfig
 }:
-mkDerivation rec {
+let
+  isQt6 = lib.versions.major qtbase.version == "6";
+in stdenv.mkDerivation {
   pname = "sddm";
-  version = "0.20.0";
+  version = "0.20.0-unstable-2023-12-29";
 
   src = fetchFromGitHub {
     owner = "sddm";
     repo = "sddm";
-    rev = "v${version}";
-    hash = "sha256-ctZln1yQov+p/outkQhcWZp46IKITC04e22RfePwEM4=";
+    rev = "501129294be1487f753482c29949fc1c19ef340e";
+    hash = "sha256-mLm987Ah0X9s0tBK2a45iERwYoh5JzWb3TFlSoxi8CA=";
   };
 
   patches = [
@@ -23,7 +26,7 @@ mkDerivation rec {
       --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config qttools ];
+  nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config qttools ];
 
   buildInputs = [
     libxcb
@@ -36,6 +39,7 @@ mkDerivation rec {
   ];
 
   cmakeFlags = [
+    (lib.cmakeBool "BUILD_WITH_QT6" isQt6)
     "-DCONFIG_FILE=/etc/sddm.conf"
     "-DCONFIG_DIR=/etc/sddm.conf.d"
 

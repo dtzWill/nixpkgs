@@ -1,9 +1,10 @@
 { lib
 , python3
 , fetchFromGitHub
+, semgrep
 }:
 let
-  version = "0.1.4";
+  version = "0.1.11";
 in
 python3.pkgs.buildPythonApplication {
   pname = "open-interpreter";
@@ -14,7 +15,7 @@ python3.pkgs.buildPythonApplication {
     owner = "KillianLucas";
     repo = "open-interpreter";
     rev = "v${version}";
-    hash = "sha256-3a4pRV8o+NBZGgOuXng97KjRVU8xVqBp+B9sXsCqHtk=";
+    hash = "sha256-viUMGUBy5UNWag6P8tXE4TcJIx53Q/tASNV3bmCCK0g=";
   };
 
   nativeBuildInputs = [
@@ -27,15 +28,21 @@ python3.pkgs.buildPythonApplication {
     gitpython
     huggingface-hub
     inquirer
+    jinja2
     litellm
     openai
     # pyreadline3 # this is a windows deps
     python-dotenv
+    pyyaml
     rich
     six
     tiktoken
+    tokenizers
     tokentrim
     wget
+    yaspin
+  ] ++ [
+    semgrep
   ];
 
   # the import check phase fails trying to do a network request to openai
@@ -48,5 +55,6 @@ python3.pkgs.buildPythonApplication {
     license = licenses.mit;
     changelog = "https://github.com/KillianLucas/open-interpreter/releases/tag/v${version}";
     maintainers = with maintainers; [ happysalada ];
+    mainProgram = "interpreter";
   };
 }

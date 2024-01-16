@@ -5,11 +5,11 @@
 
 let
   pname = "zulip";
-  version = "5.10.2";
+  version = "5.10.4";
 
   src = fetchurl {
     url = "https://github.com/zulip/zulip-desktop/releases/download/v${version}/Zulip-${version}-x86_64.AppImage";
-    hash = "sha256-lz9PiikIEgGWW1N5KeNJmtIRB+0zFjWsR92PY1r0+NU=";
+    hash = "sha256-M4h+kV4JjZ91K6OpxKc10XVohzKJEVxw8cYcVALibXA=";
     name="${pname}-${version}.AppImage";
   };
 
@@ -37,5 +37,6 @@ in appimageTools.wrapType2 {
     license = licenses.asl20;
     maintainers = with maintainers; [ andersk jonafato ];
     platforms = [ "x86_64-linux" ];
+    mainProgram = "zulip";
   };
 }

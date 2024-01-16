@@ -8,6 +8,7 @@
 buildPythonPackage rec {
   pname = "base64io";
   version = "1.0.3";
+  format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
@@ -23,7 +24,7 @@ buildPythonPackage rec {
     homepage = "https://base64io-python.readthedocs.io/";
     changelog = "https://github.com/aws/base64io-python/blob/${version}/CHANGELOG.rst";
     description = "Python stream implementation for base64 encoding/decoding";
-    license = licenses.apsl20;
+    license = licenses.asl20;
     maintainers = with maintainers; [ anthonyroussel ];
   };
 }

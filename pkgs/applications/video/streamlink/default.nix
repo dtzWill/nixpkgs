@@ -6,12 +6,12 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "streamlink";
-  version = "6.2.0";
+  version = "6.5.0";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-rq4beEhEb5CZjGIyTnEHyPQfjAgmbbxBm4HhzBs1VZo=";
+    hash = "sha256-j01hWTvM4Q+NXoTKlWqsT6Y5wKNJ5983mDQ3Oog5Zu0=";
   };
 
   nativeCheckInputs = with python3Packages; [
@@ -21,10 +21,6 @@ python3Packages.buildPythonApplication rec {
     freezegun
     pytest-asyncio
     pytest-trio
-  ];
-
-  nativeBuildInputs = with python3Packages; [
-    versioningit
   ];
 
   propagatedBuildInputs = (with python3Packages; [

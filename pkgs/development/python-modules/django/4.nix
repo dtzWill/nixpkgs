@@ -42,14 +42,14 @@
 
 buildPythonPackage rec {
   pname = "Django";
-  version = "4.2.4";
+  version = "4.2.9";
   format = "pyproject";
 
   disabled = pythonOlder "3.10";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-fkIl7AZeDzVMz3NJoi0gneCcwcB0gyvp64TFHBeZxDI=";
+    hash = "sha256-EkmMw8uLyAOFOf756Q6V9QdQJDbB8MOmc0ETJPpnXRQ=";
   };
 
   patches = [

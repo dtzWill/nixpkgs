@@ -7,10 +7,12 @@
 
 # propagates
 , flet-core
+, flet-runtime
 , httpx
 , oauthlib
 , packaging
-, typing-extensions
+, qrcode
+, cookiecutter
 , watchdog
 , websocket-client
 , websockets
@@ -19,19 +21,13 @@
 
 buildPythonPackage rec {
   pname = "flet";
-  version = "0.7.4";
+  version = "0.18.0";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-vFPjN+5wIygtP035odAOSdF9PQe6eXz6CJ9Q0d8ScFo=";
+    hash = "sha256-ix9O4wBq7/gwkV+23B+dnxTYv/VL6w8RmnvbYWcWqmc=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'httpx = "^0.23' 'httpx = ">=0.23' \
-      --replace 'watchdog = "^2' 'watchdog = ">=2'
-  '';
 
   nativeBuildInputs = [
     poetry-core
@@ -39,13 +35,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     flet-core
-    typing-extensions
+    flet-runtime
     websocket-client
     watchdog
     oauthlib
     websockets
     httpx
     packaging
+    qrcode
+    cookiecutter
   ];
 
   doCheck = false;

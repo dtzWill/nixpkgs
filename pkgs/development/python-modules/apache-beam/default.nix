@@ -39,6 +39,7 @@
 , requests
 , requests-mock
 , scikit-learn
+, setuptools
 , sqlalchemy
 , tenacity
 , testcontainers
@@ -48,13 +49,14 @@
 
 buildPythonPackage rec {
   pname = "apache-beam";
-  version = "2.45.0";
+  version = "2.52.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "beam";
     rev = "refs/tags/v${version}";
-    hash = "sha256-e+6Vt+SlOxi16udsdx7WFoDWYupuXhggpoEZPe4tPr0=";
+    hash = "sha256-s/DgTMsJc3c3dqR5Ak9p+xmLm72uNL3AofGzR26B3nI=";
   };
 
   patches = [
@@ -94,6 +96,7 @@ buildPythonPackage rec {
     grpcio-tools
     mypy-protobuf
     pythonRelaxDepsHook
+    setuptools
   ];
 
   propagatedBuildInputs = [

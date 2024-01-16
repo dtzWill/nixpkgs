@@ -100,12 +100,22 @@ in
     };
   };
 
+  beetle-pce = mkLibretroCore {
+    core = "mednafen-pce";
+    src = getCoreSrc "beetle-pce";
+    makefile = "Makefile";
+    meta = {
+      description = "Port of Mednafen's PC Engine core to libretro";
+      license = lib.licenses.gpl2Only;
+    };
+  };
+
   beetle-pce-fast = mkLibretroCore {
     core = "mednafen-pce-fast";
     src = getCoreSrc "beetle-pce-fast";
     makefile = "Makefile";
     meta = {
-      description = "Port of Mednafen's PC Engine core to libretro";
+      description = "Port of Mednafen's PC Engine fast core to libretro";
       license = lib.licenses.gpl2Only;
     };
   };
@@ -151,16 +161,6 @@ in
       description = "Port of Mednafen's Saturn core to libretro";
       license = lib.licenses.gpl2Only;
       platforms = [ "aarch64-linux" "x86_64-linux" ];
-    };
-  };
-
-  beetle-snes = mkLibretroCore {
-    core = "mednafen-snes";
-    src = getCoreSrc "beetle-snes";
-    makefile = "Makefile";
-    meta = {
-      description = "Port of Mednafen's SNES core to libretro";
-      license = lib.licenses.gpl2Only;
     };
   };
 
@@ -291,7 +291,11 @@ in
     core = "citra";
     extraBuildInputs = [ libGLU libGL boost ffmpeg nasm ];
     makefile = "Makefile";
-    makeFlags = [ "HAVE_FFMPEG_STATIC=0" ];
+    makeFlags = [
+      "HAVE_FFMPEG_STATIC=0"
+      # https://github.com/libretro/citra/blob/1a66174355b5ed948de48ef13c0ed508b6d6169f/Makefile#L90
+      "BUILD_DATE=01/01/1970_00:00"
+    ];
     meta = {
       description = "Port of Citra to libretro";
       license = lib.licenses.gpl2Plus;
@@ -386,7 +390,8 @@ in
     preBuild = "cd svn-current/trunk";
     meta = {
       description = "Port of Final Burn Alpha ~2012 to libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -396,7 +401,8 @@ in
     preBuild = "cd src/burner/libretro";
     meta = {
       description = "Port of FBNeo to libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -426,7 +432,8 @@ in
     makefile = "Makefile";
     meta = {
       description = "FMSX libretro port";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -459,7 +466,8 @@ in
     core = "genesis-plus-gx";
     meta = {
       description = "Enhanced Genesis Plus libretro port";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -506,15 +514,11 @@ in
     core = "mame";
     extraNativeBuildInputs = [ python3 ];
     extraBuildInputs = [ alsa-lib libGLU libGL ];
+    # Setting this is breaking compilation of src/3rdparty/genie for some reason
+    makeFlags = [ "ARCH=" ];
     meta = {
       description = "Port of MAME to libretro";
       license = with lib.licenses; [ bsd3 gpl2Plus ];
-      # Build fail with errors:
-      # gcc: warning: <arch>: linker input file unused because linking not done
-      # gcc: error: <arch>: linker input file not found: No such file or directory
-      # Removing it from platforms instead of marking as broken to allow
-      # retroarchFull to be built
-      platforms = [ ];
     };
   };
 
@@ -524,7 +528,8 @@ in
     makeFlags = lib.optional (!stdenv.hostPlatform.isx86) "IS_X86=0";
     meta = {
       description = "Port of MAME ~2000 to libretro, compatible with MAME 0.37b5 sets";
-      license = "MAME";
+      # MAME license, non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -533,7 +538,8 @@ in
     makefile = "Makefile";
     meta = {
       description = "Port of MAME ~2003 to libretro, compatible with MAME 0.78 sets";
-      license = "MAME";
+      # MAME license, non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -542,7 +548,8 @@ in
     makefile = "Makefile";
     meta = {
       description = "Port of MAME ~2003+ to libretro, compatible with MAME 0.78 sets";
-      license = "MAME";
+      # MAME license, non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -552,12 +559,14 @@ in
     makeFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "PTR64=1" "ARM_ENABLED=1" "X86_SH2DRC=0" "FORCE_DRC_C_BACKEND=1" ];
     meta = {
       description = "Port of MAME ~2010 to libretro, compatible with MAME 0.139 sets";
-      license = "MAME";
+      # MAME license, non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
   mame2015 = mkLibretroCore {
     core = "mame2015";
+    patches = [ ./patches/mame2015-python311.patch ];
     makeFlags = [ "PYTHON=python3" ];
     extraNativeBuildInputs = [ python3 ];
     extraBuildInputs = [ alsa-lib ];
@@ -565,12 +574,14 @@ in
     enableParallelBuilding = false;
     meta = {
       description = "Port of MAME ~2015 to libretro, compatible with MAME 0.160 sets";
-      license = "MAME";
+      # MAME license, non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
   mame2016 = mkLibretroCore {
     core = "mame2016";
+    patches = [ ./patches/mame2016-python311.patch ];
     extraNativeBuildInputs = [ python3 ];
     extraBuildInputs = [ alsa-lib ];
     makeFlags = [ "PYTHON_EXECUTABLE=python3" ];
@@ -706,7 +717,8 @@ in
     makeFlags = [ "CC_PREFIX=${stdenv.cc.targetPrefix}" ];
     meta = {
       description = "Opera is a port of 4DO/libfreedo to libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -758,7 +770,7 @@ in
     # causes redefinition of _FORTIFY_SOURCE
     hardeningDisable = [ "fortify3" ];
 
-    postBuild = "cd /build/source/build/pcsx2";
+    postBuild = "cd pcsx2";
     meta = {
       description = "Port of PCSX2 to libretro";
       license = lib.licenses.gpl3Plus;
@@ -780,7 +792,8 @@ in
     dontConfigure = true;
     meta = {
       description = "Fast MegaDrive/MegaCD/32X emulator";
-      license = "MAME";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -899,7 +912,8 @@ in
     preBuild = "cd libretro";
     meta = {
       description = "Port of SNES9x git to libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -908,7 +922,8 @@ in
     makefile = "Makefile";
     meta = {
       description = "Optimized port/rewrite of SNES9x 1.39 to Libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -917,7 +932,8 @@ in
     makefile = "Makefile";
     meta = {
       description = "Optimized port/rewrite of SNES9x 1.43 to Libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -928,7 +944,8 @@ in
     makeFlags = [ "USE_BLARGG_APU=1" ];
     meta = {
       description = "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 
@@ -936,7 +953,8 @@ in
     core = "snes9x2010";
     meta = {
       description = "Optimized port/rewrite of SNES9x 1.52+ to Libretro";
-      license = "Non-commercial";
+      # Non-commercial clause
+      license = lib.licenses.unfreeRedistributable;
     };
   };
 

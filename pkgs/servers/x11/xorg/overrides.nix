@@ -1,5 +1,4 @@
-{ abiCompat ? null,
-  callPackage,
+{ callPackage,
   lib, stdenv, makeWrapper, fetchurl, fetchpatch, fetchFromGitLab, buildPackages,
   automake, autoconf, libiconv, libtool, intltool, gettext, python3, perl,
   freetype, tradcpp, fontconfig, meson, ninja, ed, fontforge,
@@ -135,7 +134,15 @@ self: super:
     };
   });
 
-  libxcvt = addMainProgram super.libxcvt { mainProgram = "cvt"; };
+  libxcvt = super.libxcvt.overrideAttrs ({ meta ? {}, ... }: {
+    meta = meta // {
+      homepage = "https://gitlab.freedesktop.org/xorg/lib/libxcvt";
+      mainProgram = "cvt";
+      badPlatforms = meta.badPlatforms or [] ++ [
+        lib.systems.inspect.platformPatterns.isStatic
+      ];
+    };
+  });
 
   libX11 = super.libX11.overrideAttrs (attrs: {
     outputs = [ "out" "dev" "man" ];
@@ -297,7 +304,7 @@ self: super:
     postInstall = ''
       sed "/^Requires:/s/$/, freetype2/" -i "$dev/lib/pkgconfig/xft.pc"
     '';
-    passthru = {
+    passthru = attrs.passthru // {
       inherit freetype fontconfig;
     };
   });
@@ -563,17 +570,6 @@ self: super:
     configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ];
   });
 
-  xf86videoati = super.xf86videoati.overrideAttrs (attrs: {
-    nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
-    buildInputs =  attrs.buildInputs ++ [ xorg.utilmacros ];
-    patches = [
-      (fetchpatch {
-        url = "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
-        sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
-      })
-    ];
-  });
-
   xf86videonouveau = super.xf86videonouveau.overrideAttrs (attrs: {
     nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
     buildInputs =  attrs.buildInputs ++ [ xorg.utilmacros ];
@@ -738,24 +734,18 @@ self: super:
   });
 
   xorgserver = with xorg; super.xorgserver.overrideAttrs (attrs_passed:
-    # exchange attrs if abiCompat is set
     let
-      version = lib.getVersion attrs_passed;
-      attrs =
-        if (abiCompat == null || lib.hasPrefix abiCompat version) then
-          attrs_passed // {
-            buildInputs = attrs_passed.buildInputs ++
-              lib.optional (libdrm != null) libdrm.dev;
-            postPatch = ''
-              for i in dri3/*.c
-              do
-                sed -i -e "s|#include <drm_fourcc.h>|#include <libdrm/drm_fourcc.h>|" $i
-              done
-            '';
-            meta = attrs_passed.meta // { mainProgram = "X"; };
-          }
-        else throw "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}";
-
+      attrs = attrs_passed // {
+        buildInputs = attrs_passed.buildInputs ++
+          lib.optional (libdrm != null) libdrm.dev;
+        postPatch = ''
+          for i in dri3/*.c
+          do
+            sed -i -e "s|#include <drm_fourcc.h>|#include <libdrm/drm_fourcc.h>|" $i
+          done
+        '';
+        meta = attrs_passed.meta // { mainProgram = "X"; };
+      };
     in attrs //
     (let
       version = lib.getVersion attrs;
@@ -833,7 +823,9 @@ self: super:
             done
           )
         '';
-        passthru.version = version; # needed by virtualbox guest additions
+        passthru = attrs.passthru // {
+          inherit version; # needed by virtualbox guest additions
+        };
       } else {
         nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook bootstrap_cmds xorg.utilmacros xorg.fontutil ];
         buildInputs = commonBuildInputs ++ [
@@ -903,7 +895,9 @@ self: super:
 
           cp ${darwinOtherX}/share/man -rT $out/share/man
         '' ;
-        passthru.version = version;
+        passthru = attrs.passthru // {
+          inherit version;
+        };
       }));
 
   lndir = super.lndir.overrideAttrs (attrs: {

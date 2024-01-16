@@ -5,8 +5,11 @@
   rustfmt,
   clippy,
   mkShell,
+  makeWrapper,
 }:
 let
+  runtimeExprPath = ./src/eval.nix;
+  nixpkgsLibPath = ../../../lib;
   package =
     rustPlatform.buildRustPackage {
       name = "nixpkgs-check-by-name";
@@ -16,7 +19,9 @@ let
         nix
         rustfmt
         clippy
+        makeWrapper
       ];
+      env.NIX_CHECK_BY_NAME_EXPR_PATH = "${runtimeExprPath}";
       # Needed to make Nix evaluation work inside the nix build
       preCheck = ''
         export TEST_ROOT=$(pwd)/test-tmp
@@ -26,6 +31,8 @@ let
         export NIX_STATE_DIR=$TEST_ROOT/var/nix
         export NIX_STORE_DIR=$TEST_ROOT/store
 
+        export NIXPKGS_LIB_PATH=${nixpkgsLibPath}
+
         # Ensure that even if tests run in parallel, we don't get an error
         # We'd run into https://github.com/NixOS/nix/issues/2706 unless the store is initialised first
         nix-store --init
@@ -34,7 +41,13 @@ let
         cargo fmt --check
         cargo clippy -- -D warnings
       '';
+      postInstall = ''
+        wrapProgram $out/bin/nixpkgs-check-by-name \
+          --set NIX_CHECK_BY_NAME_EXPR_PATH "$NIX_CHECK_BY_NAME_EXPR_PATH"
+      '';
       passthru.shell = mkShell {
+        env.NIX_CHECK_BY_NAME_EXPR_PATH = toString runtimeExprPath;
+        env.NIXPKGS_LIB_PATH = toString nixpkgsLibPath;
         inputsFrom = [ package ];
       };
     };

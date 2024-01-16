@@ -31,8 +31,6 @@ buildPythonPackage rec {
     hash = "sha256-LU8rQmXrEIoOBTTFotGvMeHqksYGrtNo2YSl2l2e/UI=";
   };
 
-  env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
   nativeBuildInputs = [
     installShellFiles
     setuptools
@@ -87,5 +85,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/liquidctl/liquidctl/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ arturcygan evils ];
+    mainProgram = "liquidctl";
   };
 }

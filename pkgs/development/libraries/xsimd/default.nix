@@ -5,14 +5,14 @@
 , doctest
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xsimd";
-  version = "11.1.0";
+  version = "12.1.1";
   src = fetchFromGitHub {
     owner = "xtensor-stack";
     repo = "xsimd";
-    rev = version;
-    sha256 = "sha256-l6IRzndjb95hIcFCCm8zmlNHWtKduqy2t/oml/9Xp+w=";
+    rev = finalAttrs.version;
+    hash = "sha256-ofUFieeRtpnzNv3Ad5oYwKWb2XcqQHoj601TIhydJyI=";
   };
   patches = [
     # Ideally, Accelerate/Accelerate.h should be used for this implementation,
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DBUILD_TESTS=${if (doCheck && stdenv.hostPlatform == stdenv.buildPlatform) then "ON" else "OFF"}"
+    "-DBUILD_TESTS=${if (finalAttrs.finalPackage.doCheck && stdenv.hostPlatform == stdenv.buildPlatform) then "ON" else "OFF"}"
   ];
 
   doCheck = true;
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ tobim ];
     platforms = platforms.all;
   };
-}
+})

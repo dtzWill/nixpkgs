@@ -9,12 +9,13 @@
 , pytestCheckHook
 , pythonOlder
 , ruamel-yaml
+, torch
 , tqdm
 }:
 
 buildPythonPackage rec {
   pname = "monty";
-  version = "2023.4.10";
+  version = "2023.11.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -23,7 +24,7 @@ buildPythonPackage rec {
     owner = "materialsvirtuallab";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-9of56ErJ03hU+KqxUjR4IiyU4XLJoothSwODlzSWv9Y=";
+    hash = "sha256-SENrAHCCWYEMWqPQSy61E8bMYkCBJepK5otb7B7UGXA=";
   };
 
   postPatch = ''
@@ -43,6 +44,7 @@ buildPythonPackage rec {
     pydantic
     pymongo
     pytestCheckHook
+    torch
   ];
 
   pythonImportsCheck = [
