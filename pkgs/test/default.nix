@@ -12,7 +12,7 @@ with pkgs;
         # Is a throw alias.
         (filter (n: n != "llvmPackages_rocm"))
         (filter (n: n != "llvmPackages_latest"))
-        (filter (n: n != "llvmPackages_git"))
+#        (filter (n: n != "llvmPackages_git"))
       ];
       tests = lib.genAttrs pkgSets (name: recurseIntoAttrs {
         clang = callPackage ./cc-wrapper { stdenv = pkgs.${name}.stdenv; };
