@@ -19,9 +19,9 @@
 # LLVM release information; specify one of these but not both:
 , gitRelease ? {
   version = "18.0.0";
-  rev = "6f44f87011cd52367626cac111ddbb2d25784b90";
-  rev-version = "18.0.0-unstable-2023-10-04";
-  sha256 = "sha256-CqsCDlzg8I2c9BybKP7B5nfHiQWktqgVavrfiYkjkx4=";
+  rev = "c4146121e940b6b853148c780568dee38b97382f";
+  rev-version = "unstable-2024-01-03";
+  sha256 = "ku9LjkwGR78HyFERQHF4VQpX5LK29DGK2OsRWXNocHw=";
 }
   # i.e.:
   # {
