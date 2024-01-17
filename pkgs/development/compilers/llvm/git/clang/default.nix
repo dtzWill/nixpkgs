@@ -66,8 +66,15 @@ let
 
     outputs = [ "out" "lib" "dev" "python" ];
 
+    # TODO: Sort out "resource-dir" so clang (and others?) can reliably find resources.
+    # Historically this would go into $lib $($lib/lib/clang/18/include).
+    # For now just move it there, but this may be not work as well as it could
+    # by directing clang that it should expect things there.
+    # This may have implications re:"purity" as well.
     postInstall = ''
       ln -sv $out/bin/clang $out/bin/cpp
+
+      moveToOutput "lib/clang/18" "$lib"
 
       # Move libclang to 'lib' output
       moveToOutput "lib/libclang.*" "$lib"
