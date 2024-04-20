@@ -16,7 +16,7 @@ let
     "linalg-ods-yaml-gen" "tblgen" # needed for cross
     "lsp-server" "opt" "pdll" "reduce" "translate" # misc utilities
     "pdll-lsp-server"
-    "query"
+    "query" "cpu-runner"
   ]) ++ [ "tblgen-lsp-server" ];
 in
 stdenv.mkDerivation rec {
