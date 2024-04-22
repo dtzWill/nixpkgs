@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, perl, flex, bison, python3, autoconf,
+{ lib, stdenv, fetchFromGitHub, perl, flex, bison, python3, autoconf,
   which, cmake, ccache, help2man, makeWrapper, glibcLocales,
   systemc, git, numactl }:
 
@@ -12,15 +12,6 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-It1PEhS36L/n2r6HsDrkrk/kuz86IXLxsIYhFk/VRGc=";
   };
-
-  patches = [
-    (fetchpatch {
-      # Fix try-lock spuriously fail in V3ThreadPool destructor
-      # https://github.com/verilator/verilator/pull/4938
-      url = "https://github.com/verilator/verilator/commit/4b9cce4369c78423779238e585ed693c456d464e.patch";
-      hash = "sha256-sGrk/pxqZqUcmJdzQoPlzXMmYqHCOmd9Y2n6ieVNg1U=";
-    })
-  ];
 
   enableParallelBuilding = true;
   buildInputs = [ perl python3 systemc ];  # ccache
