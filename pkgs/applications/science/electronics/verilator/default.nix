@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   # (in nix-shell after patchPhase)
 
   postInstall = lib.optionalString stdenv.isLinux ''
-    for x in $(ls $out/bin/verilator*); do
+    for x in $(ls $out/share/verilator/bin/verilator*); do
       wrapProgram "$x" --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
     done
   '';
