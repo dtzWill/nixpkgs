@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "lit";
-  version = "17.0.6";
+  version = "18.1.4";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-36mvm1X8RQmla+e/I0bwedf0okLVg7ny4LB4/Qq64xs=";
+    hash = "sha256-5som6wqGrviMtnRhYQDjLRJQ0Fz+xMpXp0rKuwom3ng=";
   };
 
   nativeBuildInputs = [
