@@ -1,0 +1,101 @@
+From 9a94143d5349c9375464f2975299c7ca60e6735a Mon Sep 17 00:00:00 2001
+From: Will Dietz <w@wdtz.org>
+Date: Tue, 25 Feb 2025 10:13:01 -0600
+Subject: [PATCH] patch command paths
+
+---
+ gen/autoOpt.ml  | 2 +-
+ herd/show.ml    | 2 +-
+ lib/mySys.ml    | 6 +++---
+ lib/tar.ml      | 6 +++---
+ tools/mapply.ml | 2 +-
+ 5 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/gen/autoOpt.ml b/gen/autoOpt.ml
+index 3bc0f254..cb4f8443 100644
+--- a/gen/autoOpt.ml
++++ b/gen/autoOpt.ml
+@@ -140,7 +140,7 @@ let  default =
+    build = "sh comp.sh" ;
+    stabilise = 5 ;
+    compress = true ;
+-   distrm = "/bin/rm" ;
++   distrm = "@coreutils@/bin/rm" ;
+    distaddpath = [] ;
+    diy_opts = [] ;
+    transitive = false ;
+diff --git a/herd/show.ml b/herd/show.ml
+index 0539ef33..a53633b6 100644
+--- a/herd/show.ml
++++ b/herd/show.ml
+@@ -57,7 +57,7 @@ module Make(O:PrettyConf.S) = struct
+         "%s -T%s %s > %s 2>/dev/null ; %s %s 2>/dev/null%s"
+       generator ext
+       name_dot name_ps prog name_ps
+-        (if O.debug then "" else sprintf " && /bin/rm -f %s" name_ps) in
++        (if O.debug then "" else sprintf " && @coreutils@/bin/rm -f %s" name_ps) in
+     let r = Sys.command cmd in
+     if O.debug then eprintf "Command: [%s] -> %i\n" cmd r ;
+     Handler.pop ()
+diff --git a/lib/mySys.ml b/lib/mySys.ml
+index 88fdc9a7..8e06ef5a 100644
+--- a/lib/mySys.ml
++++ b/lib/mySys.ml
+@@ -187,7 +187,7 @@ let exec cmd kont =
+ (* Use above for making a directory *)
+ (************************************)
+ 
+-let mkdir name = exec_stdout (sprintf "/bin/rm -rf %s && mkdir %s" name name)
++let mkdir name = exec_stdout (sprintf "@coreutils@/bin/rm -rf %s && @coreutils@/bin/mkdir %s" name name)
+ 
+ let mktmpdir () =
+   let name = Filename.temp_file  "dir" ".tmp" in
+@@ -195,6 +195,6 @@ let mktmpdir () =
+   name
+ 
+ (* does not destroy dir if you want to keep it around *)
+-let mkdirp name = exec_stdout (sprintf "mkdir -p %s" name)
++let mkdirp name = exec_stdout (sprintf "@coreutils@/bin/mkdir -p %s" name)
+ 
+-let rmdir name = exec_stdout (sprintf "/bin/rm -rf %s" name)
++let rmdir name = exec_stdout (sprintf "@coreutils@/bin/rm -rf %s" name)
+diff --git a/lib/tar.ml b/lib/tar.ml
+index 17d62eb9..ab190edf 100644
+--- a/lib/tar.ml
++++ b/lib/tar.ml
+@@ -75,8 +75,8 @@ module Make(O:Option) : S =
+     | 0 -> ()
+     | _ -> Warn.fatal "Exec of '%s' failed" cmd
+ 
+-    let rmdir name = exec (sprintf "/bin/rm -rf %s" name)
+-    let mkdir name = exec (sprintf "/bin/rm -rf %s && mkdir %s" name name)
++    let rmdir name = exec (sprintf "@coreutils@/bin/rm -rf %s" name)
++    let mkdir name = exec (sprintf "@coreutils@/bin/rm -rf %s && @coreutils@/bin/mkdir %s" name name)
+     let direxists name = Sys.file_exists name && Sys.is_directory name
+ 
+ (************)
+@@ -107,7 +107,7 @@ module Make(O:Option) : S =
+     let exec_tar2 dir1 dir2 tar =
+       let z = tarz () in
+       exec
+-        (sprintf "( cd %s && tar c%sf - %s ) > %s" dir1 z dir2 tar)
++        (sprintf "( cd %s && @gnutar@/bin/tar c%sf - %s ) > %s" dir1 z dir2 tar)
+ 
+     let exec_tar dir tar = exec_tar2 dir "." tar
+ 
+diff --git a/tools/mapply.ml b/tools/mapply.ml
+index bf3a5332..c027d3c6 100644
+--- a/tools/mapply.ml
++++ b/tools/mapply.ml
+@@ -43,7 +43,7 @@ module Task(A:TArg) = struct
+     Filename.concat (Filename.get_temp_dir_name ())
+       (sprintf "mapply.%i" (getpid()))
+ 
+-  let rmrf dir = ignore (Sys.command (sprintf "/bin/rm -rf %s" dir))
++  let rmrf dir = ignore (Sys.command (sprintf "@coreutils@/bin/rm -rf %s" dir))
+ 
+   let _ =
+     match A.mode with
+-- 
+2.47.0
+

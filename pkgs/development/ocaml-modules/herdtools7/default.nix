@@ -1,10 +1,13 @@
 {
   lib,
   buildDunePackage,
+  replaceVars,
   fetchFromGitHub,
   menhir,
   menhirLib,
   zarith,
+  coreutils,
+  gnutar,
 }:
 
 buildDunePackage rec {
@@ -17,6 +20,12 @@ buildDunePackage rec {
     rev = version;
     hash = "sha256-0+tyzuEPji/mCsN6ez4C+iJz5IroV3zAjVsbgG6lPJo=";
   };
+
+  patches = [
+    (replaceVars ./patch-command-paths.patch {
+      inherit coreutils gnutar;
+    })
+  ];
 
   nativeBuildInputs = [ menhir ];
   buildInputs = [
