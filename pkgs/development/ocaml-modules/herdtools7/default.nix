@@ -40,9 +40,10 @@ buildDunePackage rec {
   '';
 
   postInstall = ''
-    install -Dm644 -t $out/share/herdtools7/herd herd/libdir/*
-    install -Dm644 -t $out/share/herdtools7/litmus litmus/libdir/*
-    install -Dm644 -t $out/share/herdtools7/jingle jingle/libdir/*
+    mkdir -p $out/share/herdtools7/{herd,litmus,jingle}
+    cp -ar herd/libdir/* $out/share/herdtools7/herd/
+    cp -ar litmus/libdir/* $out/share/herdtools7/litmus/
+    cp -ar jingle/libdir/* $out/share/herdtools7/jingle/
   '';
 
   meta = with lib; {
