@@ -39,6 +39,12 @@ buildDunePackage rec {
     make Version.ml
   '';
 
+  postInstall = ''
+    install -Dm644 -t $out/share/herdtools7/herd herd/libdir/*
+    install -Dm644 -t $out/share/herdtools7/litmus litmus/libdir/*
+    install -Dm644 -t $out/share/herdtools7/jingle jingle/libdir/*
+  '';
+
   meta = with lib; {
     homepage = https://github.com/herd/herdtools7;
     description = "The Herd toolsuite to deal with .cat memory models";
