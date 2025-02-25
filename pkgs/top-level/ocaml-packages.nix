@@ -705,6 +705,8 @@ let
 
     hashcons = callPackage ../development/ocaml-modules/hashcons { };
 
+    herdtools7 = callPackage ../development/ocaml-modules/herdtools7 { };
+
     hex = callPackage ../development/ocaml-modules/hex { };
 
     hidapi = callPackage ../development/ocaml-modules/hidapi { };
