@@ -15,6 +15,7 @@ GEM
     asciidoctor-diagram (3.0.0)
       asciidoctor (>= 1.5.7, < 3.x)
       rexml
+    asciidoctor-diagram-ditaamini (1.0.3)
     asciidoctor-epub3 (2.2.0)
       asciidoctor (~> 2.0)
       gepub (~> 1.0.0)
@@ -152,6 +153,7 @@ DEPENDENCIES
   asciidoctor
   asciidoctor-bibtex
   asciidoctor-diagram
+  asciidoctor-diagram-ditaamini
   asciidoctor-epub3
   asciidoctor-html5s
   asciidoctor-lists

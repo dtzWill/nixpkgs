@@ -71,6 +71,16 @@
     };
     version = "3.0.0";
   };
+  asciidoctor-diagram-ditaamini = {
+    groups = [ "default" ];
+    platforms = [ ];
+    source = {
+      remotes = [ "https://rubygems.org" ];
+      sha256 = "13h65bfbq7hc7z3kqn0m28w9c6ap7fikpjcvsdga6jg01slb4c56";
+      type = "gem";
+    };
+    version = "1.0.3";
+  };
   asciidoctor-epub3 = {
     dependencies = [
       "asciidoctor"
